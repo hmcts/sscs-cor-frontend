@@ -1,0 +1,29 @@
+{% extends "govuk_template.html" %}
+
+{% block head %}
+{% include "includes/head.html" %}
+{% endblock %}
+
+{% block cookie_message %}
+<p>{{cookieText | safe }}
+    <a href="/cookiepolicy">{{cookieLink | safe }}</a>
+</p>
+{% endblock %}
+
+{% block header_class %}
+with-proposition
+{% endblock %}
+
+{% block footer_top %}
+<ul>
+    <li><a href="/cookiepolicy">{{cookies}}</a></li>
+    {% if data.appealNumber %}
+    <li><a href="/terms-and-conditions/{{ data.appealNumber }}">{{ termsAndConditions }}</a></li>
+    <li><a href="/privacy-policy/{{ data.appealNumber }}">{{ privacyPolicy }}</a></li>
+    {% endif %}
+</ul>
+{% endblock %}
+
+{% block body_end %}
+{% include "includes/scripts.html" %}
+{% endblock %}
