@@ -1,0 +1,67 @@
+{
+  "name": "sscs-cor-frontend",
+  "description": "Continuous Online Resolution",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=8.9.0 <9.0"
+  },
+  "scripts": {
+    "start": "cross-env NODE_PATH=. LOG_OUTPUT=single node server.js",
+    "setup": "cross-env NODE_PATH=. grunt generate-assets",
+    "postinstall": "yarn setup",
+    "dev": "cross-env NODE_PATH=. NODE_ENV=development LOG_OUTPUT=multi grunt dev",
+    "test": "cross-env NODE_PATH=. NODE_ENV=test mocha test/unit --recursive",
+    "test:coverage": "exit 0",
+    "test:a11y": "exit 0",
+    "test:nsp": "exit 0",
+    "sonar-scan": "sonar-scanner",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hmcts/sscs-cor-frontend.git"
+  },
+  "dependencies": {
+    "@hmcts/nodejs-healthcheck": "^1.4.5",
+    "@hmcts/nodejs-logging": "^3.0.0",
+    "applicationinsights": "^1.0.1",
+    "body-parser": "^1.17.1",
+    "config": "^1.30.0",
+    "cross-env": "^4.0.0",
+    "express": "^4.15.2",
+    "express-nunjucks": "^2.2.3",
+    "govuk-elements-sass": "^3.1.0",
+    "govuk_frontend_toolkit": "^6.0.4",
+    "govuk_template_jinja": "^0.22.2",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-nodemon": "^0.4.2",
+    "grunt-nsp": "^2.3.1",
+    "grunt-sass": "^2.0.0",
+    "grunt-sync": "^0.6.2",
+    "http-status-codes": "^1.1.6",
+    "joi": "^13.0.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "node-sass": "4.5.3",
+    "nunjucks": "^3.0.0",
+    "serve-favicon": "^2.4.2"
+  },
+  "devDependencies": {
+    "@hmcts/eslint-config": "^1.4.0",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "codeceptjs": "^1.2.0",
+    "eslint": "^4.19.1",
+    "mocha": "^3.2.0",
+    "mocha-jenkins-reporter": "^0.3.8",
+    "mochawesome": "^3.0.0",
+    "sinon": "^2.1.0",
+    "sinon-chai": "^2.9.0",
+    "sonar-scanner": "^3.0.3"
+  }
+}
