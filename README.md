@@ -1,1 +1,1 @@
-# sscs-cor-frontend
+# SSCS - COR
