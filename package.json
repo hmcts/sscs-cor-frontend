@@ -13,6 +13,7 @@
     "dev": "cross-env NODE_PATH=. NODE_ENV=development LOG_OUTPUT=multi grunt dev",
     "test": "cross-env NODE_PATH=. NODE_ENV=test mocha test/unit --recursive",
     "test:coverage": "exit 0",
+    "test:a11y": "exit 0",
     "sonar-scan": "sonar-scanner",
     "lint": "eslint ."
   },
