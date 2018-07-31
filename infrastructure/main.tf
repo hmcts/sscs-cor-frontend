@@ -1,19 +1,3 @@
-provider "vault" {
-  address = "https://vault.reform.hmcts.net:6200"
-}
-
-data "vault_generic_secret" "cookiesecret" {
-  path = "secret/${var.infrastructure_env}/sscs/sscscorcookiesecret"
-}
-
-data "vault_generic_secret" "hpkp_cor_sha_1" {
-  path = "secret/${var.infrastructure_env}/sscs/hpkp_cor_sha_1"
-}
-
-data "vault_generic_secret" "hpkp_cor_sha_2" {
-  path = "secret/${var.infrastructure_env}/sscs/hpkp_cor_sha_2"
-}
-
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
@@ -37,9 +21,6 @@ module "sscs-cor-frontend" {
     SSCS_API_URL                 = "${local.ApiUrl}"
     WEBSITE_NODE_DEFAULT_VERSION = "8.11.3"
     NODE_ENV                     = "${var.infrastructure_env}"
-    COOKIE_SECRET                = "${data.vault_generic_secret.cookiesecret.data["value"]}"
-    HPKP_SHA256                  = "${data.vault_generic_secret.hpkp_cor_sha_1.data["value"]}"
-    HPKP_SHA256_BACKUP           = "${data.vault_generic_secret.hpkp_cor_sha_2.data["value"]}"
   }
 }
 
