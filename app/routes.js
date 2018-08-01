@@ -6,7 +6,7 @@ const router = express.Router();
 /* eslint-enable new-cap */
 
 router.get(paths.helloWorld, (req, res) => {
-  res.render('hello-world');
+  res.render('hello-world.html');
 });
 
 module.exports = router;
