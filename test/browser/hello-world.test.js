@@ -1,16 +1,18 @@
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
-const { baseUrl } = require('test/config');
-const paths = require('paths');
+const HelloWorldPage = require('test/page-objects/hello-world');
 
-describe('Hello world', () => {
+describe('Hello world page', () => {
   /* eslint-disable init-declarations */
   let page;
+  let helloWorldPage;
   /* eslint-enable init-decalarations */
 
   before(async() => {
     const res = await startServices();
     page = res.page;
+    helloWorldPage = new HelloWorldPage(page);
+    await helloWorldPage.visitPage();
   });
 
   after(async() => {
@@ -19,9 +21,11 @@ describe('Hello world', () => {
     }
   });
 
+  it('is on the /hello-world path', () => {
+    helloWorldPage.verifyPage();
+  });
+
   it('has Hello world heading', async() => {
-    await page.goto(`${baseUrl}${paths.helloWorld}`);
-    const heading = await page.$eval('h1', el => el.innerHTML);
-    expect(heading).to.equal('Hello world');
+    expect(await helloWorldPage.getHeading()).to.equal('Hello world');
   });
 });
