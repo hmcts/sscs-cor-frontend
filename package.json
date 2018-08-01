@@ -7,14 +7,14 @@
     "node": ">=8.9.0 <9.0"
   },
   "scripts": {
-    "start": "cross-env NODE_PATH=. LOG_OUTPUT=single node server.js",
+    "start": "cross-env NODE_PATH=. node server.js",
     "setup": "cross-env NODE_PATH=. grunt generate-assets",
     "postinstall": "yarn setup",
-    "dev": "cross-env NODE_PATH=. NODE_ENV=development LOG_OUTPUT=multi grunt dev",
+    "dev": "cross-env NODE_PATH=. NODE_ENV=development grunt dev",
     "test": "cross-env NODE_PATH=. NODE_ENV=test mocha test/unit --recursive",
-    "test:coverage": "exit 0",
+    "test:coverage": "cross-env NODE_PATH=. istanbul cover _mocha test/unit/** --dir test/coverage/html",
     "test:a11y": "exit 0",
-    "test:nsp": "exit 0",
+    "test:nsp": "nsp check",
     "sonar-scan": "sonar-scanner",
     "lint": "eslint ."
   },
@@ -44,10 +44,12 @@
     "grunt-sass": "^2.0.0",
     "grunt-sync": "^0.6.2",
     "http-status-codes": "^1.1.6",
+    "istanbul": "^0.4.5",
     "joi": "^13.0.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "moment": "^2.18.1",
     "node-sass": "4.5.3",
+    "nsp": "^3.2.1",
     "nunjucks": "^3.0.0",
     "serve-favicon": "^2.4.2"
   },
