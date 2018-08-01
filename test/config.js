@@ -1,3 +1,4 @@
 module.exports = {
-  baseUrl: process.env.TEST_URL || 'http://localhost:3000'
+  baseUrl: process.env.TEST_URL || 'http://localhost:9999',
+  port: '9999'
 };

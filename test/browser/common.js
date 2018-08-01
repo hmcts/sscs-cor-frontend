@@ -1,7 +1,11 @@
 /* eslint-disable init-declarations, no-console */
 const puppeteer = require('puppeteer');
+const { createServer } = require('http');
+const { setup } = require('app');
+const { port } = require('test/config');
 
 let browser;
+let server;
 
 async function startBrowser() {
   if (!browser) {
@@ -18,7 +22,15 @@ async function startBrowser() {
   }
 }
 
+function startAppServer() {
+  if (!server) {
+    console.log('Starting server');
+    server = createServer(setup()).listen(port);
+  }
+}
+
 async function startServices() {
+  startAppServer();
   await startBrowser();
   const page = await browser.newPage();
   await page.setViewport({
@@ -27,5 +39,16 @@ async function startServices() {
   });
   return { page };
 }
+
+after(async() => {
+  if (server && server.close) {
+    console.log('Killing server');
+    server.close();
+  }
+  if (browser && browser.close) {
+    console.log('Killing browser');
+    await browser.close();
+  }
+});
 
 module.exports = { startServices };
