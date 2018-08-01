@@ -15,6 +15,7 @@
     "test": "yarn test:unit && yarn test:browser",
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha test/unit --recursive",
     "test:browser": "cross-env NODE_PATH=. NODE_ENV=test mocha test/browser --recursive",
+    "test:functional": "yarn test:browser",
     "test:coverage": "cross-env NODE_PATH=. istanbul cover _mocha test/unit/** --dir test/coverage/html",
     "test:a11y": "exit 0",
     "test:nsp": "nsp check",

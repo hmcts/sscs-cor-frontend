@@ -2,7 +2,7 @@
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
 const { setup } = require('app');
-const { port } = require('test/config');
+const { port, baseUrl } = require('test/config');
 
 let browser;
 let server;
@@ -23,7 +23,7 @@ async function startBrowser() {
 }
 
 function startAppServer() {
-  if (!server) {
+  if (!server && baseUrl.indexOf('localhost') !== -1) {
     console.log('Starting server');
     server = createServer(setup()).listen(port);
   }
