@@ -16,7 +16,8 @@ async function startBrowser() {
         '--start-maximized'
       ],
       headless: true,
-      timeout: 10000
+      timeout: 10000,
+      ignoreHTTPSErrors: true
     };
     browser = await puppeteer.launch(opts);
   }

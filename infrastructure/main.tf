@@ -19,7 +19,7 @@ module "sscs-cor-frontend" {
 
   app_settings = {
     SSCS_API_URL                 = "${local.ApiUrl}"
-    WEBSITE_NODE_DEFAULT_VERSION = "8.11.3"
+    WEBSITE_NODE_DEFAULT_VERSION = "8.11.1"
     NODE_ENV                     = "${var.infrastructure_env}"
   }
 }
