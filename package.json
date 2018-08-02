@@ -16,6 +16,7 @@
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha test/unit --recursive",
     "test:browser": "cross-env NODE_PATH=. NODE_ENV=test mocha test/browser --recursive --timeout=5000",
     "test:functional": "yarn test:browser",
+    "test:smoke": "yarn test:browser",
     "test:coverage": "cross-env NODE_PATH=. istanbul cover _mocha test/unit/** --dir test/coverage/html",
     "test:a11y": "exit 0",
     "test:nsp": "nsp check",
@@ -27,7 +28,7 @@
     "url": "https://github.com/hmcts/sscs-cor-frontend.git"
   },
   "dependencies": {
-    "@hmcts/nodejs-healthcheck": "^1.4.5",
+    "@hmcts/nodejs-healthcheck": "^1.4.6",
     "@hmcts/nodejs-logging": "^3.0.0",
     "applicationinsights": "^1.0.1",
     "body-parser": "^1.17.1",
