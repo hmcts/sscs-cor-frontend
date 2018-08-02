@@ -27,7 +27,7 @@
     "url": "https://github.com/hmcts/sscs-cor-frontend.git"
   },
   "dependencies": {
-    "@hmcts/nodejs-healthcheck": "^1.4.5",
+    "@hmcts/nodejs-healthcheck": "^1.4.6",
     "@hmcts/nodejs-logging": "^3.0.0",
     "applicationinsights": "^1.0.1",
     "body-parser": "^1.17.1",
