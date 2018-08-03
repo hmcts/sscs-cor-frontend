@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h2 class="govuk-heading-l">Sorry, we're experiencing technical difficulties</h2>
-    <p>Please try again in a few minutes.</p>
+    <h2 class="govuk-heading-l">{{ i18n.error.error500.header }}</h2>
+    <p>{{ i18n.error.error500.content }}</p>
 {% endblock %}
