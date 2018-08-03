@@ -1,5 +1,9 @@
 {% extends "template.njk" %}
 
+{% block pageTitle %}
+    {{ i18n.pageTitle }}
+{% endblock %}
+
 {% block head %}
 {% include "includes/head.html" %}
 {% endblock %}
