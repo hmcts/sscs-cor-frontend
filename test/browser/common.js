@@ -29,7 +29,7 @@ async function startBrowser() {
 function startAppServer() {
   if (!server && testUrl.indexOf('localhost') !== -1) {
     console.log(`Starting server on port ${port}`);
-    server = createServer(setup()).listen(port);
+    server = createServer(setup({ disableAppInsights: true })).listen(port);
   }
 }
 
