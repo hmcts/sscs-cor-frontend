@@ -1,3 +1,4 @@
+require('app-insights').enable();
 const { Express } = require('@hmcts/nodejs-logging');
 const nunjucks = require('nunjucks');
 const express = require('express');
