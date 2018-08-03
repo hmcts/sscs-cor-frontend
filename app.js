@@ -4,6 +4,7 @@ const nunjucks = require('nunjucks');
 const express = require('express');
 const routes = require('app/routes');
 const { pageNotFoundHandler, coreErrorHandler } = require('app/middleware/error-handler');
+const locale = require('app/locale/en.json');
 
 function setup(options) {
   const opts = options || {};
@@ -28,6 +29,9 @@ function setup(options) {
   app.use('/', routes);
   app.use(pageNotFoundHandler);
   app.use(coreErrorHandler);
+
+  app.locals.i18n = locale;
+
   return app;
 }
 

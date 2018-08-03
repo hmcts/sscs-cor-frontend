@@ -1,0 +1,14 @@
+{
+  "helloWorld": {
+    "header": "Hello world"
+  },
+  "error": {
+    "error404": {
+      "header": "Sorry, this page could not be found"
+    },
+    "error500": {
+      "header": "Sorry, we're experiencing technical difficulties",
+      "content": "Please try again in a few minutes."
+    }
+  }
+}
