@@ -1,10 +1,15 @@
-require('app-insights').enable();
+const appInsights = require('app-insights');
 const { Express } = require('@hmcts/nodejs-logging');
 const nunjucks = require('nunjucks');
 const express = require('express');
 const routes = require('app/routes');
 
-function setup() {
+function setup(options) {
+  const opts = options || {};
+  if (!opts.disableAppInsights) {
+    appInsights.enable();
+  }
+
   const app = express();
 
   nunjucks.configure([
