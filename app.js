@@ -3,6 +3,7 @@ const { Express } = require('@hmcts/nodejs-logging');
 const nunjucks = require('nunjucks');
 const express = require('express');
 const routes = require('app/routes');
+const { pageNotFoundHandler, coreErrorHandler } = require('app/middleware/error-handler');
 
 function setup(options) {
   const opts = options || {};
@@ -25,6 +26,8 @@ function setup(options) {
 
   app.use('/public', express.static(`${__dirname}/public`));
   app.use('/', routes);
+  app.use(pageNotFoundHandler);
+  app.use(coreErrorHandler);
   return app;
 }
 
