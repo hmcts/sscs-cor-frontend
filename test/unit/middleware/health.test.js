@@ -2,7 +2,7 @@ const { expect, sinon } = require('test/chai-sinon');
 const health = require('app/middleware/health');
 
 /* eslint-disable init-declarations */
-describe('health.js', () => {
+describe('middleware/health', () => {
   let req;
   let res;
 
