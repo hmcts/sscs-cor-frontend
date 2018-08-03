@@ -2,7 +2,10 @@
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
 const { setup } = require('app');
-const { port, baseUrl } = require('test/config');
+const config = require('config');
+
+const testUrl = config.get('testUrl');
+const port = config.get('node.port');
 
 let browser;
 let server;
@@ -24,8 +27,8 @@ async function startBrowser() {
 }
 
 function startAppServer() {
-  if (!server && baseUrl.indexOf('localhost') !== -1) {
-    console.log('Starting server');
+  if (!server && testUrl.indexOf('localhost') !== -1) {
+    console.log(`Starting server on port ${port}`);
     server = createServer(setup()).listen(port);
   }
 }

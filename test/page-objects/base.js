@@ -1,5 +1,7 @@
 const { expect } = require('test/chai-sinon');
-const { baseUrl } = require('test/config');
+const config = require('config');
+
+const testUrl = config.get('testUrl');
 
 class BasePage {
   constructor(page) {
@@ -8,11 +10,11 @@ class BasePage {
   }
 
   async visitPage() {
-    await this.page.goto(`${baseUrl}${this.pagePath}`);
+    await this.page.goto(`${testUrl}${this.pagePath}`);
   }
 
   verifyPage() {
-    expect(this.page.url()).to.equal(`${baseUrl}${this.pagePath}`);
+    expect(this.page.url()).to.equal(`${testUrl}${this.pagePath}`);
   }
 
   async getHeading() {
