@@ -2,6 +2,7 @@
   "node": {
     "port": "PORT"
   },
+  "testUrl": "TEST_URL",
   "api": {
     "url": "SSCS_API_URL"
   },
