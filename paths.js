@@ -1,5 +1,6 @@
 module.exports = {
 
-  helloWorld: '/hello-world'
+  helloWorld: '/hello-world',
+  question: '/question'
 
 };
