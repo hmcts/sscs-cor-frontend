@@ -26,6 +26,7 @@ describe('Hello world page', () => {
   });
 
   it('has Hello world heading', async() => {
+    await helloWorldPage.screenshot('hello-world');
     expect(await helloWorldPage.getHeading()).to.equal('Hello world');
   });
 });

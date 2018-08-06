@@ -21,6 +21,13 @@ class BasePage {
     const heading = await this.page.$eval('h1', el => el.innerHTML);
     return heading;
   }
+
+  async screenshot(filename) {
+    await this.page.screenshot({
+      fullPage: true,
+      path: `functional-output/${filename}.png`
+    });
+  }
 }
 
 module.exports = BasePage;
