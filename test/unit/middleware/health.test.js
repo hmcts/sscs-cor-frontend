@@ -15,6 +15,6 @@ describe('middleware/health', () => {
 
   it('returns JSON with health status', () => {
     health(req, res);
-    expect(res.json).to.have.been.calledOnce.calledWith({ status: 'UP' });
+    expect(res.json).to.have.been.calledOnce.calledWith({ status: 'UP', redisStatus: 'DOWN' });
   });
 });

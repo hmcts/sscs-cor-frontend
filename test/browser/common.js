@@ -1,6 +1,7 @@
 /* eslint-disable init-declarations, no-console */
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
+const session = require('express-session');
 const { setup } = require('app');
 const config = require('config');
 
@@ -29,7 +30,17 @@ async function startBrowser() {
 function startAppServer() {
   if (!server && testUrl.indexOf('localhost') !== -1) {
     console.log(`Starting server on port ${port}`);
-    server = createServer(setup({ disableAppInsights: true })).listen(port);
+    const app = setup(session({
+      cookie: {
+        httpOnly: true,
+        maxAge: config.get('session.cookie.maxAgeInMs'),
+        secure: false
+      },
+      resave: true,
+      saveUninitialized: true,
+      secret: config.get('session.cookie.secret')
+    }), { disableAppInsights: true });
+    server = createServer(app).listen(port);
   }
 }
 
