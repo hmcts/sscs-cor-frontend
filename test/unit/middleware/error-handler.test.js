@@ -23,6 +23,24 @@ describe('middleware/error-handler', () => {
     });
   });
 
+  describe('#sessionNotFoundHandler', () => {
+    let next;
+
+    beforeEach(() => {
+      next = sinon.spy();
+    });
+
+    it('calls next with error if no session can be found', () => {
+      errorHandler.sessionNotFoundHandler(req, res, next);
+      expect(next).to.have.been.calledOnce.calledWith('Session not found');
+    });
+
+    it('calls next when session can be found', () => {
+      errorHandler.sessionNotFoundHandler(req, res, next);
+      expect(next).to.have.been.calledOnce.calledWith();
+    });
+  });
+
   describe('#coreErrorHandler', () => {
     it('gives 500 page', () => {
       const error = new Error('Some error');
