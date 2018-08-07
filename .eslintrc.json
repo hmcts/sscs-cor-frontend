@@ -12,6 +12,7 @@
   },
   "rules": {
     "no-process-env": "off",
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "multiline-ternary": ["error", "always-multiline"],
     "operator-linebreak": ["error", "after"],
     "newline-per-chained-call": "off",
