@@ -11,6 +11,6 @@ router.get(paths.helloWorld, (req, res) => {
   res.render('hello-world.html');
 });
 
-router.get(`${paths.question}/:hearingId/:questionId`, questionController);
+router.use(paths.question, questionController);
 
 module.exports = router;

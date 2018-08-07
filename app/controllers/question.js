@@ -1,22 +1,10 @@
 const appInsights = require('app-insights');
-const config = require('config');
-const request = require('superagent');
+const express = require('express');
+const getQuestion = require('app/middleware/getQuestion');
 
-const apiUrl = config.get('api.url');
+// eslint-disable-next-line new-cap
+const router = express.Router();
 
-function question(req, res, next) {
-  const hearingId = req.params.hearingId;
-  const questionId = req.params.questionId;
+router.get('/:hearingId/:questionId', getQuestion);
 
-  return request
-    .get(`${apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`)
-    .then(response => {
-      res.render('question.html', { header: response.body.question_header_text });
-    })
-    .catch(error => {
-      appInsights.trackException(error);
-      next(error);
-    });
-}
-
-module.exports = question;
+module.exports = router;
