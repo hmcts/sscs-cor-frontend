@@ -1,11 +1,12 @@
 /* eslint-disable max-nested-callbacks */
 const { expect } = require('test/chai-sinon');
+const createSession = require('app/middleware/session');
 const { setup } = require('app');
 const pa11y = require('pa11y');
 const supertest = require('supertest');
 const paths = require('paths');
 
-const app = setup();
+const app = setup(createSession(), { disableAppInsights: true });
 const agent = supertest.agent(app);
 
 const space = 2;
