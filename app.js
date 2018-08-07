@@ -7,7 +7,7 @@ const errors = require('app/middleware/error-handler');
 const health = require('app/middleware/health');
 const locale = require('app/locale/en.json');
 
-const isProduction = process.env.NODE_ENV !== 'development';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 function setup(sessionHandler, options) {
   const opts = options || {};
@@ -19,7 +19,7 @@ function setup(sessionHandler, options) {
 
   app.locals.i18n = locale;
 
-  if (isProduction) {
+  if (!isDevelopment) {
     app.set('trust proxy', 1);
   }
 
