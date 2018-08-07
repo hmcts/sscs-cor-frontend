@@ -36,6 +36,7 @@ describe('middleware/error-handler', () => {
     });
 
     it('calls next when session can be found', () => {
+      req.session = {};
       errorHandler.sessionNotFoundHandler(req, res, next);
       expect(next).to.have.been.calledOnce.calledWith();
     });
