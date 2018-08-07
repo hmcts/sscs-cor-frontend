@@ -2,6 +2,7 @@ const appInsights = require('app-insights');
 const express = require('express');
 
 function getQuestion(getQuestionService) {
+  console.log('controller')
   return (req, res, next) => {
     const hearingId = req.params.hearingId;
     const questionId = req.params.questionId;
