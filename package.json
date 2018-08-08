@@ -29,6 +29,9 @@
     "type": "git",
     "url": "https://github.com/hmcts/sscs-cor-frontend.git"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "dependencies": {
     "@hmcts/nodejs-healthcheck": "^1.4.6",
     "@hmcts/nodejs-logging": "^3.0.0",
@@ -64,6 +67,7 @@
     "nock": "^9.4.4",
     "node-dev": "^3.1.3",
     "pa11y": "^4.9.0",
+    "pre-commit": "^1.2.2",
     "puppeteer": "^1.6.1",
     "sinon": "^2.1.0",
     "sinon-chai": "^2.9.0",
