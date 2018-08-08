@@ -35,5 +35,4 @@ describe('Question page', () => {
       expect(await questionPage.getHeading()).to.equal(mockData.question_header_text);
     });
   }
-
 });
