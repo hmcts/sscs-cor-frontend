@@ -1,6 +1,6 @@
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
-const mockData = require('test/mock/question').template;
+const mockData = require('test/mock/data/question').template;
 const QuestionPage = require('test/page-objects/question');
 
 describe('Question page', () => {
