@@ -6,14 +6,8 @@ const apiUrl = config.get('api.url');
 function getQuestion(hearingId, questionId) {
   return request
     .get(`${apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`)
-    .then(response => {
-      console.log('here');
-      return Promise.resolve(response.body);
-    })
-    .catch(error => {
-      console.log('error');
-      return Promise.reject(error);
-    });
+    .then(response => Promise.resolve(response.body))
+    .catch(error => Promise.reject(error));
 }
 
 module.exports = getQuestion;
