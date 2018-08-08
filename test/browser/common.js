@@ -4,6 +4,7 @@ const { createServer } = require('http');
 const createSession = require('app/middleware/session');
 const { setup } = require('app');
 const config = require('config');
+const dysonSetup = require('test/mock/dysonSetup');
 
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
@@ -34,6 +35,7 @@ async function startBrowser() {
 function startAppServer() {
   if (!server && testUrl.indexOf('localhost') !== -1) {
     const app = setup(createSession(), { disableAppInsights: true });
+    dysonSetup();
     server = createServer(app).listen(port, error => {
       if (error) {
         console.log(`Unable to start server on port ${port} because of ${error.message}`);
