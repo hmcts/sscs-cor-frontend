@@ -28,39 +28,23 @@ describe('question.js', () => {
       appInsights.trackException.restore();
     });
 
-    it('should call render with the template and question header', () => {
+    it('should call render with the template and question header', async() => {
       const questionHeading = 'What is the meaning of life?';
-      questionService = () => (
-        new Promise(resolve => {
-          resolve({
-            question_header_text: questionHeading
-          });
-        })
-      );
-      const getQuestionMiddleware = getQuestion(questionService);
-      return getQuestionMiddleware(req, res, next)
-        .then(() => {
-          expect(res.render).to.have.been.calledWith('question.html', {
-            question: {
-              header: questionHeading
-            }
-          });
-        });
+      questionService = () => Promise.resolve({ question_header_text: questionHeading });
+      await getQuestion(questionService)(req, res, next);
+      expect(res.render).to.have.been.calledWith('question.html', {
+        question: {
+          header: questionHeading
+        }
+      });
     });
 
-    it('should call next and appInsights with the error when there is one', () => {
+    it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      questionService = () => (
-        new Promise((resolve, reject) => {
-          reject(error);
-        })
-      );
-      const getQuestionMiddleware = getQuestion(questionService);
-      return getQuestionMiddleware(req, res, next)
-        .then(() => {
-          expect(appInsights.trackException).to.have.been.calledOnce.calledWith(error);
-          expect(next).to.have.been.calledWith(error);
-        });
+      questionService = () => Promise.reject(error);
+      await getQuestion(questionService)(req, res, next);
+      expect(appInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(next).to.have.been.calledWith(error);
     });
   });
 
