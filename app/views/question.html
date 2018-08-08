@@ -1,7 +1,19 @@
 {% extends "layout.html" %}
 
+{% block beforeContent %}
+    {{ super() }}
+    <a href="#" class="govuk-back-link">{{ i18n.backLink }}</a>
+{% endblock %}
+
 {% block content %}
-    <h1 class="govuk-heading-l">{{ question.header }}</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ question.header }}</h1>
+            <div>
+                <p>{{ question.body }}</p>
+            </div>
+        </div>
+    </div>
 
     {% include "includes/sending-evidence.html" %}
 {% endblock %}

@@ -30,11 +30,16 @@ describe('question.js', () => {
 
     it('should call render with the template and question header', async() => {
       const questionHeading = 'What is the meaning of life?';
-      questionService = () => Promise.resolve({ question_header_text: questionHeading });
+      const questionBody = 'Many people ask this question...';
+      questionService = () => Promise.resolve({
+        question_header_text: questionHeading,
+        question_body_text: questionBody
+      });
       await getQuestion(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question.html', {
         question: {
-          header: questionHeading
+          header: questionHeading,
+          body: questionBody
         }
       });
     });

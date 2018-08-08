@@ -22,6 +22,11 @@ class BasePage {
     return heading;
   }
 
+  async getBody() {
+    const body = await this.page.$eval('body', el => el.innerHTML);
+    return body;
+  }
+
   async screenshot(filename) {
     await this.page.screenshot({
       fullPage: true,
