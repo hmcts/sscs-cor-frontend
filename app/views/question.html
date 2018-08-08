@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% from "components/textarea/macro.njk" import govukTextarea %}
 
 {% block beforeContent %}
     {{ super() }}
@@ -11,6 +12,16 @@
             <h1 class="govuk-heading-l">{{ question.header }}</h1>
             <div>
                 <p>{{ question.body }}</p>
+                {{ govukTextarea({
+                    id: 'question-field',
+                    label: {
+                        text: i18n.question.textareaField.label,
+                        classes: 'govuk-visually-hidden'
+                    },
+                    attributes: {
+                        placeholder: i18n.question.textareaField.placeholder
+                    }
+                }) }}
             </div>
         </div>
     </div>
