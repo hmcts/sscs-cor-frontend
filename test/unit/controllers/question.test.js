@@ -33,9 +33,7 @@ describe('question.js', () => {
       questionService = () => (
         new Promise(resolve => {
           resolve({
-            body: {
-              question_header_text: questionHeading
-            }
+            question_header_text: questionHeading
           });
         })
       );

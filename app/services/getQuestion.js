@@ -4,7 +4,6 @@ const request = require('superagent');
 const apiUrl = config.get('api.url');
 
 function getQuestion(hearingId, questionId) {
-  console.log('eggs');
   return request
     .get(`${apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`)
     .then(response => {

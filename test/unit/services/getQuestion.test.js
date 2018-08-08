@@ -1,16 +1,12 @@
+const getQuestionService = require('app/services/getQuestion');
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const nock = require('nock');
 const config = require('config');
-console.log('woof');
-
 
 const apiUrl = config.get('api.url');
 
 describe('getQuestion.js', () => {
-
-  console.log('meow')
-
   const hearingId = '121';
   const questionId = '62';
   const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
@@ -20,23 +16,33 @@ describe('getQuestion.js', () => {
     question_header_text: 'What is the meaning of life?'
   };
 
-  it.only('resolves the promise with the response', () => {
-    nock(apiUrl)
-      .get(path)
-      .reply(OK, apiResponse);
-    const getQuestionService = require('app/services/getQuestion');
+  describe('resolving the promise', () => {
+    beforeEach(() => {
+      nock(apiUrl)
+        .get(path)
+        .reply(OK, apiResponse);
+    });
 
-    return expect(getQuestionService(hearingId, questionId)).to.be.fulfilled;
+    it('resolves the promise', () => (
+      expect(getQuestionService(hearingId, questionId)).to.be.fulfilled
+    ));
+
+    it('resolves the promise with the response', () => (
+      expect(getQuestionService(hearingId, questionId)).to.eventually.eql(apiResponse)
+    ));
   });
 
-  it('returns error', () => {
-    const error = {value: INTERNAL_SERVER_ERROR, reason: ''}
-    nock(apiUrl)
-      .get(path)
-      .replyWithError(error);
+  describe('rejecting the promise', () => {
+    const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+    beforeEach(() => {
+      nock(apiUrl)
+        .get(path)
+        .replyWithError(error);
+    });
+
+    it('rejects the promise with the error', () => (
+      expect(getQuestionService(hearingId, questionId)).to.be.rejectedWith(error)
+    ));
   });
-  // const question = getQuestionService(hearingId, questionId);
-  // expect question to return error
-
-
 });
