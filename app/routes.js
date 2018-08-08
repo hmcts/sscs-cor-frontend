@@ -1,12 +1,18 @@
 const express = require('express');
 const paths = require('paths');
 
-/* eslint-disable new-cap */
+const { setupQuestionController } = require('app/controllers/question');
+
+// eslint-disable-next-line new-cap
 const router = express.Router();
-/* eslint-enable new-cap */
 
 router.get(paths.helloWorld, (req, res) => {
   res.render('hello-world.html');
 });
+
+const getQuestionService = require('app/services/getQuestion');
+
+const questionController = setupQuestionController({ getQuestionService });
+router.use(paths.question, questionController);
 
 module.exports = router;

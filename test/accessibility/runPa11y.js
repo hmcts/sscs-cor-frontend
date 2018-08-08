@@ -5,9 +5,11 @@ const { setup } = require('app');
 const pa11y = require('pa11y');
 const supertest = require('supertest');
 const paths = require('paths');
+const dysonSetup = require('test/mock/dysonSetup');
 
 const app = setup(createSession(), { disableAppInsights: true });
 const agent = supertest.agent(app);
+dysonSetup();
 
 const space = 2;
 
@@ -19,7 +21,10 @@ const pa11yTest = pa11y({
     .govuk-skip-link, .govuk-footer__link`
 });
 
-const accessibilityPages = Object.values(paths);
+const accessibilityPages = [
+  paths.helloWorld,
+  `${paths.question}/121/62`
+];
 
 accessibilityPages.forEach(page => {
   describe(`Running Accessibility tests for: ${page}`, () => {
