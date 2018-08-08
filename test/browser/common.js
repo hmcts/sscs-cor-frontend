@@ -1,6 +1,7 @@
 /* eslint-disable init-declarations, no-console */
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
+const createSession = require('app/middleware/session');
 const { setup } = require('app');
 const config = require('config');
 
@@ -22,19 +23,30 @@ async function startBrowser() {
       timeout: 10000,
       ignoreHTTPSErrors: true
     };
-    browser = await puppeteer.launch(opts);
+    try {
+      browser = await puppeteer.launch(opts);
+    } catch (error) {
+      console.log('Unable to start browser', error);
+    }
   }
 }
 
 function startAppServer() {
   if (!server && testUrl.indexOf('localhost') !== -1) {
-    console.log(`Starting server on port ${port}`);
-    server = createServer(setup({ disableAppInsights: true })).listen(port);
+    const app = setup(createSession(), { disableAppInsights: true });
+    server = createServer(app).listen(port, error => {
+      if (error) {
+        console.log(`Unable to start server on port ${port} because of ${error.message}`);
+        return Promise.reject(error);
+      }
+      console.log(`Starting server on port ${port}`);
+      return Promise.resolve();
+    });
   }
 }
 
 async function startServices() {
-  startAppServer();
+  await startAppServer();
   await startBrowser();
   const page = await browser.newPage();
   await page.setViewport({
