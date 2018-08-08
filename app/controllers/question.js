@@ -2,21 +2,20 @@ const appInsights = require('app-insights');
 const express = require('express');
 
 function getQuestion(getQuestionService) {
-  return (req, res, next) => {
+  return async(req, res, next) => {
     const hearingId = req.params.hearingId;
     const questionId = req.params.questionId;
-    return getQuestionService(hearingId, questionId)
-      .then(response => {
-        res.render('question.html', {
-          question: {
-            header: response.question_header_text
-          }
-        });
-      })
-      .catch(error => {
-        appInsights.trackException(error);
-        next(error);
+    try {
+      const response = await getQuestionService(hearingId, questionId);
+      res.render('question.html', {
+        question: {
+          header: response.question_header_text
+        }
       });
+    } catch (error) {
+      appInsights.trackException(error);
+      next(error);
+    }
   };
 }
 
