@@ -13,8 +13,14 @@ describe('middleware/health', () => {
     };
   });
 
-  it('returns JSON with health status', () => {
+  it('returns JSON with health status, with redis down', () => {
     health(req, res);
-    expect(res.json).to.have.been.calledOnce.calledWith({ status: 'UP' });
+    expect(res.json).to.have.been.calledOnce.calledWith({ status: 'UP', redisStatus: 'DOWN' });
+  });
+
+  it('returns JSON with health status, with redis up', () => {
+    req.session = {};
+    health(req, res);
+    expect(res.json).to.have.been.calledOnce.calledWith({ status: 'UP', redisStatus: 'UP' });
   });
 });

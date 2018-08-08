@@ -8,6 +8,13 @@ function pageNotFoundHandler(req, res) {
   res.render('errors/404.html');
 }
 
+function sessionNotFoundHandler(req, res, next) {
+  if (!req.session) {
+    return next('Session not found');
+  }
+  return next();
+}
+
 /* eslint-disable no-unused-vars */
 function coreErrorHandler(error, req, res, next) {
   logger.error(`500 Error from request ${req.originalUrl} : ${JSON.stringify(error)} : ${error}`);
@@ -16,4 +23,4 @@ function coreErrorHandler(error, req, res, next) {
 }
 /* eslint-enable no-unused-vars */
 
-module.exports = { pageNotFoundHandler, coreErrorHandler };
+module.exports = { pageNotFoundHandler, coreErrorHandler, sessionNotFoundHandler };

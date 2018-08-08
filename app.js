@@ -3,16 +3,25 @@ const { Express } = require('@hmcts/nodejs-logging');
 const nunjucks = require('nunjucks');
 const express = require('express');
 const routes = require('app/routes');
-const { pageNotFoundHandler, coreErrorHandler } = require('app/middleware/error-handler');
+const errors = require('app/middleware/error-handler');
+const health = require('app/middleware/health');
 const locale = require('app/locale/en.json');
 
-function setup(options) {
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+function setup(sessionHandler, options) {
   const opts = options || {};
   if (!opts.disableAppInsights) {
     appInsights.enable();
   }
 
   const app = express();
+
+  app.locals.i18n = locale;
+
+  if (!isDevelopment) {
+    app.set('trust proxy', 1);
+  }
 
   nunjucks.configure([
     'app/views',
@@ -23,14 +32,16 @@ function setup(options) {
     express: app
   });
 
+  app.use('/public', express.static(`${__dirname}/public`));
+
   app.use(Express.accessLogger());
 
-  app.use('/public', express.static(`${__dirname}/public`));
-  app.use('/', routes);
-  app.use(pageNotFoundHandler);
-  app.use(coreErrorHandler);
-
-  app.locals.i18n = locale;
+  app.use(sessionHandler);
+  app.use('/health', health);
+  app.use(errors.sessionNotFoundHandler);
+  app.use(routes);
+  app.use(errors.pageNotFoundHandler);
+  app.use(errors.coreErrorHandler);
 
   return app;
 }
