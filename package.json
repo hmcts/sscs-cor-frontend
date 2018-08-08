@@ -9,7 +9,8 @@
   "scripts": {
     "start": "cross-env NODE_PATH=. node server.js",
     "dev": "yarn build && cross-env NODE_PATH=. node-dev server.js",
-    "dev-mock-api": "concurrently \"yarn dev\" \"dyson test/mock/ 8080\"",
+    "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\"",
+    "mock-api": "dyson test/mock/ 8080",
     "build": "yarn build-sass && yarn copy-assets",
     "build-sass": "node-sass app/assets/sass/application.scss public/css/main.css --output-style compressed",
     "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend",
