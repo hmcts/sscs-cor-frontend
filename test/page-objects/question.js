@@ -1,5 +1,6 @@
 const { question } = require('paths');
 const BasePage = require('test/page-objects/base');
+
 const hearingId = '121';
 const questionId = '62';
 

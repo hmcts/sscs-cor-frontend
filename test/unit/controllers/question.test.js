@@ -75,11 +75,13 @@ describe('question.js', () => {
 
     it('calls router.get with the path and middleware', () => {
       setupQuestionController({ getQuestionService: {} });
+      // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith('/:hearingId/:questionId');
     });
 
     it('returns the router', () => {
       const controller = setupQuestionController({ getQuestionService: {} });
+      // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
     });
   });
