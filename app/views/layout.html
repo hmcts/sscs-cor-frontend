@@ -1,4 +1,5 @@
 {% extends "template.njk" %}
+{% from "components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% block pageTitle %}
     {{ i18n.pageTitle }}
@@ -7,6 +8,16 @@
 {% block head %}
     {% include "includes/head.html" %}
 {% endblock %}
+
+{% block beforeContent %}
+    {{ govukPhaseBanner({
+        tag: {
+            text: "alpha"
+        },
+        html: i18n.phaseBanner.new + ' <a class="govuk-link" href="#">' + i18n.phaseBanner.feedback + '</a> ' + i18n.phaseBanner.improve
+    }) }}
+{% endblock %}
+
 
 {% block bodyEnd %}
     <script src="/public/govuk-frontend/js/all.js"></script>

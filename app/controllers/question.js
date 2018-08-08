@@ -9,7 +9,8 @@ function getQuestion(getQuestionService) {
       const response = await getQuestionService(hearingId, questionId);
       res.render('question.html', {
         question: {
-          header: response.question_header_text
+          header: response.question_header_text,
+          body: response.question_body_text
         }
       });
     } catch (error) {
