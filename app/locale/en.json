@@ -3,6 +3,20 @@
   "helloWorld": {
     "header": "Hello world"
   },
+  "guidance": {
+    "sendingEvidence": {
+      "summary": "Sending evidence to support your answer",
+      "details": {
+        "para1": "If you have any evidence to support your answer, you can either email it or send it by post.",
+        "para2": "Make sure it’s clearly marked with your appeal reference number:",
+        "byEmailHeader": "Send by email",
+        "emailAddress": "benefitappeals@hmcts.net",
+        "byPostHeader": "Send by post",
+        "postalAddress": "Birmingham ASC<br/>HM Courts and Tribunals Service<br/>Administrative Support Centre (ASC)<br/>P O Box 14620<br/>Birmingham<br/>B16 6FR",
+        "closingPara": "Useful evidence helps prove what you have said in your answer such as a letter from a doctor or someone who knows you well. You do not have to send in evidence if you don’t have any."
+      }
+    }
+  },
   "error": {
     "error404": {
       "header": "Sorry, this page could not be found"
