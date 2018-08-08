@@ -29,14 +29,20 @@ async function startBrowser() {
 
 function startAppServer() {
   if (!server && testUrl.indexOf('localhost') !== -1) {
-    console.log(`Starting server on port ${port}`);
     const app = setup(createSession(), { disableAppInsights: true });
-    server = createServer(app).listen(port);
+    server = createServer(app).listen(port, error => {
+      if (error) {
+        console.log(`Unable to start server on port ${port} because of ${error.message}`);
+        return Promise.reject(error);
+      }
+      console.log(`Starting server on port ${port}`);
+      return Promise.resolve();
+    });
   }
 }
 
 async function startServices() {
-  startAppServer();
+  await startAppServer();
   await startBrowser();
   const page = await browser.newPage();
   await page.setViewport({
