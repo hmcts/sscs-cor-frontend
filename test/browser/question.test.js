@@ -2,6 +2,9 @@ const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/data/question').template;
 const QuestionPage = require('test/page-objects/question');
+const config = require('config');
+
+const testUrl = config.get('testUrl');
 
 describe('Question page', () => {
   /* eslint-disable init-declarations */
@@ -26,8 +29,11 @@ describe('Question page', () => {
     questionPage.verifyPage();
   });
 
-  it('has question heading from api request', async() => {
-    await questionPage.screenshot('question');
-    expect(await questionPage.getHeading()).to.equal(mockData.question_header_text);
-  });
+  if (testUrl.indexOf('localhost') !== -1) {
+    it('has question heading from api request', async() => {
+      await questionPage.screenshot('question');
+      expect(await questionPage.getHeading()).to.equal(mockData.question_header_text);
+    });
+  }
+
 });
