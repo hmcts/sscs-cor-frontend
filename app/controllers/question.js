@@ -2,7 +2,6 @@ const appInsights = require('app-insights');
 const express = require('express');
 
 function getQuestion(getQuestionService) {
-  console.log('controller')
   return (req, res, next) => {
     const hearingId = req.params.hearingId;
     const questionId = req.params.questionId;
@@ -10,7 +9,7 @@ function getQuestion(getQuestionService) {
       .then(response => {
         res.render('question.html', {
           question: {
-            header: response.body.question_header_text
+            header: response.question_header_text
           }
         });
       })
