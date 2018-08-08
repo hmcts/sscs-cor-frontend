@@ -23,7 +23,11 @@ async function startBrowser() {
       timeout: 10000,
       ignoreHTTPSErrors: true
     };
-    browser = await puppeteer.launch(opts);
+    try {
+      browser = await puppeteer.launch(opts);
+    } catch (error) {
+      console.log('Unable to start browser', error);
+    }
   }
 }
 
