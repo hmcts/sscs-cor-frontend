@@ -1,8 +1,8 @@
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
-  localApiUrl = "http://sscs-cor-api-${var.env}.service.${local.aseName}.internal"
-  ApiUrl = "${var.env == "preview" ? "http://sscs-cor-api-aat.service.core-compute-aat.internal" : local.localApiUrl}"
+  localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
+  ApiUrl = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
 }
 
 module "sscs-cor-frontend" {
