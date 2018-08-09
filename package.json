@@ -21,7 +21,7 @@
     "test:functional": "yarn test:browser",
     "test:smoke": "yarn test:browser",
     "test:coverage": "cross-env NODE_PATH=. istanbul cover _mocha test/unit/** --dir test/coverage/html",
-    "test:a11y": "cross-env NODE_PATH=. LOG_LEVEL=OFF mocha test/accessibility --recursive",
+    "test:a11y": "cross-env NODE_PATH=. LOG_LEVEL=OFF mocha test/accessibility --recursive --timeout=10000",
     "test:nsp": "nsp check",
     "sonar-scan": "sonar-scanner",
     "lint": "eslint ."

@@ -27,6 +27,11 @@ class BasePage {
     return body;
   }
 
+  async getElement(selector) {
+    const element = await this.page.$(selector);
+    return element;
+  }
+
   async screenshot(filename) {
     await this.page.screenshot({
       fullPage: true,
