@@ -2,3 +2,4 @@ $govuk-global-styles: true;
 $govuk-assets-path: '/public/govuk-frontend/';
 
 @import "node_modules/govuk-frontend/all";
+@import "_question";
