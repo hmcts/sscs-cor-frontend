@@ -16,7 +16,7 @@ const space = 2;
 const pa11yTest = pa11y({
   timeout: 10000,
   reporter: 'spec',
-  ignore: [],
+  ignore: ['WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Abs'],
   hideElements: `link[rel=mask-icon], .govuk-header__logotype-crown, .govuk-footer__licence-logo, 
     .govuk-skip-link, .govuk-footer__link`
 });
