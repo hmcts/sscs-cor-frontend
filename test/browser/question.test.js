@@ -30,9 +30,14 @@ describe('Question page', () => {
   });
 
   if (testUrl.indexOf('localhost') !== -1) {
-    it('has question heading from api request', async() => {
+    it('displays question heading from api request', async() => {
       await questionPage.screenshot('question');
       expect(await questionPage.getHeading()).to.equal(mockData.question_header_text);
+    });
+
+    it('displays question body from api request', async() => {
+      await questionPage.screenshot('question');
+      expect(await questionPage.getBody()).to.contain(mockData.question_body_text);
     });
   }
 });
