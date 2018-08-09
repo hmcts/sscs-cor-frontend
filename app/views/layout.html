@@ -5,5 +5,10 @@
 {% endblock %}
 
 {% block head %}
-{% include "includes/head.html" %}
+    {% include "includes/head.html" %}
+{% endblock %}
+
+{% block bodyEnd %}
+    <script src="/public/govuk-frontend/js/all.js"></script>
+    <script>window.GOVUKFrontend.initAll()</script>
 {% endblock %}
