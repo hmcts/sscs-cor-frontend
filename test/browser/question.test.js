@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/data/question').template;
@@ -38,6 +39,11 @@ describe('Question page', () => {
     it('displays question body from api request', async() => {
       await questionPage.screenshot('question');
       expect(await questionPage.getBody()).to.contain(mockData.question_body_text);
+    });
+
+    it('displays question body from api request', async() => {
+      await questionPage.screenshot('question');
+      expect(await questionPage.getElement('#question-field')).to.not.be.null;
     });
   }
 });
