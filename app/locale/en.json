@@ -1,5 +1,11 @@
 {
   "pageTitle": "Continuous Online Resolution",
+  "backLink": "Back to questions",
+  "phaseBanner": {
+    "new": "This is a new service – your",
+    "feedback": "feedback",
+    "improve": "will help us to improve it."
+  },
   "helloWorld": {
     "header": "Hello world"
   },
