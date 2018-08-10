@@ -6,6 +6,7 @@ const routes = require('app/routes');
 const errors = require('app/middleware/error-handler');
 const health = require('app/middleware/health');
 const locale = require('app/locale/en.json');
+const paths = require('paths');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -37,7 +38,8 @@ function setup(sessionHandler, options) {
   app.use(Express.accessLogger());
 
   app.use(sessionHandler);
-  app.use('/health', health);
+  app.use(paths.health, health.livenessCheck);
+  app.use(paths.readiness, health.readinessCheck);
   app.use(errors.sessionNotFoundHandler);
   app.use(routes);
   app.use(errors.pageNotFoundHandler);
