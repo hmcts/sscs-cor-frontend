@@ -21,10 +21,7 @@ const pa11yTest = pa11y({
     .govuk-skip-link, .govuk-footer__link`
 });
 
-const accessibilityPages = [
-  paths.helloWorld,
-  `${paths.question}/121/62`
-];
+const accessibilityPages = [`${paths.question}/121/62`];
 
 accessibilityPages.forEach(page => {
   describe(`Running Accessibility tests for: ${page}`, () => {
