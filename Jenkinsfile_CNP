@@ -13,9 +13,12 @@ def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
 
 withPipeline("nodejs", product, component) {
     after('build') {sh 'yarn build'}
-    before("smoketest:preview") {sh 'export ' + cohUrlAat}
-    before("functionaltest:preview") {sh 'export ' + cohUrlAat}
-    before("smoketest:aat") {sh 'export ' + cohUrlAat}
-    before("functionaltest:aat") {sh 'export ' + cohUrlAat}
-    before("smokeTest:aat") {sh 'export ' + cohUrlAat}
+    before("functionalTest:preview") {
+        env.COH_URL = cohUrlAat
+        sh 'echo COH_URL=$COH_URL'
+    }
+    before("functionalTest:aat") {
+        env.COH_URL = cohUrlAat
+        sh 'echo COH_URL=$COH_URL'
+    }
 }
