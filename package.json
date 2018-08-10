@@ -19,7 +19,7 @@
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha test/unit --recursive",
     "test:browser": "cross-env NODE_PATH=. NODE_ENV=test mocha test/browser --recursive --timeout=10000",
     "test:functional": "yarn test:browser",
-    "test:smoke": "yarn test:browser",
+    "test:smoke": "yarn test:browser -g @smoke",
     "test:coverage": "cross-env NODE_PATH=. istanbul cover _mocha test/unit/** --dir test/coverage/html",
     "test:a11y": "cross-env NODE_PATH=. LOG_LEVEL=OFF mocha test/accessibility --recursive --timeout=10000",
     "test:nsp": "nsp check",
