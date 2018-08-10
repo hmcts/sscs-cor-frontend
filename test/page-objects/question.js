@@ -1,11 +1,8 @@
 const { question } = require('paths');
 const BasePage = require('test/page-objects/base');
 
-const hearingId = '121';
-const questionId = '62';
-
 class QuestionPage extends BasePage {
-  constructor(page) {
+  constructor(page, hearingId, questionId) {
     super(page);
     this.pagePath = `${question}/${hearingId}/${questionId}`;
   }
