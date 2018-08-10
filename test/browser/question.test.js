@@ -16,12 +16,13 @@ describe('Question page', () => {
   /* eslint-enable init-decalarations */
 
   before(async() => {
-    const res = await startServices();
+    const res = await startServices({ bootstrapCoh: true });
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;
     questionId = res.cohTestData.questionId || sampleQuestionId;
     questionPage = new QuestionPage(page, hearingId, questionId);
     await questionPage.visitPage();
+    await questionPage.screenshot('question');
   });
 
   after(async() => {
@@ -35,17 +36,14 @@ describe('Question page', () => {
   });
 
   it('displays question heading from api request', async() => {
-    await questionPage.screenshot('question');
     expect(await questionPage.getHeading()).to.equal(mockData.question_header_text);
   });
 
   it('displays question body from api request', async() => {
-    await questionPage.screenshot('question');
     expect(await questionPage.getBody()).to.contain(mockData.question_body_text);
   });
 
-  it('displays question body from api request', async() => {
-    await questionPage.screenshot('question');
+  it('displays question answer box', async() => {
     expect(await questionPage.getElement('#question-field')).to.not.be.null;
   });
 });

@@ -63,8 +63,11 @@ async function bootstrapCoh() {
   }
 }
 
-async function startServices() {
-  await bootstrapCoh();
+async function startServices(options) {
+  const opts = options || {};
+  if (opts.bootstrapCoh) {
+    await bootstrapCoh();
+  }
   await startAppServer();
   await startBrowser();
   const page = await browser.newPage();
