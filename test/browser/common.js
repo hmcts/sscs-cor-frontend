@@ -2,15 +2,18 @@
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
 const createSession = require('app/middleware/session');
+const coh = require('test/fixtures/coh');
 const { setup } = require('app');
 const config = require('config');
 const dysonSetup = require('test/mock/dysonSetup');
 
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
+const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 
 let browser;
 let server;
+let cohTestData;
 
 async function startBrowser() {
   if (!browser) {
@@ -33,7 +36,7 @@ async function startBrowser() {
 }
 
 function startAppServer() {
-  if (!server && testUrl.indexOf('localhost') !== -1) {
+  if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
     dysonSetup();
     server = createServer(app).listen(port, error => {
@@ -47,7 +50,21 @@ function startAppServer() {
   }
 }
 
+async function bootstrapCoh() {
+  if (!cohTestData && !testingLocalhost) {
+    try {
+      const hearingId = await coh.createOnlineHearing();
+      const questionId = await coh.createQuestion(hearingId);
+      await coh.setQuestionRoundToIssued(hearingId);
+      cohTestData = { hearingId, questionId };
+    } catch (error) {
+      console.log('Error bootstrapping COH with test data', error);
+    }
+  }
+}
+
 async function startServices() {
+  await bootstrapCoh();
   await startAppServer();
   await startBrowser();
   const page = await browser.newPage();
@@ -55,7 +72,7 @@ async function startServices() {
     height: 700,
     width: 1100
   });
-  return { page };
+  return { page, cohTestData: cohTestData || {} };
 }
 
 after(async() => {
