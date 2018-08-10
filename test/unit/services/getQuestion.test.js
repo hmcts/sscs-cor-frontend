@@ -18,7 +18,6 @@ describe('getQuestion.js', () => {
 
   describe('resolving the promise', () => {
     beforeEach(() => {
-      console.log(apiUrl)
       nock(apiUrl)
         .get(path)
         .reply(OK, apiResponse);
