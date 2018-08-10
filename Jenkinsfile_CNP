@@ -9,15 +9,16 @@ properties(
 def product = "sscs-cor"
 def component = "frontend"
 
+def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
+
 withPipeline("nodejs", product, component) {
-  after('build') {sh 'yarn build'}
-  after("smoketest:preview") {
-      stage('Application URLs') {
-        def AppDevUrl = env.TEST_URL.replace("https", "http")
-        AppDevUrl = AppDevUrl.replace("-staging.", ".")
-        println "Application URL: " + AppDevUrl
-        println "Healthcheck URL: " + AppDevUrl + "/health"
-        println "Kudu URL: " + AppDevUrl.replace(".service.", ".scm.service.")
-      }
-  }
+    after('build') {sh 'yarn build'}
+    before("functionalTest:preview") {
+        env.COH_URL = cohUrlAat
+        sh 'echo COH_URL=$COH_URL'
+    }
+    before("functionalTest:aat") {
+        env.COH_URL = cohUrlAat
+        sh 'echo COH_URL=$COH_URL'
+    }
 }

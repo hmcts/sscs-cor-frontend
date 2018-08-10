@@ -2,7 +2,7 @@ const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const HelloWorldPage = require('test/page-objects/hello-world');
 
-describe('Hello world page', () => {
+describe('Hello world page @smoke', () => {
   /* eslint-disable init-declarations */
   let page;
   let helloWorldPage;
