@@ -2,5 +2,6 @@
   "node": {
     "port": "9999"
   },
-  "testUrl": "http://localhost:9999"
+  "testUrl": "http://localhost:9999",
+  "cohUrl": "http://localhost:8081"
 }
