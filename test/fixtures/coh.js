@@ -2,7 +2,7 @@
 const rp = require('request-promise');
 const moment = require('moment');
 const uuidv4 = require('uuid/v4');
-const mockData = require('test/mock/data/question').template;
+const mockData = require('test/mock/services/question').template;
 
 const cohUrl = require('config').get('cohUrl');
 

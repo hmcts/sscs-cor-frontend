@@ -27,9 +27,22 @@ class BasePage {
     return body;
   }
 
+  async getElementText(selector) {
+    const element = await this.page.$eval(selector, el => el.innerHTML);
+    return element;
+  }
+
   async getElement(selector) {
     const element = await this.page.$(selector);
     return element;
+  }
+
+  async enterTextintoField(selector, text) {
+    await this.page.type(selector, text);
+  }
+
+  async clickElement(selector) {
+    await this.page.click(selector);
   }
 
   async screenshot(filename) {

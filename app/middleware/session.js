@@ -1,7 +1,8 @@
 const session = require('express-session');
 const config = require('config');
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const testUrl = config.get('testUrl');
+const isDevelopment = process.env.NODE_ENV === 'development' || testUrl.indexOf('localhost') !== -1;
 
 module.exports = function createSession(store) {
   return session({
