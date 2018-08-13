@@ -4,3 +4,4 @@ yarn-error.log
 public
 test/coverage
 functional-output/*
+dump.rdb

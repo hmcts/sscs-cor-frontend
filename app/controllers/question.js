@@ -32,15 +32,13 @@ function postAnswer(postAnswerService) {
     const answerState = req.body.submit ? '' : 'answer_drafted';
     const answerText = req.body['question-field'];
 
-    const fieldNotValid = answerValidation(answerText);
+    const validationMessage = answerValidation(answerText);
 
-    console.log(fieldNotValid);
-
-    if (fieldNotValid) {
+    if (validationMessage) {
       const question = req.session.question;
       question.answer = {
-        text: answerText,
-        error: 'Error message'
+        value: answerText,
+        error: validationMessage
       };
       res.render('question.html', { question });
     } else {
@@ -65,5 +63,6 @@ function setupQuestionController(deps) {
 
 module.exports = {
   setupQuestionController,
-  getQuestion
+  getQuestion,
+  postAnswer
 };

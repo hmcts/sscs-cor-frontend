@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const i18n = require('app/locale/en');
 
 const maxCharacters = 10000;
 
@@ -8,7 +9,7 @@ function answerValidation(answer) {
     .max(maxCharacters)
     .options({
       language: {
-        any: { empty: '!!Enter some text' },
+        any: { empty: `!!${i18n.question.textareaField.error.empty}` },
         string: { max: '!!Too much text' }
       }
     });
@@ -19,8 +20,6 @@ function answerValidation(answer) {
   if (result.error) {
     error = result.error.details[0].message;
   }
-
-  console.log(error);
 
   return error;
 }
