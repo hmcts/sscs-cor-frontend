@@ -33,6 +33,7 @@ class BasePage {
   }
 
   async getElementText(selector) {
+    await this.page.waitForSelector(selector);
     const element = await this.page.$eval(selector, el => el.innerHTML);
     return element;
   }
