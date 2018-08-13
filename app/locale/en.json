@@ -23,6 +23,9 @@
       }
     }
   },
+  "taskList": {
+    "header": "Task list"
+  },
   "question": {
     "textareaField": {
       "label": "Respond to the question",
