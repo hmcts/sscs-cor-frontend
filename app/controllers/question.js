@@ -34,6 +34,8 @@ function postAnswer(postAnswerService) {
 
     const fieldNotValid = answerValidation(answerText);
 
+    console.log(fieldNotValid);
+
     if (fieldNotValid) {
       const question = req.session.question;
       question.answer = {

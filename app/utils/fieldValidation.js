@@ -20,6 +20,8 @@ function answerValidation(answer) {
     error = result.error.details[0].message;
   }
 
+  console.log(error);
+
   return error;
 }
 
