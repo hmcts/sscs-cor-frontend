@@ -1,5 +1,5 @@
 const request = require('superagent');
-const { OK } = require('http-status-codes');
+const { OK, SERVICE_UNAVAILABLE } = require('http-status-codes');
 const appInsights = require('app-insights');
 const { Logger } = require('@hmcts/nodejs-logging');
 const healthCheck = require('@hmcts/nodejs-healthcheck');
@@ -18,9 +18,22 @@ async function getApiHealth() {
   }
 }
 
-module.exports = async(req, res) => {
+function livenessCheck(req, res) {
+  res.json(healthCheck.up());
+}
+
+async function readinessCheck(req, res) {
   const redisStatus = req.session ? 'UP' : 'DOWN';
   const apiStatus = await getApiHealth();
-  const status = { ...healthCheck.up(), ...{ redisStatus, apiStatus } };
+  let appStatus = healthCheck.up();
+  let statusCode = OK;
+  if (redisStatus === 'DOWN' || apiStatus === 'DOWN') {
+    appStatus = healthCheck.down();
+    statusCode = SERVICE_UNAVAILABLE;
+  }
+  const status = { ...appStatus, ...{ redisStatus, apiStatus } };
+  res.status(statusCode);
   res.json(status);
-};
+}
+
+module.exports = { livenessCheck, readinessCheck };
