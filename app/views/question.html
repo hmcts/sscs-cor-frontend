@@ -9,9 +9,9 @@
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ question.header }}</h1>
+            <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
             <div>
-                <p>{{ question.body }}</p>
+                <p id="question-body">{{ question.body }}</p>
                 {{ govukTextarea({
                     id: 'question-field',
                     label: {

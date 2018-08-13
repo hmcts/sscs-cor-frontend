@@ -1,19 +1,22 @@
 {% set reference = "SC242/16/03435" %}
 
-<details id="sending-evidence-guide" class="govuk-details">
-    <summary class="govuk-details__summary">
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <details id="sending-evidence-guide" class="govuk-details">
+            <summary class="govuk-details__summary">
         <span class="govuk-details__summary-text">
           {{ i18n.guidance.sendingEvidence.summary }}
         </span>
-    </summary>
-    <div class="govuk-details__text">
-        <p>{{ i18n.guidance.sendingEvidence.details.para1 }}</p>
-        <p>{{ i18n.guidance.sendingEvidence.details.para2 }}<br><strong>{{ reference }}</strong></p>
-        <h3 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.details.byEmailHeader }}</h3>
-        <p><a href="mailto:{{ i18n.guidance.sendingEvidence.details.emailAddress }}?subject=Evidence:%20{{ reference }}">{{ i18n.guidance.sendingEvidence.details.emailAddress }}</a></p>
-        <h3 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.details.byPostHeader}}</h3>
-        <p>{{ i18n.guidance.sendingEvidence.details.postalAddress | safe }}</p>
-        <p>{{ i18n.guidance.sendingEvidence.details.closingPara }}</p>
+            </summary>
+            <div class="govuk-details__text">
+                <p>{{ i18n.guidance.sendingEvidence.details.para1 }}</p>
+                <p>{{ i18n.guidance.sendingEvidence.details.para2 }}<br><strong>{{ reference }}</strong></p>
+                <h3 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.details.byEmailHeader }}</h3>
+                <p><a href="mailto:{{ i18n.guidance.sendingEvidence.details.emailAddress }}?subject=Evidence:%20{{ reference }}">{{ i18n.guidance.sendingEvidence.details.emailAddress }}</a></p>
+                <h3 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.details.byPostHeader}}</h3>
+                <p>{{ i18n.guidance.sendingEvidence.details.postalAddress | safe }}</p>
+                <p>{{ i18n.guidance.sendingEvidence.details.closingPara }}</p>
+            </div>
+        </details>
     </div>
-</details>
-
+</div>
