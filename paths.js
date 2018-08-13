@@ -1,6 +1,6 @@
 module.exports = {
   health: '/health',
   readiness: '/readiness',
-  question: '/question'
-
+  question: '/question',
+  taskList: '/task-list'
 };
