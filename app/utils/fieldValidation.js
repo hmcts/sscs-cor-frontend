@@ -10,7 +10,7 @@ function answerValidation(answer) {
     .options({
       language: {
         any: { empty: `!!${i18n.question.textareaField.error.empty}` },
-        string: { max: '!!Too much text' }
+        string: { max: `!!${i18n.question.textareaField.error.maxCharacters}` }
       }
     });
 
