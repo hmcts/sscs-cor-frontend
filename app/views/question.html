@@ -10,22 +10,36 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
-            <div>
-                <p id="question-body">{{ question.body }}</p>
-                {{ govukTextarea({
-                    id: 'question-field',
-                    label: {
-                        text: i18n.question.textareaField.label,
-                        classes: 'govuk-visually-hidden'
-                    },
-                    attributes: {
-                        placeholder: i18n.question.textareaField.placeholder
-                    },
-                    rows: 6
-                }) }}
-            </div>
+
+            {% if error %}
+                <h2 class="govuk-heading-l">ERROR</h2>
+                <p>error</p>
+            {% endif %}
+
+            <form action="/question/{{ question.hearingId }}/{{ question.questionId }}" method="post">
+                <div>
+                    <p id="question-body">{{ question.body }}</p>
+                    {{ govukTextarea({
+                        id: 'question-field',
+                        name: 'question-field',
+                        label: {
+                            text: i18n.question.textareaField.label,
+                            classes: 'govuk-visually-hidden'
+                        },
+                        attributes: {
+                            placeholder: i18n.question.textareaField.placeholder
+                        },
+                        rows: 6
+                    }) }}
+                </div>
+
+                {% include "includes/sending-evidence.html" %}
+
+                <div id="submit-buttons">
+                    <input type="submit" name="submit" value="Submit answer to the tribunal" class="govuk-button">
+                    <input type="submit" name="save" value="Save for later" class="govuk-link">
+                </div>
+            </form>
         </div>
     </div>
-
-    {% include "includes/sending-evidence.html" %}
 {% endblock %}

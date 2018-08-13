@@ -7,6 +7,7 @@ const errors = require('app/middleware/error-handler');
 const health = require('app/middleware/health');
 const locale = require('app/locale/en.json');
 const paths = require('paths');
+const bodyParser = require('body-parser');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -32,6 +33,10 @@ function setup(sessionHandler, options) {
     autoescape: true,
     express: app
   });
+
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 
   app.use('/public', express.static(`${__dirname}/public`));
 

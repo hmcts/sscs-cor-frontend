@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 module.exports = {
   path: '/continuous-online-hearings/:onlineHearingId/questions/:questionId',
+  method: 'GET',
   template: {
     question_id: params => `${params.questionId}`,
     question_header_text: 'How do you interact with people?',

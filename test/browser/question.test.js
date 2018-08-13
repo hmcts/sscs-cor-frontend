@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
-const mockData = require('test/mock/data/question').template;
+const mockData = require('test/mock/services/question').template;
 const QuestionPage = require('test/page-objects/question');
 
 const sampleHearingId = '121';
