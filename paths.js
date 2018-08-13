@@ -1,6 +1,6 @@
 module.exports = {
-
-  helloWorld: '/hello-world',
+  health: '/health',
+  readiness: '/readiness',
   question: '/question'
 
 };
