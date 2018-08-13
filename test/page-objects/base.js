@@ -17,6 +17,11 @@ class BasePage {
     expect(this.page.url()).to.equal(`${testUrl}${this.pagePath}`);
   }
 
+  getCurrentUrl() {
+    const url = this.page.url();
+    return url;
+  }
+
   async getHeading() {
     const heading = await this.page.$eval('h1', el => el.innerHTML);
     return heading;
