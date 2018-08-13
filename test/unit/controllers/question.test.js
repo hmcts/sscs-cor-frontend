@@ -79,7 +79,7 @@ describe('controllers/question.js', () => {
       req.body['question-field'] = 'My amazing answer';
       postAnswerService = () => Promise.resolve();
       await postAnswer(postAnswerService)(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(paths.helloWorld);
+      expect(res.redirect).to.have.been.calledWith(paths.taskList);
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
