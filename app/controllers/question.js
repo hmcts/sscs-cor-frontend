@@ -13,7 +13,10 @@ function getQuestion(getQuestionService) {
         hearingId,
         questionId,
         header: response.question_header_text,
-        body: response.question_body_text
+        body: response.question_body_text,
+        answer: {
+          value: response.question_answer_text
+        }
       };
       req.session.question = question;
       req.session.save();

@@ -43,9 +43,11 @@ describe('controllers/question.js', () => {
     it('should call render with the template and question header', async() => {
       const questionHeading = 'What is the meaning of life?';
       const questionBody = 'Many people ask this question...';
+      const questionAnswer = '';
       getQuestionService = () => Promise.resolve({
         question_header_text: questionHeading,
-        question_body_text: questionBody
+        question_body_text: questionBody,
+        question_answer_text: questionAnswer
       });
       await getQuestion(getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question.html', {
@@ -53,7 +55,8 @@ describe('controllers/question.js', () => {
           hearingId: req.params.hearingId,
           questionId: req.params.questionId,
           header: questionHeading,
-          body: questionBody
+          body: questionBody,
+          answer: { value: questionAnswer }
         }
       });
     });

@@ -22,7 +22,7 @@ describe('services/postAnswer.js', () => {
   describe('resolving the promise', () => {
     beforeEach(() => {
       nock(apiUrl)
-        .post(path, {
+        .put(path, {
           answer_state,
           answer_text
         })
@@ -44,7 +44,7 @@ describe('services/postAnswer.js', () => {
 
     beforeEach(() => {
       nock(apiUrl)
-        .post(path, {
+        .put(path, {
           answer_state,
           answer_text
         })
