@@ -19,7 +19,6 @@ function getQuestion(getQuestionService) {
         }
       };
       req.session.question = question;
-      req.session.save();
       res.render('question.html', { question });
     } catch (error) {
       appInsights.trackException(error);
