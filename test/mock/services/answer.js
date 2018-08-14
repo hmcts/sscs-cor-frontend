@@ -1,6 +1,6 @@
 module.exports = {
   path: '/continuous-online-hearings/:hearingId/questions/:questionId/answers',
-  method: 'POST',
+  method: 'PUT',
   template: {
     answer_id: '007'
   }
