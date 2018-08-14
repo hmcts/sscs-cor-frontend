@@ -1,4 +1,4 @@
-/* eslint-disable max-len, no-confusing-arrow */
+/* eslint-disable max-len */
 module.exports = {
   path: '/continuous-online-hearings/:onlineHearingId/questions/:questionId',
   method: 'GET',
