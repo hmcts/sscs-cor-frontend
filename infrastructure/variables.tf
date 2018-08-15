@@ -33,3 +33,8 @@ variable "additional_hostname" {
 variable "common_tags" {
   type = "map"
 }
+
+variable "secure_session" {
+  description = "Whether a secure session is required"
+  default     = "true"
+}
