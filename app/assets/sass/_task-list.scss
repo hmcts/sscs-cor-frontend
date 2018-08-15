@@ -1,0 +1,19 @@
+#task-list {
+  li {
+    border-bottom: 1px solid $govuk-border-colour;
+    padding: 10px 0;
+
+    &:first-child {
+      border-top: 1px solid $govuk-border-colour;
+    }
+
+    .answer-state {
+      @extend .govuk-tag;
+      float: right;
+
+      &.answer_drafted {
+        background-color: #6f777b;
+      }
+    }
+  }
+}
