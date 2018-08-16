@@ -9,7 +9,7 @@ async function postAnswer(hearingId, questionId, answerState, answerText) {
       .put(`${apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}/answers`)
       .send({
         answer_state: answerState,
-        answer_text: answerText
+        answer: answerText
       });
     return Promise.resolve(response.body);
   } catch (error) {

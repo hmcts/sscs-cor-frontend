@@ -47,7 +47,7 @@ describe('controllers/question.js', () => {
       getQuestionService = () => Promise.resolve({
         question_header_text: questionHeading,
         question_body_text: questionBody,
-        question_answer_text: questionAnswer
+        answer: questionAnswer
       });
       await getQuestion(getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question.html', {
