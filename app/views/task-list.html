@@ -11,7 +11,7 @@
             <ul class="govuk-list">
                 {% for question in questions %}
                     {% set answerState = question.current_question_state.state_name %}
-                    <li>
+                    <li id="question-{{ question.question_id }}">
                         <a class="govuk-link" href="/question/{{ hearingId }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
                         {% if answerState %}
                             <span class="answer-state {{ question.current_question_state.state_name }}">
