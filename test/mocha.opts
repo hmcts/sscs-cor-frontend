@@ -1,0 +1,3 @@
+-r jsdom-global/register
+--recursive
+--timeout=10000
