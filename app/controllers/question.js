@@ -15,7 +15,7 @@ function getQuestion(getQuestionService) {
         header: response.question_header_text,
         body: response.question_body_text,
         answer: {
-          value: response.question_answer_text
+          value: response.answer
         }
       };
       req.session.question = question;

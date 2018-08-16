@@ -8,7 +8,6 @@ const paths = require('paths');
 const config = require('config');
 
 const testUrl = config.get('testUrl');
-const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 
 const sampleHearingId = '121';
 const sampleQuestionId = '62';
@@ -65,10 +64,8 @@ describe('Question page', () => {
       .contain(i18n.question.textareaField.error.empty);
   });
 
-  if (testingLocalhost) {
-    it('redirects to /task-list page when a valid answer is saved', async() => {
-      await questionPage.saveAnswer('A valid answer');
-      expect(questionPage.getCurrentUrl()).to.equal(testUrl + paths.taskList);
-    });
-  }
+  it('redirects to /task-list page when a valid answer is saved', async() => {
+    await questionPage.saveAnswer('A valid answer');
+    expect(questionPage.getCurrentUrl()).to.equal(testUrl + paths.taskList);
+  });
 });
