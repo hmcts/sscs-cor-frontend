@@ -17,7 +17,8 @@
     },
     "cookie": {
       "secret": "defaultcookiesecret",
-      "maxAgeInMs": 1800000
+      "maxAgeInMs": 1800000,
+      "secure": "false"
     }
   }
 }
