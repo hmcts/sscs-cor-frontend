@@ -11,9 +11,9 @@ describe('services/postAnswer.js', () => {
   const questionId = '62';
   /* eslint-disable camelcase */
   const answer_state = 'answer_drafted';
-  const answer_text = 'My answer';
+  const answer = 'My answer';
   /* eslint-enable camelcase */
-  const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}/answers`;
+  const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
 
   const apiResponse = {
     answer_id: '001'
@@ -24,17 +24,17 @@ describe('services/postAnswer.js', () => {
       nock(apiUrl)
         .put(path, {
           answer_state,
-          answer_text
+          answer
         })
         .reply(OK, apiResponse);
     });
 
     it('resolves the promise', () => (
-      expect(postAnswerService(hearingId, questionId, answer_state, answer_text)).to.be.fulfilled
+      expect(postAnswerService(hearingId, questionId, answer_state, answer)).to.be.fulfilled
     ));
 
     it('resolves the promise with the response', () => (
-      expect(postAnswerService(hearingId, questionId, answer_state, answer_text))
+      expect(postAnswerService(hearingId, questionId, answer_state, answer))
         .to.eventually.eql(apiResponse)
     ));
   });
@@ -46,13 +46,13 @@ describe('services/postAnswer.js', () => {
       nock(apiUrl)
         .put(path, {
           answer_state,
-          answer_text
+          answer
         })
         .replyWithError(error);
     });
 
     it('rejects the promise with the error', () => (
-      expect(postAnswerService(hearingId, questionId, answer_state, answer_text))
+      expect(postAnswerService(hearingId, questionId, answer_state, answer))
         .to.be.rejectedWith(error)
     ));
   });
