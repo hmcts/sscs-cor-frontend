@@ -10,8 +10,10 @@ class QuestionPage extends BasePage {
 
   async saveAnswer(answer) {
     await this.enterTextintoField('#question-field', answer);
-    await this.clickElement('#save-answer');
-    await this.page.waitForSelector('body');
+    await Promise.all([
+      this.page.waitForNavigation(),
+      this.clickElement('#save-answer')
+    ]);
   }
 }
 
