@@ -63,7 +63,7 @@ async function createQuestion(hearingId) {
   };
   const body = await rp.post(options);
   console.log('Created question with ID', body.question_id);
-  return body.question_id;
+  return body;
 }
 
 async function setQuestionRoundToIssued(hearingId) {
