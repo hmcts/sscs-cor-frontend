@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% from "components/textarea/macro.njk" import govukTextarea %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block beforeContent %}
     {{ super() }}
@@ -9,23 +10,47 @@
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
-            <div>
-                <p id="question-body">{{ question.body }}</p>
-                {{ govukTextarea({
-                    id: 'question-field',
-                    label: {
-                        text: i18n.question.textareaField.label,
-                        classes: 'govuk-visually-hidden'
-                    },
-                    attributes: {
-                        placeholder: i18n.question.textareaField.placeholder
-                    },
-                    rows: 6
+
+            {% if question.answer.error %}
+                {{ govukErrorSummary({
+                    titleText: i18n.question.textareaField.error.summaryHeading,
+                    errorList: [{
+                        text: question.answer.error,
+                        href: "#question-field"
+                    }]
                 }) }}
-            </div>
+            {% endif %}
+
+            <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
+
+            <form action="/question/{{ question.hearingId }}/{{ question.questionId }}" method="post">
+                <div>
+                    <p id="question-body">{{ question.body }}</p>
+                    {{ govukTextarea({
+                        id: 'question-field',
+                        name: 'question-field',
+                        value: question.answer.value,
+                        label: {
+                            text: i18n.question.textareaField.label,
+                            classes: 'govuk-visually-hidden'
+                        },
+                        attributes: {
+                            placeholder: i18n.question.textareaField.placeholder
+                        },
+                        rows: 6,
+                        errorMessage: {
+                            text: question.answer.error
+                        } if question.answer.error
+                    }) }}
+                </div>
+
+                {% include "includes/sending-evidence.html" %}
+
+                <div id="submit-buttons">
+                    <input id="submit-answer" type="submit" name="submit" value="Submit answer to the tribunal" class="govuk-button">
+                    <input id="save-answer" type="submit" name="save" value="Save for later" class="govuk-link">
+                </div>
+            </form>
         </div>
     </div>
-
-    {% include "includes/sending-evidence.html" %}
 {% endblock %}
