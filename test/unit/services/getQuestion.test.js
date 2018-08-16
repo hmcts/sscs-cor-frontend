@@ -6,7 +6,7 @@ const config = require('config');
 
 const apiUrl = config.get('api.url');
 
-describe('getQuestion.js', () => {
+describe('services/getQuestion.js', () => {
   const hearingId = '121';
   const questionId = '62';
   const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;

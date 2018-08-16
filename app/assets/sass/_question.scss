@@ -15,3 +15,22 @@
 #question-body {
   white-space: pre-wrap;
 }
+
+#submit-buttons {
+  input {
+    display: block;
+
+    &.govuk-link {
+      @include govuk-font($size: 19);
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      color: #005ea5;
+      padding-left: 0;
+
+      &:hover {
+        color: #2b8cc4;
+      }
+    }
+  }
+}

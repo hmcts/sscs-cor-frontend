@@ -17,6 +17,11 @@ class BasePage {
     expect(this.page.url()).to.equal(`${testUrl}${this.pagePath}`);
   }
 
+  getCurrentUrl() {
+    const url = this.page.url();
+    return url;
+  }
+
   async getHeading() {
     const heading = await this.page.$eval('h1', el => el.innerHTML);
     return heading;
@@ -27,9 +32,23 @@ class BasePage {
     return body;
   }
 
+  async getElementText(selector) {
+    await this.page.waitForSelector(selector);
+    const element = await this.page.$eval(selector, el => el.innerHTML);
+    return element;
+  }
+
   async getElement(selector) {
     const element = await this.page.$(selector);
     return element;
+  }
+
+  async enterTextintoField(selector, text) {
+    await this.page.type(selector, text);
+  }
+
+  async clickElement(selector) {
+    await this.page.click(selector);
   }
 
   async screenshot(filename) {

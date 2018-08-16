@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = () => {
   const dysonOptions = {
-    configDir: path.resolve(__dirname, './data/'),
+    configDir: path.resolve(__dirname, './services/'),
     port: 8080
   };
   const configs = dyson.getConfigurations(dysonOptions);
