@@ -13,7 +13,7 @@ describe('services/postAnswer.js', () => {
   const answer_state = 'answer_drafted';
   const answer = 'My answer';
   /* eslint-enable camelcase */
-  const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}/answers`;
+  const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
 
   const apiResponse = {
     answer_id: '001'
