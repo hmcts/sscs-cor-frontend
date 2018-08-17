@@ -4,7 +4,7 @@
 
 {% block beforeContent %}
     {{ super() }}
-    <a href="#" class="govuk-back-link">{{ i18n.backLink }}</a>
+    <a href="/task-list/{{ question.hearingId }}" class="govuk-back-link">{{ i18n.backLink }}</a>
 {% endblock %}
 
 {% block content %}
