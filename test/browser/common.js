@@ -10,6 +10,7 @@ const dysonSetup = require('test/mock/dysonSetup');
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
 const testingLocalhost = testUrl.indexOf('localhost') !== -1;
+const oneMinute = 60000;
 
 let browser;
 let server;
@@ -56,6 +57,7 @@ async function bootstrapCoh() {
       const hearingId = await coh.createOnlineHearing();
       const questionId = await coh.createQuestion(hearingId);
       await coh.setQuestionRoundToIssued(hearingId);
+      await new Promise(r => setTimeout(r, oneMinute));
       cohTestData = { hearingId, questionId };
     } catch (error) {
       console.log('Error bootstrapping COH with test data', error);
