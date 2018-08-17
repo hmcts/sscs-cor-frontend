@@ -28,6 +28,7 @@
                     <p id="question-body">{{ question.body }}</p>
                     {{ govukTextarea({
                         id: 'question-field',
+                        classes: 'auto-expand',
                         name: 'question-field',
                         value: question.answer.value,
                         label: {
