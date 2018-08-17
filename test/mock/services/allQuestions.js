@@ -1,5 +1,5 @@
 module.exports = {
-  path: '/continuous-online-hearings/:onlineHearingId/questions',
+  path: '/continuous-online-hearings/:onlineHearingId',
   method: 'GET',
   template: {
     questions: [

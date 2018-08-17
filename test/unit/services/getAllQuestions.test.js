@@ -8,7 +8,7 @@ const apiUrl = config.get('api.url');
 
 describe('services/getAllQuestions.js', () => {
   const hearingId = '121';
-  const path = `/continuous-online-hearings/${hearingId}/questions`;
+  const path = `/continuous-online-hearings/${hearingId}`;
 
   const apiResponse = {
     questions: [
