@@ -66,6 +66,6 @@ describe('Question page', () => {
 
   it('redirects to /task-list page when a valid answer is saved', async() => {
     await questionPage.saveAnswer('A valid answer');
-    expect(questionPage.getCurrentUrl()).to.equal(testUrl + paths.taskList);
+    expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
   });
 });
