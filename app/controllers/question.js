@@ -46,7 +46,7 @@ function postAnswer(postAnswerService) {
     } else {
       try {
         await postAnswerService(hearingId, questionId, answerState, answerText);
-        res.redirect(paths.taskList);
+        res.redirect(`${paths.taskList}/${hearingId}`);
       } catch (error) {
         appInsights.trackException(error);
         next(error);

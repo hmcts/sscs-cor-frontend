@@ -55,10 +55,12 @@ async function bootstrapCoh() {
   if (!cohTestData && !testingLocalhost) {
     try {
       const hearingId = await coh.createOnlineHearing();
-      const questionId = await coh.createQuestion(hearingId);
+      const question = await coh.createQuestion(hearingId);
+      const questionId = question.question_id;
+      const questionHeader = question.question_header_text;
       await coh.setQuestionRoundToIssued(hearingId);
       await new Promise(r => setTimeout(r, oneMinute));
-      cohTestData = { hearingId, questionId };
+      cohTestData = { hearingId, questionId, questionHeader };
     } catch (error) {
       console.log('Error bootstrapping COH with test data', error);
     }

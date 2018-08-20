@@ -24,7 +24,11 @@
     }
   },
   "taskList": {
-    "header": "Task list"
+    "header": "Task list",
+    "answerState": {
+      "draft": "Draft",
+      "completed": "Completed"
+    }
   },
   "question": {
     "textareaField": {
