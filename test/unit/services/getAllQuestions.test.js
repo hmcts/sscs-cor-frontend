@@ -15,9 +15,7 @@ describe('services/getAllQuestions.js', () => {
       {
         question_id: '001',
         question_header_text: 'How do you interact with people?',
-        current_question_state: {
-          state_name: 'answer_drafted'
-        }
+        answer_state: 'draft'
       }
     ]
   };
