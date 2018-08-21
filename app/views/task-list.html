@@ -10,14 +10,14 @@
             <h2 class="govuk-heading-s">Questions from the tribunal</h2>
             <ul class="govuk-list">
                 {% for question in questions %}
-                    {% set answerState = question.current_question_state.state_name %}
+                    {% set answerState = question.answer_state %}
                     <li id="question-{{ question.question_id }}">
                         <a class="govuk-link" href="/question/{{ hearingId }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
-                        {% if answerState %}
+                        {% if answerState != 'unanswered' %}
                             <span class="answer-state {{ question.current_question_state.state_name }}">
                                 {{
                                     i18n.taskList.answerState.completed
-                                    if answerState === 'answer_submitted'
+                                    if answerState === 'submitted'
                                     else i18n.taskList.answerState.draft
                                 }}
                             </span>
