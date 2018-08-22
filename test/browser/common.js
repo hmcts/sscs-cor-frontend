@@ -9,6 +9,8 @@ const dysonSetup = require('test/mock/dysonSetup');
 
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
+const headless = config.get('headless') !== 'false';
+const httpProxy = config.get('httpProxy');
 const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 const oneMinute = 60000;
 
@@ -19,12 +21,13 @@ let cohTestData;
 async function startBrowser() {
   if (!browser) {
     console.log('Starting browser');
+    const args = ['--no-sandbox', '--start-maximized'];
+    if (httpProxy) {
+      args.push(`-proxy-server=${httpProxy}`);
+    }
     const opts = {
-      args: [
-        '--no-sandbox',
-        '--start-maximized'
-      ],
-      headless: true,
+      args,
+      headless,
       timeout: 10000,
       ignoreHTTPSErrors: true
     };
