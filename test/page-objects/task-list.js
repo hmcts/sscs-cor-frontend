@@ -9,7 +9,10 @@ class TaskListPage extends BasePage {
   }
 
   async clickQuestion(questionId) {
-    await this.clickElement(`#question-${questionId} a`);
+    await Promise.all([
+      this.page.waitForNavigation(),
+      this.clickElement(`#question-${questionId} a`)
+    ]);
   }
 }
 
