@@ -14,7 +14,7 @@
                     <li id="question-{{ question.question_id }}">
                         <a class="govuk-link" href="/question/{{ hearingId }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
                         {% if answerState != 'unanswered' %}
-                            <span class="answer-state {{ question.current_question_state.state_name }}">
+                            <span class="answer-state {{ question.answer_state }}">
                                 {{
                                     i18n.taskList.answerState.completed
                                     if answerState === 'submitted'
