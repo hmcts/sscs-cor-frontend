@@ -4,6 +4,8 @@
   },
   "testUrl": "TEST_URL",
   "cohUrl": "COH_URL",
+  "httpProxy": "HTTP_PROXY",
+  "headless": "HEADLESS",
   "api": {
     "url": "SSCS_API_URL"
   },
