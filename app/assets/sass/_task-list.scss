@@ -11,7 +11,7 @@
       @extend .govuk-tag;
       float: right;
 
-      &.answer_drafted {
+      &.draft {
         background-color: #6f777b;
       }
     }
