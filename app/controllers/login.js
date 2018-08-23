@@ -1,7 +1,7 @@
 const { Logger } = require('@hmcts/nodejs-logging');
 const appInsights = require('app-insights');
 const express = require('express');
-const { NOT_FOUND } = require('http-status-codes');
+const { NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const paths = require('paths');
 const i18n = require('app/locale/en.json');
 const { loginEmailAddressValidation } = require('app/utils/fieldValidation');
@@ -36,11 +36,11 @@ function postLogin(getOnlineHearingService) {
     }
     try {
       const response = await getOnlineHearingService(email);
-      if (response.status === NOT_FOUND) {
-        logger.info(`Online hearing not found for ${email}`);
+      if (response.status === NOT_FOUND || response.status === UNPROCESSABLE_ENTITY) {
+        logger.info(`Know issue trying to find hearing for ${email}, status ${response.status}`);
         const emailAddress = {
           value: email,
-          error: i18n.login.emailAddress.error.notFound
+          error: i18n.login.emailAddress.error[`error${response.status}`]
         };
         return res.render('login.html', { emailAddress });
       }

@@ -1,4 +1,4 @@
-const { NOT_FOUND } = require('http-status-codes');
+const { NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 
 module.exports = {
   path: '/continuous-online-hearings',
@@ -6,6 +6,9 @@ module.exports = {
   status: (req, res, next) => {
     if (req.query.email === 'not.found@example.com') {
       res.status(NOT_FOUND);
+    }
+    if (req.query.email === 'multiple@example.com') {
+      res.status(UNPROCESSABLE_ENTITY);
     }
     next();
   },
