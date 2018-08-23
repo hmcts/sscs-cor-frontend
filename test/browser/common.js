@@ -1,4 +1,4 @@
-/* eslint-disable init-declarations, no-console */
+/* eslint-disable no-console */
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
 const createSession = require('app/middleware/session');
