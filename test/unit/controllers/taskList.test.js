@@ -23,7 +23,6 @@ describe('controllers/taskList.js', () => {
   });
 
   describe('getTaskList', () => {
-    // eslint-disable-next-line init-declarations
     let getAllQuestionsService;
 
     beforeEach(() => {
