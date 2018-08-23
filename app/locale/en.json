@@ -6,9 +6,6 @@
     "feedback": "feedback",
     "improve": "will help us to improve it."
   },
-  "helloWorld": {
-    "header": "Hello world"
-  },
   "guidance": {
     "sendingEvidence": {
       "summary": "Sending evidence to support your answer",
@@ -22,6 +19,9 @@
         "closingPara": "Useful evidence helps prove what you have said in your answer such as a letter from a doctor or someone who knows you well. You do not have to send in evidence if you don’t have any."
       }
     }
+  },
+  "login": {
+    "header": "Login"
   },
   "taskList": {
     "header": "Task list",
