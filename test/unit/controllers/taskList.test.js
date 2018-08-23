@@ -49,7 +49,7 @@ describe('controllers/taskList.js', () => {
       ];
       getAllQuestionsService = () => Promise.resolve({ questions });
       await getTaskList(getAllQuestionsService)(req, res, next);
-      expect(res.render).to.have.been.calledWith('task-list.html', { questions });
+      expect(res.render).to.have.been.calledWith('task-list.html', { hearingId: '1', questions });
     });
 
     it('should call next and appInsights with the error when there is one', async() => {

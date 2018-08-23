@@ -58,8 +58,8 @@ function postAnswer(postAnswerService) {
 function setupQuestionController(deps) {
   // eslint-disable-next-line new-cap
   const router = express.Router();
-  router.get('/:hearingId/:questionId', deps.ensureAuthenticated, getQuestion(deps.getQuestionService));
-  router.post('/:hearingId/:questionId', deps.ensureAuthenticated, postAnswer(deps.postAnswerService));
+  router.get('/:hearingId/:questionId', getQuestion(deps.getQuestionService));
+  router.post('/:hearingId/:questionId', postAnswer(deps.postAnswerService));
   return router;
 }
 
