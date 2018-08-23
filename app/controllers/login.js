@@ -9,6 +9,17 @@ function getLogin(req, res) {
   return res.render('login.html');
 }
 
+function getLogout(req, res) {
+  const sessionId = req.session.id;
+  req.session.destroy(error => {
+    if (error) {
+      logger.error(`Error destroying session ${sessionId}`);
+    }
+    logger.info(`Session destroyed ${sessionId}`);
+    return res.redirect(paths.login);
+  });
+}
+
 function postLogin(getOnlineHearingService) {
   return async(req, res, next) => {
     const email = req.body['email-address'];
@@ -31,6 +42,7 @@ function setupLoginController(deps) {
   // eslint-disable-next-line new-cap
   const router = express.Router();
   router.get(paths.login, getLogin);
+  router.get(paths.logout, getLogout);
   router.post(paths.login, postLogin(deps.getOnlineHearingService));
   return router;
 }
@@ -38,5 +50,6 @@ function setupLoginController(deps) {
 module.exports = {
   setupLoginController,
   getLogin,
+  getLogout,
   postLogin
 };

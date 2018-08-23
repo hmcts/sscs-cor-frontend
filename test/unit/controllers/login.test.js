@@ -1,5 +1,5 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { getLogin, postLogin, setupLoginController } = require('app/controllers/login');
+const { getLogin, getLogout, postLogin, setupLoginController } = require('app/controllers/login');
 const appInsights = require('app-insights');
 const express = require('express');
 const paths = require('paths');
@@ -17,7 +17,8 @@ describe('controllers/login.js', () => {
   beforeEach(() => {
     req = {
       session: {
-        question: {}
+        question: {},
+        destroy: sinon.stub().yields()
       },
       body: {
         'email-address': 'test@example.com'
@@ -39,6 +40,14 @@ describe('controllers/login.js', () => {
     it('renders the template', () => {
       getLogin(req, res);
       expect(res.render).to.have.been.calledWith('login.html');
+    });
+  });
+
+  describe('#getLogout', () => {
+    it('destroys the session and redirects to login', () => {
+      getLogout(req, res);
+      expect(req.session.destroy).to.have.been.calledOnce.calledWith();
+      expect(res.redirect).to.have.been.calledOnce.calledWith(paths.login);
     });
   });
 

@@ -3,5 +3,6 @@ module.exports = {
   readiness: '/readiness',
   question: '/question',
   taskList: '/task-list',
-  login: '/login'
+  login: '/login',
+  logout: '/logout'
 };
