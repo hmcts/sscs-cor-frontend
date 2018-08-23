@@ -19,11 +19,11 @@ describe('utils/fieldValidation.js', () => {
     });
 
     it('returns the error message if answer is not an email', () => {
-      expect(loginEmailAddressValidation('not.an.email')).to.equal(i18n.login.emailAddress.error.empty);
+      expect(loginEmailAddressValidation('not.an.email')).to.equal(i18n.login.emailAddress.error.format);
     });
 
     it('returns false if answer is valid', () => {
-      expect(answerValidation('test@example.com')).to.equal(false);
+      expect(loginEmailAddressValidation('test@example.com')).to.equal(false);
     });
   });
 });
