@@ -1,6 +1,6 @@
 const getOnlineHearingService = require('app/services/getOnlineHearing');
 const { expect } = require('test/chai-sinon');
-const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
+const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const nock = require('nock');
 const config = require('config');
 
@@ -60,6 +60,20 @@ describe('services/getOnlineHearing.js', () => {
     it('resolves the promise with 404 status', async() => {
       const response = await getOnlineHearingService(email);
       expect(response.status).to.equal(NOT_FOUND);
+    });
+  });
+
+  describe('multiple hearings found', () => {
+    beforeEach(() => {
+      nock(apiUrl)
+        .get(path)
+        .query({ email })
+        .reply(UNPROCESSABLE_ENTITY);
+    });
+
+    it('resolves the promise with 422 status', async() => {
+      const response = await getOnlineHearingService(email);
+      expect(response.status).to.equal(UNPROCESSABLE_ENTITY);
     });
   });
 });

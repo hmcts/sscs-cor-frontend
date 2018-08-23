@@ -27,7 +27,8 @@
         "summaryHeading": "There is a problem",
         "empty": "Enter your email address",
         "format": "Enter a valid email address",
-        "notFound": "Online hearing could not be found"
+        "error404": "Online hearing could not be found",
+        "error422": "Multiple online hearings found"
       }
     }
   },
