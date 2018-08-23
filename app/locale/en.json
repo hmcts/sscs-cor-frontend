@@ -21,7 +21,14 @@
     }
   },
   "login": {
-    "header": "Login"
+    "header": "Login",
+    "emailAddress": {
+      "error": {
+        "summaryHeading": "There is a problem",
+        "empty": "Enter your email address",
+        "format": "Enter a valid email address"
+      }
+    }
   },
   "taskList": {
     "header": "Task list",
