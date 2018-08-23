@@ -2,6 +2,7 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const appInsights = require('app-insights');
 const express = require('express');
 const paths = require('paths');
+const { loginEmailAddressValidation } = require('app/utils/fieldValidation');
 
 const logger = Logger.getLogger('login.js');
 
@@ -23,8 +24,13 @@ function getLogout(req, res) {
 function postLogin(getOnlineHearingService) {
   return async(req, res, next) => {
     const email = req.body['email-address'];
-    if (!email) {
-      return res.redirect(paths.login);
+    const validationMessage = loginEmailAddressValidation(email);
+    if (validationMessage) {
+      const emailAddress = {
+        value: email,
+        error: validationMessage
+      };
+      return res.render('login.html', { emailAddress });
     }
     try {
       const hearing = await getOnlineHearingService(email);
