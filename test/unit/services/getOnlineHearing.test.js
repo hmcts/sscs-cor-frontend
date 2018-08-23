@@ -10,7 +10,7 @@ describe('services/getOnlineHearing.js', () => {
   const email = 'test@example.com';
   const path = '/continuous-online-hearings';
 
-  const apiResponse = {
+  const apiResponseBody = {
     appellant_name: 'Adam Jenkins',
     case_reference: 'SC/112/233',
     online_hearing_id: 'abc-123-def-456'
@@ -21,16 +21,17 @@ describe('services/getOnlineHearing.js', () => {
       nock(apiUrl)
         .get(path)
         .query({ email })
-        .reply(OK, apiResponse);
+        .reply(OK, apiResponseBody);
     });
 
     it('resolves the promise', () => (
       expect(getOnlineHearingService(email)).to.be.fulfilled
     ));
 
-    it('resolves the promise with the response', () => (
-      expect(getOnlineHearingService(email)).to.eventually.eql(apiResponse)
-    ));
+    it('resolves the promise with the response', async() => {
+      const response = await getOnlineHearingService(email);
+      expect(response.body).to.deep.equal(apiResponseBody);
+    });
   });
 
   describe('error response', () => {
@@ -56,8 +57,9 @@ describe('services/getOnlineHearing.js', () => {
         .reply(NOT_FOUND);
     });
 
-    it('rejects the promise', () => (
-      expect(getOnlineHearingService(email)).to.be.rejectedWith('Not Found')
-    ));
+    it('resolves the promise with 404 status', async() => {
+      const response = await getOnlineHearingService(email);
+      expect(response.status).to.equal(NOT_FOUND);
+    });
   });
 });
