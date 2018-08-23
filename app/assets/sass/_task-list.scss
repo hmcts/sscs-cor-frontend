@@ -1,4 +1,5 @@
 #task-list {
+  margin-top: 40px;
   li {
     border-bottom: 1px solid $govuk-border-colour;
     padding: 10px 0;
@@ -12,8 +13,14 @@
       float: right;
 
       &.draft {
-        background-color: #6f777b;
+        background-color: govuk-colour("grey-1");
       }
     }
+  }
+}
+
+#appeal-details {
+  h2 {
+    margin-bottom: 0;
   }
 }
