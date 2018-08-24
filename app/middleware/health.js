@@ -1,6 +1,6 @@
 const request = require('superagent');
 const { OK, SERVICE_UNAVAILABLE } = require('http-status-codes');
-const appInsights = require('app-insights');
+const appInsights = require('app/server/app-insights');
 const { Logger } = require('@hmcts/nodejs-logging');
 const healthCheck = require('@hmcts/nodejs-healthcheck');
 

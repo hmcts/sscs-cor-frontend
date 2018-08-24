@@ -1,5 +1,5 @@
 const express = require('express');
-const paths = require('paths');
+const paths = require('app/server/paths');
 
 const { setupQuestionController } = require('app/controllers/question');
 const { setupTaskListController } = require('app/controllers/taskList');

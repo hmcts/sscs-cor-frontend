@@ -1,9 +1,9 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { getQuestion, postAnswer, setupQuestionController } = require('app/controllers/question');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-const appInsights = require('app-insights');
+const appInsights = require('app/server/app-insights');
 const express = require('express');
-const paths = require('paths');
+const paths = require('app/server/paths');
 const i18n = require('app/locale/en');
 
 describe('controllers/question.js', () => {

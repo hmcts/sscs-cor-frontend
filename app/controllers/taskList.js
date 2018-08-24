@@ -1,4 +1,4 @@
-const appInsights = require('app-insights');
+const appInsights = require('app/server/app-insights');
 const express = require('express');
 
 function getTaskList(getAllQuestionsService) {
