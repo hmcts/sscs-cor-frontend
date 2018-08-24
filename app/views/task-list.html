@@ -6,13 +6,30 @@
 
         <h1 class="govuk-heading-l">{{ i18n.taskList.header }}</h1>
 
+        {% if hearing.appellant_name %}
+            <div id="appeal-details">
+                <h2 class="govuk-heading-m">{{ hearing.appellant_name }} <a id="logout" class="govuk-link" href="/logout">Logout</a></h2>
+                <p>Appeal reference: {{ hearing.case_reference }}</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="divider"></div>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
         <div id="task-list">
             <h2 class="govuk-heading-s">Questions from the tribunal</h2>
             <ul class="govuk-list">
                 {% for question in questions %}
                     {% set answerState = question.answer_state %}
                     <li id="question-{{ question.question_id }}">
-                        <a class="govuk-link" href="/question/{{ hearingId }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
+                        <a class="govuk-link" href="/question/{{ hearing.online_hearing_id or hearingId }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
                         {% if answerState != 'unanswered' %}
                             <span class="answer-state {{ question.answer_state }}">
                                 {{

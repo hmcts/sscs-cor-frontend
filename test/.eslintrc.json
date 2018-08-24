@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "init-declarations": "off",
+    "max-nested-callbacks": "off"
+  }
+}

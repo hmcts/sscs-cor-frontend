@@ -3,7 +3,6 @@ const { startServices } = require('test/browser/common');
 const testUrl = require('config').get('testUrl');
 
 describe('Health check @smoke', () => {
-  /* eslint-disable-next-line init-declarations */
   let page;
 
   before(async() => {
