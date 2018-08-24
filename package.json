@@ -14,9 +14,10 @@
     "build": "yarn build-sass && yarn build-js && yarn copy-assets",
     "build-sass": "node-sass app/assets/sass/application.scss public/css/main.css --output-style compressed",
     "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend",
-    "build-js": "browserify ./app/assets/javascript/main.js -o ./public/js/main.js",
-    "test": "yarn test:unit && yarn test:browser",
+    "build-js": "browserify ./app/assets/javascript/main.ts -p [ tsify --noImplicitAny ] -o ./public/js/main.js",
+    "test": "yarn test:unit && yarn test:unit-ts && yarn test:browser",
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha test/unit --recursive",
+    "test:unit-ts": "cross-env NODE_PATH=. NODE_ENV=test mocha  -r ts-node/register test/unit/**/*.test.ts --recursive",
     "test:browser": "cross-env NODE_PATH=. NODE_ENV=test mocha test/browser",
     "test:functional": "yarn test:browser -g @smoke --invert",
     "test:smoke": "yarn test:browser -g @smoke",
@@ -57,6 +58,10 @@
   },
   "devDependencies": {
     "@hmcts/eslint-config": "^1.4.0",
+    "@types/chai": "^4.1.4",
+    "@types/jquery": "^3.3.6",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^9.4.6",
     "browserify": "^16.2.2",
     "chai": "^3.5.0",
     "chai-as-promised": "^7.1.1",
@@ -79,6 +84,10 @@
     "sinon-chai": "^2.9.0",
     "sonar-scanner": "^3.0.3",
     "supertest": "^3.1.0",
+    "ts-node": "^5.0.1",
+    "tsify": "^4.0.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.9.2",
     "uuid": "^3.3.2"
   }
 }
