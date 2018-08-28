@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/services/question').template;
@@ -46,9 +45,9 @@ describe('Question page', () => {
     expect(await questionPage.getBody()).to.contain(mockData.question_body_text);
   });
 
-  it('displays question answer box', async() => {
-    expect(await questionPage.getElement('#question-field')).to.not.be.null;
-  });
+  it('displays question answer box', async() => (
+    expect(await questionPage.getElement('#question-field')).to.not.be.null
+  ));
 
   it('displays an error message in the summary when you try to save an empty answer', async() => {
     await questionPage.saveAnswer('');
