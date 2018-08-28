@@ -3,18 +3,28 @@ const { setupTaskListController, getTaskList } = require('app/controllers/taskLi
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const appInsights = require('app/server/app-insights');
 const express = require('express');
+const paths = require('paths');
 
 describe('controllers/taskList.js', () => {
-  const next = sinon.stub();
-  const req = {}, res = {};
-
-  req.params = {
-    hearingId: '1'
+  let req;
+  let res;
+  let next;
+  const hearingDetails = {
+    online_hearing_id: '1',
+    case_reference: 'SC/123/456',
+    appellant_name: 'John Smith'
   };
 
-  res.render = sinon.stub();
-
   beforeEach(() => {
+    req = {
+      session: {
+        hearing: hearingDetails
+      }
+    };
+    res = {
+      render: sinon.stub()
+    };
+    next = sinon.stub();
     sinon.stub(appInsights, 'trackException');
   });
 
@@ -23,7 +33,6 @@ describe('controllers/taskList.js', () => {
   });
 
   describe('getTaskList', () => {
-    // eslint-disable-next-line init-declarations
     let getAllQuestionsService;
 
     beforeEach(() => {
@@ -40,10 +49,7 @@ describe('controllers/taskList.js', () => {
       ];
       getAllQuestionsService = () => Promise.resolve({ questions });
       await getTaskList(getAllQuestionsService)(req, res, next);
-      expect(res.render).to.have.been.calledWith('task-list.html', {
-        hearingId: req.params.hearingId,
-        questions
-      });
+      expect(res.render).to.have.been.calledWith('task-list.html', { hearingId: '1', questions });
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
@@ -74,7 +80,7 @@ describe('controllers/taskList.js', () => {
     it('calls router.get with the path and middleware', () => {
       setupTaskListController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith('/:hearingId');
+      expect(express.Router().get).to.have.been.calledWith(paths.taskList);
     });
 
     it('returns the router', () => {

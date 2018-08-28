@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/services/allQuestions').template;
@@ -12,13 +11,11 @@ const sampleHearingId = '121';
 const sampleQuestionId = '001';
 
 describe('Task list page', () => {
-  /* eslint-disable init-declarations */
   let page;
   let taskListpage;
   let hearingId;
   let questionId;
   let questionHeader;
-  /* eslint-enable init-decalarations */
 
   before(async() => {
     const res = await startServices({ bootstrapCoh: true });

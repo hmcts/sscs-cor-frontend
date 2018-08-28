@@ -13,12 +13,10 @@ const sampleHearingId = '121';
 const sampleQuestionId = '62';
 
 describe('Question page', () => {
-  /* eslint-disable init-declarations */
   let page;
   let questionPage;
   let hearingId;
   let questionId;
-  /* eslint-enable init-decalarations */
 
   before(async() => {
     const res = await startServices({ bootstrapCoh: true });

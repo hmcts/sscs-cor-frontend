@@ -2,7 +2,6 @@ const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
 const { expect, sinon } = require('test/chai-sinon');
 const errorHandler = require('app/middleware/error-handler');
 
-/* eslint-disable init-declarations */
 describe('middleware/error-handler', () => {
   let req;
   let res;

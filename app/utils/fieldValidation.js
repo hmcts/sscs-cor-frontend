@@ -24,6 +24,25 @@ function answerValidation(answer) {
   return error;
 }
 
+function loginEmailAddressValidation(email) {
+  const schema = Joi.string()
+    .required()
+    .email({ minDomainAtoms: 2 })
+    .options({
+      language: {
+        any: { empty: `!!${i18n.login.emailAddress.error.empty}` },
+        string: { email: `!!${i18n.login.emailAddress.error.format}` }
+      }
+    });
+  const result = schema.validate(email);
+  let error = false;
+  if (result.error) {
+    error = result.error.details[0].message;
+  }
+  return error;
+}
+
 module.exports = {
-  answerValidation
+  answerValidation,
+  loginEmailAddressValidation
 };
