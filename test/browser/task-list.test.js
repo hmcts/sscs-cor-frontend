@@ -26,8 +26,8 @@ describe('Task list page', () => {
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;
     questionId = res.cohTestData.questionId || sampleQuestionId;
-    questionHeader = res.cohTestData.questionHeader || mockData.questions[0].question_header_text;
-    const deadlineExpiryDate = res.cohTestData.deadlineExpiryDate || mockData.deadline_expiry_date();
+    questionHeader = res.cohTestData.questionHeader || mockData.questions({ sampleHearingId })[0].question_header_text;
+    const deadlineExpiryDate = res.cohTestData.deadlineExpiryDate || mockData.deadline_expiry_date({ sampleHearingId });
     deadlineExpiryDateFormatted = moment.utc(deadlineExpiryDate).format('D MMMM YYYY');
     taskListpage = new TaskListPage(page, hearingId);
     await taskListpage.visitPage();

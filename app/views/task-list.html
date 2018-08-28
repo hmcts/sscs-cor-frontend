@@ -29,8 +29,11 @@
         <div id="task-list">
             <h2 class="govuk-heading-s">Questions from the tribunal</h2>
             <p>
-                <span id="deadline-status">{{ i18n.taskList.deadline[deadlineExpiryDate.status] }}</span> <span id="deadline-date">{{ deadlineExpiryDate.formatted }}</span>.
-                {% if deadlineExpiryDate.extensionAllowed %}
+                <span id="deadline-status">{{ i18n.taskList.deadline[deadlineExpiryDate.status] }}</span>
+                {% if deadlineExpiryDate.formatted !== '' %}
+                    <span id="deadline-date">{{ deadlineExpiryDate.formatted }}</span>.
+                {% endif %}
+                {% if deadlineExpiryDate.extendable %}
                     <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>
                 {% endif %}
             </p>
