@@ -5,7 +5,11 @@ class TaskListPage extends BasePage {
   constructor(page, hearingId) {
     super(page);
     this.page = page;
-    this.pagePath = `${taskList}/${hearingId}`;
+    let path = taskList;
+    if (hearingId) {
+      path += `/${hearingId}`;
+    }
+    this.pagePath = path;
   }
 
   async clickQuestion(questionId) {
