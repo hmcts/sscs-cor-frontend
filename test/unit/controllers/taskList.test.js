@@ -1,10 +1,12 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { setupTaskListController, getTaskList } = require('app/controllers/taskList');
+const { setupTaskListController, getTaskList, processDeadline } = require('app/controllers/taskList');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
+const moment = require('moment');
 const appInsights = require('app/server/app-insights');
 const express = require('express');
 const paths = require('app/server/paths');
 
+/* eslint-disable no-magic-numbers */
 describe('controllers/taskList.js', () => {
   let req;
   let res;
@@ -34,22 +36,66 @@ describe('controllers/taskList.js', () => {
 
   describe('getTaskList', () => {
     let getAllQuestionsService;
+    let questions;
+    const deadline = moment().utc().add(7, 'days');
+    const inputDeadline = deadline.format();
+    const expectedDeadline = deadline.format('D MMMM YYYY');
 
     beforeEach(() => {
       getAllQuestionsService = null;
-    });
-
-    it('should call render with the template and the list of questions', async() => {
-      const questions = [
+      questions = [
         {
           question_id: '001',
           question_header_text: 'How do you interact with people?',
           answer_state: 'draft'
         }
       ];
-      getAllQuestionsService = () => Promise.resolve({ questions });
+    });
+
+    it('should call render with the template and the list of questions and deadline details', async() => {
+      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
       await getTaskList(getAllQuestionsService)(req, res, next);
-      expect(res.render).to.have.been.calledWith('task-list.html', { hearingId: '1', questions });
+      expect(res.render).to.have.been.calledWith('task-list.html', {
+        hearingId: '1',
+        questions,
+        deadlineExpiryDate: {
+          extendable: true,
+          formatted: expectedDeadline,
+          status: 'pending'
+        }
+      });
+    });
+
+    it('should call render with deadline status complete when all questions submitted', async() => {
+      questions[0].answer_state = 'submitted';
+      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
+      await getTaskList(getAllQuestionsService)(req, res, next);
+      expect(res.render).to.have.been.calledWith('task-list.html', {
+        hearingId: '1',
+        questions,
+        deadlineExpiryDate: {
+          extendable: false,
+          formatted: '',
+          status: 'completed'
+        }
+      });
+    });
+
+    it('should call render with deadline status expired when deadline is expired', async() => {
+      const expiredDeadline = moment().utc().subtract(1, 'day');
+      const inputExpiredDeadline = expiredDeadline.format();
+      const expectedExpiredDeadline = expiredDeadline.format('D MMMM YYYY');
+      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
+      await getTaskList(getAllQuestionsService)(req, res, next);
+      expect(res.render).to.have.been.calledWith('task-list.html', {
+        hearingId: '1',
+        questions,
+        deadlineExpiryDate: {
+          extendable: true,
+          formatted: expectedExpiredDeadline,
+          status: 'expired'
+        }
+      });
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
@@ -87,6 +133,44 @@ describe('controllers/taskList.js', () => {
       const controller = setupTaskListController(deps);
       // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
+    });
+  });
+
+  describe('processDeadline', () => {
+    it('deadline is completed status if all questions submitted', () => {
+      const deadline = moment().utc().format();
+      const deadlineDetails = processDeadline(deadline, true);
+      expect(deadlineDetails).to.deep.equal({
+        extendable: false,
+        formatted: '',
+        status: 'completed'
+      });
+    });
+
+    it('deadline is pending if expiry is in the future', () => {
+      const deadline = moment().utc().add(7, 'days');
+      const inputDeadlineFormatted = deadline.format();
+      const expectedFormat = deadline.format('D MMMM YYYY');
+
+      const deadlineDetails = processDeadline(inputDeadlineFormatted, false);
+      expect(deadlineDetails).to.deep.equal({
+        extendable: true,
+        formatted: expectedFormat,
+        status: 'pending'
+      });
+    });
+
+    it('deadline is expired if expiry is in the past', () => {
+      const deadline = moment().utc().subtract(1, 'day');
+      const inputDeadlineFormatted = deadline.format();
+      const expectedFormat = deadline.format('D MMMM YYYY');
+
+      const deadlineDetails = processDeadline(inputDeadlineFormatted, false);
+      expect(deadlineDetails).to.deep.equal({
+        extendable: true,
+        formatted: expectedFormat,
+        status: 'expired'
+      });
     });
   });
 });

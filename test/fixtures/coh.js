@@ -74,7 +74,17 @@ async function setQuestionRoundToIssued(hearingId) {
     json: true
   };
   await rp.put(options);
-  console.log('Question round issued successfully');
+  console.log('Question round issue pending');
 }
 
-module.exports = { createOnlineHearing, createQuestion, setQuestionRoundToIssued };
+async function getQuestionRound(hearingId, roundNum) {
+  const options = {
+    url: `${cohUrl}/continuous-online-hearings/${hearingId}/questionrounds/${roundNum}`,
+    headers: { ...headers },
+    json: true
+  };
+  const body = await rp.get(options);
+  return body;
+}
+
+module.exports = { createOnlineHearing, createQuestion, setQuestionRoundToIssued, getQuestionRound };

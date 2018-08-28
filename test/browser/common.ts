@@ -12,7 +12,7 @@ const port = config.get('node.port');
 const headless = config.get('headless') !== 'false';
 const httpProxy = config.get('httpProxy');
 const testingLocalhost = testUrl.indexOf('localhost') !== -1;
-const oneMinute = 60000;
+const tenSeconds = 10000;
 
 let browser;
 let server;
@@ -60,10 +60,18 @@ async function bootstrapCoh() {
       const hearingId = await coh.createOnlineHearing();
       const question = await coh.createQuestion(hearingId);
       const questionId = question.question_id;
-      const questionHeader = question.question_header_text;
       await coh.setQuestionRoundToIssued(hearingId);
-      await new Promise(r => setTimeout(r, oneMinute));
-      cohTestData = { hearingId, questionId, questionHeader };
+      console.log('Waiting for question round to be issued');
+      await new Promise(r => setTimeout(r, tenSeconds));
+      const questionRound = await coh.getQuestionRound(hearingId, 1);
+      const questionRoundState = questionRound.question_round_state.state_name;
+      if (questionRoundState !== 'question_issued') {
+        throw new Error(`Question round state not issued: ${questionRoundState}`);
+      }
+      console.log('Question round issued successfully');
+      const questionHeader = questionRound.question_references[0].question_header_text;
+      const deadlineExpiryDate = questionRound.question_references[0].deadline_expiry_date;
+      cohTestData = { hearingId, questionId, questionHeader, deadlineExpiryDate };
     } catch (error) {
       console.log('Error bootstrapping COH with test data', error);
     }

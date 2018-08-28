@@ -1,7 +1,12 @@
+const moment = require('moment');
+
+const SEVEN = 7;
+
 module.exports = {
   path: '/continuous-online-hearings/:onlineHearingId',
   method: 'GET',
   template: {
+    deadline_expiry_date: () => moment().utc().add(SEVEN, 'days').endOf('day').format(),
     questions: [
       {
         question_id: '001',

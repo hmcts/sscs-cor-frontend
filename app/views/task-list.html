@@ -28,6 +28,12 @@
     <div class="govuk-grid-column-two-thirds">
         <div id="task-list">
             <h2 class="govuk-heading-s">Questions from the tribunal</h2>
+            <p>
+                <span id="deadline-status">{{ i18n.taskList.deadline[deadlineExpiryDate.status] }}</span> <span id="deadline-date">{{ deadlineExpiryDate.formatted }}</span>.
+                {% if deadlineExpiryDate.extensionAllowed %}
+                    <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>
+                {% endif %}
+            </p>
             <ul class="govuk-list">
                 {% for question in questions %}
                     {% set answerState = question.answer_state %}
