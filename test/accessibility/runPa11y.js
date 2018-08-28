@@ -1,7 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 const { expect } = require('test/chai-sinon');
 const createSession = require('app/middleware/session');
-const { setup } = require('app');
+const { setup } = require('app/server/app');
 const pa11y = require('pa11y');
 const supertest = require('supertest');
 const paths = require('app/server/paths');
