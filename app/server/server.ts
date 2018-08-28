@@ -2,7 +2,7 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const session = require('express-session');
 const redis = require('connect-redis');
 const config = require('config');
-const { setup } = require('app');
+const { setup } = require('app/server/app');
 const createSession = require('app/middleware/session');
 
 const logger = Logger.getLogger('server.js');
@@ -16,12 +16,14 @@ const redisOpts = {
 };
 const redisStore = new RedisStore(redisOpts);
 
-const app = setup(createSession(redisStore));
+const app = setup(createSession(redisStore), {});
 
-app.listen(port, error => {
+const server = app.listen(port, (error: Error)  => {
   if (error) {
     logger.error(`Unable to start server because of ${error.message}`);
   } else {
     logger.info(`Server listening on port ${port}`);
   }
 });
+
+export default server;
