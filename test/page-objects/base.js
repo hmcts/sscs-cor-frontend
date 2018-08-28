@@ -44,6 +44,9 @@ class BasePage {
   }
 
   async enterTextintoField(selector, text) {
+    await this.page.$eval(selector, el => {
+      el.value = '';
+    });
     await this.page.type(selector, text);
   }
 

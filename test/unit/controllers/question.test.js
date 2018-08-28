@@ -33,7 +33,6 @@ describe('controllers/question.js', () => {
   });
 
   describe('getQuestion', () => {
-    // eslint-disable-next-line init-declarations
     let getQuestionService;
 
     beforeEach(() => {
@@ -71,7 +70,6 @@ describe('controllers/question.js', () => {
   });
 
   describe('postAnswer', () => {
-    // eslint-disable-next-line init-declarations
     let postAnswerService;
 
     beforeEach(() => {

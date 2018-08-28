@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/services/question').template;
@@ -13,12 +12,10 @@ const sampleHearingId = '121';
 const sampleQuestionId = '62';
 
 describe('Question page', () => {
-  /* eslint-disable init-declarations */
   let page;
   let questionPage;
   let hearingId;
   let questionId;
-  /* eslint-enable init-decalarations */
 
   before(async() => {
     const res = await startServices({ bootstrapCoh: true });
@@ -48,9 +45,9 @@ describe('Question page', () => {
     expect(await questionPage.getBody()).to.contain(mockData.question_body_text);
   });
 
-  it('displays question answer box', async() => {
-    expect(await questionPage.getElement('#question-field')).to.not.be.null;
-  });
+  it('displays question answer box', async() => (
+    expect(await questionPage.getElement('#question-field')).to.not.be.null
+  ));
 
   it('displays an error message in the summary when you try to save an empty answer', async() => {
     await questionPage.saveAnswer('');

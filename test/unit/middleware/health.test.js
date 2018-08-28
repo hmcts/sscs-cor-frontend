@@ -7,7 +7,6 @@ const { livenessCheck, readinessCheck } = require('app/middleware/health');
 
 const apiUrl = config.get('api.url');
 
-/* eslint-disable init-declarations */
 describe('middleware/health', () => {
   let req;
   let res;
