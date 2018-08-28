@@ -1,6 +1,6 @@
 const { expect, sinon } = require('test/chai-sinon');
 const applicationInsights = require('applicationinsights');
-const { enable } = require('app-insights');
+const { enable } = require('app/server/app-insights');
 
 describe('app-insights.js', () => {
   describe('enable', () => {

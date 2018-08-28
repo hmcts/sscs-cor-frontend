@@ -1,8 +1,8 @@
 const { Logger } = require('@hmcts/nodejs-logging');
-const appInsights = require('app-insights');
+const appInsights = require('app/server/app-insights');
 const express = require('express');
 const { NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
-const paths = require('paths');
+const paths = require('app/server/paths');
 const i18n = require('app/locale/en.json');
 const { loginEmailAddressValidation } = require('app/utils/fieldValidation');
 

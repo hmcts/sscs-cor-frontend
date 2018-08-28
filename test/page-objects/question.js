@@ -1,4 +1,4 @@
-const { question } = require('paths');
+const { question } = require('app/server/paths');
 const BasePage = require('test/page-objects/base');
 
 class QuestionPage extends BasePage {

@@ -1,4 +1,4 @@
-const { taskList } = require('paths');
+const { taskList } = require('app/server/paths');
 const BasePage = require('test/page-objects/base');
 
 class TaskListPage extends BasePage {
