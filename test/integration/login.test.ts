@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/services/hearing').template;
@@ -55,6 +56,36 @@ describe('Login page', () => {
     const caseReference = await taskListPage.getElementText('#case-reference');
     expect(appellantName).to.equal(mockData.appellant_name);
     expect(caseReference).to.equal(mockData.case_reference);
+  });
+
+  it('displays the deadline text and date', async() => {
+    const deadlineStatus = await taskListPage.getElementText('#deadline-status');
+    const deadlineDate = await taskListPage.getElementText('#deadline-date');
+    /* eslint-disable-next-line no-magic-numbers */
+    const expectedDeadlineDate = moment().utc().add(7, 'days').endOf('day').format('D MMMM YYYY');
+    expect(deadlineStatus).to.equal(i18n.taskList.deadline.pending);
+    expect(deadlineDate).to.equal(expectedDeadlineDate);
+  });
+
+  it('displays the deadline appropriately when expired', async() => {
+    await loginPage.visitPage();
+    await loginPage.login('expired@example.com');
+    await loginPage.screenshot('expired-login');
+    taskListPage.verifyPage();
+    const deadlineStatus = await taskListPage.getElementText('#deadline-status');
+    const deadlineDate = await taskListPage.getElementText('#deadline-date');
+    const expectedDeadlineDate = moment().utc().subtract(1, 'day').endOf('day').format('D MMMM YYYY');
+    expect(deadlineStatus).to.equal(i18n.taskList.deadline.expired);
+    expect(deadlineDate).to.equal(expectedDeadlineDate);
+  });
+
+  it('displays the deadline appropriately when completed', async() => {
+    await loginPage.visitPage();
+    await loginPage.login('completed@example.com');
+    await loginPage.screenshot('completed-login');
+    taskListPage.verifyPage();
+    const deadlineStatus = await taskListPage.getElementText('#deadline-status');
+    expect(deadlineStatus).to.equal(i18n.taskList.deadline.completed);
   });
 });
 

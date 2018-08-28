@@ -61,7 +61,7 @@ async function bootstrapCoh() {
       const question = await coh.createQuestion(hearingId);
       const questionId = question.question_id;
       await coh.setQuestionRoundToIssued(hearingId);
-      console.log('Waiting for question round to be issued');
+      console.log('Waiting 10s for question round to be issued');
       await new Promise(r => setTimeout(r, tenSeconds));
       const questionRound = await coh.getQuestionRound(hearingId, 1);
       const questionRoundState = questionRound.question_round_state.state_name;
