@@ -40,6 +40,7 @@ function postLogin(getOnlineHearingService) {
         logger.info(`Know issue trying to find hearing for ${email}, status ${response.status}`);
         const emailAddress = {
           value: email,
+          
           error: i18n.login.emailAddress.error[`error${response.status}`]
         };
         return res.render('login.html', { emailAddress });
