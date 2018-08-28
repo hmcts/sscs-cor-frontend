@@ -24,6 +24,7 @@
     "test:smoke": "yarn test:browser -g @smoke",
     "test:coverage": "cross-env NODE_PATH=. istanbul cover _mocha test/unit/** --dir test/coverage/html",
     "test:a11y": "cross-env NODE_PATH=. LOG_LEVEL=OFF mocha test/accessibility",
+    "test:all": "yarn test && yarn test:a11y",
     "test:nsp": "nsp check",
     "sonar-scan": "sonar-scanner",
     "lint": "eslint ."
