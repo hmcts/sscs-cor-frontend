@@ -8,10 +8,11 @@
   },
   "scripts": {
     "start": "cross-env NODE_PATH=. node ./app/server/server.js",
-    "dev": "yarn build && NODE_PATH=. NODE_ENV=development nodemon",
+    "dev": "yarn build:dev && NODE_PATH=. NODE_ENV=development nodemon",
     "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\"",
     "mock-api": "dyson test/mock/services/ 8080",
-    "build": "yarn build-sass && yarn build-js && yarn copy-assets && yarn tsc -p ./app/server/tsconfig.json",
+    "build": "yarn build:dev && yarn tsc -p ./app/server/tsconfig.json",
+    "build:dev": "yarn build-sass && yarn build-js && yarn copy-assets",
     "build-sass": "node-sass app/client/sass/application.scss public/css/main.css --output-style compressed",
     "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend",
     "build-js": "browserify ./app/client/javascript/main.ts -p [ tsify -p app/client --noImplicitAny ] -o ./public/js/main.js",
