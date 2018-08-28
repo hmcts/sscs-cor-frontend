@@ -76,11 +76,25 @@ describe('controllers/question.js', () => {
       postAnswerService = null;
     });
 
+    afterEach(() => {
+      res.redirect.reset();
+    });
+
     it('should call res.redirect when saving an answer and there are no errors', async() => {
       req.body['question-field'] = 'My amazing answer';
       postAnswerService = () => Promise.resolve();
       await postAnswer(postAnswerService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(`${paths.taskList}/${req.params.hearingId}`);
+    });
+
+    it('should call res.redirect when submitting an answer and there are no errors', async() => {
+      req.body['question-field'] = 'My amazing answer';
+      req.body.submit = 'submit';
+      postAnswerService = () => Promise.resolve();
+      await postAnswer(postAnswerService)(req, res, next);
+      expect(res.redirect).to.have.been.calledWith(
+        `${paths.question}/${req.params.hearingId}/${req.params.questionId}/submit`
+      );
     });
 
     it('should call next and appInsights with the error when there is one', async() => {

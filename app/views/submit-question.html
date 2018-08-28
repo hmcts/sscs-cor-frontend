@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">{{ i18n.submitQuestion.title }}</h1>
+
+            <form action="/question/{{ question.hearingId }}/{{ question.questionId }}/submit" method="post">
+                <div id="submit-buttons">
+                    <input id="submit-answer" type="submit" name="submit" value="Confirm" class="govuk-button">
+                </div>
+            </form>
+            <a class="govuk-link" href="/question/{{ question.hearingId }}/{{ question.questionId }}">{{ i18n.submitQuestion.backToQuestionText }}</a>
+        </div>
+    </div>
+{% endblock %}
