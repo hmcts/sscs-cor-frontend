@@ -1,6 +1,6 @@
-const appInsights = require('app-insights');
+const appInsights = require('app/server/app-insights');
 const express = require('express');
-const paths = require('paths');
+const paths = require('app/server/paths');
 const { answerValidation } = require('app/utils/fieldValidation');
 
 function getQuestion(getQuestionService) {

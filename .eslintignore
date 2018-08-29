@@ -2,3 +2,4 @@ node_modules/
 public/
 govuk_modules/
 test/coverage
+app/server/server.js
