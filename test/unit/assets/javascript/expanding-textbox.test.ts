@@ -1,7 +1,7 @@
 /* eslint-disable-next-line max-len */
 const { expect } = require('test/chai-sinon');
 
-const { ExpandingTextBox } = require('app/assets/javascript/expanding-textbox.ts')
+const { ExpandingTextBox } = require('app/client/javascript/expanding-textbox.ts')
 
 const jsdom = require('jsdom-global');
 const html = '<textarea class="auto-expand" style="border-top: 2px; border-bottom: 2px;"></textarea>';
