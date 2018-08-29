@@ -21,17 +21,19 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-const onlineHearingBody = {
-  case_id: uuidv4(),
-  jurisdiction: JURISDICTION,
-  panel: [
-    {
-      identity_token: PANEL_IDENTITY_TOKEN,
-      name: PANEL_NAME
-    }
-  ],
-  start_date: moment().utc().format(),
-  state: HEARING_STATUS
+const onlineHearingBody = () => {
+  return {
+    case_id: uuidv4(),
+    jurisdiction: JURISDICTION,
+    panel: [
+      {
+        identity_token: PANEL_IDENTITY_TOKEN,
+        name: PANEL_NAME
+      }
+    ],
+    start_date: moment().utc().format(),
+    state: HEARING_STATUS
+  };
 };
 
 const questionBody = {
@@ -46,7 +48,7 @@ async function createOnlineHearing() {
   const options = {
     url: `${cohUrl}/continuous-online-hearings`,
     headers: { ...headers },
-    body: onlineHearingBody,
+    body: onlineHearingBody(),
     json: true
   };
   const body = await rp.post(options);
