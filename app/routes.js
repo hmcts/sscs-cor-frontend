@@ -1,6 +1,6 @@
 const express = require('express');
 const paths = require('app/server/paths');
-const { ensureAuthenticated } = require('app/middleware/ensure-authenticated');
+const { ensureAuthenticated, setLocals } = require('app/middleware/ensure-authenticated');
 
 const { setupQuestionController } = require('app/controllers/question');
 const { setupTaskListController } = require('app/controllers/taskList');
@@ -17,7 +17,9 @@ const getOnlineHearingService = require('app/services/getOnlineHearing');
 const questionController = setupQuestionController({
   getQuestionService,
   postAnswerService,
-  ensureAuthenticated
+  // just passing setLocals to ensure the case_reference is available if logged in
+  // this will need to be changed when handling auth properly using IDAM
+  setLocals
 });
 const taskListController = setupTaskListController({ getAllQuestionsService, ensureAuthenticated });
 const loginController = setupLoginController({ getOnlineHearingService });
