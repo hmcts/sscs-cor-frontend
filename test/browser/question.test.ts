@@ -17,7 +17,7 @@ describe('Question page', () => {
   let hearingId;
   let questionId;
 
-  before(async() => {
+  before('start services and bootstrap data in COH', async() => {
     const res = await startServices({ bootstrapCoh: true });
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;

@@ -21,7 +21,7 @@ describe('Task list page', () => {
   let questionHeader;
   let deadlineExpiryDateFormatted;
 
-  before(async() => {
+  before('start services and bootstrap data in COH', async() => {
     const res = await startServices({ bootstrapCoh: true });
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;

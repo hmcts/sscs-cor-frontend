@@ -54,6 +54,7 @@ function startAppServer() {
   }
 }
 
+/* eslint-disable-next-line consistent-return */
 async function bootstrapCoh() {
   if (!cohTestData && !testingLocalhost) {
     try {
@@ -66,7 +67,7 @@ async function bootstrapCoh() {
       const questionRound = await coh.getQuestionRound(hearingId, 1);
       const questionRoundState = questionRound.question_round_state.state_name;
       if (questionRoundState !== 'question_issued') {
-        throw new Error(`Question round state not issued: ${questionRoundState}`);
+        await Promise.reject(new Error(`Question round state not issued: ${questionRoundState}`));
       }
       console.log('Question round issued successfully');
       const questionHeader = questionRound.question_references[0].question_header_text;
@@ -74,6 +75,7 @@ async function bootstrapCoh() {
       cohTestData = { hearingId, questionId, questionHeader, deadlineExpiryDate };
     } catch (error) {
       console.log('Error bootstrapping COH with test data', error);
+      return Promise.reject(error);
     }
   }
 }
