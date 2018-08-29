@@ -1,9 +1,9 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { setupTaskListController, getTaskList } = require('app/controllers/taskList');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-const appInsights = require('app-insights');
+const appInsights = require('app/server/app-insights');
 const express = require('express');
-const paths = require('paths');
+const paths = require('app/server/paths');
 
 describe('controllers/taskList.js', () => {
   let req;

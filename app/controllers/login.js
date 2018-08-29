@@ -1,8 +1,8 @@
 const { Logger } = require('@hmcts/nodejs-logging');
-const appInsights = require('app-insights');
+const appInsights = require('app/server/app-insights');
 const express = require('express');
 const { NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
-const paths = require('paths');
+const paths = require('app/server/paths');
 const i18n = require('app/locale/en.json');
 const { loginEmailAddressValidation } = require('app/utils/fieldValidation');
 
@@ -40,6 +40,7 @@ function postLogin(getOnlineHearingService) {
         logger.info(`Know issue trying to find hearing for ${email}, status ${response.status}`);
         const emailAddress = {
           value: email,
+          
           error: i18n.login.emailAddress.error[`error${response.status}`]
         };
         return res.render('login.html', { emailAddress });

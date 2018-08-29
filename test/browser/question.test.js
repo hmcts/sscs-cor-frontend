@@ -3,7 +3,7 @@ const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/services/question').template;
 const QuestionPage = require('test/page-objects/question');
 const i18n = require('app/locale/en');
-const paths = require('paths');
+const paths = require('app/server/paths');
 const config = require('config');
 
 const testUrl = config.get('testUrl');

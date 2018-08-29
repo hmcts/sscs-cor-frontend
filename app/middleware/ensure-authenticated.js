@@ -1,5 +1,5 @@
 const { Logger } = require('@hmcts/nodejs-logging');
-const paths = require('paths');
+const paths = require('app/server/paths');
 
 const logger = Logger.getLogger('ensure-authenticated.js');
 
