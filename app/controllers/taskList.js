@@ -7,7 +7,7 @@ const DEADLINE_EXPIRY_DATE_FORMAT = 'D MMMM YYYY';
 
 function processDeadline(expiryDateRaw, allQuestionsSubmitted) {
   if (allQuestionsSubmitted) {
-    return { status: 'completed', formatted: '', extendable: false };
+    return { status: 'completed', formatted: null, extendable: false };
   }
   const expiryDate = moment.utc(expiryDateRaw);
   const formatted = expiryDate.format(DEADLINE_EXPIRY_DATE_FORMAT);

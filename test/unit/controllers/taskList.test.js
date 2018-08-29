@@ -75,7 +75,7 @@ describe('controllers/taskList.js', () => {
         questions,
         deadlineExpiryDate: {
           extendable: false,
-          formatted: '',
+          formatted: null,
           status: 'completed'
         }
       });
@@ -142,7 +142,7 @@ describe('controllers/taskList.js', () => {
       const deadlineDetails = processDeadline(deadline, true);
       expect(deadlineDetails).to.deep.equal({
         extendable: false,
-        formatted: '',
+        formatted: null,
         status: 'completed'
       });
     });
