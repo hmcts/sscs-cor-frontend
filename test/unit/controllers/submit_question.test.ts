@@ -1,14 +1,14 @@
-const { getSubmitQuestion, postSubmitAnswer, setupSubmitQuestionController } =
-  require('app/controllers/submit_question');
+import { getSubmitQuestion, postSubmitAnswer, setupSubmitQuestionController } from '../../../app/server/controllers/submit_question';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-const appInsights = require('app-insights');
-const paths = require('paths');
+const appInsights = require('../../../app/server/app-insights');
+const paths = require('../../../app/server/paths');
 const express = require('express');
 
 describe('controllers/question.js', () => {
   const next = sinon.stub();
-  const req = {}, res = {};
+  const req:any = {}; 
+  const res:any = {};
 
   req.params = {
     hearingId: '1',
@@ -28,7 +28,7 @@ describe('controllers/question.js', () => {
 
   describe('getSubmitQuestion', () => {
     it('should call render with the template and hearing/question ids', () => {
-      getSubmitQuestion()(req, res, next);
+      getSubmitQuestion()(req, res);
       expect(res.render).to.have.been.calledWith('submit-question.html', {
         question: {
           hearingId: req.params.hearingId,
@@ -55,7 +55,7 @@ describe('controllers/question.js', () => {
   });
 
   describe('setupQuestionController', () => {
-    const deps = {
+    const deps: any = {
       submitAnswerService: {}
     };
 

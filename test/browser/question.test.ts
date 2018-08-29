@@ -66,3 +66,5 @@ describe('Question page', () => {
     expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
   });
 });
+
+export {};
