@@ -1,6 +1,6 @@
 const express = require('express');
 const paths = require('app/server/paths');
-const { ensureAuthenticated } = require('app/middleware/ensure-authenticated');
+const { ensureAuthenticated, setLocals } = require('app/middleware/ensure-authenticated');
 
 const { setupQuestionController } = require('app/controllers/question');
 import { setupSubmitQuestionController } from './server/controllers/submit_question';
@@ -18,7 +18,9 @@ const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = req
 const questionController = setupQuestionController({
   getQuestionService,
   saveAnswerService,
-  ensureAuthenticated
+  // just passing setLocals to ensure the case_reference is available if logged in
+  // this will need to be changed when handling auth properly using IDAM
+  setLocals
 });
 const submitQuestionController = setupSubmitQuestionController({ submitAnswerService });
 const taskListController = setupTaskListController({ getAllQuestionsService, ensureAuthenticated });
