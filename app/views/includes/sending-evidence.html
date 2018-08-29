@@ -1,3 +1,7 @@
+<!--
+this remains here as fallback for non-signed in users
+it should be removed once auth is handled properly using IDAM
+ -->
 {% set reference = "SC242/16/03435" %}
 
 <div class="govuk-grid-row">
@@ -10,9 +14,9 @@
             </summary>
             <div class="govuk-details__text">
                 <p>{{ i18n.guidance.sendingEvidence.details.para1 }}</p>
-                <p>{{ i18n.guidance.sendingEvidence.details.para2 }}<br><strong>{{ reference }}</strong></p>
+                <p>{{ i18n.guidance.sendingEvidence.details.para2 }}<br><strong>{{ hearing.case_reference or reference }}</strong></p>
                 <h2 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.details.byEmailHeader }}</h2>
-                <p><a href="mailto:{{ i18n.guidance.sendingEvidence.details.emailAddress }}?subject=Evidence:%20{{ reference }}">{{ i18n.guidance.sendingEvidence.details.emailAddress }}</a></p>
+                <p><a href="mailto:{{ i18n.guidance.sendingEvidence.details.emailAddress }}?subject=Evidence:%20{{ hearing.case_reference or reference }}">{{ i18n.guidance.sendingEvidence.details.emailAddress }}</a></p>
                 <h2 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.details.byPostHeader}}</h2>
                 <p>{{ i18n.guidance.sendingEvidence.details.postalAddress | safe }}</p>
                 <p>{{ i18n.guidance.sendingEvidence.details.closingPara }}</p>
