@@ -31,7 +31,7 @@ Finally visit http://localhost:3000 to see the running application.
 In order to run all the tests simply use:
 
 ```bash
-yarn test
+yarn test:all
 ```
 
 This will run all the unit tests, followed by the browser tests, using Puppeteer.

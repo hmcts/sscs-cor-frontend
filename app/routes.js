@@ -1,5 +1,5 @@
 const express = require('express');
-const paths = require('paths');
+const paths = require('app/server/paths');
 const { ensureAuthenticated } = require('app/middleware/ensure-authenticated');
 
 const { setupQuestionController } = require('app/controllers/question');

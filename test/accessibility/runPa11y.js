@@ -1,10 +1,10 @@
 /* eslint-disable max-nested-callbacks */
 const { expect } = require('test/chai-sinon');
 const createSession = require('app/middleware/session');
-const { setup } = require('app');
+const { setup } = require('app/server/app');
 const pa11y = require('pa11y');
 const supertest = require('supertest');
-const paths = require('paths');
+const paths = require('app/server/paths');
 const dysonSetup = require('test/mock/dysonSetup');
 
 const app = setup(createSession(), { disableAppInsights: true });
