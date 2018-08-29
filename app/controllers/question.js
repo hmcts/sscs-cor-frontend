@@ -61,8 +61,10 @@ function postAnswer(updateAnswerService) {
 function setupQuestionController(deps) {
   // eslint-disable-next-line new-cap
   const router = express.Router();
-  router.get('/:hearingId/:questionId', getQuestion(deps.getQuestionService));
-  router.post('/:hearingId/:questionId', postAnswer(deps.saveAnswerService));
+  // using setLocals to ensure the case_reference is available if logged in
+  // this will need to be changed when handling auth properly using IDAM
+  router.get('/:hearingId/:questionId', deps.setLocals, getQuestion(deps.getQuestionService));
+  router.post('/:hearingId/:questionId', postAnswer(deps.postAnswerService));
   return router;
 }
 
