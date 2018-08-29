@@ -2,7 +2,7 @@
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const SubmitQuestionPage = require('test/page-objects/submit_question');
-const paths = require('paths');
+const paths = require('app/server/paths');
 const config = require('config');
 
 const testUrl = config.get('testUrl');
@@ -45,3 +45,5 @@ describe('Submit question page', () => {
     expect(submitQuestionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
   });
 });
+
+export {};

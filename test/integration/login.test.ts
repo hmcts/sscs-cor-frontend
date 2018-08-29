@@ -57,3 +57,5 @@ describe('Login page', () => {
     expect(caseReference).to.equal(mockData.case_reference);
   });
 });
+
+export {};

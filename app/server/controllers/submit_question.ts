@@ -1,9 +1,9 @@
-const appInsights = require('app-insights');
+const appInsights = require('app/server/app-insights');
 const express = require('express');
-const paths = require('paths');
+const paths = require('app/server/paths');
 
 function getSubmitQuestion() {
-  return (req, res) => {
+  return (req: any, res: any) => {
     const hearingId = req.params.hearingId;
     const questionId = req.params.questionId;
     const question = {
@@ -14,8 +14,8 @@ function getSubmitQuestion() {
   };
 }
 
-function postSubmitAnswer(submitAnswerService) {
-  return async(req, res, next) => {
+function postSubmitAnswer(submitAnswerService: any) {
+  return async(req: any, res: any, next: any) => {
     const hearingId = req.params.hearingId;
     const questionId = req.params.questionId;
 
@@ -29,7 +29,7 @@ function postSubmitAnswer(submitAnswerService) {
   };
 }
 
-function setupSubmitQuestionController(deps) {
+function setupSubmitQuestionController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = express.Router();
   router.get(`${paths.question}/:hearingId/:questionId/submit`, getSubmitQuestion());
@@ -37,7 +37,7 @@ function setupSubmitQuestionController(deps) {
   return router;
 }
 
-module.exports = {
+export {
   setupSubmitQuestionController,
   getSubmitQuestion,
   postSubmitAnswer

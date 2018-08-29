@@ -10,7 +10,7 @@ jsdom(html);
 describe('expanding-textbox', () => {
   describe('#autoExpand', () => {
     it('sets height to scroll height + border widths', () => {
-      const target = document.querySelector('textarea.auto-expand');
+      const target = document.querySelector<HTMLInputElement>('textarea.auto-expand');
 
       const expandingTextBox = new ExpandingTextBox();
 
@@ -20,3 +20,5 @@ describe('expanding-textbox', () => {
     });
   });
 });
+
+export {};

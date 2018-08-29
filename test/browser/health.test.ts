@@ -22,3 +22,5 @@ describe('Health check @smoke', () => {
     expect(response.ok()).to.be.true;
   });
 });
+
+export {};

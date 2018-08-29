@@ -3,7 +3,7 @@ const paths = require('app/server/paths');
 const { ensureAuthenticated } = require('app/middleware/ensure-authenticated');
 
 const { setupQuestionController } = require('app/controllers/question');
-const { setupSubmitQuestionController } = require('app/controllers/submit_question');
+import { setupSubmitQuestionController } from './server/controllers/submit_question';
 const { setupTaskListController } = require('app/controllers/taskList');
 const { setupLoginController } = require('app/controllers/login');
 
@@ -29,4 +29,4 @@ router.use(submitQuestionController);
 router.use(paths.question, questionController);
 router.use(taskListController);
 
-module.exports = router;
+export { router };

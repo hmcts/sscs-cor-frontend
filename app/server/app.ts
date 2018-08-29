@@ -1,8 +1,8 @@
 const appInsights = require('app/server/app-insights');
 const { Express } = require('@hmcts/nodejs-logging');
-const nunjucks = require('nunjucks');
-const express = require('express');
-const routes = require('app/routes');
+import nunjucks = require('nunjucks');
+import express = require('express');
+import { router as routes } from '../routes';
 const errors = require('app/middleware/error-handler');
 const health = require('app/middleware/health');
 const locale = require('app/locale/en.json');
@@ -11,7 +11,11 @@ const bodyParser = require('body-parser');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-function setup(sessionHandler, options) {
+interface Options {
+  disableAppInsights ?: boolean;
+}
+
+function setup(sessionHandler: any, options: Options) {
   const opts = options || {};
   if (!opts.disableAppInsights) {
     appInsights.enable();
@@ -53,4 +57,4 @@ function setup(sessionHandler, options) {
   return app;
 }
 
-module.exports = { setup };
+export { setup };
