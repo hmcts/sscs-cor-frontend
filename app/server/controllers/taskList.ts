@@ -1,11 +1,11 @@
 const appInsights = require('app/server/app-insights');
 const moment = require('moment');
-const express = require('express');
+import { Router } from 'express';
 const paths = require('app/server/paths');
 
 const DEADLINE_EXPIRY_DATE_FORMAT = 'D MMMM YYYY';
 
-function processDeadline(expiryDateRaw, allQuestionsSubmitted) {
+function processDeadline(expiryDateRaw: any, allQuestionsSubmitted: any) {
   if (allQuestionsSubmitted) {
     return { status: 'completed', formatted: null, extendable: false };
   }
@@ -19,10 +19,10 @@ function processDeadline(expiryDateRaw, allQuestionsSubmitted) {
   return { status, formatted, extendable: true };
 }
 
-const getSubmittedQuestionCount = questions => questions.filter(q => q.answer_state === 'submitted').length;
+const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 
-function getTaskList(getAllQuestionsService) {
-  return async(req, res, next) => {
+function getTaskList(getAllQuestionsService: any) {
+  return async(req: any, res: any, next: any) => {
     const hearing = req.session.hearing;
     const hearingId = (hearing && hearing.online_hearing_id) || req.params.hearingId;
     try {
@@ -42,15 +42,14 @@ function getTaskList(getAllQuestionsService) {
   };
 }
 
-function setupTaskListController(deps) {
-  // eslint-disable-next-line new-cap
-  const router = express.Router();
+function setupTaskListController(deps: any): Router {
+  const router: Router = Router();
   router.get(paths.taskList, deps.ensureAuthenticated, getTaskList(deps.getAllQuestionsService));
   router.get(`${paths.taskList}/:hearingId`, getTaskList(deps.getAllQuestionsService));
   return router;
 }
 
-module.exports = {
+export {
   setupTaskListController,
   getTaskList,
   processDeadline
