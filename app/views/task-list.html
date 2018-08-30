@@ -47,6 +47,29 @@
             </ul>
         </div>
 
+        <!--
+        this remains here as fallback for non-signed in users
+        it should be removed once auth is handled properly using IDAM
+         -->
+        {% set reference = "SC242/16/03435" %}
+        <h2 class="govuk-heading-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
+        <p>{{ i18n.taskList.sendingEvidence.intro }}</p>
+
+        <details id="sending-evidence-guide" class="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  {{ i18n.taskList.sendingEvidence.summary }}
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p>{{ i18n.taskList.sendingEvidence.details.para1 }} <strong>{{ reference }}</strong></p>
+
+                {% include "includes/sending-evidence-contact-details.html" %}
+
+                <p>{{ i18n.taskList.sendingEvidence.details.closingPara1 }}</p>
+                <p>{{ i18n.taskList.sendingEvidence.details.closingPara2 }}</p>
+            </div>
+        </details>
 
     </div>
 </div>
