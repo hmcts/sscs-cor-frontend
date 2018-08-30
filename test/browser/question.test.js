@@ -49,6 +49,11 @@ describe('Question page', () => {
     expect(await questionPage.getElement('#question-field')).to.not.be.null
   ));
 
+  it('displays guidance for submitting evidence', async() => {
+    const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
+    expect(summaryText).to.contain(i18n.question.sendingEvidence.summary);
+  });
+
   it('displays an error message in the summary when you try to save an empty answer', async() => {
     await questionPage.saveAnswer('');
     expect(await questionPage.getElementText('.govuk-error-summary'))
