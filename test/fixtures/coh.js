@@ -76,7 +76,7 @@ async function setQuestionRoundToIssued(hearingId) {
     json: true
   };
   await rp.put(options);
-  console.log('Question round issue pending');
+  console.log('Question round issued, status pending');
 }
 
 async function getQuestionRound(hearingId, roundNum) {

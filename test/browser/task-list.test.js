@@ -6,7 +6,6 @@ const TaskListPage = require('test/page-objects/task-list');
 const paths = require('app/server/paths');
 const i18n = require('app/locale/en.json');
 const config = require('config');
-const i18n = require('app/locale/en.json');
 
 const testUrl = config.get('testUrl');
 
