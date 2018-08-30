@@ -4,6 +4,7 @@ const mockData = require('test/mock/services/allQuestions').template;
 const TaskListPage = require('test/page-objects/task-list');
 const paths = require('app/server/paths');
 const config = require('config');
+const i18n = require('app/locale/en.json');
 
 const testUrl = config.get('testUrl');
 
@@ -41,6 +42,11 @@ describe('Task list page', () => {
   it('displays the list of questions', async() => {
     expect(await taskListpage.getElementText(`#question-${questionId}`))
       .to.contain(questionHeader);
+  });
+
+  it('displays guidance for submitting evidence', async() => {
+    const summaryText = await taskListpage.getElementText('#sending-evidence-guide summary span');
+    expect(summaryText).to.contain(i18n.taskList.sendingEvidence.summary);
   });
 
   it('redirects to the question page for that question', async() => {
