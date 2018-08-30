@@ -66,8 +66,10 @@ describe('Question page', () => {
       .contain(i18n.question.textareaField.error.empty);
   });
 
-  it('redirects to /task-list page when a valid answer is saved', async() => {
+  it.skip('redirects to /task-list page when a valid answer is saved', async() => {
     await questionPage.saveAnswer('A valid answer');
     expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
   });
 });
+
+export {};

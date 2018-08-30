@@ -27,11 +27,10 @@ function getQuestion(getQuestionService) {
   };
 }
 
-function postAnswer(postAnswerService) {
+function postAnswer(updateAnswerService) {
   return async(req, res, next) => {
     const hearingId = req.params.hearingId;
     const questionId = req.params.questionId;
-    const answerState = req.body.submit ? '' : 'answer_drafted';
     const answerText = req.body['question-field'];
 
     const validationMessage = answerValidation(answerText);
@@ -45,8 +44,12 @@ function postAnswer(postAnswerService) {
       res.render('question.html', { question });
     } else {
       try {
-        await postAnswerService(hearingId, questionId, answerState, answerText);
-        res.redirect(`${paths.taskList}/${hearingId}`);
+        await updateAnswerService(hearingId, questionId, 'draft', answerText);
+        if (req.body.submit) {
+          res.redirect(`${paths.question}/${hearingId}/${questionId}/submit`);
+        } else {
+          res.redirect(`${paths.taskList}/${hearingId}`);
+        }
       } catch (error) {
         appInsights.trackException(error);
         next(error);
@@ -61,7 +64,7 @@ function setupQuestionController(deps) {
   // using setLocals to ensure the case_reference is available if logged in
   // this will need to be changed when handling auth properly using IDAM
   router.get('/:hearingId/:questionId', deps.setLocals, getQuestion(deps.getQuestionService));
-  router.post('/:hearingId/:questionId', postAnswer(deps.postAnswerService));
+  router.post('/:hearingId/:questionId', postAnswer(deps.saveAnswerService));
   return router;
 }
 

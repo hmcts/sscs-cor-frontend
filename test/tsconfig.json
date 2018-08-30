@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "moduleResolution": "node",
         "sourceMap": false,
-        "baseUrl": ".",
+        "baseUrl": "../",
         "paths": {
             "*": [
-                "./*",
+                "*",
                 "node_modules/*"
             ]
         }
-    }
+    },
+    "include": [
+        "./server.ts", "../../test/integration/login.test.ts", "../../test/browser/health.test.ts", "../../test/browser/question.test.ts", "../../test/browser/common.ts", "controllers/submit_question.ts"
+    ]
 }
