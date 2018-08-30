@@ -2,7 +2,7 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const session = require('express-session');
 const redis = require('connect-redis');
 const config = require('config');
-const { setup } = require('app/server/app');
+const { setup } = require('./app');
 const createSession = require('app/middleware/session');
 
 const logger = Logger.getLogger('server.js');

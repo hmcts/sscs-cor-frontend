@@ -96,4 +96,4 @@ after(async() => {
   }
 });
 
-module.exports = { startServices };
+export = { startServices };

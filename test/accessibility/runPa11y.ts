@@ -44,3 +44,5 @@ accessibilityPages.forEach(page => {
     });
   });
 });
+
+export {};

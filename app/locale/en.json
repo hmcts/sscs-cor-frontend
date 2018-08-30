@@ -63,6 +63,10 @@
       }
     }
   },
+  "submitQuestion": {
+    "title": "You will not be able to change your answer after you submit it.",
+    "backToQuestionText": "Back to question"
+  },
   "error": {
     "error404": {
       "header": "Sorry, this page could not be found"
