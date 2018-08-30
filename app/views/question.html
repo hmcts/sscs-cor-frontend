@@ -45,7 +45,27 @@
                     }) }}
                 </div>
 
-                {% include "includes/sending-evidence.html" %}
+                <!--
+                this remains here as fallback for non-signed in users
+                it should be removed once auth is handled properly using IDAM
+                 -->
+                {% set reference = "SC242/16/03435" %}
+                <details id="sending-evidence-guide" class="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">
+                          {{ i18n.question.sendingEvidence.summary }}
+                        </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        <p>{{ i18n.question.sendingEvidence.details.para1 }}</p>
+                        <p>{{ i18n.question.sendingEvidence.details.para2 }}<br><strong>{{ reference }}</strong></p>
+
+                        {% include "includes/sending-evidence-contact-details.html" %}
+
+                        <p>{{ i18n.question.sendingEvidence.details.closingPara1 }}</p>
+                        <p>{{ i18n.question.sendingEvidence.details.closingPara2 }}</p>
+                    </div>
+                </details>
 
                 <div id="submit-buttons">
                     <input id="submit-answer" type="submit" name="submit" value="Submit answer to the tribunal" class="govuk-button">
