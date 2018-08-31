@@ -40,7 +40,7 @@ describe('Submit question page', () => {
     expect(await submitQuestionPage.getElement('#submit-answer')).to.not.be.null;
   });
 
-  it.skip('redirects to /task-list page when a valid answer is submitted', async() => {
+  it('redirects to /task-list page when a valid answer is submitted', async() => {
     await submitQuestionPage.submit();
     expect(submitQuestionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
   });
