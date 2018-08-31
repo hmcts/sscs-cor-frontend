@@ -11,7 +11,7 @@
     "dev": "yarn build:dev && NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=development nodemon",
     "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\"",
     "mock-api": "dyson test/mock/services/ 8080",
-    "build": "yarn build:dev && yarn tsc -p ./app/server/tsconfig.json",
+    "build": "yarn build:dev && yarn transpile",
     "build:dev": "yarn build-sass && yarn build-js && yarn copy-assets",
     "build-sass": "node-sass app/client/sass/application.scss public/css/main.css --output-style compressed",
     "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend",
@@ -22,12 +22,13 @@
     "test:integration": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/integration/**/*.ts",
     "test:functional": "yarn test:browser -g @smoke --invert",
     "test:smoke": "yarn test:browser -g @smoke",
-    "test:coverage": "nyc yarn test:unit",
+    "test:coverage": "yarn transpile && nyc yarn test:unit",
     "test:a11y": "cross-env NODE_PATH=. LOG_LEVEL=OFF mocha test/accessibility/**/*.ts",
     "test:all": "yarn test && yarn test:a11y",
     "test:nsp": "nsp check",
     "sonar-scan": "sonar-scanner",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "transpile": "yarn tsc -p ./app/server/tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -73,7 +74,6 @@
     "concurrently": "^3.6.1",
     "dyson": "^2.0.1",
     "eslint": "^4.19.1",
-    "istanbul": "1.1.0-alpha.1",
     "jsdom": "^11.12.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^3.2.0",
@@ -88,12 +88,13 @@
     "sinon": "^2.1.0",
     "sinon-chai": "^2.9.0",
     "sonar-scanner": "^3.0.3",
+    "source-map-support": "^0.5.9",
     "supertest": "^3.1.0",
-    "ts-node": "^5.0.1",
+    "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.5.0",
     "tsify": "^4.0.0",
     "tslint": "^5.9.1",
-    "typescript": "^2.9.2",
+    "typescript": "^3.0.0",
     "uuid": "^3.3.2"
   }
 }
