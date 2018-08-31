@@ -1,4 +1,4 @@
-const getQuestionService = require('app/services/getQuestion');
+const getAllQuestionsService = require('app/services/getAllQuestions');
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const nock = require('nock');
@@ -6,14 +6,18 @@ const config = require('config');
 
 const apiUrl = config.get('api.url');
 
-describe('services/getQuestion.js', () => {
+describe('services/getAllQuestions.js', () => {
   const hearingId = '121';
-  const questionId = '62';
-  const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+  const path = `/continuous-online-hearings/${hearingId}`;
 
   const apiResponse = {
-    question_id: questionId,
-    question_header_text: 'What is the meaning of life?'
+    questions: [
+      {
+        question_id: '001',
+        question_header_text: 'How do you interact with people?',
+        answer_state: 'draft'
+      }
+    ]
   };
 
   describe('resolving the promise', () => {
@@ -24,11 +28,11 @@ describe('services/getQuestion.js', () => {
     });
 
     it('resolves the promise', () => (
-      expect(getQuestionService(hearingId, questionId)).to.be.fulfilled
+      expect(getAllQuestionsService(hearingId)).to.be.fulfilled
     ));
 
     it('resolves the promise with the response', () => (
-      expect(getQuestionService(hearingId, questionId)).to.eventually.eql(apiResponse)
+      expect(getAllQuestionsService(hearingId)).to.eventually.eql(apiResponse)
     ));
   });
 
@@ -42,7 +46,9 @@ describe('services/getQuestion.js', () => {
     });
 
     it('rejects the promise with the error', () => (
-      expect(getQuestionService(hearingId, questionId)).to.be.rejectedWith(error)
+      expect(getAllQuestionsService(hearingId)).to.be.rejectedWith(error)
     ));
   });
 });
+
+export {};

@@ -8,7 +8,8 @@ const i18n = require('app/locale/en');
 
 describe('controllers/question.js', () => {
   const next = sinon.stub();
-  const req = {}, res = {};
+  const req: any = {}
+  const res: any = {};
 
   req.params = {
     hearingId: '1',
@@ -156,3 +157,5 @@ describe('controllers/question.js', () => {
     });
   });
 });
+
+export {};

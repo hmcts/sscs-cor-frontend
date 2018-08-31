@@ -1,0 +1,13 @@
+{
+  "include": [
+    "app/**/*.js"
+  ],
+  "reporter": [
+    "lcov",
+    "text"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "report-dir": "./test/coverage/html"
+}
