@@ -80,7 +80,7 @@ async function bootstrapCoh() {
       const question = await coh.createQuestion(hearingId);
       const questionId = question.question_id;
       await coh.setQuestionRoundToIssued(hearingId);
-      const questionRound = await waitForQuestionRoundIssued(hearingId, 1);
+      const questionRound = await waitForQuestionRoundIssued(hearingId, 1, null);
       const questionHeader = questionRound.question_references[0].question_header_text;
       const deadlineExpiryDate = questionRound.question_references[0].deadline_expiry_date;
       cohTestData = { hearingId, questionId, questionHeader, deadlineExpiryDate };
