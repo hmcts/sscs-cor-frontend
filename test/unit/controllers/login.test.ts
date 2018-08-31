@@ -121,3 +121,5 @@ describe('controllers/login.js', () => {
     });
   });
 });
+
+export {};

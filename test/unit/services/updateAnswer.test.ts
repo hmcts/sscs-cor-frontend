@@ -89,3 +89,5 @@ describe('services/updateAnswer.js', () => {
     ));
   });
 });
+
+export {};

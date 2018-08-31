@@ -64,3 +64,5 @@ describe('Task list page', () => {
       .to.equal(`${testUrl}${paths.question}/${hearingId}/${questionId}`);
   });
 });
+
+export {};

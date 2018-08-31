@@ -27,3 +27,5 @@ describe('app-insights.js', () => {
     });
   });
 });
+
+export {};
