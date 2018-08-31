@@ -1,7 +1,12 @@
 {
   "include": [
-    "app/**/*.js"
+    "app/**/*"
   ],
+  "exclude": [
+    "**/*.d.ts",
+    "app/server.js",
+    "app/server/controllers/*.js"
+  ],  
   "reporter": [
     "lcov",
     "text"
@@ -9,5 +14,7 @@
   "extension": [
     ".ts"
   ],
-  "report-dir": "./test/coverage/html"
+  "report-dir": "./test/coverage/html",
+  "temp-directory": "./test/coverage/.nyc_output",
+  "all": true
 }

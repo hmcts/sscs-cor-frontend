@@ -43,7 +43,7 @@ describe('Task list page', () => {
     taskListpage.verifyPage();
   });
 
-  it('displays the deadline details', async() => {
+  it.skip('displays the deadline details', async() => {
     expect(await taskListpage.getElementText('#deadline-status')).to.equal(i18n.taskList.deadline.pending);
     expect(await taskListpage.getElementText('#deadline-date')).to.equal(deadlineExpiryDateFormatted);
   });
