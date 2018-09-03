@@ -58,7 +58,7 @@
                     </summary>
                     <div class="govuk-details__text">
                         <p>{{ i18n.question.sendingEvidence.details.para1 }}</p>
-                        <p>{{ i18n.question.sendingEvidence.details.para2 }}<br><strong>{{ reference }}</strong></p>
+                        <p>{{ i18n.question.sendingEvidence.details.para2 }}<br><strong id="evidence-case-reference">{{ hearing.case_reference or reference }}</strong></p>
 
                         {% include "includes/sending-evidence-contact-details.html" %}
 

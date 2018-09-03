@@ -41,7 +41,7 @@
                 {% for question in questions %}
                     {% set answerState = question.answer_state %}
                     <li id="question-{{ question.question_id }}">
-                        <a class="govuk-link" href="/question/{{ hearing.online_hearing_id or hearingId }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
+                        <a class="govuk-link question-header-text" href="/question/{{ hearing.online_hearing_id or hearingId }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
                         {% if answerState != 'unanswered' %}
                             <span class="answer-state {{ question.answer_state }}">
                                 {{
@@ -71,7 +71,7 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <p>{{ i18n.taskList.sendingEvidence.details.para1 }} <strong>{{ reference }}</strong></p>
+                <p>{{ i18n.taskList.sendingEvidence.details.para1 }} <strong id="evidence-case-reference">{{ hearing.case_reference or reference }}</strong></p>
 
                 {% include "includes/sending-evidence-contact-details.html" %}
 
