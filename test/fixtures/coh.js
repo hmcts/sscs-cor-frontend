@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 const rp = require('request-promise');
 const moment = require('moment');
-const uuidv4 = require('uuid/v4');
 const mockData = require('test/mock/services/question').template;
 
 const cohUrl = require('config').get('cohUrl');
@@ -9,7 +8,7 @@ const cohUrl = require('config').get('cohUrl');
 const JURISDICTION = 'SSCS';
 const PANEL_NAME = 'John Smith';
 const PANEL_IDENTITY_TOKEN = 'string';
-const HEARING_STATUS = 'NEW';
+const HEARING_STATUS = 'continuous_online_hearing_started';
 
 const QUESTION_OWNER_REF = 'SSCS-COR';
 const QUESTION_ORDINAL = '1';
@@ -21,9 +20,9 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-const onlineHearingBody = () => {
+const onlineHearingBody = caseId => {
   return {
-    case_id: uuidv4(),
+    case_id: caseId,
     jurisdiction: JURISDICTION,
     panel: [
       {
@@ -44,11 +43,11 @@ const questionBody = {
   question_round: QUESTION_ROUND
 };
 
-async function createOnlineHearing() {
+async function createOnlineHearing(caseId) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings`,
     headers: { ...headers },
-    body: onlineHearingBody(),
+    body: onlineHearingBody(caseId),
     json: true
   };
   const body = await rp.post(options);

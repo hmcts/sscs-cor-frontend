@@ -44,7 +44,7 @@ describe('Login page', () => {
     expect(errorSummary).contain(i18n.login.emailAddress.error.error422);
   });
 
-  it('logs in successfully and show the task list', async() => {
+  it('logs in successfully and shows the task list', async() => {
     await loginPage.login('test@example.com');
     await loginPage.screenshot('successful-login');
     taskListPage.verifyPage();
