@@ -77,6 +77,7 @@ If a functional/smoke test run is failing in AAT (or other integrated environmen
 To do this you must set some extra environment variables locally:
 
 * HTTP_PROXY - to configure the tests to use the HMCTS proxy
+* SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-cor-backend-aat.service.core-compute-aat.internal for AAT
 * COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
 * TEST_URL - this is the URL you are testing e.g. https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
 * HEADLESS - optionally choose to show the browser by setting this to false
@@ -84,5 +85,5 @@ To do this you must set some extra environment variables locally:
 Put these together with the required `yarn` command in one line like this:
 
 ```bash
-HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal yarn test:smoke
+HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal yarn test:smoke
 ```
