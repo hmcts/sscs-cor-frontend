@@ -1,5 +1,5 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { getLogin, getLogout, postLogin, setupLoginController } = require('app/controllers/login');
+const { getLogin, getLogout, postLogin, setupLoginController } = require('app/server/controllers/login.ts');
 const appInsights = require('app/server/app-insights');
 const express = require('express');
 const paths = require('app/server/paths');

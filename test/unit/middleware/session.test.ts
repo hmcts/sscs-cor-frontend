@@ -1,5 +1,5 @@
 const { expect } = require('test/chai-sinon');
-const createSession = require('app/middleware/session');
+const { createSession } = require('app/server/middleware/session.ts');
 
 describe('middleware/session', () => {
   it('exports session middleware function', () => {

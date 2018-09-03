@@ -4,7 +4,7 @@ const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/services/allQuestions').template;
 const TaskListPage = require('test/page-objects/task-list');
 const paths = require('app/server/paths');
-const i18n = require('app/locale/en.json');
+const i18n = require('app/server/locale/en.json');
 const config = require('config');
 
 const testUrl = config.get('testUrl');

@@ -13,4 +13,4 @@ async function getQuestion(hearingId, questionId) {
   }
 }
 
-module.exports = getQuestion;
+export = getQuestion;

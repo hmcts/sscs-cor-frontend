@@ -1,4 +1,4 @@
-const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/services/updateAnswer');
+const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/server/services/updateAnswer.ts');
 const { expect } = require('test/chai-sinon');
 const { NO_CONTENT, INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const nock = require('nock');

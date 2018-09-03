@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const i18n = require('app/locale/en');
+const i18n = require('app/server/locale/en');
 
 const maxCharacters = 10000;
 
@@ -42,7 +42,7 @@ function loginEmailAddressValidation(email) {
   return error;
 }
 
-module.exports = {
+export {
   answerValidation,
   loginEmailAddressValidation
 };

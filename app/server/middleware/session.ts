@@ -3,7 +3,8 @@ const config = require('config');
 
 const isSecure = config.get('session.cookie.secure') === 'true';
 
-module.exports = function createSession(store) {
+// TODO - chech with Dave
+function createSession(store?: any) {
   return session({
     cookie: {
       httpOnly: true,
@@ -16,3 +17,7 @@ module.exports = function createSession(store) {
     store
   });
 };
+
+export {
+  createSession
+}
