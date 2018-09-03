@@ -30,7 +30,7 @@ function setup(sessionHandler: any, options: Options) {
   }
 
   nunjucks.configure([
-    'app/views',
+    'app/server/views',
     'node_modules/govuk-frontend/',
     'node_modules/govuk-frontend/components/'
   ], {

@@ -1,5 +1,5 @@
 const { expect } = require('test/chai-sinon');
-const { startServices } = require('test/browser/common');
+import { startServices } from 'test/browser/common';
 const mockDataQuestion = require('test/mock/services/question').template;
 const mockDataHearing = require('test/mock/services/hearing').template;
 const TaskListPage = require('test/page-objects/task-list');
