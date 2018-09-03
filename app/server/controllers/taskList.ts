@@ -1,6 +1,6 @@
 const appInsights = require('app/server/app-insights');
-const moment = require('moment');
-import { Router } from 'express';
+import moment from 'moment';
+import { Router, Request, Response, NextFunction } from "express";
 const paths = require('app/server/paths');
 
 const DEADLINE_EXPIRY_DATE_FORMAT = 'D MMMM YYYY';
@@ -22,7 +22,7 @@ function processDeadline(expiryDateRaw: any, allQuestionsSubmitted: any) {
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 
 function getTaskList(getAllQuestionsService: any) {
-  return async(req: any, res: any, next: any) => {
+  return async(req: Request, res: Response, next: NextFunction) => {
     const hearing = req.session.hearing;
     const hearingId = (hearing && hearing.online_hearing_id) || req.params.hearingId;
     try {

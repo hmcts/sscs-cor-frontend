@@ -117,7 +117,7 @@ async function login(page) {
   taskListPage.verifyPage();
 }
 
-async function startServices(options) {
+async function startServices(options?) {
   const opts = options || {};
   if (opts.bootstrapData) {
     await bootstrapCcdCase();
@@ -147,4 +147,4 @@ after(async() => {
   }
 });
 
-export = { startServices };
+export { startServices };

@@ -1,6 +1,6 @@
 const moment = require('moment');
 const { expect } = require('test/chai-sinon');
-const { startServices } = require('test/browser/common');
+import { startServices } from 'test/browser/common';
 const mockDataQuestions = require('test/mock/services/allQuestions').template;
 const mockDataHearing = require('test/mock/services/hearing').template;
 const TaskListPage = require('test/page-objects/task-list');
