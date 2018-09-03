@@ -3,6 +3,9 @@ const puppeteer = require('puppeteer');
 const { createServer } = require('http');
 const createSession = require('app/middleware/session');
 const coh = require('test/fixtures/coh');
+const ccd = require('test/fixtures/ccd');
+const LoginPage = require('test/page-objects/login');
+const TaskListPage = require('test/page-objects/task-list');
 const { setup } = require('app/server/app');
 const config = require('config');
 const dysonSetup = require('test/mock/dysonSetup');
@@ -16,6 +19,9 @@ const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 let browser;
 let server;
 let cohTestData;
+let ccdCase;
+let loginPage;
+let taskListPage;
 
 async function startBrowser() {
   if (!browser) {
@@ -76,7 +82,7 @@ async function waitForQuestionRoundIssued(hearingId, roundNum, attemptNum) {
 async function bootstrapCoh() {
   if (!cohTestData && !testingLocalhost) {
     try {
-      const hearingId = await coh.createOnlineHearing();
+      const hearingId = await coh.createOnlineHearing(ccdCase.caseId);
       const question = await coh.createQuestion(hearingId);
       const questionId = question.question_id;
       await coh.setQuestionRoundToIssued(hearingId);
@@ -91,9 +97,30 @@ async function bootstrapCoh() {
   }
 }
 
+async function bootstrapCcdCase() {
+  if (!ccdCase && !testingLocalhost) {
+    try {
+      ccdCase = await ccd.createCase();
+    } catch (error) {
+      console.log('Error bootstrapping CCD with test case', error);
+      return Promise.reject(error);
+    }
+  }
+}
+
+async function login(page) {
+  const email = ccdCase && ccdCase.email || 'someone@example.com';
+  loginPage = new LoginPage(page);
+  taskListPage = new TaskListPage(page);
+  await loginPage.visitPage();
+  await loginPage.login(email);
+  taskListPage.verifyPage();
+}
+
 async function startServices(options) {
   const opts = options || {};
-  if (opts.bootstrapCoh) {
+  if (opts.bootstrapData) {
+    await bootstrapCcdCase();
     await bootstrapCoh();
   }
   await startAppServer();
@@ -103,7 +130,10 @@ async function startServices(options) {
     height: 700,
     width: 1100
   });
-  return { page, cohTestData: cohTestData || {} };
+  if (opts.performLogin) {
+    await login(page);
+  }
+  return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {} };
 }
 
 after(async() => {
