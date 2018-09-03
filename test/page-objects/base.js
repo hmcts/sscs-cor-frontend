@@ -34,7 +34,7 @@ class BasePage {
 
   async getElementText(selector) {
     await this.page.waitForSelector(selector);
-    const element = await this.page.$eval(selector, el => el.innerHTML);
+    const element = await this.page.$eval(selector, el => el.innerText);
     return element;
   }
 
