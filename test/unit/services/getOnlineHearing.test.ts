@@ -77,3 +77,5 @@ describe('services/getOnlineHearing.js', () => {
     });
   });
 });
+
+export {};

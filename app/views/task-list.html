@@ -4,7 +4,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-        <h1 class="govuk-heading-l">{{ i18n.taskList.header }}</h1>
+        <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
 
         {% if hearing.appellant_name %}
             <div id="appeal-details">
@@ -28,6 +28,15 @@
     <div class="govuk-grid-column-two-thirds">
         <div id="task-list">
             <h2 class="govuk-heading-s">Questions from the tribunal</h2>
+            <p>
+                <span id="deadline-status">{{ i18n.taskList.deadline[deadlineExpiryDate.status] }}</span>
+                {% if deadlineExpiryDate.formatted %}
+                    <span id="deadline-date">{{ deadlineExpiryDate.formatted }}</span>.
+                {% endif %}
+                {% if deadlineExpiryDate.extendable %}
+                    <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>
+                {% endif %}
+            </p>
             <ul class="govuk-list">
                 {% for question in questions %}
                     {% set answerState = question.answer_state %}

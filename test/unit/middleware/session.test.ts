@@ -6,3 +6,5 @@ describe('middleware/session', () => {
     expect(createSession()).to.be.a('function');
   });
 });
+
+export {};

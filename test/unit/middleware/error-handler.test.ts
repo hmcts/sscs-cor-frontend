@@ -50,3 +50,5 @@ describe('middleware/error-handler', () => {
     });
   });
 });
+
+export {};
