@@ -103,6 +103,7 @@ async function bootstrapCcdCase() {
       ccdCase = await ccd.createCase();
     } catch (error) {
       console.log('Error bootstrapping CCD with test case', error);
+      return Promise.reject(error);
     }
   }
 }

@@ -10,15 +10,20 @@ def product = "sscs-cor"
 def component = "frontend"
 
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
+def sscsCorBackEndUrlAat = "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
 
 withPipeline("nodejs", product, component) {
     after('build') {sh 'yarn build'}
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
+        env.SSCS_API_URL = sscsCorBackEndUrlAat
+        sh 'echo SSCS_API_URL=$SSCS_API_URL'
     }
     before("functionalTest:aat") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
+        env.SSCS_API_URL = sscsCorBackEndUrlAat
+        sh 'echo SSCS_API_URL=$SSCS_API_URL'
     }
 }

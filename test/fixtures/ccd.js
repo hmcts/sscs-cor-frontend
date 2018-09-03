@@ -8,13 +8,13 @@ async function createCase() {
   const email = faker.internet.email();
   const options = {
     url: `${backendApiUrl}/case`,
-    body: { email },
+    qs: { email },
     json: true
   };
   const body = await rp.post(options);
   const caseId = body.id;
   const caseReference = body.case_reference;
-  console.log(`Created CCD case for ${email} with ID ${caseId}`);
+  console.log(`Created CCD case for ${email} with ID ${caseId} and reference ${caseReference}`);
   return { email, caseId, caseReference };
 }
 
