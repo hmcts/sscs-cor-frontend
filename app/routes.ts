@@ -4,7 +4,7 @@ const { ensureAuthenticated, setLocals } = require('app/middleware/ensure-authen
 
 const { setupQuestionController } = require('app/controllers/question');
 import { setupSubmitQuestionController } from './server/controllers/submit_question';
-const { setupTaskListController } = require('app/controllers/taskList');
+import { setupTaskListController } from './server/controllers/taskList';
 const { setupLoginController } = require('app/controllers/login');
 
 // eslint-disable-next-line new-cap

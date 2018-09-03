@@ -86,3 +86,5 @@ describe('middleware/health', () => {
     });
   });
 });
+
+export {};

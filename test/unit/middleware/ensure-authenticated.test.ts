@@ -65,3 +65,5 @@ describe('middleware/ensure-authenticated', () => {
     });
   });
 });
+
+export {};

@@ -1,3 +1,4 @@
+*.map
 .idea
 node_modules
 yarn-error.log
@@ -6,3 +7,7 @@ test/coverage
 functional-output/*
 dump.rdb
 .vscode
+app/server/controllers/*.js
+app/routes.js
+app/server/server.js
+app/server/app.js

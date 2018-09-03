@@ -17,7 +17,7 @@ describe('Question page', () => {
   let hearingId;
   let questionId;
 
-  before(async() => {
+  before('start services and bootstrap data in COH', async() => {
     const res = await startServices({ bootstrapCoh: true });
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;
@@ -66,7 +66,7 @@ describe('Question page', () => {
       .contain(i18n.question.textareaField.error.empty);
   });
 
-  it.skip('redirects to /task-list page when a valid answer is saved', async() => {
+  it('redirects to /task-list page when a valid answer is saved', async() => {
     await questionPage.saveAnswer('A valid answer');
     expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
   });

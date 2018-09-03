@@ -1,10 +1,11 @@
+const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/services/allQuestions').template;
 const TaskListPage = require('test/page-objects/task-list');
 const paths = require('app/server/paths');
-const config = require('config');
 const i18n = require('app/locale/en.json');
+const config = require('config');
 
 const testUrl = config.get('testUrl');
 
@@ -17,13 +18,16 @@ describe('Task list page', () => {
   let hearingId;
   let questionId;
   let questionHeader;
+  let deadlineExpiryDateFormatted;
 
-  before(async() => {
+  before('start services and bootstrap data in COH', async() => {
     const res = await startServices({ bootstrapCoh: true });
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;
     questionId = res.cohTestData.questionId || sampleQuestionId;
-    questionHeader = res.cohTestData.questionHeader || mockData.questions[0].question_header_text;
+    questionHeader = res.cohTestData.questionHeader || mockData.questions({ sampleHearingId })[0].question_header_text;
+    const deadlineExpiryDate = res.cohTestData.deadlineExpiryDate || mockData.deadline_expiry_date({ sampleHearingId });
+    deadlineExpiryDateFormatted = moment.utc(deadlineExpiryDate).format('D MMMM YYYY');
     taskListpage = new TaskListPage(page, hearingId);
     await taskListpage.visitPage();
     await taskListpage.screenshot('task-list');
@@ -37,6 +41,11 @@ describe('Task list page', () => {
 
   it('is on the /task-list path', () => {
     taskListpage.verifyPage();
+  });
+
+  it.skip('displays the deadline details', async() => {
+    expect(await taskListpage.getElementText('#deadline-status')).to.equal(i18n.taskList.deadline.pending);
+    expect(await taskListpage.getElementText('#deadline-date')).to.equal(deadlineExpiryDateFormatted);
   });
 
   it('displays the list of questions', async() => {
@@ -55,3 +64,5 @@ describe('Task list page', () => {
       .to.equal(`${testUrl}${paths.question}/${hearingId}/${questionId}`);
   });
 });
+
+export {};

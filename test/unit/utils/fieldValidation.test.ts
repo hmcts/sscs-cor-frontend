@@ -27,3 +27,5 @@ describe('utils/fieldValidation.js', () => {
     });
   });
 });
+
+export {};
