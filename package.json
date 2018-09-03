@@ -23,7 +23,7 @@
     "test:functional": "yarn test:browser -g @smoke --invert",
     "test:smoke": "yarn test:browser -g @smoke",
     "test:coverage": "yarn transpile && nyc yarn test:unit",
-    "test:a11y": "cross-env NODE_PATH=. LOG_LEVEL=OFF mocha test/accessibility/**/*.ts",
+    "test:a11y": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json LOG_LEVEL=OFF mocha test/accessibility/**/*.ts",
     "test:all": "yarn test && yarn test:a11y",
     "test:nsp": "nsp check",
     "sonar-scan": "sonar-scanner",

@@ -1,5 +1,5 @@
 const { expect, sinon } = require('test/chai-sinon');
-import { setupTaskListController, getTaskList, processDeadline } from '../../../app/server/controllers/taskList';
+const { setupTaskListController, getTaskList, processDeadline } = require('app/server/controllers/taskList.ts');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const moment = require('moment');
 const appInsights = require('app/server/app-insights');

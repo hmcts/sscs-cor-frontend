@@ -1,11 +1,13 @@
 {
   "include": [
-    "app/**/*"
+    "app/server/**/*.ts"
   ],
   "exclude": [
     "**/*.d.ts",
-    "app/server.js",
-    "app/server/controllers/*.js"
+    "app/client/javascript/main.ts",
+    "app/server/app-insights.ts",
+    "app/server/routes.ts",
+    "app/server/server.ts"
   ],  
   "reporter": [
     "lcov",

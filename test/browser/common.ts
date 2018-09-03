@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
-const createSession = require('app/middleware/session');
+const { createSession } = require ('app/server/middleware/session');
 const coh = require('test/fixtures/coh');
 const { setup } = require('app/server/app');
 const config = require('config');

@@ -2,10 +2,10 @@ const appInsights = require('app/server/app-insights');
 const { Express } = require('@hmcts/nodejs-logging');
 import nunjucks = require('nunjucks');
 import express = require('express');
-import { router as routes } from '../routes';
-const errors = require('app/middleware/error-handler');
-const health = require('app/middleware/health');
-const locale = require('app/locale/en.json');
+import { router as routes } from 'app/server/routes';
+const errors = require('app/server/middleware/error-handler');
+const health = require('app/server/middleware/health');
+const locale = require('app/server/locale/en.json');
 const paths = require('app/server/paths');
 const bodyParser = require('body-parser');
 
