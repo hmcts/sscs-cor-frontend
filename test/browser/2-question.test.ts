@@ -86,7 +86,7 @@ describe('Question page', () => {
     });
   });
 
-  describe('submitting an answer', () => {
+  describe.skip('submitting an answer', () => {
     before(async() => {
       await taskListPage.clickQuestion(questionId);
     });
@@ -99,13 +99,13 @@ describe('Question page', () => {
       submitQuestionPage.verifyPage();
     });
 
-    it.skip('redirects to /task-list page when a valid answer is submitted', async() => {
+    it('redirects to /task-list page when a valid answer is submitted', async() => {
       await submitQuestionPage.submit();
       expect(submitQuestionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
     });
 
     // TODO: add state to mocks to be able to test this
-    it.skip('displays question status as completed', async() => {
+    it('displays question status as completed', async() => {
       const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
     });
