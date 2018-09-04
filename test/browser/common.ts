@@ -63,13 +63,10 @@ async function waitForQuestionRoundIssued(hearingId, roundNum, attemptNum) {
   const MAX_ATTEMPTS = 30;
   const DELAY_BETWEEN_ATTEMPTS_MS = 1000;
   const currentAttemptNum = attemptNum || 1;
-  const questionRound = await coh.getQuestionRound(hearingId, roundNum);
   if (currentAttemptNum > MAX_ATTEMPTS) {
-    // current functional test issue workaround
-    console.log(`Question round not issued after ${MAX_ATTEMPTS} attempts, continuing anyway...`);
-    return Promise.resolve(questionRound);
-    // return Promise.reject(new Error(`Question round not issued after ${MAX_ATTEMPTS} attempts`));
+    return Promise.reject(new Error(`Question round not issued after ${MAX_ATTEMPTS} attempts`));
   }
+  const questionRound = await coh.getQuestionRound(hearingId, roundNum);
   const questionRoundState = questionRound.question_round_state.state_name;
   if (questionRoundState !== 'question_issued') {
     console.log(`Question round not issued at attempt ${currentAttemptNum}: ${questionRoundState}`);

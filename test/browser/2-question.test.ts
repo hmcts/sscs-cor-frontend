@@ -73,7 +73,7 @@ describe('Question page', () => {
       .equal(i18n.question.textareaField.error.empty);
   });
 
-  describe.skip('saving an answer', () => {
+  describe('saving an answer', () => {
     it('redirects to /task-list page when a valid answer is saved', async() => {
       await questionPage.saveAnswer('A valid answer');
       expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
@@ -86,7 +86,7 @@ describe('Question page', () => {
     });
   });
 
-  describe.skip('submitting an answer', () => {
+  describe('submitting an answer', () => {
     before(async() => {
       await taskListPage.clickQuestion(questionId);
     });
