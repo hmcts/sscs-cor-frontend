@@ -14,6 +14,7 @@ function getQuestion(getQuestionService) {
         questionId,
         header: response.question_header_text,
         body: response.question_body_text,
+        answer_state: response.answer_state,
         answer: {
           value: response.answer
         }
