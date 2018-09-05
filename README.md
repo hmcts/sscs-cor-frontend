@@ -87,3 +87,39 @@ Put these together with the required `yarn` command in one line like this:
 ```bash
 HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal yarn test:smoke
 ```
+
+### Creating test data in AAT
+
+You can easily create a benefit appeal in CCD with online panel and associate it with an online hearing. The hearing will have one question and the question round will be issued.
+
+This is done using a yarn command, but when running this locally, you must set the following environment variables:
+
+* HTTP_PROXY - to configure the tests to use the HMCTS proxy
+* SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-cor-backend-aat.service.core-compute-aat.internal for AAT
+* COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
+
+```bash
+HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal yarn test:create-data
+```
+
+The command will output something like this:
+
+```
+Created CCD case for Violet.Bauch@hotmail.com with ID 1536144242774302 and reference CRd82c098f-2392-412d-a304-a88a37e9f3fc
+Created online hearing with ID 2f19fb2a-e8de-4a2d-ac93-1c31a9085f7d
+Created question with ID 2f55c51a-1a0e-4c4e-8e0c-30620663fd0a
+Question round issued, status pending
+Question round not issued at attempt 1: question_issue_pending
+Question round not issued at attempt 2: question_issue_pending
+Question round issued successfully at attempt 3
+CCD case { email: 'Violet.Bauch@hotmail.com',
+  caseId: '1536144242774302',
+  caseReference: 'CRd82c098f-2392-412d-a304-a88a37e9f3fc' }
+COH test data { hearingId: '2f19fb2a-e8de-4a2d-ac93-1c31a9085f7d',
+  questionId: '2f55c51a-1a0e-4c4e-8e0c-30620663fd0a',
+  questionHeader: 'How do you interact with people?',
+  questionBody: 'You said you avoid interacting with people if possible. We\'d like to know more about the times when you see friends and family.\n\nTell us about three separate occasions in 2017 that you have met with friends and family.\n\nTell us:\n\n- who you met\n\n- when\n\n- where\n\n- how it made you feel',
+  deadlineExpiryDate: '2018-09-12T23:59:59Z' }
+```
+
+If you visit https://sscs-cor-frontend-aat.service.core-compute-aat.internal/login and enter the email address shown you should be able to use the service.
