@@ -37,8 +37,8 @@ const onlineHearingBody = caseId => {
 
 const questionBody = {
   owner_reference: QUESTION_OWNER_REF,
-  question_body_text: mockData.question_body_text,
-  question_header_text: mockData.question_header_text,
+  question_body_text: mockData.question_body_text({ questionId: '001' }),
+  question_header_text: mockData.question_header_text({ questionId: '001' }),
   question_ordinal: QUESTION_ORDINAL,
   question_round: QUESTION_ROUND
 };
@@ -46,7 +46,7 @@ const questionBody = {
 async function createOnlineHearing(caseId) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings`,
-    headers: { ...headers },
+    headers,
     body: onlineHearingBody(caseId),
     json: true
   };
@@ -58,7 +58,7 @@ async function createOnlineHearing(caseId) {
 async function createQuestion(hearingId) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questions`,
-    headers: { ...headers },
+    headers,
     body: questionBody,
     json: true
   };
@@ -70,7 +70,7 @@ async function createQuestion(hearingId) {
 async function setQuestionRoundToIssued(hearingId) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questionrounds/1`,
-    headers: { ...headers },
+    headers,
     body: { state_name: 'question_issue_pending' },
     json: true
   };
@@ -81,7 +81,7 @@ async function setQuestionRoundToIssued(hearingId) {
 async function getQuestionRound(hearingId, roundNum) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questionrounds/${roundNum}`,
-    headers: { ...headers },
+    headers,
     json: true
   };
   const body = await rp.get(options);

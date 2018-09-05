@@ -5,7 +5,7 @@ const appInsights = require('app/server/app-insights');
 const paths = require('app/server/paths');
 const express = require('express');
 
-describe('controllers/question.js', () => {
+describe('controllers/submit_question.js', () => {
   const next = sinon.stub();
   const req:any = {}; 
   const res:any = {};
@@ -42,7 +42,7 @@ describe('controllers/question.js', () => {
     it('should call res.redirect when submitting an answer and there are no errors', async() => {
       const submitAnswerService = () => Promise.resolve();
       await postSubmitAnswer(submitAnswerService)(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(`${paths.taskList}/${req.params.hearingId}`);
+      expect(res.redirect).to.have.been.calledWith(paths.taskList);
     });
 
     it('should call next and appInsights with the error when there is one', async() => {

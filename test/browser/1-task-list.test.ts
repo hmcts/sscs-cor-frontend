@@ -67,6 +67,11 @@ describe('Task list page', () => {
     expect(displayedQuestionHeader).to.equal(questionHeader);
   });
 
+  it('displays question status as unanswered', async() => {
+    const answerElement = await taskListPage.getElement(`#question-${questionId} .answer-state`);
+    expect(answerElement).to.be.null;
+  });
+
   it('redirects to the question page for that question', async() => {
     await taskListPage.clickQuestion(questionId);
     expect(taskListPage.getCurrentUrl())

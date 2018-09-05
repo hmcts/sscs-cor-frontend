@@ -38,6 +38,11 @@ class BasePage {
     return element;
   }
 
+  async getElementValue(selector) {
+    const element = await this.page.$eval(selector, el => el.value);
+    return element;
+  }
+
   async getElement(selector) {
     const element = await this.page.$(selector);
     return element;
