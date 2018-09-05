@@ -18,11 +18,9 @@ const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = req
 const questionController = setupQuestionController({
   getQuestionService,
   saveAnswerService,
-  // just passing setLocals to ensure the case_reference is available if logged in
-  // this will need to be changed when handling auth properly using IDAM
-  setLocals
+  ensureAuthenticated
 });
-const submitQuestionController = setupSubmitQuestionController({ submitAnswerService });
+const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, ensureAuthenticated });
 const taskListController = setupTaskListController({ getAllQuestionsService, ensureAuthenticated });
 const loginController = setupLoginController({ getOnlineHearingService });
 

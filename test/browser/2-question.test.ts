@@ -21,6 +21,8 @@ describe('Question page', () => {
   let submitQuestionPage;
   let hearingId;
   let questionId;
+  let questionHeader;
+  let questionBody;
   let caseReference;
 
   before('start services and bootstrap data in CCD/COH', async() => {
@@ -28,6 +30,8 @@ describe('Question page', () => {
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;
     questionId = res.cohTestData.questionId || sampleQuestionId;
+    questionHeader = res.cohTestData.questionHeader || mockDataQuestion.question_header_text({ questionId: sampleQuestionId });
+    questionBody = res.cohTestData.questionBody || mockDataQuestion.question_body_text({ questionId: sampleQuestionId });
     caseReference = res.ccdCase.caseReference || mockDataHearing.case_reference;
     taskListPage = new TaskListPage(page)
     questionPage = new QuestionPage(page, hearingId, questionId);
@@ -47,11 +51,11 @@ describe('Question page', () => {
   });
 
   it('displays question heading from api request', async() => {
-    expect(await questionPage.getHeading()).to.equal(mockDataQuestion.question_header_text);
+    expect(await questionPage.getHeading()).to.equal(questionHeader);
   });
 
   it('displays question body from api request', async() => {
-    expect(await questionPage.getBody()).to.contain(mockDataQuestion.question_body_text);
+    expect(await questionPage.getBody()).to.contain(questionBody);
   });
 
   it('displays question answer box', async() => (
@@ -76,10 +80,9 @@ describe('Question page', () => {
   describe('saving an answer', () => {
     it('redirects to /task-list page when a valid answer is saved', async() => {
       await questionPage.saveAnswer('A valid answer');
-      expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
+      expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}`);
     });
 
-    // TODO: add state to mocks to be able to test this properly
     it('displays question status as draft', async() => {
       const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase())
@@ -91,21 +94,22 @@ describe('Question page', () => {
       await taskListPage.clickQuestion(questionId);
     });
 
-    // TODO: add state to mocks to be able to test this
-    it('displays the previously drafted answer');
+    it('displays the previously drafted answer', async() => {
+      const savedAnswer = await questionPage.getElementValue('#question-field');
+      expect(savedAnswer).to.equal('A valid answer')
+    });
 
     it('is on the /submit_answer path after submitting answer', async() => {
-      await questionPage.submitAnswer('A valid answer');
+      await questionPage.submitAnswer('Another valid answer');
       submitQuestionPage.verifyPage();
     });
 
     it('redirects to /task-list page when a valid answer is submitted', async() => {
       await submitQuestionPage.submit();
-      expect(submitQuestionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}/${hearingId}`);
+      expect(submitQuestionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}`);
     });
 
-    // TODO: add state to mocks to be able to test this
-    xit('displays question status as completed', async() => {
+    it('displays question status as completed', async() => {
       const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
     });

@@ -85,7 +85,7 @@ describe('controllers/question.js', () => {
       req.body['question-field'] = 'My amazing answer';
       postAnswerService = () => Promise.resolve();
       await postAnswer(postAnswerService)(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(`${paths.taskList}/${req.params.hearingId}`);
+      expect(res.redirect).to.have.been.calledWith(paths.taskList);
     });
 
     it('should call res.redirect when submitting an answer and there are no errors', async() => {
