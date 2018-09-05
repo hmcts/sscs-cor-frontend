@@ -1,24 +1,16 @@
+import { Router, Request, Response, NextFunction } from "express";
 const appInsights = require('app/server/app-insights');
-const express = require('express');
 const paths = require('app/server/paths');
 
-function getSubmitQuestion() {
-  return (req: any, res: any) => {
-    const hearingId = req.params.hearingId;
-    const questionId = req.params.questionId;
-    const question = {
-      hearingId,
-      questionId
-    };
-    res.render('submit-question.html', { question });
-  };
+function getSubmitQuestion(req: Request, res: Response) {
+  const questionId = req.params.questionId;
+  res.render('submit-question.html', { questionId });
 }
 
 function postSubmitAnswer(submitAnswerService: any) {
-  return async(req: any, res: any, next: any) => {
-    const hearingId = req.params.hearingId;
+  return async(req: Request, res: Response, next: NextFunction) => {
+    const hearingId = req.session.hearing.online_hearing_id;
     const questionId = req.params.questionId;
-
     try {
       await submitAnswerService(hearingId, questionId);
       res.redirect(paths.taskList);
@@ -31,8 +23,8 @@ function postSubmitAnswer(submitAnswerService: any) {
 
 function setupSubmitQuestionController(deps: any) {
   // eslint-disable-next-line new-cap
-  const router = express.Router();
-  router.get(`${paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, getSubmitQuestion());
+  const router = Router();
+  router.get(`${paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, getSubmitQuestion);
   router.post(`${paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, postSubmitAnswer(deps.submitAnswerService));
   return router;
 }

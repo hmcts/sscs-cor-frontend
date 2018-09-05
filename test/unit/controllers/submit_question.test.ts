@@ -9,10 +9,18 @@ describe('controllers/submit_question.js', () => {
   const next = sinon.stub();
   const req:any = {}; 
   const res:any = {};
+  const hearingDetails = {
+    online_hearing_id: '1',
+    case_reference: 'SC/123/456',
+    appellant_name: 'John Smith'
+  };
 
   req.params = {
-    hearingId: '1',
     questionId: '2'
+  };
+
+  req.session = {
+    hearing: hearingDetails
   };
 
   res.render = sinon.stub();
@@ -28,12 +36,9 @@ describe('controllers/submit_question.js', () => {
 
   describe('getSubmitQuestion', () => {
     it('should call render with the template and hearing/question ids', () => {
-      getSubmitQuestion()(req, res);
+      getSubmitQuestion(req, res);
       expect(res.render).to.have.been.calledWith('submit-question.html', {
-        question: {
-          hearingId: req.params.hearingId,
-          questionId: req.params.questionId
-        }
+        questionId: req.params.questionId
       });
     });
   });
