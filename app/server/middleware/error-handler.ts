@@ -23,4 +23,4 @@ function coreErrorHandler(error, req, res, next) {
 }
 /* eslint-enable no-unused-vars */
 
-module.exports = { pageNotFoundHandler, coreErrorHandler, sessionNotFoundHandler };
+export { pageNotFoundHandler, coreErrorHandler, sessionNotFoundHandler };

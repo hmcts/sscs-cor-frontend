@@ -36,4 +36,4 @@ async function readinessCheck(req, res) {
   res.json(status);
 }
 
-module.exports = { livenessCheck, readinessCheck };
+export { livenessCheck, readinessCheck };

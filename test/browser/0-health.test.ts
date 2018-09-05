@@ -1,5 +1,5 @@
 const { expect } = require('test/chai-sinon');
-const { startServices } = require('test/browser/common');
+import { startServices } from 'test/browser/common';
 const testUrl = require('config').get('testUrl');
 
 describe('Health check @smoke', () => {

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
-const createSession = require('app/middleware/session');
+const { createSession } = require ('app/server/middleware/session');
 const coh = require('test/fixtures/coh');
 const ccd = require('test/fixtures/ccd');
 const LoginPage = require('test/page-objects/login');
@@ -64,7 +64,7 @@ async function waitForQuestionRoundIssued(hearingId, roundNum, attemptNum) {
   const DELAY_BETWEEN_ATTEMPTS_MS = 1000;
   const currentAttemptNum = attemptNum || 1;
   if (currentAttemptNum > MAX_ATTEMPTS) {
-    return Promise.reject(new Error('Question round not issued after 10 attempts'));
+    return Promise.reject(new Error(`Question round not issued after ${MAX_ATTEMPTS} attempts`));
   }
   const questionRound = await coh.getQuestionRound(hearingId, roundNum);
   const questionRoundState = questionRound.question_round_state.state_name;
@@ -117,7 +117,7 @@ async function login(page) {
   taskListPage.verifyPage();
 }
 
-async function startServices(options) {
+async function startServices(options?) {
   const opts = options || {};
   if (opts.bootstrapData) {
     await bootstrapCcdCase();
@@ -147,4 +147,4 @@ after(async() => {
   }
 });
 
-export = { startServices };
+export { startServices };

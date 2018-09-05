@@ -16,4 +16,4 @@ async function getOnlineHearing(email) {
   }
 }
 
-module.exports = getOnlineHearing;
+export = getOnlineHearing;

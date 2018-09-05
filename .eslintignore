@@ -3,6 +3,4 @@ public/
 govuk_modules/
 test/coverage
 app/routes.js
-app/server/server.js
-app/server/app.js
-app/server/controllers
+app/server/**/*.js

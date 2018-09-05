@@ -1,5 +1,5 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { verifyOnlineHearingId, setLocals, ensureAuthenticated } = require('app/middleware/ensure-authenticated');
+const { verifyOnlineHearingId, setLocals, ensureAuthenticated } = require('app/server/middleware/ensure-authenticated.ts');
 const paths = require('app/server/paths');
 
 describe('middleware/ensure-authenticated', () => {

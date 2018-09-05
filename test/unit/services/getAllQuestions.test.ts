@@ -1,4 +1,4 @@
-const getAllQuestionsService = require('app/services/getAllQuestions');
+const getAllQuestionsService = require('app/server/services/getAllQuestions.ts');
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const nock = require('nock');

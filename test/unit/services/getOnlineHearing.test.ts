@@ -1,4 +1,4 @@
-const getOnlineHearingService = require('app/services/getOnlineHearing');
+const getOnlineHearingService = require('app/server/services/getOnlineHearing.ts');
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const nock = require('nock');

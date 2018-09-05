@@ -34,7 +34,7 @@ async function submitAnswer(hearingId, questionId) {
   }
 }
 
-module.exports = {
+export {
   saveAnswer,
   submitAnswer
 };

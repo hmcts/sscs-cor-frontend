@@ -1,7 +1,7 @@
 const appInsights = require('app/server/app-insights');
 const express = require('express');
 const paths = require('app/server/paths');
-const { answerValidation } = require('app/utils/fieldValidation');
+const { answerValidation } = require('app/server/utils/fieldValidation');
 
 function getQuestion(getQuestionService) {
   return async(req, res, next) => {
@@ -68,7 +68,7 @@ function setupQuestionController(deps) {
   return router;
 }
 
-module.exports = {
+export {
   setupQuestionController,
   getQuestion,
   postAnswer

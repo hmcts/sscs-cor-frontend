@@ -1,9 +1,9 @@
 const { Logger } = require('@hmcts/nodejs-logging');
 const session = require('express-session');
-const redis = require('connect-redis');
+import redis from 'connect-redis';
 const config = require('config');
-const { setup } = require('./app');
-const createSession = require('app/middleware/session');
+import { setup } from 'app/server/app';
+import { createSession } from 'app/server/middleware/session';
 
 const logger = Logger.getLogger('server.js');
 
