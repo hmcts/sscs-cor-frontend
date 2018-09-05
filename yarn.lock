@@ -131,7 +131,15 @@
     "@types/node" "*"
     "@types/range-parser" "*"
 
-"@types/express@^4.16.0":
+"@types/express-session@^1.15.10":
+  version "1.15.10"
+  resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.10.tgz#d0ae7d3d2fee26512574306333ac272a37430c86"
+  dependencies:
+    "@types/events" "*"
+    "@types/express" "*"
+    "@types/node" "*"
+
+"@types/express@*", "@types/express@^4.16.0":
   version "4.16.0"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.16.0.tgz#6d8bc42ccaa6f35cf29a2b7c3333cb47b5a32a19"
   dependencies:
@@ -3492,6 +3500,10 @@ mem@^1.1.0:
   resolved "https://registry.yarnpkg.com/mem/-/mem-1.1.0.tgz#5edd52b485ca1d900fe64895505399a0dfa45f76"
   dependencies:
     mimic-fn "^1.0.0"
+
+memory-cache@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/memory-cache/-/memory-cache-0.2.0.tgz#7890b01d52c00c8ebc9d533e1f8eb17e3034871a"
 
 meow@^3.7.0:
   version "3.7.0"

@@ -88,8 +88,9 @@ async function bootstrapCoh() {
       await coh.setQuestionRoundToIssued(hearingId);
       const questionRound = await waitForQuestionRoundIssued(hearingId, 1, null);
       const questionHeader = questionRound.question_references[0].question_header_text;
+      const questionBody = questionRound.question_references[0].question_body_text;
       const deadlineExpiryDate = questionRound.question_references[0].deadline_expiry_date;
-      cohTestData = { hearingId, questionId, questionHeader, deadlineExpiryDate };
+      cohTestData = { hearingId, questionId, questionHeader, questionBody, deadlineExpiryDate };
     } catch (error) {
       console.log('Error bootstrapping COH with test data', error);
       return Promise.reject(error);
@@ -120,8 +121,14 @@ async function login(page) {
 async function startServices(options?) {
   const opts = options || {};
   if (opts.bootstrapData) {
-    await bootstrapCcdCase();
-    await bootstrapCoh();
+    try {
+      await bootstrapCcdCase();
+      await bootstrapCoh();
+    } catch (error) {
+      ccdCase = null;
+      cohTestData = null;
+      return Promise.reject(error);
+    }
   }
   await startAppServer();
   await startBrowser();

@@ -21,7 +21,7 @@ function postSubmitAnswer(submitAnswerService: any) {
 
     try {
       await submitAnswerService(hearingId, questionId);
-      res.redirect(`${paths.taskList}/${hearingId}`);
+      res.redirect(paths.taskList);
     } catch (error) {
       appInsights.trackException(error);
       next(error);
@@ -32,8 +32,8 @@ function postSubmitAnswer(submitAnswerService: any) {
 function setupSubmitQuestionController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = express.Router();
-  router.get(`${paths.question}/:hearingId/:questionId/submit`, getSubmitQuestion());
-  router.post(`${paths.question}/:hearingId/:questionId/submit`, postSubmitAnswer(deps.submitAnswerService));
+  router.get(`${paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, getSubmitQuestion());
+  router.post(`${paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, postSubmitAnswer(deps.submitAnswerService));
   return router;
 }
 

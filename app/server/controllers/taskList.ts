@@ -45,7 +45,6 @@ function getTaskList(getAllQuestionsService: any) {
 function setupTaskListController(deps: any): Router {
   const router: Router = Router();
   router.get(paths.taskList, deps.ensureAuthenticated, getTaskList(deps.getAllQuestionsService));
-  router.get(`${paths.taskList}/:hearingId`, getTaskList(deps.getAllQuestionsService));
   return router;
 }
 

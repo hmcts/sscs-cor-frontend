@@ -48,7 +48,7 @@ function postAnswer(updateAnswerService) {
         if (req.body.submit) {
           res.redirect(`${paths.question}/${hearingId}/${questionId}/submit`);
         } else {
-          res.redirect(`${paths.taskList}/${hearingId}`);
+          res.redirect(paths.taskList);
         }
       } catch (error) {
         appInsights.trackException(error);
@@ -61,10 +61,8 @@ function postAnswer(updateAnswerService) {
 function setupQuestionController(deps) {
   // eslint-disable-next-line new-cap
   const router = express.Router();
-  // using setLocals to ensure the case_reference is available if logged in
-  // this will need to be changed when handling auth properly using IDAM
-  router.get('/:hearingId/:questionId', deps.setLocals, getQuestion(deps.getQuestionService));
-  router.post('/:hearingId/:questionId', postAnswer(deps.saveAnswerService));
+  router.get('/:hearingId/:questionId', deps.ensureAuthenticated, getQuestion(deps.getQuestionService));
+  router.post('/:hearingId/:questionId', deps.ensureAuthenticated, postAnswer(deps.saveAnswerService));
   return router;
 }
 
