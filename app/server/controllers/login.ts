@@ -3,8 +3,8 @@ const appInsights = require('app/server/app-insights');
 const express = require('express');
 const { NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const paths = require('app/server/paths');
-const i18n = require('app/locale/en.json');
-const { loginEmailAddressValidation } = require('app/utils/fieldValidation');
+const i18n = require('app/server/locale/en.json');
+const { loginEmailAddressValidation } = require('app/server/utils/fieldValidation');
 
 const logger = Logger.getLogger('login.js');
 
@@ -64,7 +64,7 @@ function setupLoginController(deps) {
   return router;
 }
 
-module.exports = {
+export {
   setupLoginController,
   getLogin,
   getLogout,

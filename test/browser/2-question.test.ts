@@ -1,11 +1,11 @@
 const { expect } = require('test/chai-sinon');
-const { startServices } = require('test/browser/common');
+import { startServices } from 'test/browser/common';
 const mockDataQuestion = require('test/mock/services/question').template;
 const mockDataHearing = require('test/mock/services/hearing').template;
 const TaskListPage = require('test/page-objects/task-list');
 const QuestionPage = require('test/page-objects/question');
 const SubmitQuestionPage = require('test/page-objects/submit_question');
-const i18n = require('app/locale/en');
+const i18n = require('app/server/locale/en');
 const paths = require('app/server/paths');
 const config = require('config');
 
@@ -105,7 +105,7 @@ describe('Question page', () => {
     });
 
     // TODO: add state to mocks to be able to test this
-    xit('displays question status as completed', async() => {
+    it.skip('displays question status as completed', async() => {
       const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
     });

@@ -1,9 +1,11 @@
-const session = require('express-session');
+import { RedisStore } from 'connect-redis';
+
+import session from 'express-session';
 const config = require('config');
 
 const isSecure = config.get('session.cookie.secure') === 'true';
 
-module.exports = function createSession(store) {
+function createSession(store?: RedisStore) {
   return session({
     cookie: {
       httpOnly: true,
@@ -16,3 +18,7 @@ module.exports = function createSession(store) {
     store
   });
 };
+
+export {
+  createSession
+}

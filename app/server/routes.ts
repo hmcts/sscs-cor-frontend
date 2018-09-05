@@ -1,19 +1,19 @@
 const express = require('express');
 const paths = require('app/server/paths');
-const { ensureAuthenticated, setLocals } = require('app/middleware/ensure-authenticated');
+const { ensureAuthenticated, setLocals } = require('app/server/middleware/ensure-authenticated');
 
-const { setupQuestionController } = require('app/controllers/question');
-import { setupSubmitQuestionController } from './server/controllers/submit_question';
-import { setupTaskListController } from './server/controllers/taskList';
-const { setupLoginController } = require('app/controllers/login');
+import { setupQuestionController } from './controllers/question';
+import { setupSubmitQuestionController } from './controllers/submit_question';
+import { setupTaskListController } from './controllers/taskList';
+import { setupLoginController } from './controllers/login';
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-const getQuestionService = require('app/services/getQuestion');
-const getAllQuestionsService = require('app/services/getAllQuestions');
-const getOnlineHearingService = require('app/services/getOnlineHearing');
-const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/services/updateAnswer');
+const getQuestionService = require('app/server/services/getQuestion');
+const getAllQuestionsService = require('app/server/services/getAllQuestions');
+const getOnlineHearingService = require('app/server/services/getOnlineHearing');
+const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/server/services/updateAnswer');
 
 const questionController = setupQuestionController({
   getQuestionService,

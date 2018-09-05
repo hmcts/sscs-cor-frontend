@@ -3,7 +3,7 @@ const nock = require('nock');
 const { OK, INTERNAL_SERVER_ERROR, SERVICE_UNAVAILABLE } = require('http-status-codes');
 const appInsights = require('app/server/app-insights');
 const config = require('config');
-const { livenessCheck, readinessCheck } = require('app/middleware/health');
+const { livenessCheck, readinessCheck } = require('app/server/middleware/health.ts');
 
 const apiUrl = config.get('api.url');
 

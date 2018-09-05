@@ -11,7 +11,7 @@ const trackException = exception => {
   applicationInsights.defaultClient.trackException({ exception });
 };
 
-module.exports = {
+export {
   enable,
   trackException
 };

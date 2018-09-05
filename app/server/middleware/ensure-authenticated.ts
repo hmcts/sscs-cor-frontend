@@ -24,8 +24,10 @@ function setLocals(req, res, next) {
   next();
 }
 
-module.exports = {
+const ensureAuthenticated = [verifyOnlineHearingId, setLocals];
+
+export {
   verifyOnlineHearingId,
   setLocals,
-  ensureAuthenticated: [verifyOnlineHearingId, setLocals]
+  ensureAuthenticated
 };
