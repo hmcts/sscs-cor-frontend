@@ -29,7 +29,7 @@
   "taskList": {
     "header": "Your PIP benefit appeal",
     "deadline": {
-      "pending": "You need to response by ",
+      "pending": "You need to respond by ",
       "completed": "You have answered all the questions and submmitted them to the tribunal.",
       "expired": "Deadline to respond expired on "
     },
