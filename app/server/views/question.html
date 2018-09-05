@@ -3,10 +3,8 @@
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block beforeContent %}
-  {{ super() }}
-  {% set taskListPath = '/' + question.hearingId if not hearing.online_hearing_id else 
-    '' %}
-  <a href="/task-list{{ taskListPath }}" class="govuk-back-link">{{ i18n.backLink }}</a>
+    {{ super() }}
+    <a href="/task-list" class="govuk-back-link">{{ i18n.backLink }}</a>
 {% endblock %}
 
 {% block content %}
