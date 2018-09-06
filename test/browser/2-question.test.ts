@@ -1,3 +1,4 @@
+import { CONST } from 'app/constants';
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
 const mockDataQuestion = require('test/mock/services/question').template;
@@ -8,6 +9,7 @@ const SubmitQuestionPage = require('test/page-objects/submit_question');
 const i18n = require('app/server/locale/en');
 const paths = require('app/server/paths');
 const config = require('config');
+import moment from 'moment';
 
 const testUrl = config.get('testUrl');
 
@@ -121,13 +123,13 @@ describe('Question page', () => {
     });
 
     it('displays the previously submitted answer', async() => {
-      const savedAnswer = await questionPage.getElementText('#completed-answer p:nth-child(2)');
-      expect(savedAnswer).to.equal('Another valid answer')
+      const savedAnswer = await questionPage.getElementText('#completed-answer .answer-value');
+      expect(savedAnswer).to.equal('Another valid answer');
     });
 
     it('displays the previously submitted answer date', async() => {
-      const savedAnswerDate = await questionPage.getElementText('#completed-answer p:nth-child(3)');
-      expect(savedAnswerDate).to.equal('Submitted: 5 September 2018')
+      const savedAnswerDate = await questionPage.getElementText('#completed-answer .answer-datetime');
+      expect(savedAnswerDate).to.equal(`Submitted: ${moment().utc().format(CONST.DATE_FORMAT)}`);
     });
   });  
 });

@@ -54,7 +54,7 @@ describe('controllers/question.js', () => {
         answer_datetime: questionAnswerDatetime
       });
       await getQuestion(getQuestionService)(req, res, next);
-      expect(res.render).to.have.been.calledWith('question.html', {
+      expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           hearingId: req.params.hearingId,
           questionId: req.params.questionId,
@@ -64,7 +64,7 @@ describe('controllers/question.js', () => {
             value: questionAnswer,
             datetime: questionAnswerDatetime,
           },
-          state: questionAnswerState
+          answer_state: questionAnswerState
         }
       });
     });
@@ -118,7 +118,7 @@ describe('controllers/question.js', () => {
     it('should call res.render with the validation error message', () => {
       req.body['question-field'] = '';
       postAnswer(postAnswerService)(req, res, next);
-      expect(res.render).to.have.been.calledWith('question.html', {
+      expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           answer: {
             value: '',
