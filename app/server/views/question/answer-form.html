@@ -1,0 +1,47 @@
+<form action="/question/{{ question.hearingId }}/{{ question.questionId }}" method="post">
+  <div>
+    {{ govukTextarea({
+          id: 'question-field',
+          classes: 'auto-expand',
+          name: 'question-field',
+          value: question.answer.value,
+          label: {
+              text: i18n.question.textareaField.label,
+              classes: 'govuk-visually-hidden'
+          },
+          attributes: {
+              placeholder: i18n.question.textareaField.placeholder
+          },
+          rows: 6,
+          errorMessage: {
+              text: question.answer.error
+          } if question.answer.error
+      }) 
+    }}
+  </div>
+  <!-- this remains here as fallback for non-signed in users it should be removed once auth is handled properly using IDAM -->
+  {% set reference = "SC242/16/03435" %}
+  <details id="sending-evidence-guide" class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        {{ i18n.question.sendingEvidence.summary }}
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p>{{ i18n.question.sendingEvidence.details.para1 }}</p>
+      <p>{{ i18n.question.sendingEvidence.details.para2 }}<br>
+        <strong id="evidence-case-reference">{{ hearing.case_reference or reference }}</strong>
+      </p>
+
+      {% include "includes/sending-evidence-contact-details.html" %}
+
+      <p>{{ i18n.question.sendingEvidence.details.closingPara1 }}</p>
+      <p>{{ i18n.question.sendingEvidence.details.closingPara2 }}</p>
+    </div>
+  </details>
+
+  <div id="submit-buttons">
+    <input id="submit-answer" type="submit" name="submit" value="Submit answer to the tribunal" class="govuk-button">
+    <input id="save-answer" type="submit" name="save" value="Save for later" class="govuk-link">
+  </div>
+</form>
