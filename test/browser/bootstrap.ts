@@ -23,15 +23,17 @@ async function waitForQuestionRoundIssued(hearingId, roundNum, attemptNum) {
 /* eslint-disable-next-line consistent-return */
 async function bootstrapCoh(ccdCase) {
   try {
-    const hearingId = await coh.createOnlineHearing(ccdCase.caseId)
-    const question = await coh.createQuestion(hearingId)
-    const questionId = question.question_id
-    await coh.setQuestionRoundToIssued(hearingId)
-    const questionRound = await waitForQuestionRoundIssued(hearingId, 1, null)
-    const questionHeader = questionRound.question_references[0].question_header_text
-    const questionBody = questionRound.question_references[0].question_body_text
-    const deadlineExpiryDate = questionRound.question_references[0].deadline_expiry_date
-    return { hearingId, questionId, questionHeader, questionBody, deadlineExpiryDate }
+    const hearingId = await coh.createOnlineHearing(ccdCase.caseId);
+    const questionList = await coh.createQuestions(hearingId);
+    const questionIdList = questionList.map(q => q.question_id);
+    const questionId = questionIdList[0];
+    await coh.setQuestionRoundToIssued(hearingId);
+    const questionRound = await waitForQuestionRoundIssued(hearingId, 1, null);
+    const firstQuestion = questionRound.question_references.filter(q => q.question_id === questionId).pop();
+    const questionHeader = firstQuestion.question_header_text;
+    const questionBody = firstQuestion.question_body_text;
+    const deadlineExpiryDate = firstQuestion.deadline_expiry_date;
+    return { hearingId, questionIdList, questionId, questionHeader, questionBody, deadlineExpiryDate };
   } catch (error) {
     console.log('Error bootstrapping COH with test data', error)
     return Promise.reject(error)
