@@ -72,6 +72,13 @@
     "title": "You will not be able to change your answer after you submit it.",
     "backToQuestionText": "Back to question"
   },
+  "questionsCompleted": {
+    "header": "You have answered the tribunal’s questions",
+    "para1": "You’ve provided the information the tribunal have asked for. They’ll review what you’ve sent and consider it as part of your appeal.",
+    "para2Start": "You’ll get another email by",
+    "para2End": "which will explain how the tribunal want to proceed with your appeal.",
+    "exitService": "Exit service"
+  },
   "error": {
     "error404": {
       "header": "Sorry, this page could not be found"
