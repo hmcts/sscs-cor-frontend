@@ -1,9 +1,10 @@
 const express = require('express');
 const paths = require('app/server/paths');
-const { ensureAuthenticated, setLocals } = require('app/server/middleware/ensure-authenticated');
+const { ensureAuthenticated } = require('app/server/middleware/ensure-authenticated');
 
 import { setupQuestionController } from './controllers/question';
 import { setupSubmitQuestionController } from './controllers/submit_question';
+import { setupQuestionsCompletedController } from './controllers/questions-completed';
 import { setupTaskListController } from './controllers/taskList';
 import { setupLoginController } from './controllers/login';
 
@@ -20,12 +21,14 @@ const questionController = setupQuestionController({
   saveAnswerService,
   ensureAuthenticated
 });
-const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, ensureAuthenticated });
+const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, getAllQuestionsService, ensureAuthenticated });
+const questionsCompletedController = setupQuestionsCompletedController({ ensureAuthenticated });
 const taskListController = setupTaskListController({ getAllQuestionsService, ensureAuthenticated });
 const loginController = setupLoginController({ getOnlineHearingService });
 
 router.use(loginController);
 router.use(submitQuestionController);
+router.use(questionsCompletedController);
 router.use(paths.question, questionController);
 router.use(taskListController);
 
