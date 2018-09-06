@@ -9,14 +9,16 @@ function getQuestion(getQuestionService) {
     const questionId = req.params.questionId;
     try {
       const response = await getQuestionService(hearingId, questionId);
+
       const question = {
         hearingId,
         questionId,
         header: response.question_header_text,
         body: response.question_body_text,
-        answer_state: response.answer_state,
+        state: response.answer_state,
         answer: {
-          value: response.answer
+          value: response.answer,
+          datetime: response.answer_datetime
         }
       };
       req.session.question = question;

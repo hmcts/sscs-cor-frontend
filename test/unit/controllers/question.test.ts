@@ -44,10 +44,14 @@ describe('controllers/question.js', () => {
       const questionHeading = 'What is the meaning of life?';
       const questionBody = 'Many people ask this question...';
       const questionAnswer = '';
+      const questionAnswerState = 'unanswered';
+      const questionAnswerDatetime = '2018-09-05T12:40:51Z';
       getQuestionService = () => Promise.resolve({
         question_header_text: questionHeading,
         question_body_text: questionBody,
-        answer: questionAnswer
+        answer: questionAnswer,
+        answer_state: questionAnswerState,
+        answer_datetime: questionAnswerDatetime
       });
       await getQuestion(getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question.html', {
@@ -56,7 +60,11 @@ describe('controllers/question.js', () => {
           questionId: req.params.questionId,
           header: questionHeading,
           body: questionBody,
-          answer: { value: questionAnswer }
+          answer: { 
+            value: questionAnswer,
+            datetime: questionAnswerDatetime,
+          },
+          state: questionAnswerState
         }
       });
     });

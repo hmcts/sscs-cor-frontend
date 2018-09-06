@@ -3,20 +3,13 @@ import moment from 'moment';
 import { Router, Request, Response, NextFunction } from "express";
 const paths = require('app/server/paths');
 
-const DEADLINE_EXPIRY_DATE_FORMAT = 'D MMMM YYYY';
+function processDeadline(expiryDate: Date, allQuestionsSubmitted: any) {
+  if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
 
-function processDeadline(expiryDateRaw: any, allQuestionsSubmitted: any) {
-  if (allQuestionsSubmitted) {
-    return { status: 'completed', formatted: null, extendable: false };
-  }
-  const expiryDate = moment.utc(expiryDateRaw);
-  const formatted = expiryDate.format(DEADLINE_EXPIRY_DATE_FORMAT);
   const endOfToday = moment().utc().endOf('day');
-  let status = 'pending';
-  if (expiryDate.isBefore(endOfToday)) {
-    status = 'expired';
-  }
-  return { status, formatted, extendable: true };
+  const status = moment.utc(expiryDate).isBefore(endOfToday) ? 'expired' : 'pending';
+
+  return { status, expiryDate, extendable: true };
 }
 
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;

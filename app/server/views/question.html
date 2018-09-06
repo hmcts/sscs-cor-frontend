@@ -3,8 +3,8 @@
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block beforeContent %}
-    {{ super() }}
-    <a href="/task-list" class="govuk-back-link">{{ i18n.backLink }}</a>
+  {{ super() }}
+  <a href="/task-list" class="govuk-back-link">{{ i18n.backLink }}</a>
 {% endblock %}
 
 {% block content %}
@@ -23,29 +23,34 @@
 
       <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
 
-      <form action="/question/{{ question.hearingId }}/{{ question.questionId }}" method="post">
-        <div>
-          <p id="question-body">{{ question.body }}</p>
+      <div>
+        <p id="question-body">{{ question.body }}</p>
 
-          {% if question.answer_state !== 'submitted' %}
+      </div>
+
+      {% if question.state !== 'submitted' %}
+
+        <form action="/question/{{ question.hearingId }}/{{ question.questionId }}" method="post">
+          <div>
 
             {{ govukTextarea({
-                          id: 'question-field',
-                          classes: 'auto-expand',
-                          name: 'question-field',
-                          value: question.answer.value,
-                          label: {
-                              text: i18n.question.textareaField.label,
-                              classes: 'govuk-visually-hidden'
-                          },
-                          attributes: {
-                              placeholder: i18n.question.textareaField.placeholder
-                          },
-                          rows: 6,
-                          errorMessage: {
-                              text: question.answer.error
-                          } if question.answer.error
-                      }) }}
+                  id: 'question-field',
+                  classes: 'auto-expand',
+                  name: 'question-field',
+                  value: question.answer.value,
+                  label: {
+                      text: i18n.question.textareaField.label,
+                      classes: 'govuk-visually-hidden'
+                  },
+                  attributes: {
+                      placeholder: i18n.question.textareaField.placeholder
+                  },
+                  rows: 6,
+                  errorMessage: {
+                      text: question.answer.error
+                  } if question.answer.error
+              }) 
+            }}
           </div>
 
           <!-- this remains here as fallback for non-signed in users it should be removed once auth is handled properly using IDAM -->
@@ -74,16 +79,19 @@
             <input id="save-answer" type="submit" name="save" value="Save for later" class="govuk-link">
           </div>
 
-        {% else %}
+        </form>
 
-          <div id="completed-answer">
-            <p class="govuk-body govuk-!-font-weight-bold">Your answer</p>
-            <p>{{question.answer.value}}</p>
-          </div>
+      {% else %}
 
-        {% endif %}
+        <div id="completed-answer">
+          <p class="govuk-!-font-weight-bold">{{i18n.question.completedAnswer.header}}</p>
+          <p>{{question.answer.value}}</p>
+          <p>{{i18n.question.completedAnswer.submittedText}}:
+            {{question.answer.datetime | date}}</p>
+        </div>
 
-      </form>
+      {% endif %}
+
     </div>
   </div>
 {% endblock %}

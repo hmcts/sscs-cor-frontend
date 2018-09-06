@@ -3,6 +3,7 @@ const cache = require('memory-cache');
 
 function cacheAnswerState(questionId) {
   cache.put(`${questionId}.state`, 'submitted');
+  cache.put(`${questionId}.answer_datetime`, '2018-09-05T12:40:51Z');
 }
 
 module.exports = {
