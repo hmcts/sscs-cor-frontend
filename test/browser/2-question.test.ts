@@ -113,7 +113,23 @@ describe('Question page', () => {
       const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
     });
-  })
+  });
+
+  describe('view a submitted answer', () => {
+    before(async() => {
+      await taskListPage.clickQuestion(questionId);
+    });
+
+    it('displays the previously submitted answer', async() => {
+      const savedAnswer = await questionPage.getElementText('#completed-answer p:nth-child(2)');
+      expect(savedAnswer).to.equal('Another valid answer')
+    });
+
+    it('displays the previously submitted answer date', async() => {
+      const savedAnswerDate = await questionPage.getElementText('#completed-answer p:nth-child(3)');
+      expect(savedAnswerDate).to.equal('Submitted: 5 September 2018')
+    });
+  });  
 });
 
 export {};

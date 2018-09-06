@@ -1,5 +1,7 @@
+import { CONST } from 'app/constants';
 const appInsights = require('app/server/app-insights');
 const { Express } = require('@hmcts/nodejs-logging');
+import { RequestHandler } from "express";
 import nunjucks = require('nunjucks');
 import express = require('express');
 import { router as routes } from 'app/server/routes';
@@ -9,13 +11,16 @@ const locale = require('app/server/locale/en.json');
 const paths = require('app/server/paths');
 const bodyParser = require('body-parser');
 
+var dateFilter = require('nunjucks-date-filter');
+dateFilter.setDefaultFormat(CONST.DATE_FORMAT);
+
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 interface Options {
   disableAppInsights ?: boolean;
 }
 
-function setup(sessionHandler: any, options: Options) {
+function setup(sessionHandler: RequestHandler, options: Options) {
   const opts = options || {};
   if (!opts.disableAppInsights) {
     appInsights.enable();
@@ -36,7 +41,8 @@ function setup(sessionHandler: any, options: Options) {
   ], {
     autoescape: true,
     express: app
-  });
+  })
+  .addFilter('date', dateFilter);
 
   app.use(bodyParser.urlencoded({
     extended: true

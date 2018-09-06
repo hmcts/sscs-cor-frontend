@@ -1,7 +1,7 @@
 const { Logger } = require('@hmcts/nodejs-logging');
-const session = require('express-session');
+import session from 'express-session';
 import redis from 'connect-redis';
-const config = require('config');
+import config from 'config';
 import { setup } from 'app/server/app';
 import { createSession } from 'app/server/middleware/session';
 
@@ -10,11 +10,11 @@ const logger = Logger.getLogger('server.js');
 const port = config.get('node.port');
 
 const RedisStore = redis(session);
-const redisOpts = {
+const redisOpts: redis.RedisStoreOptions = {
   url: config.get('session.redis.url'),
   ttl: config.get('session.redis.ttlInSeconds')
 };
-const redisStore = new RedisStore(redisOpts);
+const redisStore: session.Store = new RedisStore(redisOpts);
 
 const app = setup(createSession(redisStore), {});
 
