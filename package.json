@@ -22,6 +22,7 @@
     "test:integration": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/integration/**/*.ts",
     "test:functional": "yarn test:browser -g @smoke --invert",
     "test:smoke": "yarn test:browser -g @smoke",
+    "test:create-data": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json node --require tsconfig-paths/register --require ts-node/register create-test-data.ts",
     "test:coverage": "yarn transpile && nyc yarn test:unit",
     "test:a11y": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json LOG_LEVEL=OFF mocha test/accessibility/**/*.ts",
     "test:all": "yarn test && yarn test:a11y",
