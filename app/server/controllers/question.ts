@@ -5,12 +5,11 @@ const { answerValidation } = require('app/server/utils/fieldValidation');
 
 function getQuestion(getQuestionService) {
   return async(req, res, next) => {
-    const hearingId = req.params.hearingId;
+    const hearingId = req.session.hearing.online_hearing_id;
     const questionId = req.params.questionId;
     try {
       const response = await getQuestionService(hearingId, questionId);
       const question = {
-        hearingId,
         questionId,
         header: response.question_header_text,
         body: response.question_body_text,
@@ -29,7 +28,7 @@ function getQuestion(getQuestionService) {
 
 function postAnswer(updateAnswerService) {
   return async(req, res, next) => {
-    const hearingId = req.params.hearingId;
+    const hearingId = req.session.hearing.online_hearing_id;
     const questionId = req.params.questionId;
     const answerText = req.body['question-field'];
 

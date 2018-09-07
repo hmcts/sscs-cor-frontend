@@ -23,7 +23,7 @@
 
             <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
 
-            <form action="/question/{{ question.hearingId }}/{{ question.questionId }}" method="post">
+            <form action="/question/{{ hearing.online_hearing_id }}/{{ question.questionId }}" method="post">
                 <div>
                     <p id="question-body">{{ question.body }}</p>
                     {{ govukTextarea({
@@ -45,11 +45,6 @@
                     }) }}
                 </div>
 
-                <!--
-                this remains here as fallback for non-signed in users
-                it should be removed once auth is handled properly using IDAM
-                 -->
-                {% set reference = "SC242/16/03435" %}
                 <details id="sending-evidence-guide" class="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
@@ -58,7 +53,7 @@
                     </summary>
                     <div class="govuk-details__text">
                         <p>{{ i18n.question.sendingEvidence.details.para1 }}</p>
-                        <p>{{ i18n.question.sendingEvidence.details.para2 }}<br><strong id="evidence-case-reference">{{ hearing.case_reference or reference }}</strong></p>
+                        <p>{{ i18n.question.sendingEvidence.details.para2 }}<br><strong id="evidence-case-reference">{{ hearing.case_reference }}</strong></p>
 
                         {% include "includes/sending-evidence-contact-details.html" %}
 

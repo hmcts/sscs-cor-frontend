@@ -7,18 +7,35 @@ const express = require('express');
 
 describe('controllers/submit_question.js', () => {
   const next = sinon.stub();
-  const req:any = {}; 
-  const res:any = {};
+  const req: any = {};
+  const res: any = {};
+  const hearingDetails = {
+    online_hearing_id: '1',
+    case_reference: 'SC/123/456',
+    appellant_name: 'John Smith'
+  };
+  const questions = answerState => [
+    {
+      question_id: '001',
+      question_header_text: 'How do you interact with people?',
+      answer_state: answerState
+    }
+  ];
 
   req.params = {
-    hearingId: '1',
     questionId: '2'
+  };
+
+  req.session = {
+    hearing: hearingDetails
   };
 
   res.render = sinon.stub();
   res.redirect = sinon.stub();
 
   beforeEach(() => {
+    res.render.reset();
+    res.redirect.reset();
     sinon.stub(appInsights, 'trackException');
   });
 
@@ -28,20 +45,18 @@ describe('controllers/submit_question.js', () => {
 
   describe('getSubmitQuestion', () => {
     it('should call render with the template and hearing/question ids', () => {
-      getSubmitQuestion()(req, res);
+      getSubmitQuestion(req, res);
       expect(res.render).to.have.been.calledWith('submit-question.html', {
-        question: {
-          hearingId: req.params.hearingId,
-          questionId: req.params.questionId
-        }
+        questionId: req.params.questionId
       });
     });
   });
 
   describe('postSubmitAnswer', () => {
-    it('should call res.redirect when submitting an answer and there are no errors', async() => {
+    it('redirects to /task-list', async() => {
       const submitAnswerService = () => Promise.resolve();
-      await postSubmitAnswer(submitAnswerService)(req, res, next);
+      const getAllQuestionsService = () => Promise.resolve({ questions: questions('draft') });
+      await postSubmitAnswer(submitAnswerService, getAllQuestionsService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(paths.taskList);
     });
 
@@ -51,6 +66,26 @@ describe('controllers/submit_question.js', () => {
       await postSubmitAnswer(submitAnswerService)(req, res, next);
       expect(appInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
+    });
+
+    describe('when all questions are submitted', () => {
+      let submitAnswerService;
+      let getAllQuestionsService;
+
+      beforeEach(() => {
+        submitAnswerService = () => Promise.resolve();
+        getAllQuestionsService = () => Promise.resolve({ questions: questions('submitted') });
+      });
+
+      it('sets questionsCompletedThisSession on the session', async() => {
+        await postSubmitAnswer(submitAnswerService, getAllQuestionsService)(req, res, next);
+        expect(req.session).to.have.property('questionsCompletedThisSession', true);
+      });
+
+      it('redirects to questions completed if all are /questions-completed', async() => {
+        await postSubmitAnswer(submitAnswerService, getAllQuestionsService)(req, res, next);
+        expect(res.redirect).to.have.been.calledWith(paths.completed);
+      });
     });
   });
 
