@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-magic-numbers */
 const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/services/question').template;
@@ -11,7 +11,6 @@ const PANEL_IDENTITY_TOKEN = 'string';
 const HEARING_STATUS = 'continuous_online_hearing_started';
 
 const QUESTION_OWNER_REF = 'SSCS-COR';
-const QUESTION_ORDINAL = '1';
 const QUESTION_ROUND = '1';
 
 const headers = {
@@ -35,12 +34,14 @@ const onlineHearingBody = caseId => {
   };
 };
 
-const questionBody = {
-  owner_reference: QUESTION_OWNER_REF,
-  question_body_text: mockData.question_body_text({ questionId: '001' }),
-  question_header_text: mockData.question_header_text({ questionId: '001' }),
-  question_ordinal: QUESTION_ORDINAL,
-  question_round: QUESTION_ROUND
+const questionBody = (mockQuestionRef, ordinal) => {
+  return {
+    owner_reference: QUESTION_OWNER_REF,
+    question_body_text: mockData.question_body_text({ questionId: mockQuestionRef }),
+    question_header_text: mockData.question_header_text({ questionId: mockQuestionRef }),
+    question_ordinal: ordinal,
+    question_round: QUESTION_ROUND
+  };
 };
 
 async function createOnlineHearing(caseId) {
@@ -55,16 +56,24 @@ async function createOnlineHearing(caseId) {
   return body.online_hearing_id;
 }
 
-async function createQuestion(hearingId) {
+async function createQuestion(hearingId, mockQuestionRef, ordinal) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questions`,
     headers,
-    body: questionBody,
+    body: questionBody(mockQuestionRef, ordinal),
     json: true
   };
   const body = await rp.post(options);
   console.log('Created question with ID', body.question_id);
   return body;
+}
+
+async function createQuestions(hearingId) {
+  const questionList = [];
+  questionList.push(await createQuestion(hearingId, '001', 1));
+  questionList.push(await createQuestion(hearingId, '002', 2));
+  questionList.push(await createQuestion(hearingId, '003', 3));
+  return questionList;
 }
 
 async function setQuestionRoundToIssued(hearingId) {
@@ -88,4 +97,4 @@ async function getQuestionRound(hearingId, roundNum) {
   return body;
 }
 
-module.exports = { createOnlineHearing, createQuestion, setQuestionRoundToIssued, getQuestionRound };
+module.exports = { createOnlineHearing, createQuestions, setQuestionRoundToIssued, getQuestionRound };

@@ -10,13 +10,18 @@ describe('controllers/question.js', () => {
   const next = sinon.stub();
   const req: any = {}
   const res: any = {};
+  const hearingDetails = {
+    online_hearing_id: '1',
+    case_reference: 'SC/123/456',
+    appellant_name: 'John Smith'
+  };
 
   req.params = {
     hearingId: '1',
     questionId: '2'
   };
   req.session = {
-    save: sinon.stub()
+    hearing: hearingDetails
   };
   req.body = {};
 
@@ -56,7 +61,6 @@ describe('controllers/question.js', () => {
       await getQuestion(getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
-          hearingId: req.params.hearingId,
           questionId: req.params.questionId,
           header: questionHeading,
           body: questionBody,

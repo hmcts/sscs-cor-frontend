@@ -4,5 +4,6 @@ module.exports = {
   question: '/question',
   taskList: '/task-list',
   login: '/login',
-  logout: '/logout'
+  logout: '/logout',
+  completed: '/questions-completed'
 };
