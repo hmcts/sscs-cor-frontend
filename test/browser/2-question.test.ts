@@ -1,11 +1,13 @@
 import { CONST } from 'app/constants';
 const { expect } = require('test/chai-sinon');
+const moment = require('moment');
 import { startServices } from 'test/browser/common';
 const mockDataQuestion = require('test/mock/services/question').template;
 const mockDataHearing = require('test/mock/services/hearing').template;
 const TaskListPage = require('test/page-objects/task-list');
 const QuestionPage = require('test/page-objects/question');
 const SubmitQuestionPage = require('test/page-objects/submit_question');
+const QuestionsCompletedPage = require('test/page-objects/questions-completed');
 const i18n = require('app/server/locale/en');
 const paths = require('app/server/paths');
 const config = require('config');
@@ -14,15 +16,17 @@ import moment from 'moment';
 const testUrl = config.get('testUrl');
 
 const sampleHearingId = '1-pending';
-const sampleQuestionId = '001';
+const sampleQuestionIdList = ['001', '002', '003']
 
 describe('Question page', () => {
   let page;
   let taskListPage;
   let questionPage;
   let submitQuestionPage;
+  let questionsCompletedPage
   let hearingId;
-  let questionId;
+  let questionIdList;
+  let firstQuestionId;
   let questionHeader;
   let questionBody;
   let caseReference;
@@ -31,14 +35,16 @@ describe('Question page', () => {
     const res = await startServices({ bootstrapData: true, performLogin: true });
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;
-    questionId = res.cohTestData.questionId || sampleQuestionId;
-    questionHeader = res.cohTestData.questionHeader || mockDataQuestion.question_header_text({ questionId: sampleQuestionId });
-    questionBody = res.cohTestData.questionBody || mockDataQuestion.question_body_text({ questionId: sampleQuestionId });
+    questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
+    firstQuestionId = questionIdList.shift();
+    questionHeader = res.cohTestData.questionHeader || mockDataQuestion.question_header_text({ questionId: firstQuestionId });
+    questionBody = res.cohTestData.questionBody || mockDataQuestion.question_body_text({ questionId: firstQuestionId });
     caseReference = res.ccdCase.caseReference || mockDataHearing.case_reference;
     taskListPage = new TaskListPage(page)
-    questionPage = new QuestionPage(page, hearingId, questionId);
-    submitQuestionPage = new SubmitQuestionPage(page, hearingId, questionId);
-    await taskListPage.clickQuestion(questionId);
+    questionPage = new QuestionPage(page, hearingId, firstQuestionId);
+    submitQuestionPage = new SubmitQuestionPage(page, hearingId, firstQuestionId);
+    questionsCompletedPage = new QuestionsCompletedPage(page);
+    await taskListPage.clickQuestion(firstQuestionId);
     await questionPage.screenshot('question');
   });
 
@@ -86,14 +92,14 @@ describe('Question page', () => {
     });
 
     it('displays question status as draft', async() => {
-      const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
+      const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase())
     });
   });
 
   describe('submitting an answer', () => {
     before(async() => {
-      await taskListPage.clickQuestion(questionId);
+      await taskListPage.clickQuestion(firstQuestionId);
     });
 
     it('displays the previously drafted answer', async() => {
@@ -112,7 +118,7 @@ describe('Question page', () => {
     });
 
     it('displays question status as completed', async() => {
-      const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
+      const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
     });
   });
@@ -132,6 +138,36 @@ describe('Question page', () => {
       expect(savedAnswerDate).to.equal(`Submitted: ${moment().utc().format(CONST.DATE_FORMAT)}`);
     });
   });  
+  });
+
+  describe('submitting all answers', () => {
+    async function answerQuestion(questionId) {
+      await taskListPage.clickQuestion(questionId);
+      await questionPage.submitAnswer('A valid answer');
+      await submitQuestionPage.submit();
+    }
+
+    before('answer all but one remaining question', async() => {
+      while(questionIdList.length > 1) {
+        const questionId = questionIdList.shift();
+        await answerQuestion(questionId);
+        const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
+        expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
+      }
+    });
+
+    it('is on the questions completed page after submitting the final question', async() => {
+      const questionId = questionIdList.shift();
+      await answerQuestion(questionId);
+      questionsCompletedPage.verifyPage();
+    });
+
+    it('shows the correct date for next contact', async() => {
+      const expectedDate = moment().utc().add(7, 'days').format('D MMMM YYYY');
+      const contactDate = await questionsCompletedPage.getElementText('#next-contact-date');
+      expect(contactDate).to.equal(expectedDate);
+    });
+  });
 });
 
 export {};

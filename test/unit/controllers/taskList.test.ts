@@ -56,7 +56,6 @@ describe('controllers/taskList.js', () => {
       getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
       await getTaskList(getAllQuestionsService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
-        hearingId: '1',
         questions,
         deadlineExpiryDate: {
           extendable: true,
@@ -71,7 +70,6 @@ describe('controllers/taskList.js', () => {
       getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
       await getTaskList(getAllQuestionsService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
-        hearingId: '1',
         questions,
         deadlineExpiryDate: {
           extendable: false,
@@ -88,7 +86,6 @@ describe('controllers/taskList.js', () => {
       getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
       await getTaskList(getAllQuestionsService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
-        hearingId: '1',
         questions,
         deadlineExpiryDate: {
           extendable: true,

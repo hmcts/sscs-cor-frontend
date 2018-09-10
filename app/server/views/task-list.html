@@ -6,15 +6,13 @@
 
         <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
 
-        {% if hearing.appellant_name %}
-            <div id="appeal-details">
-                <h2 class="govuk-heading-m">
-                    <span id="appellant-name">{{ hearing.appellant_name }}</span>
-                    <a id="logout" class="govuk-link" href="/logout">Logout</a>
-                </h2>
-                <p>Appeal reference: <span id="case-reference">{{ hearing.case_reference }}</span></p>
-            </div>
-        {% endif %}
+        <div id="appeal-details">
+            <h2 class="govuk-heading-m">
+                <span id="appellant-name">{{ hearing.appellant_name }}</span>
+                <a id="logout" class="govuk-link" href="/logout">Logout</a>
+            </h2>
+            <p>Appeal reference: <span id="case-reference">{{ hearing.case_reference }}</span></p>
+        </div>
     </div>
 </div>
 
@@ -41,7 +39,7 @@
                 {% for question in questions %}
                     {% set answerState = question.answer_state %}
                     <li id="question-{{ question.question_id }}">
-                        <a class="govuk-link question-header-text" href="/question/{{ hearing.online_hearing_id or hearingId }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
+                        <a class="govuk-link question-header-text" href="/question/{{ hearing.online_hearing_id }}/{{ question.question_id }}">{{ question.question_header_text }}</a>
                         {% if answerState != 'unanswered' %}
                             <span class="answer-state {{ question.answer_state }}">
                                 {{
@@ -56,11 +54,6 @@
             </ul>
         </div>
 
-        <!--
-        this remains here as fallback for non-signed in users
-        it should be removed once auth is handled properly using IDAM
-         -->
-        {% set reference = "SC242/16/03435" %}
         <h2 class="govuk-heading-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
         <p>{{ i18n.taskList.sendingEvidence.intro }}</p>
 
@@ -71,7 +64,7 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <p>{{ i18n.taskList.sendingEvidence.details.para1 }} <strong id="evidence-case-reference">{{ hearing.case_reference or reference }}</strong></p>
+                <p>{{ i18n.taskList.sendingEvidence.details.para1 }} <strong id="evidence-case-reference">{{ hearing.case_reference }}</strong></p>
 
                 {% include "includes/sending-evidence-contact-details.html" %}
 
