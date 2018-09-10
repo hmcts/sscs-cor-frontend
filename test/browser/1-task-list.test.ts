@@ -3,7 +3,7 @@ const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
 const mockDataQuestions = require('test/mock/services/allQuestions').template;
 const mockDataHearing = require('test/mock/services/hearing').template;
-const TaskListPage = require('test/page-objects/task-list');
+import { TaskListPage } from 'test/page-objects/task-list';
 const paths = require('app/server/paths');
 const i18n = require('app/server/locale/en.json');
 const config = require('config');
