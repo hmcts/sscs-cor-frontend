@@ -1,8 +1,8 @@
 const { taskList } = require('app/server/paths');
-const BasePage = require('test/page-objects/base');
+import { BasePage } from 'test/page-objects/base';
 
-class TaskListPage extends BasePage {
-  constructor(page, hearingId) {
+export class TaskListPage extends BasePage {
+  constructor(page, hearingId?) {
     super(page);
     let path = taskList;
     if (hearingId) {
@@ -18,5 +18,3 @@ class TaskListPage extends BasePage {
     ]);
   }
 }
-
-module.exports = TaskListPage;

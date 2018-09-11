@@ -5,6 +5,7 @@ const appInsights = require('app/server/app-insights');
 const express = require('express');
 const paths = require('app/server/paths');
 const i18n = require('app/server/locale/en');
+import moment from 'moment'; 
 
 describe('controllers/question.js', () => {
   const next = sinon.stub();
@@ -49,18 +50,26 @@ describe('controllers/question.js', () => {
       const questionHeading = 'What is the meaning of life?';
       const questionBody = 'Many people ask this question...';
       const questionAnswer = '';
+      const questionAnswerState = 'unanswered';
+      const questionAnswerDatetime = moment().utc().format();
       getQuestionService = () => Promise.resolve({
         question_header_text: questionHeading,
         question_body_text: questionBody,
-        answer: questionAnswer
+        answer: questionAnswer,
+        answer_state: questionAnswerState,
+        answer_datetime: questionAnswerDatetime
       });
       await getQuestion(getQuestionService)(req, res, next);
-      expect(res.render).to.have.been.calledWith('question.html', {
+      expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           questionId: req.params.questionId,
           header: questionHeading,
           body: questionBody,
-          answer: { value: questionAnswer }
+          answer: { 
+            value: questionAnswer,
+            datetime: questionAnswerDatetime,
+          },
+          answer_state: questionAnswerState
         }
       });
     });
@@ -114,7 +123,7 @@ describe('controllers/question.js', () => {
     it('should call res.render with the validation error message', () => {
       req.body['question-field'] = '';
       postAnswer(postAnswerService)(req, res, next);
-      expect(res.render).to.have.been.calledWith('question.html', {
+      expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           answer: {
             value: '',

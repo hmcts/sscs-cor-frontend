@@ -9,16 +9,19 @@ function getQuestion(getQuestionService) {
     const questionId = req.params.questionId;
     try {
       const response = await getQuestionService(hearingId, questionId);
+
       const question = {
         questionId,
         header: response.question_header_text,
         body: response.question_body_text,
+        answer_state: response.answer_state,
         answer: {
-          value: response.answer
+          value: response.answer,
+          datetime: response.answer_datetime
         }
       };
       req.session.question = question;
-      res.render('question.html', { question });
+      res.render('question/index.html', { question });
     } catch (error) {
       appInsights.trackException(error);
       next(error);
@@ -40,7 +43,7 @@ function postAnswer(updateAnswerService) {
         value: answerText,
         error: validationMessage
       };
-      res.render('question.html', { question });
+      res.render('question/index.html', { question });
     } else {
       try {
         await updateAnswerService(hearingId, questionId, 'draft', answerText);

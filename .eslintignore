@@ -2,5 +2,5 @@ node_modules/
 public/
 govuk_modules/
 test/coverage
-app/routes.js
+app/constants.js
 app/server/**/*.js
