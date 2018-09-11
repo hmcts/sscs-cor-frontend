@@ -39,7 +39,7 @@ describe('controllers/taskList.js', () => {
     let questions;
     const deadline = moment().utc().add(7, 'days');
     const inputDeadline = deadline.format();
-    const expectedDeadline = deadline.format('D MMMM YYYY');
+    const expectedDeadline = deadline.format();
 
     beforeEach(() => {
       getAllQuestionsService = null;
@@ -59,7 +59,7 @@ describe('controllers/taskList.js', () => {
         questions,
         deadlineExpiryDate: {
           extendable: true,
-          formatted: expectedDeadline,
+          expiryDate: expectedDeadline,
           status: 'pending'
         }
       });
@@ -73,7 +73,7 @@ describe('controllers/taskList.js', () => {
         questions,
         deadlineExpiryDate: {
           extendable: false,
-          formatted: null,
+          expiryDate: null,
           status: 'completed'
         }
       });
@@ -82,14 +82,14 @@ describe('controllers/taskList.js', () => {
     it('should call render with deadline status expired when deadline is expired', async() => {
       const expiredDeadline = moment().utc().subtract(1, 'day');
       const inputExpiredDeadline = expiredDeadline.format();
-      const expectedExpiredDeadline = expiredDeadline.format('D MMMM YYYY');
+      const expectedExpiredDeadline = expiredDeadline.format();
       getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
       await getTaskList(getAllQuestionsService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
         deadlineExpiryDate: {
           extendable: true,
-          formatted: expectedExpiredDeadline,
+          expiryDate: expectedExpiredDeadline,
           status: 'expired'
         }
       });
@@ -139,7 +139,7 @@ describe('controllers/taskList.js', () => {
       const deadlineDetails = processDeadline(deadline, true);
       expect(deadlineDetails).to.deep.equal({
         extendable: false,
-        formatted: null,
+        expiryDate: null,
         status: 'completed'
       });
     });
@@ -147,12 +147,12 @@ describe('controllers/taskList.js', () => {
     it('deadline is pending if expiry is in the future', () => {
       const deadline = moment().utc().add(7, 'days');
       const inputDeadlineFormatted = deadline.format();
-      const expectedFormat = deadline.format('D MMMM YYYY');
+      const expectedFormat = deadline.format();
 
       const deadlineDetails = processDeadline(inputDeadlineFormatted, false);
       expect(deadlineDetails).to.deep.equal({
         extendable: true,
-        formatted: expectedFormat,
+        expiryDate: expectedFormat,
         status: 'pending'
       });
     });
@@ -160,12 +160,12 @@ describe('controllers/taskList.js', () => {
     it('deadline is expired if expiry is in the past', () => {
       const deadline = moment().utc().subtract(1, 'day');
       const inputDeadlineFormatted = deadline.format();
-      const expectedFormat = deadline.format('D MMMM YYYY');
+      const expectedFormat = deadline.format();
 
       const deadlineDetails = processDeadline(inputDeadlineFormatted, false);
       expect(deadlineDetails).to.deep.equal({
         extendable: true,
-        formatted: expectedFormat,
+        expiryDate: expectedFormat,
         status: 'expired'
       });
     });

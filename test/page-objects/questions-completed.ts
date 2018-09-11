@@ -1,7 +1,7 @@
 const { completed } = require('app/server/paths');
-const BasePage = require('test/page-objects/base');
+import { BasePage } from 'test/page-objects/base';
 
-class QuestionsCompletedPage extends BasePage {
+export class QuestionsCompletedPage extends BasePage {
   constructor(page) {
     super(page);
     this.pagePath = completed;
@@ -14,5 +14,3 @@ class QuestionsCompletedPage extends BasePage {
     ]);
   }
 }
-
-module.exports = QuestionsCompletedPage;

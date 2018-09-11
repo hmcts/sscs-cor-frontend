@@ -1,8 +1,10 @@
 const { NO_CONTENT } = require('http-status-codes');
 const cache = require('memory-cache');
+const moment = require('moment');
 
 function cacheAnswerState(questionId) {
   cache.put(`${questionId}.state`, 'submitted');
+  cache.put(`${questionId}.answer_datetime`, moment().utc().format());
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
 const { question } = require('app/server/paths');
-const BasePage = require('test/page-objects/base');
+import { BasePage } from 'test/page-objects/base';
 
-class QuestionPage extends BasePage {
+export class QuestionPage extends BasePage {
   constructor(page, hearingId, questionId) {
     super(page);
     this.pagePath = `${question}/${hearingId}/${questionId}`;
@@ -24,5 +24,3 @@ class QuestionPage extends BasePage {
     await this.answer(answer, true);
   }
 }
-
-module.exports = QuestionPage;

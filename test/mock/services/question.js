@@ -6,6 +6,16 @@ function getCachedAnswer(questionId) {
   return cachedAnswer ? cachedAnswer : '';
 }
 
+function getCachedState(questionId) {
+  const cachedState = cache.get(`${questionId}.state`);
+  return cachedState ? cachedState : '';
+}
+
+function getCachedDatetime(questionId) {
+  const cachedDatetime = cache.get(`${questionId}.answer_datetime`);
+  return cachedDatetime ? cachedDatetime : null;
+}
+
 module.exports = {
   path: '/continuous-online-hearings/:onlineHearingId/questions/:questionId',
   method: 'GET',
@@ -14,6 +24,8 @@ module.exports = {
     question_id: params => `${params.questionId}`,
     question_header_text: params => questionData[params.questionId].header,
     question_body_text: params => questionData[params.questionId].body,
-    answer: params => getCachedAnswer(params.questionId)
+    answer: params => getCachedAnswer(params.questionId),
+    answer_state: params => getCachedState(params.questionId),
+    answer_datetime: params => getCachedDatetime(params.questionId)
   }
 };

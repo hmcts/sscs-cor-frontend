@@ -2,8 +2,8 @@ const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/services/hearing').template;
-const LoginPage = require('test/page-objects/login');
-const TaskListPage = require('test/page-objects/task-list');
+import { LoginPage } from 'test/page-objects/login';
+import { TaskListPage } from 'test/page-objects/task-list';
 const i18n = require('app/server/locale/en');
 
 describe('Login page', () => {

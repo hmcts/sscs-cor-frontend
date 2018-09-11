@@ -1,13 +1,10 @@
 import { Router, Request, Response } from 'express';
-const moment = require('moment');
+import moment from 'moment';
 const paths = require('app/server/paths');
-
-const DATE_FORMAT = 'D MMMM YYYY';
 
 function getQuestionsCompleted(req: Request, res: Response) {
   if (req.session.questionsCompletedThisSession) {
-    // TODO: refactor to use nunjucks filter
-    const nextCorrespondenceDate = moment().add(7, 'days').format(DATE_FORMAT)
+    const nextCorrespondenceDate = moment().utc().add(7, 'days').format();
     return res.render('questions-completed.html', { nextCorrespondenceDate });
   }
   return res.redirect(paths.taskList);

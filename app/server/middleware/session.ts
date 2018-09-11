@@ -1,11 +1,11 @@
-import { RedisStore } from 'connect-redis';
+import { Store } from 'express-session';
 
 import session from 'express-session';
 const config = require('config');
 
 const isSecure = config.get('session.cookie.secure') === 'true';
 
-function createSession(store?: RedisStore) {
+function createSession(store?: Store) {
   return session({
     cookie: {
       httpOnly: true,
