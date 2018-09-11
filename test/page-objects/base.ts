@@ -3,7 +3,11 @@ const config = require('config');
 
 const testUrl = config.get('testUrl');
 
-class BasePage {
+export class BasePage {
+
+  public page: any;
+  public pagePath: string;
+
   constructor(page) {
     this.page = page;
     this.pagePath = '/';
@@ -66,5 +70,3 @@ class BasePage {
     });
   }
 }
-
-module.exports = BasePage;
