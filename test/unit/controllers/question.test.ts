@@ -5,6 +5,7 @@ const appInsights = require('app/server/app-insights');
 const express = require('express');
 const paths = require('app/server/paths');
 const i18n = require('app/server/locale/en');
+import moment from 'moment'; 
 
 describe('controllers/question.js', () => {
   const next = sinon.stub();
@@ -50,7 +51,7 @@ describe('controllers/question.js', () => {
       const questionBody = 'Many people ask this question...';
       const questionAnswer = '';
       const questionAnswerState = 'unanswered';
-      const questionAnswerDatetime = '2018-09-05T12:40:51Z';
+      const questionAnswerDatetime = moment().utc().format();
       getQuestionService = () => Promise.resolve({
         question_header_text: questionHeading,
         question_body_text: questionBody,

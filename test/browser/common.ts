@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 const { createServer } = require('http');
 const { createSession } = require ('app/server/middleware/session');
 const { bootstrap } = require('test/browser/bootstrap');
-const LoginPage = require('test/page-objects/login');
+import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 const { setup } = require('app/server/app');
 const config = require('config');

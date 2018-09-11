@@ -1,10 +1,14 @@
-const { login } = require('app/server/paths');
-const BasePage = require('test/page-objects/base');
+import { login } from 'app/server/paths';
+import { BasePage } from 'test/page-objects/base';
 
-class QuestionPage extends BasePage {
+export class LoginPage extends BasePage {
   constructor(page) {
+    
     super(page);
     this.pagePath = login;
+
+    console.log(login)
+
   }
 
   async login(email) {
@@ -15,5 +19,3 @@ class QuestionPage extends BasePage {
     ]);
   }
 }
-
-module.exports = QuestionPage;

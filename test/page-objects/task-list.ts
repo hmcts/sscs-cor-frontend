@@ -1,5 +1,5 @@
 const { taskList } = require('app/server/paths');
-const BasePage = require('test/page-objects/base');
+import { BasePage } from 'test/page-objects/base';
 
 export class TaskListPage extends BasePage {
   constructor(page, hearingId?) {

@@ -1,13 +1,12 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { setupQuestionsCompletedController, getQuestionsCompleted } = require('app/server/controllers/questions-completed');
-const moment = require('moment');
+import moment from 'moment';
 const express = require('express');
 const paths = require('app/server/paths');
-import { Request, Response } from 'express';
 
 describe('controllers/questions-completed.js', () => {
-  let req: Request;
-  let res: Response;
+  let req: any;
+  let res: any;
 
   beforeEach(() => {
     req = {
@@ -22,11 +21,18 @@ describe('controllers/questions-completed.js', () => {
   });
 
   describe('getQuestionsCompleted', () => {
-    const nextCorrespondenceDate = moment().utc().add(7, 'days').format('D MMMM YYYY');
 
-    it('renders questions completed page with next date', async() => {
+    const nextCorrespondenceDate = moment().utc().add(7, 'days');
+
+    it('renders questions completed page with next correspondence date', async() => {
       await getQuestionsCompleted(req, res);
-      expect(res.render).to.have.been.calledWith('questions-completed.html', { nextCorrespondenceDate });
+ 
+      const theTemplate = res.render.getCall(0).args[0];
+      const theCorrespondenceDate = res.render.getCall(0).args[1].nextCorrespondenceDate;
+
+      expect(theTemplate).to.equal('questions-completed.html');
+      expect(moment(theCorrespondenceDate).format('LL')).to.equal(moment(nextCorrespondenceDate).format('LL'));
+
     });
 
     it('redirects to /task-list if questions were not completed in this session', async() => {
