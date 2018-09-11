@@ -32,6 +32,7 @@ describe('Question page', () => {
 
   before('start services and bootstrap data in CCD/COH', async() => {
     const res = await startServices({ bootstrapData: true, performLogin: true });
+    console.log('have bootstraped and started and logged in');
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;
     questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
@@ -44,7 +45,8 @@ describe('Question page', () => {
     submitQuestionPage = new SubmitQuestionPage(page, hearingId, firstQuestionId);
     questionsCompletedPage = new QuestionsCompletedPage(page);
     await taskListPage.clickQuestion(firstQuestionId);
-    await questionPage.screenshot('question');
+    console.log('would take screenshot now');
+    // await questionPage.screenshot('question');
   });
 
   after(async() => {
