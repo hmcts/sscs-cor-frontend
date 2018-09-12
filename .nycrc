@@ -5,7 +5,7 @@
   "exclude": [
     "**/*.d.ts",
     "app/client/javascript/main.ts",
-    "app/server/app-insights.ts",
+    "app/server/paths.ts",
     "app/server/routes.ts",
     "app/server/server.ts"
   ],  

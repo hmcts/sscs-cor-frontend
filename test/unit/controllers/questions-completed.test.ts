@@ -1,8 +1,8 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { setupQuestionsCompletedController, getQuestionsCompleted } = require('app/server/controllers/questions-completed');
+const { setupQuestionsCompletedController, getQuestionsCompleted } = require('app/server/controllers/questions-completed.ts');
 import moment from 'moment';
 const express = require('express');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 
 describe('controllers/questions-completed.js', () => {
   let req: any;
@@ -38,7 +38,7 @@ describe('controllers/questions-completed.js', () => {
     it('redirects to /task-list if questions were not completed in this session', async() => {
       delete req.session.questionsCompletedThisSession;
       await getQuestionsCompleted(req, res);
-      expect(res.redirect).to.have.been.calledWith(paths.taskList);
+      expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
   });
 
@@ -59,7 +59,7 @@ describe('controllers/questions-completed.js', () => {
     it('calls router.get with the path and middleware', () => {
       setupQuestionsCompletedController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(paths.completed);
+      expect(express.Router().get).to.have.been.calledWith(Paths.completed);
     });
 
     it('returns the router', () => {
