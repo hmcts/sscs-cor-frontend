@@ -4,6 +4,8 @@ const appInsights = require('app/server/app-insights');
 const express = require('express');
 const paths = require('app/server/paths');
 
+import * as  validation from 'app/server/utils/fieldValidation';
+
 describe('controllers/login.js', () => {
   let next;
   let req;
@@ -53,6 +55,29 @@ describe('controllers/login.js', () => {
 
   describe('#postLogin', () => {
     let getOnlineHearingService;
+    const validationError = 'email error';
+
+    describe('on validation', () => {
+      beforeEach(async() => {
+        sinon.stub(validation, 'loginEmailAddressValidation').returns(validationError)
+
+        getOnlineHearingService = sinon.stub().resolves(hearingDetails);
+        await postLogin(getOnlineHearingService)(req, res, next);
+      });
+
+      it('renders an error if validation fails', () => {
+        expect(res.render).to.have.been.calledOnce.calledWith('login.html', {
+          emailAddress: {
+            error: validationError,
+            value: req.body['email-address']
+          }
+        });
+      });
+
+      afterEach(() => {
+        (validation.loginEmailAddressValidation as sinon.SinonStub).restore();
+      });      
+    });
 
     describe('on success', () => {
       beforeEach(async() => {
