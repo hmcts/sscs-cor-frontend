@@ -6,7 +6,7 @@ import { setupQuestionController } from './controllers/question';
 import { setupSubmitQuestionController } from './controllers/submit_question';
 import { setupQuestionsCompletedController } from './controllers/questions-completed';
 import { setupTaskListController } from './controllers/taskList';
-import { setupLoginController } from './controllers/login';
+import { setupLoginController, getLogin } from './controllers/login';
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -31,5 +31,6 @@ router.use(submitQuestionController);
 router.use(questionsCompletedController);
 router.use(paths.question, questionController);
 router.use(taskListController);
+router.get('/', getLogin);
 
 export { router };
