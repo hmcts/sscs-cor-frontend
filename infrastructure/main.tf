@@ -2,7 +2,7 @@ locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
   localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
-  ApiUrl = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
+  ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
 }
 
 module "sscs-cor-frontend" {
@@ -16,6 +16,8 @@ module "sscs-cor-frontend" {
   additional_host_name = "${var.env != "preview" ? var.additional_hostname : "null"}"
   https_only           = "${var.env != "preview" ? "true" : "true"}"
   common_tags          = "${var.common_tags}"
+  asp_rg               = "${var.product}-${var.component}-${var.env}"
+  asp_name             = "${var.product}-${var.component}-${var.env}"
 
   app_settings = {
     SSCS_API_URL                 = "${local.ApiUrl}"
