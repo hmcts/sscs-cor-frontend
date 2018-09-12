@@ -1,8 +1,8 @@
-const { Logger } = require('@hmcts/nodejs-logging');
-const appInsights = require('app/server/app-insights');
-const express = require('express');
-const { NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
-const paths = require('app/server/paths');
+import { Logger } from '@hmcts/nodejs-logging';
+import { AppInsights } from 'app/server/app-insights';
+import { Router} from 'express';
+import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import { Paths } from 'app/server/paths';
 const i18n = require('app/server/locale/en.json');
 const { loginEmailAddressValidation } = require('app/server/utils/fieldValidation');
 
@@ -19,7 +19,7 @@ function getLogout(req, res) {
       logger.error(`Error destroying session ${sessionId}`);
     }
     logger.info(`Session destroyed ${sessionId}`);
-    return res.redirect(paths.login);
+    return res.redirect(Paths.login);
   });
 }
 
@@ -47,9 +47,9 @@ function postLogin(getOnlineHearingService) {
       }
       req.session.hearing = response.body;
       logger.info(`Logging in ${email}`);
-      return res.redirect(paths.taskList);
+      return res.redirect(Paths.taskList);
     } catch (error) {
-      appInsights.trackException(error);
+      AppInsights.trackException(error);
       return next(error);
     }
   };
@@ -57,10 +57,10 @@ function postLogin(getOnlineHearingService) {
 
 function setupLoginController(deps) {
   // eslint-disable-next-line new-cap
-  const router = express.Router();
-  router.get(paths.login, getLogin);
-  router.get(paths.logout, getLogout);
-  router.post(paths.login, postLogin(deps.getOnlineHearingService));
+  const router = Router();
+  router.get(Paths.login, getLogin);
+  router.get(Paths.logout, getLogout);
+  router.post(Paths.login, postLogin(deps.getOnlineHearingService));
   return router;
 }
 
