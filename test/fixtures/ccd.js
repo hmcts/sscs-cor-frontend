@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 const rp = require('request-promise');
-const faker = require('faker');
 
 const backendApiUrl = require('config').get('api.url');
 
 async function createCase() {
-  const email = faker.internet.email();
+// eslint-disable-next-line no-magic-numbers
+  const randomNumber = parseInt(Math.random() * 10000000);
+  const email = `test${randomNumber}@hmcts.net`;
   const options = {
     url: `${backendApiUrl}/case`,
     qs: { email },
