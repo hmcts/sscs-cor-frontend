@@ -5,10 +5,10 @@ const mockDataQuestion = require('test/mock/services/question').template;
 const mockDataHearing = require('test/mock/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
 import { QuestionPage } from 'test/page-objects/question';
-import { SubmitQuestionPage } from 'test/page-objects/submit_question';
+import { SubmitQuestionPage } from 'test/page-objects/submit-question';
 import { QuestionsCompletedPage } from 'test/page-objects/questions-completed';
 const i18n = require('app/server/locale/en');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 const config = require('config');
 import moment from 'moment';
 
@@ -89,7 +89,7 @@ describe('Question page', () => {
   describe('saving an answer', () => {
     it('redirects to /task-list page when a valid answer is saved', async() => {
       await questionPage.saveAnswer('A valid answer');
-      expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}`);
+      expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
 
     it('displays question status as draft', async() => {
@@ -115,7 +115,7 @@ describe('Question page', () => {
 
     it('redirects to /task-list page when a valid answer is submitted', async() => {
       await submitQuestionPage.submit();
-      expect(submitQuestionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}`);
+      expect(submitQuestionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
 
     it('displays question status as completed', async() => {
@@ -141,7 +141,7 @@ describe('Question page', () => {
 
     it('returns to task list if back is clicked', async() => {
       await questionPage.clickElement('.govuk-back-link');
-      expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${paths.taskList}`);
+      expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
   });  
 
@@ -153,7 +153,7 @@ describe('Question page', () => {
     }
 
     before('answer all but one remaining question', async() => {
-      await page.goto(`${testUrl}${paths.taskList}`);
+      await page.goto(`${testUrl}${Paths.taskList}`);
       while(questionIdList.length > 1) {
         const questionId = questionIdList.shift();
         await answerQuestion(questionId);

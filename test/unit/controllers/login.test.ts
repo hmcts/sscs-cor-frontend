@@ -1,8 +1,8 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { getLogin, getLogout, postLogin, setupLoginController } = require('app/server/controllers/login.ts');
-const appInsights = require('app/server/app-insights');
+import { AppInsights } from 'app/server/app-insights';
 const express = require('express');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 
 import * as  validation from 'app/server/utils/fieldValidation';
 
@@ -31,11 +31,11 @@ describe('controllers/login.js', () => {
       redirect: sinon.stub()
     };
     next = sinon.stub();
-    sinon.stub(appInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackException');
   });
 
   afterEach(() => {
-    appInsights.trackException.restore();
+    (AppInsights.trackException as sinon.SinonStub).restore();
   });
 
   describe('#getLogin', () => {
@@ -49,7 +49,7 @@ describe('controllers/login.js', () => {
     it('destroys the session and redirects to login', () => {
       getLogout(req, res);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
-      expect(res.redirect).to.have.been.calledOnce.calledWith(paths.login);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
     });
   });
 
@@ -90,7 +90,7 @@ describe('controllers/login.js', () => {
       });
 
       it('redirects to task list page', () => {
-        expect(res.redirect).to.have.been.calledWith(paths.taskList);
+        expect(res.redirect).to.have.been.calledWith(Paths.taskList);
       });
     });
 
@@ -103,7 +103,7 @@ describe('controllers/login.js', () => {
       });
 
       it('tracks the exception', () => {
-        expect(appInsights.trackException).to.have.been.calledOnce.calledWith(error);
+        expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       });
       it('calls next with the error', () => {
         expect(next).to.have.been.calledWith(error);
@@ -130,13 +130,13 @@ describe('controllers/login.js', () => {
     it('sets up GET', () => {
       setupLoginController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(paths.login);
+      expect(express.Router().get).to.have.been.calledWith(Paths.login);
     });
 
     it('sets up POST', () => {
       setupLoginController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().post).to.have.been.calledWith(paths.login);
+      expect(express.Router().post).to.have.been.calledWith(Paths.login);
     });
 
     it('returns the router', () => {

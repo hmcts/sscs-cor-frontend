@@ -1,6 +1,6 @@
-const appInsights = require('app/server/app-insights');
-const express = require('express');
-const paths = require('app/server/paths');
+import { AppInsights } from 'app/server/app-insights';
+import { Router} from 'express';
+import { Paths } from 'app/server/paths';
 const { answerValidation } = require('app/server/utils/fieldValidation');
 
 function getQuestion(getQuestionService) {
@@ -23,7 +23,7 @@ function getQuestion(getQuestionService) {
       req.session.question = question;
       res.render('question/index.html', { question });
     } catch (error) {
-      appInsights.trackException(error);
+      AppInsights.trackException(error);
       next(error);
     }
   };
@@ -48,12 +48,12 @@ function postAnswer(updateAnswerService) {
       try {
         await updateAnswerService(hearingId, questionId, 'draft', answerText);
         if (req.body.submit) {
-          res.redirect(`${paths.question}/${hearingId}/${questionId}/submit`);
+          res.redirect(`${Paths.question}/${hearingId}/${questionId}/submit`);
         } else {
-          res.redirect(paths.taskList);
+          res.redirect(Paths.taskList);
         }
       } catch (error) {
-        appInsights.trackException(error);
+        AppInsights.trackException(error);
         next(error);
       }
     }
@@ -62,7 +62,7 @@ function postAnswer(updateAnswerService) {
 
 function setupQuestionController(deps) {
   // eslint-disable-next-line new-cap
-  const router = express.Router();
+  const router = Router();
   router.get('/:hearingId/:questionId', deps.ensureAuthenticated, getQuestion(deps.getQuestionService));
   router.post('/:hearingId/:questionId', deps.ensureAuthenticated, postAnswer(deps.saveAnswerService));
   return router;
