@@ -1,5 +1,5 @@
 const { Logger } = require('@hmcts/nodejs-logging');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 
 const logger = Logger.getLogger('ensure-authenticated.js');
 
@@ -15,7 +15,7 @@ function verifyOnlineHearingId(req, res, next) {
       logger.error(`Error destroying session ${sessionId}`);
     }
     logger.info(`Session destroyed ${sessionId}`);
-    return res.redirect(paths.login);
+    return res.redirect(Paths.login);
   });
 }
 
