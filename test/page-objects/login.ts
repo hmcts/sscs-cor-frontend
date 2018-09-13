@@ -3,12 +3,8 @@ import { BasePage } from 'test/page-objects/base';
 
 export class LoginPage extends BasePage {
   constructor(page) {
-    
     super(page);
     this.pagePath = login;
-
-    console.log(login)
-
   }
 
   async login(email) {

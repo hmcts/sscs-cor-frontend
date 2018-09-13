@@ -1,5 +1,5 @@
 import { CONST } from 'app/constants';
-const appInsights = require('app/server/app-insights');
+import { AppInsights } from 'app/server/app-insights';
 const { Express } = require('@hmcts/nodejs-logging');
 import { RequestHandler } from "express";
 import nunjucks = require('nunjucks');
@@ -8,7 +8,7 @@ import { router as routes } from 'app/server/routes';
 const errors = require('app/server/middleware/error-handler');
 const health = require('app/server/middleware/health');
 const locale = require('app/server/locale/en.json');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 const bodyParser = require('body-parser');
 
 var dateFilter = require('nunjucks-date-filter');
@@ -23,7 +23,7 @@ interface Options {
 function setup(sessionHandler: RequestHandler, options: Options) {
   const opts = options || {};
   if (!opts.disableAppInsights) {
-    appInsights.enable();
+    AppInsights.enable();
   }
 
   const app = express();
@@ -53,8 +53,8 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(Express.accessLogger());
 
   app.use(sessionHandler);
-  app.use(paths.health, health.livenessCheck);
-  app.use(paths.readiness, health.readinessCheck);
+  app.use(Paths.health, health.livenessCheck);
+  app.use(Paths.readiness, health.readinessCheck);
   app.use(errors.sessionNotFoundHandler);
   app.use(routes);
   app.use(errors.pageNotFoundHandler);

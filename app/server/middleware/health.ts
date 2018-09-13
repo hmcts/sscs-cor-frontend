@@ -1,6 +1,6 @@
 const request = require('superagent');
 const { OK, SERVICE_UNAVAILABLE } = require('http-status-codes');
-const appInsights = require('app/server/app-insights');
+import { AppInsights } from 'app/server/app-insights';
 const { Logger } = require('@hmcts/nodejs-logging');
 const healthCheck = require('@hmcts/nodejs-healthcheck');
 
@@ -12,7 +12,7 @@ async function getApiHealth() {
     const result = await request.get(`${apiUrl}/health`);
     return result.status === OK ? 'UP' : 'DOWN';
   } catch (error) {
-    appInsights.trackException(error);
+    AppInsights.trackException(error);
     logger.error('Error trying to check health of API', error);
     return 'DOWN';
   }
