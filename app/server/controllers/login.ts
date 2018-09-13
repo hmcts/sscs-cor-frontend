@@ -4,7 +4,7 @@ import { Router} from 'express';
 import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import { Paths } from 'app/server/paths';
 const i18n = require('app/server/locale/en.json');
-const { loginEmailAddressValidation } = require('app/server/utils/fieldValidation');
+import { loginEmailAddressValidation } from 'app/server/utils/fieldValidation';
 
 const logger = Logger.getLogger('login.js');
 
