@@ -1,13 +1,13 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { setupTaskListController, getTaskList, processDeadline } = require('app/server/controllers/taskList.ts');
+import { setupTaskListController, getTaskList, processDeadline } from 'app/server/controllers/task-list.ts';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const moment = require('moment');
-const appInsights = require('app/server/app-insights');
+import { AppInsights } from 'app/server/app-insights';
 const express = require('express');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 
 /* eslint-disable no-magic-numbers */
-describe('controllers/taskList.js', () => {
+describe('controllers/task-list.js', () => {
   let req;
   let res;
   let next;
@@ -27,11 +27,11 @@ describe('controllers/taskList.js', () => {
       render: sinon.stub()
     };
     next = sinon.stub();
-    sinon.stub(appInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackException');
   });
 
   afterEach(() => {
-    appInsights.trackException.restore();
+    (AppInsights.trackException as sinon.SinonStub).restore();
   });
 
   describe('getTaskList', () => {
@@ -99,7 +99,7 @@ describe('controllers/taskList.js', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       getAllQuestionsService = () => Promise.reject(error);
       await getTaskList(getAllQuestionsService)(req, res, next);
-      expect(appInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
   });
@@ -123,7 +123,7 @@ describe('controllers/taskList.js', () => {
     it('calls router.get with the path and middleware', () => {
       setupTaskListController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(paths.taskList);
+      expect(express.Router().get).to.have.been.calledWith(Paths.taskList);
     });
 
     it('returns the router', () => {

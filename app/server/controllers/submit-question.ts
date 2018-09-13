@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
-const appInsights = require('app/server/app-insights');
-const paths = require('app/server/paths');
+import { AppInsights } from 'app/server/app-insights';
+import { Paths } from 'app/server/paths';
 
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 
@@ -22,11 +22,11 @@ function postSubmitAnswer(submitAnswerService: any, getAllQuestionsService: any)
 
       if (allQuestionsSubmitted) {
         req.session.questionsCompletedThisSession = true;
-        return res.redirect(paths.completed);
+        return res.redirect(Paths.completed);
       }
-      return res.redirect(paths.taskList);
+      return res.redirect(Paths.taskList);
     } catch (error) {
-      appInsights.trackException(error);
+      AppInsights.trackException(error);
       next(error);
     }
   };
@@ -35,8 +35,8 @@ function postSubmitAnswer(submitAnswerService: any, getAllQuestionsService: any)
 function setupSubmitQuestionController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(`${paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, getSubmitQuestion);
-  router.post(`${paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, postSubmitAnswer(deps.submitAnswerService, deps.getAllQuestionsService));
+  router.get(`${Paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, getSubmitQuestion);
+  router.post(`${Paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, postSubmitAnswer(deps.submitAnswerService, deps.getAllQuestionsService));
   return router;
 }
 

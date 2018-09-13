@@ -1,9 +1,9 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { getQuestion, postAnswer, setupQuestionController } = require('app/server/controllers/question.ts');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-const appInsights = require('app/server/app-insights');
+import { AppInsights } from 'app/server/app-insights';
 const express = require('express');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 const i18n = require('app/server/locale/en');
 import moment from 'moment'; 
 
@@ -32,11 +32,11 @@ describe('controllers/question.js', () => {
   beforeEach(() => {
     req.session.question = {};
     req.body = {};
-    sinon.stub(appInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackException');
   });
 
   afterEach(() => {
-    appInsights.trackException.restore();
+    (AppInsights.trackException as sinon.SinonStub).restore();
   });
 
   describe('getQuestion', () => {
@@ -78,7 +78,7 @@ describe('controllers/question.js', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       getQuestionService = () => Promise.reject(error);
       await getQuestion(getQuestionService)(req, res, next);
-      expect(appInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
   });
@@ -98,7 +98,7 @@ describe('controllers/question.js', () => {
       req.body['question-field'] = 'My amazing answer';
       postAnswerService = () => Promise.resolve();
       await postAnswer(postAnswerService)(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(paths.taskList);
+      expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
 
     it('should call res.redirect when submitting an answer and there are no errors', async() => {
@@ -107,7 +107,7 @@ describe('controllers/question.js', () => {
       postAnswerService = () => Promise.resolve();
       await postAnswer(postAnswerService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(
-        `${paths.question}/${req.params.hearingId}/${req.params.questionId}/submit`
+        `${Paths.question}/${req.params.hearingId}/${req.params.questionId}/submit`
       );
     });
 
@@ -116,7 +116,7 @@ describe('controllers/question.js', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       postAnswerService = () => Promise.reject(error);
       await postAnswer(postAnswerService)(req, res, next);
-      expect(appInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
