@@ -1,7 +1,7 @@
 const { expect, sinon } = require('test/chai-sinon');
 const nock = require('nock');
 const { OK, INTERNAL_SERVER_ERROR, SERVICE_UNAVAILABLE } = require('http-status-codes');
-const appInsights = require('app/server/app-insights');
+import { AppInsights } from 'app/server/app-insights';
 const config = require('config');
 const { livenessCheck, readinessCheck } = require('app/server/middleware/health.ts');
 
@@ -42,11 +42,11 @@ describe('middleware/health', () => {
         status: sinon.spy(),
         json: sinon.spy()
       };
-      sinon.stub(appInsights, 'trackException');
+      sinon.stub(AppInsights, 'trackException');
     });
 
     afterEach(() => {
-      appInsights.trackException.restore();
+      (AppInsights.trackException as sinon.SinonStub).restore();
     });
 
     it('returns JSON with health status UP', async() => {
@@ -76,7 +76,7 @@ describe('middleware/health', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       nock(apiUrl).get(apiPath).replyWithError(error);
       await readinessCheck(req, res);
-      expect(appInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(res.status).to.have.been.calledOnce.calledWith(SERVICE_UNAVAILABLE);
       expect(res.json).to.have.been.calledOnce.calledWith({
         status: 'DOWN',

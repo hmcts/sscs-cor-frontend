@@ -1,11 +1,11 @@
 const express = require('express');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 const { ensureAuthenticated } = require('app/server/middleware/ensure-authenticated');
 
 import { setupQuestionController } from './controllers/question';
-import { setupSubmitQuestionController } from './controllers/submit_question';
+import { setupSubmitQuestionController } from './controllers/submit-question';
 import { setupQuestionsCompletedController } from './controllers/questions-completed';
-import { setupTaskListController } from './controllers/taskList';
+import { setupTaskListController } from './controllers/task-list';
 import { setupLoginController } from './controllers/login';
 
 // eslint-disable-next-line new-cap
@@ -29,7 +29,7 @@ const loginController = setupLoginController({ getOnlineHearingService });
 router.use(loginController);
 router.use(submitQuestionController);
 router.use(questionsCompletedController);
-router.use(paths.question, questionController);
+router.use(Paths.question, questionController);
 router.use(taskListController);
 
 export { router };
