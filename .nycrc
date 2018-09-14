@@ -1,11 +1,11 @@
 {
   "include": [
-    "app/server/**/*.ts"
+    "app/**/*.ts"
   ],
   "exclude": [
     "**/*.d.ts",
     "app/client/javascript/main.ts",
-    "app/server/paths.ts",
+    "app/server/app.ts",
     "app/server/routes.ts",
     "app/server/server.ts"
   ],  

@@ -1,6 +1,6 @@
 const { expect, sinon } = require('test/chai-sinon');
 const applicationInsights = require('applicationinsights');
-const { enable } = require('app/server/app-insights');
+import { AppInsights } from 'app/server/app-insights';
 
 describe('app-insights.js', () => {
   describe('enable', () => {
@@ -21,7 +21,7 @@ describe('app-insights.js', () => {
     });
 
     it('should call start', () => {
-      enable();
+      AppInsights.enable();
       // eslint-disable-next-line no-unused-expressions
       expect(startStub).to.have.been.called;
     });
