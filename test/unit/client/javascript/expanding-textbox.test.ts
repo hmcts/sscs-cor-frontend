@@ -1,24 +1,19 @@
-/* eslint-disable-next-line max-len */
-const { expect } = require('test/chai-sinon');
+import { expect } from 'test/chai-sinon';
+import { ExpandingTextBox } from 'app/client/javascript/expanding-textbox';
 
-const { ExpandingTextBox } = require('app/client/javascript/expanding-textbox.ts')
-
-const jsdom = require('jsdom-global');
-const html = '<textarea class="auto-expand" style="border-top: 2px; border-bottom: 2px;"></textarea>';
-jsdom(html);
+document.body.innerHTML = `<textarea class="auto-expand" style="border-top: 2px; border-bottom: 2px;"></textarea>`;
 
 describe('expanding-textbox', () => {
   describe('#autoExpand', () => {
     it('sets height to scroll height + border widths', () => {
-      const target = document.querySelector<HTMLInputElement>('textarea.auto-expand');
-
       const expandingTextBox = new ExpandingTextBox();
-
+      const target = document.querySelector<HTMLInputElement>('textarea.auto-expand');
+      
       expect(target.style).to.have.property('height', '');
-      expandingTextBox.autoExpand({ target });
+      expandingTextBox.autoExpand({target});
       expect(target.style).to.have.property('height', '4px');
     });
   });
 });
 
-export {};
+export { };

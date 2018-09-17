@@ -4,7 +4,7 @@ const { createSession } = require('app/server/middleware/session');
 const { setup } = require('app/server/app');
 const pa11y = require('pa11y');
 const supertest = require('supertest');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 const dysonSetup = require('test/mock/dysonSetup');
 
 const app = setup(createSession(), { disableAppInsights: true });
@@ -21,7 +21,7 @@ const pa11yTest = pa11y({
     .govuk-skip-link, .govuk-footer__link`
 });
 
-const accessibilityPages = [`${paths.question}/121/62`];
+const accessibilityPages = [`${Paths.question}/121/62`];
 
 accessibilityPages.forEach(page => {
   describe(`Running Accessibility tests for: ${page}`, () => {
