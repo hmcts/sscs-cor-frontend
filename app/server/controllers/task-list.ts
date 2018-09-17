@@ -1,7 +1,7 @@
-const appInsights = require('app/server/app-insights');
+import { AppInsights } from 'app/server/app-insights';
 import moment from 'moment';
 import { Router, Request, Response, NextFunction } from "express";
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 
 function processDeadline(expiryDate: Date, allQuestionsSubmitted: any) {
   if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
@@ -27,7 +27,7 @@ function getTaskList(getAllQuestionsService: any) {
         questions: response.questions
       });
     } catch (error) {
-      appInsights.trackException(error);
+      AppInsights.trackException(error);
       next(error);
     }
   };
@@ -35,7 +35,7 @@ function getTaskList(getAllQuestionsService: any) {
 
 function setupTaskListController(deps: any): Router {
   const router: Router = Router();
-  router.get(paths.taskList, deps.ensureAuthenticated, getTaskList(deps.getAllQuestionsService));
+  router.get(Paths.taskList, deps.ensureAuthenticated, getTaskList(deps.getAllQuestionsService));
   return router;
 }
 

@@ -6,7 +6,6 @@ import { ExpandingTextBox } from './expanding-textbox';
 $(document).ready(() => {
   GOVUKFrontend();
   const expandingTextBox = new ExpandingTextBox();
-  expandingTextBox.init();
 });
 
 export default {};

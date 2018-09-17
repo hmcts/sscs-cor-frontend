@@ -1,6 +1,6 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { verifyOnlineHearingId, setLocals, ensureAuthenticated } = require('app/server/middleware/ensure-authenticated.ts');
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 
 describe('middleware/ensure-authenticated', () => {
   let req;
@@ -41,7 +41,7 @@ describe('middleware/ensure-authenticated', () => {
 
       it('destroys the session and redirects to login', () => {
         expect(req.session.destroy).to.have.been.calledOnce.calledWith();
-        expect(res.redirect).to.have.been.calledOnce.calledWith(paths.login);
+        expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
       });
 
       it('does not call next', () => (

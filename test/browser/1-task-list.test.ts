@@ -1,10 +1,10 @@
 const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
-const mockDataQuestions = require('test/mock/services/allQuestions').template;
+const mockDataQuestions = require('test/mock/services/all-questions').template;
 const mockDataHearing = require('test/mock/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
-const paths = require('app/server/paths');
+import { Paths } from 'app/server/paths';
 const i18n = require('app/server/locale/en.json');
 const config = require('config');
 
@@ -75,7 +75,7 @@ describe('Task list page', () => {
   it('redirects to the question page for that question', async() => {
     await taskListPage.clickQuestion(questionId);
     expect(taskListPage.getCurrentUrl())
-      .to.equal(`${testUrl}${paths.question}/${hearingId}/${questionId}`);
+      .to.equal(`${testUrl}${Paths.question}/${hearingId}/${questionId}`);
   });
 });
 
