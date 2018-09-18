@@ -1,3 +1,5 @@
+import * as $ from 'jquery';
+
 export class ExpandingTextBox {
 
   constructor() {
@@ -16,4 +18,5 @@ export class ExpandingTextBox {
   attachEventListener(): void {
     $('textarea.auto-expand').on('input', this.autoExpand);
   }
+
 }
