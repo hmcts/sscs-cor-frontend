@@ -1,12 +1,7 @@
 import { expect } from 'test/chai-sinon';
-import { JSDOM } from 'jsdom';
-
 import { ExpandingTextBox } from 'app/client/javascript/expanding-textbox';
 
-const html = '<textarea class="auto-expand" style="border-top: 2px; border-bottom: 2px;"></textarea>';
-const jsdom = new JSDOM(html);
-const document: Window['document'] = jsdom.window.document;
-const $ = (global as any).$ = require('jquery')(jsdom.window);
+document.body.innerHTML = `<textarea class="auto-expand" style="border-top: 2px; border-bottom: 2px;"></textarea>`;
 
 describe('expanding-textbox', () => {
   describe('#autoExpand', () => {
