@@ -1,11 +1,9 @@
-import { Store } from 'express-session';
-
-import session from 'express-session';
+import * as session from 'express-session';
 const config = require('config');
 
 const isSecure = config.get('session.cookie.secure') === 'true';
 
-function createSession(store?: Store) {
+function createSession(store?: session.Store) {
   return session({
     cookie: {
       httpOnly: true,

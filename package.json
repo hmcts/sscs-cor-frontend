@@ -69,6 +69,7 @@
     "@hmcts/eslint-config": "^1.4.0",
     "@types/chai": "^4.1.4",
     "@types/cli-color": "^0.3.29",
+    "@types/config": "0.0.34",
     "@types/connect-redis": "0.0.7",
     "@types/jquery": "^3.3.6",
     "@types/jsdom": "^11.12.0",

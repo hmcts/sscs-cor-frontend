@@ -1,6 +1,6 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { setupQuestionsCompletedController, getQuestionsCompleted } = require('app/server/controllers/questions-completed.ts');
-import moment from 'moment';
+import * as moment from 'moment';
 const express = require('express');
 import { Paths } from 'app/server/paths';
 

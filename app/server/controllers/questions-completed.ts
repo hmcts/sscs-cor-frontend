@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import moment from 'moment';
+import * as moment from 'moment';
 import { Paths } from 'app/server/paths';
 
 function getQuestionsCompleted(req: Request, res: Response) {
