@@ -5,7 +5,7 @@ import { AppInsights } from 'app/server/app-insights';
 const express = require('express');
 import { Paths } from 'app/server/paths';
 const i18n = require('app/server/locale/en');
-import moment from 'moment'; 
+import * as moment from 'moment'; 
 
 describe('controllers/question.js', () => {
   const next = sinon.stub();
