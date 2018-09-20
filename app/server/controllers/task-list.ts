@@ -1,5 +1,5 @@
 import { AppInsights } from 'app/server/app-insights';
-import moment from 'moment';
+import * as moment from 'moment';
 import { Router, Request, Response, NextFunction } from "express";
 import { Paths } from 'app/server/paths';
 
