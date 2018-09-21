@@ -1,6 +1,6 @@
 const request = require('superagent');
 const { OK, SERVICE_UNAVAILABLE } = require('http-status-codes');
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 const { Logger } = require('@hmcts/nodejs-logging');
 const healthCheck = require('@hmcts/nodejs-healthcheck');
 

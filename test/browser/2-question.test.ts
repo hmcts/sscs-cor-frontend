@@ -8,9 +8,9 @@ import { QuestionPage } from 'test/page-objects/question';
 import { SubmitQuestionPage } from 'test/page-objects/submit-question';
 import { QuestionsCompletedPage } from 'test/page-objects/questions-completed';
 const i18n = require('app/server/locale/en');
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 const config = require('config');
-import moment from 'moment';
+import * as moment from 'moment';
 
 const testUrl = config.get('testUrl');
 

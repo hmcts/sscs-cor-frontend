@@ -1,7 +1,7 @@
 const { expect, sinon } = require('test/chai-sinon');
 const nock = require('nock');
 const { OK, INTERNAL_SERVER_ERROR, SERVICE_UNAVAILABLE } = require('http-status-codes');
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 const config = require('config');
 const { livenessCheck, readinessCheck } = require('app/server/middleware/health.ts');
 

@@ -1,7 +1,7 @@
 const { Logger } = require('@hmcts/nodejs-logging');
-import session from 'express-session';
-import redis from 'connect-redis';
-import config from 'config';
+import * as session from 'express-session';
+import * as redis from 'connect-redis';
+import * as config from 'config';
 import { setup } from 'app/server/app';
 import { createSession } from 'app/server/middleware/session';
 

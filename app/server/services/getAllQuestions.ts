@@ -3,6 +3,7 @@ const request = require('superagent');
 
 const apiUrl = config.get('api.url');
 
+//  REFACTOR can be deprecated
 async function getQuestion(hearingId) {
   try {
     const response = await request

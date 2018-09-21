@@ -1,11 +1,11 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { getQuestion, postAnswer, setupQuestionController } = require('app/server/controllers/question.ts');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 const express = require('express');
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 const i18n = require('app/server/locale/en');
-import moment from 'moment'; 
+import * as moment from 'moment'; 
 
 describe('controllers/question.js', () => {
   const next = sinon.stub();

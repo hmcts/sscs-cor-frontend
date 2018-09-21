@@ -1,5 +1,5 @@
 import { CONST } from 'app/constants';
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 const { Express } = require('@hmcts/nodejs-logging');
 import { RequestHandler } from "express";
 import nunjucks = require('nunjucks');
@@ -8,7 +8,7 @@ import { router as routes } from 'app/server/routes';
 const errors = require('app/server/middleware/error-handler');
 const health = require('app/server/middleware/health');
 const locale = require('app/server/locale/en.json');
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 const bodyParser = require('body-parser');
 
 var dateFilter = require('nunjucks-date-filter');

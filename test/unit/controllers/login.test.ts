@@ -1,8 +1,8 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { getLogin, getLogout, postLogin, setupLoginController } = require('app/server/controllers/login.ts');
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 const express = require('express');
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 
 import * as  validation from 'app/server/utils/fieldValidation';
 

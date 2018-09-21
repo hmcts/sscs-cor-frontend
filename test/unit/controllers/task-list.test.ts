@@ -2,9 +2,9 @@ const { expect, sinon } = require('test/chai-sinon');
 import { setupTaskListController, getTaskList, processDeadline } from 'app/server/controllers/task-list.ts';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const moment = require('moment');
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 const express = require('express');
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 
 /* eslint-disable no-magic-numbers */
 describe('controllers/task-list.js', () => {

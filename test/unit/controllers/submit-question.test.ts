@@ -1,8 +1,8 @@
 const { getSubmitQuestion, postSubmitAnswer, setupSubmitQuestionController } = require('app/server/controllers/submit-question.ts');
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-import { AppInsights } from 'app/server/app-insights';
-import { Paths } from 'app/server/paths';
+import * as AppInsights from 'app/server/app-insights';
+import * as Paths from 'app/server/paths';
 const express = require('express');
 
 describe('controllers/submit-question', () => {
