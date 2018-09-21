@@ -1,8 +1,8 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 import { Router} from 'express';
 import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 const i18n = require('app/server/locale/en.json');
 import { loginEmailAddressValidation } from 'app/server/utils/fieldValidation';
 

@@ -83,6 +83,23 @@
     "para2End": "which will explain how the tribunal want to proceed with your appeal.",
     "exitService": "Exit service"
   },
+  "extendDeadline": {
+    "header": "Extending the deadline will delay your appeal",
+    "hint": "You can have another week to answer the questions but your appeal will take longer.",
+    "subheader": "Do you still want to extend the deadline?"
+  },
+  "extendDeadlineConfirmation": {
+    "no": {
+      "header": "You have not extended the deadline",
+      "para1start": "You still have until",
+      "para1end": "to answer the questions."
+    },
+    "yes": {
+      "header": "You have another week to answer the questions ",
+      "para1start": "You now have until",
+      "para1end": "to answer the questions."
+    }
+  },
   "error": {
     "error404": {
       "header": "Sorry, this page could not be found"
@@ -91,5 +108,10 @@
       "header": "Sorry, we're experiencing technical difficulties",
       "content": "Please try again in a few minutes."
     }
+  },
+  "general": {
+    "yes": "Yes",
+    "no": "No",
+    "continue": "Continue"
   }
 }

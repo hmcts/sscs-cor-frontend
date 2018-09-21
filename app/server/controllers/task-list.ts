@@ -1,7 +1,7 @@
-import { AppInsights } from 'app/server/app-insights';
-import moment from 'moment';
+import * as AppInsights from 'app/server/app-insights';
+import * as moment from 'moment';
 import { Router, Request, Response, NextFunction } from "express";
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 
 function processDeadline(expiryDate: Date, allQuestionsSubmitted: any) {
   if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
