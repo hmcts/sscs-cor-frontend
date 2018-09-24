@@ -19,6 +19,9 @@ function getTaskList(getAllQuestionsService: any) {
     const hearing = req.session.hearing;
     try {
       const response = await getAllQuestionsService(hearing.online_hearing_id);
+
+      req.session.hearing.deadline = response.deadline_expiry_date;
+      
       const totalQuestionCount = response.questions.length;
       const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);
       const deadlineDetails = processDeadline(response.deadline_expiry_date, allQuestionsSubmitted);

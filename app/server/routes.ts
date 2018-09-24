@@ -27,7 +27,7 @@ const questionController = setupQuestionController({
 const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, getAllQuestionsService, ensureAuthenticated });
 const questionsCompletedController = setupQuestionsCompletedController({ ensureAuthenticated });
 const taskListController = setupTaskListController({ getAllQuestionsService, ensureAuthenticated });
-const extendDeadlineController = setupExtendDeadlineController({ getAllQuestionsService, extendDeadlineService, ensureAuthenticated });
+const extendDeadlineController = setupExtendDeadlineController({ extendDeadlineService, ensureAuthenticated });
 const loginController = setupLoginController({ getOnlineHearingService });
 
 router.use(loginController);

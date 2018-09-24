@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+const moment = require('moment');
 
 module.exports = {
   path: '/continuous-online-hearings/:hearingId',

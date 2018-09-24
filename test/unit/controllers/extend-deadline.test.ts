@@ -9,11 +9,14 @@ import { ensureAuthenticated } from 'app/server/middleware/ensure-authenticated'
 
 describe('controllers/extend-deadline.js', () => {
   const next = sinon.stub();
+  const deadline = moment().utc().add(7, 'day').format();
+  const extendDeadline = moment().utc().add(14, 'day').format();
   const req: any = {
     body: {},
     session: {
       hearing: {
-        online_hearing_id: '1234'
+        online_hearing_id: '1234',
+        deadline: deadline
       }
     }
   }
@@ -39,66 +42,50 @@ describe('controllers/extend-deadline.js', () => {
   describe('postExtension', () => {
 
     let questions;  
-    let getAllQuestionsService;
     let extendDeadlineService;
 
     beforeEach(() => {
-      getAllQuestionsService = null;
       extendDeadlineService = null;
-      questions = [
-        {
-          question_id: '001',
-          question_header_text: 'How do you interact with people?',
-          answer_state: 'draft'
-        }
-      ];
-    });
-
-    it('should show extension confirmation when submitting yes', async() => {
-      req.body['extend-deadline'] = 'yes';
-      const deadline_expiry_date = moment().utc().add(7, 'day').format()
-      
-      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date });
-      extendDeadlineService = () => Promise.resolve({ questions, deadline_expiry_date });
-
-      await extensionConfirmation(getAllQuestionsService, extendDeadlineService)(req, res, next);      
-      expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
-        deadline: deadline_expiry_date,
-        extend: 'yes'
-      });
     });
 
     it('should show extension confirmation when submitting no', async() => {
       req.body['extend-deadline'] = 'no';
-      const deadline_expiry_date = moment().utc().format()
-      
-      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date });
-      extendDeadlineService = () => Promise.resolve({ questions, deadline_expiry_date });
 
-      await extensionConfirmation(getAllQuestionsService, extendDeadlineService)(req, res, next);   
+      await extensionConfirmation(extendDeadlineService)(req, res, next);   
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
-        deadline: deadline_expiry_date,
+        deadline: deadline,
         extend: 'no'
       });
     });
 
+    it('should show extension confirmation when submitting yes', async() => {
+      req.body['extend-deadline'] = 'yes';
+      
+      extendDeadlineService = () => Promise.resolve({ deadline_expiry_date: extendDeadline });
+
+      await extensionConfirmation(extendDeadlineService)(req, res, next);      
+      expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
+        deadline: extendDeadline,
+        extend: 'yes'
+      });
+      expect(req.session.hearing.deadline).to.equal(extendDeadline);
+    });
+
     it('should show error when submitting empty form', async() => {
       req.body = {};
-      await extensionConfirmation(getAllQuestionsService, extendDeadlineService)(req, res, next);   
+      await extensionConfirmation(extendDeadlineService)(req, res, next);   
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         error: true
       });
     });
 
-
     it('should call next and appInsights with the error when there is one', async() => {
       req.body['extend-deadline'] = 'yes';
 
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      getAllQuestionsService = () => Promise.reject(error);
       extendDeadlineService = () => Promise.reject(error);
 
-      await extensionConfirmation(getAllQuestionsService, extendDeadlineService)(req, res, next);   
+      await extensionConfirmation(extendDeadlineService)(req, res, next);   
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });

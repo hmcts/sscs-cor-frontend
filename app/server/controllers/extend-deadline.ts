@@ -6,7 +6,7 @@ function getIndex(req: Request, res: Response) {
   return res.render('extend-deadline/index.html', {});
 }
 
-function extensionConfirmation(getAllQuestionsService: any, extendDeadlineService: any) {
+function extensionConfirmation(extendDeadlineService: any) {
 
   return async (req: Request, res: Response, next: NextFunction) => {
 
@@ -16,18 +16,13 @@ function extensionConfirmation(getAllQuestionsService: any, extendDeadlineServic
     if (!extend) return res.render('extend-deadline/index.html', { error: true });
 
     try {
-
-      let deadline: string;
-
+      
       if (extend === 'yes') {
         const response = await extendDeadlineService(hearingId);
-        deadline = response.deadline_expiry_date;
-      } else {
-        const response = await getAllQuestionsService(hearingId);
-        deadline = response.deadline_expiry_date;
+        req.session.hearing.deadline = response.deadline_expiry_date;
       }
-
-      res.render('extend-deadline/index.html', { extend: extend, deadline: deadline });
+      
+      res.render('extend-deadline/index.html', { extend: extend, deadline: req.session.hearing.deadline });
 
     } catch (error) {
       AppInsights.trackException(error);
@@ -39,7 +34,7 @@ function extensionConfirmation(getAllQuestionsService: any, extendDeadlineServic
 function setupExtendDeadlineController(deps: any): Router {
   const router = Router();
   router.get(Paths.extendDeadline, deps.ensureAuthenticated, getIndex);
-  router.post(Paths.extendDeadline, deps.ensureAuthenticated, extensionConfirmation(deps.getAllQuestionsService, deps.extendDeadlineService));
+  router.post(Paths.extendDeadline, deps.ensureAuthenticated, extensionConfirmation(deps.extendDeadlineService));
   return router;
 }
 

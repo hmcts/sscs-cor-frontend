@@ -8,11 +8,7 @@ import * as Paths from 'app/server/paths';
 const config = require('config');
 import * as moment from 'moment';
 
-
-
 const testUrl = config.get('testUrl');
-
-
 
 describe('Extend deadline', () => {
   let page;
@@ -74,7 +70,7 @@ describe('Extend deadline', () => {
       await extendDeadlinePage.screenshot('extend-deadline-confirmation-yes');
 
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
-      expect(deadline).to.contain(`${moment().utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
+      expect(deadline).to.contain(`${moment().utc().add(14, 'day').format(CONST.DATE_FORMAT)}`);
     });
   });
 });
