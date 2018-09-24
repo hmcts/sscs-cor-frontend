@@ -7,7 +7,7 @@ const moment = require('moment');
 // }
 
 module.exports = {
-  path: '/continuous-online-hearings/:hearingId/questions/deadlineExpiryDate',
+  path: '/continuous-online-hearings/:hearingId',
   method: 'PATCH',
   cache: false,
   template: {

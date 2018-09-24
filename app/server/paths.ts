@@ -6,4 +6,3 @@ export const login = '/login';
 export const logout = '/logout';
 export const completed = '/questions-completed';
 export const extendDeadline = '/extend-deadline';
-export const extendDeadlineConfirmation = '/extend-deadline-confirmation';

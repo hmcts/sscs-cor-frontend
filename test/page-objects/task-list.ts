@@ -1,4 +1,4 @@
-const { taskList } = require('app/server/paths');
+import { taskList } from 'app/server/paths';
 import { BasePage } from 'test/page-objects/base';
 
 export class TaskListPage extends BasePage {
@@ -15,6 +15,13 @@ export class TaskListPage extends BasePage {
     await Promise.all([
       this.page.waitForNavigation(),
       this.clickElement(`#question-${questionId} a`)
+    ]);
+  }
+
+  async clickExtend() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      this.clickElement(`#extend-deadline`)
     ]);
   }
 }
