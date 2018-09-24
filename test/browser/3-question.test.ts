@@ -19,7 +19,7 @@ const sampleQuestionIdList = ['001', '002', '003']
 
 describe('Question page', () => {
   let page;
-  let taskListPage;
+  let taskListPage: TaskListPage;
   let questionPage;
   let submitQuestionPage;
   let questionsCompletedPage

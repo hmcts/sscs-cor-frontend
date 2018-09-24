@@ -1,6 +1,9 @@
-<h1 class="govuk-heading-l">{{ i18n.extendDeadlineConfirmation.no.header }}</h1>
+<h1 class="govuk-heading-l">{{ i18n.extendDeadline.no.header }}</h1>
+<p id="extend-message">
+  {{ i18n.extendDeadline.no.para1start }}
+  {{ deadline | date }}
+  {{ i18n.extendDeadline.no.para1end }}
+</p>
 <p>
-  {{ i18n.extendDeadlineConfirmation.no.para1start }} 
-  {{ deadline | date }} 
-  {{ i18n.extendDeadlineConfirmation.no.para1end }}
+  <a href="/task-list" class="govuk-link">{{ i18n.backLink }}</a>
 </p>

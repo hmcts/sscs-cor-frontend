@@ -1,4 +1,5 @@
 {% from "button/macro.njk" import govukButton %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% extends "layout.html" %}
 
@@ -9,44 +10,34 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form action="/extend-deadline-confirmation" method="post">
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset" aria-describedby="extend-deadline-hint">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <h1 class="govuk-fieldset__heading">
-                {{ i18n.extendDeadline.header }}
-              </h1>
-            </legend>
-            <p id="extend-deadline-hint">
-              {{ i18n.extendDeadline.hint }}
-            </p>
-            <span class="govuk-fieldset__legend govuk-fieldset__legend--m">
-              {{ i18n.extendDeadline.subheader }}
-            </span>
-            <div class="govuk-radios govuk-radios--inline">
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="extend-deadline-1" name="extend-deadline" type="radio" value="no">
-                <label class="govuk-label govuk-radios__label" for="extend-deadline-1">
-                  {{ i18n.general.no }}
-                </label>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="extend-deadline-2" name="extend-deadline" type="radio" value="yes">
-                <label class="govuk-label govuk-radios__label" for="extend-deadline-2">
-                  {{ i18n.general.yes}}
-                </label>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-        <div id="submit-button">
-          {{ 
-            govukButton({
-              text: i18n.general.continue
-            }) 
-          }}
-        </div>
-      </form>
+
+      {% if error %}
+        {{ govukErrorSummary({
+            titleText: i18n.extendDeadline.error.title,
+            errorList: [{
+                text: i18n.extendDeadline.error.text,
+                href: "#extend-deadline-1"
+            }]
+          }) 
+        }}
+      {% endif %}
+
+      {% if not extend %}
+
+        {% include "extend-deadline/confirmation-form.html" %}
+
+      {% elseif extend == 'yes' %}
+
+        {% include "extend-deadline/confirmation-yes.html" %}
+
+      {% elseif extend == 'no' %}
+
+        {% include "extend-deadline/confirmation-no.html" %}
+
+      {% endif %}
+
+      {% include "includes/contact.html" %}
+
     </div>
   </div>
 {% endblock %}

@@ -25,11 +25,11 @@
       border: none;
       cursor: pointer;
       text-decoration: underline;
-      color: #005ea5;
+      color: $govuk-link-colour;
       padding-left: 0;
 
       &:hover {
-        color: #2b8cc4;
+        color: govuk-colour("light-blue");
       }
     }
   }

@@ -12,9 +12,11 @@ async function extensionConfirmation(req: Request, res: Response, next: NextFunc
   const hearingId:string = req.session.hearing.online_hearing_id;
   const extend:string = req.body['extend-deadline'];
 
-  let deadline: string;
+  if(!extend) return res.render('extend-deadline/index.html', { error: true });
 
   try {
+
+    let deadline: string;
 
     if(extend === 'yes') {
       const response = await Hearing.updateDeadline(hearingId);
@@ -24,7 +26,7 @@ async function extensionConfirmation(req: Request, res: Response, next: NextFunc
       deadline = response.deadline_expiry_date;
     }
 
-    res.render('extend-deadline/confirmation.html', { extend: extend, deadline: deadline }); 
+    res.render('extend-deadline/index.html', { extend: extend, deadline: deadline }); 
     
   } catch (error) {
     AppInsights.trackException(error);
@@ -36,7 +38,7 @@ async function extensionConfirmation(req: Request, res: Response, next: NextFunc
 function setupExtendDeadlineController(deps: any): Router {
   const router = Router();
   router.get(Paths.extendDeadline, deps.ensureAuthenticated, getIndex);
-  router.post(Paths.extendDeadlineConfirmation, deps.ensureAuthenticated, extensionConfirmation);
+  router.post(Paths.extendDeadline, deps.ensureAuthenticated, extensionConfirmation);
   return router;
 }
 
