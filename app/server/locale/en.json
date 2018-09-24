@@ -128,6 +128,7 @@
     },
     "telephone":{
       "header": "Telephone",
+      "no": "0300 123 1142",
       "hours": "(Monday to Friday, 9.00am to 5.00pm)" 
     }
   }

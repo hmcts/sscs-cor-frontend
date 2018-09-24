@@ -18,7 +18,7 @@ export class ExtendIndexPage extends BasePage {
   async continue() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement(`#submit-button button[type="submit"]`)
+      this.clickElement(`#submit-button`)
     ]);
   }
 
