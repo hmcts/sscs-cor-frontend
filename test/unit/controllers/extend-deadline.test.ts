@@ -6,7 +6,6 @@ import * as  express from 'express';
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment'; 
 import { ensureAuthenticated } from 'app/server/middleware/ensure-authenticated';
-import * as Hearing from 'app/server/services/hearing';
 
 describe('controllers/extend-deadline.js', () => {
   const next = sinon.stub();
@@ -39,43 +38,53 @@ describe('controllers/extend-deadline.js', () => {
 
   describe('postExtension', () => {
 
-    const responseYes = {
-      deadline_expiry_date: moment().utc().add(7, 'day').format()
-    }
+    let questions;  
+    let getAllQuestionsService;
+    let extendDeadlineService;
 
-    const responseNo = {
-      deadline_expiry_date: moment().utc().format()
-    }
+    beforeEach(() => {
+      getAllQuestionsService = null;
+      extendDeadlineService = null;
+      questions = [
+        {
+          question_id: '001',
+          question_header_text: 'How do you interact with people?',
+          answer_state: 'draft'
+        }
+      ];
+    });
 
     it('should show extension confirmation when submitting yes', async() => {
       req.body['extend-deadline'] = 'yes';
+      const deadline_expiry_date = moment().utc().add(7, 'day').format()
       
-      sinon.stub(Hearing, 'updateDeadline').resolves(responseYes);
+      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date });
+      extendDeadlineService = () => Promise.resolve({ questions, deadline_expiry_date });
 
-      await extensionConfirmation(req, res, next);
-      
+      await extensionConfirmation(getAllQuestionsService, extendDeadlineService)(req, res, next);      
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
-        deadline: responseYes.deadline_expiry_date,
+        deadline: deadline_expiry_date,
         extend: 'yes'
       });
-      
-      (Hearing.updateDeadline as sinon.SinonStub).restore();
     });
 
     it('should show extension confirmation when submitting no', async() => {
       req.body['extend-deadline'] = 'no';
-      sinon.stub(Hearing, 'get').resolves(responseNo);
-      await extensionConfirmation(req, res, next);
+      const deadline_expiry_date = moment().utc().format()
+      
+      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date });
+      extendDeadlineService = () => Promise.resolve({ questions, deadline_expiry_date });
+
+      await extensionConfirmation(getAllQuestionsService, extendDeadlineService)(req, res, next);   
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
-        deadline: responseNo.deadline_expiry_date,
+        deadline: deadline_expiry_date,
         extend: 'no'
       });
-      (Hearing.get as sinon.SinonStub).restore();
     });
 
     it('should show error when submitting empty form', async() => {
       req.body = {};
-      await extensionConfirmation(req, res, next);
+      await extensionConfirmation(getAllQuestionsService, extendDeadlineService)(req, res, next);   
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         error: true
       });
@@ -84,12 +93,14 @@ describe('controllers/extend-deadline.js', () => {
 
     it('should call next and appInsights with the error when there is one', async() => {
       req.body['extend-deadline'] = 'yes';
+
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      sinon.stub(Hearing, 'updateDeadline').returns(Promise.reject(error))
-      await extensionConfirmation(req, res, next);
+      getAllQuestionsService = () => Promise.reject(error);
+      extendDeadlineService = () => Promise.reject(error);
+
+      await extensionConfirmation(getAllQuestionsService, extendDeadlineService)(req, res, next);   
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
-      (Hearing.updateDeadline as sinon.SinonStub).restore();
     });
   });
 
@@ -115,7 +126,7 @@ describe('controllers/extend-deadline.js', () => {
       expect(express.Router().get).to.have.been.calledWith(`${Paths.extendDeadline}`, ensureAuthenticated);
     });
 
-    it('calls router.get with the path and middleware', () => {
+    it('calls router.post with the path and middleware', () => {
       setupExtendDeadlineController(deps);
       // eslint-disable-next-line new-cap
       expect(express.Router().post).to.have.been.calledWith(`${Paths.extendDeadline}`, ensureAuthenticated);

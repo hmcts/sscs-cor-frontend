@@ -17,6 +17,8 @@ const getAllQuestionsService = require('app/server/services/getAllQuestions');
 const getOnlineHearingService = require('app/server/services/getOnlineHearing');
 const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/server/services/updateAnswer');
 
+import { extendDeadline as extendDeadlineService } from 'app/server/services/extend-deadline';
+
 const questionController = setupQuestionController({
   getQuestionService,
   saveAnswerService,
@@ -25,7 +27,7 @@ const questionController = setupQuestionController({
 const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, getAllQuestionsService, ensureAuthenticated });
 const questionsCompletedController = setupQuestionsCompletedController({ ensureAuthenticated });
 const taskListController = setupTaskListController({ getAllQuestionsService, ensureAuthenticated });
-const extendDeadlineController = setupExtendDeadlineController({ ensureAuthenticated });
+const extendDeadlineController = setupExtendDeadlineController({ getAllQuestionsService, extendDeadlineService, ensureAuthenticated });
 const loginController = setupLoginController({ getOnlineHearingService });
 
 router.use(loginController);
