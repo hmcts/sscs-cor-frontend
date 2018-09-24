@@ -1,4 +1,4 @@
-import * as Hearing from 'app/server/services/hearing.ts';
+import { extendDeadline } from 'app/server/services/extend-deadline.ts';
 import * as moment from 'moment';
 
 const { expect } = require('test/chai-sinon');
@@ -8,30 +8,13 @@ const config = require('config');
 
 const apiUrl = config.get('api.url');
 
-describe('services/hearing.ts', () => {
+describe('services/extend-deadline.ts', () => {
   const hearingId = '121';
   const path = `/continuous-online-hearings/${hearingId}`;
 
   const apiResponse = {
-    questions: [
-      {
-        question_id: '001',
-        question_header_text: 'How do you interact with people?',
-        answer_state: 'draft'
-      }
-    ]
+    deadline_expiry_date: moment().utc().add(14, 'day').format()
   };
-
-  describe('Get a hearing', () => {
-    beforeEach(() => {
-      nock(apiUrl)
-        .get(path)
-        .reply(OK, apiResponse);
-    });
-    it('resolves the promise with the response', async () => (
-      expect(Hearing.get(hearingId)).to.eventually.eql(apiResponse)
-    ));
-  });
 
   describe('Update hearing deadline', () => {
     beforeEach(() => {
@@ -40,25 +23,25 @@ describe('services/hearing.ts', () => {
         .reply(OK, apiResponse);
     });
     it('resolves the promise with the response', async () => (
-      expect(Hearing.updateDeadline(hearingId)).to.eventually.eql(apiResponse)
+      expect(extendDeadline(hearingId)).to.eventually.eql(apiResponse)
     ));
   });  
 
   describe('rejecting the promises', () => {
     const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
-    beforeEach(() => {
+    before(() => {
       nock(apiUrl)
         .get(path)
         .replyWithError(error);
     });
 
-    it('rejects get with the error', () => (
-      expect(Hearing.get(hearingId)).to.be.rejectedWith(error)
-    ));
+    after(() => {
+      nock.cleanAll();
+    });
 
     it('rejects updateDeadline with the error', () => (
-      expect(Hearing.updateDeadline(hearingId)).to.be.rejectedWith(error)
+      expect(extendDeadline(hearingId)).to.be.rejectedWith(error)
     ));
   });
 });
