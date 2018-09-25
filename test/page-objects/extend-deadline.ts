@@ -8,18 +8,15 @@ export class ExtendIndexPage extends BasePage {
   }
 
   async clickNo() {
-    await this.clickElement(`#extend-deadline-1`)
+    await this.clickElement(`#extend-deadline-1`);
   }
 
   async clickYes() {
-    await this.clickElement(`#extend-deadline-2`)
+    await this.clickElement(`#extend-deadline-2`);
   }
 
   async continue() {
-    await Promise.all([
-      this.page.waitForNavigation(),
-      this.clickElement(`#submit-button`)
-    ]);
+    await this.clickElement(`#submit-button button`);
   }
 
 }
