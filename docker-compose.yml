@@ -1,0 +1,15 @@
+version: '3'
+services:
+  frontend:
+    build: .  
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    links:
+      - redis:redis
+    volumes:
+      - "./:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    command: "yarn dev-docker"
+  redis:
+    image: "redis:alpine"
