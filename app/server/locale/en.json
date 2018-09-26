@@ -89,13 +89,11 @@
     "subheader": "Do you still want to extend the deadline?",
     "no": {
       "header": "You have not extended the deadline",
-      "para1start": "You still have until",
-      "para1end": "to answer the questions."
+      "para1": "You still have until {{ deadline }} to answer the questions."
     },
     "yes": {
       "header": "You have another week to answer the questions ",
-      "para1start": "You now have until",
-      "para1end": "to answer the questions."
+      "para1": "You now have until {{ deadline }} to answer the questions."
     },
     "error": {
       "title": "Please make a selection",

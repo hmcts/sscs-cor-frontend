@@ -10,6 +10,7 @@ const health = require('app/server/middleware/health');
 const locale = require('app/server/locale/en.json');
 import * as Paths from 'app/server/paths';
 const bodyParser = require('body-parser');
+import * as moment from 'moment';
 
 var dateFilter = require('nunjucks-date-filter');
 dateFilter.setDefaultFormat(CONST.DATE_FORMAT);
@@ -34,15 +35,21 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     app.set('trust proxy', 1);
   }
 
-  nunjucks.configure([
+  var nunEnv = nunjucks.configure([
     'app/server/views',
     'node_modules/govuk-frontend/',
     'node_modules/govuk-frontend/components/'
   ], {
     autoescape: true,
     express: app
-  })
-  .addFilter('date', dateFilter);
+  });
+  nunEnv.addFilter('date', function(text) {
+    const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/;
+    return  text.replace(isoDateRegex, (date) => moment.utc(date).format(CONST.DATE_FORMAT));
+  });
+  nunEnv.addFilter('eval', function(text) {
+    return  nunjucks.renderString(text, this.ctx);
+  });
 
   app.use(bodyParser.urlencoded({
     extended: true
