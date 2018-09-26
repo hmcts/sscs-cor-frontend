@@ -117,6 +117,10 @@
   version "0.3.29"
   resolved "https://registry.yarnpkg.com/@types/cli-color/-/cli-color-0.3.29.tgz#c83a71fe02c8c7e1ccec048dd6a2458d1f6c96ea"
 
+"@types/config@0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@types/config/-/config-0.0.34.tgz#123f91bdb5afdd702294b9de9ca04d9ea11137b0"
+
 "@types/connect-redis@0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@types/connect-redis/-/connect-redis-0.0.7.tgz#97948bc727d29e5413d1ebc6be7aa26df86bca7e"
@@ -130,6 +134,10 @@
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.32.tgz#aa0e9616b9435ccad02bc52b5b454ffc2c70ba28"
   dependencies:
     "@types/node" "*"
+
+"@types/cookiejar@*":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/cookiejar/-/cookiejar-2.1.0.tgz#4b7daf2c51696cfc70b942c11690528229d1a1ce"
 
 "@types/events@*":
   version "1.2.0"
@@ -223,6 +231,13 @@
 "@types/sinon@^5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-5.0.2.tgz#7a9d64df40b26dd48d673f745addc2fdb2bda193"
+
+"@types/superagent@^3.8.4":
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/@types/superagent/-/superagent-3.8.4.tgz#24a5973c7d1a9c024b4bbda742a79267c33fb86a"
+  dependencies:
+    "@types/cookiejar" "*"
+    "@types/node" "*"
 
 "@types/tough-cookie@*":
   version "2.3.3"
