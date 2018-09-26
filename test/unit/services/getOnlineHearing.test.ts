@@ -1,4 +1,4 @@
-const getOnlineHearingService = require('app/server/services/getOnlineHearing.ts');
+import { getOnlineHearing } from 'app/server/services/getOnlineHearing';
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const nock = require('nock');
@@ -25,11 +25,11 @@ describe('services/getOnlineHearing.js', () => {
     });
 
     it('resolves the promise', () => (
-      expect(getOnlineHearingService(email)).to.be.fulfilled
+      expect(getOnlineHearing(email)).to.be.fulfilled
     ));
 
     it('resolves the promise with the response', async() => {
-      const response = await getOnlineHearingService(email);
+      const response = await getOnlineHearing(email);
       expect(response.body).to.deep.equal(apiResponseBody);
     });
   });
@@ -45,7 +45,7 @@ describe('services/getOnlineHearing.js', () => {
     });
 
     it('rejects the promise with the error', () => (
-      expect(getOnlineHearingService(email)).to.be.rejectedWith(error)
+      expect(getOnlineHearing(email)).to.be.rejectedWith(error)
     ));
   });
 
@@ -58,7 +58,7 @@ describe('services/getOnlineHearing.js', () => {
     });
 
     it('resolves the promise with 404 status', async() => {
-      const response = await getOnlineHearingService(email);
+      const response = await getOnlineHearing(email);
       expect(response.status).to.equal(NOT_FOUND);
     });
   });
@@ -72,7 +72,7 @@ describe('services/getOnlineHearing.js', () => {
     });
 
     it('resolves the promise with 422 status', async() => {
-      const response = await getOnlineHearingService(email);
+      const response = await getOnlineHearing(email);
       expect(response.status).to.equal(UNPROCESSABLE_ENTITY);
     });
   });

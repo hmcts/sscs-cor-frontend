@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ i18n.decision.header }}</h1>
+            {% include "includes/appellant-details.html" %}
+        </div>
+    </div>
+
+    {% include "includes/divider.html" %}
+
+{% endblock %}

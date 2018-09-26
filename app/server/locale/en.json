@@ -100,6 +100,9 @@
       "text": "You need to say whether you want to extend the deadline before continuing."
     }
   },
+  "decision": {
+    "header": "The tribunal’s decision on your appeal"
+  },
   "error": {
     "error404": {
       "header": "Sorry, this page could not be found"
