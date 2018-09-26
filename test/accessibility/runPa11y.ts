@@ -4,7 +4,7 @@ const { createSession } = require('app/server/middleware/session');
 const { setup } = require('app/server/app');
 const pa11y = require('pa11y');
 const supertest = require('supertest');
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 const dysonSetup = require('test/mock/dysonSetup');
 
 const app = setup(createSession(), { disableAppInsights: true });

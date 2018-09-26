@@ -1,0 +1,38 @@
+<form action="/extend-deadline" method="post">
+  <div class="govuk-form-group {{ "govuk-form-group--error" if error }}">
+    <fieldset class="govuk-fieldset" aria-describedby="extend-deadline-hint">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">
+          {{ i18n.extendDeadline.header }}
+        </h1>
+      </legend>
+      <p id="extend-deadline-hint">
+        {{ i18n.extendDeadline.hint }}
+      </p>
+      <span class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        {{ i18n.extendDeadline.subheader }}
+      </span>
+      <div class="govuk-radios govuk-radios--inline">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="extend-deadline-1" name="extend-deadline" type="radio" value="no">
+          <label class="govuk-label govuk-radios__label" for="extend-deadline-1">
+            {{ i18n.general.no }}
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="extend-deadline-2" name="extend-deadline" type="radio" value="yes">
+          <label class="govuk-label govuk-radios__label" for="extend-deadline-2">
+            {{ i18n.general.yes}}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div id="submit-button">
+    {{ 
+      govukButton({
+        text: i18n.general.continue
+      }) 
+    }}
+  </div>
+</form>

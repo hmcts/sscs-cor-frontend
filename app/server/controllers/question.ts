@@ -1,6 +1,6 @@
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 import { Router} from 'express';
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 import { answerValidation } from 'app/server/utils/fieldValidation';
 
 function getQuestion(getQuestionService) {

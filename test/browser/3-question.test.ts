@@ -8,7 +8,7 @@ import { QuestionPage } from 'test/page-objects/question';
 import { SubmitQuestionPage } from 'test/page-objects/submit-question';
 import { QuestionsCompletedPage } from 'test/page-objects/questions-completed';
 const i18n = require('app/server/locale/en');
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 const config = require('config');
 import * as moment from 'moment';
 
@@ -19,7 +19,7 @@ const sampleQuestionIdList = ['001', '002', '003']
 
 describe('Question page', () => {
   let page;
-  let taskListPage;
+  let taskListPage: TaskListPage;
   let questionPage;
   let submitQuestionPage;
   let questionsCompletedPage

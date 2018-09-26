@@ -1,6 +1,6 @@
 import { bootstrap } from './test/browser/bootstrap';
-import clc from 'cli-color';
-import _ from 'lodash';
+import * as clc from 'cli-color';
+import * as _ from 'lodash';
 
 const bold = clc.bold;
 const yellow = clc.yellow;

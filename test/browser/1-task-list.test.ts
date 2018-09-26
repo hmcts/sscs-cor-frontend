@@ -4,7 +4,7 @@ import { startServices } from 'test/browser/common';
 const mockDataQuestions = require('test/mock/services/all-questions').template;
 const mockDataHearing = require('test/mock/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 const i18n = require('app/server/locale/en.json');
 const config = require('config');
 
