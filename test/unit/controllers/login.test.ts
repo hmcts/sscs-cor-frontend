@@ -61,7 +61,7 @@ describe('controllers/login.js', () => {
       beforeEach(async() => {
         sinon.stub(validation, 'loginEmailAddressValidation').returns(validationError)
 
-        getOnlineHearingService = sinon.stub().resolves(hearingDetails);
+        getOnlineHearingService = sinon.stub().resolves({ body: hearingDetails });
         await postLogin(getOnlineHearingService)(req, res, next);
       });
 
@@ -81,7 +81,7 @@ describe('controllers/login.js', () => {
 
     describe('on success', () => {
       beforeEach(async() => {
-        getOnlineHearingService = sinon.stub().resolves(hearingDetails);
+        getOnlineHearingService = sinon.stub().resolves({ body: hearingDetails });
         await postLogin(getOnlineHearingService)(req, res, next);
       });
 
