@@ -1,0 +1,43 @@
+{% from "button/macro.njk" import govukButton %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% extends "layout.html" %}
+
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if error %}
+        {{ govukErrorSummary({
+            titleText: i18n.extendDeadline.error.title,
+            errorList: [{
+                text: i18n.extendDeadline.error.text,
+                href: "#extend-deadline-1"
+            }]
+          }) 
+        }}
+      {% endif %}
+
+      {% if not extend %}
+
+        {% include "extend-deadline/confirmation-form.html" %}
+
+      {% elseif extend == 'yes' %}
+
+        {% include "extend-deadline/confirmation-yes.html" %}
+
+      {% elseif extend == 'no' %}
+
+        {% include "extend-deadline/confirmation-no.html" %}
+
+      {% endif %}
+
+      {% include "includes/contact.html" %}
+
+    </div>
+  </div>
+{% endblock %}

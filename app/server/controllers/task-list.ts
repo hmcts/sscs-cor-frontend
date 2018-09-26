@@ -1,7 +1,7 @@
-import { AppInsights } from 'app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 import * as moment from 'moment';
 import { Router, Request, Response, NextFunction } from "express";
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 
 function processDeadline(expiryDate: Date, allQuestionsSubmitted: any) {
   if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
@@ -19,6 +19,9 @@ function getTaskList(getAllQuestionsService: any) {
     const hearing = req.session.hearing;
     try {
       const response = await getAllQuestionsService(hearing.online_hearing_id);
+
+      req.session.hearing.deadline = response.deadline_expiry_date;
+      
       const totalQuestionCount = response.questions.length;
       const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);
       const deadlineDetails = processDeadline(response.deadline_expiry_date, allQuestionsSubmitted);

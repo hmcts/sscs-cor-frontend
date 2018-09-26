@@ -83,6 +83,25 @@
     "para2End": "which will explain how the tribunal want to proceed with your appeal.",
     "exitService": "Exit service"
   },
+  "extendDeadline": {
+    "header": "Extending the deadline will delay your appeal",
+    "hint": "You can have another week to answer the questions but your appeal will take longer.",
+    "subheader": "Do you still want to extend the deadline?",
+    "no": {
+      "header": "You have not extended the deadline",
+      "para1start": "You still have until",
+      "para1end": "to answer the questions."
+    },
+    "yes": {
+      "header": "You have another week to answer the questions ",
+      "para1start": "You now have until",
+      "para1end": "to answer the questions."
+    },
+    "error": {
+      "title": "Please make a selection",
+      "text": "You need to say whether you want to extend the deadline before continuing."
+    }
+  },
   "error": {
     "error404": {
       "header": "Sorry, this page could not be found"
@@ -90,6 +109,27 @@
     "error500": {
       "header": "Sorry, we're experiencing technical difficulties",
       "content": "Please try again in a few minutes."
+    }
+  },
+  "general": {
+    "yes": "Yes",
+    "no": "No",
+    "continue": "Continue"
+  },
+  "contact": {
+    "summary": "Contact us for help",
+    "email": {
+      "header": "Email",
+      "link": {
+        "text": "Send us a message",
+        "newWindow": "(opens in a new page)"
+      },
+      "text": "We'll get back to you within 2 days"
+    },
+    "telephone":{
+      "header": "Telephone",
+      "no": "0300 123 1142",
+      "hours": "(Monday to Friday, 9.00am to 5.00pm)" 
     }
   }
 }

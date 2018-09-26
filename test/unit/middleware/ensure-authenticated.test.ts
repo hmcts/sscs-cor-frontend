@@ -1,6 +1,6 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { verifyOnlineHearingId, setLocals, ensureAuthenticated } = require('app/server/middleware/ensure-authenticated.ts');
-import { Paths } from 'app/server/paths';
+import * as Paths from 'app/server/paths';
 
 describe('middleware/ensure-authenticated', () => {
   let req;
