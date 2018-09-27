@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 const { expect, sinon } = require('test/chai-sinon');
-import { checkDecision } from 'app/server/middleware/check-decision';
+import { checkDecision } from 'app/server/middleware/check-decision.ts';
 import * as Paths from 'app/server/paths';
 
 describe('middleware/check-decision', () => {
