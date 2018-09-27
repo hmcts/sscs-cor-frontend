@@ -5,6 +5,7 @@ $govuk-assets-path: '/public/govuk-frontend/';
 @import "_question";
 @import "_task-list";
 @import "_contact-include";
+@import "_decision";
 
 .divider {
   border-bottom: 3px solid govuk-colour("blue");

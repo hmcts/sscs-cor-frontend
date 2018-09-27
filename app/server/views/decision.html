@@ -1,3 +1,4 @@
+{% from "inset-text/macro.njk" import govukInsetText %}
 {% extends "layout.html" %}
 
 {% block content %}
@@ -9,5 +10,24 @@
     </div>
 
     {% include "includes/divider.html" %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div id="decision">
+                <div id="decision-outcome" class="panel-blue">
+                    <h2 class="govuk-heading-m">{{ i18n.decision.outcome[decision.decision_award] }}</h2>
+                </div>
+                <div id="decision-reason">
+                    <h2 class="govuk-heading-m">{{ i18n.decision.reasonsHeader }}</h2>
+                    <p id="decision-text">{{ decision.decision_text }}</p>
+                </div>
+                {{ govukInsetText({
+                    "text": i18n.decision.postInfo
+                }) }}
+            </div>
+
+            {% include "includes/contact.html" %}
+        </div>
+    </div>
 
 {% endblock %}
