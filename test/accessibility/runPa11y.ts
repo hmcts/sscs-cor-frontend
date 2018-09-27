@@ -5,11 +5,11 @@ const { setup } = require('app/server/app');
 const pa11y = require('pa11y');
 const supertest = require('supertest');
 import * as Paths from 'app/server/paths';
-const dysonSetup = require('test/mock/dysonSetup');
+const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 
 const app = setup(createSession(), { disableAppInsights: true });
 const agent = supertest.agent(app);
-dysonSetup();
+dysonSetupCorBackend();
 
 const space = 2;
 

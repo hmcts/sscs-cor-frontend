@@ -7,7 +7,7 @@ import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 const { setup } = require('app/server/app');
 const config = require('config');
-const dysonSetup = require('test/mock/dysonSetup');
+const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 const dysonSetupCoh = require('test/mock/coh/dysonSetup');
 
 const testUrl = config.get('testUrl');
@@ -47,7 +47,7 @@ async function startBrowser() {
 function startAppServer() {
   if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
-    dysonSetup();
+    dysonSetupCorBackend();
     dysonSetupCoh();
     server = createServer(app).listen(port, error => {
       if (error) {
