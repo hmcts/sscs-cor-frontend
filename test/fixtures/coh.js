@@ -105,6 +105,16 @@ async function getQuestionRound(hearingId, roundNum) {
   return body;
 }
 
+async function getDecision(hearingId) {
+  const options = {
+    url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
+    headers,
+    json: true
+  };
+  const body = await rp.get(options);
+  return body;
+}
+
 async function createDecision(hearingId) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
@@ -134,6 +144,7 @@ module.exports = {
   createQuestions,
   setQuestionRoundToIssued,
   getQuestionRound,
+  getDecision,
   createDecision,
   issueDecision
 };
