@@ -20,6 +20,25 @@ async function waitForQuestionRoundIssued(hearingId, roundNum, attemptNum) {
   return Promise.resolve(questionRound)
 }
 
+async function waitForDecisionIssued(hearingId, attemptNum) {
+  const MAX_ATTEMPTS = 30
+  const DELAY_BETWEEN_ATTEMPTS_MS = 1000
+  const currentAttemptNum = attemptNum || 1
+  if (currentAttemptNum > MAX_ATTEMPTS) {
+    return Promise.reject(new Error(`Decision not issued after ${MAX_ATTEMPTS} attempts`))
+  }
+  const decision = await coh.getDecision(hearingId)
+  const decisionState = decision.decision_state.state_name
+  if (decisionState !== 'decision_issued') {
+    console.log(`Decision not issued at attempt ${currentAttemptNum}: ${decisionState}`)
+    await new Promise(r => setTimeout(r, DELAY_BETWEEN_ATTEMPTS_MS))
+    const nextAttemptNum = currentAttemptNum + 1
+    return await waitForDecisionIssued(hearingId, nextAttemptNum)
+  }
+  console.log(`Decision issued successfully at attempt ${currentAttemptNum}`)
+  return Promise.resolve(decision)
+}
+
 /* eslint-disable-next-line consistent-return */
 async function bootstrapCoh(ccdCase) {
   try {
@@ -64,8 +83,7 @@ export async function createAndIssueDecision(hearingId) {
   try {
     await coh.createDecision(hearingId);
     await coh.issueDecision(hearingId);
-    // TODO: poll for decision issued
-    await new Promise(r => setTimeout(r, 10000))
+    await waitForDecisionIssued(hearingId, 1);
   } catch (error) {
     return Promise.reject(error)
   }

@@ -7,9 +7,6 @@ describe('Decision page', () => {
   let page;
   let decisionPage;
 
-  before('create and issue decision', async() => {
-  });
-
   before('start services and bootstrap data in CCD/COH', async() => {
     const res = await startServices({ bootstrapData: true, performLogin: true, issueDecision: true });
     page = res.page;
