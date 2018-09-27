@@ -59,3 +59,14 @@ export async function bootstrap() {
     return Promise.reject(error)
   }
 }
+
+export async function createAndIssueDecision(hearingId) {
+  try {
+    await coh.createDecision(hearingId);
+    await coh.issueDecision(hearingId);
+    // TODO: poll for decision issued
+    await new Promise(r => setTimeout(r, 10000))
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}

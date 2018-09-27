@@ -2,12 +2,13 @@
 const puppeteer = require('puppeteer');
 const { createServer } = require('http');
 const { createSession } = require ('app/server/middleware/session');
-const { bootstrap } = require('test/browser/bootstrap');
+const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 const { setup } = require('app/server/app');
 const config = require('config');
 const dysonSetup = require('test/mock/dysonSetup');
+const dysonSetupCoh = require('test/mock/coh/dysonSetup');
 
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
@@ -47,6 +48,7 @@ function startAppServer() {
   if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
     dysonSetup();
+    dysonSetupCoh();
     server = createServer(app).listen(port, error => {
       if (error) {
         console.log(`Unable to start server on port ${port} because of ${error.message}`);
@@ -64,7 +66,6 @@ async function login(page) {
   taskListPage = new TaskListPage(page);
   await loginPage.visitPage();
   await loginPage.login(email);
-  taskListPage.verifyPage();
 }
 
 async function startServices(options?) {
@@ -73,6 +74,10 @@ async function startServices(options?) {
     const bootstrapResult = await bootstrap();
     ccdCase = bootstrapResult.ccdCase;
     cohTestData = bootstrapResult.cohTestData;
+  }
+  if (opts.issueDecision) {
+    const hearingId = (cohTestData && cohTestData.hearingId) || '4-appeal-upheld';
+    await createAndIssueDecision(hearingId);
   }
   await startAppServer();
   await startBrowser();
