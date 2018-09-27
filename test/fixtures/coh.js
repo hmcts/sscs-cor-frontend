@@ -2,7 +2,7 @@
 const { CONST } = require('app/constants');
 const rp = require('request-promise');
 const moment = require('moment');
-const mockData = require('test/mock/services/question').template;
+const mockData = require('test/mock/cor-backend/services/question').template;
 
 const cohUrl = require('config').get('cohUrl');
 

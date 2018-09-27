@@ -1,8 +1,8 @@
 const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
-const mockDataQuestions = require('test/mock/services/all-questions').template;
-const mockDataHearing = require('test/mock/services/hearing').template;
+const mockDataQuestions = require('test/mock/cor-backend/services/all-questions').template;
+const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
 import * as Paths from 'app/server/paths';
 const i18n = require('app/server/locale/en.json');
