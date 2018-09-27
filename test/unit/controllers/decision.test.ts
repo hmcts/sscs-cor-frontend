@@ -1,6 +1,6 @@
 import { OnlineHearing } from 'app/server/services/getOnlineHearing'
 const { expect, sinon } = require('test/chai-sinon');
-const { setupDecisionController, getDecision } = require('app/server/controllers/decision');
+const { setupDecisionController, getDecision } = require('app/server/controllers/decision.ts');
 const express = require('express');
 import * as Paths from 'app/server/paths';
 
