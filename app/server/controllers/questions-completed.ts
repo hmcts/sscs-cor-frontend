@@ -13,7 +13,7 @@ function getQuestionsCompleted(req: Request, res: Response) {
 function setupQuestionsCompletedController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(Paths.completed, deps.ensureAuthenticated, getQuestionsCompleted);
+  router.get(Paths.completed, deps.prereqMiddleware, getQuestionsCompleted);
   return router;
 }
 

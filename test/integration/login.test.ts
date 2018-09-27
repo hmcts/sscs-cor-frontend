@@ -91,12 +91,30 @@ describe('Login page', () => {
     expect(deadlineStatus).to.equal(i18n.taskList.deadline.completed);
   });
 
-  it('logs in successfully and shows the decision page', async() => {
+  it('displays the decision page with appeal upheld', async() => {
     await loginPage.visitPage();
-    await loginPage.login('decision.issued@example.com');
-    await loginPage.screenshot('decision-issued-login');
+    await loginPage.login('appeal.upheld@example.com');
+    await loginPage.screenshot('decision-appeal-upheld-login');
     decisionPage.verifyPage();
     expect(await decisionPage.getHeading()).to.equal(i18n.decision.header);
+    expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.decision.outcome['appeal-upheld']);
+    expect(await decisionPage.getElementText('#decision-text')).to.equal('The final decision is this.');
+  });
+
+  it('displays the decision page with appeal denied', async() => {
+    await loginPage.visitPage();
+    await loginPage.login('appeal.denied@example.com');
+    await loginPage.screenshot('decision-denied-upheld-login');
+    decisionPage.verifyPage();
+    expect(await decisionPage.getHeading()).to.equal(i18n.decision.header);
+    expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.decision.outcome['appeal-denied']);
+    expect(await decisionPage.getElementText('#decision-text')).to.equal('The final decision is this.');
+  });
+
+  it('does not allow access to task list when decision is issued', async() => {
+    await taskListPage.visitPage();
+    await loginPage.screenshot('decision-issued-task-list-navigate');
+    decisionPage.verifyPage();
   });
 });
 

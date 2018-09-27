@@ -33,8 +33,8 @@ function extensionConfirmation(extendDeadlineService: any) {
 
 function setupExtendDeadlineController(deps: any): Router {
   const router = Router();
-  router.get(Paths.extendDeadline, deps.ensureAuthenticated, getIndex);
-  router.post(Paths.extendDeadline, deps.ensureAuthenticated, extensionConfirmation(deps.extendDeadlineService));
+  router.get(Paths.extendDeadline, deps.prereqMiddleware, getIndex);
+  router.post(Paths.extendDeadline, deps.prereqMiddleware, extensionConfirmation(deps.extendDeadlineService));
   return router;
 }
 

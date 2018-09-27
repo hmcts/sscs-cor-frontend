@@ -14,7 +14,7 @@ function getDecision(req: Request, res: Response) {
 function setupDecisionController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(Paths.decision, deps.ensureAuthenticated, getDecision);
+  router.get(Paths.decision, deps.prereqMiddleware, getDecision);
   return router;
 }
 

@@ -49,7 +49,6 @@ function postLogin(getOnlineHearing) {
       const hearing: OnlineHearing = response.body;
       req.session.hearing = hearing;
       logger.info(`Logging in ${email}`);
-      console.log('hearing', hearing);
       if (hearing.decision && hearing.decision.decision_state === CONST.DECISION_ISSUED_STATE) {
         logger.info(`Decision issued for hearing with ID ${hearing.online_hearing_id}`);
         return res.redirect(Paths.decision);
