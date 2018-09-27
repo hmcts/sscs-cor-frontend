@@ -1,4 +1,5 @@
 /* eslint-disable no-console, no-magic-numbers */
+const { CONST } = require('app/constants');
 const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/services/question').template;
@@ -42,6 +43,13 @@ const questionBody = (mockQuestionRef, ordinal) => {
     question_ordinal: ordinal,
     question_round: QUESTION_ROUND
   };
+};
+
+const decisionBody = {
+  decision_award: 'appeal-upheld',
+  decision_header: 'appeal-upheld',
+  decision_reason: 'This is the decision.',
+  decision_text: 'This is the decision.'
 };
 
 async function createOnlineHearing(caseId) {
@@ -97,4 +105,35 @@ async function getQuestionRound(hearingId, roundNum) {
   return body;
 }
 
-module.exports = { createOnlineHearing, createQuestions, setQuestionRoundToIssued, getQuestionRound };
+async function createDecision(hearingId) {
+  const options = {
+    url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
+    headers,
+    body: decisionBody,
+    json: true
+  };
+  const body = await rp.post(options);
+  console.log('Created decision with ID', body.decision_id);
+  return body;
+}
+
+async function issueDecision(hearingId) {
+  const body = { ...decisionBody, decision_state: CONST.DECISION_ISSUED_STATE };
+  const options = {
+    url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
+    headers,
+    body,
+    json: true
+  };
+  await rp.put(options);
+  console.log('Decision issued, status pending');
+}
+
+module.exports = {
+  createOnlineHearing,
+  createQuestions,
+  setQuestionRoundToIssued,
+  getQuestionRound,
+  createDecision,
+  issueDecision
+};
