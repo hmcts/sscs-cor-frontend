@@ -11,9 +11,9 @@ function getCachedState(questionId) {
   return cachedState ? cachedState : '';
 }
 
-function getCachedDatetime(questionId) {
-  const cachedDatetime = cache.get(`${questionId}.answer_datetime`);
-  return cachedDatetime ? cachedDatetime : null;
+function getCachedDate(questionId) {
+  const cachedDate = cache.get(`${questionId}.answer_date`);
+  return cachedDate ? cachedDate : null;
 }
 
 module.exports = {
@@ -26,6 +26,6 @@ module.exports = {
     question_body_text: params => questionData[params.questionId].body,
     answer: params => getCachedAnswer(params.questionId),
     answer_state: params => getCachedState(params.questionId),
-    answer_datetime: params => getCachedDatetime(params.questionId)
+    answer_date: params => getCachedDate(params.questionId)
   }
 };

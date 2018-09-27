@@ -17,7 +17,7 @@ function getQuestion(getQuestionService) {
         answer_state: response.answer_state,
         answer: {
           value: response.answer,
-          datetime: response.answer_datetime
+          date: response.answer_date
         }
       };
       req.session.question = question;
