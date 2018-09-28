@@ -48,7 +48,7 @@ function postAnswer(updateAnswerService) {
       try {
         await updateAnswerService(hearingId, questionId, 'draft', answerText);
         if (req.body.submit) {
-          res.redirect(`${Paths.question}/${hearingId}/${questionId}/submit`);
+          res.redirect(`${Paths.question}/${questionId}/submit`);
         } else {
           res.redirect(Paths.taskList);
         }
@@ -63,8 +63,9 @@ function postAnswer(updateAnswerService) {
 function setupQuestionController(deps) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get('/:hearingId/:questionId', deps.prereqMiddleware, getQuestion(deps.getQuestionService));
-  router.post('/:hearingId/:questionId', deps.prereqMiddleware, postAnswer(deps.saveAnswerService));
+  router.get('/:questionId', deps.prereqMiddleware, getQuestion(deps.getQuestionService));
+  router.post('/:questionId', deps.prereqMiddleware, postAnswer(deps.saveAnswerService));
+  router.post('/:questionId', deps.prereqMiddleware, postAnswer(deps.saveAnswerService));
   return router;
 }
 

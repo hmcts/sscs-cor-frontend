@@ -108,13 +108,13 @@ describe('controllers/submit-question', () => {
     it('calls router.get with the path and middleware', () => {
       setupSubmitQuestionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(`${Paths.question}/:hearingId/:questionId/submit`);
+      expect(express.Router().get).to.have.been.calledWith(`${Paths.question}/:questionId/submit`);
     });
 
     it('calls router.post with the path and middleware', () => {
       setupSubmitQuestionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().post).to.have.been.calledWith(`${Paths.question}/:hearingId/:questionId/submit`);
+      expect(express.Router().post).to.have.been.calledWith(`${Paths.question}/:questionId/submit`);
     });
 
     it('returns the router', () => {

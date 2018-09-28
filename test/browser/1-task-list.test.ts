@@ -75,7 +75,7 @@ describe('Task list page', () => {
   it('redirects to the question page for that question', async() => {
     await taskListPage.clickQuestion(questionId);
     expect(taskListPage.getCurrentUrl())
-      .to.equal(`${testUrl}${Paths.question}/${hearingId}/${questionId}`);
+      .to.equal(`${testUrl}${Paths.question}/${questionId}`);
   });
 });
 

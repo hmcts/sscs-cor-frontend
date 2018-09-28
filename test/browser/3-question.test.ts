@@ -14,7 +14,6 @@ import * as moment from 'moment';
 
 const testUrl = config.get('testUrl');
 
-const sampleHearingId = '1-pending';
 const sampleQuestionIdList = ['001', '002', '003']
 
 describe('Question page', () => {
@@ -23,7 +22,6 @@ describe('Question page', () => {
   let questionPage;
   let submitQuestionPage;
   let questionsCompletedPage
-  let hearingId;
   let questionIdList;
   let firstQuestionId;
   let questionHeader;
@@ -33,15 +31,14 @@ describe('Question page', () => {
   before('start services and bootstrap data in CCD/COH', async() => {
     const res = await startServices({ bootstrapData: true, performLogin: true });
     page = res.page;
-    hearingId = res.cohTestData.hearingId || sampleHearingId;
     questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
     firstQuestionId = questionIdList.shift();
     questionHeader = res.cohTestData.questionHeader || mockDataQuestion.question_header_text({ questionId: firstQuestionId });
     questionBody = res.cohTestData.questionBody || mockDataQuestion.question_body_text({ questionId: firstQuestionId });
     caseReference = res.ccdCase.caseReference || mockDataHearing.case_reference;
     taskListPage = new TaskListPage(page);
-    questionPage = new QuestionPage(page, hearingId, firstQuestionId);
-    submitQuestionPage = new SubmitQuestionPage(page, hearingId, firstQuestionId);
+    questionPage = new QuestionPage(page, firstQuestionId);
+    submitQuestionPage = new SubmitQuestionPage(page, firstQuestionId);
     questionsCompletedPage = new QuestionsCompletedPage(page);
     await taskListPage.clickQuestion(firstQuestionId);
     await questionPage.screenshot('question');
