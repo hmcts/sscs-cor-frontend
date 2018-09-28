@@ -63,8 +63,8 @@ function postAnswer(updateAnswerService) {
 function setupQuestionController(deps) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get('/:hearingId/:questionId', deps.ensureAuthenticated, getQuestion(deps.getQuestionService));
-  router.post('/:hearingId/:questionId', deps.ensureAuthenticated, postAnswer(deps.saveAnswerService));
+  router.get('/:hearingId/:questionId', deps.prereqMiddleware, getQuestion(deps.getQuestionService));
+  router.post('/:hearingId/:questionId', deps.prereqMiddleware, postAnswer(deps.saveAnswerService));
   return router;
 }
 

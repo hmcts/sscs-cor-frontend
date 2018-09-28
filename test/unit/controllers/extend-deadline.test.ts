@@ -6,6 +6,7 @@ import * as  express from 'express';
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment'; 
 import { ensureAuthenticated } from 'app/server/middleware/ensure-authenticated';
+import { checkDecision } from 'app/server/middleware/check-decision';
 
 describe('controllers/extend-deadline.js', () => {
   const next = sinon.stub();
@@ -93,7 +94,7 @@ describe('controllers/extend-deadline.js', () => {
 
   describe('setupExtendDeadlineController', () => {
     const deps = {
-      ensureAuthenticated
+      prereqMiddleware: [ensureAuthenticated, checkDecision]
     };
 
     beforeEach(() => {
@@ -110,13 +111,13 @@ describe('controllers/extend-deadline.js', () => {
     it('calls router.get with the path and middleware', () => {
       setupExtendDeadlineController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(`${Paths.extendDeadline}`, ensureAuthenticated);
+      expect(express.Router().get).to.have.been.calledWith(`${Paths.extendDeadline}`, deps.prereqMiddleware);
     });
 
     it('calls router.post with the path and middleware', () => {
       setupExtendDeadlineController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().post).to.have.been.calledWith(`${Paths.extendDeadline}`, ensureAuthenticated);
+      expect(express.Router().post).to.have.been.calledWith(`${Paths.extendDeadline}`, deps.prereqMiddleware);
     });
 
     it('returns the router', () => {

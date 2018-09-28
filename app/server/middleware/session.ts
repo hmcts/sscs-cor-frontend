@@ -15,7 +15,7 @@ function createSession(store?: session.Store) {
     secret: config.get('session.redis.secret'),
     store
   });
-};
+}
 
 export {
   createSession
