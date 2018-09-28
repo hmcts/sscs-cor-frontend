@@ -1,4 +1,5 @@
 const { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
+const cache = require('memory-cache');
 
 const emailToResCodeMap = {
   'not.found@example.com': NOT_FOUND,
@@ -12,10 +13,11 @@ const emailHearingIdMap = {
 };
 
 const createDecision = email => {
-  if (['appeal.upheld@example.com', 'appeal.denied@example.com'].includes(email)) {
+  const decisionIssued = cache.get('decisionIssued');
+  if (decisionIssued || ['appeal.upheld@example.com', 'appeal.denied@example.com'].includes(email)) {
     return {
-      decision_award: email === 'appeal.upheld@example.com' ? 'appeal-upheld' : 'appeal-denied',
-      decision_header: email === 'appeal.upheld@example.com' ? 'appeal-upheld' : 'appeal-denied',
+      decision_award: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
+      decision_header: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
       decision_reason: 'The final decision is this.',
       decision_text: 'The final decision is this.',
       decision_state: 'decision_issued'
@@ -27,6 +29,7 @@ const createDecision = email => {
 module.exports = {
   path: '/continuous-online-hearings',
   method: 'GET',
+  cache: false,
   status: (req, res, next) => {
     res.status(emailToResCodeMap[req.query.email] || OK);
     next();
