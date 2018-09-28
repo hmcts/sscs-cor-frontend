@@ -133,7 +133,7 @@ describe('Question page', () => {
     });
 
     it('displays the previously submitted answer date', async() => {
-      const savedAnswerDate = await questionPage.getElementText('#completed-answer .answer-datetime');
+      const savedAnswerDate = await questionPage.getElementText('#completed-answer .answer-date');
       expect(savedAnswerDate).to.equal(`Submitted: ${moment().utc().format(CONST.DATE_FORMAT)}`);
     });
 
