@@ -1,5 +1,4 @@
 /* eslint-disable no-console, no-magic-numbers */
-const { CONST } = require('app/constants');
 const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/cor-backend/services/question').template;
@@ -128,7 +127,7 @@ async function createDecision(hearingId) {
 }
 
 async function issueDecision(hearingId) {
-  const body = { ...decisionBody, decision_state: CONST.DECISION_ISSUED_STATE };
+  const body = { ...decisionBody, decision_state: 'decision_issue_pending' };
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
