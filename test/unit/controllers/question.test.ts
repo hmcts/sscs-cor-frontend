@@ -18,7 +18,6 @@ describe('controllers/question.js', () => {
   };
 
   req.params = {
-    hearingId: '1',
     questionId: '2'
   };
   req.session = {
@@ -107,7 +106,7 @@ describe('controllers/question.js', () => {
       postAnswerService = () => Promise.resolve();
       await postAnswer(postAnswerService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(
-        `${Paths.question}/${req.params.hearingId}/${req.params.questionId}/submit`
+        `${Paths.question}/${req.params.questionId}/submit`
       );
     });
 
@@ -154,13 +153,13 @@ describe('controllers/question.js', () => {
     it('calls router.get with the path and middleware', () => {
       setupQuestionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith('/:hearingId/:questionId');
+      expect(express.Router().get).to.have.been.calledWith('/:questionId');
     });
 
     it('calls router.post with the path and middleware', () => {
       setupQuestionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().post).to.have.been.calledWith('/:hearingId/:questionId');
+      expect(express.Router().post).to.have.been.calledWith('/:questionId');
     });
 
     it('returns the router', () => {
