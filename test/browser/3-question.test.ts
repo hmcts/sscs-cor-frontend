@@ -1,8 +1,8 @@
 import { CONST } from 'app/constants';
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
-const mockDataQuestion = require('test/mock/services/question').template;
-const mockDataHearing = require('test/mock/services/hearing').template;
+const mockDataQuestion = require('test/mock/cor-backend/services/question').template;
+const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
 import { QuestionPage } from 'test/page-objects/question';
 import { SubmitQuestionPage } from 'test/page-objects/submit-question';

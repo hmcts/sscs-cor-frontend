@@ -1,7 +1,7 @@
 const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
-const mockData = require('test/mock/services/hearing').template;
+const mockData = require('test/mock/cor-backend/services/hearing').template;
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
