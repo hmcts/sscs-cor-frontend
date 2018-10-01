@@ -61,7 +61,7 @@ describe('controllers/login.js', () => {
       beforeEach(async() => {
         sinon.stub(validation, 'loginEmailAddressValidation').returns(validationError)
 
-        getOnlineHearingService = sinon.stub().resolves(hearingDetails);
+        getOnlineHearingService = sinon.stub().resolves({ body: hearingDetails });
         await postLogin(getOnlineHearingService)(req, res, next);
       });
 
@@ -80,17 +80,40 @@ describe('controllers/login.js', () => {
     });
 
     describe('on success', () => {
-      beforeEach(async() => {
-        getOnlineHearingService = sinon.stub().resolves(hearingDetails);
-        await postLogin(getOnlineHearingService)(req, res, next);
+      describe('before decision issued', () => {
+        beforeEach(async() => {
+          getOnlineHearingService = sinon.stub().resolves({ body: hearingDetails });
+          await postLogin(getOnlineHearingService)(req, res, next);
+        });
+
+        it('calls the online hearing service', () => {
+          expect(getOnlineHearingService).to.have.been.calledOnce.calledWith(req.body['email-address']);
+        });
+
+        it('redirects to task list page', () => {
+          expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+        });
       });
 
-      it('calls the online hearing service', () => {
-        expect(getOnlineHearingService).to.have.been.calledOnce.calledWith(req.body['email-address']);
-      });
+      describe('after decision issued', () => {
+        beforeEach(async() => {
+          const hearingWithDecision = {
+            ...hearingDetails,
+            decision: {
+              decision_award: 'FINAL',
+              decision_header: 'Decision header',
+              decision_reason: 'Decision reason',
+              decision_text: 'Decision test',
+              decision_state: 'decision_issued',
+            }
+          }
+          getOnlineHearingService = sinon.stub().resolves({ body: hearingWithDecision });
+          await postLogin(getOnlineHearingService)(req, res, next);
+        });
 
-      it('redirects to task list page', () => {
-        expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+        it('redirects to decision page if issued decision exists', () => {
+          expect(res.redirect).to.have.been.calledWith(Paths.decision);
+        });
       });
     });
 

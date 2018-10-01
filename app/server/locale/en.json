@@ -89,18 +89,25 @@
     "subheader": "Do you still want to extend the deadline?",
     "no": {
       "header": "You have not extended the deadline",
-      "para1start": "You still have until",
-      "para1end": "to answer the questions."
+      "para1": "You still have until {{ deadline }} to answer the questions."
     },
     "yes": {
       "header": "You have another week to answer the questions ",
-      "para1start": "You now have until",
-      "para1end": "to answer the questions."
+      "para1": "You now have until {{ deadline }} to answer the questions."
     },
     "error": {
       "title": "There are errors on this page",
       "text": "You need to say whether you want to extend the deadline before continuing"
     }
+  },
+  "decision": {
+    "header": "The tribunal’s decision on your appeal",
+    "outcome": {
+      "appeal-upheld": "Your appeal has been successful",
+      "appeal-denied": "Your appeal has not been successful"
+    },
+    "reasonsHeader": "Reasons for the tribunal’s decision",
+    "postInfo": "A formal decision notice has also been sent to your registered postal address."
   },
   "error": {
     "error404": {
@@ -129,7 +136,8 @@
     "telephone":{
       "header": "Telephone",
       "no": "0300 123 1142",
-      "hours": "(Monday to Friday, 9.00am to 5.00pm)" 
+      "hours": "(Monday to Friday, 9.00am to 5.00pm)",
+      "cost": "Cost 10p per minute from landlines and 3p to 40p per minute from mobiles (approximate)"
     }
   }
 }
