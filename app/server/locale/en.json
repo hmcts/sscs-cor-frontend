@@ -96,8 +96,8 @@
       "para1": "You now have until {{ deadline }} to answer the questions."
     },
     "error": {
-      "title": "Please make a selection",
-      "text": "You need to say whether you want to extend the deadline before continuing."
+      "title": "There are errors on this page",
+      "text": "You need to say whether you want to extend the deadline before continuing"
     }
   },
   "decision": {
