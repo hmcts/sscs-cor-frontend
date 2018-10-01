@@ -1,0 +1,19 @@
+#decision {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  #decision-outcome {
+    margin-bottom: 40px;
+    &.panel-blue {
+      background-color: #eef7ff;
+      padding: 20px 20px 20px 20px;
+      h2 {
+        margin-bottom: 0;
+      }
+    }
+  }
+  #decision-reason {
+    #decision-text {
+      white-space: pre-wrap;
+    }
+  }
+}
