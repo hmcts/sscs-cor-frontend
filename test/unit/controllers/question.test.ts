@@ -51,13 +51,13 @@ describe('controllers/question.js', () => {
       const questionBody = 'Many people ask this question...';
       const questionAnswer = '';
       const questionAnswerState = 'unanswered';
-      const questionAnswerDatetime = moment().utc().format();
+      const questionAnswerDate = moment().utc().format();
       getQuestionService = () => Promise.resolve({
         question_header_text: questionHeading,
         question_body_text: questionBody,
         answer: questionAnswer,
         answer_state: questionAnswerState,
-        answer_datetime: questionAnswerDatetime
+        answer_date: questionAnswerDate
       });
       await getQuestion(getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
@@ -67,7 +67,7 @@ describe('controllers/question.js', () => {
           body: questionBody,
           answer: { 
             value: questionAnswer,
-            datetime: questionAnswerDatetime,
+            date: questionAnswerDate,
           },
           answer_state: questionAnswerState
         }

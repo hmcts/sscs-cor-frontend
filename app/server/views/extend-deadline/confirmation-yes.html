@@ -1,8 +1,6 @@
 <h1 class="govuk-heading-l">{{ i18n.extendDeadline.yes.header }}</h1>
 <p id="extend-message">
-  {{ i18n.extendDeadline.yes.para1start }}
-  {{ deadline | date }}
-  {{ i18n.extendDeadline.yes.para1end }}
+  {{ i18n.extendDeadline.yes.para1 | eval | date }}
 </p>
 <p>
   <a href="/task-list" class="govuk-link">{{ i18n.backLink }}</a>

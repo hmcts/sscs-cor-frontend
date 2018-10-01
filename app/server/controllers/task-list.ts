@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { Router, Request, Response, NextFunction } from "express";
 import * as Paths from 'app/server/paths';
 
-function processDeadline(expiryDate: Date, allQuestionsSubmitted: any) {
+function processDeadline(expiryDate: Date, allQuestionsSubmitted: boolean) {
   if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
 
   const endOfToday = moment().utc().endOf('day');
@@ -38,7 +38,7 @@ function getTaskList(getAllQuestionsService: any) {
 
 function setupTaskListController(deps: any): Router {
   const router: Router = Router();
-  router.get(Paths.taskList, deps.ensureAuthenticated, getTaskList(deps.getAllQuestionsService));
+  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList(deps.getAllQuestionsService));
   return router;
 }
 

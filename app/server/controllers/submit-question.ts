@@ -35,8 +35,8 @@ function postSubmitAnswer(submitAnswerService: any, getAllQuestionsService: any)
 function setupSubmitQuestionController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(`${Paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, getSubmitQuestion);
-  router.post(`${Paths.question}/:hearingId/:questionId/submit`, deps.ensureAuthenticated, postSubmitAnswer(deps.submitAnswerService, deps.getAllQuestionsService));
+  router.get(`${Paths.question}/:hearingId/:questionId/submit`, deps.prereqMiddleware, getSubmitQuestion);
+  router.post(`${Paths.question}/:hearingId/:questionId/submit`, deps.prereqMiddleware, postSubmitAnswer(deps.submitAnswerService, deps.getAllQuestionsService));
   return router;
 }
 
