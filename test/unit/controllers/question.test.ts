@@ -1,5 +1,6 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { getQuestion, postAnswer, setupQuestionController } = require('app/server/controllers/question.ts');
+const { getQuestion, getCurrentQuestion, postAnswer, setupQuestionController } = require('app/server/controllers/question.ts');
+const mockData = require('test/mock/cor-backend/services/all-questions').template;
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 const express = require('express');
@@ -9,27 +10,28 @@ import * as moment from 'moment';
 
 describe('controllers/question.js', () => {
   const next = sinon.stub();
-  const req: any = {}
+  const req: any = {};
   const res: any = {};
-  const hearingDetails = {
-    online_hearing_id: '1',
-    case_reference: 'SC/123/456',
-    appellant_name: 'John Smith'
-  };
-
-  req.params = {
-    questionId: '2'
-  };
-  req.session = {
-    hearing: hearingDetails
-  };
-  req.body = {};
+  const questionId = '001';
+  const questionOrdinal = '1';
+  const questions = mockData.questions({})
 
   res.render = sinon.stub();
   res.redirect = sinon.stub();
 
   beforeEach(() => {
-    req.session.question = {};
+    req.session = {
+      hearing: {
+        online_hearing_id: '1',
+        case_reference: 'SC/123/456',
+        appellant_name: 'John Smith'
+      },
+      questions,
+      question: {}
+    };
+    req.params = {
+      questionOrdinal
+    };
     req.body = {};
     sinon.stub(AppInsights, 'trackException');
   });
@@ -52,6 +54,8 @@ describe('controllers/question.js', () => {
       const questionAnswerState = 'unanswered';
       const questionAnswerDate = moment().utc().format();
       getQuestionService = () => Promise.resolve({
+        question_id: '001',
+        question_ordinal: '1',
         question_header_text: questionHeading,
         question_body_text: questionBody,
         answer: questionAnswer,
@@ -61,7 +65,8 @@ describe('controllers/question.js', () => {
       await getQuestion(getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
-          questionId: req.params.questionId,
+          questionId,
+          questionOrdinal: '1',
           header: questionHeading,
           body: questionBody,
           answer: { 
@@ -80,6 +85,12 @@ describe('controllers/question.js', () => {
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
+
+    it('redirects to task list if questions not found in the session', async() => {
+      delete req.session.questions;
+      await getQuestion(getQuestionService)(req, res, next);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
+    })
   });
 
   describe('postAnswer', () => {
@@ -105,9 +116,7 @@ describe('controllers/question.js', () => {
       req.body.submit = 'submit';
       postAnswerService = () => Promise.resolve();
       await postAnswer(postAnswerService)(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(
-        `${Paths.question}/${req.params.questionId}/submit`
-      );
+      expect(res.redirect).to.have.been.calledWith(`${Paths.question}/${questionOrdinal}/submit`);
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
@@ -133,6 +142,26 @@ describe('controllers/question.js', () => {
     });
   });
 
+  describe('#getCurrentQuestion', () => {
+    it('returns the question specified by the ordinal parameter', () => {
+      const firstQuestion = questions[0];
+      expect(getCurrentQuestion(req)).to.deep.equal(firstQuestion);
+      req.params.questionOrdinal = '2';
+      const secondQuestion = questions[1];
+      expect(getCurrentQuestion(req)).to.deep.equal(secondQuestion);
+    });
+
+    it('returns undefined if no questions exist in the session', () => {
+      delete req.session.questions;
+      expect(getCurrentQuestion(req)).to.be.undefined;
+    });
+
+    it('returns undefined if question ordinal param is not valid', () => {
+      delete req.params.questionOrdinal;
+      expect(getCurrentQuestion(req)).to.be.undefined;
+    });
+  });
+
   describe('setupQuestionController', () => {
     const deps = {
       getQuestionService: {},
@@ -153,13 +182,13 @@ describe('controllers/question.js', () => {
     it('calls router.get with the path and middleware', () => {
       setupQuestionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith('/:questionId');
+      expect(express.Router().get).to.have.been.calledWith('/:questionOrdinal');
     });
 
     it('calls router.post with the path and middleware', () => {
       setupQuestionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().post).to.have.been.calledWith('/:questionId');
+      expect(express.Router().post).to.have.been.calledWith('/:questionOrdinal');
     });
 
     it('returns the router', () => {

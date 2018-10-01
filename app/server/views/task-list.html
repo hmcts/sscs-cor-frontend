@@ -27,7 +27,7 @@
                 {% for question in questions %}
                     {% set answerState = question.answer_state %}
                     <li id="question-{{ question.question_id }}">
-                        <a class="govuk-link question-header-text" href="/question/{{ question.question_id }}">{{ question.question_header_text }}</a>
+                        <a class="govuk-link question-header-text" href="/question/{{ question.question_ordinal }}">{{ question.question_header_text }}</a>
                         {% if answerState != 'unanswered' %}
                             <span class="answer-state {{ question.answer_state }}">
                                 {{

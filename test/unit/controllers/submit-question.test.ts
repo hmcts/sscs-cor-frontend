@@ -1,4 +1,5 @@
 const { getSubmitQuestion, postSubmitAnswer, setupSubmitQuestionController } = require('app/server/controllers/submit-question.ts');
+const mockData = require('test/mock/cor-backend/services/all-questions').template;
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
@@ -23,11 +24,12 @@ describe('controllers/submit-question', () => {
   ];
 
   req.params = {
-    questionId: '2'
+    questionOrdinal: '1'
   };
 
   req.session = {
-    hearing: hearingDetails
+    hearing: hearingDetails,
+    questions: mockData.questions({})
   };
 
   res.render = sinon.stub();
@@ -46,9 +48,7 @@ describe('controllers/submit-question', () => {
   describe('getSubmitQuestion', () => {
     it('should call render with the template and hearing/question ids', () => {
       getSubmitQuestion(req, res);
-      expect(res.render).to.have.been.calledWith('submit-question.html', {
-        questionId: req.params.questionId
-      });
+      expect(res.render).to.have.been.calledWith('submit-question.html', req.session.questions[0]);
     });
   });
 
@@ -108,13 +108,13 @@ describe('controllers/submit-question', () => {
     it('calls router.get with the path and middleware', () => {
       setupSubmitQuestionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(`${Paths.question}/:questionId/submit`);
+      expect(express.Router().get).to.have.been.calledWith(`${Paths.question}/:questionOrdinal/submit`);
     });
 
     it('calls router.post with the path and middleware', () => {
       setupSubmitQuestionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().post).to.have.been.calledWith(`${Paths.question}/:questionId/submit`);
+      expect(express.Router().post).to.have.been.calledWith(`${Paths.question}/:questionOrdinal/submit`);
     });
 
     it('returns the router', () => {

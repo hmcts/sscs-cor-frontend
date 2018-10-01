@@ -15,6 +15,7 @@ import * as moment from 'moment';
 const testUrl = config.get('testUrl');
 
 const sampleQuestionIdList = ['001', '002', '003']
+const sampleQuestionOrdinal = '1';
 
 describe('Question page', () => {
   let page;
@@ -23,6 +24,7 @@ describe('Question page', () => {
   let submitQuestionPage;
   let questionsCompletedPage
   let questionIdList;
+  let questionOrdinal;
   let firstQuestionId;
   let questionHeader;
   let questionBody;
@@ -33,12 +35,13 @@ describe('Question page', () => {
     page = res.page;
     questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
     firstQuestionId = questionIdList.shift();
+    questionOrdinal = res.cohTestData.questionOrdinal || sampleQuestionOrdinal;
     questionHeader = res.cohTestData.questionHeader || mockDataQuestion.question_header_text({ questionId: firstQuestionId });
     questionBody = res.cohTestData.questionBody || mockDataQuestion.question_body_text({ questionId: firstQuestionId });
     caseReference = res.ccdCase.caseReference || mockDataHearing.case_reference;
     taskListPage = new TaskListPage(page);
-    questionPage = new QuestionPage(page, firstQuestionId);
-    submitQuestionPage = new SubmitQuestionPage(page, firstQuestionId);
+    questionPage = new QuestionPage(page, questionOrdinal);
+    submitQuestionPage = new SubmitQuestionPage(page, questionOrdinal);
     questionsCompletedPage = new QuestionsCompletedPage(page);
     await taskListPage.clickQuestion(firstQuestionId);
     await questionPage.screenshot('question');
