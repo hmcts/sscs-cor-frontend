@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const i18n = require('app/server/locale/en');
+const i18n = require('../locale/en.json');
 
 const maxCharacters = 10000;
 

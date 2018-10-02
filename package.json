@@ -7,7 +7,7 @@
     "node": ">=8.9.0 <9.0"
   },
   "scripts": {
-    "start": "cross-env NODE_PATH=. node server.js",
+    "start": "node server.js",
     "dev": "yarn build:dev && NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=development nodemon",
     "dev-docker": "concurrently \"yarn build:dev && NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=docker nodemon\" \"yarn mock-api\"",
     "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\"",
@@ -15,7 +15,7 @@
     "build": "yarn build:dev && yarn transpile",
     "build:dev": "yarn build-sass && yarn build-js && yarn copy-assets",
     "build-sass": "node-sass app/client/sass/application.scss public/css/main.css --output-style compressed",
-    "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend",
+    "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend && mkdir -p ./dist/server && cp -R ./app/server/views/ ./dist/server",
     "build-js": "browserify ./app/client/javascript/main.ts -p [ tsify -p app/client --noImplicitAny ] -o ./public/js/main.js",
     "test": "yarn test:unit && yarn test:integration && yarn test:browser",
     "test:unit": "yarn test:unit-server && yarn test:unit-client",
@@ -50,7 +50,6 @@
     "body-parser": "^1.17.1",
     "config": "^1.30.0",
     "connect-redis": "^3.3.3",
-    "cross-env": "^4.0.0",
     "express": "^4.15.2",
     "express-session": "^1.15.6",
     "govuk-frontend": "^1.2.0",
@@ -67,6 +66,7 @@
     "superagent": "^3.8.3"
   },
   "devDependencies": {
+    "cross-env": "^4.0.0",
     "@hmcts/eslint-config": "^1.4.0",
     "@types/chai": "^4.1.4",
     "@types/cli-color": "^0.3.29",

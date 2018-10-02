@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 const { Logger } = require('@hmcts/nodejs-logging');
-import * as Paths from 'app/server/paths';
-import { OnlineHearing } from 'app/server/services/getOnlineHearing'
-import { CONST } from 'app/constants'
+import * as Paths from '../paths';
+import { OnlineHearing } from '../services/getOnlineHearing'
+import { CONST } from '../../constants'
 
 const logger = Logger.getLogger('check-decision.js');
 

@@ -1,12 +1,11 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { getLogin, getLogout, postLogin, setupLoginController } = require('app/server/controllers/login.ts');
+import { getLogin, getLogout, postLogin, setupLoginController } from 'app/server/controllers/login';
 import * as AppInsights from 'app/server/app-insights';
-const express = require('express');
-import * as Paths from 'app/server/paths';
-
+import * as express from 'express';
+import * as Paths from 'app/server/paths.ts';
 import * as  validation from 'app/server/utils/fieldValidation';
 
-describe('controllers/login.js', () => {
+describe('controllers/login.ts', () => {
   let next;
   let req;
   let res;
@@ -147,7 +146,7 @@ describe('controllers/login.js', () => {
     });
 
     afterEach(() => {
-      express.Router.restore();
+      (express.Router as sinon.SinonStub).restore();
     });
 
     it('sets up GET', () => {

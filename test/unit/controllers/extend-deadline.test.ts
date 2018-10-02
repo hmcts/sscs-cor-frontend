@@ -2,7 +2,7 @@ const { expect, sinon } = require('test/chai-sinon');
 import { setupExtendDeadlineController, getIndex, extensionConfirmation } from 'app/server/controllers/extend-deadline.ts';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
-import * as  express from 'express';
+import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment'; 
 import { ensureAuthenticated } from 'app/server/middleware/ensure-authenticated';

@@ -3,7 +3,7 @@ const request = require('superagent');
 
 const apiUrl = config.get('api.url');
 
-async function getQuestion(hearingId) {
+async function getQuestions(hearingId) {
   try {
     const response = await request
       .get(`${apiUrl}/continuous-online-hearings/${hearingId}`);
@@ -13,4 +13,6 @@ async function getQuestion(hearingId) {
   }
 }
 
-export = getQuestion;
+export {
+  getQuestions
+};

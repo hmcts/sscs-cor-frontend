@@ -1,12 +1,12 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import * as AppInsights from 'app/server/app-insights';
+import * as AppInsights from '../app-insights';
 import { Request, Response, NextFunction, Router } from 'express';
 import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
-import * as Paths from 'app/server/paths';
-const i18n = require('app/server/locale/en.json');
-import { loginEmailAddressValidation } from 'app/server/utils/fieldValidation';
-import { OnlineHearing } from 'app/server/services/getOnlineHearing';
-import { CONST } from 'app/constants'
+import * as Paths from '../paths';
+const i18n = require('../locale/en.json');
+import { loginEmailAddressValidation } from '../utils/fieldValidation';
+import { OnlineHearing } from '../services/getOnlineHearing';
+import { CONST } from '../../constants'
 
 const logger = Logger.getLogger('login.js');
 

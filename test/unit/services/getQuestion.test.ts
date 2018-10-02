@@ -1,4 +1,4 @@
-const getQuestionService = require('app/server/services/getQuestion.ts');
+import { getQuestion } from 'app/server/services/getQuestion';
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const nock = require('nock');
@@ -24,11 +24,11 @@ describe('services/getQuestion.js', () => {
     });
 
     it('resolves the promise', () => (
-      expect(getQuestionService(hearingId, questionId)).to.be.fulfilled
+      expect(getQuestion(hearingId, questionId)).to.be.fulfilled
     ));
 
     it('resolves the promise with the response', () => (
-      expect(getQuestionService(hearingId, questionId)).to.eventually.eql(apiResponse)
+      expect(getQuestion(hearingId, questionId)).to.eventually.eql(apiResponse)
     ));
   });
 
@@ -42,7 +42,7 @@ describe('services/getQuestion.js', () => {
     });
 
     it('rejects the promise with the error', () => (
-      expect(getQuestionService(hearingId, questionId)).to.be.rejectedWith(error)
+      expect(getQuestion(hearingId, questionId)).to.be.rejectedWith(error)
     ));
   });
 });
