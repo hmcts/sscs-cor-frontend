@@ -26,6 +26,10 @@
       }
     }
   },
+  "emailNotFound":{
+    "header": "No case found for email address",
+    "body": "The email address you used to login cannot be macthed to a online hearing. This maybe base you are after another service or you have not registered with the email you receive notifications on [REAL CONTENT TO COME]."
+  },
   "taskList": {
     "header": "Your PIP benefit appeal",
     "deadline": {

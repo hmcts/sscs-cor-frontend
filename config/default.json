@@ -4,7 +4,7 @@
   },
   "testUrl": "http://localhost:3000",
   "api": {
-    "url": "http://localhost:8080"
+    "url": "http://localhost:8090"
   },
   "appInsights": {
     "instrumentationKey": "iKey"
@@ -20,5 +20,15 @@
       "maxAgeInMs": 1800000,
       "secure": "false"
     }
-  }
+  },
+  "idam": {
+    "url": "http://localhost:8082",
+    "api-url": "http://localhost:8082",
+    "client": {
+      "id": "sscs-cor",
+      "secret": "a_secret"
+    }
+  },
+  "httpProxy": false,
+  "enableDummyLogin": true
 }
