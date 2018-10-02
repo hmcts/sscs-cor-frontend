@@ -104,8 +104,8 @@
       "para4": "You will then receive another email telling you whether you have been granted additional time and how the tribunal wish to proceed."
     },
     "error": {
-      "title": "Please make a selection",
-      "text": "You need to say whether you want to extend the deadline before continuing."
+      "title": "There are errors on this page",
+      "text": "You need to say whether you want to extend the deadline before continuing"
     }
   },
   "decision": {
