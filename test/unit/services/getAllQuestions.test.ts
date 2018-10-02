@@ -1,4 +1,4 @@
-const getAllQuestionsService = require('app/server/services/getAllQuestions.ts');
+import { getQuestions } from 'app/server/services/getAllQuestions';
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const nock = require('nock');
@@ -28,11 +28,11 @@ describe('services/getAllQuestions.js', () => {
     });
 
     it('resolves the promise', () => (
-      expect(getAllQuestionsService(hearingId)).to.be.fulfilled
+      expect(getQuestions(hearingId)).to.be.fulfilled
     ));
 
     it('resolves the promise with the response', () => (
-      expect(getAllQuestionsService(hearingId)).to.eventually.eql(apiResponse)
+      expect(getQuestions(hearingId)).to.eventually.eql(apiResponse)
     ));
   });
 
@@ -46,7 +46,7 @@ describe('services/getAllQuestions.js', () => {
     });
 
     it('rejects the promise with the error', () => (
-      expect(getAllQuestionsService(hearingId)).to.be.rejectedWith(error)
+      expect(getQuestions(hearingId)).to.be.rejectedWith(error)
     ));
   });
 });

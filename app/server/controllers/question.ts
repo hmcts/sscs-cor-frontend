@@ -1,7 +1,7 @@
-import * as AppInsights from 'app/server/app-insights';
+import * as AppInsights from '../app-insights';
 import { Router} from 'express';
-import * as Paths from 'app/server/paths';
-import { answerValidation } from 'app/server/utils/fieldValidation';
+import * as Paths from '../paths';
+import { answerValidation } from '../utils/fieldValidation';
 
 function getQuestion(getQuestionService) {
   return async(req, res, next) => {
