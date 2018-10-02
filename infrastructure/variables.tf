@@ -38,3 +38,16 @@ variable "secure_session" {
   description = "Whether a secure session is required"
   default     = "true"
 }
+
+variable "idam_url" {
+  description = "url to redirect to for login via idam"
+}
+
+variable "idam_api_url" {
+  description = "url for idam api"
+}
+
+variable "enable_dummy_login" {
+  description = "enable dummy login page"
+  default = "false"
+}
