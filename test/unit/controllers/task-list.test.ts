@@ -42,7 +42,7 @@ describe('controllers/task-list.js', () => {
     const expectedDeadline = deadline.format();
 
     beforeEach(() => {
-      getAllQuestionsService = null;
+      getAllQuestionsService = {};
       questions = [
         {
           question_id: '001',
@@ -53,7 +53,7 @@ describe('controllers/task-list.js', () => {
     });
 
     it('should call render with the template and the list of questions and deadline details', async() => {
-      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
+      getAllQuestionsService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
       await getTaskList(getAllQuestionsService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
@@ -67,7 +67,7 @@ describe('controllers/task-list.js', () => {
 
     it('should call render with deadline status complete when all questions submitted', async() => {
       questions[0].answer_state = 'submitted';
-      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
+      getAllQuestionsService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
       await getTaskList(getAllQuestionsService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
@@ -83,7 +83,7 @@ describe('controllers/task-list.js', () => {
       const expiredDeadline = moment().utc().subtract(1, 'day');
       const inputExpiredDeadline = expiredDeadline.format();
       const expectedExpiredDeadline = expiredDeadline.format();
-      getAllQuestionsService = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
+      getAllQuestionsService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
       await getTaskList(getAllQuestionsService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
@@ -97,7 +97,7 @@ describe('controllers/task-list.js', () => {
 
     it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      getAllQuestionsService = () => Promise.reject(error);
+      getAllQuestionsService.getAllQuestions = () => Promise.reject(error);
       await getTaskList(getAllQuestionsService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);

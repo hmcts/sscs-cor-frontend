@@ -7,5 +7,6 @@ export const enable = () => {
 };
 
 export const trackException = exception => {
+  console.log(exception)
   applicationInsights.defaultClient.trackException({ exception });
 };

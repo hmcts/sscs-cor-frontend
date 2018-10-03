@@ -14,15 +14,16 @@ import { setupDecisionController } from './controllers/decision';
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-const getQuestionService = require('./services/getQuestion');
-const getAllQuestionsService = require('./services/getAllQuestions');
-import { getOnlineHearing } from './services/getOnlineHearing';
-const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('./services/updateAnswer');
+import { getQuestion as getQuestionService } from 'app/server/services/getQuestion';
+import * as getAllQuestionsService from 'app/server/services/getAllQuestions';
+import { getOnlineHearing } from 'app/server/services/getOnlineHearing';
+const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/server/services/updateAnswer');
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
 const questionController = setupQuestionController({
+  getAllQuestionsService,
   getQuestionService,
   saveAnswerService,
   prereqMiddleware

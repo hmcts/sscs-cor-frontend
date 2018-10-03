@@ -4,19 +4,29 @@ import * as Paths from '../paths';
 
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 
-function getSubmitQuestion(req: Request, res: Response) {
-  const questionId = req.params.questionId;
-  res.render('submit-question.html', { questionId });
+function getSubmitQuestion(getAllQuestionsService: any) {
+  return (req: Request, res: Response) => {
+    const currentQuestionId: string = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    if (!currentQuestionId) {
+      return res.redirect(Paths.taskList);
+    }
+    const questionOrdinal: number = parseInt(req.params.questionOrdinal, 10);
+    res.render('submit-question.html', { questionOrdinal });
+  }
 }
 
 function postSubmitAnswer(submitAnswerService: any, getAllQuestionsService: any) {
   return async(req: Request, res: Response, next: NextFunction) => {
+    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    if (!currentQuestionId) {
+      return res.redirect(Paths.taskList);
+    }
     const hearingId = req.session.hearing.online_hearing_id;
-    const questionId = req.params.questionId;
-    try {
-      await submitAnswerService(hearingId, questionId);
 
-      const response = await getAllQuestionsService(hearingId);
+    try {
+      await submitAnswerService(hearingId, currentQuestionId);
+
+      const response = await getAllQuestionsService.getAllQuestions(hearingId);
       const totalQuestionCount = response.questions.length;
       const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);
 
@@ -35,8 +45,8 @@ function postSubmitAnswer(submitAnswerService: any, getAllQuestionsService: any)
 function setupSubmitQuestionController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(`${Paths.question}/:hearingId/:questionId/submit`, deps.prereqMiddleware, getSubmitQuestion);
-  router.post(`${Paths.question}/:hearingId/:questionId/submit`, deps.prereqMiddleware, postSubmitAnswer(deps.submitAnswerService, deps.getAllQuestionsService));
+  router.get(`${Paths.question}/:questionOrdinal/submit`, deps.prereqMiddleware, getSubmitQuestion(deps.getAllQuestionsService));
+  router.post(`${Paths.question}/:questionOrdinal/submit`, deps.prereqMiddleware, postSubmitAnswer(deps.submitAnswerService, deps.getAllQuestionsService));
   return router;
 }
 

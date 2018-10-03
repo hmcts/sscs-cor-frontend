@@ -6,7 +6,6 @@
     "allowJs": false,
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
