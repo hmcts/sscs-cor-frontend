@@ -3,30 +3,18 @@ import { NextFunction, Request, Response, Router } from 'express'
 import * as Paths from 'app/server/paths';
 import { answerValidation } from 'app/server/utils/fieldValidation';
 
-export function getCurrentQuestion(req: Request) {
-  if (!req.session.questions) {
-    return undefined;
-  }
-  const questionOrdinal = parseInt(req.params.questionOrdinal, 10);
-  const currentQuestion = req.session.questions.find(q => q.question_ordinal === questionOrdinal);
-  if (!currentQuestion) {
-    return undefined;
-  }
-  return currentQuestion;
-}
-
-function getQuestion(getQuestionService) {
+function getQuestion(getAllQuestionsService, getQuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
-    const currentQuestion = getCurrentQuestion(req);
-    if (!currentQuestion) {
+    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
     const hearingId = req.session.hearing.online_hearing_id;
     try {
-      const response = await getQuestionService(hearingId, currentQuestion.question_id);
+      const response = await getQuestionService(hearingId, currentQuestionId);
 
       const question = {
-        questionId: currentQuestion.question_id,
+        questionId: currentQuestionId,
         questionOrdinal: response.question_ordinal,
         header: response.question_header_text,
         body: response.question_body_text,
@@ -45,10 +33,11 @@ function getQuestion(getQuestionService) {
   };
 }
 
-function postAnswer(updateAnswerService) {
+function postAnswer(getAllQuestionsService, updateAnswerService) {
   return async(req: Request, res: Response, next: NextFunction) => {
-    const currentQuestion = getCurrentQuestion(req);
-    if (!currentQuestion) {
+    const questionOrdinal: number = parseInt(req.params.questionOrdinal, 10);
+    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
     const hearingId = req.session.hearing.online_hearing_id;
@@ -65,9 +54,9 @@ function postAnswer(updateAnswerService) {
       res.render('question/index.html', { question });
     } else {
       try {
-        await updateAnswerService(hearingId, currentQuestion.question_id, 'draft', answerText);
+        await updateAnswerService(hearingId, currentQuestionId, 'draft', answerText);
         if (req.body.submit) {
-          res.redirect(`${Paths.question}/${currentQuestion.question_ordinal}/submit`);
+          res.redirect(`${Paths.question}/${questionOrdinal}/submit`);
         } else {
           res.redirect(Paths.taskList);
         }
@@ -82,8 +71,8 @@ function postAnswer(updateAnswerService) {
 function setupQuestionController(deps) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.getQuestionService));
-  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.saveAnswerService));
+  router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.getAllQuestionsService, deps.getQuestionService));
+  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.getAllQuestionsService, deps.saveAnswerService));
   return router;
 }
 

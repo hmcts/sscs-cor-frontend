@@ -42,9 +42,13 @@ describe('controllers/question.js', () => {
 
   describe('getQuestion', () => {
     let getQuestionService;
+    let getAllQuestionsService;
 
     beforeEach(() => {
       getQuestionService = null;
+      getAllQuestionsService = {
+        getQuestionIdFromOrdinal: sinon.stub().returns('001')
+      }
     });
 
     it('should call render with the template and question header', async() => {
@@ -54,15 +58,15 @@ describe('controllers/question.js', () => {
       const questionAnswerState = 'unanswered';
       const questionAnswerDate = moment().utc().format();
       getQuestionService = () => Promise.resolve({
-        question_id: '001',
-        question_ordinal: '1',
+        question_id: questionId,
+        question_ordinal: questionOrdinal,
         question_header_text: questionHeading,
         question_body_text: questionBody,
         answer: questionAnswer,
         answer_state: questionAnswerState,
         answer_date: questionAnswerDate
       });
-      await getQuestion(getQuestionService)(req, res, next);
+      await getQuestion(getAllQuestionsService, getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           questionId,
@@ -81,23 +85,27 @@ describe('controllers/question.js', () => {
     it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       getQuestionService = () => Promise.reject(error);
-      await getQuestion(getQuestionService)(req, res, next);
+      await getQuestion(getAllQuestionsService, getQuestionService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
-    it('redirects to task list if questions not found in the session', async() => {
-      delete req.session.questions;
-      await getQuestion(getQuestionService)(req, res, next);
+    it('redirects to task list if question id is not found', async() => {
+      getAllQuestionsService.getQuestionIdFromOrdinal.returns(undefined);
+      await getQuestion(getAllQuestionsService, getQuestionService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     })
   });
 
   describe('postAnswer', () => {
     let postAnswerService;
+    let getAllQuestionsService;
 
     beforeEach(() => {
       postAnswerService = null;
+      getAllQuestionsService = {
+        getQuestionIdFromOrdinal: sinon.stub().returns('001')
+      }
     });
 
     afterEach(() => {
@@ -107,7 +115,7 @@ describe('controllers/question.js', () => {
     it('should call res.redirect when saving an answer and there are no errors', async() => {
       req.body['question-field'] = 'My amazing answer';
       postAnswerService = () => Promise.resolve();
-      await postAnswer(postAnswerService)(req, res, next);
+      await postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
 
@@ -115,7 +123,7 @@ describe('controllers/question.js', () => {
       req.body['question-field'] = 'My amazing answer';
       req.body.submit = 'submit';
       postAnswerService = () => Promise.resolve();
-      await postAnswer(postAnswerService)(req, res, next);
+      await postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(`${Paths.question}/${questionOrdinal}/submit`);
     });
 
@@ -123,14 +131,14 @@ describe('controllers/question.js', () => {
       req.body['question-field'] = 'My amazing answer';
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       postAnswerService = () => Promise.reject(error);
-      await postAnswer(postAnswerService)(req, res, next);
+      await postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     it('should call res.render with the validation error message', () => {
       req.body['question-field'] = '';
-      postAnswer(postAnswerService)(req, res, next);
+      postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           answer: {
@@ -139,26 +147,6 @@ describe('controllers/question.js', () => {
           }
         }
       });
-    });
-  });
-
-  describe('#getCurrentQuestion', () => {
-    it('returns the question specified by the ordinal parameter', () => {
-      const firstQuestion = questions[0];
-      expect(getCurrentQuestion(req)).to.deep.equal(firstQuestion);
-      req.params.questionOrdinal = '2';
-      const secondQuestion = questions[1];
-      expect(getCurrentQuestion(req)).to.deep.equal(secondQuestion);
-    });
-
-    it('returns undefined if no questions exist in the session', () => {
-      delete req.session.questions;
-      expect(getCurrentQuestion(req)).to.be.undefined;
-    });
-
-    it('returns undefined if question ordinal param is not valid', () => {
-      delete req.params.questionOrdinal;
-      expect(getCurrentQuestion(req)).to.be.undefined;
     });
   });
 
