@@ -3,7 +3,9 @@ import * as AppInsights from '../app-insights';
 import * as Paths from '../paths';
 
 function getIndex(req: Request, res: Response) {
-  return res.render('extend-deadline/index.html', {});
+  return res.render('extend-deadline/index.html', {
+    hearing: req.session.hearing
+  });
 }
 
 function extensionConfirmation(extendDeadlineService: any) {

@@ -23,11 +23,16 @@ function answerState(questionId, hearingId) {
   return deadlineStatus === 'completed' ? 'submitted' : cachedState || DEFAULT_ANSWER_STATE;
 }
 
+function extensionCount(hearingId) {
+  return cache.get(`${hearingId}.extensionCount`) || 0;
+}
+
 module.exports = {
   path: '/continuous-online-hearings/:onlineHearingId',
   method: 'GET',
   cache: false,
   template: {
+    deadline_extension_count: params => extensionCount(params.onlineHearingId),
     deadline_expiry_date: params => deadlineDate(params.onlineHearingId),
     questions: params => [
       {

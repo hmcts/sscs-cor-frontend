@@ -63,7 +63,7 @@ describe('Extend deadline', () => {
   });
 
   describe('confirming yes', () => {
-    it('shows the confirmation page with exising deadline', async() => {
+    it('shows the confirmation page with new deadline', async() => {
       await page.goto(`${testUrl}${Paths.extendDeadline}`);
       await extendDeadlinePage.clickYes();
       await extendDeadlinePage.continue();
@@ -71,6 +71,15 @@ describe('Extend deadline', () => {
 
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
       expect(deadline).to.contain(`${moment().utc().add(14, 'day').format(CONST.DATE_FORMAT)}`);
+    });
+
+    it('shows the contact tribunal details', async() => {
+      await taskListPage.visitPage();
+      await taskListPage.clickExtend();  
+      await extendDeadlinePage.screenshot('extend-deadline-contact-tribunal');
+
+      const heading = await extendDeadlinePage.getElementText('.govuk-main-wrapper h1');
+      expect(heading).to.equal(i18n.extendDeadline.contactTribunal.header);
     });
   });
 });

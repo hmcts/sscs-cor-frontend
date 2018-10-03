@@ -21,6 +21,7 @@ function getTaskList(getAllQuestionsService: any) {
       const response = await getAllQuestionsService(hearing.online_hearing_id);
 
       req.session.hearing.deadline = response.deadline_expiry_date;
+      req.session.hearing.extensionCount = response.deadline_extension_count;
       
       const totalQuestionCount = response.questions.length;
       const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);

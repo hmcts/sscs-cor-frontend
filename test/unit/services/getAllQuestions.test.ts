@@ -11,6 +11,7 @@ describe('services/getAllQuestions.js', () => {
   const path = `/continuous-online-hearings/${hearingId}`;
 
   const apiResponse = {
+    deadline_extension_count: 0,
     questions: [
       {
         question_id: '001',
