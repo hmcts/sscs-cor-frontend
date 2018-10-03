@@ -22,7 +22,11 @@
         }}
       {% endif %}
 
-      {% if not extend %}
+      {% if (not extend) and (hearing.extensionCount > 0) %}
+
+        {% include "extend-deadline/contact-tribunal.html" %}
+
+      {% elseif not extend %}
 
         {% include "extend-deadline/confirmation-form.html" %}
 
