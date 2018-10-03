@@ -49,10 +49,11 @@ async function bootstrapCoh(ccdCase) {
     await coh.setQuestionRoundToIssued(hearingId);
     const questionRound = await waitForQuestionRoundIssued(hearingId, 1, null);
     const firstQuestion = questionRound.question_references.filter(q => q.question_id === questionId).pop();
+    const questionOrdinal = firstQuestion.question_ordinal;
     const questionHeader = firstQuestion.question_header_text;
     const questionBody = firstQuestion.question_body_text;
     const deadlineExpiryDate = firstQuestion.deadline_expiry_date;
-    return { hearingId, questionIdList, questionId, questionHeader, questionBody, deadlineExpiryDate };
+    return { hearingId, questionIdList, questionId, questionOrdinal, questionHeader, questionBody, deadlineExpiryDate };
   } catch (error) {
     console.log('Error bootstrapping COH with test data', error)
     return Promise.reject(error)

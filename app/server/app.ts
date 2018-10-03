@@ -7,7 +7,7 @@ import express = require('express');
 import { router as routes } from './routes';
 const errors = require('./middleware/error-handler');
 const health = require('./middleware/health');
-import locale from './locale/en.json';
+const locale = require('app/server/locale/en.json');
 import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as moment from 'moment';
