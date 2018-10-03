@@ -18,11 +18,12 @@ function getTaskList(getAllQuestionsService: any) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const hearing = req.session.hearing;
     try {
-      const response = await getAllQuestionsService(hearing.online_hearing_id);
+      const response = await getAllQuestionsService.getAllQuestions(hearing.online_hearing_id);
 
       req.session.hearing.deadline = response.deadline_expiry_date;
+      req.session.questions = response.questions;
       req.session.hearing.extensionCount = response.deadline_extension_count;
-      
+
       const totalQuestionCount = response.questions.length;
       const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);
       const deadlineDetails = processDeadline(response.deadline_expiry_date, allQuestionsSubmitted);

@@ -15,7 +15,7 @@ import { setupDecisionController } from './controllers/decision';
 const router = express.Router();
 
 const getQuestionService = require('app/server/services/getQuestion');
-const getAllQuestionsService = require('app/server/services/getAllQuestions');
+import * as getAllQuestionsService from 'app/server/services/getAllQuestions';
 import { getOnlineHearing } from 'app/server/services/getOnlineHearing';
 const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/server/services/updateAnswer');
 
@@ -23,6 +23,7 @@ import { extendDeadline as extendDeadlineService } from 'app/server/services/ext
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
 const questionController = setupQuestionController({
+  getAllQuestionsService,
   getQuestionService,
   saveAnswerService,
   prereqMiddleware

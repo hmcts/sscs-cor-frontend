@@ -22,6 +22,7 @@ module.exports = {
   cache: false,
   template: {
     question_id: params => `${params.questionId}`,
+    question_ordinal: params => parseInt(params.questionId.replace('00', ''), 10),
     question_header_text: params => questionData[params.questionId].header,
     question_body_text: params => questionData[params.questionId].body,
     answer: params => getCachedAnswer(params.questionId),
