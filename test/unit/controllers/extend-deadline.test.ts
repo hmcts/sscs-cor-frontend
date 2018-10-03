@@ -17,7 +17,8 @@ describe('controllers/extend-deadline.js', () => {
     session: {
       hearing: {
         online_hearing_id: '1234',
-        deadline: deadline
+        deadline: deadline,
+        extensionCount: 0
       }
     }
   }
@@ -36,7 +37,9 @@ describe('controllers/extend-deadline.js', () => {
   describe('getIndex', () => {
     it('should call render with the template', async() => {
       getIndex(req, res);
-      expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {});
+      expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
+        hearing: req.session.hearing
+      });
     });
   });
 
