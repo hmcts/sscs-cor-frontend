@@ -95,6 +95,14 @@
       "header": "You have another week to answer the questions ",
       "para1": "You now have until {{ deadline }} to answer the questions."
     },
+    "contactTribunal":{
+      "header": "You need to provide reasons",
+      "para1": "You need to contact the tribunal and explain why you need more time.",
+      "para2": "Send an email explaining why you need more time and the date you can respond by to:",
+      "email": "benefitappeals@hmcts.net",
+      "para3": "Your reasons will be reviewed by a judge.",
+      "para4": "You will then receive another email telling you whether you have been granted additional time and how the tribunal wish to proceed."
+    },
     "error": {
       "title": "There are errors on this page",
       "text": "You need to say whether you want to extend the deadline before continuing"
