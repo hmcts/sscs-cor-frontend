@@ -1,31 +1,32 @@
 import { Router, Request, Response, NextFunction } from "express";
 import * as AppInsights from 'app/server/app-insights';
 import * as Paths from 'app/server/paths';
-import { getCurrentQuestion } from 'app/server/controllers/question'
 
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 
-function getSubmitQuestion(req: Request, res: Response) {
-  const questionOrdinal = parseInt(req.params.questionOrdinal, 10);
-  if (!req.session.questions) {
-    return res.redirect(Paths.taskList);
+function getSubmitQuestion(getAllQuestionsService: any) {
+  return (req: Request, res: Response) => {
+    const currentQuestionId: string = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    if (!currentQuestionId) {
+      return res.redirect(Paths.taskList);
+    }
+    const questionOrdinal: number = parseInt(req.params.questionOrdinal, 10);
+    res.render('submit-question.html', { questionOrdinal });
   }
-  const currentQuestion = req.session.questions.find(q => q.question_ordinal === questionOrdinal);
-  res.render('submit-question.html', currentQuestion);
 }
 
 function postSubmitAnswer(submitAnswerService: any, getAllQuestionsService: any) {
   return async(req: Request, res: Response, next: NextFunction) => {
-    const currentQuestion = getCurrentQuestion(req);
-    if (!currentQuestion) {
+    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
     const hearingId = req.session.hearing.online_hearing_id;
 
     try {
-      await submitAnswerService(hearingId, currentQuestion.question_id);
+      await submitAnswerService(hearingId, currentQuestionId);
 
-      const response = await getAllQuestionsService(hearingId);
+      const response = await getAllQuestionsService.getAllQuestions(hearingId);
       const totalQuestionCount = response.questions.length;
       const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);
 
@@ -44,7 +45,7 @@ function postSubmitAnswer(submitAnswerService: any, getAllQuestionsService: any)
 function setupSubmitQuestionController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(`${Paths.question}/:questionOrdinal/submit`, deps.prereqMiddleware, getSubmitQuestion);
+  router.get(`${Paths.question}/:questionOrdinal/submit`, deps.prereqMiddleware, getSubmitQuestion(deps.getAllQuestionsService));
   router.post(`${Paths.question}/:questionOrdinal/submit`, deps.prereqMiddleware, postSubmitAnswer(deps.submitAnswerService, deps.getAllQuestionsService));
   return router;
 }

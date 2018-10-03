@@ -35,10 +35,15 @@ describe('controllers/submit-question', () => {
   res.render = sinon.stub();
   res.redirect = sinon.stub();
 
+  let getAllQuestionsService;
+
   beforeEach(() => {
     res.render.reset();
     res.redirect.reset();
     sinon.stub(AppInsights, 'trackException');
+    getAllQuestionsService = {
+      getQuestionIdFromOrdinal: sinon.stub().returns('001')
+    };
   });
 
   afterEach(() => {
@@ -47,15 +52,16 @@ describe('controllers/submit-question', () => {
 
   describe('getSubmitQuestion', () => {
     it('should call render with the template and hearing/question ids', () => {
-      getSubmitQuestion(req, res);
-      expect(res.render).to.have.been.calledWith('submit-question.html', req.session.questions[0]);
+      const questionOrdinal = req.session.questions[0].question_ordinal;
+      getSubmitQuestion(getAllQuestionsService)(req, res);
+      expect(res.render).to.have.been.calledWith('submit-question.html', { questionOrdinal });
     });
   });
 
   describe('postSubmitAnswer', () => {
     it('redirects to /task-list', async() => {
       const submitAnswerService = () => Promise.resolve();
-      const getAllQuestionsService = () => Promise.resolve({ questions: questions('draft') });
+      getAllQuestionsService.getAllQuestions = sinon.stub().resolves({ questions: questions('draft') });
       await postSubmitAnswer(submitAnswerService, getAllQuestionsService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
@@ -63,18 +69,17 @@ describe('controllers/submit-question', () => {
     it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       const submitAnswerService = () => Promise.reject(error);
-      await postSubmitAnswer(submitAnswerService)(req, res, next);
+      await postSubmitAnswer(submitAnswerService, getAllQuestionsService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     describe('when all questions are submitted', () => {
       let submitAnswerService;
-      let getAllQuestionsService;
 
       beforeEach(() => {
         submitAnswerService = () => Promise.resolve();
-        getAllQuestionsService = () => Promise.resolve({ questions: questions('submitted') });
+        getAllQuestionsService.getAllQuestions = sinon.stub().resolves({ questions: questions('submitted') });
       });
 
       it('sets questionsCompletedThisSession on the session', async() => {
