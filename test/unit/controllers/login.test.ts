@@ -1,5 +1,5 @@
 const {expect, sinon} = require('test/chai-sinon');
-const {getLogin, getLogout, getIdamCallback, setupLoginController} = require('app/server/controllers/login.ts');
+import { getLogin, getLogout, getIdamCallback, setupLoginController } from 'app/server/controllers/login.ts';
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
@@ -128,10 +128,6 @@ describe('controllers/login.ts', () => {
       const getUserDetails = sinon.stub();
       getUserDetails.withArgs('someAccessToken').resolves({'email': 'someEmail@example.com'});
       await getIdamCallback(getToken, getUserDetails, getOnlineHearing, () => "http://localhost/redirect_url")(req, res, next);
-    });
-
-    afterEach(() => {
-      (express.Router as sinon.SinonStub).restore();
     });
 
     it('tracks the exception', () => {
