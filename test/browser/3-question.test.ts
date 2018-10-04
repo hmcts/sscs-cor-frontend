@@ -138,7 +138,10 @@ describe('Question page', () => {
     });
 
     it('returns to task list if back is clicked', async() => {
-      await questionPage.clickElement('.govuk-back-link');
+      await Promise.all([
+        page.waitForNavigation(),
+        await questionPage.clickElement('.govuk-back-link')
+      ]);
       expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
   });  
