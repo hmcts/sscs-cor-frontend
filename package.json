@@ -15,7 +15,7 @@
     "build": "yarn build:dev && yarn transpile",
     "build:dev": "yarn build-sass && yarn build-js && yarn copy-assets",
     "build-sass": "node-sass app/client/sass/application.scss public/css/main.css --output-style compressed",
-    "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend && mkdir -p ./dist/server && cp -R ./app/server/views/ ./dist/server",
+    "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend",
     "build-js": "browserify ./app/client/javascript/main.ts -p [ tsify -p app/client --noImplicitAny ] -o ./public/js/main.js",
     "test": "yarn test:unit && yarn test:integration && yarn test:browser",
     "test:unit": "yarn test:unit-server && yarn test:unit-client",

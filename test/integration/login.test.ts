@@ -5,7 +5,7 @@ const mockData = require('test/mock/cor-backend/services/hearing').template;
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 
 describe('Login page', () => {
   let page;

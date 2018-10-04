@@ -5,7 +5,7 @@ const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 import * as moment from 'moment'; 
 
 describe('controllers/question.js', () => {
