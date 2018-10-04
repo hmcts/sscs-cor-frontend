@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import * as AppInsights from 'app/server/app-insights';
-import * as Paths from 'app/server/paths';
+import * as AppInsights from '../app-insights';
+import * as Paths from '../paths';
 
 function getIndex(req: Request, res: Response) {
   return res.render('extend-deadline/index.html', {

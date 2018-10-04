@@ -21,10 +21,10 @@ const pa11yTest = pa11y({
     .govuk-skip-link, .govuk-footer__link`
 });
 
-const accessibilityPages = [`${Paths.question}/121/62`];
+const accessibilityPages = [`${Paths.question}/1`];
 
 accessibilityPages.forEach(page => {
-  describe(`Running Accessibility tests for: ${page}`, () => {
+  describe.skip(`Running Accessibility tests for: ${page}`, () => {
     let pageResults = null;
     before(done => {
       pa11yTest.run(agent.get(page).url, (error, results) => {

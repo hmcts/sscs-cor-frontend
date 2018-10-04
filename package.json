@@ -7,11 +7,12 @@
     "node": ">=8.9.0 <9.0"
   },
   "scripts": {
-    "start": "cross-env NODE_PATH=. node server.js",
+    "start": "node server.js",
     "dev": "yarn build:dev && NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=development nodemon",
     "dev-docker": "concurrently \"yarn build:dev && NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=docker nodemon\" \"yarn mock-api\"",
-    "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\"",
-    "mock-api": "dyson test/mock/cor-backend/services/ 8080",
+    "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\" \"yarn mock-idam-api\"",
+    "mock-api": "dyson test/mock/cor-backend/services/ 8090",
+    "mock-idam-api": "dyson test/mock/idam/services/ 8082",
     "build": "yarn build:dev && yarn transpile",
     "build:dev": "yarn build-sass && yarn build-js && yarn copy-assets",
     "build-sass": "node-sass app/client/sass/application.scss public/css/main.css --output-style compressed",
@@ -50,7 +51,6 @@
     "body-parser": "^1.17.1",
     "config": "^1.30.0",
     "connect-redis": "^3.3.3",
-    "cross-env": "^4.0.0",
     "express": "^4.15.2",
     "express-session": "^1.15.6",
     "govuk-frontend": "^1.2.0",
@@ -64,9 +64,11 @@
     "nunjucks": "^3.0.0",
     "nunjucks-date-filter": "^0.1.1",
     "serve-favicon": "^2.4.2",
-    "superagent": "^3.8.3"
+    "superagent": "^3.8.3",
+    "superagent-proxy": "^2.0.0"
   },
   "devDependencies": {
+    "cross-env": "^4.0.0",
     "@hmcts/eslint-config": "^1.4.0",
     "@types/chai": "^4.1.4",
     "@types/cli-color": "^0.3.29",

@@ -1,4 +1,4 @@
-import { extendDeadline } from 'app/server/services/extend-deadline.ts';
+import { extendDeadline } from 'app/server/services/extend-deadline';
 import * as moment from 'moment';
 
 const { expect } = require('test/chai-sinon');
