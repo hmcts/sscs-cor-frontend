@@ -9,6 +9,7 @@ const { setup } = require('app/server/app');
 const config = require('config');
 const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 const dysonSetupCoh = require('test/mock/coh/dysonSetup');
+const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
@@ -49,6 +50,7 @@ function startAppServer() {
     const app = setup(createSession(), { disableAppInsights: true });
     dysonSetupCorBackend();
     dysonSetupCoh();
+    dysonSetupIdam();
     server = createServer(app).listen(port, error => {
       if (error) {
         console.log(`Unable to start server on port ${port} because of ${error.message}`);
