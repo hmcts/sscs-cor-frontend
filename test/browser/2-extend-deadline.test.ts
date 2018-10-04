@@ -2,7 +2,7 @@ import { CONST } from 'app/constants';
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
-import { ExtendIndexPage } from 'test/page-objects/extend-deadline';
+import { ExtendDeadlinePage } from 'test/page-objects/extend-deadline';
 const i18n = require('app/server/locale/en');
 import * as Paths from 'app/server/paths';
 const config = require('config');
@@ -13,7 +13,7 @@ const testUrl = config.get('testUrl');
 describe('Extend deadline', () => {
   let page;
   let taskListPage: TaskListPage;
-  let extendDeadlinePage: ExtendIndexPage;
+  let extendDeadlinePage: ExtendDeadlinePage;
 
 
   before('start services and bootstrap data in CCD/COH', async() => {
@@ -21,7 +21,7 @@ describe('Extend deadline', () => {
     page = res.page;
     
     taskListPage = new TaskListPage(page);
-    extendDeadlinePage = new ExtendIndexPage(page);
+    extendDeadlinePage = new ExtendDeadlinePage(page);
     
     await taskListPage.clickExtend();    
     await extendDeadlinePage.screenshot('extend-deadline');
@@ -44,7 +44,7 @@ describe('Extend deadline', () => {
   });
 
   it('displays an error message in the summary when you try to continue without selecting an option', async() => {
-    await extendDeadlinePage.continue();
+    await extendDeadlinePage.submit();
     expect(await extendDeadlinePage.getElementText('.govuk-error-summary'))
       .to.contain(i18n.extendDeadline.error.title);
     expect(await extendDeadlinePage.getElementText('.govuk-error-summary__list'))
@@ -52,26 +52,22 @@ describe('Extend deadline', () => {
   });
 
   describe('confirming no', () => {
-    it('shows the confirmation page with exisint deadline', async() => {
-      console.log("start");
+    it('shows the confirmation page with existing deadline', async() => {
       await extendDeadlinePage.clickNo();
-      console.log("Clicked no");
-      await extendDeadlinePage.continue();
-      console.log("Clicked ontinue");
+      await extendDeadlinePage.submit();
       await extendDeadlinePage.screenshot('extend-deadline-confirmation-no');
-      console.log("screenshot");
 
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
-      console.log("get extend message");
       expect(deadline).to.contain(`${moment().utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
     });
   });
 
   describe('confirming yes', () => {
     it('shows the confirmation page with new deadline', async() => {
-      await page.goto(`${testUrl}${Paths.extendDeadline}`);
+      await taskListPage.visitPage();
+      await taskListPage.clickExtend();
       await extendDeadlinePage.clickYes();
-      await extendDeadlinePage.continue();
+      await extendDeadlinePage.submit();
       await extendDeadlinePage.screenshot('extend-deadline-confirmation-yes');
 
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
