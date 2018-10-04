@@ -18,11 +18,11 @@ import { setupDummyLoginController } from './controllers/dummy-login'
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-import { getQuestion as getQuestionService } from 'app/server/services/getQuestion';
-import * as getAllQuestionsService from 'app/server/services/getAllQuestions';
-import { getOnlineHearing } from 'app/server/services/getOnlineHearing';
-const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/server/services/updateAnswer');
-const { getToken, getUserDetails, getRedirectUrl } = require('app/server/services/idamService');
+import { getQuestion as getQuestionService } from './services/getQuestion';
+import * as getAllQuestionsService from './services/getAllQuestions';
+import { getOnlineHearing } from './services/getOnlineHearing';
+const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('./services/updateAnswer');
+const { getToken, getUserDetails, getRedirectUrl } = require('./services/idamService');
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
