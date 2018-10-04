@@ -3,3 +3,9 @@ public/
 govuk_modules/
 test/coverage
 dist
+test/accessibility/**/*.js
+test/browser/**/*.js
+test/integration/**/*.js
+test/page-objects/**/*.js
+test/unit/**/*.js
+test/*.js
