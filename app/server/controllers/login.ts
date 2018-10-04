@@ -3,7 +3,7 @@ import * as AppInsights from '../app-insights';
 import { Request, Response, NextFunction, Router } from 'express';
 import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import * as Paths from '../paths';
-const i18n = require('../locale/en');
+const i18n = require('../../../locale/en');
 import { loginEmailAddressValidation } from '../utils/fieldValidation';
 import { OnlineHearing } from '../services/getOnlineHearing';
 import { CONST } from '../../constants'

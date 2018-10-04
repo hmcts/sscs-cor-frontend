@@ -5,7 +5,7 @@ const mockDataQuestions = require('test/mock/cor-backend/services/all-questions'
 const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
 import * as Paths from 'app/server/paths';
-const i18n = require('app/server/locale/en.json');
+const i18n = require('locale/en.json');
 const config = require('config');
 
 const testUrl = config.get('testUrl');

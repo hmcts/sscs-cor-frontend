@@ -3,7 +3,7 @@ const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { ExtendIndexPage } from 'test/page-objects/extend-deadline';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 import * as Paths from 'app/server/paths';
 const config = require('config');
 import * as moment from 'moment';

@@ -7,7 +7,7 @@ import express = require('express');
 import { router as routes } from './routes';
 const errors = require('./middleware/error-handler');
 const health = require('./middleware/health');
-const locale = require('app/server/locale/en.json');
+const locale = require('../../locale/en.json');
 import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as moment from 'moment';
@@ -36,7 +36,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   }
 
   var nunEnv = nunjucks.configure([
-    'app/server/views',
+    'views',
     'node_modules/govuk-frontend/',
     'node_modules/govuk-frontend/components/'
   ], {
