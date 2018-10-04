@@ -53,11 +53,16 @@ describe('Extend deadline', () => {
 
   describe('confirming no', () => {
     it('shows the confirmation page with exisint deadline', async() => {
+      console.log("start");
       await extendDeadlinePage.clickNo();
+      console.log("Clicked no");
       await extendDeadlinePage.continue();
+      console.log("Clicked ontinue");
       await extendDeadlinePage.screenshot('extend-deadline-confirmation-no');
+      console.log("screenshot");
 
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
+      console.log("get extend message");
       expect(deadline).to.contain(`${moment().utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
     });
   });
