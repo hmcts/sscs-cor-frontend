@@ -14,3 +14,4 @@ test/integration/**/*.js
 test/page-objects/**/*.js
 test/unit/**/*.js
 test/*.js
+test/chai-sinon.js

@@ -112,11 +112,15 @@
       "text": "You need to say whether you want to extend the deadline before continuing"
     }
   },
-  "decision": {
+  "tribunalView": {
+    "header": "The tribunal’s view on your appeal",
+    "reasonsHeader": "Reasons for the tribunal’s view"
+  },
+  "tribunalDecision": {
     "header": "The tribunal’s decision on your appeal",
     "outcome": {
-      "appeal-upheld": "Your appeal has been successful",
-      "appeal-denied": "Your appeal has not been successful"
+      "decision_accepted": "Your appeal has been successful",
+      "decision_rejected": "Your appeal has not been successful"
     },
     "reasonsHeader": "Reasons for the tribunal’s decision",
     "postInfo": "A formal decision notice has also been sent to your registered postal address."

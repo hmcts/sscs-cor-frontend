@@ -8,19 +8,28 @@ const emailToResCodeMap = {
 const emailHearingIdMap = {
   'completed@example.com': '2-completed',
   'expired@example.com': '3-expired',
-  'appeal.upheld@example.com': '4-appeal-upheld',
-  'appeal.denied@example.com': '5-appeal-denied'
+  'view.issued@example.com': '4-view-issued',
+  'appeal.upheld@example.com': '5-appeal-upheld',
+  'appeal.denied@example.com': '6-appeal-denied'
 };
 
 const createDecision = email => {
   const decisionIssued = cache.get('decisionIssued');
-  if (decisionIssued || ['appeal.upheld@example.com', 'appeal.denied@example.com'].includes(email)) {
+  const decisionEmails = ['view.issued@example.com', 'appeal.upheld@example.com', 'appeal.denied@example.com'];
+  if (decisionIssued || decisionEmails.includes(email)) {
+    let decisionState = 'decision_issued';
+    if (email === 'appeal.upheld@example.com') {
+      decisionState = 'decision_accepted';
+    }
+    if (email === 'appeal.denied@example.com') {
+      decisionState = 'decision_rejected';
+    }
     return {
       decision_award: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
       decision_header: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
       decision_reason: 'The final decision is this.',
       decision_text: 'The final decision is this.',
-      decision_state: 'decision_issued'
+      decision_state: decisionState
     };
   }
   return null;

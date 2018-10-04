@@ -44,7 +44,19 @@ describe('middleware/check-decision', () => {
     expect(next).to.have.been.calledOnce.calledWith();
   });
 
-  it('redirects to decision page if decision is issued', () => {
+  it('redirects to tribunal view page if decision is issued', () => {
+    checkDecision(req, res, next);
+    expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalView);
+  });
+
+  it('redirects to decision page if decision is accepted', () => {
+    req.session.hearing.decision.decision_state = 'decision_accepted';
+    checkDecision(req, res, next);
+    expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.decision);
+  });
+
+  it('redirects to decision page if decision is rejected', () => {
+    req.session.hearing.decision.decision_state = 'decision_rejected';
     checkDecision(req, res, next);
     expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.decision);
   });
