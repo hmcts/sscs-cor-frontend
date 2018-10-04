@@ -13,4 +13,6 @@ async function getQuestion(hearingId, questionId) {
   }
 }
 
-export = getQuestion;
+export { 
+  getQuestion
+};

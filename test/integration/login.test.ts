@@ -5,7 +5,7 @@ const mockData = require('test/mock/cor-backend/services/hearing').template;
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 
 describe('Login page', () => {
   let page;
@@ -19,7 +19,6 @@ describe('Login page', () => {
     loginPage = new LoginPage(page);
     taskListPage = new TaskListPage(page);
     decisionPage = new DecisionPage(page);
-    await loginPage.visitPage();
   });
 
   after(async() => {
@@ -28,29 +27,24 @@ describe('Login page', () => {
     }
   });
 
-  it('is on the /login path with header', async() => {
-    loginPage.verifyPage();
-    expect(await loginPage.getHeading()).to.equal(i18n.login.header);
-  });
-
   it('handles online hearing not found', async() => {
+    await loginPage.visitPage();
     await loginPage.login('not.found@example.com');
-    loginPage.verifyPage();
-    const errorSummary = await loginPage.getElementText('.govuk-error-summary');
-    expect(errorSummary).contain(i18n.login.emailAddress.error.error404);
+    const errorSummary = await loginPage.getElementText('.govuk-heading-l');
+    expect(errorSummary).contain(i18n.emailNotFound.header);
   });
 
   it('handles multiple online hearings found', async() => {
+    await loginPage.visitPage();
     await loginPage.login('multiple@example.com');
-    loginPage.verifyPage();
-    const errorSummary = await loginPage.getElementText('.govuk-error-summary');
-    expect(errorSummary).contain(i18n.login.emailAddress.error.error422);
+    const errorSummary = await loginPage.getElementText('.govuk-heading-l');
+    expect(errorSummary).contain(i18n.emailNotFound.header);
   });
 
   it('logs in successfully and shows the task list', async() => {
+    await loginPage.visitPage();
     await loginPage.login('test@example.com');
     await loginPage.screenshot('successful-login');
-    taskListPage.verifyPage();
     expect(await taskListPage.getHeading()).to.equal(i18n.taskList.header);
   });
 

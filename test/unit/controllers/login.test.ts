@@ -1,12 +1,10 @@
-const { expect, sinon } = require('test/chai-sinon');
-const { getLogin, getLogout, postLogin, setupLoginController } = require('app/server/controllers/login.ts');
+const {expect, sinon} = require('test/chai-sinon');
+import { getLogin, getLogout, getIdamCallback, setupLoginController } from 'app/server/controllers/login.ts';
 import * as AppInsights from 'app/server/app-insights';
-const express = require('express');
+import * as express from 'express';
 import * as Paths from 'app/server/paths';
 
-import * as  validation from 'app/server/utils/fieldValidation';
-
-describe('controllers/login.js', () => {
+describe('controllers/login.ts', () => {
   let next;
   let req;
   let res;
@@ -24,7 +22,9 @@ describe('controllers/login.js', () => {
       },
       body: {
         'email-address': 'test@example.com'
-      }
+      },
+      protocol: 'http',
+      hostname: 'localhost'
     };
     res = {
       render: sinon.stub(),
@@ -39,9 +39,10 @@ describe('controllers/login.js', () => {
   });
 
   describe('#getLogin', () => {
-    it('renders the template', () => {
-      getLogin(req, res);
-      expect(res.render).to.have.been.calledWith('login.html');
+    it('redirect to idam login page', () => {
+      getLogin(() => "http://localhost/redirect_url", "/someIdamPath")(req, res);
+
+      expect(res.redirect).to.have.been.calledOnce.calledWith('http://localhost:8082/someIdamPath?redirect_uri=http%3A%2F%2Flocalhost%2Fredirect_url&client_id=sscs-cor&response_type=code');
     });
   });
 
@@ -53,120 +54,135 @@ describe('controllers/login.js', () => {
     });
   });
 
-  describe('#postLogin', () => {
-    let getOnlineHearingService;
-    const validationError = 'email error';
+  describe('#getIdamCallback', () => {
+    let getOnlineHearing;
 
-    describe('on validation', () => {
-      beforeEach(async() => {
-        sinon.stub(validation, 'loginEmailAddressValidation').returns(validationError)
+    describe('called without code', () => {
+      it('redirects to idam login', () => {
+        req.query = {};
+        getIdamCallback(null, null, null, () => "http://localhost/redirect_url")(req, res, next);
 
-        getOnlineHearingService = sinon.stub().resolves({ body: hearingDetails });
-        await postLogin(getOnlineHearingService)(req, res, next);
+        expect(res.redirect).to.have.been.calledOnce.calledWith('http://localhost:8082/login?redirect_uri=http%3A%2F%2Flocalhost%2Fredirect_url&client_id=sscs-cor&response_type=code');
       });
-
-      it('renders an error if validation fails', () => {
-        expect(res.render).to.have.been.calledOnce.calledWith('login.html', {
-          emailAddress: {
-            error: validationError,
-            value: req.body['email-address']
-          }
-        });
-      });
-
-      afterEach(() => {
-        (validation.loginEmailAddressValidation as sinon.SinonStub).restore();
-      });      
     });
 
     describe('on success', () => {
-      describe('before decision issued', () => {
-        beforeEach(async() => {
-          getOnlineHearingService = sinon.stub().resolves({ body: hearingDetails });
-          await postLogin(getOnlineHearingService)(req, res, next);
-        });
+      beforeEach(async () => {
+        req.query = {'code': 'someCode'};
 
-        it('calls the online hearing service', () => {
-          expect(getOnlineHearingService).to.have.been.calledOnce.calledWith(req.body['email-address']);
-        });
+        const getToken = sinon.stub();
+        getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': 'someAccessToken'});
+        const getUserDetails = sinon.stub();
+        getUserDetails.withArgs('someAccessToken').resolves({'email': 'someEmail@example.com'});
+        getOnlineHearing = sinon.stub().resolves({body: hearingDetails});
 
-        it('redirects to task list page', () => {
-          expect(res.redirect).to.have.been.calledWith(Paths.taskList);
-        });
+        await getIdamCallback(getToken, getUserDetails, getOnlineHearing, () => "http://localhost/redirect_url")(req, res, next);
       });
 
-      describe('after decision issued', () => {
-        beforeEach(async() => {
-          const hearingWithDecision = {
-            ...hearingDetails,
-            decision: {
-              decision_award: 'FINAL',
-              decision_header: 'Decision header',
-              decision_reason: 'Decision reason',
-              decision_text: 'Decision test',
-              decision_state: 'decision_issued',
-            }
-          }
-          getOnlineHearingService = sinon.stub().resolves({ body: hearingWithDecision });
-          await postLogin(getOnlineHearingService)(req, res, next);
-        });
+      it('calls the online hearing service', () => {
+        expect(getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com');
+      });
 
-        it('redirects to decision page if issued decision exists', () => {
-          expect(res.redirect).to.have.been.calledWith(Paths.decision);
-        });
+      it('redirects to task list page', () => {
+        expect(res.redirect).to.have.been.calledWith(Paths.taskList);
       });
     });
 
-    describe('on error', () => {
-      const error = new Error('getOnlineHearingService error');
+    describe('after decision issued', () => {
+      beforeEach(async () => {
+        req.query = {'code': 'someCode'};
 
-      beforeEach(async() => {
-        getOnlineHearingService = sinon.stub().rejects(error);
-        await postLogin(getOnlineHearingService)(req, res, next);
+        const getToken = sinon.stub();
+        getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': 'someAccessToken'});
+        const getUserDetails = sinon.stub();
+        getUserDetails.withArgs('someAccessToken').resolves({'email': 'someEmail@example.com'});
+        const hearingWithDecision = {
+          ...hearingDetails,
+          decision: {
+            decision_award: 'FINAL',
+            decision_header: 'Decision header',
+            decision_reason: 'Decision reason',
+            decision_text: 'Decision test',
+            decision_state: 'decision_issued',
+          }
+        };
+        getOnlineHearing = sinon.stub().resolves({body: hearingWithDecision});
+
+        await getIdamCallback(getToken, getUserDetails, getOnlineHearing, () => "http://localhost/redirect_url")(req, res, next);
       });
 
-      it('tracks the exception', () => {
-        expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
-      });
-      it('calls next with the error', () => {
-        expect(next).to.have.been.calledWith(error);
+      it('redirects to decision page if issued decision exists', () => {
+        expect(res.redirect).to.have.been.calledWith(Paths.decision);
       });
     });
   });
 
-  describe('#setupLoginController', () => {
-    const deps = {
-      getOnlineHearingService: {}
-    };
+  describe('on error', () => {
+    const error = new Error('getOnlineHearingService error');
 
-    beforeEach(() => {
-      sinon.stub(express, 'Router').returns({
-        get: sinon.stub(),
-        post: sinon.stub()
-      });
+    beforeEach(async () => {
+      req.query = {'code': 'someCode'};
+      const getOnlineHearing = sinon.stub().rejects(error);
+      const getToken = sinon.stub();
+      getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': 'someAccessToken'});
+      const getUserDetails = sinon.stub();
+      getUserDetails.withArgs('someAccessToken').resolves({'email': 'someEmail@example.com'});
+      await getIdamCallback(getToken, getUserDetails, getOnlineHearing, () => "http://localhost/redirect_url")(req, res, next);
     });
 
-    afterEach(() => {
-      express.Router.restore();
+    it('tracks the exception', () => {
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
     });
+    it('calls next with the error', () => {
+      expect(next).to.have.been.calledWith(error);
+    });
+  });
+});
 
-    it('sets up GET', () => {
-      setupLoginController(deps);
-      // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(Paths.login);
-    });
+describe('#setupLoginController', () => {
+  const deps = {
+    getOnlineHearingService: {}
+  };
 
-    it('sets up POST', () => {
-      setupLoginController(deps);
-      // eslint-disable-next-line new-cap
-      expect(express.Router().post).to.have.been.calledWith(Paths.login);
+  beforeEach(() => {
+    sinon.stub(express, 'Router').returns({
+      get: sinon.stub(),
+      post: sinon.stub()
     });
+  });
 
-    it('returns the router', () => {
-      const controller = setupLoginController(deps);
-      // eslint-disable-next-line new-cap
-      expect(controller).to.equal(express.Router());
-    });
+  afterEach(() => {
+    (express.Router as sinon.SinonStub).restore();
+  });
+
+  it('sets up GET login', () => {
+    setupLoginController(deps);
+    // eslint-disable-next-line new-cap
+    expect(express.Router().get).to.have.been.calledWith(Paths.login);
+  });
+
+  it('sets up GET logout', () => {
+    setupLoginController(deps);
+    // eslint-disable-next-line new-cap
+    expect(express.Router().get).to.have.been.calledWith(Paths.logout);
+  });
+
+  it('sets up GET register', () => {
+    setupLoginController(deps);
+    // eslint-disable-next-line new-cap
+    expect(express.Router().get).to.have.been.calledWith(Paths.register);
+  });
+
+  it('sets up GET idam callback', () => {
+    setupLoginController(deps);
+    // eslint-disable-next-line new-cap
+    expect(express.Router().get).to.have.been.calledWith(Paths.idamCallback);
+  });
+
+  it('returns the router', () => {
+    const controller = setupLoginController(deps);
+    // eslint-disable-next-line new-cap
+    expect(controller).to.equal(express.Router());
   });
 });
 

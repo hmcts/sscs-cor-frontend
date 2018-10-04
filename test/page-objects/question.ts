@@ -2,9 +2,9 @@ const { question } = require('app/server/paths');
 import { BasePage } from 'test/page-objects/base';
 
 export class QuestionPage extends BasePage {
-  constructor(page, hearingId, questionId) {
+  constructor(page, questionOrdinal) {
     super(page);
-    this.pagePath = `${question}/${hearingId}/${questionId}`;
+    this.pagePath = `${question}/${questionOrdinal}`;
   }
 
   async answer(answer, submit) {

@@ -18,15 +18,15 @@
 
             <h1 class="govuk-heading-l">{{ i18n.login.header }}</h1>
 
-            <form action="/login" method="post">
+            <form action="/dummy-login" method="post">
                 <div>
                     {{ govukInput({
                         "label": {
                             "text": "Email address"
                         },
                         "value": emailAddress.value,
-                        "id": "email-address",
-                        "name": "email-address",
+                        "id": "username",
+                        "name": "username",
                         "classes": "govuk-input--width-20",
                         "errorMessage": {
                             "text": emailAddress.error
@@ -34,7 +34,7 @@
                     }) }}
                 </div>
                 <div id="submit-buttons">
-                    <input id="login" type="submit" name="submit" value="Login" class="govuk-button">
+                    <input id="login" type="submit" name="submit" value="save" class="govuk-button">
                 </div>
             </form>
         </div>

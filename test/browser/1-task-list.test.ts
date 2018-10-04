@@ -6,19 +6,21 @@ const mockDataQuestions = require('test/mock/cor-backend/services/all-questions'
 const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
 import * as Paths from 'app/server/paths';
-const i18n = require('app/server/locale/en.json');
+const i18n = require('locale/en.json');
 const config = require('config');
 
 const testUrl = config.get('testUrl');
 
 const sampleHearingId = '1-pending';
 const sampleQuestionId = '001';
+const sampleQuestionOrdinal = '1';
 
 describe('Task list page', () => {
   let page: Page;
   let taskListPage;
   let hearingId;
   let questionId;
+  let questionOrdinal;
   let questionHeader;
   let caseReference;
   let deadlineExpiryDateFormatted;
@@ -28,6 +30,7 @@ describe('Task list page', () => {
     page = res.page;
     hearingId = res.cohTestData.hearingId || sampleHearingId;
     questionId = res.cohTestData.questionId || sampleQuestionId;
+    questionOrdinal = res.cohTestData.questionOrdinal || sampleQuestionOrdinal;
     questionHeader = res.cohTestData.questionHeader || mockDataQuestions.questions({ sampleHearingId })[0].question_header_text;
     caseReference = res.ccdCase.caseReference || mockDataHearing.case_reference;
     const deadlineExpiryDate = res.cohTestData.deadlineExpiryDate || mockDataQuestions.deadline_expiry_date({ sampleHearingId });
@@ -76,7 +79,7 @@ describe('Task list page', () => {
   it('redirects to the question page for that question', async() => {
     await taskListPage.clickQuestion(questionId);
     expect(taskListPage.getCurrentUrl())
-      .to.equal(`${testUrl}${Paths.question}/${hearingId}/${questionId}`);
+      .to.equal(`${testUrl}${Paths.question}/${questionOrdinal}`);
   });
 });
 

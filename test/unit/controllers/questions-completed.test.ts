@@ -1,7 +1,7 @@
 const { expect, sinon } = require('test/chai-sinon');
 const { setupQuestionsCompletedController, getQuestionsCompleted } = require('app/server/controllers/questions-completed.ts');
 import * as moment from 'moment';
-const express = require('express');
+import * as express from 'express';
 import * as Paths from 'app/server/paths';
 
 describe('controllers/questions-completed.js', () => {
@@ -53,7 +53,7 @@ describe('controllers/questions-completed.js', () => {
     });
 
     afterEach(() => {
-      express.Router.restore();
+      (express.Router as sinon.SinonStub).restore();
     });
 
     it('calls router.get with the path and middleware', () => {

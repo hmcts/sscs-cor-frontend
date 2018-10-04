@@ -1,8 +1,30 @@
+resource "azurerm_resource_group" "rg" {
+  name     = "${var.product}-${var.component}-${var.env}"
+  location = "${var.location}"
+
+  tags = "${merge(var.common_tags,
+    map("lastUpdated", "${timestamp()}")
+    )}"
+}
+
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
   localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
   ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
+
+  local_env = "${(var.env == "preview") ? "aat" : (var.env == "spreview") ? "saat" : var.env}"
+  azureVaultName = "sscs-${local.local_env}"
+}
+
+data "azurerm_key_vault" "sscs_key_vault" {
+  name                = "${local.azureVaultName}"
+  resource_group_name = "${local.azureVaultName}"
+}
+
+data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret" {
+  name      = "sscs-cor-idam-client-secret"
+  vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
 }
 
 module "sscs-cor-frontend" {
@@ -26,6 +48,10 @@ module "sscs-cor-frontend" {
     REDIS_URL                    = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
     SESSION_SECRET               = "${module.redis-cache.access_key}"
     SECURE_SESSION               = "${var.secure_session}"
+    IDAM_URL                     = "${var.idam_url}"
+    IDAM_API_URL                 = "${var.idam_api_url}"
+    IDAM_CLIENT_SECRET           = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret.value}"
+    ENABLE_DUMMY_LOGIN           = "${var.enable_dummy_login}"
   }
 }
 

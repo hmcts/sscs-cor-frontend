@@ -8,15 +8,15 @@ import { TaskListPage } from 'test/page-objects/task-list';
 import { QuestionPage } from 'test/page-objects/question';
 import { SubmitQuestionPage } from 'test/page-objects/submit-question';
 import { QuestionsCompletedPage } from 'test/page-objects/questions-completed';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 import * as Paths from 'app/server/paths';
 const config = require('config');
 import * as moment from 'moment';
 
 const testUrl = config.get('testUrl');
 
-const sampleHearingId = '1-pending';
 const sampleQuestionIdList = ['001', '002', '003']
+const sampleQuestionOrdinal = '1';
 
 describe('Question page', () => {
   let page: Page;
@@ -24,8 +24,8 @@ describe('Question page', () => {
   let questionPage;
   let submitQuestionPage;
   let questionsCompletedPage
-  let hearingId;
   let questionIdList;
+  let questionOrdinal;
   let firstQuestionId;
   let questionHeader;
   let questionBody;
@@ -34,15 +34,15 @@ describe('Question page', () => {
   before('start services and bootstrap data in CCD/COH', async() => {
     const res = await startServices({ bootstrapData: true, performLogin: true });
     page = res.page;
-    hearingId = res.cohTestData.hearingId || sampleHearingId;
     questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
     firstQuestionId = questionIdList.shift();
+    questionOrdinal = res.cohTestData.questionOrdinal || sampleQuestionOrdinal;
     questionHeader = res.cohTestData.questionHeader || mockDataQuestion.question_header_text({ questionId: firstQuestionId });
     questionBody = res.cohTestData.questionBody || mockDataQuestion.question_body_text({ questionId: firstQuestionId });
     caseReference = res.ccdCase.caseReference || mockDataHearing.case_reference;
     taskListPage = new TaskListPage(page);
-    questionPage = new QuestionPage(page, hearingId, firstQuestionId);
-    submitQuestionPage = new SubmitQuestionPage(page, hearingId, firstQuestionId);
+    questionPage = new QuestionPage(page, questionOrdinal);
+    submitQuestionPage = new SubmitQuestionPage(page, questionOrdinal);
     questionsCompletedPage = new QuestionsCompletedPage(page);
     await taskListPage.clickQuestion(firstQuestionId);
     await questionPage.screenshot('question');
@@ -139,7 +139,10 @@ describe('Question page', () => {
     });
 
     it('returns to task list if back is clicked', async() => {
-      await questionPage.clickElement('.govuk-back-link');
+      await Promise.all([
+        page.waitForNavigation(),
+        await questionPage.clickElement('.govuk-back-link')
+      ]);
       expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
   });  
