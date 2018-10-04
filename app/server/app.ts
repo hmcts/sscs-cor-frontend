@@ -1,14 +1,14 @@
-import { CONST } from 'app/constants';
-import * as AppInsights from 'app/server/app-insights';
+import { CONST } from '../constants';
+import * as AppInsights from './app-insights';
 const { Express } = require('@hmcts/nodejs-logging');
 import { RequestHandler } from "express";
 import nunjucks = require('nunjucks');
 import express = require('express');
-import { router as routes } from 'app/server/routes';
-const errors = require('app/server/middleware/error-handler');
-const health = require('app/server/middleware/health');
-const locale = require('app/server/locale/en.json');
-import * as Paths from 'app/server/paths';
+import { router as routes } from './routes';
+const errors = require('./middleware/error-handler');
+const health = require('./middleware/health');
+const locale = require('../../locale/en.json');
+import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as moment from 'moment';
 
@@ -36,7 +36,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   }
 
   var nunEnv = nunjucks.configure([
-    'app/server/views',
+    'views',
     'node_modules/govuk-frontend/',
     'node_modules/govuk-frontend/components/'
   ], {

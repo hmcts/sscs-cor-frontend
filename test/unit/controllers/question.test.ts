@@ -1,11 +1,11 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { getQuestion, getCurrentQuestion, postAnswer, setupQuestionController } = require('app/server/controllers/question.ts');
 const mockData = require('test/mock/cor-backend/services/all-questions').template;
+import { getQuestion, postAnswer, setupQuestionController } from 'app/server/controllers/question';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
-const express = require('express');
+import * as express from 'express';
 import * as Paths from 'app/server/paths';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 import * as moment from 'moment'; 
 
 describe('controllers/question.js', () => {
@@ -164,7 +164,7 @@ describe('controllers/question.js', () => {
     });
 
     afterEach(() => {
-      express.Router.restore();
+      (express.Router as sinon.SinonStub).restore();
     });
 
     it('calls router.get with the path and middleware', () => {

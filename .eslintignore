@@ -2,8 +2,7 @@ node_modules/
 public/
 govuk_modules/
 test/coverage
-app/constants.js
-app/server/**/*.js
+dist
 test/accessibility/**/*.js
 test/browser/**/*.js
 test/integration/**/*.js

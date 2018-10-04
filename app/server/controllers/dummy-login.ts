@@ -1,7 +1,6 @@
-import * as Paths from 'app/server/paths';
+import * as Paths from '../paths';
 import { Router, Response, Request, NextFunction } from 'express';
-import { Logger } from '@hmcts/nodejs-logging';
-import * as AppInsights from 'app/server/app-insights';
+import * as AppInsights from '../app-insights';
 
 function getLogin(req: Request, res: Response) {
   return res.render('dummy-login.html');

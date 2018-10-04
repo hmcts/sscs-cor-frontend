@@ -1,7 +1,7 @@
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
 import { DecisionPage } from 'test/page-objects/decision';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 
 describe('Decision page', () => {
   let page;

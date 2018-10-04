@@ -1,11 +1,10 @@
 const {expect, sinon} = require('test/chai-sinon');
-const {getLogin, getLogout, getIdamCallback, setupLoginController} = require('app/server/controllers/login.ts');
+import { getLogin, getLogout, getIdamCallback, setupLoginController } from 'app/server/controllers/login.ts';
 import * as AppInsights from 'app/server/app-insights';
-
-const express = require('express');
+import * as express from 'express';
 import * as Paths from 'app/server/paths';
 
-describe('controllers/login.js', () => {
+describe('controllers/login.ts', () => {
   let next;
   let req;
   let res;
@@ -123,7 +122,6 @@ describe('controllers/login.js', () => {
 
     beforeEach(async () => {
       req.query = {'code': 'someCode'};
-
       const getOnlineHearing = sinon.stub().rejects(error);
       const getToken = sinon.stub();
       getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': 'someAccessToken'});
@@ -154,7 +152,7 @@ describe('#setupLoginController', () => {
   });
 
   afterEach(() => {
-    express.Router.restore();
+    (express.Router as sinon.SinonStub).restore();
   });
 
   it('sets up GET login', () => {

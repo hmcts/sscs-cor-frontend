@@ -3,7 +3,7 @@ import { setupTaskListController, getTaskList, processDeadline } from 'app/serve
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const moment = require('moment');
 import * as AppInsights from 'app/server/app-insights';
-const express = require('express');
+import * as express from 'express';
 import * as Paths from 'app/server/paths';
 
 /* eslint-disable no-magic-numbers */
@@ -117,7 +117,7 @@ describe('controllers/task-list.js', () => {
     });
 
     afterEach(() => {
-      express.Router.restore();
+      (express.Router as sinon.SinonStub).restore();
     });
 
     it('calls router.get with the path and middleware', () => {

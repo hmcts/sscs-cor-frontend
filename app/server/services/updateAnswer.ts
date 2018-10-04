@@ -3,7 +3,6 @@ const request = require('superagent');
 
 const apiUrl = config.get('api.url');
 
-
 function buildAnswerUrl(hearingId, questionId) {
   return `${apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`;
 }
