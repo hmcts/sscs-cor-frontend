@@ -1,7 +1,7 @@
 import { extendDeadline } from 'app/server/paths';
 import { BasePage } from 'test/page-objects/base';
 
-export class ExtendIndexPage extends BasePage {
+export class ExtendDeadlinePage extends BasePage {
   constructor(page) {
     super(page);
     this.pagePath = extendDeadline;
@@ -15,8 +15,11 @@ export class ExtendIndexPage extends BasePage {
     await this.clickElement(`#extend-deadline-2`);
   }
 
-  async continue() {
-    await this.clickElement(`#submit-button button`);
+  async submit() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      await this.clickElement(`#submit-button button`)
+    ]);
   }
 
 }
