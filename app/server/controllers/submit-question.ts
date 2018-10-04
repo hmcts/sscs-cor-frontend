@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
-import * as AppInsights from 'app/server/app-insights';
-import * as Paths from 'app/server/paths';
+import * as AppInsights from '../app-insights';
+import * as Paths from '../paths';
 
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 

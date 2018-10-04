@@ -4,7 +4,7 @@ const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 import * as Paths from 'app/server/paths';
-const express = require('express');
+import * as express from 'express';
 
 describe('controllers/submit-question', () => {
   const next = sinon.stub();
@@ -107,7 +107,7 @@ describe('controllers/submit-question', () => {
     });
 
     afterEach(() => {
-      express.Router.restore();
+      (express.Router as sinon.SinonStub).restore();
     });
 
     it('calls router.get with the path and middleware', () => {

@@ -7,7 +7,7 @@ import { TaskListPage } from 'test/page-objects/task-list';
 import { QuestionPage } from 'test/page-objects/question';
 import { SubmitQuestionPage } from 'test/page-objects/submit-question';
 import { QuestionsCompletedPage } from 'test/page-objects/questions-completed';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 import * as Paths from 'app/server/paths';
 const config = require('config');
 import * as moment from 'moment';

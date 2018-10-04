@@ -1,15 +1,15 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import { URL } from 'url';
-import * as AppInsights from 'app/server/app-insights';
-import { Router, Response, Request, NextFunction } from 'express';
+import * as AppInsights from '../app-insights';
+import { Request, Response, NextFunction, Router } from 'express';
 import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
-import * as Paths from 'app/server/paths';
+import * as Paths from '../paths';
+import { OnlineHearing } from '../services/getOnlineHearing';
+import { CONST } from '../../constants'
+import { URL } from 'url';
 
-const i18n = require('app/server/locale/en.json');
+
 const config = require('config');
 import { UserDetails, TokenResponse } from 'app/server/services/idamService';
-import { OnlineHearing } from 'app/server/services/getOnlineHearing';
-import { CONST } from 'app/constants'
 
 import * as superAgent from 'superagent';
 

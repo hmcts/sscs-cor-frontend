@@ -1,6 +1,6 @@
 const { expect } = require('test/chai-sinon');
 import { answerValidation, loginEmailAddressValidation } from 'app/server/utils/fieldValidation.ts';
-const i18n = require('app/server/locale/en');
+const i18n = require('locale/en');
 
 describe('utils/fieldValidation.js', () => {
   describe('answerValidation', () => {

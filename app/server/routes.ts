@@ -1,9 +1,9 @@
 const express = require('express');
-import * as Paths from 'app/server/paths';
-import { ensureAuthenticated } from 'app/server/middleware/ensure-authenticated';
-import { checkDecision } from 'app/server/middleware/check-decision'
-const config = require('config');
+import * as Paths from './paths';
+import { ensureAuthenticated } from './middleware/ensure-authenticated';
+import { checkDecision } from './middleware/check-decision'
 
+const config = require('config');
 const enableDummyLogin: boolean = config.get('enableDummyLogin') === 'true';
 
 import { setupQuestionController } from './controllers/question';
@@ -18,13 +18,13 @@ import { setupDummyLoginController } from './controllers/dummy-login'
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-const getQuestionService = require('app/server/services/getQuestion');
-import * as getAllQuestionsService from 'app/server/services/getAllQuestions';
-import { getOnlineHearing } from 'app/server/services/getOnlineHearing';
-const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('app/server/services/updateAnswer');
-const { getToken, getUserDetails, getRedirectUrl } = require('app/server/services/idamService');
+import { getQuestion as getQuestionService } from './services/getQuestion';
+import * as getAllQuestionsService from './services/getAllQuestions';
+import { getOnlineHearing } from './services/getOnlineHearing';
+const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('./services/updateAnswer');
+const { getToken, getUserDetails, getRedirectUrl } = require('./services/idamService');
 
-import { extendDeadline as extendDeadlineService } from 'app/server/services/extend-deadline';
+import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
 const questionController = setupQuestionController({

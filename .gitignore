@@ -7,9 +7,7 @@ test/coverage
 functional-output/*
 dump.rdb
 .vscode
-app/server/**/*.js
-app/routes.js
-app/constants.js
+dist
 test/accessibility/**/*.js
 test/browser/**/*.js
 test/integration/**/*.js
