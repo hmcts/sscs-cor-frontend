@@ -5,7 +5,8 @@ import { CONST } from '../../constants'
 
 function getDecision(req: Request, res: Response) {
   const hearing: OnlineHearing = req.session.hearing;
-  if (hearing.decision && hearing.decision.decision_state === CONST.DECISION_ISSUED_STATE) {
+  const decisionStates = [CONST.DECISION_ACCEPTED_STATE, CONST.DECISION_REJECTED_STATE];
+  if (hearing.decision && decisionStates.includes(hearing.decision.decision_state)) {
     return res.render('decision.html', { decision: hearing.decision });
   }
   return res.redirect(Paths.logout);

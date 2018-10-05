@@ -5,6 +5,7 @@ const mockData = require('test/mock/cor-backend/services/hearing').template;
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
+import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 const i18n = require('locale/en');
 
 describe('Login page', () => {
@@ -12,6 +13,7 @@ describe('Login page', () => {
   let loginPage;
   let taskListPage;
   let decisionPage;
+  let tribunalViewPage;
 
   before(async() => {
     const res = await startServices();
@@ -19,6 +21,7 @@ describe('Login page', () => {
     loginPage = new LoginPage(page);
     taskListPage = new TaskListPage(page);
     decisionPage = new DecisionPage(page);
+    tribunalViewPage = new TribunalViewPage(page);
   });
 
   after(async() => {
@@ -85,13 +88,22 @@ describe('Login page', () => {
     expect(deadlineStatus).to.equal(i18n.taskList.deadline.completed);
   });
 
+  it('displays the tribunal view page', async() => {
+    await loginPage.visitPage();
+    await loginPage.login('view.issued@example.com');
+    await loginPage.screenshot('tribunal-view-issued-login');
+    tribunalViewPage.verifyPage();
+    expect(await tribunalViewPage.getHeading()).to.equal(i18n.tribunalView.header);
+    expect(await tribunalViewPage.getElementText('#decision-text')).to.equal('The final decision is this.');
+  });
+
   it('displays the decision page with appeal upheld', async() => {
     await loginPage.visitPage();
     await loginPage.login('appeal.upheld@example.com');
     await loginPage.screenshot('decision-appeal-upheld-login');
     decisionPage.verifyPage();
-    expect(await decisionPage.getHeading()).to.equal(i18n.decision.header);
-    expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.decision.outcome['appeal-upheld']);
+    expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
+    expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.tribunalDecision.outcome.decision_accepted);
     expect(await decisionPage.getElementText('#decision-text')).to.equal('The final decision is this.');
   });
 
@@ -100,8 +112,8 @@ describe('Login page', () => {
     await loginPage.login('appeal.denied@example.com');
     await loginPage.screenshot('decision-denied-upheld-login');
     decisionPage.verifyPage();
-    expect(await decisionPage.getHeading()).to.equal(i18n.decision.header);
-    expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.decision.outcome['appeal-denied']);
+    expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
+    expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.tribunalDecision.outcome.decision_rejected);
     expect(await decisionPage.getElementText('#decision-text')).to.equal('The final decision is this.');
   });
 

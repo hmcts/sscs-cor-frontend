@@ -4,9 +4,7 @@ import { Request, Response, NextFunction, Router } from 'express';
 import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import * as Paths from '../paths';
 import { OnlineHearing } from '../services/getOnlineHearing';
-import { CONST } from '../../constants'
 import { URL } from 'url';
-
 
 const config = require('config');
 import { UserDetails, TokenResponse } from 'app/server/services/idamService';
@@ -85,10 +83,6 @@ async function loadHearingAndEnterService(
   const hearing: OnlineHearing = response.body;
   req.session.hearing = hearing;
   logger.info(`Logging in ${email}`);
-  if (hearing.decision && hearing.decision.decision_state === CONST.DECISION_ISSUED_STATE) {
-    logger.info(`Decision issued for hearing with ID ${hearing.online_hearing_id}`);
-    return res.redirect(Paths.decision);
-  }
   return res.redirect(Paths.taskList);
 }
 
