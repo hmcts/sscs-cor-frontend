@@ -3,7 +3,6 @@ import * as AppInsights from '../app-insights';
 import { Request, Response, NextFunction, Router } from 'express';
 import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import * as Paths from '../paths';
-import { OnlineHearing } from '../services/getOnlineHearing';
 import { URL } from 'url';
 
 const config = require('config');
@@ -14,8 +13,24 @@ import * as superAgent from 'superagent';
 const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
 const idamClientId: string = config.get('idam.client.id');
+const enableDummyLogin = config.get('enableDummyLogin') === 'true';
 
-function getLogin(getRedirectUrl: (protocol: string, hostname: string) => string, idamPath: string) {
+function redirectToLogin(req: Request, res: Response) {
+    return res.redirect(Paths.login);
+}
+
+function getLogout(req: Request, res: Response) {
+  const sessionId: string = req.session.id;
+  req.session.destroy(error => {
+    if (error) {
+      logger.error(`Error destroying session ${sessionId}`);
+    }
+    logger.info(`Session destroyed ${sessionId}`);
+    return res.redirect(Paths.login);
+  });
+}
+
+function redirectToIdam(idamPath: string, getRedirectUrl: (protocol: string, hostname: string) => string) {
   return (req: Request, res: Response) => {
     const idamUrl: URL = new URL(idamUrlString);
     idamUrl.pathname = idamPath;
@@ -30,28 +45,17 @@ function getLogin(getRedirectUrl: (protocol: string, hostname: string) => string
   }
 }
 
-function getLogout(req: Request, res: Response) {
-  const sessionId: string = req.session.id;
-  req.session.destroy(error => {
-    if (error) {
-      logger.error(`Error destroying session ${sessionId}`);
-    }
-    logger.info(`Session destroyed ${sessionId}`);
-    return res.redirect(Paths.login);
-  });
-}
-
 function getIdamCallback(
+  redirectToIdam: (req: Request, res: Response) => void,
   getToken: (code: string, protocol: string, hostname: string) => TokenResponse,
   getUserDetails: (accessToken: string) => UserDetails,
-  getOnlineHearing: (email:string) => superAgent.Response,
-  getRedirectUrl: (protocol: string, hostname: string) => string) {
+  getOnlineHearing: (email:string) => superAgent.Response) {
   return async (req: Request, res: Response, next: NextFunction) => {
 
     const code: string = req.query.code;
 
     if (!code) {
-      return getLogin(getRedirectUrl, '/login')(req, res);
+      return redirectToIdam(req, res);
     }
 
     try {
@@ -62,6 +66,23 @@ function getIdamCallback(
       const email: string = userDetails.email;
 
       return await loadHearingAndEnterService(getOnlineHearing, email, req, res)
+    } catch (error) {
+      AppInsights.trackException(error);
+      return next(error);
+    }
+  };
+}
+
+function getDummyLogin(req: Request, res: Response) {
+  return res.render('dummy-login.html');
+}
+
+function postDummyLogin(getOnlineHearing) {
+  return async(req: Request, res: Response, next: NextFunction) => {
+    const email: string = req.body['username'];
+
+    try {
+      return loadHearingAndEnterService(getOnlineHearing, email, req, res);
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
@@ -80,8 +101,7 @@ async function loadHearingAndEnterService(
 
     return res.render('email-not-found.html');
   }
-  const hearing: OnlineHearing = response.body;
-  req.session.hearing = hearing;
+  req.session.hearing = response.body;
   logger.info(`Logging in ${email}`);
   return res.redirect(Paths.taskList);
 }
@@ -89,17 +109,24 @@ async function loadHearingAndEnterService(
 function setupLoginController(deps) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(Paths.login, getLogin(deps.getRedirectUrl, '/login'));
-  router.get(Paths.register, getLogin(deps.getRedirectUrl, '/users/selfRegister'));
+  router.get(Paths.login, getIdamCallback(redirectToIdam('/login', deps.getRedirectUrl), deps.getToken, deps.getUserDetails, deps.getOnlineHearing));
+  router.get(Paths.register, redirectToIdam('/users/selfRegister', deps.getRedirectUrl));
   router.get(Paths.logout, getLogout);
-  router.get(Paths.idamCallback, getIdamCallback(deps.getToken, deps.getUserDetails, deps.getOnlineHearing, deps.getRedirectUrl));
+
+  if (enableDummyLogin) {
+    router.get(Paths.dummyLogin, getDummyLogin);
+    router.post(Paths.dummyLogin, postDummyLogin(deps.getOnlineHearing));
+  }
+
   return router;
 }
 
 export {
   setupLoginController,
-  getLogin,
+  redirectToLogin,
+  redirectToIdam,
   getLogout,
   getIdamCallback,
-  loadHearingAndEnterService
+  getDummyLogin,
+  postDummyLogin
 };

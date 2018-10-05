@@ -13,12 +13,12 @@ describe('services/idamService.js', () => {
   describe('getRedirectUrl', () => {
     it('adds port for localhost', () => {
       const redirectUrl = getRedirectUrl('http', 'localhost');
-      expect(redirectUrl).to.be.eql(`http://localhost:${appPort}/oauth2/callback`);
+      expect(redirectUrl).to.be.eql(`http://localhost:${appPort}/sign-in`);
     });
 
     it('does not add port for remote host', () => {
       const redirectUrl = getRedirectUrl('http', 'example.com');
-      expect(redirectUrl).to.be.eql('http://example.com/oauth2/callback');
+      expect(redirectUrl).to.be.eql('http://example.com/sign-in');
     });
   });
 
