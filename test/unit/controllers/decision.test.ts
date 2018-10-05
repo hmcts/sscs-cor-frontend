@@ -3,6 +3,7 @@ const { expect, sinon } = require('test/chai-sinon');
 const { setupDecisionController, getDecision } = require('app/server/controllers/decision.ts');
 const express = require('express');
 import * as Paths from 'app/server/paths';
+import * as moment from 'moment';
 
 describe('controllers/decision.js', () => {
   let req: any;
@@ -20,7 +21,8 @@ describe('controllers/decision.js', () => {
         decision_reason: 'Decision reasons',
         decision_text: 'Decision reasons',
         decision_state: 'decision_accepted',
-    }
+        decision_state_datetime: moment().utc().format()
+      }
     };
     req = {
       session: {
