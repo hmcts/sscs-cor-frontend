@@ -1,26 +1,60 @@
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ i18n.tribunalView.header }}</h1>
-            {% include "includes/appellant-details.html" %}
-        </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">{{ i18n.tribunalView.header }}</h1>
+      {% include "includes/appellant-details.html" %}
     </div>
+  </div>
 
-    {% include "includes/divider.html" %}
+  {% include "includes/divider.html" %}
 
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div id="decision">
-                <div id="decision-reason">
-                    <h2 class="govuk-heading-m">{{ i18n.tribunalView.reasonsHeader }}</h2>
-                    <p id="decision-text">{{ decision.decision_text }}</p>
-                </div>
-            </div>
-
-            {% include "includes/contact.html" %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div id="decision">
+        <div id="decision-reason">
+          <h2 class="govuk-heading-m">{{ i18n.tribunalView.reasonsHeader }}</h2>
+          <p id="decision-text">{{ decision.decision_text }}</p>
         </div>
+      </div>
+
+      <h2 class="govuk-heading-m">{{ i18n.tribunalView.whatNextHeader }}</h2>
+      <p>{{ i18n.tribunalView.whatNextPara }}</p>
+
+      <form action="/todo" method="post">
+        {{ govukRadios({
+            classes: "govuk-radios",
+            idPrefix: "accept-view",
+            name: "accept-view",
+            fieldset: {
+              legend: {
+                text: i18n.tribunalView.accpetHeader,
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: [
+              {
+                value: "yes",
+                text: i18n.tribunalView.accpetYes
+              },
+              {
+                value: "no",
+                text: i18n.tribunalView.accpetNo
+              }
+            ]
+          }) 
+        }}
+        <p>{{ i18n.tribunalView.acceptRespondBy | eval | date }}</p>
+        {{ govukButton({
+          text: i18n.general.continue
+        }) }}
+      </form>
+      {% include "includes/contact.html" %}
     </div>
+  </div>
 
 {% endblock %}
