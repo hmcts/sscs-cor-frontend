@@ -117,10 +117,13 @@
     "reasonsHeader": "Reasons for the tribunal’s view",
     "whatNextHeader": "What happens next",
     "whatNextPara": "You can accept the view or if you feel the view is wrong you can have a face to face hearing.",
-    "accpetHeader": "Do you accept this view?",
-    "accpetYes": "I accept the tribunal’s view",
-    "accpetNo": "I want a hearing",
-    "acceptRespondBy": "You have to respond to this question by {{ respondBy }}. If you don’t respond we will assume you are accepting the view and it will be sent to you."
+    "acceptHeader": "Do you accept this view?",
+    "acceptYes": "I accept the tribunal’s view",
+    "acceptNo": "I want a hearing",
+    "acceptRespondBy": "You have to respond to this question by {{ respondBy }}. If you don’t respond we will assume you are accepting the view and it will be sent to you.",
+    "error": {
+      "empty": "You must accept the tribunal's view or request a hearing."
+    }
   },
   "tribunalViewAccepted": {
     "header": "You have accepted the tribunal’s view",
