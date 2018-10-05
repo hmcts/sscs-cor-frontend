@@ -2,10 +2,9 @@ import * as request from 'superagent';
 import * as AppInsights from "../app-insights";
 require('superagent-proxy')(request);
 const config = require('config');
-
+import * as Paths from 'app/server/paths';
 
 const appPort = config.get('node.port');
-
 const apiUrl = config.get('idam.api-url');
 const appSecret = config.get('idam.client.secret');
 const httpProxy = config.get('httpProxy');
@@ -61,7 +60,7 @@ function makeProxiedRequest(request: ProxyRequest): request.Request {
 
 function getRedirectUrl(protocol: string, host: string): string {
   const portString = (host == 'localhost') ? ':' + appPort : '';
-  return protocol + "://" + host + portString + '/oauth2/callback';
+  return protocol + "://" + host + portString + Paths.login;
 }
 
 export {
