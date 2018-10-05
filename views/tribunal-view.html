@@ -1,10 +1,21 @@
 {% from "radios/macro.njk" import govukRadios %}
 {% from "button/macro.njk" import govukButton %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      {% if error %}
+        {{ govukErrorSummary({
+          titleText: i18n.question.textareaField.error.summaryHeading,
+          errorList: [{
+            text: error,
+            href: "#accept-view-1"
+          }]
+        }) }}
+      {% endif %}
+
       <h1 class="govuk-heading-l">{{ i18n.tribunalView.header }}</h1>
       {% include "includes/appellant-details.html" %}
     </div>
@@ -24,14 +35,14 @@
       <h2 class="govuk-heading-m">{{ i18n.tribunalView.whatNextHeader }}</h2>
       <p>{{ i18n.tribunalView.whatNextPara }}</p>
 
-      <form action="/todo" method="post">
+      <form action="/tribunal-view" method="post">
         {{ govukRadios({
             classes: "govuk-radios",
             idPrefix: "accept-view",
             name: "accept-view",
             fieldset: {
               legend: {
-                text: i18n.tribunalView.accpetHeader,
+                text: i18n.tribunalView.acceptHeader,
                 isPageHeading: false,
                 classes: "govuk-fieldset__legend--m"
               }
@@ -39,19 +50,26 @@
             items: [
               {
                 value: "yes",
-                text: i18n.tribunalView.accpetYes
+                text: i18n.tribunalView.acceptYes
               },
               {
                 value: "no",
-                text: i18n.tribunalView.accpetNo
+                text: i18n.tribunalView.acceptNo
               }
-            ]
+            ],
+            errorMessage: {
+              text: error
+            } if error
           }) 
         }}
         <p>{{ i18n.tribunalView.acceptRespondBy | eval | date }}</p>
-        {{ govukButton({
-          text: i18n.general.continue
-        }) }}
+        <div id="submit-button">
+          {{
+            govukButton({
+            text: i18n.general.continue
+            })
+          }}
+        </div>
       </form>
       {% include "includes/contact.html" %}
     </div>
