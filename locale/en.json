@@ -122,6 +122,14 @@
     "accpetNo": "I want a hearing",
     "acceptRespondBy": "You have to respond to this question by {{ respondBy }}. If you don’t respond we will assume you are accepting the view and it will be sent to you."
   },
+  "tribunalViewAccepted": {
+    "header": "You have accepted the tribunal’s view",
+    "para1": "This view has also been communicated to DWP.",
+    "para2": "If they accept, the decision will be issued and your appeal will be closed.",
+    "para3": "If they request a hearing, you will be asked if you want to attend.",
+    "para4": "You will get an email telling you whether they have accepted the view by {{ nextCorrespondenceDate }}.",
+    "exitService": "Exit service"
+  },
   "tribunalDecision": {
     "header": "The tribunal’s decision on your appeal",
     "outcome": {
