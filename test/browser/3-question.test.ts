@@ -1,5 +1,6 @@
 import { CONST } from 'app/constants';
 const { expect } = require('test/chai-sinon');
+import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
 const mockDataQuestion = require('test/mock/cor-backend/services/question').template;
 const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
@@ -18,7 +19,7 @@ const sampleQuestionIdList = ['001', '002', '003']
 const sampleQuestionOrdinal = '1';
 
 describe('Question page', () => {
-  let page;
+  let page: Page;
   let taskListPage: TaskListPage;
   let questionPage;
   let submitQuestionPage;

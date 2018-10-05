@@ -1,10 +1,11 @@
 const { expect } = require('test/chai-sinon');
+import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
 import { DecisionPage } from 'test/page-objects/decision';
 const i18n = require('locale/en');
 
 describe('Decision page', () => {
-  let page;
+  let page: Page;
   let decisionPage;
 
   before('start services and bootstrap data in CCD/COH', async() => {

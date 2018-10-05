@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-const puppeteer = require('puppeteer');
+import * as puppeteer from 'puppeteer';
+import { Page } from 'puppeteer';
 const { createServer } = require('http');
 const { createSession } = require ('app/server/middleware/session');
 const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
@@ -83,7 +84,7 @@ async function startServices(options?) {
   }
   await startAppServer();
   await startBrowser();
-  const page = await browser.newPage();
+  const page: Page = await browser.newPage();
   await page.setViewport({
     height: 700,
     width: 1100
