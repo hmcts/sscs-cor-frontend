@@ -1,7 +1,9 @@
 const { expect } = require('test/chai-sinon');
+import { CONST } from 'app/constants';
 import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
+import * as moment from 'moment';
 const i18n = require('locale/en');
 
 describe('Tribunal view page', () => {
@@ -30,5 +32,7 @@ describe('Tribunal view page', () => {
     expect(reasonHeader).to.equal(i18n.tribunalView.reasonsHeader);
     const reasons = await tribunalViewPage.getElementText('#decision-text');
     expect(reasons).to.not.be.null;
+    const respondBy = await tribunalViewPage.getElementText('form p');
+    expect(respondBy).to.contain(`${moment().utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
   });
 });

@@ -3,6 +3,7 @@ const { expect, sinon } = require('test/chai-sinon');
 const { getTribunalView, setupTribunalViewController } = require('app/server/controllers/tribunal-view');
 const express = require('express');
 import * as Paths from 'app/server/paths';
+import * as moment from 'moment';
 
 describe('controllers/tribunal-view', () => {
   let req: any;
@@ -20,6 +21,7 @@ describe('controllers/tribunal-view', () => {
         decision_reason: 'Decision reasons',
         decision_text: 'Decision reasons',
         decision_state: 'decision_issued',
+        decision_state_datetime: moment().utc().format()
     }
     };
     req = {
@@ -36,7 +38,8 @@ describe('controllers/tribunal-view', () => {
   describe('getTribunalView', () => {
     it('renders tribunal view page with issued decision', async() => {
       await getTribunalView(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision });
+      const respondBy = moment.utc(req.session.hearing.decision.decision_state_datetime).add(7, 'day').format();
+      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy });
     });
 
     it('redirects to /logout if decision is not issued', async() => {

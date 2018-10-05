@@ -22,8 +22,8 @@ const router = express.Router();
 import { getQuestion as getQuestionService } from './services/getQuestion';
 import * as getAllQuestionsService from './services/getAllQuestions';
 import { getOnlineHearing } from './services/getOnlineHearing';
-const { saveAnswer: saveAnswerService, submitAnswer: submitAnswerService } = require('./services/updateAnswer');
-const { getToken, getUserDetails, getRedirectUrl } = require('./services/idamService');
+import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
+import { getToken, getUserDetails, getRedirectUrl } from './services/idamService';
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
