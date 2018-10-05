@@ -1,4 +1,6 @@
 export namespace CONST {
   export const DATE_FORMAT: string = 'D MMMM YYYY'
-  export const DECISION_ISSUED_STATE: string = 'decision_issued'
+  export const TRIBUNAL_VIEW_ISSUED_STATE: string = 'decision_issued'
+  export const DECISION_ACCEPTED_STATE: string = 'decision_accepted'
+  export const DECISION_REJECTED_STATE: string = 'decision_rejected'
 }

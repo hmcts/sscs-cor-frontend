@@ -10,3 +10,4 @@ export const completed = '/questions-completed';
 export const extendDeadline = '/extend-deadline';
 export const idamCallback = '/oauth2/callback';
 export const decision = '/decision';
+export const tribunalView = '/tribunal-view';

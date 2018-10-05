@@ -87,34 +87,6 @@ describe('controllers/login.ts', () => {
         expect(res.redirect).to.have.been.calledWith(Paths.taskList);
       });
     });
-
-    describe('after decision issued', () => {
-      beforeEach(async () => {
-        req.query = {'code': 'someCode'};
-
-        const getToken = sinon.stub();
-        getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': 'someAccessToken'});
-        const getUserDetails = sinon.stub();
-        getUserDetails.withArgs('someAccessToken').resolves({'email': 'someEmail@example.com'});
-        const hearingWithDecision = {
-          ...hearingDetails,
-          decision: {
-            decision_award: 'FINAL',
-            decision_header: 'Decision header',
-            decision_reason: 'Decision reason',
-            decision_text: 'Decision test',
-            decision_state: 'decision_issued',
-          }
-        };
-        getOnlineHearing = sinon.stub().resolves({body: hearingWithDecision});
-
-        await getIdamCallback(getToken, getUserDetails, getOnlineHearing, () => "http://localhost/redirect_url")(req, res, next);
-      });
-
-      it('redirects to decision page if issued decision exists', () => {
-        expect(res.redirect).to.have.been.calledWith(Paths.decision);
-      });
-    });
   });
 
   describe('on error', () => {

@@ -79,7 +79,7 @@ async function startServices(options?) {
     cohTestData = bootstrapResult.cohTestData;
   }
   if (opts.issueDecision) {
-    const hearingId = (cohTestData && cohTestData.hearingId) || '4-appeal-upheld';
+    const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
     await createAndIssueDecision(hearingId);
   }
   await startAppServer();
