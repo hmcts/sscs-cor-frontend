@@ -210,6 +210,13 @@
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@types/nunjucks/-/nunjucks-3.1.0.tgz#fdc2fce6f4d8046f7df88f06f32c9842aabdfa46"
 
+"@types/puppeteer@^1.6.4":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-1.6.4.tgz#c3b27b72241c782053f21e3996edad561e31db9a"
+  dependencies:
+    "@types/events" "*"
+    "@types/node" "*"
+
 "@types/range-parser@*":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.2.tgz#fa8e1ad1d474688a757140c91de6dace6f4abc8d"

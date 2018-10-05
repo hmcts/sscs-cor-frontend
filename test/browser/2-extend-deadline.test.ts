@@ -1,5 +1,6 @@
 import { CONST } from 'app/constants';
 const { expect } = require('test/chai-sinon');
+import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
 const i18n = require('locale/en');
@@ -11,7 +12,7 @@ import * as moment from 'moment';
 const testUrl = config.get('testUrl');
 
 describe('Extend deadline', () => {
-  let page;
+  let page: Page;
   let taskListPage: TaskListPage;
   let extendDeadlinePage: ExtendDeadlinePage;
 
