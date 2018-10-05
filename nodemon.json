@@ -1,5 +1,5 @@
 {
-    "watch": ["app/"],
+    "watch": ["app/", "views/", "locale/"],
     "ext": "ts,js,json,html",
     "exec": "ts-node ./app/server/server.ts"
   }

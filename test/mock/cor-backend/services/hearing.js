@@ -1,5 +1,6 @@
 const { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const cache = require('memory-cache');
+const moment = require('moment');
 
 const emailToResCodeMap = {
   'not.found@example.com': NOT_FOUND,
@@ -29,7 +30,8 @@ const createDecision = email => {
       decision_header: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
       decision_reason: 'The final decision is this.',
       decision_text: 'The final decision is this.',
-      decision_state: decisionState
+      decision_state: decisionState,
+      decision_state_datetime: moment().utc().format()
     };
   }
   return null;

@@ -9,7 +9,8 @@ interface OnlineHearingDecision {
   decision_header: string
   decision_reason: string
   decision_text: string
-  decision_state: string
+  decision_state: string,
+  decision_state_datetime: string
 }
 
 export interface OnlineHearing {

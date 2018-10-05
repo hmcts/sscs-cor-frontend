@@ -114,7 +114,13 @@
   },
   "tribunalView": {
     "header": "The tribunal’s view on your appeal",
-    "reasonsHeader": "Reasons for the tribunal’s view"
+    "reasonsHeader": "Reasons for the tribunal’s view",
+    "whatNextHeader": "What happens next",
+    "whatNextPara": "You can accept the view or if you feel the view is wrong you can have a face to face hearing.",
+    "accpetHeader": "Do you accept this view?",
+    "accpetYes": "I accept the tribunal’s view",
+    "accpetNo": "I want a hearing",
+    "acceptRespondBy": "You have to respond to this question by {{ respondBy }}. If you don’t respond we will assume you are accepting the view and it will be sent to you."
   },
   "tribunalDecision": {
     "header": "The tribunal’s decision on your appeal",
