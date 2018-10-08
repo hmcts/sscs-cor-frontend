@@ -1,6 +1,6 @@
-import {getRedirectUrl, getToken, getUserDetails} from 'app/server/services/idamService.ts';
+import {getRedirectUrl, getToken, deleteToken, getUserDetails} from 'app/server/services/idamService.ts';
 const {expect} = require('test/chai-sinon');
-import {INTERNAL_SERVER_ERROR, OK} from 'http-status-codes';
+import {INTERNAL_SERVER_ERROR, OK, NO_CONTENT} from 'http-status-codes';
 
 const nock = require('nock');
 const config = require('config');
@@ -99,6 +99,41 @@ describe('services/idamService.js', () => {
 
       it('rejects the promise with the error', () => (
         expect(getToken(code, protocol, host)).to.be.rejectedWith(error)
+      ));
+    });
+  });
+
+  describe('deleteToken', () => {
+    const token: string = 'someToken';
+    const path: string = `/session/${token}`;
+
+    describe('resolving the promise', () => {
+      beforeEach(() => {
+        nock(apiUrl)
+          .delete(path)
+          .basicAuth({
+            user: 'sscs-cor',
+            pass: appSecret
+          })
+          .reply(NO_CONTENT);
+      });
+
+      it('resolves the promise', () => (
+        expect(deleteToken(token)).to.be.fulfilled
+      ));
+    });
+
+    describe('rejecting the promise', () => {
+      const error = {value: INTERNAL_SERVER_ERROR, reason: 'Server Error'};
+
+      beforeEach(() => {
+        nock(apiUrl)
+          .delete(path)
+          .replyWithError(error);
+      });
+
+      it('rejects the promise with the error', () => (
+        expect(deleteToken(token)).to.be.rejectedWith(error)
       ));
     });
   });

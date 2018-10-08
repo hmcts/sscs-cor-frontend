@@ -19,15 +19,23 @@ function redirectToLogin(req: Request, res: Response) {
     return res.redirect(Paths.login);
 }
 
-function getLogout(req: Request, res: Response) {
-  const sessionId: string = req.session.id;
-  req.session.destroy(error => {
-    if (error) {
-      logger.error(`Error destroying session ${sessionId}`);
+function getLogout(deleteToken: (accessToken: string) => void) {
+  return async (req: Request, res: Response) => {
+    try {
+      await deleteToken(req.session.accessToken);
+    } catch (error) {
+      AppInsights.trackException(error);
     }
-    logger.info(`Session destroyed ${sessionId}`);
-    return res.redirect(Paths.login);
-  });
+
+    const sessionId: string = req.session.id;
+    req.session.destroy(error => {
+      if (error) {
+        logger.error(`Error destroying session ${sessionId}`);
+      }
+      logger.info(`Session destroyed ${sessionId}`);
+      return res.redirect(Paths.login);
+    });
+  }
 }
 
 function redirectToIdam(idamPath: string, getRedirectUrl: (protocol: string, hostname: string) => string) {
@@ -63,9 +71,9 @@ function getIdamCallback(
       const userDetails: UserDetails = await getUserDetails(tokenResponse.access_token);
       // todo Maybe need to check userDetails.accountStatus is 'active' and userDetails.roles contains 'citizen' on userDetails
 
-      const email: string = userDetails.email;
+      req.session.accessToken = tokenResponse.access_token;
 
-      return await loadHearingAndEnterService(getOnlineHearing, email, req, res)
+      return await loadHearingAndEnterService(getOnlineHearing, userDetails.email, req, res)
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
@@ -111,7 +119,7 @@ function setupLoginController(deps) {
   const router = Router();
   router.get(Paths.login, getIdamCallback(redirectToIdam('/login', deps.getRedirectUrl), deps.getToken, deps.getUserDetails, deps.getOnlineHearing));
   router.get(Paths.register, redirectToIdam('/users/selfRegister', deps.getRedirectUrl));
-  router.get(Paths.logout, getLogout);
+  router.get(Paths.logout, getLogout(deps.deleteToken));
 
   if (enableDummyLogin) {
     router.get(Paths.dummyLogin, getDummyLogin);
