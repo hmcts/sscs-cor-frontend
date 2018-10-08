@@ -1,5 +1,5 @@
 const { expect } = require('test/chai-sinon');
-import { answerValidation, loginEmailAddressValidation } from 'app/server/utils/fieldValidation.ts';
+import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedValidation } from 'app/server/utils/fieldValidation.ts';
 const i18n = require('locale/en');
 
 describe('utils/fieldValidation.js', () => {
@@ -24,6 +24,24 @@ describe('utils/fieldValidation.js', () => {
 
     it('returns false if answer is valid', () => {
       expect(loginEmailAddressValidation('test@example.com')).to.equal(false);
+    });
+  });
+
+  describe('tribunalViewAcceptedValidation', () => {
+    it('returns false if answer is yes', () => {
+      expect(tribunalViewAcceptedValidation('yes')).to.be.false;
+    });
+
+    it('returns false if answer is no', () => {
+      expect(tribunalViewAcceptedValidation('yes')).to.be.false;
+    });
+
+    it('returns empty error message is answer is anything else', () => {
+      expect(tribunalViewAcceptedValidation('not valid')).to.equal(i18n.tribunalView.error.empty);
+    });
+
+    it('returns empty error message is answer is missing', () => {
+      expect(tribunalViewAcceptedValidation(undefined)).to.equal(i18n.tribunalView.error.empty);
     });
   });
 });

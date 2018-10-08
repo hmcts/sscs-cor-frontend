@@ -6,4 +6,19 @@ export class TribunalViewPage extends BasePage {
     super(page);
     this.pagePath = tribunalView;
   }
+
+  async acceptTribunalsView() {
+    await this.clickElement(`#accept-view-1`);
+  }
+
+  async requestHearing() {
+    await this.clickElement(`#accept-view-2`);
+  }
+
+  async submit() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      await this.clickElement(`#submit-button button`)
+    ]);
+  }
 }

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ i18n.tribunalViewAccepted.header }}</h1>
+            <p>{{ i18n.tribunalViewAccepted.para1 }}</p>
+            <p>{{ i18n.tribunalViewAccepted.para2 }}</p>
+            <p>{{ i18n.tribunalViewAccepted.para3 }}</p>
+            <p>{{ i18n.tribunalViewAccepted.para4 | eval | date }}</p>
+            <p>
+                <a class="govuk-link" href="/logout">{{ i18n.tribunalViewAccepted.exitService }}</a>
+            </p>
+
+            {% include "includes/contact.html" %}
+        </div>
+    </div>
+{% endblock %}
