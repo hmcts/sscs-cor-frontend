@@ -15,6 +15,7 @@ import { setupLoginController, getLogin, loadHearingAndEnterService } from './co
 import { setupExtendDeadlineController } from './controllers/extend-deadline';
 import { setupDecisionController } from './controllers/decision';
 import { setupTribunalViewController } from './controllers/tribunal-view';
+import { setupTribunalViewAcceptedController } from './controllers/tribunal-view-accepted'
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -40,6 +41,7 @@ const taskListController = setupTaskListController({ getAllQuestionsService, pre
 const extendDeadlineController = setupExtendDeadlineController({ extendDeadlineService, prereqMiddleware });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated });
+const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const loginController = setupLoginController({ getToken, getUserDetails, getOnlineHearing, getRedirectUrl });
 const dummyLoginController = setupDummyLoginController({ loadHearingAndEnterService, getOnlineHearing });
 
@@ -51,6 +53,7 @@ router.use(taskListController);
 router.use(extendDeadlineController);
 router.use(decisionController);
 router.use(tribunalViewController);
+router.use(tribunalViewAcceptedController);
 if (enableDummyLogin) {
   router.use(dummyLoginController);
 }

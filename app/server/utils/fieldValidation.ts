@@ -42,7 +42,16 @@ function loginEmailAddressValidation(email) {
   return error;
 }
 
+function tribunalViewAcceptedValidation(acceptView) {
+  const allowedValues = ['yes', 'no'];
+  if (!allowedValues.includes(acceptView)) {
+    return i18n.tribunalView.error.empty;
+  }
+  return false;
+}
+
 export {
   answerValidation,
-  loginEmailAddressValidation
+  loginEmailAddressValidation,
+  tribunalViewAcceptedValidation
 };
