@@ -7,7 +7,7 @@ import { OnlineHearing } from '../services/getOnlineHearing';
 import { URL } from 'url';
 
 const config = require('config');
-import { UserDetails, TokenResponse } from 'app/server/services/idamService';
+import { UserDetails, TokenResponse } from '../services/idamService';
 
 import * as superAgent from 'superagent';
 
