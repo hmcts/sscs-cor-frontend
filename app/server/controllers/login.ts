@@ -19,7 +19,7 @@ function redirectToLogin(req: Request, res: Response) {
     return res.redirect(Paths.login);
 }
 
-function getLogout(deleteToken: (accessToken: string) => void) {
+function getLogout(deleteToken: (accessToken: string) => Promise<void>) {
   return async (req: Request, res: Response) => {
     try {
       await deleteToken(req.session.accessToken);
@@ -55,9 +55,9 @@ function redirectToIdam(idamPath: string, getRedirectUrl: (protocol: string, hos
 
 function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
-  getToken: (code: string, protocol: string, hostname: string) => TokenResponse,
-  getUserDetails: (accessToken: string) => UserDetails,
-  getOnlineHearing: (email:string) => superAgent.Response) {
+  getToken: (code: string, protocol: string, hostname: string) => Promise<TokenResponse>,
+  getUserDetails: (accessToken: string) => Promise<UserDetails>,
+  getOnlineHearing: (email:string) => Promise<superAgent.Response>) {
   return async (req: Request, res: Response, next: NextFunction) => {
 
     const code: string = req.query.code;
@@ -90,7 +90,7 @@ function postDummyLogin(getOnlineHearing) {
     const email: string = req.body['username'];
 
     try {
-      return loadHearingAndEnterService(getOnlineHearing, email, req, res);
+      return await loadHearingAndEnterService(getOnlineHearing, email, req, res);
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
@@ -99,7 +99,7 @@ function postDummyLogin(getOnlineHearing) {
 }
 
 async function loadHearingAndEnterService(
-  getOnlineHearing: (email:string) => superAgent.Response,
+  getOnlineHearing: (email:string) => Promise<superAgent.Response>,
   email: string,
   req: Request,
   res: Response) {

@@ -2,7 +2,7 @@ import * as request from 'superagent';
 import * as AppInsights from "../app-insights";
 require('superagent-proxy')(request);
 const config = require('config');
-import * as Paths from 'app/server/paths';
+import * as Paths from '../paths';
 
 const appPort = config.get('node.port');
 const apiUrl = config.get('idam.api-url');
@@ -37,13 +37,13 @@ async function getToken(code: string, protocol: string, host: string): Promise<T
   }
 }
 
-async function deleteToken(token: string): Promise<UserDetails> {
+async function deleteToken(token: string): Promise<void> {
   try {
     const response: request.Response = await makeProxiedRequest(request.delete(`${apiUrl}/session/${token}`) as ProxyRequest)
       .auth('sscs-cor', appSecret)
       .set('Accept', 'application/json');
 
-    return Promise.resolve(response.body);
+    return Promise.resolve();
   } catch (error) {
     AppInsights.trackException(error);
     return Promise.reject(error);
