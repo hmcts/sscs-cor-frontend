@@ -37,6 +37,19 @@ async function getToken(code: string, protocol: string, host: string): Promise<T
   }
 }
 
+async function deleteToken(token: string): Promise<UserDetails> {
+  try {
+    const response: request.Response = await makeProxiedRequest(request.delete(`${apiUrl}/session/${token}`) as ProxyRequest)
+      .auth('sscs-cor', appSecret)
+      .set('Accept', 'application/json');
+
+    return Promise.resolve(response.body);
+  } catch (error) {
+    AppInsights.trackException(error);
+    return Promise.reject(error);
+  }
+}
+
 async function getUserDetails(token: string): Promise<UserDetails> {
   try {
     const response: request.Response = await makeProxiedRequest(request.get(`${apiUrl}/details`) as ProxyRequest)
@@ -65,6 +78,7 @@ function getRedirectUrl(protocol: string, host: string): string {
 
 export {
   getToken,
+  deleteToken,
   getRedirectUrl,
   getUserDetails,
   TokenResponse,

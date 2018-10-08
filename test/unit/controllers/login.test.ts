@@ -46,8 +46,13 @@ describe('controllers/login.ts', () => {
   });
 
   describe('#getLogout', () => {
-    it('destroys the session and redirects to login', () => {
-      getLogout(req, res);
+    it('destroys the session and redirects to login', async () => {
+      req.session.accessToken = 'accessToken';
+      const deleteToken = sinon.stub();
+      deleteToken.withArgs(req.session.accessToken).resolves({});
+
+      await getLogout(deleteToken)(req, res);
+      expect(deleteToken).to.have.been.calledOnce.calledWith(req.session.accessToken);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
     });
@@ -83,12 +88,14 @@ describe('controllers/login.ts', () => {
 
         const redirectToIdam = sinon.stub();
         const getToken = sinon.stub();
-        getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': 'someAccessToken'});
+        let accessToken = 'someAccessToken';
+        getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': accessToken});
         const getUserDetails = sinon.stub();
-        getUserDetails.withArgs('someAccessToken').resolves({'email': 'someEmail@example.com'});
+        getUserDetails.withArgs(accessToken).resolves({'email': 'someEmail@example.com'});
         getOnlineHearing = sinon.stub().resolves({body: hearingDetails});
 
         await getIdamCallback(redirectToIdam, getToken, getUserDetails, getOnlineHearing)(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
       });
 
       it('calls the online hearing service', () => {

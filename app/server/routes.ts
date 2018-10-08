@@ -20,7 +20,7 @@ import { getQuestion as getQuestionService } from './services/getQuestion';
 import * as getAllQuestionsService from './services/getAllQuestions';
 import { getOnlineHearing } from './services/getOnlineHearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
-import { getToken, getUserDetails, getRedirectUrl } from './services/idamService';
+import { getToken, getUserDetails, getRedirectUrl, deleteToken } from './services/idamService';
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
@@ -38,7 +38,7 @@ const extendDeadlineController = setupExtendDeadlineController({ extendDeadlineS
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
-const loginController = setupLoginController({ getToken, getUserDetails, getOnlineHearing, getRedirectUrl });
+const loginController = setupLoginController({ getToken, deleteToken, getUserDetails, getOnlineHearing, getRedirectUrl });
 
 router.use(loginController);
 router.use(submitQuestionController);
