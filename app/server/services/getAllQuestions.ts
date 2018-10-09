@@ -31,7 +31,8 @@ function getQuestionIdFromOrdinal(req: Request): string {
     return undefined;
   }
   const questionOrdinal: number = parseInt(req.params.questionOrdinal, 10);
-  const currentQuestion: QuestionSummary = questions.find(q => q.question_ordinal === questionOrdinal);
+  const index = questionOrdinal - 1;
+  const currentQuestion: QuestionSummary = questions[index];
   if (!currentQuestion) {
     return undefined;
   }
