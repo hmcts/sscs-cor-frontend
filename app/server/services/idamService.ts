@@ -2,10 +2,9 @@ import * as request from 'superagent';
 import * as AppInsights from "../app-insights";
 require('superagent-proxy')(request);
 const config = require('config');
-
+import * as Paths from '../paths';
 
 const appPort = config.get('node.port');
-
 const apiUrl = config.get('idam.api-url');
 const appSecret = config.get('idam.client.secret');
 const httpProxy = config.get('httpProxy');
@@ -38,6 +37,19 @@ async function getToken(code: string, protocol: string, host: string): Promise<T
   }
 }
 
+async function deleteToken(token: string): Promise<void> {
+  try {
+    const response: request.Response = await makeProxiedRequest(request.delete(`${apiUrl}/session/${token}`) as ProxyRequest)
+      .auth('sscs-cor', appSecret)
+      .set('Accept', 'application/json');
+
+    return Promise.resolve();
+  } catch (error) {
+    AppInsights.trackException(error);
+    return Promise.reject(error);
+  }
+}
+
 async function getUserDetails(token: string): Promise<UserDetails> {
   try {
     const response: request.Response = await makeProxiedRequest(request.get(`${apiUrl}/details`) as ProxyRequest)
@@ -61,11 +73,12 @@ function makeProxiedRequest(request: ProxyRequest): request.Request {
 
 function getRedirectUrl(protocol: string, host: string): string {
   const portString = (host == 'localhost') ? ':' + appPort : '';
-  return protocol + "://" + host + portString + '/oauth2/callback';
+  return protocol + "://" + host + portString + Paths.login;
 }
 
 export {
   getToken,
+  deleteToken,
   getRedirectUrl,
   getUserDetails,
   TokenResponse,
