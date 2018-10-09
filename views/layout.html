@@ -9,6 +9,20 @@
     {% include "includes/head.html" %}
 {% endblock %}
 
+{% block header %}
+    {{
+        govukHeader({
+            "navigation": [
+                {
+                "href": "/logout",
+                "text": "Sign out",
+                "active": true
+                }
+            ]
+        })
+    }}
+{% endblock %}
+
 {% block beforeContent %}
     {{ govukPhaseBanner({
         tag: {

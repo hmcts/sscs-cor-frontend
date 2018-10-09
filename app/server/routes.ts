@@ -3,15 +3,11 @@ import * as Paths from './paths';
 import { ensureAuthenticated } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision'
 
-const config = require('config');
-const enableDummyLogin: boolean = config.get('enableDummyLogin') === 'true';
-
 import { setupQuestionController } from './controllers/question';
 import { setupSubmitQuestionController } from './controllers/submit-question';
 import { setupQuestionsCompletedController } from './controllers/questions-completed';
 import { setupTaskListController } from './controllers/task-list';
-import { setupDummyLoginController } from './controllers/dummy-login'
-import { setupLoginController, getLogin, loadHearingAndEnterService } from './controllers/login';
+import { setupLoginController, redirectToLogin } from './controllers/login';
 import { setupExtendDeadlineController } from './controllers/extend-deadline';
 import { setupDecisionController } from './controllers/decision';
 import { setupTribunalViewController } from './controllers/tribunal-view';
@@ -24,7 +20,7 @@ import { getQuestion as getQuestionService } from './services/getQuestion';
 import * as getAllQuestionsService from './services/getAllQuestions';
 import { getOnlineHearing } from './services/getOnlineHearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
-import { getToken, getUserDetails, getRedirectUrl } from './services/idamService';
+import { getToken, getUserDetails, getRedirectUrl, deleteToken } from './services/idamService';
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
@@ -42,8 +38,7 @@ const extendDeadlineController = setupExtendDeadlineController({ extendDeadlineS
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
-const loginController = setupLoginController({ getToken, getUserDetails, getOnlineHearing, getRedirectUrl });
-const dummyLoginController = setupDummyLoginController({ loadHearingAndEnterService, getOnlineHearing });
+const loginController = setupLoginController({ getToken, deleteToken, getUserDetails, getOnlineHearing, getRedirectUrl });
 
 router.use(loginController);
 router.use(submitQuestionController);
@@ -54,9 +49,6 @@ router.use(extendDeadlineController);
 router.use(decisionController);
 router.use(tribunalViewController);
 router.use(tribunalViewAcceptedController);
-if (enableDummyLogin) {
-  router.use(dummyLoginController);
-}
-router.get('/', getLogin);
+router.get('/', redirectToLogin);
 
 export { router };
