@@ -42,12 +42,12 @@ module.exports = {
         answer_state: answerState('001', params.onlineHearingId)
       }, {
         question_id: '002',
-        question_ordinal: 2,
+        question_ordinal: 1,
         question_header_text: questionData['002'].header,
         answer_state: answerState('002', params.onlineHearingId)
       }, {
         question_id: '003',
-        question_ordinal: 3,
+        question_ordinal: 1,
         question_header_text: questionData['003'].header,
         answer_state: answerState('003', params.onlineHearingId)
       }
