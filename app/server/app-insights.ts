@@ -7,6 +7,7 @@ export const enable = () => {
 };
 
 export const trackException = exception => {
-  console.log(exception)
+  // tslint:disable-next-line: no-console
+  console.log(exception);
   applicationInsights.defaultClient.trackException({ exception });
 };

@@ -1,19 +1,19 @@
-import { Request } from 'express'
+import { Request } from 'express';
 const config = require('config');
 const request = require('superagent');
 
 const apiUrl = config.get('api.url');
 
 interface QuestionSummary {
-  question_id: string,
-  question_ordinal: number,
-  question_header_text: string,
-  answer_state: string
+  question_id: string;
+  question_ordinal: number;
+  question_header_text: string;
+  answer_state: string;
 }
 
 interface QuestionRound {
-  deadline_expiry_date: string
-  questions: QuestionSummary[]
+  deadline_expiry_date: string;
+  questions: QuestionSummary[];
 }
 
 async function getAllQuestions(hearingId): Promise<QuestionRound> {
@@ -42,4 +42,4 @@ function getQuestionIdFromOrdinal(req: Request): string {
 export {
   getAllQuestions,
   getQuestionIdFromOrdinal
-}
+};
