@@ -1,18 +1,14 @@
-import { hearingConfirm } from 'app/server/paths';
+import { hearingWhy } from 'app/server/paths';
 import { BasePage } from 'test/page-objects/base';
 
-export class HearingConfirmPage extends BasePage {
+export class HearingWhyPage extends BasePage {
   constructor(page) {
     super(page);
-    this.pagePath = hearingConfirm;
+    this.pagePath = hearingWhy;
   }
 
-  async clickYes() {
-    await this.clickElement(`#new-hearing-1`);
-  }
-
-  async clickNo() {
-    await this.clickElement(`#new-hearing-2`);
+  async giveReasonWhy(reason) {
+    await this.enterTextintoField('#explain-why', reason);  
   }
 
   async submit() {

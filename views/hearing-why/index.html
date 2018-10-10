@@ -5,15 +5,19 @@
 
 {% block beforeContent %}
   {{ super() }}
+  {% if not submitted %}
   <a href="/tribunal-view" class="govuk-back-link">{{ i18n.general.back }}</a>
+  {% endif %}
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
 
-      {% if error %}
-        {{ govukErrorSummary({
+  {% if not submitted %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        {% if error %}
+          {{ govukErrorSummary({
             titleText: i18n.hearingWhy.error.summaryHeading,
             errorList: [{
                 text: error,
@@ -21,28 +25,22 @@
             }]
           }) 
         }}
-      {% endif %}
+        {% endif %}
 
-      <form action="/hearing-why" method="post">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ i18n.hearingWhy.header }}</h1>
-            <form action="/todo" method="post">
-              {{ govukTextarea({
-                name: "explain-why",
-                id: "explain-why"
-              }) }}
+        {% include "hearing-why/form.html" %}
 
-            </form>
-          </div>
-        </div>
-        <div id="submit-buttons">
-          {{ govukButton({
-                text: i18n.general.continue
-              }) }}
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
-  {% include "includes/contact.html" %}
+    {% include "includes/contact.html" %}
+
+  {% else %}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% include "hearing-why/booking.html" %}
+      </div>
+    </div>
+
+  {% endif %}
+
 {% endblock %}

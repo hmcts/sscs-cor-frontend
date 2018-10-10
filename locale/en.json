@@ -156,6 +156,13 @@
       "summaryHeading": "There is a problem",
       "empty": "You have not entered any information so you cannot submit your request for a hearing. Enter some information before saving.",
       "maxCharacters": "You have entered over 10,000 characters. Reduce the amount you have written and try again."
+    },
+    "booking": {
+      "header": "A hearing needs to be booked for your appeal",
+      "para1": "You'll receive an email with the details of your hearing by {{ responseDate }}.",
+      "para2": "If you require a hearing room with disabled access or any other support then please email the tribunal at ",
+      "para3": "Include your appeal reference number on any emails to the tribunal:",
+      "contactEmail": "benefitappeals@thmcts.net"
     }
   },
   "error": {
@@ -172,7 +179,8 @@
     "no": "No",
     "continue": "Continue",
     "backToQuestions": "Back to questions",
-    "back": "Back"
+    "back": "Back",
+    "exitService": "Exit Service"
   },
   "contact": {
     "summary": "Contact us for help",
