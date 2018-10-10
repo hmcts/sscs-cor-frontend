@@ -46,7 +46,7 @@ describe('Tribunal view page', () => {
       expect(acceptYes).to.equal('yes')
       const acceptNo = await tribunalViewPage.getElementValue('#accept-view-2')
       expect(acceptNo).to.equal('no')
-      const respondBy = await tribunalViewPage.getElementText('form p')
+      const respondBy = await tribunalViewPage.getElementText('form p');
       expect(respondBy).to.contain(`${moment().utc().add(7, 'day').format(CONST.DATE_FORMAT)}`)
     })
 
@@ -63,10 +63,6 @@ describe('Tribunal view page', () => {
         tribunalViewAcceptedPage.verifyPage()
         expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header)
       })
-    })
-
-    describe('requesting a hearing', () => {
-      it('shows the hearing confirm page')
-    })
+    });
   }
 });

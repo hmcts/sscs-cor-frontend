@@ -68,9 +68,11 @@ describe('controllers/hearing-why', () => {
     });
 
     describe('validation passed', () => {
-      it('redirects to hearing booking details page', () => {
+      it('renders the view with hearing booking details', () => {
         postIndex(req, res);
-        expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingBooking);
+        expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html');
+        //  TODO
+        // expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', { submitted: true, hearing: hearingDetails });
       });
     });
   });
