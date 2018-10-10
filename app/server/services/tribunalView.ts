@@ -6,7 +6,7 @@ async function recordTribunalViewResponse(hearingId: string, reply: string, reas
   try {
     const response: request.Response = await request
       .patch(`${apiUrl}/continuous-online-hearings/${hearingId}/tribunal-view`)
-      .send({ reply, reason });
+      .send({ reply, reason: reason ? reason : '' });
     return Promise.resolve();
   } catch (error) {
     return Promise.reject(error);
