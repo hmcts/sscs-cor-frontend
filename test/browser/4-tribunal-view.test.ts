@@ -5,15 +5,16 @@ import { startServices } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 import { TribunalViewAcceptedPage } from 'test/page-objects/tribunal-view-accepted';
 import * as moment from 'moment';
+
 const i18n = require('locale/en');
 
 describe('Tribunal view page', () => {
   let page: Page;
-  let tribunalViewPage;
-  let tribunalViewAcceptedPage;
+  let tribunalViewPage: TribunalViewPage;
+  let tribunalViewAcceptedPage: TribunalViewAcceptedPage;
 
   before('start services and bootstrap data in CCD/COH', async() => {
-    const res = await startServices({ bootstrapData: true, performLogin: true, issueDecision: true });
+    const res = await startServices({ performLogin: true, issueDecision: true });
     page = res.page;
     tribunalViewPage = new TribunalViewPage(page);
     tribunalViewAcceptedPage = new TribunalViewAcceptedPage(page);
@@ -61,7 +62,4 @@ describe('Tribunal view page', () => {
     });
   });
 
-  describe('requesting a hearing', () => {
-    it('shows the hearing confirm page');
-  });
 });

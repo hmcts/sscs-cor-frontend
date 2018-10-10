@@ -11,6 +11,7 @@ import { setupLoginController, redirectToLogin } from './controllers/login';
 import { setupExtendDeadlineController } from './controllers/extend-deadline';
 import { setupDecisionController } from './controllers/decision';
 import { setupTribunalViewController } from './controllers/tribunal-view';
+import { setupHearingConfirmController }  from './controllers/hearing-confirm';
 import { setupTribunalViewAcceptedController } from './controllers/tribunal-view-accepted'
 
 // eslint-disable-next-line new-cap
@@ -38,6 +39,7 @@ const extendDeadlineController = setupExtendDeadlineController({ extendDeadlineS
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
+const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
 const loginController = setupLoginController({ getToken, deleteToken, getUserDetails, getOnlineHearing, getRedirectUrl });
 
 router.use(loginController);
@@ -49,6 +51,7 @@ router.use(extendDeadlineController);
 router.use(decisionController);
 router.use(tribunalViewController);
 router.use(tribunalViewAcceptedController);
+router.use(hearingController);
 router.get('/', redirectToLogin);
 
 export { router };

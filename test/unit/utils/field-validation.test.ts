@@ -1,5 +1,5 @@
 const { expect } = require('test/chai-sinon');
-import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedValidation } from 'app/server/utils/fieldValidation.ts';
+import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedValidation, newHearingAcceptedValidation } from 'app/server/utils/fieldValidation.ts';
 const i18n = require('locale/en');
 
 describe('utils/fieldValidation.js', () => {
@@ -33,7 +33,7 @@ describe('utils/fieldValidation.js', () => {
     });
 
     it('returns false if answer is no', () => {
-      expect(tribunalViewAcceptedValidation('yes')).to.be.false;
+      expect(tribunalViewAcceptedValidation('no')).to.be.false;
     });
 
     it('returns empty error message is answer is anything else', () => {
@@ -44,6 +44,24 @@ describe('utils/fieldValidation.js', () => {
       expect(tribunalViewAcceptedValidation(undefined)).to.equal(i18n.tribunalView.error.empty);
     });
   });
+
+  describe('newHearingAcceptedValidation', () => {
+    it('returns false if answer is yes', () => {
+      expect(newHearingAcceptedValidation('yes')).to.be.false;
+    });
+
+    it('returns false if answer is no', () => {
+      expect(newHearingAcceptedValidation('no')).to.be.false;
+    });
+
+    it('returns empty error message is answer is anything else', () => {
+      expect(newHearingAcceptedValidation('not valid')).to.equal(i18n.hearingConfirm.error.text);
+    });
+
+    it('returns empty error message is answer is missing', () => {
+      expect(newHearingAcceptedValidation(undefined)).to.equal(i18n.hearingConfirm.error.text);
+    });
+  });  
 });
 
 export {};

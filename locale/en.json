@@ -1,6 +1,5 @@
 {
   "pageTitle": "Continuous Online Resolution",
-  "backLink": "Back to questions",
   "phaseBanner": {
     "new": "This is a new service – your",
     "feedback": "feedback",
@@ -26,7 +25,7 @@
       }
     }
   },
-  "emailNotFound":{
+  "emailNotFound": {
     "header": "No case found for email address",
     "body": "The email address you used to login cannot be macthed to a online hearing. This maybe base you are after another service or you have not registered with the email you receive notifications on [REAL CONTENT TO COME]."
   },
@@ -99,7 +98,7 @@
       "header": "You have another week to answer the questions ",
       "para1": "You now have until {{ deadline }} to answer the questions."
     },
-    "contactTribunal":{
+    "contactTribunal": {
       "header": "You need to provide reasons",
       "para1": "You need to contact the tribunal and explain why you need more time.",
       "para2": "Send an email explaining why you need more time and the date you can respond by to:",
@@ -142,6 +141,22 @@
     "reasonsHeader": "Reasons for the tribunal’s decision",
     "postInfo": "A formal decision notice has also been sent to your registered postal address."
   },
+  "hearingConfirm": {
+    "header": "A new tribunal panel will decide your appeal",
+    "para": "A new tribunal panel will make a decision on your appeal. This may be different from the view already given.",
+    "legend": "Do you still want a hearing?",
+    "error": {
+      "title": "There are errors on this page",
+      "text": "You need to say whether you still want a hearing"
+    }
+  },
+  "hearingExplainWhy": {
+    "header": "Explain why you want a hearing",
+    "error": {
+      "title": "There are errors on this page",
+      "text": "You need to say whether you still want a hearing"
+    }
+  },
   "error": {
     "error404": {
       "header": "Sorry, this page could not be found"
@@ -154,7 +169,9 @@
   "general": {
     "yes": "Yes",
     "no": "No",
-    "continue": "Continue"
+    "continue": "Continue",
+    "backToQuestions": "Back to questions",
+    "back": "Back"
   },
   "contact": {
     "summary": "Contact us for help",
@@ -166,7 +183,7 @@
       },
       "text": "We'll get back to you within 2 days"
     },
-    "telephone":{
+    "telephone": {
       "header": "Telephone",
       "no": "0300 123 1142",
       "hours": "(Monday to Friday, 9.00am to 5.00pm)",

@@ -1,5 +1,5 @@
-const coh = require('test/fixtures/coh')
-const ccd = require('test/fixtures/ccd')
+import * as coh from 'test/fixtures/coh';
+import * as ccd from 'test/fixtures/ccd';
 
 async function waitForQuestionRoundIssued(hearingId, roundNum, attemptNum) {
   const MAX_ATTEMPTS = 30
