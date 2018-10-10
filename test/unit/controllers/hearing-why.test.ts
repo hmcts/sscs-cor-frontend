@@ -56,28 +56,23 @@ describe('controllers/hearing-why', () => {
   describe('postIndex', () => {
     describe('validation failed', () => {
       beforeEach(() => {
-        delete req.body['explain-why'];
+        req.body['explain-why'] = '';
         postIndex(req, res);
       });
 
       it('renders the view with the error message', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', {
-          error: i18n.hearingConfirm.error.text
+          error: i18n.hearingWhy.error.empty
         });
       });
     });
 
-    // describe('validation passed', () => {
-    //   it('redirects to hearing reason why page if accepts is yes', () => {
-    //     postIndex(req, res);
-    //     expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingWhy);
-    //   });
-    //   it('redirects to tribunal view if accepts is no', () => {
-    //     req.body['new-hearing'] = 'no';
-    //     postIndex(req, res);
-    //     expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalView);
-    //   });
-    // });
+    describe('validation passed', () => {
+      it('redirects to hearing booking details page', () => {
+        postIndex(req, res);
+        expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingBooking);
+      });
+    });
   });
 
   describe('setupHearingWhyController', () => {
@@ -97,13 +92,13 @@ describe('controllers/hearing-why', () => {
     it('calls router.get with the path and middleware', () => {
       setupHearingWhyController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(Paths.hearingConfirm);
+      expect(express.Router().get).to.have.been.calledWith(Paths.hearingWhy);
     });
 
     it('calls router.post with the path and middleware', () => {
       setupHearingWhyController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().post).to.have.been.calledWith(Paths.hearingConfirm);
+      expect(express.Router().post).to.have.been.calledWith(Paths.hearingWhy);
     });
 
     it('returns the router', () => {

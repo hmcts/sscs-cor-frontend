@@ -30,8 +30,8 @@ function hearingWhyValidation(answer) {
     .max(maxCharacters)
     .options({
       language: {
-        any: { empty: `!!${i18n.question.hearingWhy.error.empty}` },
-        string: { max: `!!${i18n.question.hearingWhy.error.maxCharacters}` }
+        any: { empty: `!!${i18n.hearingWhy.error.empty}` },
+        string: { max: `!!${i18n.hearingWhy.error.maxCharacters}` }
       }
     });
 
