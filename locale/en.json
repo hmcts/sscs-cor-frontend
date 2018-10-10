@@ -150,11 +150,11 @@
       "text": "You need to say whether you still want a hearing"
     }
   },
-  "hearingExplainWhy": {
+  "hearingWhy": {
     "header": "Explain why you want a hearing",
     "error": {
       "title": "There are errors on this page",
-      "text": "You need to say whether you still want a hearing"
+      "text": "You need to say why you still want a hearing"
     }
   },
   "error": {
