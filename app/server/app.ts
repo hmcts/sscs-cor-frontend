@@ -1,7 +1,7 @@
 import { CONST } from '../constants';
 import * as AppInsights from './app-insights';
 const { Express } = require('@hmcts/nodejs-logging');
-import { RequestHandler } from "express";
+import { RequestHandler } from 'express';
 import nunjucks = require('nunjucks');
 import express = require('express');
 import { router as routes } from './routes';
@@ -12,7 +12,7 @@ import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as moment from 'moment';
 
-var dateFilter = require('nunjucks-date-filter');
+const dateFilter = require('nunjucks-date-filter');
 dateFilter.setDefaultFormat(CONST.DATE_FORMAT);
 
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -35,7 +35,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     app.set('trust proxy', 1);
   }
 
-  var nunEnv = nunjucks.configure([
+  const nunEnv = nunjucks.configure([
     'views',
     'node_modules/govuk-frontend/',
     'node_modules/govuk-frontend/components/'
@@ -44,12 +44,12 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     express: app
   });
   nunEnv.addFilter('date', function(text) {
-    if(!text) return '';
+    if (!text) return '';
     const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/;
-    return  text.replace(isoDateRegex, (date) => moment.utc(date).format(CONST.DATE_FORMAT));
+    return text.replace(isoDateRegex, (date) => moment.utc(date).format(CONST.DATE_FORMAT));
   });
   nunEnv.addFilter('eval', function(text) {
-    return  nunjucks.renderString(text, this.ctx);
+    return nunjucks.renderString(text, this.ctx);
   });
 
   app.use(bodyParser.urlencoded({

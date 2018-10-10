@@ -18,19 +18,19 @@ function extensionConfirmation(extendDeadlineService: any) {
     if (!extend) return res.render('extend-deadline/index.html', { error: true });
 
     try {
-      
+
       if (extend === 'yes') {
         const response = await extendDeadlineService(hearingId);
         req.session.hearing.deadline = response.deadline_expiry_date;
       }
-      
+
       res.render('extend-deadline/index.html', { extend: extend, deadline: req.session.hearing.deadline });
 
     } catch (error) {
       AppInsights.trackException(error);
       next(error);
     }
-  }
+  };
 }
 
 function setupExtendDeadlineController(deps: any): Router {

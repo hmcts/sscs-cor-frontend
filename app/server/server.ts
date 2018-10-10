@@ -18,7 +18,7 @@ const redisStore: session.Store = new RedisStore(redisOpts);
 
 const app = setup(createSession(redisStore), {});
 
-const server = app.listen(port, (error: Error)  => {
+const server = app.listen(port, (error: Error) => {
   if (error) {
     logger.error(`Unable to start server because of ${error.message}`);
   } else {

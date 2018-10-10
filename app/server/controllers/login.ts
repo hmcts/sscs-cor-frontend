@@ -16,7 +16,7 @@ const idamClientId: string = config.get('idam.client.id');
 const enableDummyLogin = config.get('enableDummyLogin') === 'true';
 
 function redirectToLogin(req: Request, res: Response) {
-    return res.redirect(Paths.login);
+  return res.redirect(Paths.login);
 }
 
 function getLogout(deleteToken: (accessToken: string) => Promise<void>) {
@@ -35,7 +35,7 @@ function getLogout(deleteToken: (accessToken: string) => Promise<void>) {
       logger.info(`Session destroyed ${sessionId}`);
       return res.redirect(Paths.login);
     });
-  }
+  };
 }
 
 function redirectToIdam(idamPath: string, getRedirectUrl: (protocol: string, hostname: string) => string) {
@@ -50,14 +50,14 @@ function redirectToIdam(idamPath: string, getRedirectUrl: (protocol: string, hos
     idamUrl.searchParams.append('response_type', 'code');
 
     return res.redirect(idamUrl.href);
-  }
+  };
 }
 
 function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   getToken: (code: string, protocol: string, hostname: string) => Promise<TokenResponse>,
   getUserDetails: (accessToken: string) => Promise<UserDetails>,
-  getOnlineHearing: (email:string) => Promise<superAgent.Response>) {
+  getOnlineHearing: (email: string) => Promise<superAgent.Response>) {
   return async (req: Request, res: Response, next: NextFunction) => {
 
     const code: string = req.query.code;
@@ -73,7 +73,7 @@ function getIdamCallback(
 
       req.session.accessToken = tokenResponse.access_token;
 
-      return await loadHearingAndEnterService(getOnlineHearing, userDetails.email, req, res)
+      return await loadHearingAndEnterService(getOnlineHearing, userDetails.email, req, res);
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
@@ -99,7 +99,7 @@ function postDummyLogin(getOnlineHearing) {
 }
 
 async function loadHearingAndEnterService(
-  getOnlineHearing: (email:string) => Promise<superAgent.Response>,
+  getOnlineHearing: (email: string) => Promise<superAgent.Response>,
   email: string,
   req: Request,
   res: Response) {
