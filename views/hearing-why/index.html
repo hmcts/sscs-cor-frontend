@@ -1,5 +1,6 @@
 {% from "button/macro.njk" import govukButton %}
 {% from "components/textarea/macro.njk" import govukTextarea %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
 
 {% block beforeContent %}
@@ -10,6 +11,18 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
+      {% if error %}
+        {{ govukErrorSummary({
+            titleText: i18n.hearingWhy.error.summaryHeading,
+            errorList: [{
+                text: error,
+                href: "#explain-why"
+            }]
+          }) 
+        }}
+      {% endif %}
+
       <form action="/hearing-why" method="post">
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-two-thirds">
