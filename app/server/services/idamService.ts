@@ -1,5 +1,5 @@
 import * as request from 'superagent';
-import * as AppInsights from "../app-insights";
+import * as AppInsights from '../app-insights';
 require('superagent-proxy')(request);
 const config = require('config');
 import * as Paths from '../paths';
@@ -10,11 +10,11 @@ const appSecret = config.get('idam.client.secret');
 const httpProxy = config.get('httpProxy');
 
 interface TokenResponse {
-  access_token: string
+  access_token: string;
 }
 
 interface UserDetails {
-  email: string
+  email: string;
 }
 
 async function getToken(code: string, protocol: string, host: string): Promise<TokenResponse> {
@@ -26,9 +26,9 @@ async function getToken(code: string, protocol: string, host: string): Promise<T
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/x-www-form-urlencoded')
       .type('form')
-      .send({"grant_type": 'authorization_code'})
-      .send({"code": code})
-      .send({"redirect_uri": redirectUri});
+      .send({ 'grant_type': 'authorization_code' })
+      .send({ 'code': code })
+      .send({ 'redirect_uri': redirectUri });
 
     return Promise.resolve(response.body);
   } catch (error) {
@@ -63,8 +63,8 @@ async function getUserDetails(token: string): Promise<UserDetails> {
   }
 }
 
-interface ProxyRequest extends request.SuperAgentRequest{
-  proxy: (string) => ProxyRequest
+interface ProxyRequest extends request.SuperAgentRequest {
+  proxy: (proxy: string) => ProxyRequest;
 }
 
 function makeProxiedRequest(request: ProxyRequest): request.Request {
@@ -72,8 +72,8 @@ function makeProxiedRequest(request: ProxyRequest): request.Request {
 }
 
 function getRedirectUrl(protocol: string, host: string): string {
-  const portString = (host == 'localhost') ? ':' + appPort : '';
-  return protocol + "://" + host + portString + Paths.login;
+  const portString = (host === 'localhost') ? ':' + appPort : '';
+  return protocol + '://' + host + portString + Paths.login;
 }
 
 export {
@@ -83,4 +83,4 @@ export {
   getUserDetails,
   TokenResponse,
   UserDetails
-}
+};
