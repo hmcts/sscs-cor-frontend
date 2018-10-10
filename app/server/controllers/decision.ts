@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import { OnlineHearing } from '../services/getOnlineHearing'
-import { CONST } from '../../constants'
+import { OnlineHearing } from '../services/getOnlineHearing';
+import { CONST } from '../../constants';
 
 function getDecision(req: Request, res: Response) {
   const hearing: OnlineHearing = req.session.hearing;

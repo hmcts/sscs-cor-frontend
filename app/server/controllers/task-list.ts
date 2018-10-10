@@ -1,6 +1,6 @@
 import * as AppInsights from '../app-insights';
 import * as moment from 'moment';
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 
 function processDeadline(expiryDate: Date, allQuestionsSubmitted: boolean) {

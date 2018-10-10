@@ -16,9 +16,9 @@ function postIndex(req: Request, res: Response) {
   const validationMessage = newHearingAcceptedValidation(newHearing);
 
   if (validationMessage) return res.render('hearing-confirm/index.html', { error: validationMessage });
-  
+
   if (newHearing === 'no') return res.redirect(Paths.tribunalView);
-  
+
   res.redirect(Paths.hearingWhy);
 }
 

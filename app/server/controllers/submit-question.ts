@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response, NextFunction } from 'express';
 import * as AppInsights from '../app-insights';
 import * as Paths from '../paths';
 
@@ -12,7 +12,7 @@ function getSubmitQuestion(getAllQuestionsService: any) {
     }
     const questionOrdinal: number = parseInt(req.params.questionOrdinal, 10);
     res.render('submit-question.html', { questionOrdinal });
-  }
+  };
 }
 
 function postSubmitAnswer(submitAnswerService: any, getAllQuestionsService: any) {
