@@ -33,7 +33,8 @@
     "test:all": "yarn test && yarn test:a11y && yarn test:coverage",
     "test:nsp": "nsp check",
     "sonar-scan": "sonar-scanner",
-    "lint": "eslint .",
+    "tslint": "tslint -c tslint.json -p ./app/server/tsconfig.json",
+    "lint": "eslint . && yarn tslint",
     "transpile": "yarn tsc -p ./app/server/tsconfig.json"
   },
   "repository": {
@@ -68,7 +69,6 @@
     "superagent-proxy": "^2.0.0"
   },
   "devDependencies": {
-    "cross-env": "^4.0.0",
     "@hmcts/eslint-config": "^1.4.0",
     "@types/chai": "^4.1.4",
     "@types/cli-color": "^0.3.29",
@@ -89,6 +89,7 @@
     "chai-http": "^3.0.0",
     "cli-color": "^1.3.0",
     "concurrently": "^3.6.1",
+    "cross-env": "^4.0.0",
     "dyson": "^2.0.1",
     "eslint": "^4.19.1",
     "istanbul": "1.1.0-alpha.1",
@@ -113,6 +114,7 @@
     "tsconfig-paths": "^3.5.0",
     "tsify": "^4.0.0",
     "tslint": "^5.9.1",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.0.0",
     "uuid": "^3.3.2"
   }

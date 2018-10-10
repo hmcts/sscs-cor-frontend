@@ -15,4 +15,4 @@ async function extendDeadline(hearingId: string) {
 
 export {
   extendDeadline
-}
+};

@@ -19,4 +19,4 @@ function createSession(store?: session.Store) {
 
 export {
   createSession
-}
+};

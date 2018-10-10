@@ -1,7 +1,7 @@
 const express = require('express');
 import * as Paths from './paths';
 import { ensureAuthenticated } from './middleware/ensure-authenticated';
-import { checkDecision } from './middleware/check-decision'
+import { checkDecision } from './middleware/check-decision';
 
 import { setupQuestionController } from './controllers/question';
 import { setupSubmitQuestionController } from './controllers/submit-question';
@@ -11,8 +11,8 @@ import { setupLoginController, redirectToLogin } from './controllers/login';
 import { setupExtendDeadlineController } from './controllers/extend-deadline';
 import { setupDecisionController } from './controllers/decision';
 import { setupTribunalViewController } from './controllers/tribunal-view';
-import { setupHearingConfirmController }  from './controllers/hearing-confirm';
-import { setupTribunalViewAcceptedController } from './controllers/tribunal-view-accepted'
+import { setupHearingConfirmController } from './controllers/hearing-confirm';
+import { setupTribunalViewAcceptedController } from './controllers/tribunal-view-accepted';
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
