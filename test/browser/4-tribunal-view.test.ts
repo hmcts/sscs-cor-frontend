@@ -68,5 +68,5 @@ describe('Tribunal view page', () => {
     describe('requesting a hearing', () => {
       it('shows the hearing confirm page')
     })
-
+  }
 });
