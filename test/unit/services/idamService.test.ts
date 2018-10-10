@@ -1,6 +1,6 @@
-import {getRedirectUrl, getToken, deleteToken, getUserDetails} from 'app/server/services/idamService.ts';
-const {expect} = require('test/chai-sinon');
-import {INTERNAL_SERVER_ERROR, OK, NO_CONTENT} from 'http-status-codes';
+import { getRedirectUrl, getToken, deleteToken, getUserDetails } from 'app/server/services/idamService';
+const { expect } = require('test/chai-sinon');
+import { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } from 'http-status-codes';
 
 const nock = require('nock');
 const config = require('config');
@@ -9,7 +9,7 @@ const apiUrl = config.get('idam.api-url');
 const appSecret = config.get('idam.client.secret');
 const appPort = config.get('node.port');
 
-describe('services/idamService.js', () => {
+describe('services/idamService', () => {
   describe('getRedirectUrl', () => {
     it('adds port for localhost', () => {
       const redirectUrl = getRedirectUrl('http', 'localhost');
@@ -27,7 +27,7 @@ describe('services/idamService.js', () => {
     const token = 'someToken';
 
     describe('resolving the promise', () => {
-      let apiResponse = {'email': 'someEmail@example.com'};
+      let apiResponse = { 'email': 'someEmail@example.com' };
 
       beforeEach(() => {
         nock(apiUrl)
@@ -46,7 +46,7 @@ describe('services/idamService.js', () => {
     });
 
     describe('rejecting the promise', () => {
-      const error = {value: INTERNAL_SERVER_ERROR, reason: 'Server Error'};
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
       beforeEach(() => {
         nock(apiUrl)
@@ -67,7 +67,7 @@ describe('services/idamService.js', () => {
     const host = 'example.com';
 
     describe('resolving the promise', () => {
-      let apiResponse = {'email': 'someEmail@example.com'};
+      let apiResponse = { 'email': 'someEmail@example.com' };
 
       beforeEach(() => {
         nock(apiUrl)
@@ -89,11 +89,11 @@ describe('services/idamService.js', () => {
     });
 
     describe('rejecting the promise', () => {
-      const error = {value: INTERNAL_SERVER_ERROR, reason: 'Server Error'};
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
       beforeEach(() => {
         nock(apiUrl)
-          .get(path)
+          .post(path, 'grant_type=authorization_code&code=' + code + '&redirect_uri=' + encodeURIComponent(getRedirectUrl(protocol, host)))
           .replyWithError(error);
       });
 
@@ -124,7 +124,7 @@ describe('services/idamService.js', () => {
     });
 
     describe('rejecting the promise', () => {
-      const error = {value: INTERNAL_SERVER_ERROR, reason: 'Server Error'};
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
       beforeEach(() => {
         nock(apiUrl)
