@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
+import * as AppInsights from '../app-insights';
 import * as Paths from '../paths';
 import { OnlineHearing } from '../services/getOnlineHearing';
 import { CONST } from '../../constants';
@@ -18,19 +19,24 @@ function getTribunalView(req: Request, res: Response) {
   return res.redirect(Paths.logout);
 }
 
-function postTribunalView() {
+function postTribunalView(tribunalViewService) {
   return async(req: Request, res: Response, next: NextFunction) => {
+    const hearing: OnlineHearing = req.session.hearing;
     const acceptView = req.body['accept-view'];
     const validationMessage = tribunalViewAcceptedValidation(acceptView);
     if (validationMessage) {
-      const hearing: OnlineHearing = req.session.hearing;
       const respondBy = getRespondByDate(hearing.decision.decision_state_datetime);
       return res.render('tribunal-view.html', { decision: hearing.decision, respondBy, error: validationMessage });
     }
     if (acceptView === 'yes') {
-      // TODO: make call to record acceptance, backend work required
-      req.session.tribunalViewAcceptedThisSession = true;
-      return res.redirect(Paths.tribunalViewAccepted);
+      try {
+        await tribunalViewService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
+        req.session.tribunalViewAcceptedThisSession = true;
+        return res.redirect(Paths.tribunalViewAccepted);
+      } catch (error) {
+        AppInsights.trackException(error);
+        next(error);
+      }
     }
     if (acceptView === 'no') {
       req.session.newHearingConfirmationThisSession = true;
@@ -43,7 +49,7 @@ function setupTribunalViewController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
   router.get(Paths.tribunalView, deps.prereqMiddleware, getTribunalView);
-  router.post(Paths.tribunalView, deps.prereqMiddleware, postTribunalView());
+  router.post(Paths.tribunalView, deps.prereqMiddleware, postTribunalView(deps.tribunalViewService));
   return router;
 }
 
