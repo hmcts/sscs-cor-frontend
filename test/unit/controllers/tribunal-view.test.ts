@@ -5,10 +5,13 @@ const express = require('express');
 const i18n = require('locale/en.json');
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
+import { CONST } from 'app/constants';
+import * as AppInsights from 'app/server/app-insights';
 
 describe('controllers/tribunal-view', () => {
   let req: any;
   let res: any;
+  let next: sinon.SinonSpy;
   let hearingDetails: OnlineHearing;
   let respondBy;
 
@@ -38,6 +41,7 @@ describe('controllers/tribunal-view', () => {
       render: sinon.spy(),
       redirect: sinon.spy()
     } as any;
+    next = sinon.spy();
     respondBy = moment.utc(req.session.hearing.decision.decision_state_datetime).add(7, 'day').format();
   });
 
@@ -61,10 +65,16 @@ describe('controllers/tribunal-view', () => {
   });
 
   describe('postTribunalView', () => {
+    let tribunalViewService;
+    beforeEach(() => {
+      tribunalViewService = {
+        recordTribunalViewResponse: sinon.stub().resolves()
+      };
+    });
     describe('validation failed', () => {
-      beforeEach(() => {
+      beforeEach(async() => {
         req.body['accept-view'] = '';
-        postTribunalView()(req, res);
+        await postTribunalView(tribunalViewService)(req, res, next);
       });
 
       it('renders the view with the error message', () => {
@@ -75,19 +85,41 @@ describe('controllers/tribunal-view', () => {
         });
       });
     });
+
     describe('validation passed', () => {
-      it('sets flag in session if accepts is yes', () => {
-        postTribunalView()(req, res);
-        expect(req.session).to.have.property('tribunalViewAcceptedThisSession', true);
+      describe('accepts === yes', () => {
+        beforeEach(() => {
+          sinon.stub(AppInsights, 'trackException');
+        });
+        afterEach(() => {
+          (AppInsights.trackException as sinon.SinonStub).restore();
+        });
+        it('calls service to record tribunal view acceptance', async() => {
+          await postTribunalView(tribunalViewService)(req, res, next);
+          expect(tribunalViewService.recordTribunalViewResponse).to.have.been.calledOnce.calledWith(hearingDetails.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
+        });
+        it('calls next and app insights if service call fails', async() => {
+          const error = new Error('recordTribunalViewResponse error');
+          tribunalViewService.recordTribunalViewResponse.rejects(error);
+          await postTribunalView(tribunalViewService)(req, res, next);
+          expect(next).to.have.been.calledOnce.calledWith(error);
+          expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
+        });
+        it('sets flag in session', async() => {
+          await postTribunalView(tribunalViewService)(req, res, next);
+          expect(req.session).to.have.property('tribunalViewAcceptedThisSession', true);
+        });
+        it('redirects to view accepted page', async() => {
+          await postTribunalView(tribunalViewService)(req, res, next);
+          expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalViewAccepted);
+        });
       });
-      it('redirects to view accepted page if accepts is yes', () => {
-        postTribunalView()(req, res);
-        expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalViewAccepted);
-      });
-      it('redirects to hearing confirm page if accepts is no', () => {
-        req.body['accept-view'] = 'no';
-        postTribunalView()(req, res);
-        expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingConfirm);
+      describe('accepts === no', () => {
+        it('redirects to hearing confirm page', async() => {
+          req.body['accept-view'] = 'no';
+          await postTribunalView(tribunalViewService)(req, res, next);
+          expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingConfirm);
+        });
       });
     });
   });
