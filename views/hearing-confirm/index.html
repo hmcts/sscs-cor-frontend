@@ -1,0 +1,66 @@
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
+{% extends "layout.html" %}
+
+{% block beforeContent %}
+  {{ super() }}
+  <a href="/tribunal-view" class="govuk-back-link">{{ i18n.general.back }}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if error %}
+        {{ govukErrorSummary({
+            titleText: i18n.hearingConfirm.error.title,
+            errorList: [{
+                text: error,
+                href: "#new-hearing-1"
+            }]
+          }) 
+        }}
+      {% endif %}
+      
+      <h1 class="govuk-heading-l">{{ i18n.hearingConfirm.header }}</h1>
+      <p>{{ i18n.hearingConfirm.para }}</p>
+      <form action="/hearing-confirm" method="post">
+        {{ govukRadios({
+            classes: "govuk-radios--inline",
+            idPrefix: "new-hearing",
+            name: "new-hearing",
+            fieldset: {
+              legend: {
+                text: i18n.hearingConfirm.legend,
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: [
+              {
+                value: "yes",
+                text: i18n.general.yes
+              },
+              {
+                value: "no",
+                text: i18n.general.no
+              }
+            ],
+            errorMessage: {
+              text: error
+            } if error
+          }) 
+        }}
+        <div id="submit-button">
+        {{ govukButton({
+          text: i18n.general.continue
+        }) }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% include "includes/contact.html" %}
+
+{% endblock %}

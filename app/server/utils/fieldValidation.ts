@@ -50,8 +50,17 @@ function tribunalViewAcceptedValidation(acceptView) {
   return false;
 }
 
+function newHearingAcceptedValidation(newHearing) {
+  const allowedValues = ['yes', 'no'];
+  if (!allowedValues.includes(newHearing)) {
+    return i18n.hearingConfirm.error.text;
+  }
+  return false;
+}
+
 export {
   answerValidation,
   loginEmailAddressValidation,
-  tribunalViewAcceptedValidation
+  tribunalViewAcceptedValidation,
+  newHearingAcceptedValidation
 };

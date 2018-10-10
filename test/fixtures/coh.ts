@@ -138,7 +138,7 @@ async function issueDecision(hearingId) {
   console.log('Decision issued, status pending');
 }
 
-module.exports = {
+export {
   createOnlineHearing,
   createQuestions,
   setQuestionRoundToIssued,

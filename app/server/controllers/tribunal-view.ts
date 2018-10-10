@@ -3,7 +3,7 @@ import * as Paths from '../paths';
 import { OnlineHearing } from '../services/getOnlineHearing';
 import { CONST } from '../../constants'
 import * as moment from 'moment';
-import { tribunalViewAcceptedValidation } from '../utils/fieldValidation'
+import { tribunalViewAcceptedValidation } from '../utils/fieldValidation';
 
 function getRespondByDate(decisionStateDatetime: string): string {
   return moment.utc(decisionStateDatetime).add(7, 'day').format();
@@ -33,6 +33,7 @@ function postTribunalView() {
       return res.redirect(Paths.tribunalViewAccepted);
     }
     if (acceptView === 'no') {
+      req.session.newHearingConfirmationThisSession = true;
       return res.redirect(Paths.hearingConfirm);
     }
   };
