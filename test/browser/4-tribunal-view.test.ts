@@ -13,11 +13,11 @@ const testingLocalhost = testUrl.indexOf('localhost') !== -1
 describe('Tribunal view page', () => {
   if (testingLocalhost) {
     let page: Page
-    let tribunalViewPage
-    let tribunalViewAcceptedPage
+    let tribunalViewPage: TribunalViewPage;
+    let tribunalViewAcceptedPage: TribunalViewAcceptedPage;
 
     before('start services and bootstrap data in CCD/COH', async () => {
-      const res = await startServices({ bootstrapData: true, performLogin: true, issueDecision: true })
+      const res = await startServices({ performLogin: true, issueDecision: true })
       page = res.page
       tribunalViewPage = new TribunalViewPage(page)
       tribunalViewAcceptedPage = new TribunalViewAcceptedPage(page)
@@ -68,6 +68,5 @@ describe('Tribunal view page', () => {
     describe('requesting a hearing', () => {
       it('shows the hearing confirm page')
     })
-
   }
-})
+});

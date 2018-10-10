@@ -32,7 +32,7 @@ describe('Question page', () => {
   let caseReference;
 
   before('start services and bootstrap data in CCD/COH', async() => {
-    const res = await startServices({ bootstrapData: true, performLogin: true });
+    const res = await startServices({ performLogin: true });
     page = res.page;
     questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
     firstQuestionId = questionIdList.shift();

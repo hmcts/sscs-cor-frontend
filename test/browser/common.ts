@@ -73,7 +73,7 @@ async function login(page) {
 
 async function startServices(options?) {
   const opts = options || {};
-  if (opts.bootstrapData && !testingLocalhost && (!ccdCase || !cohTestData)) {
+  if (opts.bootstrapData && !testingLocalhost) {
     const bootstrapResult = await bootstrap();
     ccdCase = bootstrapResult.ccdCase;
     cohTestData = bootstrapResult.cohTestData;
