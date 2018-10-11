@@ -21,6 +21,7 @@ function verifyOnlineHearingId(req, res, next) {
 
 function setLocals(req, res, next) {
   res.locals.hearing = req.session.hearing;
+  res.locals.showSignOut = true;
   next();
 }
 

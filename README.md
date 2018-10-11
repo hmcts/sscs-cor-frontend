@@ -139,4 +139,3 @@ And use the command
 ```bash
 HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal yarn test:create-data
 ```
-

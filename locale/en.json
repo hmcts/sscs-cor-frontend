@@ -176,7 +176,8 @@
     "continue": "Continue",
     "backToQuestions": "Back to questions",
     "back": "Back",
-    "exitService": "Exit Service"
+    "exitService": "Exit Service",
+    "signOut": "Sign out"
   },
   "errorSummary": {
     "titleText": "There are errors on the page",
