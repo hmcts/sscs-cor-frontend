@@ -1,5 +1,4 @@
 const { expect } = require('test/chai-sinon');
-import { CONST } from 'app/constants';
 import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
@@ -8,9 +7,6 @@ import { HearingWhyPage } from 'test/page-objects/hearing-why';
 const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
 import * as moment from 'moment';
 const i18n = require('locale/en');
-
-const testUrl = require('config').get('testUrl')
-const testingLocalhost = testUrl.indexOf('localhost') !== -1
 
 describe('Request a hearing', () => {
   if (testingLocalhost) {

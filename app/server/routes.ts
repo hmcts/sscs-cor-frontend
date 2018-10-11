@@ -23,6 +23,7 @@ import * as getAllQuestionsService from './services/getAllQuestions';
 import { getOnlineHearing } from './services/getOnlineHearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { getToken, getUserDetails, getRedirectUrl, deleteToken } from './services/idamService';
+import * as tribunalViewService from './services/tribunalView';
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
@@ -38,7 +39,7 @@ const questionsCompletedController = setupQuestionsCompletedController({ prereqM
 const taskListController = setupTaskListController({ getAllQuestionsService, prereqMiddleware });
 const extendDeadlineController = setupExtendDeadlineController({ extendDeadlineService, prereqMiddleware });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
-const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated });
+const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
 const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated });
