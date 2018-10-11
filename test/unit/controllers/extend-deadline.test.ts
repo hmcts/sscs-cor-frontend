@@ -4,7 +4,7 @@ const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
-import * as moment from 'moment'; 
+import * as moment from 'moment';
 import { ensureAuthenticated } from 'app/server/middleware/ensure-authenticated';
 import { checkDecision } from 'app/server/middleware/check-decision';
 
@@ -21,7 +21,8 @@ describe('controllers/extend-deadline.js', () => {
         extensionCount: 0
       }
     }
-  }
+  };
+
   const res: any = {};
 
   res.render = sinon.stub();
@@ -35,7 +36,7 @@ describe('controllers/extend-deadline.js', () => {
   });
 
   describe('getIndex', () => {
-    it('should call render with the template', async() => {
+    it('should call render with the template', async () => {
       getIndex(req, res);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         hearing: req.session.hearing
@@ -45,29 +46,29 @@ describe('controllers/extend-deadline.js', () => {
 
   describe('postExtension', () => {
 
-    let questions;  
+    let questions;
     let extendDeadlineService;
 
     beforeEach(() => {
       extendDeadlineService = null;
     });
 
-    it('should show extension confirmation when submitting no', async() => {
+    it('should show extension confirmation when submitting no', async () => {
       req.body['extend-deadline'] = 'no';
 
-      await extensionConfirmation(extendDeadlineService)(req, res, next);   
+      await extensionConfirmation(extendDeadlineService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         deadline: deadline,
         extend: 'no'
       });
     });
 
-    it('should show extension confirmation when submitting yes', async() => {
+    it('should show extension confirmation when submitting yes', async () => {
       req.body['extend-deadline'] = 'yes';
-      
+
       extendDeadlineService = () => Promise.resolve({ deadline_expiry_date: extendDeadline });
 
-      await extensionConfirmation(extendDeadlineService)(req, res, next);      
+      await extensionConfirmation(extendDeadlineService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         deadline: extendDeadline,
         extend: 'yes'
@@ -75,21 +76,21 @@ describe('controllers/extend-deadline.js', () => {
       expect(req.session.hearing.deadline).to.equal(extendDeadline);
     });
 
-    it('should show error when submitting empty form', async() => {
+    it('should show error when submitting empty form', async () => {
       req.body = {};
-      await extensionConfirmation(extendDeadlineService)(req, res, next);   
+      await extensionConfirmation(extendDeadlineService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         error: true
       });
     });
 
-    it('should call next and appInsights with the error when there is one', async() => {
+    it('should call next and appInsights with the error when there is one', async () => {
       req.body['extend-deadline'] = 'yes';
 
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       extendDeadlineService = () => Promise.reject(error);
 
-      await extensionConfirmation(extendDeadlineService)(req, res, next);   
+      await extensionConfirmation(extendDeadlineService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
@@ -124,11 +125,11 @@ describe('controllers/extend-deadline.js', () => {
     });
 
     it('returns the router', () => {
-      const controller = setupExtendDeadlineController({ });
+      const controller = setupExtendDeadlineController({});
       // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
     });
   });
 });
 
-export {};
+export { };

@@ -42,7 +42,7 @@ const decisionController = setupDecisionController({ prereqMiddleware: ensureAut
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
-const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated });
+const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
 const loginController = setupLoginController({ getToken, deleteToken, getUserDetails, getOnlineHearing, getRedirectUrl });
 
 router.use(loginController);

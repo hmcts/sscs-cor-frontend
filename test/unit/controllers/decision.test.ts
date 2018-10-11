@@ -1,4 +1,4 @@
-import { OnlineHearing } from 'app/server/services/getOnlineHearing'
+import { OnlineHearing } from 'app/server/services/getOnlineHearing';
 const { expect, sinon } = require('test/chai-sinon');
 const { setupDecisionController, getDecision } = require('app/server/controllers/decision.ts');
 const express = require('express');
@@ -42,7 +42,7 @@ describe('controllers/decision.js', () => {
     });
 
     it('renders decision page with rejected decision', async() => {
-      req.session.hearing.decision.decision_state = 'decision_rejected'
+      req.session.hearing.decision.decision_state = 'decision_rejected';
       await getDecision(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('decision.html', { decision: hearingDetails.decision });
     });
