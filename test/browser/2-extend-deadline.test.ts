@@ -16,15 +16,14 @@ describe('Extend deadline', () => {
   let taskListPage: TaskListPage;
   let extendDeadlinePage: ExtendDeadlinePage;
 
-
   before('start services and bootstrap data in CCD/COH', async() => {
     const res = await startServices({ performLogin: true });
     page = res.page;
-    
+
     taskListPage = new TaskListPage(page);
     extendDeadlinePage = new ExtendDeadlinePage(page);
-    
-    await taskListPage.clickExtend();    
+
+    await taskListPage.clickExtend();
     await extendDeadlinePage.screenshot('extend-deadline');
   });
 
@@ -37,7 +36,7 @@ describe('Extend deadline', () => {
   it('is on the /extend-deadline path', () => {
     extendDeadlinePage.verifyPage();
   });
-  
+
   it('displays contact for help', async() => {
     const contactHelpLink = 'summary.govuk-details__summary span';
     const contactHelpLinkText = await extendDeadlinePage.getElementText(contactHelpLink);
@@ -47,7 +46,7 @@ describe('Extend deadline', () => {
   it('displays an error message in the summary when you try to continue without selecting an option', async() => {
     await extendDeadlinePage.submit();
     expect(await extendDeadlinePage.getElementText('.govuk-error-summary'))
-      .to.contain(i18n.extendDeadline.error.title);
+      .to.contain(i18n.errorSummary.titleText);
     expect(await extendDeadlinePage.getElementText('.govuk-error-summary__list'))
       .to.contain(i18n.extendDeadline.error.text);
   });
@@ -77,7 +76,7 @@ describe('Extend deadline', () => {
 
     it('shows the contact tribunal details', async() => {
       await taskListPage.visitPage();
-      await taskListPage.clickExtend();  
+      await taskListPage.clickExtend();
       await extendDeadlinePage.screenshot('extend-deadline-contact-tribunal');
 
       const heading = await extendDeadlinePage.getElementText('.govuk-main-wrapper h1');

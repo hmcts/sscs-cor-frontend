@@ -60,8 +60,4 @@ describe('Tribunal view page', () => {
       expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
     });
   });
-
-  describe('requesting a hearing', () => {
-    it('shows the hearing confirm page');
-  });
 });

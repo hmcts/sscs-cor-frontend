@@ -47,7 +47,7 @@ describe('Request a hearing', () => {
     it('validates that one option must be selected', async () => {
       await hearingConfirmPage.submit();
       await hearingConfirmPage.screenshot('hearing-confirm-validation');
-      expect(await hearingConfirmPage.getElementText('#error-summary-title')).contain(i18n.hearingConfirm.error.title);
+      expect(await hearingConfirmPage.getElementText('#error-summary-title')).contain(i18n.errorSummary.titleText);
       expect(await hearingConfirmPage.getElementText('.govuk-error-summary__body')).contain(i18n.hearingConfirm.error.text);
       expect(await hearingConfirmPage.getElementText('#new-hearing-error')).contain(i18n.hearingConfirm.error.text);
     });
@@ -72,7 +72,7 @@ describe('Request a hearing', () => {
       it('validates that a reason must be given', async () => {
         await hearingWhyPage.giveReasonWhy('');
         await hearingWhyPage.submit();
-        expect(await hearingConfirmPage.getElementText('#error-summary-title')).contain(i18n.hearingWhy.error.summaryHeading);
+        expect(await hearingConfirmPage.getElementText('#error-summary-title')).contain(i18n.errorSummary.titleText);
         expect(await hearingConfirmPage.getElementText('.govuk-error-summary__body')).contain(i18n.hearingWhy.error.empty);
         await hearingWhyPage.screenshot('hearing-why-validaiton');
       });
