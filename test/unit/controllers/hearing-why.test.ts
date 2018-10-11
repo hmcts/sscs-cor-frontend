@@ -1,16 +1,19 @@
-import { OnlineHearing } from 'app/server/services/getOnlineHearing'
+import { OnlineHearing } from 'app/server/services/getOnlineHearing';
 const { expect, sinon } = require('test/chai-sinon');
-import { getIndex, postIndex, setupHearingWhyController   } from 'app/server/controllers/hearing-why';
+import { getIndex, postIndex, setupHearingWhyController } from 'app/server/controllers/hearing-why';
 import * as express from 'express';
 const i18n = require('locale/en.json');
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
+import { CONST } from 'app/constants';
+import * as AppInsights from 'app/server/app-insights';
 
 describe('controllers/hearing-why', () => {
   let req: any;
   let res: any;
+  let next: sinon.SinonSpy;
   let hearingDetails: OnlineHearing;
-  let respondBy;
+  let serviceCall: any;
 
   beforeEach(() => {
     hearingDetails = {
@@ -24,7 +27,7 @@ describe('controllers/hearing-why', () => {
         decision_text: 'Decision reasons',
         decision_state: 'decision_issued',
         decision_state_datetime: moment().utc().format()
-    }
+      }
     };
     req = {
       session: {
@@ -38,6 +41,7 @@ describe('controllers/hearing-why', () => {
       render: sinon.spy(),
       redirect: sinon.spy()
     } as any;
+    next = sinon.spy();
   });
 
   describe('getIndex', () => {
@@ -47,17 +51,38 @@ describe('controllers/hearing-why', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', {});
     });
 
-    it('redirects to /logout if user hasnt requested a hearing', async() => {
+    it('redirects to /logout if user hasnt requested a hearing', async () => {
       getIndex(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
     });
   });
 
   describe('postIndex', () => {
+    let tribunalViewService;
+
+    beforeEach(() => {
+      tribunalViewService = {
+        recordTribunalViewResponse: sinon.stub().resolves()
+      };
+      sinon.stub(AppInsights, 'trackException');
+
+      serviceCall = [
+        hearingDetails.online_hearing_id,
+        CONST.DECISION_REJECTED_STATE,
+        req.body['explain-why']
+      ];
+
+    });
+
+    afterEach(() => {
+      (AppInsights.trackException as sinon.SinonStub).restore();
+    });
+
     describe('validation failed', () => {
-      beforeEach(() => {
+
+      beforeEach(async () => {
         req.body['explain-why'] = '';
-        postIndex(req, res);
+        await postIndex(tribunalViewService)(req, res, next);
       });
 
       it('renders the view with the error message', () => {
@@ -68,11 +93,24 @@ describe('controllers/hearing-why', () => {
     });
 
     describe('validation passed', () => {
-      it('renders the view with hearing booking details', () => {
-        postIndex(req, res);
+
+      const inSixWeeks = moment().utc().add(6, 'weeks').format(CONST.DATE_FORMAT);
+
+      it('renders the view with hearing booking details', async () => {
+        await postIndex(tribunalViewService)(req, res, next);
+        expect(tribunalViewService.recordTribunalViewResponse.args[0]).to.eql(serviceCall);
         expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html');
-        //  TODO
-        // expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', { submitted: true, hearing: hearingDetails });
+        expect(res.render.args[0][1].submitted).to.equal(true);
+        expect(res.render.args[0][1].hearing).to.equal(hearingDetails);
+        expect(moment.utc(res.render.args[0][1].responseDate).format(CONST.DATE_FORMAT)).to.equal(inSixWeeks);
+      });
+
+      it('calls next and app insights if service call fails', async () => {
+        const error = new Error('recordTribunalViewResponse error');
+        tribunalViewService.recordTribunalViewResponse.rejects(error);
+        await postIndex(tribunalViewService)(req, res, next);
+        expect(next).to.have.been.calledOnce.calledWith(error);
+        expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       });
     });
   });
