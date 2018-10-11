@@ -10,3 +10,7 @@ $govuk-assets-path: '/public/govuk-frontend/';
 .divider {
   border-bottom: 3px solid govuk-colour("blue");
 }
+
+#navigation {
+  float: right;
+}

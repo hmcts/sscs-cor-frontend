@@ -53,7 +53,12 @@ describe('middleware/ensure-authenticated', () => {
   describe('#setLocals', () => {
     it('sets hearing data on the locals', () => {
       setLocals(req, res, next);
-      expect(res.locals).to.deep.equal({ hearing: hearingDetails });
+      expect(res.locals).to.have.property('hearing');
+      expect(res.locals.hearing).to.deep.equal(hearingDetails);
+    });
+    it('sets showSignOut on the locals', () => {
+      setLocals(req, res, next);
+      expect(res.locals).to.have.property('showSignOut', true);
     });
   });
 

@@ -70,4 +70,11 @@ export class BasePage {
       path: `functional-output/${filename}.png`
     });
   }
+
+  async signOut() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      await this.clickElement('.sign-out a')
+    ]);
+  }
 }
