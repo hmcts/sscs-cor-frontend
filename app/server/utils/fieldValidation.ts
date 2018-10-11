@@ -24,6 +24,27 @@ function answerValidation(answer) {
   return error;
 }
 
+function hearingWhyValidation(answer) {
+  const schema = Joi.string()
+    .required()
+    .max(maxCharacters)
+    .options({
+      language: {
+        any: { empty: `!!${i18n.hearingWhy.error.empty}` },
+        string: { max: `!!${i18n.hearingWhy.error.maxCharacters}` }
+      }
+    });
+
+  const result = schema.validate(answer);
+  let error = false;
+
+  if (result.error) {
+    error = result.error.details[0].message;
+  }
+
+  return error;
+}
+
 function loginEmailAddressValidation(email) {
   const schema = Joi.string()
     .required()
@@ -62,5 +83,6 @@ export {
   answerValidation,
   loginEmailAddressValidation,
   tribunalViewAcceptedValidation,
-  newHearingAcceptedValidation
+  newHearingAcceptedValidation,
+  hearingWhyValidation
 };

@@ -1,0 +1,46 @@
+{% from "button/macro.njk" import govukButton %}
+{% from "components/textarea/macro.njk" import govukTextarea %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
+{% extends "layout.html" %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {% if not submitted %}
+  <a href="/tribunal-view" class="govuk-back-link">{{ i18n.general.back }}</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+  {% if not submitted %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        {% if error %}
+          {{ govukErrorSummary({
+            titleText: i18n.hearingWhy.error.summaryHeading,
+            errorList: [{
+                text: error,
+                href: "#explain-why"
+            }]
+          }) 
+        }}
+        {% endif %}
+
+        {% include "hearing-why/form.html" %}
+
+      </div>
+    </div>
+    {% include "includes/contact.html" %}
+
+  {% else %}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% include "hearing-why/booking.html" %}
+      </div>
+    </div>
+
+  {% endif %}
+
+{% endblock %}
