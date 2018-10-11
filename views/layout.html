@@ -14,13 +14,14 @@
     {% if showSignOut %}
         {% set navigation = [{
             "href": "/sign-out",
-            "text": "Sign out ",
+            "text": i18n.general.signOut,
             "active": false
         }] %}
     {% endif %}
     {{
         govukHeader({
-            "navigation": navigation
+            "navigation": navigation,
+            "navigationClasses": "sign-out"
         })
     }}
 {% endblock %}

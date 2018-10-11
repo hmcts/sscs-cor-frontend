@@ -11,6 +11,7 @@ def component = "frontend"
 
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
 def sscsCorBackEndUrlAat = "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
+def idamUrlAat = "https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal"
 
 withPipeline("nodejs", product, component) {
     after('build') {sh 'yarn build'}
@@ -20,6 +21,8 @@ withPipeline("nodejs", product, component) {
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
         sh 'echo SSCS_API_URL=$SSCS_API_URL'
+        env.IDAM_URL = idamUrlAat
+        sh 'echo IDAM_URL=$IDAM_URL'
     }
     before("functionalTest:aat") {
         env.COH_URL = cohUrlAat
@@ -27,5 +30,7 @@ withPipeline("nodejs", product, component) {
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
         sh 'echo SSCS_API_URL=$SSCS_API_URL'
+        env.IDAM_URL = idamUrlAat
+        sh 'echo IDAM_URL=$IDAM_URL'
     }
 }
