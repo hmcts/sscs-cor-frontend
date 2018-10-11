@@ -10,15 +10,17 @@
 {% endblock %}
 
 {% block header %}
+    {% set navigation = [] %}
+    {% if showSignOut %}
+        {% set navigation = [{
+            "href": "/sign-out",
+            "text": "Sign out ",
+            "active": false
+        }] %}
+    {% endif %}
     {{
         govukHeader({
-            "navigation": [
-                {
-                "href": "/logout",
-                "text": "Sign out",
-                "active": true
-                }
-            ]
+            "navigation": navigation
         })
     }}
 {% endblock %}
