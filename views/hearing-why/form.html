@@ -1,0 +1,16 @@
+<form action="/hearing-why" method="post">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">{{ i18n.hearingWhy.header }}</h1>
+      {{ govukTextarea({
+        name: "explain-why",
+        id: "explain-why"
+      }) }}
+    </div>
+  </div>
+  <div id="submit-button">
+    {{ govukButton({
+      text: i18n.general.continue
+    }) }}
+  </div>
+</form>

@@ -1,0 +1,9 @@
+<h1 class="govuk-heading-l">{{ i18n.hearingWhy.booking.header }}</h1>
+<p id="responseDate">{{ i18n.hearingWhy.booking.para1 | eval | date }}</p>
+<p>{{ i18n.hearingWhy.booking.para2 }} 
+  <a href="mailto:{{ i18n.hearingWhy.booking.contactEmail }}?subject={{ hearing.case_reference }}: Hearing"> 
+    {{i18n.hearingWhy.booking.contactEmail}}
+  </a>
+</p>
+<p id="caseReference">{{ i18n.hearingWhy.booking.para3 }} {{ hearing.case_reference }}</p>
+<p><a href="/logout">{{ i18n.general.exitService }}</a></p>

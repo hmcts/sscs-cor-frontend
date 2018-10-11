@@ -1,4 +1,4 @@
-import { OnlineHearing } from 'app/server/services/getOnlineHearing'
+import { OnlineHearing } from 'app/server/services/getOnlineHearing';
 const { expect, sinon } = require('test/chai-sinon');
 const { getTribunalView, postTribunalView, setupTribunalViewController } = require('app/server/controllers/tribunal-view');
 const express = require('express');
@@ -27,7 +27,7 @@ describe('controllers/tribunal-view', () => {
         decision_text: 'Decision reasons',
         decision_state: 'decision_issued',
         decision_state_datetime: moment().utc().format()
-    }
+      }
     };
     req = {
       session: {
@@ -46,18 +46,18 @@ describe('controllers/tribunal-view', () => {
   });
 
   describe('getTribunalView', () => {
-    it('renders tribunal view page with issued decision', async() => {
+    it('renders tribunal view page with issued decision', async () => {
       await getTribunalView(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy });
     });
 
-    it('redirects to /logout if decision is not issued', async() => {
+    it('redirects to /logout if decision is not issued', async () => {
       req.session.hearing.decision.decision_state = 'decision_drafted';
       await getTribunalView(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
     });
 
-    it('redirects to /logout if decision is not present', async() => {
+    it('redirects to /logout if decision is not present', async () => {
       delete req.session.hearing.decision;
       await getTribunalView(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
@@ -72,7 +72,7 @@ describe('controllers/tribunal-view', () => {
       };
     });
     describe('validation failed', () => {
-      beforeEach(async() => {
+      beforeEach(async () => {
         req.body['accept-view'] = '';
         await postTribunalView(tribunalViewService)(req, res, next);
       });
@@ -94,28 +94,28 @@ describe('controllers/tribunal-view', () => {
         afterEach(() => {
           (AppInsights.trackException as sinon.SinonStub).restore();
         });
-        it('calls service to record tribunal view acceptance', async() => {
+        it('calls service to record tribunal view acceptance', async () => {
           await postTribunalView(tribunalViewService)(req, res, next);
           expect(tribunalViewService.recordTribunalViewResponse).to.have.been.calledOnce.calledWith(hearingDetails.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
         });
-        it('calls next and app insights if service call fails', async() => {
+        it('calls next and app insights if service call fails', async () => {
           const error = new Error('recordTribunalViewResponse error');
           tribunalViewService.recordTribunalViewResponse.rejects(error);
           await postTribunalView(tribunalViewService)(req, res, next);
           expect(next).to.have.been.calledOnce.calledWith(error);
           expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
         });
-        it('sets flag in session', async() => {
+        it('sets flag in session', async () => {
           await postTribunalView(tribunalViewService)(req, res, next);
           expect(req.session).to.have.property('tribunalViewAcceptedThisSession', true);
         });
-        it('redirects to view accepted page', async() => {
+        it('redirects to view accepted page', async () => {
           await postTribunalView(tribunalViewService)(req, res, next);
           expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalViewAccepted);
         });
       });
       describe('accepts === no', () => {
-        it('redirects to hearing confirm page', async() => {
+        it('redirects to hearing confirm page', async () => {
           req.body['accept-view'] = 'no';
           await postTribunalView(tribunalViewService)(req, res, next);
           expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingConfirm);
