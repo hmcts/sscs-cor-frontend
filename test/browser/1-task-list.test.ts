@@ -5,6 +5,7 @@ import { startServices } from 'test/browser/common';
 const mockDataQuestions = require('test/mock/cor-backend/services/all-questions').template;
 const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
+import { LoginPage } from 'test/page-objects/login';
 import * as Paths from 'app/server/paths';
 const i18n = require('locale/en.json');
 const config = require('config');
@@ -17,7 +18,8 @@ const sampleQuestionOrdinal = '1';
 
 describe('Task list page', () => {
   let page: Page;
-  let taskListPage;
+  let taskListPage: TaskListPage;
+  let loginPage: LoginPage;
   let hearingId;
   let questionId;
   let questionOrdinal;
@@ -36,6 +38,7 @@ describe('Task list page', () => {
     const deadlineExpiryDate = res.cohTestData.deadlineExpiryDate || mockDataQuestions.deadline_expiry_date({ sampleHearingId });
     deadlineExpiryDateFormatted = moment.utc(deadlineExpiryDate).format('D MMMM YYYY');
     taskListPage = new TaskListPage(page);
+    loginPage = new LoginPage(page);
     await taskListPage.screenshot('task-list');
   });
 
@@ -80,6 +83,13 @@ describe('Task list page', () => {
     await taskListPage.clickQuestion(questionId);
     expect(taskListPage.getCurrentUrl())
       .to.equal(`${testUrl}${Paths.question}/${questionOrdinal}`);
+  });
+
+  it('signs out and prevents access to pages', async () => {
+    await taskListPage.signOut();
+    loginPage.verifyPage();
+    await taskListPage.visitPage();
+    loginPage.verifyPage();
   });
 });
 
