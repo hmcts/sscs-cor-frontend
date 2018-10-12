@@ -78,8 +78,8 @@ async function createQuestion(hearingId, mockQuestionRef, ordinal) {
 async function createQuestions(hearingId) {
   const questionList = [];
   questionList.push(await createQuestion(hearingId, '001', 1));
-  questionList.push(await createQuestion(hearingId, '002', 2));
-  questionList.push(await createQuestion(hearingId, '003', 3));
+  questionList.push(await createQuestion(hearingId, '002', 1));
+  questionList.push(await createQuestion(hearingId, '003', 1));
   return questionList;
 }
 

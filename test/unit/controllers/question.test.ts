@@ -48,7 +48,7 @@ describe('controllers/question.js', () => {
       getQuestionService = null;
       getAllQuestionsService = {
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
-      }
+      };
     });
 
     it('should call render with the template and question header', async() => {
@@ -73,7 +73,7 @@ describe('controllers/question.js', () => {
           questionOrdinal: '1',
           header: questionHeading,
           body: questionBody,
-          answer: { 
+          answer: {
             value: questionAnswer,
             date: questionAnswerDate,
           },
