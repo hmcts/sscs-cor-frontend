@@ -52,7 +52,7 @@ describe('controllers/submit-question', () => {
 
   describe('getSubmitQuestion', () => {
     it('should call render with the template and hearing/question ids', () => {
-      const questionOrdinal = req.session.questions[0].question_ordinal;
+      const questionOrdinal = req.params.questionOrdinal;
       getSubmitQuestion(getAllQuestionsService)(req, res);
       expect(res.render).to.have.been.calledWith('submit-question.html', { questionOrdinal });
     });
