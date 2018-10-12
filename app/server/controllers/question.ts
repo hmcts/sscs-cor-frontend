@@ -5,6 +5,7 @@ import { answerValidation } from '../utils/fieldValidation';
 
 function getQuestion(getAllQuestionsService, getQuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
+    const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
@@ -15,7 +16,7 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
 
       const question = {
         questionId: currentQuestionId,
-        questionOrdinal: response.question_ordinal,
+        questionOrdinal: questionOrdinal,
         header: response.question_header_text,
         body: response.question_body_text,
         answer_state: response.answer_state,
@@ -35,7 +36,7 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
 
 function postAnswer(getAllQuestionsService, updateAnswerService) {
   return async(req: Request, res: Response, next: NextFunction) => {
-    const questionOrdinal: number = parseInt(req.params.questionOrdinal, 10);
+    const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
