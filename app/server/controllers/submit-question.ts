@@ -10,7 +10,7 @@ function getSubmitQuestion(getAllQuestionsService: any) {
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
-    const questionOrdinal: number = parseInt(req.params.questionOrdinal, 10);
+    const questionOrdinal: string = req.params.questionOrdinal;
     res.render('submit-question.html', { questionOrdinal });
   };
 }
