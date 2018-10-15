@@ -10,13 +10,22 @@ const emailHearingIdMap = {
   'completed@example.com': '2-completed',
   'expired@example.com': '3-expired',
   'view.issued@example.com': '4-view-issued',
+  'view.issued.accepted@example.com': '4a-view-issued',
+  'view.issued.rejected@example.com': '4b-view-issued',
   'appeal.upheld@example.com': '5-appeal-upheld',
   'appeal.denied@example.com': '6-appeal-denied'
 };
 
 const createDecision = email => {
   const decisionIssued = cache.get('decisionIssued');
-  const decisionEmails = ['view.issued@example.com', 'appeal.upheld@example.com', 'appeal.denied@example.com'];
+  const tribunalViewReply = cache.get('tribunalViewReply');
+  const decisionEmails = [
+    'view.issued@example.com',
+    'view.issued.accepted@example.com',
+    'view.issued.rejected@example.com',
+    'appeal.upheld@example.com',
+    'appeal.denied@example.com'
+  ];
   if (decisionIssued || decisionEmails.includes(email)) {
     let decisionState = 'decision_issued';
     if (email === 'appeal.upheld@example.com') {
@@ -25,13 +34,33 @@ const createDecision = email => {
     if (email === 'appeal.denied@example.com') {
       decisionState = 'decision_rejected';
     }
+    let appellantReply = {};
+    if (tribunalViewReply) {
+      appellantReply = {
+        appellant_reply: tribunalViewReply,
+        appellant_reply_datetime: moment.utc()
+      };
+    }
+    if (email === 'view.issued.accepted@example.com') {
+      appellantReply = {
+        appellant_reply: 'decision_accepted',
+        appellant_reply_datetime: moment.utc().subtract(1, 'day')
+      };
+    }
+    if (email === 'view.issued.rejected@example.com') {
+      appellantReply = {
+        appellant_reply: 'decision_rejected',
+        appellant_reply_datetime: moment.utc().subtract(1, 'day')
+      };
+    }
     return {
       decision_award: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
       decision_header: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
       decision_reason: 'The final decision is this.',
       decision_text: 'The final decision is this.',
       decision_state: decisionState,
-      decision_state_datetime: moment.utc().format()
+      decision_state_datetime: moment.utc().format(),
+      ...appellantReply
     };
   }
   return null;

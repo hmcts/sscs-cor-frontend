@@ -11,7 +11,7 @@ describe('controllers/tribunal-view-accepted', () => {
   beforeEach(() => {
     req = {
       session: {
-        tribunalViewAcceptedThisSession: true
+        hearing: {}
       }
     } as any;
     res = {
@@ -21,18 +21,20 @@ describe('controllers/tribunal-view-accepted', () => {
   });
 
   describe('getTribunalViewAccepted', () => {
-    it('renders tribunal view accepted page with next correspondence date', async() => {
-      const nextCorrespondenceDate = moment.utc().add(14, 'days').format();
+    it('renders tribunal view accepted page with next correspondence date', async () => {
+      const replyDatetime = '2018-10-10T14:43:06Z';
+      const nextCorrespondenceDate = moment.utc(replyDatetime).add(14, 'days').format();
+      req.session.hearing = {
+        decision: {
+          appellant_reply: 'decision_accepted',
+          appellant_reply_datetime: replyDatetime
+        }
+      };
       await getTribunalViewAccepted(req, res);
-      const theTemplate = res.render.getCall(0).args[0];
-      const theCorrespondenceDate = res.render.getCall(0).args[1].nextCorrespondenceDate;
-      expect(theTemplate).to.equal('tribunal-view-accepted.html');
-      expect(moment(theCorrespondenceDate).format('LL')).to.equal(moment(nextCorrespondenceDate).format('LL'));
-
+      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-accepted.html', { nextCorrespondenceDate });
     });
 
-    it('redirects to /task-list if view was not accepted in this session', async() => {
-      delete req.session.tribunalViewAcceptedThisSession;
+    it('redirects to /task-list if view was not accepted', async() => {
       await getTribunalViewAccepted(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });

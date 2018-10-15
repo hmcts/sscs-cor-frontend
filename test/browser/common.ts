@@ -63,7 +63,7 @@ function startAppServer() {
   }
 }
 
-async function login(page) {
+export async function login(page) {
   const email = ccdCase && ccdCase.email || 'someone@example.com';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
