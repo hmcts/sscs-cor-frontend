@@ -22,6 +22,7 @@ let browser;
 let server;
 let cohTestData;
 let ccdCase;
+let sidamUser;
 let loginPage;
 let taskListPage;
 
@@ -64,11 +65,12 @@ function startAppServer() {
 }
 
 export async function login(page) {
-  const email = ccdCase && ccdCase.email || 'someone@example.com';
+  const email = sidamUser && sidamUser.email || 'someone@example.com';
+  const password = sidamUser && sidamUser.password || 'somePassword';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
   await loginPage.visitPage();
-  await loginPage.login(email);
+  await loginPage.login(email, password);
 }
 
 async function startServices(options?) {
@@ -77,6 +79,7 @@ async function startServices(options?) {
     const bootstrapResult = await bootstrap();
     ccdCase = bootstrapResult.ccdCase;
     cohTestData = bootstrapResult.cohTestData;
+    sidamUser = bootstrapResult.sidamUser;
   }
   if (opts.issueDecision) {
     const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';

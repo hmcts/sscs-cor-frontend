@@ -32,21 +32,21 @@ describe('Login page', () => {
 
   it('handles online hearing not found', async() => {
     await loginPage.visitPage();
-    await loginPage.login('not.found@example.com');
+    await loginPage.login('not.found@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
     expect(errorSummary).contain(i18n.emailNotFound.header);
   });
 
   it('handles multiple online hearings found', async() => {
     await loginPage.visitPage();
-    await loginPage.login('multiple@example.com');
+    await loginPage.login('multiple@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
     expect(errorSummary).contain(i18n.emailNotFound.header);
   });
 
   it('logs in successfully and shows the task list', async() => {
     await loginPage.visitPage();
-    await loginPage.login('test@example.com');
+    await loginPage.login('test@example.com', 'examplePassword');
     await loginPage.screenshot('successful-login');
     expect(await taskListPage.getHeading()).to.equal(i18n.taskList.header);
   });
@@ -69,7 +69,7 @@ describe('Login page', () => {
 
   it('displays the deadline appropriately when expired', async() => {
     await loginPage.visitPage();
-    await loginPage.login('expired@example.com');
+    await loginPage.login('expired@example.com', 'examplePassword');
     await loginPage.screenshot('expired-login');
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
@@ -81,7 +81,7 @@ describe('Login page', () => {
 
   it('displays the deadline appropriately when completed', async() => {
     await loginPage.visitPage();
-    await loginPage.login('completed@example.com');
+    await loginPage.login('completed@example.com', 'examplePassword');
     await loginPage.screenshot('completed-login');
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
@@ -90,7 +90,7 @@ describe('Login page', () => {
 
   it('displays the tribunal view page', async() => {
     await loginPage.visitPage();
-    await loginPage.login('view.issued@example.com');
+    await loginPage.login('view.issued@example.com', 'examplePassword');
     await loginPage.screenshot('tribunal-view-issued-login');
     tribunalViewPage.verifyPage();
     expect(await tribunalViewPage.getHeading()).to.equal(i18n.tribunalView.header);
@@ -99,7 +99,7 @@ describe('Login page', () => {
 
   it('displays the decision page with appeal upheld', async() => {
     await loginPage.visitPage();
-    await loginPage.login('appeal.upheld@example.com');
+    await loginPage.login('appeal.upheld@example.com', 'examplePassword');
     await loginPage.screenshot('decision-appeal-upheld-login');
     decisionPage.verifyPage();
     expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
@@ -109,7 +109,7 @@ describe('Login page', () => {
 
   it('displays the decision page with appeal denied', async() => {
     await loginPage.visitPage();
-    await loginPage.login('appeal.denied@example.com');
+    await loginPage.login('appeal.denied@example.com', 'examplePassword');
     await loginPage.screenshot('decision-denied-upheld-login');
     decisionPage.verifyPage();
     expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
