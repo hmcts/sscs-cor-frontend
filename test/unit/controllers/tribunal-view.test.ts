@@ -51,13 +51,13 @@ describe('controllers/tribunal-view', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy });
     });
 
-    it('redirects to /logout if decision is not issued', async () => {
+    it('redirects to /sign-out if decision is not issued', async () => {
       req.session.hearing.decision.decision_state = 'decision_drafted';
       await getTribunalView(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
     });
 
-    it('redirects to /logout if decision is not present', async () => {
+    it('redirects to /sign-out if decision is not present', async () => {
       delete req.session.hearing.decision;
       await getTribunalView(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
