@@ -4,7 +4,7 @@ const moment = require('moment');
 
 function cacheAnswerState(questionId) {
   cache.put(`${questionId}.state`, 'submitted');
-  cache.put(`${questionId}.answer_date`, moment().utc().format());
+  cache.put(`${questionId}.answer_date`, moment.utc().format());
 }
 
 module.exports = {

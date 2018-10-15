@@ -31,7 +31,7 @@ const createDecision = email => {
       decision_reason: 'The final decision is this.',
       decision_text: 'The final decision is this.',
       decision_state: decisionState,
-      decision_state_datetime: moment().utc().format()
+      decision_state_datetime: moment.utc().format()
     };
   }
   return null;

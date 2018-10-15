@@ -13,7 +13,7 @@ describe('services/extend-deadline.ts', () => {
   const path = `/continuous-online-hearings/${hearingId}`;
 
   const apiResponse = {
-    deadline_expiry_date: moment().utc().add(14, 'day').format()
+    deadline_expiry_date: moment.utc().add(14, 'day').format()
   };
 
   describe('Update hearing deadline', () => {
