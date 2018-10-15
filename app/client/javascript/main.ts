@@ -1,11 +1,10 @@
-import * as $ from 'jquery';
+import * as govUK from 'govuk-frontend';
+import * as expandingTextBox from './expanding-textbox';
+const domready = require('domready');
 
-import { initAll as GOVUKFrontend } from 'govuk-frontend'
-import { ExpandingTextBox } from './expanding-textbox';
-
-$(document).ready(() => {
-  GOVUKFrontend();
-  const expandingTextBox = new ExpandingTextBox();
+domready(function () {
+  govUK.initAll();
+  expandingTextBox.init();
 });
 
 export default {};
