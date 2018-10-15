@@ -1,7 +1,7 @@
 const { expect } = require('test/chai-sinon');
 import { CONST } from 'app/constants';
 import { Page } from 'puppeteer';
-import { startServices } from 'test/browser/common';
+import { startServices, login } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 import { TribunalViewAcceptedPage } from 'test/page-objects/tribunal-view-accepted';
 import * as moment from 'moment';
@@ -52,12 +52,16 @@ describe('Tribunal view page', () => {
     expect(await tribunalViewPage.getElementText('#accept-view-error')).equal(i18n.tribunalView.error.empty);
   });
 
-  describe('accepting the tribunal\'s view', () => {
-    it('shows the accepts page', async () => {
-      await tribunalViewPage.acceptTribunalsView();
-      await tribunalViewPage.submit();
-      tribunalViewAcceptedPage.verifyPage();
-      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
-    });
+  it('accepting the tribunal\'s view shows the accepts page', async () => {
+    await tribunalViewPage.acceptTribunalsView();
+    await tribunalViewPage.submit();
+    tribunalViewAcceptedPage.verifyPage();
+    expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+  });
+
+  it('returns the user to the acceptance page if they sign-in later', async () => {
+    await login(page);
+    tribunalViewAcceptedPage.verifyPage();
+    expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
   });
 });
