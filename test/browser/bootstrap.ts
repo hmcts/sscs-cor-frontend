@@ -1,5 +1,6 @@
 import * as coh from 'test/fixtures/coh';
 import * as ccd from 'test/fixtures/ccd';
+import * as sidam from 'test/fixtures/sidam';
 
 async function waitForQuestionRoundIssued(hearingId, roundNum, attemptNum) {
   const MAX_ATTEMPTS = 30
@@ -70,11 +71,21 @@ async function bootstrapCcdCase() {
   }
 }
 
+async function bootstrapSidamUser(ccdCase) {
+  try {
+    return await sidam.createUser(ccdCase)
+  } catch (error) {
+    console.log('Error bootstrapping SIDAM user', error)
+    return Promise.reject(error)
+  }
+}
+
 export async function bootstrap() {
   try {
     const ccdCase = await bootstrapCcdCase()
     const cohTestData = await bootstrapCoh(ccdCase)
-    return { ccdCase, cohTestData }
+    const sidamUser = await bootstrapSidamUser(ccdCase)
+    return { ccdCase, cohTestData, sidamUser }
   } catch (error) {
     return Promise.reject(error)
   }
