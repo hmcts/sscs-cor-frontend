@@ -10,8 +10,8 @@ import { checkDecision } from 'app/server/middleware/check-decision';
 
 describe('controllers/extend-deadline.js', () => {
   const next = sinon.stub();
-  const deadline = moment().utc().add(7, 'day').format();
-  const extendDeadline = moment().utc().add(14, 'day').format();
+  const deadline = moment.utc().add(7, 'day').format();
+  const extendDeadline = moment.utc().add(14, 'day').format();
   const req: any = {
     body: {},
     session: {
