@@ -47,7 +47,7 @@ describe('controllers/hearing-confirm', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-confirm/index.html', {});
     });
 
-    it('redirects to /logout if user hasnt requested a hearing', async() => {
+    it('redirects to /sign-out if user hasnt requested a hearing', async() => {
       getIndex(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
     });
