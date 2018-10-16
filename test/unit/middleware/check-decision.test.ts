@@ -56,6 +56,11 @@ describe('middleware/check-decision', () => {
       checkDecision(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalViewAccepted);
     });
+    it('redirects to hearing page if appellant has rejected the view', () => {
+      req.session.hearing.decision.appellant_reply = 'decision_rejected';
+      checkDecision(req, res, next);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingWhy);
+    });
   });
 
   it('redirects to decision page if decision is accepted', () => {
