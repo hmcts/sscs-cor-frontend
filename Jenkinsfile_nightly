@@ -1,0 +1,14 @@
+#!groovy
+
+properties([
+        pipelineTriggers([cron('00 21 * * *')])
+])
+
+@Library("Infrastructure")
+
+def product = "sscs-cor"
+def component = "frontend"
+
+withNightlyPipeline("nodejs", product, component) {
+    enableSlackNotifications('#sscs-tech')
+}
