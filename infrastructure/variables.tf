@@ -46,8 +46,3 @@ variable "idam_url" {
 variable "idam_api_url" {
   description = "url for idam api"
 }
-
-variable "enable_dummy_login" {
-  description = "enable dummy login page"
-  default = "false"
-}

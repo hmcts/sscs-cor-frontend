@@ -1,5 +1,5 @@
-const {expect, sinon} = require('test/chai-sinon');
-import {getLogout, getIdamCallback, setupLoginController, redirectToLogin, redirectToIdam, getDummyLogin, postDummyLogin} from 'app/server/controllers/login.ts';
+const { expect, sinon } = require('test/chai-sinon');
+import { getLogout, getIdamCallback, setupLoginController, redirectToLogin, redirectToIdam } from 'app/server/controllers/login.ts';
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
@@ -130,32 +130,6 @@ describe('controllers/login.ts', () => {
       expect(next).to.have.been.calledWith(error);
     });
   });
-
-  describe('#getDummyLogin', () => {
-    it('load dummy login page', () => {
-      getDummyLogin(req, res);
-
-      expect(res.render).to.have.been.calledOnce.calledWith('dummy-login.html');
-    });
-  });
-
-  describe('#postDummyLogin', () => {
-    let getOnlineHearing;
-    beforeEach(async () => {
-      const email = "someEmail@example.com";
-      req.body['username'] = email;
-      getOnlineHearing = sinon.stub().resolves({body: hearingDetails});
-      await postDummyLogin(getOnlineHearing)(req, res, next);
-    });
-
-    it('calls the online hearing service', () => {
-      expect(getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com');
-    });
-
-    it('redirects to task list page', () => {
-      expect(res.redirect).to.have.been.calledWith(Paths.taskList);
-    });
-  });
 });
 
 describe('#setupLoginController', () => {
@@ -196,17 +170,5 @@ describe('#setupLoginController', () => {
     const controller = setupLoginController(deps);
     // eslint-disable-next-line new-cap
     expect(controller).to.equal(express.Router());
-  });
-
-  it('does not setup GET dummy login', () => {
-    setupLoginController(deps);
-    // eslint-disable-next-line new-cap
-    expect(express.Router().get).not.to.have.been.calledWith(Paths.dummyLogin);
-  });
-
-  it('does not setup POST dummy login', () => {
-    setupLoginController(deps);
-    // eslint-disable-next-line new-cap
-    expect(express.Router().post).not.to.have.been.calledWith(Paths.dummyLogin);
   });
 });

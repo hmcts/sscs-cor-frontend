@@ -18,7 +18,6 @@ withPipeline("nodejs", product, component) {
     after('build') {sh 'yarn build'}
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
-        env.ENABLE_DUMMY_LOGIN = 'true'
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
         sh 'echo SSCS_API_URL=$SSCS_API_URL'
@@ -29,7 +28,6 @@ withPipeline("nodejs", product, component) {
     }
     before("functionalTest:aat") {
         env.COH_URL = cohUrlAat
-        env.ENABLE_DUMMY_LOGIN = 'true'
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
         sh 'echo SSCS_API_URL=$SSCS_API_URL'

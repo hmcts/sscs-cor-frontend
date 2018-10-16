@@ -3,7 +3,6 @@ export const readiness = '/readiness';
 export const question = '/question';
 export const taskList = '/task-list';
 export const login = '/sign-in';
-export const dummyLogin = '/dummy-login';
 export const register = '/register';
 export const logout = '/sign-out';
 export const completed = '/questions-completed';

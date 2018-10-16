@@ -51,7 +51,6 @@ module "sscs-cor-frontend" {
     IDAM_URL                     = "${var.idam_url}"
     IDAM_API_URL                 = "${var.idam_api_url}"
     IDAM_CLIENT_SECRET           = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret.value}"
-    ENABLE_DUMMY_LOGIN           = "${var.enable_dummy_login}"
   }
 }
 
