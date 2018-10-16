@@ -5,6 +5,7 @@ module.exports = {
   method: 'PUT',
   status: (req, res, next) => {
     cache.put('decisionIssued', true);
+    cache.del('tribunalViewReply');
     next();
   }
 };
