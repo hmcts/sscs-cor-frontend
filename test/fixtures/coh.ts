@@ -29,7 +29,7 @@ const onlineHearingBody = caseId => {
         name: PANEL_NAME
       }
     ],
-    start_date: moment().utc().format(),
+    start_date: moment.utc().format(),
     state: HEARING_STATUS
   };
 };

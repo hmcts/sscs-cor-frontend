@@ -62,7 +62,7 @@ describe('Login page', () => {
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
     const deadlineDate = await taskListPage.getElementText('#deadline-date');
     /* eslint-disable-next-line no-magic-numbers */
-    const expectedDeadlineDate = moment().utc().add(7, 'days').endOf('day').format('D MMMM YYYY');
+    const expectedDeadlineDate = moment.utc().add(7, 'days').endOf('day').format('D MMMM YYYY');
     expect(deadlineStatus).to.equal(i18n.taskList.deadline.pending);
     expect(deadlineDate).to.equal(expectedDeadlineDate);
   });
@@ -74,7 +74,7 @@ describe('Login page', () => {
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
     const deadlineDate = await taskListPage.getElementText('#deadline-date');
-    const expectedDeadlineDate = moment().utc().subtract(1, 'day').endOf('day').format('D MMMM YYYY');
+    const expectedDeadlineDate = moment.utc().subtract(1, 'day').endOf('day').format('D MMMM YYYY');
     expect(deadlineStatus).to.equal(i18n.taskList.deadline.expired);
     expect(deadlineDate).to.equal(expectedDeadlineDate);
   });

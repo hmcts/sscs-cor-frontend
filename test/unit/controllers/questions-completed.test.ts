@@ -22,7 +22,7 @@ describe('controllers/questions-completed.js', () => {
 
   describe('getQuestionsCompleted', () => {
 
-    const nextCorrespondenceDate = moment().utc().add(7, 'days');
+    const nextCorrespondenceDate = moment.utc().add(7, 'days');
 
     it('renders questions completed page with next correspondence date', async() => {
       await getQuestionsCompleted(req, res);

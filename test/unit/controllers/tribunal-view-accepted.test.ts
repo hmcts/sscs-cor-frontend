@@ -22,7 +22,7 @@ describe('controllers/tribunal-view-accepted', () => {
 
   describe('getTribunalViewAccepted', () => {
     it('renders tribunal view accepted page with next correspondence date', async() => {
-      const nextCorrespondenceDate = moment().utc().add(14, 'days').format();
+      const nextCorrespondenceDate = moment.utc().add(14, 'days').format();
       await getTribunalViewAccepted(req, res);
       const theTemplate = res.render.getCall(0).args[0];
       const theCorrespondenceDate = res.render.getCall(0).args[1].nextCorrespondenceDate;

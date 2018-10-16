@@ -21,7 +21,7 @@ describe('controllers/decision.js', () => {
         decision_reason: 'Decision reasons',
         decision_text: 'Decision reasons',
         decision_state: 'decision_accepted',
-        decision_state_datetime: moment().utc().format()
+        decision_state_datetime: moment.utc().format()
       }
     };
     req = {

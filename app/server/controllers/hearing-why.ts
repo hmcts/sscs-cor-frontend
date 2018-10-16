@@ -22,7 +22,7 @@ function postIndex(tribunalViewService) {
 
     try {
       const hearing: OnlineHearing = req.session.hearing;
-      const responseDate = moment().utc().add(6, 'week').format();
+      const responseDate = moment.utc().add(6, 'week').format();
       await tribunalViewService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_REJECTED_STATE, explainWhy);
       return res.render('hearing-why/index.html', { submitted: true, hearing: req.session.hearing, responseDate });
     } catch (error) {

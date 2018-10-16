@@ -56,7 +56,7 @@ describe('controllers/question.js', () => {
       const questionBody = 'Many people ask this question...';
       const questionAnswer = '';
       const questionAnswerState = 'unanswered';
-      const questionAnswerDate = moment().utc().format();
+      const questionAnswerDate = moment.utc().format();
       getQuestionService = () => Promise.resolve({
         question_id: questionId,
         question_ordinal: questionOrdinal,

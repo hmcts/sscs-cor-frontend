@@ -82,7 +82,7 @@ describe('Request a hearing', () => {
         await hearingWhyPage.submit();
         expect(await hearingWhyPage.getElementText('h1')).contain(i18n.hearingWhy.booking.header);
         const responseDate = await tribunalViewPage.getElementText('#responseDate');
-        expect(responseDate).to.contain(`${moment().utc().add(6, 'week').format(CONST.DATE_FORMAT)}`);
+        expect(responseDate).to.contain(`${moment.utc().add(6, 'week').format(CONST.DATE_FORMAT)}`);
         const caseReference = await tribunalViewPage.getElementText('#caseReference');
         expect(caseReference).to.contain(`${caseReference}`);
         await hearingWhyPage.screenshot('hearing-why-booking-details');

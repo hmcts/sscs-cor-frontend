@@ -37,7 +37,7 @@ describe('controllers/task-list.js', () => {
   describe('getTaskList', () => {
     let getAllQuestionsService;
     let questions;
-    const deadline = moment().utc().add(7, 'days');
+    const deadline = moment.utc().add(7, 'days');
     const inputDeadline = deadline.format();
     const expectedDeadline = deadline.format();
 
@@ -80,7 +80,7 @@ describe('controllers/task-list.js', () => {
     });
 
     it('should call render with deadline status expired when deadline is expired', async() => {
-      const expiredDeadline = moment().utc().subtract(1, 'day');
+      const expiredDeadline = moment.utc().subtract(1, 'day');
       const inputExpiredDeadline = expiredDeadline.format();
       const expectedExpiredDeadline = expiredDeadline.format();
       getAllQuestionsService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
@@ -135,7 +135,7 @@ describe('controllers/task-list.js', () => {
 
   describe('processDeadline', () => {
     it('deadline is completed status if all questions submitted', () => {
-      const deadline = moment().utc().format();
+      const deadline = moment.utc().format();
       const deadlineDetails = processDeadline(deadline, true);
       expect(deadlineDetails).to.deep.equal({
         extendable: false,
@@ -145,7 +145,7 @@ describe('controllers/task-list.js', () => {
     });
 
     it('deadline is pending if expiry is in the future', () => {
-      const deadline = moment().utc().add(7, 'days');
+      const deadline = moment.utc().add(7, 'days');
       const inputDeadlineFormatted = deadline.format();
       const expectedFormat = deadline.format();
 
@@ -158,7 +158,7 @@ describe('controllers/task-list.js', () => {
     });
 
     it('deadline is expired if expiry is in the past', () => {
-      const deadline = moment().utc().subtract(1, 'day');
+      const deadline = moment.utc().subtract(1, 'day');
       const inputDeadlineFormatted = deadline.format();
       const expectedFormat = deadline.format();
 
