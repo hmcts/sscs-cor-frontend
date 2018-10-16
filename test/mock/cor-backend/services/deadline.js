@@ -7,7 +7,7 @@ module.exports = {
   cache: false,
   template: {
     /* eslint-disable no-magic-numbers */
-    deadline_expiry_date: moment().utc().add(14, 'day').format()
+    deadline_expiry_date: moment.utc().add(14, 'day').format()
   },
   status: (req, res, next) => {
     cache.put(`${req.params.hearingId}.extensionCount`, 1);

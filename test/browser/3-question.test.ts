@@ -135,7 +135,7 @@ describe('Question page', () => {
 
     it('displays the previously submitted answer date', async() => {
       const savedAnswerDate = await questionPage.getElementText('#completed-answer .answer-date');
-      expect(savedAnswerDate).to.equal(`Submitted: ${moment().utc().format(CONST.DATE_FORMAT)}`);
+      expect(savedAnswerDate).to.equal(`Submitted: ${moment.utc().format(CONST.DATE_FORMAT)}`);
     });
 
     it('returns to task list if back is clicked', async() => {
@@ -171,7 +171,7 @@ describe('Question page', () => {
     });
 
     it('shows the correct date for next contact', async() => {
-      const expectedDate = moment().utc().add(7, 'days').format('D MMMM YYYY');
+      const expectedDate = moment.utc().add(7, 'days').format('D MMMM YYYY');
       const contactDate = await questionsCompletedPage.getElementText('#next-contact-date');
       expect(contactDate).to.equal(expectedDate);
     });

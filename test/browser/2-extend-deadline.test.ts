@@ -58,7 +58,7 @@ describe('Extend deadline', () => {
       await extendDeadlinePage.screenshot('extend-deadline-confirmation-no');
 
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
-      expect(deadline).to.contain(`${moment().utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
+      expect(deadline).to.contain(`${moment.utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
     });
   });
 
@@ -71,7 +71,7 @@ describe('Extend deadline', () => {
       await extendDeadlinePage.screenshot('extend-deadline-confirmation-yes');
 
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
-      expect(deadline).to.contain(`${moment().utc().add(14, 'day').format(CONST.DATE_FORMAT)}`);
+      expect(deadline).to.contain(`${moment.utc().add(14, 'day').format(CONST.DATE_FORMAT)}`);
     });
 
     it('shows the contact tribunal details', async() => {

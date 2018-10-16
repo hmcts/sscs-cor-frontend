@@ -26,7 +26,7 @@ describe('controllers/hearing-why', () => {
         decision_reason: 'Decision reasons',
         decision_text: 'Decision reasons',
         decision_state: 'decision_issued',
-        decision_state_datetime: moment().utc().format()
+        decision_state_datetime: moment.utc().format()
       }
     };
     req = {
@@ -94,7 +94,7 @@ describe('controllers/hearing-why', () => {
 
     describe('validation passed', () => {
 
-      const inSixWeeks = moment().utc().add(6, 'weeks').format(CONST.DATE_FORMAT);
+      const inSixWeeks = moment.utc().add(6, 'weeks').format(CONST.DATE_FORMAT);
 
       it('renders the view with hearing booking details', async () => {
         await postIndex(tribunalViewService)(req, res, next);

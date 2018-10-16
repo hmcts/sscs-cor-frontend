@@ -6,7 +6,7 @@ import * as Paths from '../paths';
 function processDeadline(expiryDate: Date, allQuestionsSubmitted: boolean) {
   if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
 
-  const endOfToday = moment().utc().endOf('day');
+  const endOfToday = moment.utc().endOf('day');
   const status = moment.utc(expiryDate).isBefore(endOfToday) ? 'expired' : 'pending';
 
   return { status, expiryDate, extendable: true };

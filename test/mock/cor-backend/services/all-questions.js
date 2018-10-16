@@ -10,10 +10,10 @@ const hearingIdToDeadlineStatusMap = {
 function deadlineDate(hearingId) {
   const deadlineStatus = hearingIdToDeadlineStatusMap[hearingId];
   if (deadlineStatus === 'expired') {
-    return moment().utc().subtract(1, 'day').endOf('day').format();
+    return moment.utc().subtract(1, 'day').endOf('day').format();
   }
   /* eslint-disable-next-line no-magic-numbers */
-  return moment().utc().add(7, 'days').endOf('day').format();
+  return moment.utc().add(7, 'days').endOf('day').format();
 }
 
 function answerState(questionId, hearingId) {

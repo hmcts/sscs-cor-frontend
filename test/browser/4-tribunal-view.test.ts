@@ -43,7 +43,7 @@ describe('Tribunal view page', () => {
     const acceptNo = await tribunalViewPage.getElementValue('#accept-view-2');
     expect(acceptNo).to.equal('no');
     const respondBy = await tribunalViewPage.getElementText('form p');
-    expect(respondBy).to.contain(`${moment().utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
+    expect(respondBy).to.contain(`${moment.utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
   });
 
   it('validates that one option must be selected', async () => {
