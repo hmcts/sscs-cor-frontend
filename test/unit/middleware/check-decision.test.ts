@@ -21,7 +21,7 @@ describe('middleware/check-decision', () => {
             decision_header: 'appeal-upheld',
             decision_reason: 'The decision',
             decision_text: 'The decision',
-            decision_state: 'decision_issued'
+            decision_state: 'decision_drafted'
           }
         }
       }
@@ -33,7 +33,6 @@ describe('middleware/check-decision', () => {
   });
 
   it('calls next when decision that is not issued exists in the session', () => {
-    req.session.hearing.decision.decision_state = 'decision_drafted';
     checkDecision(req, res, next);
     expect(next).to.have.been.calledOnce.calledWith();
   });
@@ -44,9 +43,19 @@ describe('middleware/check-decision', () => {
     expect(next).to.have.been.calledOnce.calledWith();
   });
 
-  it('redirects to tribunal view page if decision is issued', () => {
-    checkDecision(req, res, next);
-    expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalView);
+  describe('when a tribunal view is available', () => {
+    beforeEach(() => {
+      req.session.hearing.decision.decision_state = 'decision_issued';
+    });
+    it('redirects to tribunal view page', () => {
+      checkDecision(req, res, next);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalView);
+    });
+    it('redirects to tribunal view accepted page if appellant has accepted the view', () => {
+      req.session.hearing.decision.appellant_reply = 'decision_accepted';
+      checkDecision(req, res, next);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalViewAccepted);
+    });
   });
 
   it('redirects to decision page if decision is accepted', () => {

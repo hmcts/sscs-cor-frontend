@@ -105,9 +105,10 @@ describe('controllers/tribunal-view', () => {
           expect(next).to.have.been.calledOnce.calledWith(error);
           expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
         });
-        it('sets flag in session', async () => {
+        it('set appellant reply properties against the decision in the session', async () => {
           await postTribunalView(tribunalViewService)(req, res, next);
-          expect(req.session).to.have.property('tribunalViewAcceptedThisSession', true);
+          expect(req.session.hearing.decision).to.have.property('appellant_reply', 'decision_accepted');
+          expect(req.session.hearing.decision).to.have.property('appellant_reply_datetime');
         });
         it('redirects to view accepted page', async () => {
           await postTribunalView(tribunalViewService)(req, res, next);

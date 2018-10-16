@@ -11,6 +11,8 @@ interface OnlineHearingDecision {
   decision_text: string;
   decision_state: string;
   decision_state_datetime: string;
+  appellant_reply?: string;
+  appellant_reply_datetime?: string;
 }
 
 export interface OnlineHearing {
