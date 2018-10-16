@@ -11,6 +11,7 @@ const config = require('config');
 const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 const dysonSetupCoh = require('test/mock/coh/dysonSetup');
 const dysonSetupIdam = require('test/mock/idam/dysonSetup');
+import * as sidam from 'test/fixtures/sidam';
 
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
@@ -22,7 +23,7 @@ let browser;
 let server;
 let cohTestData;
 let ccdCase;
-let sidamUser;
+let sidamUsers = [];
 let loginPage;
 let taskListPage;
 
@@ -65,6 +66,7 @@ function startAppServer() {
 }
 
 export async function login(page) {
+  const sidamUser = sidamUsers[0];
   const email = sidamUser && sidamUser.email || 'someone@example.com';
   const password = sidamUser && sidamUser.password || 'somePassword';
   loginPage = new LoginPage(page);
@@ -79,7 +81,7 @@ async function startServices(options?) {
     const bootstrapResult = await bootstrap();
     ccdCase = bootstrapResult.ccdCase;
     cohTestData = bootstrapResult.cohTestData;
-    sidamUser = bootstrapResult.sidamUser;
+    sidamUsers.unshift(bootstrapResult.sidamUser);
   }
   if (opts.issueDecision) {
     const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
@@ -99,6 +101,11 @@ async function startServices(options?) {
 }
 
 after(async() => {
+  sidamUsers.forEach(async (sidamUser) => {
+    console.log(`Deleting user ${sidamUser.email}`);
+    await sidam.deleteUser(sidamUser);
+  });
+
   if (server && server.close) {
     console.log('Killing server');
     server.close();
