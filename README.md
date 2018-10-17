@@ -139,3 +139,12 @@ And use the command
 ```bash
 HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal yarn test:create-data
 ```
+
+### Analytics
+
+Analytics are tracking using Google Tag Manager (GTM) and Google Analytics (GA), all managed under the SSCS account.
+
+* one GTM code is used across all environments and Tag Manager is configured to track page view events using different GA settings per environment
+* page views with AAT type hostnames eg. sscs-cor-frontend-aat-staging.service.core-compute-aat.internal are sent to one GA account
+* page views with PROD hostnames are sent to another
+* prod hostnames are configured but will need amending when domains have been decided
