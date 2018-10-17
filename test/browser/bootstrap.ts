@@ -83,8 +83,8 @@ async function bootstrapSidamUser(ccdCase) {
 export async function bootstrap() {
   try {
     const ccdCase = await bootstrapCcdCase()
-    const cohTestData = await bootstrapCoh(ccdCase)
     const sidamUser = await bootstrapSidamUser(ccdCase)
+    const cohTestData = await bootstrapCoh(ccdCase)
     return { ccdCase, cohTestData, sidamUser }
   } catch (error) {
     return Promise.reject(error)

@@ -13,6 +13,7 @@ const dysonSetupCoh = require('test/mock/coh/dysonSetup');
 const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
 
+const idamUrl = config.get('idam.url');
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
 const headless = config.get('headless') !== 'false';
@@ -65,14 +66,26 @@ function startAppServer() {
   }
 }
 
-export async function login(page) {
+export async function login(page, force?) {
   const sidamUser = sidamUsers[0];
   const email = sidamUser && sidamUser.email || 'someone@example.com';
   const password = sidamUser && sidamUser.password || 'somePassword';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
-  await loginPage.visitPage();
-  await loginPage.login(email, password);
+  await taskListPage.visitPage();
+  const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
+  if (isOnIdamPage() || force) {
+    console.log('LOGGING IN', isOnIdamPage(), force);
+    await loginPage.visitPage();
+    await loginPage.login(email, password);
+    let maxRetries = 5;
+    while (isOnIdamPage() && maxRetries > 0) {
+      console.log('Login attempt failed, retrying...');
+      await new Promise(r => setTimeout(r, 500));
+      await loginPage.login(email, password);
+      maxRetries--;
+    }
+  }
 }
 
 async function startServices(options?) {
@@ -95,7 +108,7 @@ async function startServices(options?) {
     width: 1100
   });
   if (opts.performLogin) {
-    await login(page);
+    await login(page, opts.forceLogin);
   }
   return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {} };
 }
