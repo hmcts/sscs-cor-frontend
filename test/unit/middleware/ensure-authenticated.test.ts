@@ -1,5 +1,5 @@
 const { expect, sinon } = require('test/chai-sinon');
-const { verifyOnlineHearingId, setLocals, ensureAuthenticated } = require('app/server/middleware/ensure-authenticated.ts');
+const { checkAccessToken, setLocals, ensureAuthenticated } = require('app/server/middleware/ensure-authenticated.ts');
 import * as Paths from 'app/server/paths';
 
 describe('middleware/ensure-authenticated', () => {
@@ -15,6 +15,7 @@ describe('middleware/ensure-authenticated', () => {
   beforeEach(() => {
     req = {
       session: {
+        accessToken: 'xxxxxxxxxxxxx',
         id: '123',
         hearing: hearingDetails,
         destroy: sinon.stub().yields()
@@ -27,16 +28,16 @@ describe('middleware/ensure-authenticated', () => {
     next = sinon.spy();
   });
 
-  describe('#verifyOnlineHearingId', () => {
-    it('calls next when hearing ID exists in the session', () => {
-      verifyOnlineHearingId(req, res, next);
+  describe('#checkAccessToken', () => {
+    it('calls next when accessToken exists in the session', () => {
+      checkAccessToken(req, res, next);
       expect(next).to.have.been.calledOnce.calledWith();
     });
 
-    describe('when no hearing ID exists', () => {
+    describe('when noaccessToken exists', () => {
       beforeEach(() => {
-        delete req.session.hearing;
-        verifyOnlineHearingId(req, res, next);
+        delete req.session.accessToken;
+        checkAccessToken(req, res, next);
       });
 
       it('destroys the session and redirects to login', () => {
