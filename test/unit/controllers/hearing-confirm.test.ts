@@ -24,7 +24,7 @@ describe('controllers/hearing-confirm', () => {
         decision_text: 'Decision reasons',
         decision_state: 'decision_issued',
         decision_state_datetime: moment.utc().format()
-    }
+      }
     };
     req = {
       session: {
@@ -42,12 +42,19 @@ describe('controllers/hearing-confirm', () => {
 
   describe('getIndex', () => {
     it('renders hearing confirmation page', () => {
-      req.session.newHearingConfirmationThisSession = true;
       getIndex(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('hearing-confirm/index.html', {});
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-confirm/index.html');
     });
 
-    it('redirects to /sign-out if user hasnt requested a hearing', async() => {
+    it('redirects to /hearing-why if user has already requested a hearing', async() => {
+      req.session.hearing.decision.appellant_reply = 'decision_rejected';
+      req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
+      getIndex(req, res);
+      expect(res.redirect).to.have.been.calledWith(Paths.hearingWhy);
+    });
+
+    it('redirects to /sign-out if user does not have a decision view', async() => {
+      req.session.hearing.decision.decision_state = 'decision_drafted';
       getIndex(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
     });
