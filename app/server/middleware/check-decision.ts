@@ -19,6 +19,9 @@ export function checkDecision(req: Request, res: Response, next: NextFunction) {
     if (appellantReply === 'decision_accepted') {
       return res.redirect(Paths.tribunalViewAccepted);
     }
+    if (appellantReply === 'decision_rejected') {
+      return res.redirect(Paths.hearingWhy);
+    }
     return res.redirect(Paths.tribunalView);
   }
   return res.redirect(Paths.decision);

@@ -1,12 +1,18 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import { newHearingAcceptedValidation } from '../utils/fieldValidation';
+import { CONST } from '../../constants';
 
 function getIndex(req: Request, res: Response) {
-  if (req.session.newHearingConfirmationThisSession) {
-    return res.render('hearing-confirm/index.html', {});
+  const decisionViewExists: boolean = req.session.hearing.decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE;
+  if (!decisionViewExists) {
+    return res.redirect(Paths.logout);
   }
-  return res.redirect(Paths.logout);
+  const appellantRejected: boolean = req.session.hearing.decision && req.session.hearing.decision.appellant_reply === 'decision_rejected';
+  if (appellantRejected) {
+    return res.redirect(Paths.hearingWhy);
+  }
+  return res.render('hearing-confirm/index.html');
 }
 
 function postIndex(req: Request, res: Response) {
