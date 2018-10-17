@@ -1,7 +1,7 @@
 const { expect } = require('test/chai-sinon');
 import { CONST } from 'app/constants';
 import { Page } from 'puppeteer';
-import { startServices } from 'test/browser/common';
+import { startServices, login } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 import { HearingConfirmPage } from 'test/page-objects/hearing-confirm';
 import { HearingWhyPage } from 'test/page-objects/hearing-why';
@@ -52,7 +52,7 @@ describe('Request a hearing', () => {
       expect(await hearingConfirmPage.getElementText('#new-hearing-error')).contain(i18n.hearingConfirm.error.text);
     });
 
-    describe('appalent chooses not to request a hearing', () => {
+    describe('appellant chooses not to request a hearing', () => {
       it('redirects to tribunal view if no is selected', async () => {
         await hearingConfirmPage.clickNo();
         await hearingConfirmPage.submit();
@@ -60,13 +60,13 @@ describe('Request a hearing', () => {
       });
     });
 
-    describe('appalent chooses request a hearing', () => {
+    describe('appellant chooses request a hearing', () => {
       it('shows the explain reason why page', async () => {
         await hearingConfirmPage.visitPage();
         await hearingConfirmPage.clickYes();
         await hearingConfirmPage.submit();
-        hearingWhyPage.verifyPage();
         await hearingWhyPage.screenshot('hearing-why-page');
+        hearingWhyPage.verifyPage();
       });
 
       it('validates that a reason must be given', async () => {
@@ -80,12 +80,18 @@ describe('Request a hearing', () => {
       it('submits the reason and shows the hearing booking details', async () => {
         await hearingWhyPage.giveReasonWhy('The reason why I want a hearing');
         await hearingWhyPage.submit();
-        expect(await hearingWhyPage.getElementText('h1')).contain(i18n.hearingWhy.booking.header);
+        await hearingWhyPage.screenshot('hearing-why-booking-details');
+        expect(await hearingWhyPage.getHeading()).equal(i18n.hearingWhy.booking.header);
         const responseDate = await tribunalViewPage.getElementText('#responseDate');
         expect(responseDate).to.contain(`${moment.utc().add(6, 'week').format(CONST.DATE_FORMAT)}`);
         const caseReference = await tribunalViewPage.getElementText('#caseReference');
         expect(caseReference).to.contain(`${caseReference}`);
-        await hearingWhyPage.screenshot('hearing-why-booking-details');
+      });
+
+      it('returns the user to the hearing booking page if they sign-in later', async () => {
+        await login(page);
+        hearingWhyPage.verifyPage();
+        expect(await hearingWhyPage.getHeading()).to.equal(i18n.hearingWhy.booking.header);
       });
     });
   });

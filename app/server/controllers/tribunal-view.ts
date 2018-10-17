@@ -40,7 +40,6 @@ function postTribunalView(tribunalViewService) {
       }
     }
     if (acceptView === 'no') {
-      req.session.newHearingConfirmationThisSession = true;
       return res.redirect(Paths.hearingConfirm);
     }
   };

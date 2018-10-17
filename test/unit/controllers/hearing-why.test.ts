@@ -14,6 +14,7 @@ describe('controllers/hearing-why', () => {
   let next: sinon.SinonSpy;
   let hearingDetails: OnlineHearing;
   let serviceCall: any;
+  const now = moment.utc().format();
 
   beforeEach(() => {
     hearingDetails = {
@@ -26,7 +27,7 @@ describe('controllers/hearing-why', () => {
         decision_reason: 'Decision reasons',
         decision_text: 'Decision reasons',
         decision_state: 'decision_issued',
-        decision_state_datetime: moment.utc().format()
+        decision_state_datetime: now
       }
     };
     req = {
@@ -46,12 +47,27 @@ describe('controllers/hearing-why', () => {
 
   describe('getIndex', () => {
     it('renders hearing confirmation page', () => {
-      req.session.newHearingConfirmationThisSession = true;
       getIndex(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', {});
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', {
+        submitted: false,
+        responseDate: undefined
+      });
     });
 
-    it('redirects to /sign-out if user hasnt requested a hearing', async () => {
+    it('renders hearing confirmation page if user previously requested a hearing', () => {
+      const replyDatetime = '2018-10-10T14:43:06Z';
+      req.session.hearing.decision.appellant_reply = 'decision_rejected';
+      req.session.hearing.decision.appellant_reply_datetime = replyDatetime;
+      const responseDate = moment.utc(replyDatetime).add(6, 'weeks').format();
+      getIndex(req, res);
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', {
+        submitted: true,
+        responseDate
+      });
+    });
+
+    it('redirects to /sign-out if user does not have a decision view', async () => {
+      req.session.hearing.decision.decision_state = 'decision_drafted';
       getIndex(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
     });
@@ -95,6 +111,12 @@ describe('controllers/hearing-why', () => {
     describe('validation passed', () => {
 
       const inSixWeeks = moment.utc().add(6, 'weeks').format(CONST.DATE_FORMAT);
+
+      it('set appellant reply properties against the decision in the session', async () => {
+        await postIndex(tribunalViewService)(req, res, next);
+        expect(req.session.hearing.decision).to.have.property('appellant_reply', 'decision_rejected');
+        expect(req.session.hearing.decision).to.have.property('appellant_reply_datetime');
+      });
 
       it('renders the view with hearing booking details', async () => {
         await postIndex(tribunalViewService)(req, res, next);
