@@ -3,10 +3,8 @@ import * as Paths from '../paths';
 
 const logger = Logger.getLogger('ensure-authenticated.js');
 
-/* eslint-disable-next-line consistent-return */
-function verifyOnlineHearingId(req, res, next) {
-  const hearingId = req.session.hearing && req.session.hearing.online_hearing_id;
-  if (hearingId) {
+function checkAccessToken(req, res, next) {
+  if (req.session.accessToken) {
     return next();
   }
   const sessionId = req.session.id;
@@ -25,10 +23,10 @@ function setLocals(req, res, next) {
   next();
 }
 
-const ensureAuthenticated = [verifyOnlineHearingId, setLocals];
+const ensureAuthenticated = [checkAccessToken, setLocals];
 
 export {
-  verifyOnlineHearingId,
+  checkAccessToken,
   setLocals,
   ensureAuthenticated
 };
