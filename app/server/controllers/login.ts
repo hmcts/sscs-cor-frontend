@@ -89,6 +89,8 @@ function postDummyLogin(getOnlineHearing) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const email: string = req.body['username'];
 
+    req.session.accessToken = 'thisisdummytoken';
+
     try {
       return await loadHearingAndEnterService(getOnlineHearing, email, req, res);
     } catch (error) {
