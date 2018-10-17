@@ -75,7 +75,6 @@ export async function login(page, force?) {
   await taskListPage.visitPage();
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
   if (isOnIdamPage() || force) {
-    console.log('LOGGING IN', isOnIdamPage(), force);
     await loginPage.visitPage();
     await loginPage.login(email, password);
     let maxRetries = 5;
