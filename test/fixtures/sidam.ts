@@ -10,13 +10,13 @@ async function manageRedirectUri(operation) {
   const redirectUri = `${testUrl}/sign-in`;
   if (redirectUri.startsWith('https://pr-')) {
     const options = {
-      url: `${sidamApiUrl}/testing-support/service/sscs-cor`,
+      url: `${sidamApiUrl}/testing-support/services/sscs-cor`,
       json: true,
-      body: {
+      body: [{
         operation: operation,
         field: 'redirect_uri',
         value: redirectUri
-      }
+      }]
     };
     await rp.patch(options);
     if (operation === 'add') {
