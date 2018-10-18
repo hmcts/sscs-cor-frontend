@@ -3,10 +3,41 @@ const rp = require('request-promise');
 const querystring = require('querystring');
 
 const sidamApiUrl = require('config').get('idam.api-url');
+const testUrl = require('config').get('testUrl');
+
+async function manageRedirectUri(operation) {
+// eslint-disable-next-line no-magic-numbers
+  const redirectUri = `${testUrl}/sign-in`;
+  if (redirectUri.startsWith('https://pr-')) {
+    const options = {
+      url: `${sidamApiUrl}/testing-support/service/sscs-cor`,
+      json: true,
+      body: {
+        operation: operation,
+        field: 'redirect_uri',
+        value: redirectUri
+      }
+    };
+    await rp.patch(options);
+    if (operation === 'add') {
+      console.log(`Register redirect uri [${redirectUri}]`);
+    } else {
+      console.log(`Unregister redirect uri [${redirectUri}]`);
+    }
+  }
+}
+
+async function registerRedirectUri() {
+  await manageRedirectUri('add');
+}
+
+async function unregisterRedirectUri() {
+  await manageRedirectUri('remove');
+}
 
 async function createUser(ccdCase) {
 // eslint-disable-next-line no-magic-numbers
-  let password = 'Apassword123';
+  const password = 'Apassword123';
   const options = {
     url: `${sidamApiUrl}/testing-support/accounts`,
     json: true,
@@ -34,5 +65,7 @@ async function deleteUser(sidamUser) {
 
 export {
   createUser,
-  deleteUser
+  deleteUser,
+  registerRedirectUri,
+  unregisterRedirectUri
 };

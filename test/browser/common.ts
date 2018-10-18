@@ -113,6 +113,8 @@ async function startServices(options?) {
 }
 
 after(async() => {
+  console.log('Clean up sidam');
+  await sidam.unregisterRedirectUri();
   sidamUsers.forEach(async (sidamUser) => {
     console.log(`Deleting user ${sidamUser.email}`);
     await sidam.deleteUser(sidamUser);
