@@ -7,7 +7,8 @@
     "url": "http://localhost:8090"
   },
   "appInsights": {
-    "instrumentationKey": "iKey"
+    "instrumentationKey": "iKey",
+    "roleName": "COR-FE"
   },
   "session": {
     "redis": {
