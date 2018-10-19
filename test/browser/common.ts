@@ -74,13 +74,15 @@ export async function login(page, force?) {
   taskListPage = new TaskListPage(page);
   await taskListPage.visitPage();
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
+  const signInFailed = () => page.url().indexOf(`${testUrl}/sign-in`) >= 0;
   if (isOnIdamPage() || force) {
     await loginPage.visitPage();
     await loginPage.login(email, password);
-    let maxRetries = 5;
-    while (isOnIdamPage() && maxRetries > 0) {
+    let maxRetries = 10;
+    while ((isOnIdamPage() || signInFailed()) && maxRetries > 0) {
       console.log('Login attempt failed, retrying...');
       await new Promise(r => setTimeout(r, 500));
+      await loginPage.visitPage();
       await loginPage.login(email, password);
       maxRetries--;
     }
