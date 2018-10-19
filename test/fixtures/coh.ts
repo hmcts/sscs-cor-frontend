@@ -1,4 +1,3 @@
-/* eslint-disable no-console, no-magic-numbers */
 const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/cor-backend/services/question').template;

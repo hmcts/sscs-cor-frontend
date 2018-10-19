@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const rp = require('request-promise');
 const querystring = require('querystring');
 
@@ -6,7 +5,6 @@ const sidamApiUrl = require('config').get('idam.api-url');
 const testUrl = require('config').get('testUrl');
 
 async function manageRedirectUri(operation) {
-// eslint-disable-next-line no-magic-numbers
   const redirectUri = `${testUrl}/sign-in`;
   if (redirectUri.startsWith('https://pr-')) {
     const options = {
@@ -54,7 +52,6 @@ async function createUser(ccdCase) {
 }
 
 async function deleteUser(sidamUser) {
-// eslint-disable-next-line no-magic-numbers
   const email = querystring.stringify(sidamUser.email);
   const options = {
     url: `${sidamApiUrl}/testing-support/accounts/${email}`

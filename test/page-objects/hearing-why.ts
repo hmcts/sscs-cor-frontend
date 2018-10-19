@@ -8,13 +8,13 @@ export class HearingWhyPage extends BasePage {
   }
 
   async giveReasonWhy(reason) {
-    await this.enterTextintoField('#explain-why', reason);  
+    await this.enterTextintoField('#explain-why', reason);
   }
 
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      await this.clickElement(`#submit-button button`)
+      await this.clickElement('#submit-button button')
     ]);
   }
 }
