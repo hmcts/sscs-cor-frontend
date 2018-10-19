@@ -17,7 +17,7 @@ describe('Request a hearing', () => {
   let caseReference: string;
 
   before('start services and bootstrap data in CCD/COH', async () => {
-    const res = await startServices({ bootstrapData: true, performLogin: true, issueDecision: true });
+    const res = await startServices({ bootstrapData: true, performLogin: true, forceLogin: true, issueDecision: true });
     page = res.page;
     tribunalViewPage = new TribunalViewPage(page);
     hearingConfirmPage = new HearingConfirmPage(page);
