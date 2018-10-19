@@ -1,5 +1,6 @@
 const { Logger } = require('@hmcts/nodejs-logging');
 const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
+import * as AppInsights from '../app-insights';
 
 const logger = Logger.getLogger('error-handler.js');
 
@@ -18,6 +19,7 @@ function sessionNotFoundHandler(req, res, next) {
 /* eslint-disable no-unused-vars */
 function coreErrorHandler(error, req, res, next) {
   logger.error(`500 Error from request ${req.originalUrl} : ${JSON.stringify(error)} : ${error}`);
+  AppInsights.trackException(error);
   res.status(INTERNAL_SERVER_ERROR);
   res.render('errors/500.html');
 }
