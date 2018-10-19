@@ -1,13 +1,20 @@
 const { expect } = require('test/chai-sinon');
 import { CONST } from 'app/constants';
+import * as moment from 'moment';
+import * as _ from 'lodash';
 import { Page } from 'puppeteer';
 import { startServices, login } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 import { HearingConfirmPage } from 'test/page-objects/hearing-confirm';
 import { HearingWhyPage } from 'test/page-objects/hearing-why';
 const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
-import * as moment from 'moment';
 const i18n = require('locale/en');
+const config = require('config');
+
+const testUrl = config.get('testUrl');
+
+const pa11y = require('pa11y');
+let pa11yOpts = _.clone(config.get('pa11y'));
 
 describe('Request a hearing', () => {
   let page: Page;
@@ -19,6 +26,7 @@ describe('Request a hearing', () => {
   before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ bootstrapData: true, performLogin: true, issueDecision: true });
     page = res.page;
+    pa11yOpts.browser = res.browser;
     tribunalViewPage = new TribunalViewPage(page);
     hearingConfirmPage = new HearingConfirmPage(page);
     hearingWhyPage = new HearingWhyPage(page);
@@ -36,12 +44,22 @@ describe('Request a hearing', () => {
   });
 
   describe('requesting a hearing page', () => {
-    it('shows the hearing confirm page if request hearing is selected', async () => {
+
+    before('request the hearing', async () => {
       await tribunalViewPage.visitPage();
       await tribunalViewPage.requestHearing();
       await tribunalViewPage.submit();
+    });
+
+    it('shows the hearing confirm page if request hearing is selected', async () => {
       hearingConfirmPage.verifyPage();
       await hearingConfirmPage.screenshot('hearing-confirm');
+    });
+
+    /* PA11Y */
+    it('checks /hearing-confirm path passes @pa11y', async () => {
+      const result = await pa11y(`${testUrl}${hearingConfirmPage.pagePath}`, pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
 
     it('validates that one option must be selected', async () => {
@@ -61,12 +79,21 @@ describe('Request a hearing', () => {
     });
 
     describe('appellant chooses request a hearing', () => {
-      it('shows the explain reason why page', async () => {
+      before('select yes to hearing', async () => {
         await hearingConfirmPage.visitPage();
         await hearingConfirmPage.clickYes();
         await hearingConfirmPage.submit();
+      });
+
+      it('shows the explain reason why page', async () => {
         await hearingWhyPage.screenshot('hearing-why-page');
         hearingWhyPage.verifyPage();
+      });
+
+      /* PA11Y */
+      it('checks /hearing-why path passes @pa11y', async () => {
+        const result = await pa11y(`${testUrl}${hearingWhyPage.pagePath}`, pa11yOpts);
+        expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
       });
 
       it('validates that a reason must be given', async () => {
