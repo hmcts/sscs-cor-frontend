@@ -1,6 +1,7 @@
 const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
 const { expect, sinon } = require('test/chai-sinon');
 const errorHandler = require('app/server/middleware/error-handler.ts');
+import * as AppInsights from 'app/server/app-insights';
 
 describe('middleware/error-handler', () => {
   let req;
@@ -12,6 +13,11 @@ describe('middleware/error-handler', () => {
       status: sinon.spy(),
       render: sinon.spy()
     };
+    sinon.stub(AppInsights, 'trackException');
+  });
+
+  afterEach(() => {
+    (AppInsights.trackException as sinon.SinonStub).restore();
   });
 
   describe('#pageNotFoundHandler', () => {
@@ -47,6 +53,12 @@ describe('middleware/error-handler', () => {
       errorHandler.coreErrorHandler(error, req, res);
       expect(res.status).to.have.been.calledOnce.calledWith(INTERNAL_SERVER_ERROR);
       expect(res.render).to.have.been.calledOnce.calledWith('errors/500.html');
+    });
+
+    it('sends error to app-insights', () => {
+      const error = new Error('Some error');
+      errorHandler.coreErrorHandler(error, req, res);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
     });
   });
 });
