@@ -81,11 +81,13 @@ To do this you must set some extra environment variables locally:
 * COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
 * TEST_URL - this is the URL you are testing e.g. https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
 * HEADLESS - optionally choose to show the browser by setting this to false
+* IDAM_ULR - Used to check the user returns to idam when logged out
+* IDAM_API_URL - Used to create a user in idam that can login to the system
 
 Put these together with the required `yarn` command in one line like this:
 
 ```bash
-HEADLESS=false ENABLE_DUMMY_LOGIN=true HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal yarn test:smoke
+HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net yarn test:smoke
 ```
 
 ### Creating test data in AAT

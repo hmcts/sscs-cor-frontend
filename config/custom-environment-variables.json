@@ -30,6 +30,5 @@
     "client": {
       "secret": "IDAM_CLIENT_SECRET"
     }
-  },
-  "enableDummyLogin": "ENABLE_DUMMY_LOGIN"
+  }
 }

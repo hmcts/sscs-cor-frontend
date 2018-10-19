@@ -13,7 +13,7 @@ describe('Tribunal view page', () => {
   let tribunalViewAcceptedPage: TribunalViewAcceptedPage;
 
   before('start services and bootstrap data in CCD/COH', async () => {
-    const res = await startServices({ performLogin: true, issueDecision: true });
+    const res = await startServices({ performLogin: true, forceLogin: true, issueDecision: true });
     page = res.page;
     tribunalViewPage = new TribunalViewPage(page);
     tribunalViewAcceptedPage = new TribunalViewAcceptedPage(page);

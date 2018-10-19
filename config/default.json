@@ -30,6 +30,5 @@
       "secret": "a_secret"
     }
   },
-  "httpProxy": false,
-  "enableDummyLogin": true
+  "httpProxy": false
 }

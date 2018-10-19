@@ -7,9 +7,9 @@ const yellow = clc.yellow;
 const blue = clc.blueBright.bold;
 const green = clc.greenBright;
 const white = clc.whiteBright;
- 
+
 async function runBootstrap() {
-  const { ccdCase, cohTestData } = await bootstrap();
+  const { ccdCase, cohTestData, sidamUser } = await bootstrap();
 
   console.log('\n' + bold(_.pad(' CCD case ', 60, '-')) + '\n');
 
@@ -18,6 +18,10 @@ async function runBootstrap() {
   console.log('\n' + bold(_.pad(' COH test data ', 60, '-')) + '\n');
 
   _.each(cohTestData, (value, key) => console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40))));
+
+  console.log('\n' + bold(_.pad('SIDAM user', 60, '-')) + '\n');
+
+  _.each(sidamUser, (value, key) => console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40))));
 
   console.log('\n' + bold(_.pad('', 60, '-')) + '\n');
 }
