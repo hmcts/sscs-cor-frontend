@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import * as puppeteer from 'puppeteer';
-import { Page } from 'puppeteer';
 const { createServer } = require('http');
-const { createSession } = require ('app/server/middleware/session');
+const { createSession } = require('app/server/middleware/session');
 const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
@@ -27,6 +26,7 @@ let taskListPage;
 
 async function startBrowser() {
   if (!browser) {
+    /* tslint:disable:no-console */
     console.log('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
     if (httpProxy) {
@@ -44,6 +44,8 @@ async function startBrowser() {
       console.log('Unable to start browser', error);
     }
   }
+
+  return browser;
 }
 
 function startAppServer() {
@@ -83,8 +85,8 @@ async function startServices(options?) {
     await createAndIssueDecision(hearingId);
   }
   await startAppServer();
-  await startBrowser();
-  const page: Page = await browser.newPage();
+  const browser = await startBrowser();
+  const page: puppeteer.Page = await browser.newPage();
   await page.setViewport({
     height: 700,
     width: 1100
@@ -92,7 +94,7 @@ async function startServices(options?) {
   if (opts.performLogin) {
     await login(page);
   }
-  return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {} };
+  return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {}, browser };
 }
 
 after(async() => {

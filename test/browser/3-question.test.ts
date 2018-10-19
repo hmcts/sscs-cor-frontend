@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+import * as _ from 'lodash';
 import { CONST } from 'app/constants';
 const { expect } = require('test/chai-sinon');
 import { Page } from 'puppeteer';
@@ -11,19 +13,21 @@ import { QuestionsCompletedPage } from 'test/page-objects/questions-completed';
 const i18n = require('locale/en');
 import * as Paths from 'app/server/paths';
 const config = require('config');
-import * as moment from 'moment';
 
 const testUrl = config.get('testUrl');
 
-const sampleQuestionIdList = ['001', '002', '003']
+const sampleQuestionIdList = ['001', '002', '003'];
 const sampleQuestionOrdinal = '1';
+
+const pa11y = require('pa11y');
+let pa11yOpts = _.clone(config.get('pa11y'));
 
 describe('Question page', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let questionPage;
   let submitQuestionPage;
-  let questionsCompletedPage
+  let questionsCompletedPage;
   let questionIdList;
   let questionOrdinal;
   let firstQuestionId;
@@ -31,9 +35,10 @@ describe('Question page', () => {
   let questionBody;
   let caseReference;
 
-  before('start services and bootstrap data in CCD/COH', async() => {
+  before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ performLogin: true });
     page = res.page;
+    pa11yOpts.browser = res.browser;
     questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
     firstQuestionId = questionIdList.shift();
     questionOrdinal = res.cohTestData.questionOrdinal || sampleQuestionOrdinal;
@@ -48,7 +53,7 @@ describe('Question page', () => {
     await questionPage.screenshot('question');
   });
 
-  after(async() => {
+  after(async () => {
     if (page && page.close) {
       await page.close();
     }
@@ -58,26 +63,32 @@ describe('Question page', () => {
     questionPage.verifyPage();
   });
 
-  it('displays question heading from api request', async() => {
+  /* PA11Y */
+  it('checks /question passes @pa11y', async () => {
+    const result = await pa11y(`${testUrl}${questionPage.pagePath}`, pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  it('displays question heading from api request', async () => {
     expect(await questionPage.getHeading()).to.equal(questionHeader);
   });
 
-  it('displays question body from api request', async() => {
+  it('displays question body from api request', async () => {
     expect(await questionPage.getBody()).to.contain(questionBody);
   });
 
-  it('displays question answer box', async() => (
+  it('displays question answer box', async () => (
     expect(await questionPage.getElement('#question-field')).to.not.be.null
   ));
 
-  it('displays guidance for submitting evidence with case reference', async() => {
+  it('displays guidance for submitting evidence with case reference', async () => {
     const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
     const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
     expect(summaryText).to.equal(i18n.question.sendingEvidence.summary);
     expect(displayedCaseRef).to.equal(caseReference);
   });
 
-  it('displays an error message in the summary when you try to save an empty answer', async() => {
+  it('displays an error message in the summary when you try to save an empty answer', async () => {
     await questionPage.saveAnswer('');
     expect(await questionPage.getElementText('.govuk-error-summary'))
       .contain(i18n.question.textareaField.error.empty);
@@ -86,66 +97,73 @@ describe('Question page', () => {
   });
 
   describe('saving an answer', () => {
-    it('redirects to /task-list page when a valid answer is saved', async() => {
+    it('redirects to /task-list page when a valid answer is saved', async () => {
       await questionPage.saveAnswer('A valid answer');
       expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
 
-    it('displays question status as draft', async() => {
+    it('displays question status as draft', async () => {
       const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-      expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase())
+      expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
     });
   });
 
   describe('submitting an answer', () => {
-    before(async() => {
+    before(async () => {
+      await taskListPage.visitPage();
       await taskListPage.clickQuestion(firstQuestionId);
     });
 
-    it('displays the previously drafted answer', async() => {
+    it('displays the previously drafted answer', async () => {
       const savedAnswer = await questionPage.getElementValue('#question-field');
-      expect(savedAnswer).to.equal('A valid answer')
+      expect(savedAnswer).to.equal('A valid answer');
     });
 
-    it('is on the /submit_answer path after submitting answer', async() => {
+    it('is on the /submit_answer path after submitting answer', async () => {
       await questionPage.submitAnswer('Another valid answer');
       submitQuestionPage.verifyPage();
     });
 
-    it('redirects to /task-list page when a valid answer is submitted', async() => {
+    /* PA11Y */
+    it('checks /submit_answer passes @pa11y', async () => {
+      const result = await pa11y(`${testUrl}${submitQuestionPage.pagePath}`, pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+
+    it('redirects to /task-list page when a valid answer is submitted', async () => {
       await submitQuestionPage.submit();
       expect(submitQuestionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
 
-    it('displays question status as completed', async() => {
+    it('displays question status as completed', async () => {
       const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-      expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
+      expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase());
     });
   });
 
   describe('view a submitted answer', () => {
-    before(async() => {
+    before(async () => {
       await taskListPage.clickQuestion(firstQuestionId);
     });
 
-    it('displays the previously submitted answer', async() => {
+    it('displays the previously submitted answer', async () => {
       const savedAnswer = await questionPage.getElementText('#completed-answer .answer-value');
       expect(savedAnswer).to.equal('Another valid answer');
     });
 
-    it('displays the previously submitted answer date', async() => {
+    it('displays the previously submitted answer date', async () => {
       const savedAnswerDate = await questionPage.getElementText('#completed-answer .answer-date');
       expect(savedAnswerDate).to.equal(`Submitted: ${moment.utc().format(CONST.DATE_FORMAT)}`);
     });
 
-    it('returns to task list if back is clicked', async() => {
+    it('returns to task list if back is clicked', async () => {
       await Promise.all([
         page.waitForNavigation(),
         await questionPage.clickElement('.govuk-back-link')
       ]);
       expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
-  });  
+  });
 
   describe('submitting all answers', () => {
     async function answerQuestion(questionId) {
@@ -154,23 +172,29 @@ describe('Question page', () => {
       await submitQuestionPage.submit();
     }
 
-    before('answer all but one remaining question', async() => {
+    before('answer all but one remaining question', async () => {
       await page.goto(`${testUrl}${Paths.taskList}`);
-      while(questionIdList.length > 1) {
+      while (questionIdList.length > 1) {
         const questionId = questionIdList.shift();
         await answerQuestion(questionId);
         const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
-        expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
+        expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase());
       }
     });
 
-    it('is on the questions completed page after submitting the final question', async() => {
+    it('is on the questions completed page after submitting the final question', async () => {
       const questionId = questionIdList.shift();
       await answerQuestion(questionId);
       questionsCompletedPage.verifyPage();
     });
 
-    it('shows the correct date for next contact', async() => {
+    /* PA11Y */
+    it('checks /questions-completed passes @pa11y', async () => {
+      const result = await pa11y(`${testUrl}${questionsCompletedPage.pagePath}`, pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+
+    it('shows the correct date for next contact', async () => {
       const expectedDate = moment.utc().add(7, 'days').format('D MMMM YYYY');
       const contactDate = await questionsCompletedPage.getElementText('#next-contact-date');
       expect(contactDate).to.equal(expectedDate);
@@ -178,4 +202,4 @@ describe('Question page', () => {
   });
 });
 
-export {};
+export { };
