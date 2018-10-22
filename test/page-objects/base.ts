@@ -77,4 +77,20 @@ export class BasePage {
       await this.clickElement('.sign-out a')
     ]);
   }
+
+  async deleteCookie(name: string) {
+    await this.page.deleteCookie({
+      url: testUrl,
+      name
+    });
+  }
+
+  async setCookie(name: string, value: string) {
+    await this.page.setCookie({
+      value,
+      name,
+      url: testUrl,
+      expires: Date.now() + 30 * 60 * 1000
+    });
+  }
 }

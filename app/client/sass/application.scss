@@ -14,3 +14,22 @@ $govuk-assets-path: '/public/govuk-frontend/';
 #navigation {
   float: right;
 }
+
+.secondary-button {
+  background-color: govuk-colour("grey-3");
+  color: govuk-colour("black");
+  -webkit-box-shadow: 0 2px 0 #b5babe;
+  -moz-box-shadow: 0 2px 0 #b5babe;
+  box-shadow: 0 2px 0 #b5babe;
+  &:link,
+  &:visited,
+  &:active,
+  &:hover {
+    color: govuk-colour("black");
+    text-decoration: none;
+  }
+  &:hover,
+  &:focus {
+    background-color: darken(govuk-colour("grey-3"), 5%);
+  }
+}
