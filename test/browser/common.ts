@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
 import * as puppeteer from 'puppeteer';
-import { Page } from 'puppeteer';
 const { createServer } = require('http');
-const { createSession } = require ('app/server/middleware/session');
+const { createSession } = require('app/server/middleware/session');
 const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
@@ -49,7 +47,7 @@ async function startBrowser() {
   }
 }
 
-function startAppServer() {
+function startAppServer(): Promise<void> {
   if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
     dysonSetupCorBackend();
@@ -64,6 +62,7 @@ function startAppServer() {
       return Promise.resolve();
     });
   }
+  return Promise.resolve();
 }
 
 export async function login(page, force?) {
@@ -103,7 +102,7 @@ async function startServices(options?) {
   }
   await startAppServer();
   await startBrowser();
-  const page: Page = await browser.newPage();
+  const page: puppeteer.Page = await browser.newPage();
   await page.setViewport({
     height: 700,
     width: 1100

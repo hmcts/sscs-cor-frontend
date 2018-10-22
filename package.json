@@ -33,7 +33,7 @@
     "test:all": "yarn test && yarn test:a11y && yarn test:coverage",
     "test:nsp": "nsp check",
     "sonar-scan": "sonar-scanner",
-    "tslint": "tslint -c tslint.json -p ./app/server/tsconfig.json",
+    "tslint": "tslint -p ./tsconfig.json",
     "lint": "eslint . && yarn tslint",
     "transpile": "yarn tsc -p ./app/server/tsconfig.json"
   },

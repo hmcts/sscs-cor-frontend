@@ -61,22 +61,22 @@ describe('controllers/login.ts', () => {
   describe('#redirectToIdam', () => {
     it('builds correct url', () => {
       const getRedirectUrl = sinon.stub();
-      getRedirectUrl.withArgs('http', 'localhost').returns("http://redirect_url");
-      redirectToIdam("idam_path", getRedirectUrl)(req, res);
+      getRedirectUrl.withArgs('http', 'localhost').returns('http://redirect_url');
+      redirectToIdam('idam_path', getRedirectUrl)(req, res);
 
-      expect(res.redirect).to.have.been.calledOnce.calledWith("http://localhost:8082/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs-cor&response_type=code");
-    })
+      expect(res.redirect).to.have.been.calledOnce.calledWith('http://localhost:8082/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs-cor&response_type=code');
+    });
   });
 
   describe('#getIdamCallback', () => {
     let getOnlineHearing;
 
     describe('called without code', () => {
-      it('redirects to idam login', () => {
+      it('redirects to idam login', async () => {
         req.query = {};
 
         const redirectToIdam = sinon.stub();
-        getIdamCallback(redirectToIdam, null, null, null)(req, res, next);
+        await getIdamCallback(redirectToIdam, null, null, null)(req, res, next);
 
         expect(redirectToIdam).to.have.been.calledOnce.calledWith(req, res);
       });
@@ -84,15 +84,15 @@ describe('controllers/login.ts', () => {
 
     describe('on success', () => {
       beforeEach(async () => {
-        req.query = {'code': 'someCode'};
+        req.query = { 'code': 'someCode' };
 
         const redirectToIdam = sinon.stub();
         const getToken = sinon.stub();
         let accessToken = 'someAccessToken';
-        getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': accessToken});
+        getToken.withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken });
         const getUserDetails = sinon.stub();
-        getUserDetails.withArgs(accessToken).resolves({'email': 'someEmail@example.com'});
-        getOnlineHearing = sinon.stub().resolves({body: hearingDetails});
+        getUserDetails.withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' });
+        getOnlineHearing = sinon.stub().resolves({ body: hearingDetails });
 
         await getIdamCallback(redirectToIdam, getToken, getUserDetails, getOnlineHearing)(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
@@ -112,14 +112,14 @@ describe('controllers/login.ts', () => {
     const error = new Error('getOnlineHearingService error');
 
     beforeEach(async () => {
-      req.query = {'code': 'someCode'};
+      req.query = { 'code': 'someCode' };
 
       const redirectToIdam = sinon.stub();
       const getOnlineHearing = sinon.stub().rejects(error);
       const getToken = sinon.stub();
-      getToken.withArgs('someCode', 'http', 'localhost').resolves({'access_token': 'someAccessToken'});
+      getToken.withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': 'someAccessToken' });
       const getUserDetails = sinon.stub();
-      getUserDetails.withArgs('someAccessToken').resolves({'email': 'someEmail@example.com'});
+      getUserDetails.withArgs('someAccessToken').resolves({ 'email': 'someEmail@example.com' });
       await getIdamCallback(redirectToIdam, getToken, getUserDetails, getOnlineHearing)(req, res, next);
     });
 

@@ -8,17 +8,17 @@ export class TribunalViewPage extends BasePage {
   }
 
   async acceptTribunalsView() {
-    await this.clickElement(`#accept-view-1`);
+    await this.clickElement('#accept-view-1');
   }
 
   async requestHearing() {
-    await this.clickElement(`#accept-view-2`);
+    await this.clickElement('#accept-view-2');
   }
 
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      await this.clickElement(`#submit-button button`)
+      await this.clickElement('#submit-button button')
     ]);
   }
 }

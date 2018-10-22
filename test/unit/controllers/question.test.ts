@@ -6,7 +6,7 @@ import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 const i18n = require('locale/en');
-import * as moment from 'moment'; 
+import * as moment from 'moment';
 
 describe('controllers/question.js', () => {
   const next = sinon.stub();
@@ -14,7 +14,7 @@ describe('controllers/question.js', () => {
   const res: any = {};
   const questionId = '001';
   const questionOrdinal = '1';
-  const questions = mockData.questions({})
+  const questions = mockData.questions({});
 
   res.render = sinon.stub();
   res.redirect = sinon.stub();
@@ -75,7 +75,7 @@ describe('controllers/question.js', () => {
           body: questionBody,
           answer: {
             value: questionAnswer,
-            date: questionAnswerDate,
+            date: questionAnswerDate
           },
           answer_state: questionAnswerState
         }
@@ -94,7 +94,7 @@ describe('controllers/question.js', () => {
       getAllQuestionsService.getQuestionIdFromOrdinal.returns(undefined);
       await getQuestion(getAllQuestionsService, getQuestionService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
-    })
+    });
   });
 
   describe('postAnswer', () => {
@@ -105,7 +105,7 @@ describe('controllers/question.js', () => {
       postAnswerService = null;
       getAllQuestionsService = {
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
-      }
+      };
     });
 
     afterEach(() => {
@@ -136,9 +136,9 @@ describe('controllers/question.js', () => {
       expect(next).to.have.been.calledWith(error);
     });
 
-    it('should call res.render with the validation error message', () => {
+    it('should call res.render with the validation error message', async () => {
       req.body['question-field'] = '';
-      postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
+      await postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           answer: {
