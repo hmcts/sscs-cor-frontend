@@ -71,7 +71,7 @@ describe('utils/fieldValidation.js', () => {
     it('returns empty error message is answer is missing', () => {
       expect(newHearingAcceptedValidation(undefined)).to.equal(i18n.hearingConfirm.error.text);
     });
-  });  
+  });
 });
 
 export {};

@@ -1,7 +1,7 @@
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
 const testUrl = require('config').get('testUrl');
-import { Page } from 'puppeteer'
+import { Page } from 'puppeteer';
 
 describe('Health check @smoke', () => {
   let page: Page;

@@ -8,6 +8,7 @@ const blue = clc.blueBright.bold;
 const green = clc.greenBright;
 const white = clc.whiteBright;
 
+/* tslint:disable no-console */
 async function runBootstrap() {
   const { ccdCase, cohTestData, sidamUser } = await bootstrap();
 
@@ -26,4 +27,6 @@ async function runBootstrap() {
   console.log('\n' + bold(_.pad('', 60, '-')) + '\n');
 }
 
-runBootstrap();
+runBootstrap()
+  .then(() => console.log('Complete'))
+  .catch(e => console.error('Failed', e));

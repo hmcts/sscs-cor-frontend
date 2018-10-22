@@ -5,7 +5,6 @@ import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
 const i18n = require('locale/en');
 import { ExtendDeadlinePage } from 'test/page-objects/extend-deadline';
-import * as Paths from 'app/server/paths';
 const config = require('config');
 import * as moment from 'moment';
 

@@ -9,7 +9,7 @@ const apiUrl = config.get('api.url');
 describe('services/updateAnswer.js', () => {
   const hearingId = '121';
   const questionId = '62';
-  /* eslint-disable camelcase */
+  /* tslint:disable-next-line variable-name */
   const answer_state = 'draft';
   const answer = 'My answer';
   /* eslint-enable camelcase */

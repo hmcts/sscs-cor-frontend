@@ -15,7 +15,7 @@ import * as moment from 'moment';
 
 const testUrl = config.get('testUrl');
 
-const sampleQuestionIdList = ['001', '002', '003']
+const sampleQuestionIdList = ['001', '002', '003'];
 const sampleQuestionOrdinal = '1';
 
 describe('Question page', () => {
@@ -23,7 +23,7 @@ describe('Question page', () => {
   let taskListPage: TaskListPage;
   let questionPage;
   let submitQuestionPage;
-  let questionsCompletedPage
+  let questionsCompletedPage;
   let questionIdList;
   let questionOrdinal;
   let firstQuestionId;
@@ -93,7 +93,7 @@ describe('Question page', () => {
 
     it('displays question status as draft', async() => {
       const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-      expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase())
+      expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
     });
   });
 
@@ -104,7 +104,7 @@ describe('Question page', () => {
 
     it('displays the previously drafted answer', async() => {
       const savedAnswer = await questionPage.getElementValue('#question-field');
-      expect(savedAnswer).to.equal('A valid answer')
+      expect(savedAnswer).to.equal('A valid answer');
     });
 
     it('is on the /submit_answer path after submitting answer', async() => {
@@ -119,7 +119,7 @@ describe('Question page', () => {
 
     it('displays question status as completed', async() => {
       const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-      expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
+      expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase());
     });
   });
 
@@ -145,7 +145,7 @@ describe('Question page', () => {
       ]);
       expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
-  });  
+  });
 
   describe('submitting all answers', () => {
     async function answerQuestion(questionId) {
@@ -156,11 +156,11 @@ describe('Question page', () => {
 
     before('answer all but one remaining question', async() => {
       await page.goto(`${testUrl}${Paths.taskList}`);
-      while(questionIdList.length > 1) {
+      while (questionIdList.length > 1) {
         const questionId = questionIdList.shift();
         await answerQuestion(questionId);
         const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
-        expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase())
+        expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase());
       }
     });
 

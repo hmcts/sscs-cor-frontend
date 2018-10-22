@@ -8,17 +8,17 @@ export class HearingConfirmPage extends BasePage {
   }
 
   async clickYes() {
-    await this.clickElement(`#new-hearing-1`);
+    await this.clickElement('#new-hearing-1');
   }
 
   async clickNo() {
-    await this.clickElement(`#new-hearing-2`);
+    await this.clickElement('#new-hearing-2');
   }
 
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      await this.clickElement(`#submit-button button`)
+      await this.clickElement('#submit-button button')
     ]);
   }
 }

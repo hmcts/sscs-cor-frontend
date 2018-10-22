@@ -26,7 +26,7 @@ describe('controllers/questions-completed.js', () => {
 
     it('renders questions completed page with next correspondence date', async() => {
       await getQuestionsCompleted(req, res);
- 
+
       const theTemplate = res.render.getCall(0).args[0];
       const theCorrespondenceDate = res.render.getCall(0).args[1].nextCorrespondenceDate;
 
