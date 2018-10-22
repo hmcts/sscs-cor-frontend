@@ -9,10 +9,9 @@ import { TribunalViewAcceptedPage } from 'test/page-objects/tribunal-view-accept
 const i18n = require('locale/en');
 const config = require('config');
 
-const testUrl = config.get('testUrl');
-
 const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
+const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
 describe('Tribunal view page', () => {
   let page: Page;
@@ -42,7 +41,7 @@ describe('Tribunal view page', () => {
 
   /* PA11Y */
   it('checks /tribunal-view passes @pa11y', async () => {
-    pa11yOpts.screenCapture = `./functional-output/view.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/view.png`;
     pa11yOpts.page = tribunalViewPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -83,7 +82,7 @@ describe('Tribunal view page', () => {
 
     /* PA11Y */
     it('checks /tribunal-view-accepted passes @pa11y', async () => {
-      pa11yOpts.screenCapture = `./functional-output/view-accpet.png`;
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/view-accpet.png`;
       pa11yOpts.page = tribunalViewAcceptedPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));

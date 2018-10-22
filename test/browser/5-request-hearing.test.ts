@@ -15,6 +15,7 @@ const testUrl = config.get('testUrl');
 
 const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
+const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
 describe('Request a hearing', () => {
   let page: Page;
@@ -52,12 +53,13 @@ describe('Request a hearing', () => {
     });
 
     it('shows the hearing confirm page if request hearing is selected', async () => {
+      await hearingConfirmPage.screenshot('hearing-confirm');
       hearingConfirmPage.verifyPage();
     });
 
     /* PA11Y */
     it('checks /hearing-confirm path passes @pa11y', async () => {
-      pa11yOpts.screenCapture = `./functional-output/hearing-confirm.png`;
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-confirm.png`;
       pa11yOpts.page = hearingConfirmPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -88,11 +90,12 @@ describe('Request a hearing', () => {
 
       it('shows the explain reason why page', async () => {
         hearingWhyPage.verifyPage();
+        await hearingWhyPage.screenshot('hearing-why-page');
       });
 
       /* PA11Y */
       it('checks /hearing-why path passes @pa11y', async () => {
-        pa11yOpts.screenCapture = `./functional-output/hearing-why.png`;
+        pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-why.png`;
         pa11yOpts.page = hearingWhyPage.page;
         const result = await pa11y(`${testUrl}${hearingWhyPage.pagePath}`, pa11yOpts);
         expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -118,11 +121,12 @@ describe('Request a hearing', () => {
           expect(responseDate).to.contain(`${moment.utc().add(6, 'week').format(CONST.DATE_FORMAT)}`);
           const caseReference = await tribunalViewPage.getElementText('#caseReference');
           expect(caseReference).to.contain(`${caseReference}`);
+          await hearingWhyPage.screenshot('hearing-why-booking-details');
         });
 
         /* PA11Y */
         it('checks hearing booking details passes @pa11y', async () => {
-          pa11yOpts.screenCapture = `./functional-output/hearing-why-booking-details.png`;
+          pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-why-booking-details.png`;
           pa11yOpts.page = hearingWhyPage.page;
           const result = await pa11y(`${testUrl}${hearingWhyPage.pagePath}`, pa11yOpts);
           expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));

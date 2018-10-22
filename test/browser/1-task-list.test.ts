@@ -19,6 +19,7 @@ const sampleQuestionOrdinal = '1';
 
 const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
+const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
 describe('Task list page', () => {
   let page: Page;
@@ -44,6 +45,7 @@ describe('Task list page', () => {
     deadlineExpiryDateFormatted = moment.utc(deadlineExpiryDate).format('D MMMM YYYY');
     taskListPage = new TaskListPage(page);
     loginPage = new LoginPage(page);
+    await taskListPage.screenshot('task-list');
   });
 
   after(async () => {
@@ -59,7 +61,7 @@ describe('Task list page', () => {
   /* PA11Y */
   it('checks /task-list passes @pa11y', async () => {
     pa11yOpts.page = taskListPage.page;
-    pa11yOpts.screenCapture = `./functional-output/task-list.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/task-list.png`;
     const result = await pa11y(`${testUrl}${taskListPage.pagePath}`, pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });

@@ -21,6 +21,7 @@ const sampleQuestionOrdinal = '1';
 
 const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
+const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
 describe('Question page', () => {
   let page: Page;
@@ -49,6 +50,7 @@ describe('Question page', () => {
     submitQuestionPage = new SubmitQuestionPage(page, questionOrdinal);
     questionsCompletedPage = new QuestionsCompletedPage(page);
     await taskListPage.clickQuestion(firstQuestionId);
+    await questionPage.screenshot('question');
     pa11yOpts.browser = res.browser;
     pa11yOpts.page = questionPage.page;
   });
@@ -65,7 +67,7 @@ describe('Question page', () => {
 
   /* PA11Y */
   it('checks /question passes @pa11y', async () => {
-    pa11yOpts.screenCapture = `./functional-output/question.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question.png`;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
@@ -113,7 +115,7 @@ describe('Question page', () => {
 
     /* PA11Y */
     it('checks question status passes @pa11y', async () => {
-      pa11yOpts.screenCapture = `./functional-output/question-list-draft.png`;
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-list-draft.png`;
       pa11yOpts.page = taskListPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -133,7 +135,7 @@ describe('Question page', () => {
 
     /* PA11Y */
     it('checks draft answer passes @pa11y', async () => {
-      pa11yOpts.screenCapture = `./functional-output/question-draft-answer.png`;
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-draft-answer.png`;
       pa11yOpts.page = questionPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));

@@ -12,8 +12,7 @@ const config = require('config');
 
 const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
-
-const testUrl = config.get('testUrl');
+const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
 describe('Extend deadline', () => {
   let page: Page;
@@ -28,6 +27,7 @@ describe('Extend deadline', () => {
     pa11yOpts.browser = res.browser;
     pa11yOpts.page = extendDeadlinePage.page;
     await taskListPage.clickExtend();
+    await extendDeadlinePage.screenshot('extend-deadline');
   });
 
   after(async () => {
@@ -42,7 +42,7 @@ describe('Extend deadline', () => {
 
   /* PA11Y */
   it('checks /extend-deadline passes @pa11y', async () => {
-    pa11yOpts.screenCapture = `./functional-output/extend-deadline.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/extend-deadline.png`;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
@@ -69,13 +69,14 @@ describe('Extend deadline', () => {
     });
 
     it('shows the confirmation page with existing deadline', async () => {
+      await extendDeadlinePage.screenshot('extend-deadline-confirmation-no');
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
       expect(deadline).to.contain(`${moment.utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
     });
 
     /* PA11Y */
     it('checks the confirmation page with existing deadline passes @pa11y', async () => {
-      pa11yOpts.screenCapture = `./functional-output/extend-deadline-confirmation-no.png`;
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/extend-deadline-confirmation-no.png`;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
@@ -90,13 +91,14 @@ describe('Extend deadline', () => {
     });
 
     it('shows the confirmation page with new deadline', async () => {
+      await extendDeadlinePage.screenshot('extend-deadline-confirmation-yes');
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
       expect(deadline).to.contain(`${moment.utc().add(14, 'day').format(CONST.DATE_FORMAT)}`);
     });
 
     /* PA11Y */
     it('checks the confirmation page with existing deadline passes @pa11y', async () => {
-      pa11yOpts.screenCapture = `./functional-output/extend-deadline-confirmation-yes.png`;
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/extend-deadline-confirmation-yes.png`;
       const result = await pa11y('', pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
@@ -109,14 +111,15 @@ describe('Extend deadline', () => {
     });
 
     it('shows the contact tribunal details if tyring for second extension', async () => {
+      await extendDeadlinePage.screenshot('extend-deadline-contact-tribunal');
       const heading = await extendDeadlinePage.getElementText('.govuk-main-wrapper h1');
       expect(heading).to.equal(i18n.extendDeadline.contactTribunal.header);
     });
 
     /* PA11Y */
     it('checks the contact tribunal details if tyring for second extension passes @pa11y', async () => {
-      pa11yOpts.screenCapture = `./functional-output/extend-deadline-contact-tribunal.png`;
-      const result = await pa11y(`${testUrl}${extendDeadlinePage.pagePath}`, pa11yOpts);
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/extend-deadline-contact-tribunal.png`;
+      const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
   });
