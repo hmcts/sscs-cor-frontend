@@ -30,10 +30,5 @@
     }
   },
   "httpProxy": false,
-  "enableDummyLogin": true,
-  "pa11y": {
-    "ignoreUrl": true,
-    "ignore": ["WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Abs"],
-    "hideElements": "link[rel=mask-icon], .govuk-header__logotype-crown, .govuk-footer__licence-logo, .govuk-skip-link, .govuk-footer__link"
-  }
+  "enableDummyLogin": true
 }

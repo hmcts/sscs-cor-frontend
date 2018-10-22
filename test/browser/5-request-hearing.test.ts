@@ -53,7 +53,6 @@ describe('Request a hearing', () => {
 
     it('shows the hearing confirm page if request hearing is selected', async () => {
       hearingConfirmPage.verifyPage();
-      await hearingConfirmPage.screenshot('hearing-confirm');
     });
 
     /* PA11Y */
