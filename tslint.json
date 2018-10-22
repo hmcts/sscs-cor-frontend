@@ -5,11 +5,15 @@
     ],
     "jsRules": {},
     "rules": {
-        "quotemark": [true, "single", "avoid-escape", "avoid-template"],
+        "quotemark": [true, "single", "avoid-escape"],
         "semicolon": [true, "always"],
         "space-before-function-paren": false,
         "strict-type-predicates": false,
-        "no-console": true
+        "no-console": true,
+        "no-unused-expression": false,
+        "no-unused-expression-chai": [true, "should"]
     },
-    "rulesDirectory": []
+    "rulesDirectory": [
+      "tslint-no-unused-expression-chai"
+    ]
 }

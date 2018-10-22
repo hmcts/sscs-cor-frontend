@@ -3,7 +3,11 @@
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">{{ i18n.hearingWhy.header }}</h1>
       {{ govukTextarea({
-        name: "explain-why",
+        name: "explain-why",          
+        label: {
+          text: i18n.hearingWhy.header,
+          classes: 'govuk-visually-hidden'
+        },
         id: "explain-why"
       }) }}
     </div>

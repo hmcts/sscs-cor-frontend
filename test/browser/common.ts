@@ -28,6 +28,7 @@ let taskListPage;
 
 async function startBrowser() {
   if (!browser) {
+    /* tslint:disable:no-console */
     console.log('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
     if (httpProxy) {
@@ -45,6 +46,8 @@ async function startBrowser() {
       console.log('Unable to start browser', error);
     }
   }
+
+  return browser;
 }
 
 function startAppServer(): Promise<void> {
@@ -101,7 +104,7 @@ async function startServices(options?) {
     await createAndIssueDecision(hearingId);
   }
   await startAppServer();
-  await startBrowser();
+  const browser = await startBrowser();
   const page: puppeteer.Page = await browser.newPage();
   await page.setViewport({
     height: 700,
@@ -110,7 +113,7 @@ async function startServices(options?) {
   if (opts.performLogin) {
     await login(page, opts.forceLogin);
   }
-  return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {} };
+  return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {}, browser };
 }
 
 after(async() => {

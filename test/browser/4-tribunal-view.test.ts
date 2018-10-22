@@ -1,20 +1,29 @@
+import * as moment from 'moment';
+import * as _ from 'lodash';
 const { expect } = require('test/chai-sinon');
 import { CONST } from 'app/constants';
 import { Page } from 'puppeteer';
 import { startServices, login } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 import { TribunalViewAcceptedPage } from 'test/page-objects/tribunal-view-accepted';
-import * as moment from 'moment';
 const i18n = require('locale/en');
+const config = require('config');
+
+const pa11y = require('pa11y');
+let pa11yOpts = _.clone(config.get('pa11y'));
+const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
 describe('Tribunal view page', () => {
   let page: Page;
   let tribunalViewPage: TribunalViewPage;
   let tribunalViewAcceptedPage: TribunalViewAcceptedPage;
+  let browser;
 
   before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ performLogin: true, forceLogin: true, issueDecision: true });
     page = res.page;
+    browser = res.browser;
+    pa11yOpts.browser = browser;
     tribunalViewPage = new TribunalViewPage(page);
     tribunalViewAcceptedPage = new TribunalViewAcceptedPage(page);
     await tribunalViewPage.screenshot('tribunal-view-issued');
@@ -28,6 +37,14 @@ describe('Tribunal view page', () => {
 
   it('is on the /tribunal-view path', async () => {
     tribunalViewPage.verifyPage();
+  });
+
+  /* PA11Y */
+  it('checks /tribunal-view passes @pa11y', async () => {
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/view.png`;
+    pa11yOpts.page = tribunalViewPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
   it('shows reasons for the tribunal\'s view', async () => {
@@ -52,16 +69,30 @@ describe('Tribunal view page', () => {
     expect(await tribunalViewPage.getElementText('#accept-view-error')).equal(i18n.tribunalView.error.empty);
   });
 
-  it('accepting the tribunal\'s view shows the accepts page', async () => {
-    await tribunalViewPage.acceptTribunalsView();
-    await tribunalViewPage.submit();
-    tribunalViewAcceptedPage.verifyPage();
-    expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+  describe('accepting the tribunal\'s view shows the accepts page', () => {
+    before(async () => {
+      await tribunalViewPage.acceptTribunalsView();
+      await tribunalViewPage.submit();
+    });
+
+    it('verifies the page', async () => {
+      tribunalViewAcceptedPage.verifyPage();
+      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+    });
+
+    /* PA11Y */
+    it('checks /tribunal-view-accepted passes @pa11y', async () => {
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/view-accpet.png`;
+      pa11yOpts.page = tribunalViewAcceptedPage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+
+    it('returns the user to the acceptance page if they sign-in later', async () => {
+      await login(page);
+      tribunalViewAcceptedPage.verifyPage();
+      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+    });
   });
 
-  it('returns the user to the acceptance page if they sign-in later', async () => {
-    await login(page);
-    tribunalViewAcceptedPage.verifyPage();
-    expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
-  });
 });
