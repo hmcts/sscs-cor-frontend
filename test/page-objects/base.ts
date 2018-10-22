@@ -67,7 +67,7 @@ export class BasePage {
   async screenshot(filename) {
     await this.page.screenshot({
       fullPage: true,
-      path: `functional-output/${filename}.png`
+      path: `functional-output/functional-screenshots/${filename}.png`
     });
   }
 
