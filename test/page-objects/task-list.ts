@@ -21,7 +21,7 @@ export class TaskListPage extends BasePage {
   async clickExtend() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement(`#extend-deadline`)
+      this.clickElement('#extend-deadline')
     ]);
   }
 }

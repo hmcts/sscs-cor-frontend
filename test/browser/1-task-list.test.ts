@@ -53,7 +53,7 @@ describe('Task list page', () => {
   });
 
   it('is on the /task-list path', async () => {
-    await taskListPage.verifyPage();
+    taskListPage.verifyPage();
   });
 
   /* PA11Y */

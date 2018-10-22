@@ -8,17 +8,17 @@ export class ExtendDeadlinePage extends BasePage {
   }
 
   async clickNo() {
-    await this.clickElement(`#extend-deadline-1`);
+    await this.clickElement('#extend-deadline-1');
   }
 
   async clickYes() {
-    await this.clickElement(`#extend-deadline-2`);
+    await this.clickElement('#extend-deadline-2');
   }
 
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      await this.clickElement(`#submit-button button`)
+      await this.clickElement('#submit-button button')
     ]);
   }
 

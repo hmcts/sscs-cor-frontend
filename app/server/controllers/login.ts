@@ -13,7 +13,6 @@ import * as superAgent from 'superagent';
 const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
 const idamClientId: string = config.get('idam.client.id');
-const enableDummyLogin = config.get('enableDummyLogin') === 'true';
 
 function redirectToLogin(req: Request, res: Response) {
   return res.redirect(Paths.login);
@@ -81,25 +80,6 @@ function getIdamCallback(
   };
 }
 
-function getDummyLogin(req: Request, res: Response) {
-  return res.render('dummy-login.html');
-}
-
-function postDummyLogin(getOnlineHearing) {
-  return async(req: Request, res: Response, next: NextFunction) => {
-    const email: string = req.body['username'];
-
-    req.session.accessToken = 'thisisdummytoken';
-
-    try {
-      return await loadHearingAndEnterService(getOnlineHearing, email, req, res);
-    } catch (error) {
-      AppInsights.trackException(error);
-      return next(error);
-    }
-  };
-}
-
 async function loadHearingAndEnterService(
   getOnlineHearing: (email: string) => Promise<superAgent.Response>,
   email: string,
@@ -123,11 +103,6 @@ function setupLoginController(deps) {
   router.get(Paths.register, redirectToIdam('/users/selfRegister', deps.getRedirectUrl));
   router.get(Paths.logout, getLogout(deps.deleteToken));
 
-  if (enableDummyLogin) {
-    router.get(Paths.dummyLogin, getDummyLogin);
-    router.post(Paths.dummyLogin, postDummyLogin(deps.getOnlineHearing));
-  }
-
   return router;
 }
 
@@ -136,7 +111,5 @@ export {
   redirectToLogin,
   redirectToIdam,
   getLogout,
-  getIdamCallback,
-  getDummyLogin,
-  postDummyLogin
+  getIdamCallback
 };
