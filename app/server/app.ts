@@ -10,6 +10,7 @@ const health = require('./middleware/health');
 const locale = require('../../locale/en.json');
 import * as Paths from './paths';
 const bodyParser = require('body-parser');
+import * as cookieParser from 'cookie-parser';
 import * as moment from 'moment';
 
 const dateFilter = require('nunjucks-date-filter');
@@ -55,6 +56,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
+  app.use(cookieParser());
 
   app.use('/public', express.static(`${__dirname}/../../public`));
 

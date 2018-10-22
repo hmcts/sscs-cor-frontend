@@ -46,3 +46,13 @@ variable "idam_url" {
 variable "idam_api_url" {
   description = "url for idam api"
 }
+
+variable "evidence_upload_question_page_enabled" {
+  description = "Feature switch for evidence upload per question",
+  default = "false"
+}
+
+variable "evidence_upload_question_page_override_allowed" {
+  description = "Feature switch for enabling evidence upload per question to be enabled using a cookie",
+  default = "false"
+}

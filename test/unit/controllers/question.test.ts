@@ -1,6 +1,6 @@
 const { expect, sinon } = require('test/chai-sinon');
 const mockData = require('test/mock/cor-backend/services/all-questions').template;
-import { getQuestion, postAnswer, setupQuestionController } from 'app/server/controllers/question';
+import { getQuestion, postAnswer, setupQuestionController, showEvidenceUpload } from 'app/server/controllers/question';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
@@ -78,7 +78,8 @@ describe('controllers/question.js', () => {
             date: questionAnswerDate
           },
           answer_state: questionAnswerState
-        }
+        },
+        showEvidenceUpload: false
       });
     });
 
@@ -169,20 +170,41 @@ describe('controllers/question.js', () => {
 
     it('calls router.get with the path and middleware', () => {
       setupQuestionController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith('/:questionOrdinal');
     });
 
     it('calls router.post with the path and middleware', () => {
       setupQuestionController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().post).to.have.been.calledWith('/:questionOrdinal');
     });
 
     it('returns the router', () => {
       const controller = setupQuestionController({ getQuestionService: {} });
-      // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
+    });
+  });
+
+  describe('#showEvidenceUpload', () => {
+    it('returns true when it\'s enabled', () => {
+      expect(showEvidenceUpload(true)).to.be.true;
+    });
+    it('returns true when it\'s not enabled, override is allowed and cookie is true', () => {
+      expect(showEvidenceUpload(false, true, { evidenceUploadOverride: 'true' })).to.be.true;
+    });
+    it('returns false when it\'s not enabled and override is not allowed', () => {
+      expect(showEvidenceUpload(false)).to.be.false;
+    });
+    it('returns false when it\'s not enabled, override is allowed but cookies object is undefined', () => {
+      expect(showEvidenceUpload(false, true)).to.be.false;
+    });
+    it('returns false when it\'s not enabled, override is allowed but cookies object empty', () => {
+      expect(showEvidenceUpload(false, true, {})).to.be.false;
+    });
+    it('returns false when it\'s not enabled, override is allowed but cookie is false', () => {
+      expect(showEvidenceUpload(false, true, { evidenceUploadOverride: 'false' })).to.be.false;
+    });
+    it('returns false when it\'s not enabled, override is not allowed and cookie is true', () => {
+      expect(showEvidenceUpload(false, false, { evidenceUploadOverride: 'true' })).to.be.false;
     });
   });
 });
