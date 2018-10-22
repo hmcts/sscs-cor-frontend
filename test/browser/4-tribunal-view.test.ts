@@ -42,7 +42,9 @@ describe('Tribunal view page', () => {
 
   /* PA11Y */
   it('checks /tribunal-view passes @pa11y', async () => {
-    const result = await pa11y(`${testUrl}${tribunalViewPage.pagePath}`, pa11yOpts);
+    pa11yOpts.screenCapture = `./functional-output/view.png`;
+    pa11yOpts.page = tribunalViewPage.page;
+    const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
@@ -68,22 +70,30 @@ describe('Tribunal view page', () => {
     expect(await tribunalViewPage.getElementText('#accept-view-error')).equal(i18n.tribunalView.error.empty);
   });
 
-  it('accepting the tribunal\'s view shows the accepts page', async () => {
-    await tribunalViewPage.acceptTribunalsView();
-    await tribunalViewPage.submit();
-    tribunalViewAcceptedPage.verifyPage();
-    expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+  describe('accepting the tribunal\'s view shows the accepts page', () => {
+    before(async () => {
+      await tribunalViewPage.acceptTribunalsView();
+      await tribunalViewPage.submit();
+    });
+
+    it('verifies the page', async () => {
+      tribunalViewAcceptedPage.verifyPage();
+      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+    });
+
+    /* PA11Y */
+    it('checks /tribunal-view-accepted passes @pa11y', async () => {
+      pa11yOpts.screenCapture = `./functional-output/view-accpet.png`;
+      pa11yOpts.page = tribunalViewAcceptedPage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+
+    it('returns the user to the acceptance page if they sign-in later', async () => {
+      await login(page);
+      tribunalViewAcceptedPage.verifyPage();
+      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+    });
   });
 
-  /* PA11Y */
-  it('checks /tribunal-view-accepted passes @pa11y', async () => {
-    const result = await pa11y(`${testUrl}${tribunalViewAcceptedPage.pagePath}`, pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
-  it('returns the user to the acceptance page if they sign-in later', async () => {
-    await login(page);
-    tribunalViewAcceptedPage.verifyPage();
-    expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
-  });
 });

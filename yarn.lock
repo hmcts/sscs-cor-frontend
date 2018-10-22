@@ -4313,9 +4313,9 @@ pa11y-reporter-json@^1.0.0:
   dependencies:
     bfj "^4.2.3"
 
-pa11y@^5.0.4:
+"pa11y@git+https://github.com/jozzhart/pa11y.git#ignore_url":
   version "5.0.4"
-  resolved "https://registry.yarnpkg.com/pa11y/-/pa11y-5.0.4.tgz#db7e9ca9c2b138c280504197196355e47cb3b9e2"
+  resolved "git+https://github.com/jozzhart/pa11y.git#3ba1166677708ffe68a2b65156b65c96f06ec347"
   dependencies:
     commander "^2.14.1"
     fs-extra "^5.0.0"
@@ -5914,6 +5914,12 @@ tslint-eslint-rules@^5.3.1:
   dependencies:
     doctrine "0.7.2"
     tslib "1.9.0"
+    tsutils "^3.0.0"
+
+tslint-no-unused-expression-chai@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/tslint-no-unused-expression-chai/-/tslint-no-unused-expression-chai-0.1.4.tgz#f4a2c9dd3306088f44eb7574cf470082b09ade49"
+  dependencies:
     tsutils "^3.0.0"
 
 tslint@^5.9.1:
