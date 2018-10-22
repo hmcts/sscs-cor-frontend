@@ -6,8 +6,8 @@ import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
 const i18n = require('locale/en');
+
 import { ExtendDeadlinePage } from 'test/page-objects/extend-deadline';
-import * as Paths from 'app/server/paths';
 const config = require('config');
 
 const pa11y = require('pa11y');
@@ -23,11 +23,10 @@ describe('Extend deadline', () => {
   before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ performLogin: true });
     page = res.page;
-    pa11yOpts.browser = res.browser;
-
     taskListPage = new TaskListPage(page);
     extendDeadlinePage = new ExtendDeadlinePage(page);
-
+    pa11yOpts.browser = res.browser;
+    pa11yOpts.page = extendDeadlinePage.page;
     await taskListPage.clickExtend();
   });
 
@@ -37,14 +36,14 @@ describe('Extend deadline', () => {
     }
   });
 
-  it('is on the /extend-deadline path', () => {
+  it('is on the /extend-deadline path', async () => {
     extendDeadlinePage.verifyPage();
   });
 
   /* PA11Y */
   it('checks /extend-deadline passes @pa11y', async () => {
     pa11yOpts.screenCapture = `./functional-output/extend-deadline.png`;
-    const result = await pa11y(`${testUrl}${extendDeadlinePage.pagePath}`, pa11yOpts);
+    const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
@@ -63,13 +62,13 @@ describe('Extend deadline', () => {
   });
 
   describe('confirming no', () => {
-    before('go to extend page', async () => {
+    before('go to extend deadline   page', async () => {
       await extendDeadlinePage.visitPage();
+      await extendDeadlinePage.clickNo();
+      await extendDeadlinePage.submit();
     });
 
     it('shows the confirmation page with existing deadline', async () => {
-      await extendDeadlinePage.clickNo();
-      await extendDeadlinePage.submit();
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
       expect(deadline).to.contain(`${moment.utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
     });
@@ -77,25 +76,20 @@ describe('Extend deadline', () => {
     /* PA11Y */
     it('checks the confirmation page with existing deadline passes @pa11y', async () => {
       pa11yOpts.screenCapture = `./functional-output/extend-deadline-confirmation-no.png`;
-      pa11yOpts.actions = [
-        'wait for element #extend-deadline-1 to be visible',
-        'click element #extend-deadline-1',
-        'click element #submit-button button'
-      ];
-      const result = await pa11y(`${testUrl}${extendDeadlinePage.pagePath}`, pa11yOpts);
+      const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
   });
 
   describe('confirming yes', () => {
-    beforeEach('return to extend page', async () => {
-      await extendDeadlinePage.visitPage();
-      pa11yOpts.actions = [];
+    before('go to extend page and select yes', async () => {
+      await taskListPage.visitPage();
+      await taskListPage.clickExtend();
+      await extendDeadlinePage.clickYes();
+      await extendDeadlinePage.submit();
     });
 
     it('shows the confirmation page with new deadline', async () => {
-      await extendDeadlinePage.clickYes();
-      await extendDeadlinePage.submit();
       const deadline = await extendDeadlinePage.getElementText('#extend-message');
       expect(deadline).to.contain(`${moment.utc().add(14, 'day').format(CONST.DATE_FORMAT)}`);
     });
@@ -103,13 +97,15 @@ describe('Extend deadline', () => {
     /* PA11Y */
     it('checks the confirmation page with existing deadline passes @pa11y', async () => {
       pa11yOpts.screenCapture = `./functional-output/extend-deadline-confirmation-yes.png`;
-      pa11yOpts.actions = [
-        'wait for element #extend-deadline-2 to be visible',
-        'click element #extend-deadline-2',
-        'click element #submit-button button'
-      ];
-      const result = await pa11y(`${testUrl}${extendDeadlinePage.pagePath}`, pa11yOpts);
+      const result = await pa11y('', pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+  });
+
+  describe('trying to extend deadline a second time', () => {
+    before('go to the extend page', async () => {
+      await taskListPage.visitPage();
+      await taskListPage.clickExtend();
     });
 
     it('shows the contact tribunal details if tyring for second extension', async () => {

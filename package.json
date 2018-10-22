@@ -103,7 +103,7 @@
     "nock": "^9.4.4",
     "nodemon": "^1.18.3",
     "nyc": "^13.0.1",
-    "pa11y": "^5.0.4",
+    "pa11y": "git+https://github.com/jozzhart/pa11y.git",
     "pre-commit": "^1.2.2",
     "puppeteer": "^1.6.1",
     "request-promise": "^4.2.2",

@@ -58,7 +58,9 @@ describe('Request a hearing', () => {
 
     /* PA11Y */
     it('checks /hearing-confirm path passes @pa11y', async () => {
-      const result = await pa11y(`${testUrl}${hearingConfirmPage.pagePath}`, pa11yOpts);
+      pa11yOpts.screenCapture = `./functional-output/hearing-confirm.png`;
+      pa11yOpts.page = hearingConfirmPage.page;
+      const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
 
@@ -86,12 +88,13 @@ describe('Request a hearing', () => {
       });
 
       it('shows the explain reason why page', async () => {
-        await hearingWhyPage.screenshot('hearing-why-page');
         hearingWhyPage.verifyPage();
       });
 
       /* PA11Y */
       it('checks /hearing-why path passes @pa11y', async () => {
+        pa11yOpts.screenCapture = `./functional-output/hearing-why.png`;
+        pa11yOpts.page = hearingWhyPage.page;
         const result = await pa11y(`${testUrl}${hearingWhyPage.pagePath}`, pa11yOpts);
         expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
       });
@@ -104,21 +107,33 @@ describe('Request a hearing', () => {
         await hearingWhyPage.screenshot('hearing-why-validaiton');
       });
 
-      it('submits the reason and shows the hearing booking details', async () => {
-        await hearingWhyPage.giveReasonWhy('The reason why I want a hearing');
-        await hearingWhyPage.submit();
-        await hearingWhyPage.screenshot('hearing-why-booking-details');
-        expect(await hearingWhyPage.getHeading()).equal(i18n.hearingWhy.booking.header);
-        const responseDate = await tribunalViewPage.getElementText('#responseDate');
-        expect(responseDate).to.contain(`${moment.utc().add(6, 'week').format(CONST.DATE_FORMAT)}`);
-        const caseReference = await tribunalViewPage.getElementText('#caseReference');
-        expect(caseReference).to.contain(`${caseReference}`);
-      });
+      describe('submits the reason', () => {
+        before(async () => {
+          await hearingWhyPage.giveReasonWhy('The reason why I want a hearing');
+          await hearingWhyPage.submit();
+        });
 
-      it('returns the user to the hearing booking page if they sign-in later', async () => {
-        await login(page);
-        hearingWhyPage.verifyPage();
-        expect(await hearingWhyPage.getHeading()).to.equal(i18n.hearingWhy.booking.header);
+        it('shows the hearing booking details', async () => {
+          expect(await hearingWhyPage.getHeading()).equal(i18n.hearingWhy.booking.header);
+          const responseDate = await tribunalViewPage.getElementText('#responseDate');
+          expect(responseDate).to.contain(`${moment.utc().add(6, 'week').format(CONST.DATE_FORMAT)}`);
+          const caseReference = await tribunalViewPage.getElementText('#caseReference');
+          expect(caseReference).to.contain(`${caseReference}`);
+        });
+
+        /* PA11Y */
+        it('checks hearing booking details passes @pa11y', async () => {
+          pa11yOpts.screenCapture = `./functional-output/hearing-why-booking-details.png`;
+          pa11yOpts.page = hearingWhyPage.page;
+          const result = await pa11y(`${testUrl}${hearingWhyPage.pagePath}`, pa11yOpts);
+          expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+        });
+
+        it('returns the user to the hearing booking page if they sign-in later', async () => {
+          await login(page);
+          hearingWhyPage.verifyPage();
+          expect(await hearingWhyPage.getHeading()).to.equal(i18n.hearingWhy.booking.header);
+        });
       });
     });
   });

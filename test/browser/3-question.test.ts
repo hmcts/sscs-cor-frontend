@@ -38,7 +38,6 @@ describe('Question page', () => {
   before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ performLogin: true });
     page = res.page;
-    pa11yOpts.browser = res.browser;
     questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
     firstQuestionId = questionIdList.shift();
     questionOrdinal = res.cohTestData.questionOrdinal || sampleQuestionOrdinal;
@@ -50,7 +49,8 @@ describe('Question page', () => {
     submitQuestionPage = new SubmitQuestionPage(page, questionOrdinal);
     questionsCompletedPage = new QuestionsCompletedPage(page);
     await taskListPage.clickQuestion(firstQuestionId);
-    await questionPage.screenshot('question');
+    pa11yOpts.browser = res.browser;
+    pa11yOpts.page = questionPage.page;
   });
 
   after(async () => {
@@ -65,7 +65,8 @@ describe('Question page', () => {
 
   /* PA11Y */
   it('checks /question passes @pa11y', async () => {
-    const result = await pa11y(`${testUrl}${questionPage.pagePath}`, pa11yOpts);
+    pa11yOpts.screenCapture = `./functional-output/question.png`;
+    const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
@@ -97,8 +98,11 @@ describe('Question page', () => {
   });
 
   describe('saving an answer', () => {
-    it('redirects to /task-list page when a valid answer is saved', async () => {
+    before('save a answer', async () => {
       await questionPage.saveAnswer('A valid answer');
+    });
+
+    it('redirects to /task-list page when a valid answer is saved', async () => {
       expect(questionPage.getCurrentUrl()).to.equal(`${testUrl}${Paths.taskList}`);
     });
 
@@ -106,10 +110,18 @@ describe('Question page', () => {
       const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
     });
+
+    /* PA11Y */
+    it('checks question status passes @pa11y', async () => {
+      pa11yOpts.screenCapture = `./functional-output/question-list-draft.png`;
+      pa11yOpts.page = taskListPage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
   });
 
   describe('submitting an answer', () => {
-    before(async () => {
+    before('selects the question', async () => {
       await taskListPage.visitPage();
       await taskListPage.clickQuestion(firstQuestionId);
     });
@@ -119,15 +131,17 @@ describe('Question page', () => {
       expect(savedAnswer).to.equal('A valid answer');
     });
 
+    /* PA11Y */
+    it('checks draft answer passes @pa11y', async () => {
+      pa11yOpts.screenCapture = `./functional-output/question-draft-answer.png`;
+      pa11yOpts.page = questionPage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+
     it('is on the /submit_answer path after submitting answer', async () => {
       await questionPage.submitAnswer('Another valid answer');
       submitQuestionPage.verifyPage();
-    });
-
-    /* PA11Y */
-    it('checks /submit_answer passes @pa11y', async () => {
-      const result = await pa11y(`${testUrl}${submitQuestionPage.pagePath}`, pa11yOpts);
-      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
 
     it('redirects to /task-list page when a valid answer is submitted', async () => {
@@ -186,12 +200,6 @@ describe('Question page', () => {
       const questionId = questionIdList.shift();
       await answerQuestion(questionId);
       questionsCompletedPage.verifyPage();
-    });
-
-    /* PA11Y */
-    it('checks /questions-completed passes @pa11y', async () => {
-      const result = await pa11y(`${testUrl}${questionsCompletedPage.pagePath}`, pa11yOpts);
-      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
 
     it('shows the correct date for next contact', async () => {
