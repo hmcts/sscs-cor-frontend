@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as puppeteer from 'puppeteer';
 const { createServer } = require('http');
 const { createSession } = require('app/server/middleware/session');
@@ -10,7 +9,9 @@ const config = require('config');
 const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 const dysonSetupCoh = require('test/mock/coh/dysonSetup');
 const dysonSetupIdam = require('test/mock/idam/dysonSetup');
+import * as sidam from 'test/fixtures/sidam';
 
+const idamUrl = config.get('idam.url');
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
 const headless = config.get('headless') !== 'false';
@@ -21,6 +22,7 @@ let browser;
 let server;
 let cohTestData;
 let ccdCase;
+let sidamUsers = [];
 let loginPage;
 let taskListPage;
 
@@ -48,7 +50,7 @@ async function startBrowser() {
   return browser;
 }
 
-function startAppServer() {
+function startAppServer(): Promise<void> {
   if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
     dysonSetupCorBackend();
@@ -63,14 +65,30 @@ function startAppServer() {
       return Promise.resolve();
     });
   }
+  return Promise.resolve();
 }
 
-export async function login(page) {
-  const email = ccdCase && ccdCase.email || 'someone@example.com';
+export async function login(page, force?) {
+  const sidamUser = sidamUsers[0];
+  const email = sidamUser && sidamUser.email || 'someone@example.com';
+  const password = sidamUser && sidamUser.password || 'somePassword';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
-  await loginPage.visitPage();
-  await loginPage.login(email);
+  await taskListPage.visitPage();
+  const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
+  const signInFailed = () => page.url().indexOf(`${testUrl}/sign-in`) >= 0;
+  if (isOnIdamPage() || force) {
+    await loginPage.visitPage();
+    await loginPage.login(email, password);
+    let maxRetries = 10;
+    while ((isOnIdamPage() || signInFailed()) && maxRetries > 0) {
+      console.log('Login attempt failed, retrying...');
+      await new Promise(r => setTimeout(r, 500));
+      await loginPage.visitPage();
+      await loginPage.login(email, password);
+      maxRetries--;
+    }
+  }
 }
 
 async function startServices(options?) {
@@ -79,6 +97,7 @@ async function startServices(options?) {
     const bootstrapResult = await bootstrap();
     ccdCase = bootstrapResult.ccdCase;
     cohTestData = bootstrapResult.cohTestData;
+    sidamUsers.unshift(bootstrapResult.sidamUser);
   }
   if (opts.issueDecision) {
     const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
@@ -92,12 +111,21 @@ async function startServices(options?) {
     width: 1100
   });
   if (opts.performLogin) {
-    await login(page);
+    await login(page, opts.forceLogin);
   }
   return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {}, browser };
 }
 
 after(async() => {
+  if (sidamUsers.length) {
+    console.log('Clean up sidam');
+    await sidam.unregisterRedirectUri();
+    sidamUsers.forEach(async (sidamUser) => {
+      console.log(`Deleting user ${sidamUser.email}`);
+      await sidam.deleteUser(sidamUser);
+    });
+  }
+
   if (server && server.close) {
     console.log('Killing server');
     server.close();

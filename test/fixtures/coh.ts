@@ -1,4 +1,3 @@
-/* eslint-disable no-console, no-magic-numbers */
 const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/cor-backend/services/question').template;
@@ -78,8 +77,8 @@ async function createQuestion(hearingId, mockQuestionRef, ordinal) {
 async function createQuestions(hearingId) {
   const questionList = [];
   questionList.push(await createQuestion(hearingId, '001', 1));
-  questionList.push(await createQuestion(hearingId, '002', 1));
-  questionList.push(await createQuestion(hearingId, '003', 1));
+  questionList.push(await createQuestion(hearingId, '002', 2));
+  questionList.push(await createQuestion(hearingId, '003', 3));
   return questionList;
 }
 

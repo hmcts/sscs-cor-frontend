@@ -25,7 +25,7 @@ describe('services/extend-deadline.ts', () => {
     it('resolves the promise with the response', async () => (
       expect(extendDeadline(hearingId)).to.eventually.eql(apiResponse)
     ));
-  });  
+  });
 
   describe('rejecting the promises', () => {
     const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };

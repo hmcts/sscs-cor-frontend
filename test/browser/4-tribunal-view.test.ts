@@ -21,7 +21,7 @@ describe('Tribunal view page', () => {
   let browser;
 
   before('start services and bootstrap data in CCD/COH', async () => {
-    const res = await startServices({ performLogin: true, issueDecision: true });
+    const res = await startServices({ performLogin: true, forceLogin: true, issueDecision: true });
     page = res.page;
     browser = res.browser;
     pa11yOpts.browser = browser;

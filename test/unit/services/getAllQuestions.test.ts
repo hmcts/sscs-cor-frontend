@@ -55,7 +55,7 @@ describe('services/getAllQuestions.js', () => {
   });
 
   describe('#getQuestionIdFromOrdinal', () => {
-    const questions = mockData.questions({})
+    const questions = mockData.questions({});
     const questionOrdinal = '1';
     let req: any = {};
 
