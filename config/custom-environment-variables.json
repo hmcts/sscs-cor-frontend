@@ -30,5 +30,11 @@
     "client": {
       "secret": "IDAM_CLIENT_SECRET"
     }
+  },
+  "evidenceUpload": {
+    "questionPage": {
+      "enabled": "EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED",
+      "overrideAllowed": "EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED"
+    }
   }
 }

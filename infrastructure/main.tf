@@ -42,15 +42,17 @@ module "sscs-cor-frontend" {
   asp_name             = "${var.product}-${var.component}-${var.env}"
 
   app_settings = {
-    SSCS_API_URL                 = "${local.ApiUrl}"
-    WEBSITE_NODE_DEFAULT_VERSION = "8.11.1"
-    NODE_ENV                     = "${var.infrastructure_env}"
-    REDIS_URL                    = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
-    SESSION_SECRET               = "${module.redis-cache.access_key}"
-    SECURE_SESSION               = "${var.secure_session}"
-    IDAM_URL                     = "${var.idam_url}"
-    IDAM_API_URL                 = "${var.idam_api_url}"
-    IDAM_CLIENT_SECRET           = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret.value}"
+    SSCS_API_URL                                   = "${local.ApiUrl}"
+    WEBSITE_NODE_DEFAULT_VERSION                   = "8.11.1"
+    NODE_ENV                                       = "${var.infrastructure_env}"
+    REDIS_URL                                      = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
+    SESSION_SECRET                                 = "${module.redis-cache.access_key}"
+    SECURE_SESSION                                 = "${var.secure_session}"
+    IDAM_URL                                       = "${var.idam_url}"
+    IDAM_API_URL                                   = "${var.idam_api_url}"
+    IDAM_CLIENT_SECRET                             = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret.value}"
+    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED          = "${var.evidence_upload_question_page_enabled}"
+    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED = "${var.evidence_upload_question_page_override_allowed}"
   }
 }
 
