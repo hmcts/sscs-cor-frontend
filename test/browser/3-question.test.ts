@@ -10,6 +10,7 @@ import { TaskListPage } from 'test/page-objects/task-list';
 import { QuestionPage } from 'test/page-objects/question';
 import { SubmitQuestionPage } from 'test/page-objects/submit-question';
 import { QuestionsCompletedPage } from 'test/page-objects/questions-completed';
+import { UploadEvidencePage } from 'test/page-objects/upload-evidence';
 const i18n = require('locale/en');
 import * as Paths from 'app/server/paths';
 const config = require('config');
@@ -26,15 +27,16 @@ const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 describe('Question page', () => {
   let page: Page;
   let taskListPage: TaskListPage;
-  let questionPage;
-  let submitQuestionPage;
-  let questionsCompletedPage;
-  let questionIdList;
-  let questionOrdinal;
-  let firstQuestionId;
-  let questionHeader;
-  let questionBody;
-  let caseReference;
+  let questionPage: QuestionPage;
+  let submitQuestionPage: SubmitQuestionPage;
+  let questionsCompletedPage: QuestionsCompletedPage;
+  let uploadEvidencePage: UploadEvidencePage;
+  let questionIdList: string[];
+  let questionOrdinal: string;
+  let firstQuestionId: string;
+  let questionHeader: string;
+  let questionBody: string;
+  let caseReference: string;
 
   before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ performLogin: true });
@@ -48,6 +50,7 @@ describe('Question page', () => {
     taskListPage = new TaskListPage(page);
     questionPage = new QuestionPage(page, questionOrdinal);
     submitQuestionPage = new SubmitQuestionPage(page, questionOrdinal);
+    uploadEvidencePage = new UploadEvidencePage(page, questionOrdinal);
     questionsCompletedPage = new QuestionsCompletedPage(page);
     await taskListPage.clickQuestion(firstQuestionId);
     await questionPage.screenshot('question');
@@ -120,17 +123,38 @@ describe('Question page', () => {
 
     it('also displays guidance posting evidence with reference', async() => {
       const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
-      const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
+      const displayedCaseRef = await questionPage.getElementText('#evidence-case-reference');
       expect(summaryText).to.equal(i18n.question.evidenceUpload.postEvidence.summary);
       expect(displayedCaseRef).to.equal(caseReference);
     });
 
     /* PA11Y */
-    it('checks evidence upload per question enabled @pa11y', async () => {
+    it('checks /question with evidence upload per question enabled @pa11y', async () => {
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-evidence-enabled.png`;
-      pa11yOpts.page = taskListPage.page;
+      pa11yOpts.page = questionPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+
+    it('shows the upload evidence page', async () => {
+      await questionPage.clickElement('#evidence-upload .add-file');
+      await questionPage.screenshot('question-upload-evidence');
+      uploadEvidencePage.verifyPage();
+      expect(await uploadEvidencePage.getHeading()).to.equal(i18n.questionUploadEvidence.header);
+    });
+
+    /* PA11Y */
+    it('checks /upload-evidence passes @pa11y', async () => {
+      await uploadEvidencePage.visitPage();
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-upload-evidence.png`;
+      pa11yOpts.page = uploadEvidencePage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+
+    it('takes the user back to the question after submitting evidence', async () => {
+      await uploadEvidencePage.submit();
+      questionPage.verifyPage();
     });
   });
 

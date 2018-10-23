@@ -4,6 +4,10 @@ import { NextFunction, Request, Response, Router } from 'express';
 import * as Paths from '../paths';
 import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
+import { pageNotFoundHandler } from '../middleware/error-handler';
+
+const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
+const evidenceUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
 
 export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploadOverrideAllowed?: boolean, cookies?): boolean {
   if (evidenceUploadEnabled) {
@@ -39,11 +43,9 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
         evidence: _.map(response.evidence, 'file_name')
       };
       req.session.question = question;
-      const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
-      const evidendeUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
       res.render('question/index.html', {
         question,
-        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidendeUploadOverrideAllowed, req.cookies)
+        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
       });
     } catch (error) {
       AppInsights.trackException(error);
@@ -87,16 +89,43 @@ function postAnswer(getAllQuestionsService, updateAnswerService) {
   };
 }
 
+export function checkEvidenceUploadFeature(enabled, overridable) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const allowed = showEvidenceUpload(enabled, overridable, req.cookies);
+    if (allowed) {
+      return next();
+    }
+    return pageNotFoundHandler(req, res);
+  };
+}
+
+function getUploadEvidence() {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const questionOrdinal: string = req.params.questionOrdinal;
+    res.render('question/upload-evidence.html', { questionOrdinal });
+  };
+}
+
+function postUploadEvidence() {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const questionOrdinal: string = req.params.questionOrdinal;
+    return res.redirect(`${Paths.question}/${questionOrdinal}`);
+  };
+}
+
 function setupQuestionController(deps) {
-  // eslint-disable-next-line new-cap
   const router = Router();
   router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.getAllQuestionsService, deps.getQuestionService));
   router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.getAllQuestionsService, deps.saveAnswerService));
+  router.get('/:questionOrdinal/upload-evidence', deps.prereqMiddleware, checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed), getUploadEvidence());
+  router.post('/:questionOrdinal/upload-evidence', deps.prereqMiddleware, checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed), postUploadEvidence());
   return router;
 }
 
 export {
   setupQuestionController,
   getQuestion,
-  postAnswer
+  postAnswer,
+  getUploadEvidence,
+  postUploadEvidence
 };
