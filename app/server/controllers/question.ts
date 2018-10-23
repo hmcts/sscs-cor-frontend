@@ -2,6 +2,17 @@ import * as AppInsights from '../app-insights';
 import { NextFunction, Request, Response, Router } from 'express';
 import * as Paths from '../paths';
 import { answerValidation } from '../utils/fieldValidation';
+import * as config from 'config';
+
+export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploadOverrideAllowed?: boolean, cookies?): boolean {
+  if (evidenceUploadEnabled) {
+    return true;
+  }
+  if (evidendeUploadOverrideAllowed && cookies && cookies.evidenceUploadOverride === 'true') {
+    return true;
+  }
+  return false;
+}
 
 function getQuestion(getAllQuestionsService, getQuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +37,12 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
         }
       };
       req.session.question = question;
-      res.render('question/index.html', { question });
+      const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
+      const evidendeUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
+      res.render('question/index.html', {
+        question,
+        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidendeUploadOverrideAllowed, req.cookies)
+      });
     } catch (error) {
       AppInsights.trackException(error);
       next(error);

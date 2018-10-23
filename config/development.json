@@ -1,0 +1,8 @@
+{
+  "evidenceUpload": {
+    "questionPage": {
+      "enabled": "true",
+      "overrideAllowed": "false"
+    }
+  }
+}
