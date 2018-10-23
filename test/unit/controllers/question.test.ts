@@ -57,6 +57,8 @@ describe('controllers/question.js', () => {
       const questionAnswer = '';
       const questionAnswerState = 'unanswered';
       const questionAnswerDate = moment.utc().format();
+      const questionEvidence = [];
+
       getQuestionService = () => Promise.resolve({
         question_id: questionId,
         question_ordinal: questionOrdinal,
@@ -64,7 +66,8 @@ describe('controllers/question.js', () => {
         question_body_text: questionBody,
         answer: questionAnswer,
         answer_state: questionAnswerState,
-        answer_date: questionAnswerDate
+        answer_date: questionAnswerDate,
+        evidence: questionEvidence
       });
       await getQuestion(getAllQuestionsService, getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
@@ -77,7 +80,8 @@ describe('controllers/question.js', () => {
             value: questionAnswer,
             date: questionAnswerDate
           },
-          answer_state: questionAnswerState
+          answer_state: questionAnswerState,
+          evidence: questionEvidence
         },
         showEvidenceUpload: false
       });
