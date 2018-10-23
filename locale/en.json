@@ -86,6 +86,10 @@
       "submittedText": "Submitted"
     }
   },
+  "questionUploadEvidence": {
+    "header": "Upload your evidence",
+    "backToQuestionText": "Back to question"
+  },
   "submitQuestion": {
     "title": "You will not be able to change your answer after you submit it.",
     "backToQuestionText": "Back to question"
