@@ -30,5 +30,11 @@
       "secret": "a_secret"
     }
   },
-  "httpProxy": false
+  "httpProxy": false,
+  "evidenceUpload": {
+    "questionPage": {
+      "enabled": "false",
+      "overrideAllowed": "false"
+    }
+  }
 }
