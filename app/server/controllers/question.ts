@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import * as AppInsights from '../app-insights';
 import { NextFunction, Request, Response, Router } from 'express';
 import * as Paths from '../paths';
@@ -34,7 +35,8 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
         answer: {
           value: response.answer,
           date: response.answer_date
-        }
+        },
+        evidence: _.map(response.evidence, 'file_name')
       };
       req.session.question = question;
       const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
