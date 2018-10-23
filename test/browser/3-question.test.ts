@@ -84,11 +84,39 @@ describe('Question page', () => {
     expect(await questionPage.getElement('#question-field')).to.not.be.null
   ));
 
-  it('displays guidance for submitting evidence with case reference', async () => {
-    const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
-    const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
-    expect(summaryText).to.equal(i18n.question.sendingEvidence.summary);
-    expect(displayedCaseRef).to.equal(caseReference);
+  describe('evidence upload per question disabled', () => {
+    it('displays guidance for submitting evidence with case reference', async () => {
+      const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
+      const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
+      expect(summaryText).to.equal(i18n.question.sendingEvidence.summary);
+      expect(displayedCaseRef).to.equal(caseReference);
+    });
+  });
+
+  describe('evidence upload per question enabled', () => {
+    before(async () => {
+      await questionPage.setCookie('evidenceUploadOverride', 'true');
+      await questionPage.visitPage();
+    });
+
+    after(async () => {
+      await questionPage.deleteCookie('evidenceUploadOverride');
+      await questionPage.visitPage();
+    });
+
+    it('display evidence upload section', async() => {
+      const headerText = await questionPage.getElementText('#evidence-upload h2');
+      const addFile = await questionPage.getElementText('#evidence-upload .add-file');
+      expect(headerText).to.equal(i18n.question.evidenceUpload.header);
+      expect(addFile).to.equal(i18n.question.evidenceUpload.addFileButton);
+    });
+
+    it('also displays guidance posting evidence with reference', async() => {
+      const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
+      const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
+      expect(summaryText).to.equal(i18n.question.evidenceUpload.postEvidence.summary);
+      expect(displayedCaseRef).to.equal(caseReference);
+    });
   });
 
   it('displays an error message in the summary when you try to save an empty answer', async () => {
