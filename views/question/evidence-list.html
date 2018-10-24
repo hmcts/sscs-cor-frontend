@@ -1,17 +1,29 @@
+{% from "table/macro.njk" import govukTable %}
+{% from "button/macro.njk" import govukButton %}
+
 <table class="govuk-table" id="files-uploaded">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th class="govuk-table__header">Uploaded files</th>
+      <th class="govuk-table__header" colspan="2">{{ i18n.question.evidenceUpload.fileList.uploadedFiles }}</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    {% for filename in question.evidence %}
+    {% for file in question.evidence %}
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell"><span>{{ filename }}</span></td>
+        <td class="govuk-table__cell">
+          <span>{{ file.filename }}</span>
+        </td>
+        <td class="govuk-table__cell">
+          <form action="/question/{{ question.questionOrdinal }}" method="post">
+            <input type="hidden" name="id" value="{{ file.id }}">
+            <input type="submit" name="delete" value="{{ i18n.general.delete }}" class="govuk-link">
+          </form>
+        </td>
       </tr>
     {% else %}
       <tr class="govuk-table__row">
-        <td>No files uploaded</td>
+        <td>{{ i18n.question.evidenceUpload.fileList.noFilesUploaded }}</td>
+        <td></td>
       </tr>
     {% endfor %}
   </tbody>
