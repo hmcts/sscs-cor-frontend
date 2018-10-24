@@ -44,6 +44,18 @@ yarn test:unit // just unit tests
 yarn test:browser // just browser tests
 ```
 
+### Pa11y Accessibility Tests
+
+The pa11y tests are a subset of the browser tests, simply tagged @pa11y.  
+
+```bash
+yarn test:a11y
+```
+
+These tests generate screenshots of all pages tested and can be found in ```./functional-output/pa11y-screenshots```
+
+On Jenkins, when viewing a build, the screenshots are available as Build Artifacts.
+
 ### Functional Tests
 
 The same browser test suite is used for running locally and when running against the `preview` and `AAT` environments via the `yarn test:functional` script.
