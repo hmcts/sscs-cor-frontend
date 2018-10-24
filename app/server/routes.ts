@@ -24,6 +24,7 @@ import { getOnlineHearing } from './services/getOnlineHearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { getToken, getUserDetails, getRedirectUrl, deleteToken } from './services/idamService';
 import * as tribunalViewService from './services/tribunalView';
+import { uploadEvidence as uploadEvidenceService } from './services/evidenceUpload';
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
@@ -32,6 +33,7 @@ const questionController = setupQuestionController({
   getAllQuestionsService,
   getQuestionService,
   saveAnswerService,
+  uploadEvidenceService,
   prereqMiddleware
 });
 const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, getAllQuestionsService, prereqMiddleware });
