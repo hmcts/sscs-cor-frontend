@@ -111,11 +111,26 @@ describe('Question page', () => {
       expect(addFile).to.equal(i18n.question.evidenceUpload.addFileButton);
     });
 
+    it('displays upload files', async() => {
+      const fileList = await questionPage.getElements('#files-uploaded tbody tr');
+      const firstFileName = await questionPage.getElementText('#files-uploaded tbody tr:first-child td:first-child');
+      expect(fileList.length).to.equal(2);
+      expect(firstFileName).to.equal('doctor.doc');
+    });
+
     it('also displays guidance posting evidence with reference', async() => {
       const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
       const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
       expect(summaryText).to.equal(i18n.question.evidenceUpload.postEvidence.summary);
       expect(displayedCaseRef).to.equal(caseReference);
+    });
+
+    /* PA11Y */
+    it('checks evidence upload per question enabled @pa11y', async () => {
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-evidence-enabled.png`;
+      pa11yOpts.page = taskListPage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
   });
 
