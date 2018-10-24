@@ -156,6 +156,14 @@ describe('controllers/question.js', () => {
         }
       });
     });
+
+    it.skip('should delete a file', async() => {
+      req.body['delete'] = 'Delete';
+      req.body['id'] = 'uuid';
+      // someService = () => Promise.resolve();
+      // await postAnswer(someService)(req, res, next);
+      // expect(somehthing)
+    });
   });
 
   describe('setupQuestionController', () => {
