@@ -1,5 +1,3 @@
-{% from "table/macro.njk" import govukTable %}
-
 <form action="/question/{{ question.questionOrdinal }}" method="post">
   <div>
     {{ govukTextarea({
@@ -28,28 +26,11 @@
       <h2 class="govuk-heading-m">{{ i18n.question.evidenceUpload.header }}</h2>
       <p>{{ i18n.question.evidenceUpload.info }}</p>
 
-      {{ govukTable({
-        "head": [{ "text": "Uploaded files" }],
-        "rows": [[{ "text": "No files uploaded" }]]
-      }) }}
+      {% include "question/evidence-list.html" %}
 
       <a class="govuk-button secondary-button add-file" href="/question/{{ question.questionOrdinal }}/upload-evidence">{{ i18n.question.evidenceUpload.addFileButton }}</a>
 
-      <details id="sending-evidence-guide" class="govuk-details">
-        <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">
-              {{ i18n.question.evidenceUpload.postEvidence.summary }}
-            </span>
-        </summary>
-        <div class="govuk-details__text">
-          <p>{{ i18n.question.evidenceUpload.postEvidence.details.para1 }}</p>
-          <p>{{ i18n.question.evidenceUpload.postEvidence.details.para2 }}<br>
-            <strong id="evidence-case-reference">{{ hearing.case_reference }}</strong>
-          </p>
-          <p>{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</p>
-          <p>{{ i18n.question.evidenceUpload.postEvidence.details.closingPara1 }}</p>
-        </div>
-      </details>
+      {% include "question/sending-evidence.html" %}
 
     </div>
 

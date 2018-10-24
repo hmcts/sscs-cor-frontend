@@ -1,0 +1,15 @@
+      <details id="sending-evidence-guide" class="govuk-details">
+        <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              {{ i18n.question.evidenceUpload.postEvidence.summary }}
+            </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>{{ i18n.question.evidenceUpload.postEvidence.details.para1 }}</p>
+          <p>{{ i18n.question.evidenceUpload.postEvidence.details.para2 }}<br>
+            <strong id="evidence-case-reference">{{ hearing.case_reference }}</strong>
+          </p>
+          <p>{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</p>
+          <p>{{ i18n.question.evidenceUpload.postEvidence.details.closingPara1 }}</p>
+        </div>
+      </details>

@@ -38,7 +38,7 @@ module.exports = {
       },
       {
         id: 'c9c29d3b-9619-4ac5-bfe5-27ad70213e56',
-        file_name: 'doctor.doc',
+        file_name: 'aReallyLongFilenameABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.pdf',
         created_date: () => moment.utc().subtract(2, 'day').endOf('day').format()
       }
     ]
