@@ -16,10 +16,10 @@
     <form action="/question/{{ questionOrdinal }}/upload-evidence" method="post" enctype="multipart/form-data">
 
       {{ govukFileUpload({
-        "id": "file-upload-1",
-        "name": "file-upload-1",
-        "label": {
-          "text": "Upload a file"
+        id: "file-upload-1",
+        name: "file-upload-1",
+        label: {
+          text: i18n.questionUploadEvidence.uploadAFile
         }
       }) }}
 
