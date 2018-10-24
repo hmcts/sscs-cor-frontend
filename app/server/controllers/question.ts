@@ -40,7 +40,7 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
           value: response.answer,
           date: response.answer_date
         },
-        evidence: _.map(response.evidence, 'file_name')
+        evidence: _.map(response.evidence, (i) => ({ filename: i.file_name, id: i.id }))
       };
       req.session.question = question;
       res.render('question/index.html', {
@@ -54,6 +54,7 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
   };
 }
 
+// TODO rename function
 function postAnswer(getAllQuestionsService, updateAnswerService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
@@ -61,6 +62,9 @@ function postAnswer(getAllQuestionsService, updateAnswerService) {
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
+
+    if (req.body['delete']) return next(new Error('Not implemented'));
+
     const hearingId = req.session.hearing.online_hearing_id;
     const answerText = req.body['question-field'];
 

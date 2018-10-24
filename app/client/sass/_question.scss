@@ -16,25 +16,6 @@
   white-space: pre-wrap;
 }
 
-#submit-buttons {
-  input {
-    display: block;
-
-    &.govuk-link {
-      @include govuk-font($size: 19);
-      border: none;
-      cursor: pointer;
-      text-decoration: underline;
-      color: $govuk-link-colour;
-      padding-left: 0;
-
-      &:hover {
-        color: govuk-colour("light-blue");
-      }
-    }
-  }
-}
-
 #completed-answer {
   background: govuk-colour("grey-4");
   margin-top: 40px;
