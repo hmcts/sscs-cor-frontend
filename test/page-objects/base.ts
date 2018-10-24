@@ -53,6 +53,11 @@ export class BasePage {
     return element;
   }
 
+  async getElements(selector) {
+    const elements = await this.page.$$(selector);
+    return elements;
+  }
+
   async enterTextintoField(selector, text) {
     await this.page.$eval(selector, el => {
       el.value = '';
