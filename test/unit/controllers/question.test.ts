@@ -108,12 +108,14 @@ describe('controllers/question.js', () => {
   describe('postAnswer', () => {
     let postAnswerService;
     let getAllQuestionsService;
+    let uploadService;
 
     beforeEach(() => {
       postAnswerService = null;
       getAllQuestionsService = {
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
       };
+      uploadService = null;
     });
 
     afterEach(() => {
@@ -123,7 +125,7 @@ describe('controllers/question.js', () => {
     it('should call res.redirect when saving an answer and there are no errors', async() => {
       req.body['question-field'] = 'My amazing answer';
       postAnswerService = () => Promise.resolve();
-      await postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
+      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
 
@@ -131,7 +133,7 @@ describe('controllers/question.js', () => {
       req.body['question-field'] = 'My amazing answer';
       req.body.submit = 'submit';
       postAnswerService = () => Promise.resolve();
-      await postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
+      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(`${Paths.question}/${questionOrdinal}/submit`);
     });
 
@@ -139,14 +141,14 @@ describe('controllers/question.js', () => {
       req.body['question-field'] = 'My amazing answer';
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       postAnswerService = () => Promise.reject(error);
-      await postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
+      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     it('should call res.render with the validation error message', async () => {
       req.body['question-field'] = '';
-      await postAnswer(getAllQuestionsService, postAnswerService)(req, res, next);
+      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           answer: {
@@ -261,37 +263,39 @@ describe('controllers/question.js', () => {
 
   describe('#postUploadEvidence', () => {
     let getAllQuestionsService;
-    let uploadEvidenceService;
+    let evidenceService;
 
     beforeEach(() => {
       getAllQuestionsService = {
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
       };
-      uploadEvidenceService = sinon.stub().resolves();
+      evidenceService = {
+        upload: sinon.stub().resolves()
+      };
     });
 
     it('redirects to task list if no question is found', async () => {
       getAllQuestionsService.getQuestionIdFromOrdinal.returns(undefined);
-      await postUploadEvidence(getAllQuestionsService, uploadEvidenceService)(req, res, next);
+      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
 
     it('calls out to upload evidence service', async () => {
       req.file = 'some file';
-      await postUploadEvidence(getAllQuestionsService, uploadEvidenceService)(req, res, next);
-      expect(uploadEvidenceService).to.have.been.calledOnce.calledWith('1', '001', 'some file');
+      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      expect(evidenceService.upload).to.have.been.calledOnce.calledWith('1', '001', 'some file');
     });
 
     it('redirects back to question when successful', async () => {
       req.file = 'some file';
-      await postUploadEvidence(getAllQuestionsService, uploadEvidenceService)(req, res, next);
+      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
     });
 
     it('should call next and appInsights upon error', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      uploadEvidenceService.rejects(error);
-      await postUploadEvidence(getAllQuestionsService, uploadEvidenceService)(req, res, next);
+      evidenceService.upload.rejects(error);
+      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });

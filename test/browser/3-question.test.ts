@@ -107,22 +107,22 @@ describe('Question page', () => {
       await questionPage.visitPage();
     });
 
-    it('display evidence upload section', async() => {
+    it('display evidence upload section', async () => {
       const headerText = await questionPage.getElementText('#evidence-upload h2');
       const addFile = await questionPage.getElementText('#evidence-upload .add-file');
       expect(headerText).to.equal(i18n.question.evidenceUpload.header);
       expect(addFile).to.equal(i18n.question.evidenceUpload.addFileButton);
     });
 
-    // TODO: reinstate when we can display uploaded files properly
-    it.skip('displays upload files', async() => {
-      const fileList = await questionPage.getElements('#files-uploaded tbody tr');
-      const firstFileName = await questionPage.getElementText('#files-uploaded tbody tr:first-child td:first-child');
-      expect(fileList.length).to.equal(2);
+    //  TODO: reinstate when we can display uploaded files properly, should be empty list
+    it.skip('displays upload files', async () => {
+      const count: number = await questionPage.countEvidence();
+      const firstFileName: string = await questionPage.getEvidenceFilename(0);
+      expect(count).to.equal(2);
       expect(firstFileName).to.equal('doctor.doc');
     });
 
-    it('also displays guidance posting evidence with reference', async() => {
+    it('also displays guidance posting evidence with reference', async () => {
       const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
       const displayedCaseRef = await questionPage.getElementText('#evidence-case-reference');
       expect(summaryText).to.equal(i18n.question.evidenceUpload.postEvidence.summary);
@@ -163,6 +163,12 @@ describe('Question page', () => {
       await uploadEvidencePage.selectFile();
       await uploadEvidencePage.submit();
       questionPage.verifyPage();
+    });
+
+    it.skip('deletes uploaded evidence', async () => {
+      await questionPage.clickElement('#files-uploaded tbody tr input');
+      const count: number = await questionPage.countEvidence();
+      expect(count).to.equal(0);
     });
   });
 
