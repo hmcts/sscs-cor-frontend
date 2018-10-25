@@ -93,7 +93,10 @@
   "questionUploadEvidence": {
     "header": "Upload your evidence",
     "backToQuestionText": "Back to question",
-    "uploadAFile": "Upload a file"
+    "uploadAFile": "Upload a file",
+    "error": {
+      "empty": "You have not selected a file."
+    }
   },
   "submitQuestion": {
     "title": "You will not be able to change your answer after you submit it.",
