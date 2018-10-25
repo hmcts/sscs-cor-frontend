@@ -58,7 +58,7 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
 }
 
 // TODO rename function
-function postAnswer(getAllQuestionsService, updateAnswerService) {
+function postAnswer(getAllQuestionsService, updateAnswerService, evidenceService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
@@ -66,7 +66,18 @@ function postAnswer(getAllQuestionsService, updateAnswerService) {
       return res.redirect(Paths.taskList);
     }
 
-    if (req.body['delete']) return next(new Error('Not implemented'));
+    // TODO refactor after merge
+    if (req.body['delete']) {
+      return async () => {
+        try {
+          await evidenceService.remove(hearingId, currentQuestionId, req.body.id);
+          res.redirect(`${Paths.question}/${questionOrdinal}`);
+        } catch (error) {
+          AppInsights.trackException(error);
+          next(error);
+        }
+      };
+    }
 
     const hearingId = req.session.hearing.online_hearing_id;
     const answerText = req.body['question-field'];
@@ -111,7 +122,7 @@ function getUploadEvidence(req: Request, res: Response, next: NextFunction) {
   res.render('question/upload-evidence.html', { questionOrdinal });
 }
 
-function postUploadEvidence(getAllQuestionsService, uploadEvidenceService) {
+function postUploadEvidence(getAllQuestionsService, evidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
@@ -126,7 +137,7 @@ function postUploadEvidence(getAllQuestionsService, uploadEvidenceService) {
     }
 
     try {
-      await uploadEvidenceService(hearingId, currentQuestionId, req.file);
+      await evidenceService.upload(hearingId, currentQuestionId, req.file);
       res.redirect(`${Paths.question}/${questionOrdinal}`);
     } catch (error) {
       AppInsights.trackException(error);
@@ -138,7 +149,7 @@ function postUploadEvidence(getAllQuestionsService, uploadEvidenceService) {
 function setupQuestionController(deps) {
   const router = Router();
   router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.getAllQuestionsService, deps.getQuestionService));
-  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.getAllQuestionsService, deps.saveAnswerService));
+  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.getAllQuestionsService, deps.saveAnswerService, deps.evidenceService));
   router.get('/:questionOrdinal/upload-evidence',
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
@@ -147,7 +158,7 @@ function setupQuestionController(deps) {
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
     upload.single('file-upload-1'),
-    postUploadEvidence(deps.getAllQuestionsService, deps.uploadEvidenceService)
+    postUploadEvidence(deps.getAllQuestionsService, deps.evidenceService)
   );
   return router;
 }

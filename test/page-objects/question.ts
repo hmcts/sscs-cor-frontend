@@ -23,4 +23,19 @@ export class QuestionPage extends BasePage {
   async submitAnswer(answer) {
     await this.answer(answer, true);
   }
+
+  async getFileList() {
+    const elements = await this.page.$$('#files-uploaded tbody tr');
+    return elements;
+  }
+
+  async countEvidence(): Promise<number> {
+    const elements = await this.getFileList();
+    return elements.length;
+  }
+
+  async getEvidenceFilename(index: number): Promise<string> {
+    const elements = await this.page.$$('#files-uploaded tbody tr');
+    return elements[index].$eval('td:first-child', el => el.innerText);
+  }
 }

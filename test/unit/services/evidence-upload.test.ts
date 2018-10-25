@@ -1,4 +1,4 @@
-import { uploadEvidence } from 'app/server/services/evidenceUpload';
+import * as evidenceService from 'app/server/services/evidence';
 import * as path from 'path';
 import * as fs from 'fs';
 const { expect, sinon } = require('test/chai-sinon');
@@ -36,7 +36,7 @@ describe('services/uploadEvidence', () => {
         rpPostStub.resolves(apiResponse);
       });
       it('resolves with the response body', async () => {
-        const body = await uploadEvidence(hearingId, questionId, file);
+        const body = await evidenceService.upload(hearingId, questionId, file);
         expect(body).to.deep.equal(apiResponse);
       });
     });
@@ -48,7 +48,7 @@ describe('services/uploadEvidence', () => {
       });
 
       it('rejects the promise with the error', () => (
-        expect(uploadEvidence(hearingId, questionId, {})).to.be.rejectedWith(error)
+        expect(evidenceService.upload(hearingId, questionId, {})).to.be.rejectedWith(error)
       ));
     });
   });
