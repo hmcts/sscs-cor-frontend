@@ -5,7 +5,10 @@ import * as Paths from '../paths';
 import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
+import * as multer from 'multer';
+const i18n = require('../../../locale/en.json');
 
+const upload = multer();
 const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
 const evidenceUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
 
@@ -103,17 +106,32 @@ export function checkEvidenceUploadFeature(enabled, overridable) {
   };
 }
 
-function getUploadEvidence() {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const questionOrdinal: string = req.params.questionOrdinal;
-    res.render('question/upload-evidence.html', { questionOrdinal });
-  };
+function getUploadEvidence(req: Request, res: Response, next: NextFunction) {
+  const questionOrdinal: string = req.params.questionOrdinal;
+  res.render('question/upload-evidence.html', { questionOrdinal });
 }
 
-function postUploadEvidence() {
-  return (req: Request, res: Response, next: NextFunction) => {
+function postUploadEvidence(getAllQuestionsService, uploadEvidenceService) {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
-    return res.redirect(`${Paths.question}/${questionOrdinal}`);
+    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    if (!currentQuestionId) {
+      return res.redirect(Paths.taskList);
+    }
+    const hearingId = req.session.hearing.online_hearing_id;
+
+    if (!req.file) {
+      const error = i18n.questionUploadEvidence.error.empty;
+      return res.render('question/upload-evidence.html', { questionOrdinal, error });
+    }
+
+    try {
+      await uploadEvidenceService(hearingId, currentQuestionId, req.file);
+      res.redirect(`${Paths.question}/${questionOrdinal}`);
+    } catch (error) {
+      AppInsights.trackException(error);
+      next(error);
+    }
   };
 }
 
@@ -121,8 +139,16 @@ function setupQuestionController(deps) {
   const router = Router();
   router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.getAllQuestionsService, deps.getQuestionService));
   router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.getAllQuestionsService, deps.saveAnswerService));
-  router.get('/:questionOrdinal/upload-evidence', deps.prereqMiddleware, checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed), getUploadEvidence());
-  router.post('/:questionOrdinal/upload-evidence', deps.prereqMiddleware, checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed), postUploadEvidence());
+  router.get('/:questionOrdinal/upload-evidence',
+    deps.prereqMiddleware,
+    checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
+    getUploadEvidence);
+  router.post('/:questionOrdinal/upload-evidence',
+    deps.prereqMiddleware,
+    checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
+    upload.single('file-upload-1'),
+    postUploadEvidence(deps.getAllQuestionsService, deps.uploadEvidenceService)
+  );
   return router;
 }
 
