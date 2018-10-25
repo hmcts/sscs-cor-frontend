@@ -28,7 +28,7 @@
 
       {% include "question/evidence-list.html" %}
 
-      <a class="govuk-button secondary-button add-file" href="/question/{{ question.questionOrdinal }}/upload-evidence">{{ i18n.question.evidenceUpload.addFileButton }}</a>
+      <input id="add-file" name="add-file" type="submit" value="{{ i18n.question.evidenceUpload.addFileButton }}" class="govuk-button secondary-button">
 
       {% include "question/sending-evidence.html" %}
 
