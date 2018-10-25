@@ -11,7 +11,7 @@ import * as Paths from 'app/server/paths';
 const i18n = require('locale/en');
 import * as moment from 'moment';
 
-describe('controllers/question.js', () => {
+describe('controllers/question', () => {
   const next = sinon.stub();
   const req: any = {};
   const res: any = {};
@@ -155,16 +155,39 @@ describe('controllers/question.js', () => {
             value: '',
             error: i18n.question.textareaField.error.empty
           }
-        }
+        },
+        showEvidenceUpload: false
       });
     });
 
     it.skip('should delete a file', async() => {
-      req.body['delete'] = 'Delete';
-      req.body['id'] = 'uuid';
+      req.body.delete = 'Delete';
+      req.body.id = 'uuid';
       // someService = () => Promise.resolve();
       // await postAnswer(someService)(req, res, next);
       // expect(somehthing)
+    });
+
+    describe('add-file submit', () => {
+      beforeEach(() => {
+        req.body['add-file'] = 'Add file';
+        postAnswerService = sinon.stub().resolves();
+      });
+
+      it('saves the answer if one exists, then redirects', async () => {
+        const answerText = 'My amazing answer';
+        req.body['question-field'] = answerText;
+        await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+        expect(postAnswerService).to.have.been.calledOnce.calledWith('1', questionId, 'draft', answerText);
+        expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}/upload-evidence`);
+      });
+
+      it('does not attempt to save the answer if one does not exist, then redirects', async () => {
+        req.body['question-field'] = '';
+        await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+        expect(postAnswerService).not.to.have.been.called;
+        expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}/upload-evidence`);
+      });
     });
   });
 
