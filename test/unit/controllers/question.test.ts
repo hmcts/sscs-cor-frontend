@@ -253,16 +253,47 @@ describe('controllers/question.js', () => {
   });
 
   describe('#getUploadEvidence', () => {
-    it('calls next when feature is enabled', () => {
-      getUploadEvidence()(req, res, next);
+    it('renders template', () => {
+      getUploadEvidence(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith('question/upload-evidence.html', { questionOrdinal });
     });
   });
 
   describe('#postUploadEvidence', () => {
-    it('calls next when feature is enabled', () => {
-      postUploadEvidence()(req, res, next);
+    let getAllQuestionsService;
+    let uploadEvidenceService;
+
+    beforeEach(() => {
+      getAllQuestionsService = {
+        getQuestionIdFromOrdinal: sinon.stub().returns('001')
+      };
+      uploadEvidenceService = sinon.stub().resolves();
+    });
+
+    it('redirects to task list if no question is found', async () => {
+      getAllQuestionsService.getQuestionIdFromOrdinal.returns(undefined);
+      await postUploadEvidence(getAllQuestionsService, uploadEvidenceService)(req, res, next);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
+    });
+
+    it('calls out to upload evidence service', async () => {
+      req.file = 'some file';
+      await postUploadEvidence(getAllQuestionsService, uploadEvidenceService)(req, res, next);
+      expect(uploadEvidenceService).to.have.been.calledOnce.calledWith('1', '001', 'some file');
+    });
+
+    it('redirects back to question when successful', async () => {
+      req.file = 'some file';
+      await postUploadEvidence(getAllQuestionsService, uploadEvidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
+    });
+
+    it('should call next and appInsights upon error', async() => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+      uploadEvidenceService.rejects(error);
+      await postUploadEvidence(getAllQuestionsService, uploadEvidenceService)(req, res, next);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(next).to.have.been.calledWith(error);
     });
   });
 });
