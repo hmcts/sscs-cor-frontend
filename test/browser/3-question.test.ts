@@ -109,7 +109,7 @@ describe('Question page', () => {
 
     it('display evidence upload section', async () => {
       const headerText = await questionPage.getElementText('#evidence-upload h2');
-      const addFile = await questionPage.getElementText('#evidence-upload .add-file');
+      const addFile = await questionPage.getElementValue('#add-file');
       expect(headerText).to.equal(i18n.question.evidenceUpload.header);
       expect(addFile).to.equal(i18n.question.evidenceUpload.addFileButton);
     });
@@ -138,7 +138,7 @@ describe('Question page', () => {
     });
 
     it('shows the upload evidence page', async () => {
-      await questionPage.clickElement('#evidence-upload .add-file');
+      await questionPage.clickElement('#add-file');
       await questionPage.screenshot('question-upload-evidence');
       uploadEvidencePage.verifyPage();
       expect(await uploadEvidencePage.getHeading()).to.equal(i18n.questionUploadEvidence.header);
