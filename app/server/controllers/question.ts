@@ -65,9 +65,24 @@ function postAnswer(getAllQuestionsService, updateAnswerService, evidenceService
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
+    const hearingId = req.session.hearing.online_hearing_id;
+    const answerText = req.body['question-field'];
 
     // TODO refactor after merge
-    if (req.body['delete']) {
+    if (req.body['add-file']) {
+      if (answerText.length > 0) {
+        try {
+          await updateAnswerService(hearingId, currentQuestionId, 'draft', answerText);
+        } catch (error) {
+          AppInsights.trackException(error);
+          return next(error);
+        }
+      }
+      return res.redirect(`${Paths.question}/${questionOrdinal}/upload-evidence`);
+    }
+
+    // TODO refactor after merge
+    if (req.body.delete) {
       return async () => {
         try {
           await evidenceService.remove(hearingId, currentQuestionId, req.body.id);
@@ -79,9 +94,6 @@ function postAnswer(getAllQuestionsService, updateAnswerService, evidenceService
       };
     }
 
-    const hearingId = req.session.hearing.online_hearing_id;
-    const answerText = req.body['question-field'];
-
     const validationMessage = answerValidation(answerText);
 
     if (validationMessage) {
@@ -90,7 +102,10 @@ function postAnswer(getAllQuestionsService, updateAnswerService, evidenceService
         value: answerText,
         error: validationMessage
       };
-      res.render('question/index.html', { question });
+      res.render('question/index.html', {
+        question,
+        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
+      });
     } else {
       try {
         await updateAnswerService(hearingId, currentQuestionId, 'draft', answerText);
