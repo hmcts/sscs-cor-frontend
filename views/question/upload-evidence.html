@@ -1,0 +1,51 @@
+{% from "button/macro.njk" import govukButton %}
+{% from "file-upload/macro.njk" import govukFileUpload %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
+{% extends "layout.html" %}
+
+{% block beforeContent %}
+  {{ super() }}
+  <a class="govuk-back-link" href="/question/{{ questionOrdinal }}">{{ i18n.questionUploadEvidence.backToQuestionText }}</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if error %}
+      {{ govukErrorSummary({
+        titleText: i18n.errorSummary.titleText,
+        descriptionText: i18n.errorSummary.descriptionText,
+        errorList: [{
+          text: error,
+          href: "#file-upload-1"
+        }]
+      }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">{{ i18n.questionUploadEvidence.header }}</h1>
+
+    <form action="/question/{{ questionOrdinal }}/upload-evidence" method="post" enctype="multipart/form-data">
+
+      {{ govukFileUpload({
+        id: "file-upload-1",
+        name: "file-upload-1",
+        label: {
+          text: i18n.questionUploadEvidence.uploadAFile
+        },
+        "errorMessage": {
+          "text": error
+        } if error
+      }) }}
+
+      <div id="submit-button">
+        {{ govukButton({
+          text: i18n.general.continue
+        }) }}
+      </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

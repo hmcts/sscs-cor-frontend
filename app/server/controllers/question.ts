@@ -4,6 +4,13 @@ import { NextFunction, Request, Response, Router } from 'express';
 import * as Paths from '../paths';
 import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
+import { pageNotFoundHandler } from '../middleware/error-handler';
+import * as multer from 'multer';
+const i18n = require('../../../locale/en.json');
+
+const upload = multer();
+const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
+const evidenceUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
 
 export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploadOverrideAllowed?: boolean, cookies?): boolean {
   if (evidenceUploadEnabled) {
@@ -36,14 +43,12 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
           value: response.answer,
           date: response.answer_date
         },
-        evidence: _.map(response.evidence, 'file_name')
+        evidence: _.map(response.evidence, (i) => ({ filename: i.file_name, id: i.id }))
       };
       req.session.question = question;
-      const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
-      const evidendeUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
       res.render('question/index.html', {
         question,
-        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidendeUploadOverrideAllowed, req.cookies)
+        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
       });
     } catch (error) {
       AppInsights.trackException(error);
@@ -52,7 +57,8 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
   };
 }
 
-function postAnswer(getAllQuestionsService, updateAnswerService) {
+// TODO rename function
+function postAnswer(getAllQuestionsService, updateAnswerService, evidenceService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
@@ -62,6 +68,32 @@ function postAnswer(getAllQuestionsService, updateAnswerService) {
     const hearingId = req.session.hearing.online_hearing_id;
     const answerText = req.body['question-field'];
 
+    // TODO refactor after merge
+    if (req.body['add-file']) {
+      if (answerText.length > 0) {
+        try {
+          await updateAnswerService(hearingId, currentQuestionId, 'draft', answerText);
+        } catch (error) {
+          AppInsights.trackException(error);
+          return next(error);
+        }
+      }
+      return res.redirect(`${Paths.question}/${questionOrdinal}/upload-evidence`);
+    }
+
+    // TODO refactor after merge
+    if (req.body.delete) {
+      return async () => {
+        try {
+          await evidenceService.remove(hearingId, currentQuestionId, req.body.id);
+          res.redirect(`${Paths.question}/${questionOrdinal}`);
+        } catch (error) {
+          AppInsights.trackException(error);
+          next(error);
+        }
+      };
+    }
+
     const validationMessage = answerValidation(answerText);
 
     if (validationMessage) {
@@ -70,7 +102,10 @@ function postAnswer(getAllQuestionsService, updateAnswerService) {
         value: answerText,
         error: validationMessage
       };
-      res.render('question/index.html', { question });
+      res.render('question/index.html', {
+        question,
+        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
+      });
     } else {
       try {
         await updateAnswerService(hearingId, currentQuestionId, 'draft', answerText);
@@ -87,16 +122,66 @@ function postAnswer(getAllQuestionsService, updateAnswerService) {
   };
 }
 
+export function checkEvidenceUploadFeature(enabled, overridable) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const allowed = showEvidenceUpload(enabled, overridable, req.cookies);
+    if (allowed) {
+      return next();
+    }
+    return pageNotFoundHandler(req, res);
+  };
+}
+
+function getUploadEvidence(req: Request, res: Response, next: NextFunction) {
+  const questionOrdinal: string = req.params.questionOrdinal;
+  res.render('question/upload-evidence.html', { questionOrdinal });
+}
+
+function postUploadEvidence(getAllQuestionsService, evidenceService) {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const questionOrdinal: string = req.params.questionOrdinal;
+    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    if (!currentQuestionId) {
+      return res.redirect(Paths.taskList);
+    }
+    const hearingId = req.session.hearing.online_hearing_id;
+
+    if (!req.file) {
+      const error = i18n.questionUploadEvidence.error.empty;
+      return res.render('question/upload-evidence.html', { questionOrdinal, error });
+    }
+
+    try {
+      await evidenceService.upload(hearingId, currentQuestionId, req.file);
+      res.redirect(`${Paths.question}/${questionOrdinal}`);
+    } catch (error) {
+      AppInsights.trackException(error);
+      next(error);
+    }
+  };
+}
+
 function setupQuestionController(deps) {
-  // eslint-disable-next-line new-cap
   const router = Router();
   router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.getAllQuestionsService, deps.getQuestionService));
-  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.getAllQuestionsService, deps.saveAnswerService));
+  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.getAllQuestionsService, deps.saveAnswerService, deps.evidenceService));
+  router.get('/:questionOrdinal/upload-evidence',
+    deps.prereqMiddleware,
+    checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
+    getUploadEvidence);
+  router.post('/:questionOrdinal/upload-evidence',
+    deps.prereqMiddleware,
+    checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
+    upload.single('file-upload-1'),
+    postUploadEvidence(deps.getAllQuestionsService, deps.evidenceService)
+  );
   return router;
 }
 
 export {
   setupQuestionController,
   getQuestion,
-  postAnswer
+  postAnswer,
+  getUploadEvidence,
+  postUploadEvidence
 };

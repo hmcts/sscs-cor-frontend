@@ -18,7 +18,7 @@ export class ExtendDeadlinePage extends BasePage {
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      await this.clickElement('#submit-button button')
+      this.clickElement('#submit-button button')
     ]);
   }
 

@@ -70,6 +70,10 @@
           "para2": "Make sure it’s clearly marked with your appeal reference number:",
           "closingPara1": "Try to post it as soon as possible to avoid delaying your appeal."
         }
+      },
+      "fileList": {
+        "uploadedFiles": "Uploaded files",
+        "noFilesUploaded": "No files uploaded"
       }
     },
     "sendingEvidence": {
@@ -84,6 +88,14 @@
     "completedAnswer": {
       "header": "Your answer",
       "submittedText": "Submitted"
+    }
+  },
+  "questionUploadEvidence": {
+    "header": "Upload your evidence",
+    "backToQuestionText": "Back to question",
+    "uploadAFile": "Upload a file",
+    "error": {
+      "empty": "You have not selected a file."
     }
   },
   "submitQuestion": {
@@ -190,7 +202,8 @@
     "backToQuestions": "Back to questions",
     "back": "Back",
     "exitService": "Exit Service",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "delete": "Delete"
   },
   "errorSummary": {
     "titleText": "There are errors on the page",
