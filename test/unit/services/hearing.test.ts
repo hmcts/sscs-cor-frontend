@@ -1,4 +1,5 @@
 import { HearingService } from 'app/server/services/hearing';
+import * as moment from 'moment';
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
 const nock = require('nock');
@@ -81,6 +82,43 @@ describe('services/hearing', () => {
         const response = await hearingService.getOnlineHearing(email);
         expect(response.statusCode).to.equal(UNPROCESSABLE_ENTITY);
       });
+    });
+  });
+
+  describe('#extendDeadline', () => {
+    const hearingId = '121';
+    const path = `/continuous-online-hearings/${hearingId}`;
+    const apiResponse = {
+      deadline_expiry_date: moment.utc().add(14, 'day').format()
+    };
+
+    describe('Update hearing deadline', () => {
+      beforeEach(() => {
+        nock(apiUrl)
+          .patch(path)
+          .reply(OK, apiResponse);
+      });
+      it('resolves the promise with the response', async () => (
+        expect(hearingService.extendDeadline(hearingId)).to.eventually.eql(apiResponse)
+      ));
+    });
+
+    describe('rejecting the promises', () => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+      before(() => {
+        nock(apiUrl)
+          .get(path)
+          .replyWithError(error);
+      });
+
+      after(() => {
+        nock.cleanAll();
+      });
+
+      it('rejects updateDeadline with the error', () => (
+        expect(hearingService.extendDeadline(hearingId)).to.be.rejectedWith(error)
+      ));
     });
   });
 });

@@ -1,5 +1,5 @@
 const { expect, sinon } = require('test/chai-sinon');
-import { setupExtendDeadlineController, getIndex, extensionConfirmation } from 'app/server/controllers/extend-deadline.ts';
+import { setupExtendDeadlineController, getIndex, extensionConfirmation } from 'app/server/controllers/extend-deadline';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { ensureAuthenticated } from 'app/server/middleware/ensure-authenticated';
 import { checkDecision } from 'app/server/middleware/check-decision';
 
-describe('controllers/extend-deadline.js', () => {
+describe('controllers/extend-deadline', () => {
   const next = sinon.stub();
   const deadline = moment.utc().add(7, 'day').format();
   const extendDeadline = moment.utc().add(14, 'day').format();
@@ -47,16 +47,18 @@ describe('controllers/extend-deadline.js', () => {
   describe('postExtension', () => {
 
     let questions;
-    let extendDeadlineService;
+    let hearingService;
 
     beforeEach(() => {
-      extendDeadlineService = null;
+      hearingService = {
+        extendDeadline: sinon.stub()
+      };
     });
 
     it('should show extension confirmation when submitting no', async () => {
       req.body['extend-deadline'] = 'no';
 
-      await extensionConfirmation(extendDeadlineService)(req, res, next);
+      await extensionConfirmation(hearingService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         deadline: deadline,
         extend: 'no'
@@ -66,9 +68,9 @@ describe('controllers/extend-deadline.js', () => {
     it('should show extension confirmation when submitting yes', async () => {
       req.body['extend-deadline'] = 'yes';
 
-      extendDeadlineService = () => Promise.resolve({ deadline_expiry_date: extendDeadline });
+      hearingService.extendDeadline.resolves({ deadline_expiry_date: extendDeadline });
 
-      await extensionConfirmation(extendDeadlineService)(req, res, next);
+      await extensionConfirmation(hearingService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         deadline: extendDeadline,
         extend: 'yes'
@@ -78,7 +80,7 @@ describe('controllers/extend-deadline.js', () => {
 
     it('should show error when submitting empty form', async () => {
       req.body = {};
-      await extensionConfirmation(extendDeadlineService)(req, res, next);
+      await extensionConfirmation(hearingService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         error: true
       });
@@ -88,9 +90,9 @@ describe('controllers/extend-deadline.js', () => {
       req.body['extend-deadline'] = 'yes';
 
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      extendDeadlineService = () => Promise.reject(error);
+      hearingService.extendDeadline.rejects(error);
 
-      await extensionConfirmation(extendDeadlineService)(req, res, next);
+      await extensionConfirmation(hearingService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
@@ -114,22 +116,17 @@ describe('controllers/extend-deadline.js', () => {
 
     it('calls router.get with the path and middleware', () => {
       setupExtendDeadlineController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(`${Paths.extendDeadline}`, deps.prereqMiddleware);
     });
 
     it('calls router.post with the path and middleware', () => {
       setupExtendDeadlineController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().post).to.have.been.calledWith(`${Paths.extendDeadline}`, deps.prereqMiddleware);
     });
 
     it('returns the router', () => {
       const controller = setupExtendDeadlineController({});
-      // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
     });
   });
 });
-
-export { };

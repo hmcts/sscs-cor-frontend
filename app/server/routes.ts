@@ -36,7 +36,6 @@ const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret, httpProxy);
 const hearingService: HearingService = new HearingService(apiUrl);
 
-import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
 const questionController = setupQuestionController({
@@ -49,7 +48,7 @@ const questionController = setupQuestionController({
 const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, getAllQuestionsService, evidenceService, prereqMiddleware });
 const questionsCompletedController = setupQuestionsCompletedController({ prereqMiddleware });
 const taskListController = setupTaskListController({ getAllQuestionsService, prereqMiddleware });
-const extendDeadlineController = setupExtendDeadlineController({ extendDeadlineService, prereqMiddleware });
+const extendDeadlineController = setupExtendDeadlineController({ prereqMiddleware, hearingService });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
