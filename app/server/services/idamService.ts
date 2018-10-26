@@ -1,86 +1,85 @@
 import * as request from 'superagent';
 import * as AppInsights from '../app-insights';
 require('superagent-proxy')(request);
-const config = require('config');
 import * as Paths from '../paths';
 
-const appPort = config.get('node.port');
-const apiUrl = config.get('idam.api-url');
-const appSecret = config.get('idam.client.secret');
-const httpProxy = config.get('httpProxy');
-
-interface TokenResponse {
+export interface TokenResponse {
   access_token: string;
 }
 
-interface UserDetails {
+export interface UserDetails {
   email: string;
-}
-
-async function getToken(code: string, protocol: string, host: string): Promise<TokenResponse> {
-  try {
-    const redirectUri: string = getRedirectUrl(protocol, host);
-
-    const response: request.Response = await makeProxiedRequest(request.post(`${apiUrl}/oauth2/token`) as ProxyRequest)
-      .auth('sscs-cor', appSecret)
-      .set('Accept', 'application/json')
-      .set('Content-Type', 'application/x-www-form-urlencoded')
-      .type('form')
-      .send({ 'grant_type': 'authorization_code' })
-      .send({ 'code': code })
-      .send({ 'redirect_uri': redirectUri });
-
-    return Promise.resolve(response.body);
-  } catch (error) {
-    AppInsights.trackException(error);
-    return Promise.reject(error);
-  }
-}
-
-async function deleteToken(token: string): Promise<void> {
-  try {
-    const response: request.Response = await makeProxiedRequest(request.delete(`${apiUrl}/session/${token}`) as ProxyRequest)
-      .auth('sscs-cor', appSecret)
-      .set('Accept', 'application/json');
-
-    return Promise.resolve();
-  } catch (error) {
-    AppInsights.trackException(error);
-    return Promise.reject(error);
-  }
-}
-
-async function getUserDetails(token: string): Promise<UserDetails> {
-  try {
-    const response: request.Response = await makeProxiedRequest(request.get(`${apiUrl}/details`) as ProxyRequest)
-      .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + token);
-
-    return Promise.resolve(response.body);
-  } catch (error) {
-    AppInsights.trackException(error);
-    return Promise.reject(error);
-  }
 }
 
 interface ProxyRequest extends request.SuperAgentRequest {
   proxy: (proxy: string) => ProxyRequest;
 }
 
-function makeProxiedRequest(request: ProxyRequest): request.Request {
-  return (httpProxy) ? request.proxy(httpProxy) : request;
-}
+export class IdamService {
+  private apiUrl: string;
+  private appPort: string;
+  private appSecret: string;
+  private httpProxy: string;
 
-function getRedirectUrl(protocol: string, host: string): string {
-  const portString = (host === 'localhost') ? ':' + appPort : '';
-  return protocol + '://' + host + portString + Paths.login;
-}
+  constructor(apiUrl: string, appPort: string, appSecret: string, httpProxy: string) {
+    this.apiUrl = apiUrl;
+    this.appPort = appPort;
+    this.appSecret = appSecret;
+    this.httpProxy = httpProxy;
+  }
 
-export {
-  getToken,
-  deleteToken,
-  getRedirectUrl,
-  getUserDetails,
-  TokenResponse,
-  UserDetails
-};
+  async getToken(code: string, protocol: string, host: string): Promise<TokenResponse> {
+    try {
+      const redirectUri: string = this.getRedirectUrl(protocol, host);
+
+      const response: request.Response = await this.makeProxiedRequest(request.post(`${this.apiUrl}/oauth2/token`) as ProxyRequest)
+        .auth('sscs-cor', this.appSecret)
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .type('form')
+        .send({ 'grant_type': 'authorization_code' })
+        .send({ 'code': code })
+        .send({ 'redirect_uri': redirectUri });
+
+      return Promise.resolve(response.body);
+    } catch (error) {
+      AppInsights.trackException(error);
+      return Promise.reject(error);
+    }
+  }
+
+  async deleteToken(token: string): Promise<void> {
+    try {
+      const response: request.Response = await this.makeProxiedRequest(request.delete(`${this.apiUrl}/session/${token}`) as ProxyRequest)
+        .auth('sscs-cor', this.appSecret)
+        .set('Accept', 'application/json');
+
+      return Promise.resolve();
+    } catch (error) {
+      AppInsights.trackException(error);
+      return Promise.reject(error);
+    }
+  }
+
+  async getUserDetails(token: string): Promise<UserDetails> {
+    try {
+      const response: request.Response = await this.makeProxiedRequest(request.get(`${this.apiUrl}/details`) as ProxyRequest)
+        .set('Accept', 'application/json')
+        .set('Authorization', 'Bearer ' + token);
+
+      return Promise.resolve(response.body);
+    } catch (error) {
+      AppInsights.trackException(error);
+      return Promise.reject(error);
+    }
+  }
+
+  makeProxiedRequest(request: ProxyRequest): request.Request {
+    return (this.httpProxy) ? request.proxy(this.httpProxy) : request;
+  }
+
+  getRedirectUrl(protocol: string, host: string): string {
+    const portString = (host === 'localhost') ? ':' + this.appPort : '';
+    return protocol + '://' + host + portString + Paths.login;
+  }
+}

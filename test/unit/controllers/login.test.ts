@@ -1,3 +1,4 @@
+import { IdamService } from 'app/server/services/idamService';
 const { expect, sinon } = require('test/chai-sinon');
 import { getLogout, getIdamCallback, setupLoginController, redirectToLogin, redirectToIdam } from 'app/server/controllers/login.ts';
 import * as AppInsights from 'app/server/app-insights';
@@ -48,11 +49,12 @@ describe('controllers/login.ts', () => {
   describe('#getLogout', () => {
     it('destroys the session and redirects to login', async () => {
       req.session.accessToken = 'accessToken';
-      const deleteToken = sinon.stub();
-      deleteToken.withArgs(req.session.accessToken).resolves({});
+      const idamServiceStub = {
+        deleteToken: sinon.stub().withArgs(req.session.accessToken).resolves({})
+      } as IdamService;
 
-      await getLogout(deleteToken)(req, res);
-      expect(deleteToken).to.have.been.calledOnce.calledWith(req.session.accessToken);
+      await getLogout(idamServiceStub)(req, res);
+      expect(idamServiceStub.deleteToken).to.have.been.calledOnce.calledWith(req.session.accessToken);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
     });
@@ -60,9 +62,11 @@ describe('controllers/login.ts', () => {
 
   describe('#redirectToIdam', () => {
     it('builds correct url', () => {
-      const getRedirectUrl = sinon.stub();
-      getRedirectUrl.withArgs('http', 'localhost').returns('http://redirect_url');
-      redirectToIdam('idam_path', getRedirectUrl)(req, res);
+
+      const idamServiceStub = {
+        getRedirectUrl: sinon.stub().withArgs('http', 'localhost').returns('http://redirect_url')
+      } as IdamService;
+      redirectToIdam('idam_path', idamServiceStub)(req, res);
 
       expect(res.redirect).to.have.been.calledOnce.calledWith('http://localhost:8082/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs-cor&response_type=code');
     });
@@ -76,7 +80,7 @@ describe('controllers/login.ts', () => {
         req.query = {};
 
         const redirectToIdam = sinon.stub();
-        await getIdamCallback(redirectToIdam, null, null, null)(req, res, next);
+        await getIdamCallback(redirectToIdam, null, null)(req, res, next);
 
         expect(redirectToIdam).to.have.been.calledOnce.calledWith(req, res);
       });
@@ -85,16 +89,15 @@ describe('controllers/login.ts', () => {
     describe('on success', () => {
       beforeEach(async () => {
         req.query = { 'code': 'someCode' };
-
         const redirectToIdam = sinon.stub();
-        const getToken = sinon.stub();
         let accessToken = 'someAccessToken';
-        getToken.withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken });
-        const getUserDetails = sinon.stub();
-        getUserDetails.withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' });
+        const idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
         getOnlineHearing = sinon.stub().resolves({ body: hearingDetails });
 
-        await getIdamCallback(redirectToIdam, getToken, getUserDetails, getOnlineHearing)(req, res, next);
+        await getIdamCallback(redirectToIdam, idamServiceStub, getOnlineHearing)(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
       });
 
@@ -113,14 +116,15 @@ describe('controllers/login.ts', () => {
 
     beforeEach(async () => {
       req.query = { 'code': 'someCode' };
-
       const redirectToIdam = sinon.stub();
+      let accessToken = 'someAccessToken';
+      const idamServiceStub = {
+        getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+        getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+      } as IdamService;
+
       const getOnlineHearing = sinon.stub().rejects(error);
-      const getToken = sinon.stub();
-      getToken.withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': 'someAccessToken' });
-      const getUserDetails = sinon.stub();
-      getUserDetails.withArgs('someAccessToken').resolves({ 'email': 'someEmail@example.com' });
-      await getIdamCallback(redirectToIdam, getToken, getUserDetails, getOnlineHearing)(req, res, next);
+      await getIdamCallback(redirectToIdam, idamServiceStub, getOnlineHearing)(req, res, next);
     });
 
     it('tracks the exception', () => {
@@ -150,25 +154,21 @@ describe('#setupLoginController', () => {
 
   it('sets up GET login', () => {
     setupLoginController(deps);
-    // eslint-disable-next-line new-cap
     expect(express.Router().get).to.have.been.calledWith(Paths.login);
   });
 
   it('sets up GET logout', () => {
     setupLoginController(deps);
-    // eslint-disable-next-line new-cap
     expect(express.Router().get).to.have.been.calledWith(Paths.logout);
   });
 
   it('sets up GET register', () => {
     setupLoginController(deps);
-    // eslint-disable-next-line new-cap
     expect(express.Router().get).to.have.been.calledWith(Paths.register);
   });
 
   it('returns the router', () => {
     const controller = setupLoginController(deps);
-    // eslint-disable-next-line new-cap
     expect(controller).to.equal(express.Router());
   });
 });
