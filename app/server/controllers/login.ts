@@ -7,8 +7,9 @@ import { URL } from 'url';
 
 const config = require('config');
 
-import * as superAgent from 'superagent';
+import * as rp from 'request-promise';
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
+import { HearingService } from 'app/server/services/hearing';
 
 const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
@@ -55,7 +56,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
 function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   idamService: IdamService,
-  getOnlineHearing: (email: string) => Promise<superAgent.Response>) {
+  hearingService: HearingService) {
   return async (req: Request, res: Response, next: NextFunction) => {
 
     const code: string = req.query.code;
@@ -71,7 +72,7 @@ function getIdamCallback(
 
       req.session.accessToken = tokenResponse.access_token;
 
-      return await loadHearingAndEnterService(getOnlineHearing, userDetails.email, req, res);
+      return await loadHearingAndEnterService(hearingService, userDetails.email, req, res);
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
@@ -80,13 +81,13 @@ function getIdamCallback(
 }
 
 async function loadHearingAndEnterService(
-  getOnlineHearing: (email: string) => Promise<superAgent.Response>,
+  hearingService: HearingService,
   email: string,
   req: Request,
   res: Response) {
-  const response: superAgent.Response = await getOnlineHearing(email);
-  if (response.status === NOT_FOUND || response.status === UNPROCESSABLE_ENTITY) {
-    logger.info(`Know issue trying to find hearing for ${email}, status ${response.status}`);
+  const response: rp.Response = await hearingService.getOnlineHearing(email);
+  if (response.statusCode === NOT_FOUND || response.statusCode === UNPROCESSABLE_ENTITY) {
+    logger.info(`Know issue trying to find hearing for ${email}, status ${response.statusCode}`);
 
     return res.render('email-not-found.html');
   }
@@ -97,7 +98,7 @@ async function loadHearingAndEnterService(
 
 function setupLoginController(deps) {
   const router = Router();
-  router.get(Paths.login, getIdamCallback(redirectToIdam('/login', deps.idamService), deps.idamService, deps.getOnlineHearing));
+  router.get(Paths.login, getIdamCallback(redirectToIdam('/login', deps.idamService), deps.idamService, deps.hearingService));
   router.get(Paths.register, redirectToIdam('/users/selfRegister', deps.idamService));
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;

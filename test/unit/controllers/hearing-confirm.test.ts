@@ -1,4 +1,4 @@
-import { OnlineHearing } from 'app/server/services/getOnlineHearing';
+import { OnlineHearing } from 'app/server/services/hearing';
 const { expect, sinon } = require('test/chai-sinon');
 import { getIndex, postIndex, setupHearingConfirmController } from 'app/server/controllers/hearing-confirm';
 import * as express from 'express';

@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as AppInsights from '../app-insights';
 import * as Paths from '../paths';
-import { OnlineHearing } from '../services/getOnlineHearing';
+import { OnlineHearing } from '../services/hearing';
 import { CONST } from '../../constants';
 import * as moment from 'moment';
 import { tribunalViewAcceptedValidation } from '../utils/fieldValidation';

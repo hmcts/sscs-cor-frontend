@@ -1,4 +1,4 @@
-import { OnlineHearing } from 'app/server/services/getOnlineHearing';
+import { OnlineHearing } from 'app/server/services/hearing';
 const { expect, sinon } = require('test/chai-sinon');
 const { getTribunalView, postTribunalView, setupTribunalViewController } = require('app/server/controllers/tribunal-view');
 const express = require('express');

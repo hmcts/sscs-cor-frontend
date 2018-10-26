@@ -4,6 +4,7 @@ import { getLogout, getIdamCallback, setupLoginController, redirectToLogin, redi
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
+import { HearingService } from 'app/server/services/hearing';
 
 describe('controllers/login.ts', () => {
   let next;
@@ -73,8 +74,6 @@ describe('controllers/login.ts', () => {
   });
 
   describe('#getIdamCallback', () => {
-    let getOnlineHearing;
-
     describe('called without code', () => {
       it('redirects to idam login', async () => {
         req.query = {};
@@ -87,6 +86,7 @@ describe('controllers/login.ts', () => {
     });
 
     describe('on success', () => {
+      let hearingServiceStub;
       beforeEach(async () => {
         req.query = { 'code': 'someCode' };
         const redirectToIdam = sinon.stub();
@@ -95,14 +95,16 @@ describe('controllers/login.ts', () => {
           getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
-        getOnlineHearing = sinon.stub().resolves({ body: hearingDetails });
+        hearingServiceStub = {
+          getOnlineHearing: sinon.stub().resolves({ body: hearingDetails })
+        } as HearingService;
 
-        await getIdamCallback(redirectToIdam, idamServiceStub, getOnlineHearing)(req, res, next);
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
       });
 
       it('calls the online hearing service', () => {
-        expect(getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com');
+        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com');
       });
 
       it('redirects to task list page', () => {
@@ -122,9 +124,11 @@ describe('controllers/login.ts', () => {
         getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
         getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
       } as IdamService;
+      const hearingServiceStub = {
+        getOnlineHearing: sinon.stub().rejects(error)
+      } as HearingService;
 
-      const getOnlineHearing = sinon.stub().rejects(error);
-      await getIdamCallback(redirectToIdam, idamServiceStub, getOnlineHearing)(req, res, next);
+      await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
     });
 
     it('tracks the exception', () => {
@@ -137,9 +141,7 @@ describe('controllers/login.ts', () => {
 });
 
 describe('#setupLoginController', () => {
-  const deps = {
-    getOnlineHearingService: {}
-  };
+  const deps = {};
 
   beforeEach(() => {
     sinon.stub(express, 'Router').returns({
