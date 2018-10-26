@@ -44,6 +44,18 @@ yarn test:unit // just unit tests
 yarn test:browser // just browser tests
 ```
 
+### Pa11y Accessibility Tests
+
+The pa11y tests are a subset of the browser tests, simply tagged @pa11y.  
+
+```bash
+yarn test:a11y
+```
+
+These tests generate screenshots of all pages tested and can be found in ```./functional-output/pa11y-screenshots```
+
+On Jenkins, when viewing a build, the screenshots are available as Build Artifacts.
+
 ### Functional Tests
 
 The same browser test suite is used for running locally and when running against the `preview` and `AAT` environments via the `yarn test:functional` script.
@@ -150,3 +162,27 @@ Analytics are tracking using Google Tag Manager (GTM) and Google Analytics (GA),
 * page views with AAT type hostnames eg. sscs-cor-frontend-aat-staging.service.core-compute-aat.internal are sent to one GA account
 * page views with PROD hostnames are sent to another
 * prod hostnames are configured but will need amending when domains have been decided
+
+### Feature flags
+
+Feature flags are used to show or hide certain features.
+
+* they are defined in the JSON config files within the `config` directory
+* specify an environment variable which can be used to override the setting in `config/custom-environment-variables`
+* these env vars are then configured using terraform, set the variable to the desired value in the `[env].tfvars` representing the desired environment
+* this is then set on the app in via the `app_settings` in `main.tf`
+
+**Current feature flags**
+
+| Name                     | Config path                           | Environment variable                    | Notes |
+|--------------------------|---------------------------------------|-----------------------------------------|-------|
+| Question evidence upload | `evidenceUpload.questionPage.enabled` | `EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED` | Enables evidence upload on the question page |
+
+**Overrides for testing**
+
+It's possible to override a setting and temporarily enable a feature for testing purposes, includeing automated and manual tests. This is done by setting a different property in the config to allow the override to happen, then also setting a cookie on the client. Both must be present for the feature to be enabled.
+
+| Feature name             | Override config path                          | Override environment variable                    | Override cookie               |
+|--------------------------|-----------------------------------------------|--------------------------------------------------|-------------------------------|
+| Question evidence upload | `evidenceUpload.questionPage.overrideAllowed` | `EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED` | `evidenceUploadOverride=true` |
+
