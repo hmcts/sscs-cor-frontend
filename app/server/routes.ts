@@ -1,5 +1,6 @@
 const express = require('express');
 import * as Paths from './paths';
+import * as config from 'config';
 import { ensureAuthenticated } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
@@ -24,7 +25,9 @@ import { getOnlineHearing } from './services/getOnlineHearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { getToken, getUserDetails, getRedirectUrl, deleteToken } from './services/idamService';
 import * as tribunalViewService from './services/tribunalView';
-import * as evidenceService from './services/evidence';
+import { EvidenceService } from './services/evidence';
+
+const evidenceService = new EvidenceService(config.get('api.url'));
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
