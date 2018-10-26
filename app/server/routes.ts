@@ -23,7 +23,6 @@ import * as getAllQuestionsService from './services/getAllQuestions';
 import { HearingService } from './services/hearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { IdamService } from './services/idam';
-import * as tribunalViewService from './services/tribunalView';
 import { EvidenceService } from './services/evidence';
 
 const apiUrl: string = config.get('api.url');
@@ -50,10 +49,10 @@ const questionsCompletedController = setupQuestionsCompletedController({ prereqM
 const taskListController = setupTaskListController({ getAllQuestionsService, prereqMiddleware });
 const extendDeadlineController = setupExtendDeadlineController({ prereqMiddleware, hearingService });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
-const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
+const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
-const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
+const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const loginController = setupLoginController({ hearingService, idamService });
 
 router.use(loginController);

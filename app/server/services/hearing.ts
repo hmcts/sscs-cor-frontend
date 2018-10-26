@@ -55,4 +55,17 @@ export class HearingService {
       return Promise.reject(error);
     }
   }
+
+  async recordTribunalViewResponse(hearingId: string, reply: string, reason?: string): Promise<void> {
+    try {
+      await request.patch({
+        uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/tribunal-view`,
+        body: { reply, reason: reason ? reason : '' },
+        json: true
+      });
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 }

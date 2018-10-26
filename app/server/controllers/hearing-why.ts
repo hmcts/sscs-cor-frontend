@@ -22,7 +22,7 @@ function getIndex(req: Request, res: Response) {
   return res.render('hearing-why/index.html', { submitted: appellantRejected, responseDate });
 }
 
-function postIndex(tribunalViewService) {
+function postIndex(hearingService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const explainWhy: string = req.body[ 'explain-why' ];
     const validationMessage = hearingWhyValidation(explainWhy);
@@ -32,7 +32,7 @@ function postIndex(tribunalViewService) {
     try {
       const hearing: OnlineHearing = req.session.hearing;
       const responseDate = getResponseDate();
-      await tribunalViewService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_REJECTED_STATE, explainWhy);
+      await hearingService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_REJECTED_STATE, explainWhy);
       req.session.hearing.decision.appellant_reply = 'decision_rejected';
       req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
       return res.render('hearing-why/index.html', { submitted: true, hearing: req.session.hearing, responseDate });
@@ -47,7 +47,7 @@ function setupHearingWhyController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
   router.get(Paths.hearingWhy, deps.prereqMiddleware, getIndex);
-  router.post(Paths.hearingWhy, deps.prereqMiddleware, postIndex(deps.tribunalViewService));
+  router.post(Paths.hearingWhy, deps.prereqMiddleware, postIndex(deps.hearingService));
   return router;
 }
 

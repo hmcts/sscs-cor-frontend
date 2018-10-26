@@ -65,16 +65,16 @@ describe('controllers/tribunal-view', () => {
   });
 
   describe('postTribunalView', () => {
-    let tribunalViewService;
+    let hearingService;
     beforeEach(() => {
-      tribunalViewService = {
+      hearingService = {
         recordTribunalViewResponse: sinon.stub().resolves()
       };
     });
     describe('validation failed', () => {
       beforeEach(async () => {
         req.body['accept-view'] = '';
-        await postTribunalView(tribunalViewService)(req, res, next);
+        await postTribunalView(hearingService)(req, res, next);
       });
 
       it('renders the view with the error message', () => {
@@ -95,30 +95,30 @@ describe('controllers/tribunal-view', () => {
           (AppInsights.trackException as sinon.SinonStub).restore();
         });
         it('calls service to record tribunal view acceptance', async () => {
-          await postTribunalView(tribunalViewService)(req, res, next);
-          expect(tribunalViewService.recordTribunalViewResponse).to.have.been.calledOnce.calledWith(hearingDetails.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
+          await postTribunalView(hearingService)(req, res, next);
+          expect(hearingService.recordTribunalViewResponse).to.have.been.calledOnce.calledWith(hearingDetails.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
         });
         it('calls next and app insights if service call fails', async () => {
           const error = new Error('recordTribunalViewResponse error');
-          tribunalViewService.recordTribunalViewResponse.rejects(error);
-          await postTribunalView(tribunalViewService)(req, res, next);
+          hearingService.recordTribunalViewResponse.rejects(error);
+          await postTribunalView(hearingService)(req, res, next);
           expect(next).to.have.been.calledOnce.calledWith(error);
           expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
         });
         it('set appellant reply properties against the decision in the session', async () => {
-          await postTribunalView(tribunalViewService)(req, res, next);
+          await postTribunalView(hearingService)(req, res, next);
           expect(req.session.hearing.decision).to.have.property('appellant_reply', 'decision_accepted');
           expect(req.session.hearing.decision).to.have.property('appellant_reply_datetime');
         });
         it('redirects to view accepted page', async () => {
-          await postTribunalView(tribunalViewService)(req, res, next);
+          await postTribunalView(hearingService)(req, res, next);
           expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.tribunalViewAccepted);
         });
       });
       describe('accepts === no', () => {
         it('redirects to hearing confirm page', async () => {
           req.body['accept-view'] = 'no';
-          await postTribunalView(tribunalViewService)(req, res, next);
+          await postTribunalView(hearingService)(req, res, next);
           expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingConfirm);
         });
       });
@@ -141,19 +141,16 @@ describe('controllers/tribunal-view', () => {
 
     it('calls router.get with the path and middleware', () => {
       setupTribunalViewController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(Paths.tribunalView);
     });
 
     it('calls router.post with the path and middleware', () => {
       setupTribunalViewController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().post).to.have.been.calledWith(Paths.tribunalView);
     });
 
     it('returns the router', () => {
       const controller = setupTribunalViewController(deps);
-      // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
     });
   });

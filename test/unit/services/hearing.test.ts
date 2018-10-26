@@ -1,7 +1,7 @@
 import { HearingService } from 'app/server/services/hearing';
 import * as moment from 'moment';
 const { expect } = require('test/chai-sinon');
-const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
+const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND, UNPROCESSABLE_ENTITY, NO_CONTENT } = require('http-status-codes');
 const nock = require('nock');
 const config = require('config');
 
@@ -35,7 +35,7 @@ describe('services/hearing', () => {
         expect(hearingService.getOnlineHearing(email)).to.be.fulfilled
       ));
 
-      it('resolves the promise with the response', async() => {
+      it('resolves the promise with the response', async () => {
         const response = await hearingService.getOnlineHearing(email);
         expect(response.body).to.deep.equal(apiResponseBody);
       });
@@ -64,7 +64,7 @@ describe('services/hearing', () => {
           .reply(NOT_FOUND);
       });
 
-      it('resolves the promise with 404 status', async() => {
+      it('resolves the promise with 404 status', async () => {
         const response = await hearingService.getOnlineHearing(email);
         expect(response.statusCode).to.equal(NOT_FOUND);
       });
@@ -78,7 +78,7 @@ describe('services/hearing', () => {
           .reply(UNPROCESSABLE_ENTITY);
       });
 
-      it('resolves the promise with 422 status', async() => {
+      it('resolves the promise with 422 status', async () => {
         const response = await hearingService.getOnlineHearing(email);
         expect(response.statusCode).to.equal(UNPROCESSABLE_ENTITY);
       });
@@ -118,6 +118,33 @@ describe('services/hearing', () => {
 
       it('rejects updateDeadline with the error', () => (
         expect(hearingService.extendDeadline(hearingId)).to.be.rejectedWith(error)
+      ));
+    });
+  });
+
+  describe('#recordTribunalViewResponse', () => {
+    const hearingId = '121';
+    const path = `/continuous-online-hearings/${hearingId}/tribunal-view`;
+
+    describe('on success', () => {
+      beforeEach(() => {
+        nock(apiUrl)
+          .patch(path)
+          .reply(NO_CONTENT);
+      });
+      it('resolves the promise', async () => (
+        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted')).to.eventually.be.fulfilled
+      ));
+    });
+    describe('on failure', () => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+      beforeEach(() => {
+        nock(apiUrl)
+          .get(path)
+          .replyWithError(error);
+      });
+      it('rejects updateDeadline with the error', () => (
+        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted')).to.be.rejectedWith(error)
       ));
     });
   });
