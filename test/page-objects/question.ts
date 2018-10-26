@@ -34,7 +34,7 @@ export class QuestionPage extends BasePage {
     return elements.length;
   }
 
-  async getEvidenceFilename(index: number): Promise<string> {
+  async getEvidenceListText(index: number): Promise<string> {
     const elements = await this.page.$$('#files-uploaded tbody tr');
     return elements[index].$eval('td:first-child', el => el.innerText);
   }
