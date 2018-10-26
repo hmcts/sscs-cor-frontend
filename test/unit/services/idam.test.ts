@@ -1,4 +1,4 @@
-import { IdamService } from 'app/server/services/idamService';
+import { IdamService } from 'app/server/services/idam';
 const { expect } = require('test/chai-sinon');
 import { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } from 'http-status-codes';
 
@@ -9,7 +9,7 @@ const apiUrl = config.get('idam.api-url');
 const appSecret = config.get('idam.client.secret');
 const appPort = config.get('node.port');
 
-describe('services/idamService', () => {
+describe('services/idam', () => {
   let idamService;
   before(() => {
     idamService = new IdamService(apiUrl, appPort, appSecret, '');
