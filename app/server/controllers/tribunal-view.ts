@@ -19,7 +19,7 @@ function getTribunalView(req: Request, res: Response) {
   return res.redirect(Paths.logout);
 }
 
-function postTribunalView(tribunalViewService) {
+function postTribunalView(hearingService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const hearing: OnlineHearing = req.session.hearing;
     const acceptView = req.body['accept-view'];
@@ -30,7 +30,7 @@ function postTribunalView(tribunalViewService) {
     }
     if (acceptView === 'yes') {
       try {
-        await tribunalViewService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
+        await hearingService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
         req.session.hearing.decision.appellant_reply = 'decision_accepted';
         req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
         return res.redirect(Paths.tribunalViewAccepted);
@@ -49,7 +49,7 @@ function setupTribunalViewController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
   router.get(Paths.tribunalView, deps.prereqMiddleware, getTribunalView);
-  router.post(Paths.tribunalView, deps.prereqMiddleware, postTribunalView(deps.tribunalViewService));
+  router.post(Paths.tribunalView, deps.prereqMiddleware, postTribunalView(deps.hearingService));
   return router;
 }
 

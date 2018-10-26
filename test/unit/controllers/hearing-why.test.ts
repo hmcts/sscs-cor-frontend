@@ -74,10 +74,10 @@ describe('controllers/hearing-why', () => {
   });
 
   describe('postIndex', () => {
-    let tribunalViewService;
+    let hearingService;
 
     beforeEach(() => {
-      tribunalViewService = {
+      hearingService = {
         recordTribunalViewResponse: sinon.stub().resolves()
       };
       sinon.stub(AppInsights, 'trackException');
@@ -98,7 +98,7 @@ describe('controllers/hearing-why', () => {
 
       beforeEach(async () => {
         req.body['explain-why'] = '';
-        await postIndex(tribunalViewService)(req, res, next);
+        await postIndex(hearingService)(req, res, next);
       });
 
       it('renders the view with the error message', () => {
@@ -113,14 +113,14 @@ describe('controllers/hearing-why', () => {
       const inSixWeeks = moment.utc().add(6, 'weeks').format(CONST.DATE_FORMAT);
 
       it('set appellant reply properties against the decision in the session', async () => {
-        await postIndex(tribunalViewService)(req, res, next);
+        await postIndex(hearingService)(req, res, next);
         expect(req.session.hearing.decision).to.have.property('appellant_reply', 'decision_rejected');
         expect(req.session.hearing.decision).to.have.property('appellant_reply_datetime');
       });
 
       it('renders the view with hearing booking details', async () => {
-        await postIndex(tribunalViewService)(req, res, next);
-        expect(tribunalViewService.recordTribunalViewResponse.args[0]).to.eql(serviceCall);
+        await postIndex(hearingService)(req, res, next);
+        expect(hearingService.recordTribunalViewResponse.args[0]).to.eql(serviceCall);
         expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html');
         expect(res.render.args[0][1].submitted).to.equal(true);
         expect(res.render.args[0][1].hearing).to.equal(hearingDetails);
@@ -129,8 +129,8 @@ describe('controllers/hearing-why', () => {
 
       it('calls next and app insights if service call fails', async () => {
         const error = new Error('recordTribunalViewResponse error');
-        tribunalViewService.recordTribunalViewResponse.rejects(error);
-        await postIndex(tribunalViewService)(req, res, next);
+        hearingService.recordTribunalViewResponse.rejects(error);
+        await postIndex(hearingService)(req, res, next);
         expect(next).to.have.been.calledOnce.calledWith(error);
         expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       });
@@ -153,19 +153,16 @@ describe('controllers/hearing-why', () => {
 
     it('calls router.get with the path and middleware', () => {
       setupHearingWhyController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(Paths.hearingWhy);
     });
 
     it('calls router.post with the path and middleware', () => {
       setupHearingWhyController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().post).to.have.been.calledWith(Paths.hearingWhy);
     });
 
     it('returns the router', () => {
       const controller = setupHearingWhyController(deps);
-      // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
     });
   });
