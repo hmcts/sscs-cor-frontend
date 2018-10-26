@@ -114,12 +114,9 @@ describe('Question page', () => {
       expect(addFile).to.equal(i18n.question.evidenceUpload.addFileButton);
     });
 
-    //  TODO: reinstate when we can display uploaded files properly, should be empty list
-    it.skip('displays upload files', async () => {
-      const count: number = await questionPage.countEvidence();
-      const firstFileName: string = await questionPage.getEvidenceFilename(0);
-      expect(count).to.equal(2);
-      expect(firstFileName).to.equal('doctor.doc');
+    it('displays empty list of uploaded files', async () => {
+      const firstListItem: string = await questionPage.getEvidenceListText(0);
+      expect(firstListItem).to.equal('No files uploaded');
     });
 
     it('also displays guidance posting evidence with reference', async () => {
@@ -160,15 +157,38 @@ describe('Question page', () => {
     });
 
     it('takes the user back to the question after submitting evidence', async () => {
-      await uploadEvidencePage.selectFile();
+      await uploadEvidencePage.selectFile('evidence.txt');
       await uploadEvidencePage.submit();
       questionPage.verifyPage();
     });
 
-    it.skip('deletes uploaded evidence', async () => {
-      await questionPage.clickElement('#files-uploaded tbody tr input');
+    it('displays upload files', async () => {
       const count: number = await questionPage.countEvidence();
-      expect(count).to.equal(0);
+      const firstListItem: string = await questionPage.getEvidenceListText(0);
+      expect(count).to.equal(1);
+      expect(firstListItem).to.equal('evidence.txt');
+    });
+
+    it('shows quesion has draft status', async () => {
+      await taskListPage.visitPage();
+      const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
+      expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
+    });
+
+    it('uploads a second evidience file and shows in upload list', async () => {
+      await uploadEvidencePage.visitPage();
+      await uploadEvidencePage.selectFile('evidence.pdf');
+      await uploadEvidencePage.submit();
+
+      const count: number = await questionPage.countEvidence();
+      const secondListItem: string = await questionPage.getEvidenceListText(1);
+      expect(count).to.equal(2);
+      expect(secondListItem).to.equal('evidence.pdf');
+    });
+
+    it.skip('deletes uploaded evidence', async () => {
+      const firstListItem: string = await questionPage.getEvidenceListText(0);
+      expect(firstListItem).to.equal('No files uploaded');
     });
   });
 
