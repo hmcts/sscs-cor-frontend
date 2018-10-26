@@ -8,7 +8,7 @@ import { URL } from 'url';
 const config = require('config');
 
 import * as superAgent from 'superagent';
-import { IdamService, TokenResponse, UserDetails } from '../services/idamService';
+import { IdamService, TokenResponse, UserDetails } from '../services/idam';
 
 const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');

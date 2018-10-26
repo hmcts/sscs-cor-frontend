@@ -22,7 +22,7 @@ import { getQuestion as getQuestionService } from './services/getQuestion';
 import * as getAllQuestionsService from './services/getAllQuestions';
 import { getOnlineHearing } from './services/getOnlineHearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
-import { IdamService } from './services/idamService';
+import { IdamService } from './services/idam';
 import * as tribunalViewService from './services/tribunalView';
 import { EvidenceService } from './services/evidence';
 
