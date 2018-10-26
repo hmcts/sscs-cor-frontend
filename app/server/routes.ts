@@ -20,7 +20,7 @@ const router = express.Router();
 
 import { getQuestion as getQuestionService } from './services/getQuestion';
 import * as getAllQuestionsService from './services/getAllQuestions';
-import { getOnlineHearing } from './services/getOnlineHearing';
+import { HearingService } from './services/hearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { IdamService } from './services/idam';
 import * as tribunalViewService from './services/tribunalView';
@@ -34,6 +34,7 @@ const httpProxy: string = config.get('httpProxy');
 
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret, httpProxy);
+const hearingService: HearingService = new HearingService(apiUrl);
 
 import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
@@ -54,7 +55,7 @@ const tribunalViewController = setupTribunalViewController({ prereqMiddleware: e
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
 const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
-const loginController = setupLoginController({ getOnlineHearing, idamService });
+const loginController = setupLoginController({ hearingService, idamService });
 
 router.use(loginController);
 router.use(submitQuestionController);

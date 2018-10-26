@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import { OnlineHearing } from '../services/getOnlineHearing';
+import { OnlineHearing } from '../services/hearing';
 import { CONST } from '../../constants';
 
 function getDecision(req: Request, res: Response) {

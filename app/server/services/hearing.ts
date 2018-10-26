@@ -1,8 +1,5 @@
-const config = require('config');
 const request = require('superagent');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-
-const apiUrl = config.get('api.url');
 
 interface OnlineHearingDecision {
   decision_award: string;
@@ -22,14 +19,23 @@ export interface OnlineHearing {
   decision?: OnlineHearingDecision;
 }
 
-export async function getOnlineHearing(email) {
-  try {
-    const response = await request
-      .get(`${apiUrl}/continuous-online-hearings`)
-      .query({ email })
-      .ok(res => res.status < INTERNAL_SERVER_ERROR);
-    return Promise.resolve(response);
-  } catch (error) {
-    return Promise.reject(error);
+export class HearingService {
+  private apiUrl: string;
+
+  constructor(apiUrl: string) {
+    this.apiUrl = apiUrl;
+  }
+
+  async getOnlineHearing(email) {
+    try {
+      const response = await
+      request
+        .get(`${this.apiUrl}/continuous-online-hearings`)
+        .query({ email })
+        .ok(res => res.status < INTERNAL_SERVER_ERROR);
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
