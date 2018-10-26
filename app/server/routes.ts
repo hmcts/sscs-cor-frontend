@@ -23,7 +23,6 @@ import * as getAllQuestionsService from './services/getAllQuestions';
 import { HearingService } from './services/hearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { IdamService } from './services/idam';
-import * as tribunalViewService from './services/tribunalView';
 import { EvidenceService } from './services/evidence';
 
 const apiUrl: string = config.get('api.url');
@@ -36,7 +35,6 @@ const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret, httpProxy);
 const hearingService: HearingService = new HearingService(apiUrl);
 
-import { extendDeadline as extendDeadlineService } from './services/extend-deadline';
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
 const questionController = setupQuestionController({
@@ -49,12 +47,12 @@ const questionController = setupQuestionController({
 const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, getAllQuestionsService, evidenceService, prereqMiddleware });
 const questionsCompletedController = setupQuestionsCompletedController({ prereqMiddleware });
 const taskListController = setupTaskListController({ getAllQuestionsService, prereqMiddleware });
-const extendDeadlineController = setupExtendDeadlineController({ extendDeadlineService, prereqMiddleware });
+const extendDeadlineController = setupExtendDeadlineController({ prereqMiddleware, hearingService });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
-const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
+const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
-const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, tribunalViewService });
+const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const loginController = setupLoginController({ hearingService, idamService });
 
 router.use(loginController);

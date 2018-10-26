@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as AppInsights from '../app-insights';
 import * as Paths from '../paths';
+import { HearingService } from '../services/hearing';
 
 function getIndex(req: Request, res: Response) {
   return res.render('extend-deadline/index.html', {
@@ -8,7 +9,7 @@ function getIndex(req: Request, res: Response) {
   });
 }
 
-function extensionConfirmation(extendDeadlineService: any) {
+function extensionConfirmation(hearingService: HearingService) {
 
   return async (req: Request, res: Response, next: NextFunction) => {
 
@@ -20,7 +21,7 @@ function extensionConfirmation(extendDeadlineService: any) {
     try {
 
       if (extend === 'yes') {
-        const response = await extendDeadlineService(hearingId);
+        const response = await hearingService.extendDeadline(hearingId);
         req.session.hearing.deadline = response.deadline_expiry_date;
       }
 
@@ -36,7 +37,7 @@ function extensionConfirmation(extendDeadlineService: any) {
 function setupExtendDeadlineController(deps: any): Router {
   const router = Router();
   router.get(Paths.extendDeadline, deps.prereqMiddleware, getIndex);
-  router.post(Paths.extendDeadline, deps.prereqMiddleware, extensionConfirmation(deps.extendDeadlineService));
+  router.post(Paths.extendDeadline, deps.prereqMiddleware, extensionConfirmation(deps.hearingService));
   return router;
 }
 
