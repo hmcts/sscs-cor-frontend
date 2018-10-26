@@ -3,7 +3,6 @@ import * as path from 'path';
 import * as fs from 'fs';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-const config = require('config');
 const request = require('request-promise');
 
 describe('services/evidence', () => {
@@ -16,7 +15,7 @@ describe('services/evidence', () => {
   });
 
   const apiResponse = {
-    document_link: 'http://dm-store-aat.service.core-compute-aat.internal/documents/8f79deb3-5d7a-4e6f-846a-a8131ac6a3bb',
+    id: '5425f1eb-92bd-4784-83df-9afa348fd1b3',
     file_name: 'some_file_name.txt'
   };
 
@@ -24,7 +23,7 @@ describe('services/evidence', () => {
     fieldname: 'file-upload-1',
     originalname: 'some_evidence.txt',
     mimetype: 'text/plain',
-    buffer: fs.readFileSync(path.join(__dirname, '/../../fixtures/evidence/some_evidence.txt'))
+    buffer: fs.readFileSync(path.join(__dirname, '/../../fixtures/evidence/evidence.txt'))
   };
 
   describe('#upload', () => {

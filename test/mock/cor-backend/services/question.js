@@ -1,6 +1,5 @@
 const cache = require('memory-cache');
 const questionData = require('./questionData');
-const moment = require('moment');
 
 function getCachedAnswer(questionId) {
   const cachedAnswer = cache.get(`${questionId}.answer`);
@@ -17,6 +16,11 @@ function getCachedDate(questionId) {
   return cachedDate ? cachedDate : null;
 }
 
+function getCachedEvidence(questionId) {
+  const cachedEvidence = cache.get(`${questionId}.evidence`);
+  return cachedEvidence ? cachedEvidence : [];
+}
+
 /* eslint-disable no-magic-numbers */
 module.exports = {
   path: '/continuous-online-hearings/:onlineHearingId/questions/:questionId',
@@ -30,17 +34,6 @@ module.exports = {
     answer: params => getCachedAnswer(params.questionId),
     answer_state: params => getCachedState(params.questionId),
     answer_date: params => getCachedDate(params.questionId),
-    evidence: [
-      {
-        id: 'c9c29d3b-9619-4ac5-bfe5-27ad70213e55',
-        file_name: 'doctor.doc',
-        created_date: () => moment.utc().subtract(1, 'day').endOf('day').format()
-      },
-      {
-        id: 'c9c29d3b-9619-4ac5-bfe5-27ad70213e56',
-        file_name: 'aReallyLongFilenameABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.pdf',
-        created_date: () => moment.utc().subtract(2, 'day').endOf('day').format()
-      }
-    ]
+    evidence: params => getCachedEvidence(params.questionId)
   }
 };

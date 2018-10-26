@@ -1,21 +1,34 @@
 const { promisify } = require('util');
 const fs = require('fs');
+const moment = require('moment');
+const cache = require('memory-cache');
+const uuid = require('uuid/v4');
 
 const writeFile = promisify(fs.writeFile);
+
+function cacheEvidence(questionId, file) {
+  cache.put(`${questionId}.state`, 'draft');
+  const evidence = cache.get(`${questionId}.evidence`) || [];
+  cache.put(`${questionId}.evidence`, evidence.concat(file));
+}
 
 /* eslint-disable max-len */
 module.exports = {
   path: '/continuous-online-hearings/:onlineHearingId/questions/:questionId/evidence',
   method: 'POST',
   status: async(req, res, next) => {
-    const file = req.files[0];
+    const uploadedFile = req.files[0];
+
+    await writeFile(`./public/files/${uploadedFile.originalname}`, uploadedFile.buffer);
 
     res.body = {
-      document_link: 'http://dm-store-aat.service.core-compute-aat.internal/documents/8f79deb3-5d7a-4e6f-846a-a8131ac6a3bb',
-      file_name: 'some_file_name.txt'
+      id: uuid(),
+      file_name: uploadedFile.originalname,
+      created_date: moment.utc().format()
     };
 
-    await writeFile(`./test/mock/files/${file.originalname}`, file.buffer);
+    cacheEvidence(req.params.questionId, res.body);
+
     next();
   }
 };
