@@ -1,4 +1,4 @@
-import { getRedirectUrl, getToken, deleteToken, getUserDetails } from 'app/server/services/idamService';
+import { IdamService } from 'app/server/services/idamService';
 const { expect } = require('test/chai-sinon');
 import { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } from 'http-status-codes';
 
@@ -10,14 +10,19 @@ const appSecret = config.get('idam.client.secret');
 const appPort = config.get('node.port');
 
 describe('services/idamService', () => {
+  let idamService;
+  before(() => {
+    idamService = new IdamService(apiUrl, appPort, appSecret, '');
+  });
+
   describe('getRedirectUrl', () => {
     it('adds port for localhost', () => {
-      const redirectUrl = getRedirectUrl('http', 'localhost');
+      const redirectUrl = idamService.getRedirectUrl('http', 'localhost');
       expect(redirectUrl).to.be.eql(`http://localhost:${appPort}/sign-in`);
     });
 
     it('does not add port for remote host', () => {
-      const redirectUrl = getRedirectUrl('http', 'example.com');
+      const redirectUrl = idamService.getRedirectUrl('http', 'example.com');
       expect(redirectUrl).to.be.eql('http://example.com/sign-in');
     });
   });
@@ -37,11 +42,11 @@ describe('services/idamService', () => {
       });
 
       it('resolves the promise', () => (
-        expect(getUserDetails(token)).to.be.fulfilled
+        expect(idamService.getUserDetails(token)).to.be.fulfilled
       ));
 
       it('resolves the promise with the response', () => (
-        expect(getUserDetails(token)).to.eventually.eql(apiResponse)
+        expect(idamService.getUserDetails(token)).to.eventually.eql(apiResponse)
       ));
     });
 
@@ -55,7 +60,7 @@ describe('services/idamService', () => {
       });
 
       it('rejects the promise with the error', () => (
-        expect(getUserDetails(token)).to.be.rejectedWith(error)
+        expect(idamService.getUserDetails(token)).to.be.rejectedWith(error)
       ));
     });
   });
@@ -71,7 +76,7 @@ describe('services/idamService', () => {
 
       beforeEach(() => {
         nock(apiUrl)
-          .post(path, 'grant_type=authorization_code&code=' + code + '&redirect_uri=' + encodeURIComponent(getRedirectUrl(protocol, host)))
+          .post(path, 'grant_type=authorization_code&code=' + code + '&redirect_uri=' + encodeURIComponent(idamService.getRedirectUrl(protocol, host)))
           .basicAuth({
             user: 'sscs-cor',
             pass: appSecret
@@ -80,11 +85,11 @@ describe('services/idamService', () => {
       });
 
       it('resolves the promise', () => (
-        expect(getToken(code, protocol, host)).to.be.fulfilled
+        expect(idamService.getToken(code, protocol, host)).to.be.fulfilled
       ));
 
       it('resolves the promise with the response', () => (
-        expect(getToken(code, protocol, host)).to.eventually.eql(apiResponse)
+        expect(idamService.getToken(code, protocol, host)).to.eventually.eql(apiResponse)
       ));
     });
 
@@ -93,12 +98,12 @@ describe('services/idamService', () => {
 
       beforeEach(() => {
         nock(apiUrl)
-          .post(path, 'grant_type=authorization_code&code=' + code + '&redirect_uri=' + encodeURIComponent(getRedirectUrl(protocol, host)))
+          .post(path, 'grant_type=authorization_code&code=' + code + '&redirect_uri=' + encodeURIComponent(idamService.getRedirectUrl(protocol, host)))
           .replyWithError(error);
       });
 
       it('rejects the promise with the error', () => (
-        expect(getToken(code, protocol, host)).to.be.rejectedWith(error)
+        expect(idamService.getToken(code, protocol, host)).to.be.rejectedWith(error)
       ));
     });
   });
@@ -119,7 +124,7 @@ describe('services/idamService', () => {
       });
 
       it('resolves the promise', () => (
-        expect(deleteToken(token)).to.be.fulfilled
+        expect(idamService.deleteToken(token)).to.be.fulfilled
       ));
     });
 
@@ -133,7 +138,7 @@ describe('services/idamService', () => {
       });
 
       it('rejects the promise with the error', () => (
-        expect(deleteToken(token)).to.be.rejectedWith(error)
+        expect(idamService.deleteToken(token)).to.be.rejectedWith(error)
       ));
     });
   });
