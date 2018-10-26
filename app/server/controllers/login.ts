@@ -7,7 +7,7 @@ import { URL } from 'url';
 
 const config = require('config');
 
-import * as superAgent from 'superagent';
+import * as rp from 'request-promise';
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
 import { HearingService } from 'app/server/services/hearing';
 
@@ -85,9 +85,9 @@ async function loadHearingAndEnterService(
   email: string,
   req: Request,
   res: Response) {
-  const response: superAgent.Response = await hearingService.getOnlineHearing(email);
-  if (response.status === NOT_FOUND || response.status === UNPROCESSABLE_ENTITY) {
-    logger.info(`Know issue trying to find hearing for ${email}, status ${response.status}`);
+  const response: rp.Response = await hearingService.getOnlineHearing(email);
+  if (response.statusCode === NOT_FOUND || response.statusCode === UNPROCESSABLE_ENTITY) {
+    logger.info(`Know issue trying to find hearing for ${email}, status ${response.statusCode}`);
 
     return res.render('email-not-found.html');
   }

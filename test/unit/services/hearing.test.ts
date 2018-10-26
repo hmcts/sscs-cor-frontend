@@ -65,7 +65,7 @@ describe('services/hearing', () => {
 
       it('resolves the promise with 404 status', async() => {
         const response = await hearingService.getOnlineHearing(email);
-        expect(response.status).to.equal(NOT_FOUND);
+        expect(response.statusCode).to.equal(NOT_FOUND);
       });
     });
 
@@ -79,7 +79,7 @@ describe('services/hearing', () => {
 
       it('resolves the promise with 422 status', async() => {
         const response = await hearingService.getOnlineHearing(email);
-        expect(response.status).to.equal(UNPROCESSABLE_ENTITY);
+        expect(response.statusCode).to.equal(UNPROCESSABLE_ENTITY);
       });
     });
   });
