@@ -15,9 +15,9 @@ export class UploadEvidencePage extends BasePage {
     ]);
   }
 
-  async selectFile() {
+  async selectFile(filename: string) {
     const fileInput = await this.getElement('#file-upload-1');
-    const filePath = path.join(__dirname, '/../fixtures/evidence/some_evidence.txt');
+    const filePath = path.join(__dirname, `/../fixtures/evidence/${filename}`);
     await fileInput.uploadFile(filePath);
   }
 }
