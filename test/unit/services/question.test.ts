@@ -1,4 +1,4 @@
-import * as getAllQuestionsService from 'app/server/services/getAllQuestions.ts';
+import * as getAllQuestionsService from 'app/server/services/question';
 const mockData = require('test/mock/cor-backend/services/all-questions').template;
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR } = require('http-status-codes');
@@ -7,7 +7,7 @@ const config = require('config');
 
 const apiUrl = config.get('api.url');
 
-describe('services/getAllQuestions.js', () => {
+describe('services/question', () => {
   describe('#getAllQuestions', () => {
     const hearingId = '121';
     const path = `/continuous-online-hearings/${hearingId}`;
