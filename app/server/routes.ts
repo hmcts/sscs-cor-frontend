@@ -19,7 +19,7 @@ import { setupTribunalViewAcceptedController } from './controllers/tribunal-view
 const router = express.Router();
 
 import { getQuestion as getQuestionService } from './services/getQuestion';
-import * as getAllQuestionsService from './services/getAllQuestions';
+import * as getAllQuestionsService from './services/question';
 import { HearingService } from './services/hearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { IdamService } from './services/idam';
