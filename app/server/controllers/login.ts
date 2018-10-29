@@ -9,7 +9,7 @@ const config = require('config');
 
 import * as rp from 'request-promise';
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
-import { HearingService } from 'app/server/services/hearing';
+import { HearingService } from '../services/hearing';
 
 const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');

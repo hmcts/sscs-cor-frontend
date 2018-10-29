@@ -42,7 +42,9 @@ describe('controllers/submit-question', () => {
     res.redirect.reset();
     sinon.stub(AppInsights, 'trackException');
     questionService = {
-      getQuestionIdFromOrdinal: sinon.stub().returns('001')
+      getQuestionIdFromOrdinal: sinon.stub().returns('001'),
+      getAllQuestions: sinon.stub().resolves({ questions: questions('draft') }),
+      submitAnswer: sinon.stub().resolves()
     };
   });
 
@@ -60,44 +62,37 @@ describe('controllers/submit-question', () => {
 
   describe('postSubmitAnswer', () => {
     it('redirects to /task-list', async() => {
-      const submitAnswerService = () => Promise.resolve();
-      questionService.getAllQuestions = sinon.stub().resolves({ questions: questions('draft') });
-      await postSubmitAnswer(submitAnswerService, questionService)(req, res, next);
+      await postSubmitAnswer(questionService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      const submitAnswerService = () => Promise.reject(error);
-      await postSubmitAnswer(submitAnswerService, questionService)(req, res, next);
+      questionService.submitAnswer.rejects(error);
+      await postSubmitAnswer(questionService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     describe('when all questions are submitted', () => {
-      let submitAnswerService;
-
       beforeEach(() => {
-        submitAnswerService = () => Promise.resolve();
         questionService.getAllQuestions = sinon.stub().resolves({ questions: questions('submitted') });
       });
 
       it('sets questionsCompletedThisSession on the session', async() => {
-        await postSubmitAnswer(submitAnswerService, questionService)(req, res, next);
+        await postSubmitAnswer(questionService)(req, res, next);
         expect(req.session).to.have.property('questionsCompletedThisSession', true);
       });
 
       it('redirects to questions completed if all are /questions-completed', async() => {
-        await postSubmitAnswer(submitAnswerService, questionService)(req, res, next);
+        await postSubmitAnswer(questionService)(req, res, next);
         expect(res.redirect).to.have.been.calledWith(Paths.completed);
       });
     });
   });
 
   describe('setupQuestionController', () => {
-    const deps: any = {
-      submitAnswerService: {}
-    };
+    const deps: any = {};
 
     beforeEach(() => {
       sinon.stub(express, 'Router').returns({
@@ -112,22 +107,17 @@ describe('controllers/submit-question', () => {
 
     it('calls router.get with the path and middleware', () => {
       setupSubmitQuestionController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(`${Paths.question}/:questionOrdinal/submit`);
     });
 
     it('calls router.post with the path and middleware', () => {
       setupSubmitQuestionController(deps);
-      // eslint-disable-next-line new-cap
       expect(express.Router().post).to.have.been.calledWith(`${Paths.question}/:questionOrdinal/submit`);
     });
 
     it('returns the router', () => {
       const controller = setupSubmitQuestionController(deps);
-      // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
     });
   });
 });
-
-export {};

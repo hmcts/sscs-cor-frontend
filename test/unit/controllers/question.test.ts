@@ -98,16 +98,15 @@ describe('controllers/question', () => {
   });
 
   describe('postAnswer', () => {
-    let postAnswerService;
-    let getAllQuestionsService;
-    let uploadService;
+    let questionService;
+    let evidenceService;
 
     beforeEach(() => {
-      postAnswerService = null;
-      getAllQuestionsService = {
-        getQuestionIdFromOrdinal: sinon.stub().returns('001')
+      questionService = {
+        getQuestionIdFromOrdinal: sinon.stub().returns('001'),
+        saveAnswer: sinon.stub().resolves()
       };
-      uploadService = null;
+      evidenceService = null;
     });
 
     afterEach(() => {
@@ -116,31 +115,29 @@ describe('controllers/question', () => {
 
     it('should call res.redirect when saving an answer and there are no errors', async() => {
       req.body['question-field'] = 'My amazing answer';
-      postAnswerService = () => Promise.resolve();
-      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+      await postAnswer(questionService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
 
     it('should call res.redirect when submitting an answer and there are no errors', async() => {
       req.body['question-field'] = 'My amazing answer';
       req.body.submit = 'submit';
-      postAnswerService = () => Promise.resolve();
-      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+      await postAnswer(questionService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(`${Paths.question}/${questionOrdinal}/submit`);
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
       req.body['question-field'] = 'My amazing answer';
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      postAnswerService = () => Promise.reject(error);
-      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+      questionService.saveAnswer.rejects(error);
+      await postAnswer(questionService, evidenceService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     it('should call res.render with the validation error message', async () => {
       req.body['question-field'] = '';
-      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+      await postAnswer(questionService, evidenceService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           answer: {
@@ -163,21 +160,20 @@ describe('controllers/question', () => {
     describe('add-file submit', () => {
       beforeEach(() => {
         req.body['add-file'] = 'Add file';
-        postAnswerService = sinon.stub().resolves();
       });
 
       it('saves the answer if one exists, then redirects', async () => {
         const answerText = 'My amazing answer';
         req.body['question-field'] = answerText;
-        await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
-        expect(postAnswerService).to.have.been.calledOnce.calledWith('1', questionId, 'draft', answerText);
+        await postAnswer(questionService, evidenceService)(req, res, next);
+        expect(questionService.saveAnswer).to.have.been.calledOnce.calledWith('1', questionId, 'draft', answerText);
         expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}/upload-evidence`);
       });
 
       it('does not attempt to save the answer if one does not exist, then redirects', async () => {
         req.body['question-field'] = '';
-        await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
-        expect(postAnswerService).not.to.have.been.called;
+        await postAnswer(questionService, evidenceService)(req, res, next);
+        expect(questionService.saveAnswer).not.to.have.been.called;
         expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}/upload-evidence`);
       });
     });
@@ -185,8 +181,7 @@ describe('controllers/question', () => {
 
   describe('setupQuestionController', () => {
     const deps = {
-      getQuestionService: {},
-      postAnswerService: {}
+      getQuestionService: {}
     };
 
     beforeEach(() => {
@@ -213,7 +208,7 @@ describe('controllers/question', () => {
     });
 
     it('returns the router', () => {
-      const controller = setupQuestionController({ getQuestionService: {} });
+      const controller = setupQuestionController(deps);
       expect(controller).to.equal(express.Router());
     });
   });
@@ -316,5 +311,3 @@ describe('controllers/question', () => {
     });
   });
 });
-
-export {};
