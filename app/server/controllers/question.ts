@@ -6,6 +6,7 @@ import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
 import * as multer from 'multer';
+import { QuestionService } from '../services/question';
 const i18n = require('../../../locale/en.json');
 
 const upload = multer();
@@ -22,10 +23,10 @@ export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploa
   return false;
 }
 
-function getQuestion(getAllQuestionsService, getQuestionService) {
+function getQuestion(questionService: QuestionService, getQuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
-    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
@@ -58,10 +59,10 @@ function getQuestion(getAllQuestionsService, getQuestionService) {
 }
 
 // TODO rename function
-function postAnswer(getAllQuestionsService, updateAnswerService, evidenceService) {
+function postAnswer(questionService, updateAnswerService, evidenceService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
-    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
@@ -137,10 +138,10 @@ function getUploadEvidence(req: Request, res: Response, next: NextFunction) {
   res.render('question/upload-evidence.html', { questionOrdinal });
 }
 
-function postUploadEvidence(getAllQuestionsService, evidenceService) {
+function postUploadEvidence(questionService, evidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
-    const currentQuestionId = getAllQuestionsService.getQuestionIdFromOrdinal(req);
+    const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
@@ -163,8 +164,8 @@ function postUploadEvidence(getAllQuestionsService, evidenceService) {
 
 function setupQuestionController(deps) {
   const router = Router();
-  router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.getAllQuestionsService, deps.getQuestionService));
-  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.getAllQuestionsService, deps.saveAnswerService, deps.evidenceService));
+  router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.questionService, deps.getQuestionService));
+  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.questionService, deps.saveAnswerService, deps.evidenceService));
   router.get('/:questionOrdinal/upload-evidence',
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
@@ -173,7 +174,7 @@ function setupQuestionController(deps) {
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
     upload.single('file-upload-1'),
-    postUploadEvidence(deps.getAllQuestionsService, deps.evidenceService)
+    postUploadEvidence(deps.questionService, deps.evidenceService)
   );
   return router;
 }
