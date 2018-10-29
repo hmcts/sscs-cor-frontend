@@ -1,13 +1,12 @@
 const { expect, sinon } = require('test/chai-sinon');
-import { setupTaskListController, getTaskList, processDeadline } from 'app/server/controllers/task-list.ts';
+import { setupTaskListController, getTaskList, processDeadline } from 'app/server/controllers/task-list';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const moment = require('moment');
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 
-/* eslint-disable no-magic-numbers */
-describe('controllers/task-list.js', () => {
+describe('controllers/task-list', () => {
   let req;
   let res;
   let next;
@@ -35,14 +34,14 @@ describe('controllers/task-list.js', () => {
   });
 
   describe('getTaskList', () => {
-    let getAllQuestionsService;
+    let questionService;
     let questions;
     const deadline = moment.utc().add(7, 'days');
     const inputDeadline = deadline.format();
     const expectedDeadline = deadline.format();
 
     beforeEach(() => {
-      getAllQuestionsService = {};
+      questionService = {};
       questions = [
         {
           question_id: '001',
@@ -53,8 +52,8 @@ describe('controllers/task-list.js', () => {
     });
 
     it('should call render with the template and the list of questions and deadline details', async() => {
-      getAllQuestionsService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
-      await getTaskList(getAllQuestionsService)(req, res, next);
+      questionService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
+      await getTaskList(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
         deadlineExpiryDate: {
@@ -67,8 +66,8 @@ describe('controllers/task-list.js', () => {
 
     it('should call render with deadline status complete when all questions submitted', async() => {
       questions[0].answer_state = 'submitted';
-      getAllQuestionsService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
-      await getTaskList(getAllQuestionsService)(req, res, next);
+      questionService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
+      await getTaskList(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
         deadlineExpiryDate: {
@@ -83,8 +82,8 @@ describe('controllers/task-list.js', () => {
       const expiredDeadline = moment.utc().subtract(1, 'day');
       const inputExpiredDeadline = expiredDeadline.format();
       const expectedExpiredDeadline = expiredDeadline.format();
-      getAllQuestionsService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
-      await getTaskList(getAllQuestionsService)(req, res, next);
+      questionService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
+      await getTaskList(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
         deadlineExpiryDate: {
@@ -97,8 +96,8 @@ describe('controllers/task-list.js', () => {
 
     it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      getAllQuestionsService.getAllQuestions = () => Promise.reject(error);
-      await getTaskList(getAllQuestionsService)(req, res, next);
+      questionService.getAllQuestions = () => Promise.reject(error);
+      await getTaskList(questionService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });

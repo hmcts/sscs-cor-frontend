@@ -19,7 +19,7 @@ import { setupTribunalViewAcceptedController } from './controllers/tribunal-view
 const router = express.Router();
 
 import { getQuestion as getQuestionService } from './services/getQuestion';
-import * as getAllQuestionsService from './services/question';
+import { QuestionService } from './services/question';
 import { HearingService } from './services/hearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { IdamService } from './services/idam';
@@ -34,19 +34,20 @@ const httpProxy: string = config.get('httpProxy');
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret, httpProxy);
 const hearingService: HearingService = new HearingService(apiUrl);
+const questionService: QuestionService = new QuestionService(apiUrl);
 
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
 const questionController = setupQuestionController({
-  getAllQuestionsService,
+  questionService,
   getQuestionService,
   saveAnswerService,
   evidenceService,
   prereqMiddleware
 });
-const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, getAllQuestionsService, evidenceService, prereqMiddleware });
+const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, questionService, evidenceService, prereqMiddleware });
 const questionsCompletedController = setupQuestionsCompletedController({ prereqMiddleware });
-const taskListController = setupTaskListController({ getAllQuestionsService, prereqMiddleware });
+const taskListController = setupTaskListController({ questionService, prereqMiddleware });
 const extendDeadlineController = setupExtendDeadlineController({ prereqMiddleware, hearingService });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, hearingService });

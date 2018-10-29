@@ -1,4 +1,4 @@
-import * as getAllQuestionsService from 'app/server/services/question';
+import { QuestionService } from 'app/server/services/question';
 const mockData = require('test/mock/cor-backend/services/all-questions').template;
 const { expect } = require('test/chai-sinon');
 const { OK, INTERNAL_SERVER_ERROR } = require('http-status-codes');
@@ -8,6 +8,10 @@ const config = require('config');
 const apiUrl = config.get('api.url');
 
 describe('services/question', () => {
+  let questionService;
+  before(() => {
+    questionService = new QuestionService(apiUrl);
+  });
   describe('#getAllQuestions', () => {
     const hearingId = '121';
     const path = `/continuous-online-hearings/${hearingId}`;
@@ -31,11 +35,11 @@ describe('services/question', () => {
       });
 
       it('resolves the promise', () => (
-        expect(getAllQuestionsService.getAllQuestions(hearingId)).to.be.fulfilled
+        expect(questionService.getAllQuestions(hearingId)).to.be.fulfilled
       ));
 
       it('resolves the promise with the response', () => (
-        expect(getAllQuestionsService.getAllQuestions(hearingId)).to.eventually.eql(apiResponse)
+        expect(questionService.getAllQuestions(hearingId)).to.eventually.eql(apiResponse)
       ));
     });
 
@@ -49,7 +53,7 @@ describe('services/question', () => {
       });
 
       it('rejects the promise with the error', () => (
-        expect(getAllQuestionsService.getAllQuestions(hearingId)).to.be.rejectedWith(error)
+        expect(questionService.getAllQuestions(hearingId)).to.be.rejectedWith(error)
       ));
     });
   });
@@ -74,20 +78,20 @@ describe('services/question', () => {
     });
     it('returns the question id specified by the ordinal', () => {
       const firstQuestion = questions[0].question_id;
-      expect(getAllQuestionsService.getQuestionIdFromOrdinal(req)).to.deep.equal(firstQuestion);
+      expect(questionService.getQuestionIdFromOrdinal(req)).to.deep.equal(firstQuestion);
       req.params.questionOrdinal = '2';
       const secondQuestion = questions[1].question_id;
-      expect(getAllQuestionsService.getQuestionIdFromOrdinal(req)).to.deep.equal(secondQuestion);
+      expect(questionService.getQuestionIdFromOrdinal(req)).to.deep.equal(secondQuestion);
     });
 
     it('returns undefined if no questions exist in the session', () => {
       delete req.session.questions;
-      expect(getAllQuestionsService.getQuestionIdFromOrdinal(req)).to.be.undefined;
+      expect(questionService.getQuestionIdFromOrdinal(req)).to.be.undefined;
     });
 
     it('returns undefined if question ordinal param is not valid', () => {
       delete req.params.questionOrdinal;
-      expect(getAllQuestionsService.getQuestionIdFromOrdinal(req)).to.be.undefined;
+      expect(questionService.getQuestionIdFromOrdinal(req)).to.be.undefined;
     });
   });
 });
