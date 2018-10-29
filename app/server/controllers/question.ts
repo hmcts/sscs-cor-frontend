@@ -23,7 +23,7 @@ export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploa
   return false;
 }
 
-function getQuestion(questionService: QuestionService, getQuestionService) {
+function getQuestion(questionService: QuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
@@ -32,7 +32,7 @@ function getQuestion(questionService: QuestionService, getQuestionService) {
     }
     const hearingId = req.session.hearing.online_hearing_id;
     try {
-      const response = await getQuestionService(hearingId, currentQuestionId);
+      const response = await questionService.getQuestion(hearingId, currentQuestionId);
 
       const question = {
         questionId: currentQuestionId,
@@ -164,7 +164,7 @@ function postUploadEvidence(questionService, evidenceService) {
 
 function setupQuestionController(deps) {
   const router = Router();
-  router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.questionService, deps.getQuestionService));
+  router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.questionService));
   router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.questionService, deps.saveAnswerService, deps.evidenceService));
   router.get('/:questionOrdinal/upload-evidence',
     deps.prereqMiddleware,

@@ -18,7 +18,6 @@ import { setupTribunalViewAcceptedController } from './controllers/tribunal-view
 
 const router = express.Router();
 
-import { getQuestion as getQuestionService } from './services/getQuestion';
 import { QuestionService } from './services/question';
 import { HearingService } from './services/hearing';
 import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
@@ -40,7 +39,6 @@ const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
 const questionController = setupQuestionController({
   questionService,
-  getQuestionService,
   saveAnswerService,
   evidenceService,
   prereqMiddleware
