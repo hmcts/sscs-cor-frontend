@@ -1,19 +1,20 @@
 import { QuestionService } from 'app/server/services/question';
 const mockData = require('test/mock/cor-backend/services/all-questions').template;
 const { expect } = require('test/chai-sinon');
-const { OK, INTERNAL_SERVER_ERROR } = require('http-status-codes');
+const { OK, INTERNAL_SERVER_ERROR, NO_CONTENT } = require('http-status-codes');
 const nock = require('nock');
 const config = require('config');
 
 const apiUrl = config.get('api.url');
 
 describe('services/question', () => {
+  const hearingId = '121';
+  const questionId = '62';
   let questionService;
   before(() => {
     questionService = new QuestionService(apiUrl);
   });
   describe('#getAllQuestions', () => {
-    const hearingId = '121';
     const path = `/continuous-online-hearings/${hearingId}`;
 
     const apiResponse = {
@@ -77,10 +78,10 @@ describe('services/question', () => {
       };
     });
     it('returns the question id specified by the ordinal', () => {
-      const firstQuestion = questions[0].question_id;
+      const firstQuestion = questions[ 0 ].question_id;
       expect(questionService.getQuestionIdFromOrdinal(req)).to.deep.equal(firstQuestion);
       req.params.questionOrdinal = '2';
-      const secondQuestion = questions[1].question_id;
+      const secondQuestion = questions[ 1 ].question_id;
       expect(questionService.getQuestionIdFromOrdinal(req)).to.deep.equal(secondQuestion);
     });
 
@@ -94,6 +95,121 @@ describe('services/question', () => {
       expect(questionService.getQuestionIdFromOrdinal(req)).to.be.undefined;
     });
   });
-});
 
-export {};
+  describe('#getQuestion', () => {
+    const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+
+    const apiResponse = {
+      question_id: questionId,
+      question_header_text: 'What is the meaning of life?'
+    };
+
+    describe('resolving the promise', () => {
+      beforeEach(() => {
+        nock(apiUrl)
+          .get(path)
+          .reply(OK, apiResponse);
+      });
+
+      it('resolves the promise', () => (
+        expect(questionService.getQuestion(hearingId, questionId)).to.be.fulfilled
+      ));
+
+      it('resolves the promise with the response', () => (
+        expect(questionService.getQuestion(hearingId, questionId)).to.eventually.eql(apiResponse)
+      ));
+    });
+
+    describe('rejecting the promise', () => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+      beforeEach(() => {
+        nock(apiUrl)
+          .get(path)
+          .replyWithError(error);
+      });
+
+      it('rejects the promise with the error', () => (
+        expect(questionService.getQuestion(hearingId, questionId)).to.be.rejectedWith(error)
+      ));
+    });
+  });
+
+  describe('#saveAnswer', () => {
+    /* tslint:disable-next-line variable-name */
+    const answer_state = 'draft';
+    const answer = 'My answer';
+    const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+
+    const apiResponse = {
+      answer_id: '001'
+    };
+
+    describe('resolving the save answer promise', () => {
+      beforeEach(() => {
+        nock(apiUrl)
+          .put(path, {
+            answer_state,
+            answer
+          })
+          .reply(NO_CONTENT, apiResponse);
+      });
+
+      it('resolves the promise with the response', () => (
+        expect(questionService.saveAnswer(hearingId, questionId, answer_state, answer)).to.eventually.eql(apiResponse)
+      ));
+    });
+
+    describe('rejecting the promise', () => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+      beforeEach(() => {
+        nock(apiUrl)
+          .put(path, {
+            answer_state,
+            answer
+          })
+          .replyWithError(error);
+      });
+
+      it('rejects the save answer promise with the error', () => (
+        expect(questionService.saveAnswer(hearingId, questionId, answer_state, answer)).to.be.rejectedWith(error)
+      ));
+    });
+  });
+
+  describe('#submitAnswer', () => {
+    const answer = 'My answer';
+    const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+
+    const apiResponse = {
+      answer_id: '001'
+    };
+    describe('resolving the submit answer promise', () => {
+      beforeEach(() => {
+        nock(apiUrl)
+          .post(path)
+          .reply(NO_CONTENT, apiResponse);
+      });
+
+      it('resolves the promise with the response', () => (
+        expect(questionService.submitAnswer(hearingId, questionId)).to.eventually.eql(apiResponse)
+      ));
+    });
+
+    describe('rejecting the submit answer promise', () => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+      beforeEach(() => {
+        nock(apiUrl)
+          .post(path)
+          .replyWithError(error);
+      });
+
+      it('rejects the promise with the error', () => (
+        expect(questionService.submitAnswer(hearingId, questionId)).to.be.rejectedWith(error)
+      ));
+    });
+  });
+
+});

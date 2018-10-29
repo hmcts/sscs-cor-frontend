@@ -18,10 +18,8 @@ import { setupTribunalViewAcceptedController } from './controllers/tribunal-view
 
 const router = express.Router();
 
-import { getQuestion as getQuestionService } from './services/getQuestion';
 import { QuestionService } from './services/question';
 import { HearingService } from './services/hearing';
-import { saveAnswer as saveAnswerService, submitAnswer as submitAnswerService } from './services/updateAnswer';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 
@@ -38,14 +36,8 @@ const questionService: QuestionService = new QuestionService(apiUrl);
 
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
-const questionController = setupQuestionController({
-  questionService,
-  getQuestionService,
-  saveAnswerService,
-  evidenceService,
-  prereqMiddleware
-});
-const submitQuestionController = setupSubmitQuestionController({ submitAnswerService, questionService, evidenceService, prereqMiddleware });
+const questionController = setupQuestionController({ questionService, evidenceService, prereqMiddleware });
+const submitQuestionController = setupSubmitQuestionController({ questionService, evidenceService, prereqMiddleware });
 const questionsCompletedController = setupQuestionsCompletedController({ prereqMiddleware });
 const taskListController = setupTaskListController({ questionService, prereqMiddleware });
 const extendDeadlineController = setupExtendDeadlineController({ prereqMiddleware, hearingService });

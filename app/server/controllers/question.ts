@@ -7,6 +7,7 @@ import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
 import * as multer from 'multer';
 import { QuestionService } from '../services/question';
+import { EvidenceService } from '../services/evidence';
 const i18n = require('../../../locale/en.json');
 
 const upload = multer();
@@ -23,7 +24,7 @@ export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploa
   return false;
 }
 
-function getQuestion(questionService: QuestionService, getQuestionService) {
+function getQuestion(questionService: QuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
@@ -32,7 +33,7 @@ function getQuestion(questionService: QuestionService, getQuestionService) {
     }
     const hearingId = req.session.hearing.online_hearing_id;
     try {
-      const response = await getQuestionService(hearingId, currentQuestionId);
+      const response = await questionService.getQuestion(hearingId, currentQuestionId);
 
       const question = {
         questionId: currentQuestionId,
@@ -59,7 +60,7 @@ function getQuestion(questionService: QuestionService, getQuestionService) {
 }
 
 // TODO rename function
-function postAnswer(questionService, updateAnswerService, evidenceService) {
+function postAnswer(questionService: QuestionService, evidenceService: EvidenceService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
@@ -73,7 +74,7 @@ function postAnswer(questionService, updateAnswerService, evidenceService) {
     if (req.body['add-file']) {
       if (answerText.length > 0) {
         try {
-          await updateAnswerService(hearingId, currentQuestionId, 'draft', answerText);
+          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
         } catch (error) {
           AppInsights.trackException(error);
           return next(error);
@@ -109,7 +110,7 @@ function postAnswer(questionService, updateAnswerService, evidenceService) {
       });
     } else {
       try {
-        await updateAnswerService(hearingId, currentQuestionId, 'draft', answerText);
+        await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
         if (req.body.submit) {
           res.redirect(`${Paths.question}/${questionOrdinal}/submit`);
         } else {
@@ -138,7 +139,7 @@ function getUploadEvidence(req: Request, res: Response, next: NextFunction) {
   res.render('question/upload-evidence.html', { questionOrdinal });
 }
 
-function postUploadEvidence(questionService, evidenceService) {
+function postUploadEvidence(questionService: QuestionService, evidenceService: EvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
@@ -164,8 +165,8 @@ function postUploadEvidence(questionService, evidenceService) {
 
 function setupQuestionController(deps) {
   const router = Router();
-  router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.questionService, deps.getQuestionService));
-  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.questionService, deps.saveAnswerService, deps.evidenceService));
+  router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.questionService));
+  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.questionService, deps.evidenceService));
   router.get('/:questionOrdinal/upload-evidence',
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),

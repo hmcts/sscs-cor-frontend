@@ -5,7 +5,7 @@ import { QuestionService } from '../services/question';
 
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 
-function getSubmitQuestion(questionService: any) {
+function getSubmitQuestion(questionService: QuestionService) {
   return (req: Request, res: Response) => {
     const currentQuestionId: string = questionService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
@@ -16,7 +16,7 @@ function getSubmitQuestion(questionService: any) {
   };
 }
 
-function postSubmitAnswer(submitAnswerService: any, questionService: QuestionService) {
+function postSubmitAnswer(questionService: QuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
@@ -25,7 +25,7 @@ function postSubmitAnswer(submitAnswerService: any, questionService: QuestionSer
     const hearingId = req.session.hearing.online_hearing_id;
 
     try {
-      await submitAnswerService(hearingId, currentQuestionId);
+      await questionService.submitAnswer(hearingId, currentQuestionId);
 
       const response = await questionService.getAllQuestions(hearingId);
       const totalQuestionCount = response.questions.length;
@@ -44,10 +44,9 @@ function postSubmitAnswer(submitAnswerService: any, questionService: QuestionSer
 }
 
 function setupSubmitQuestionController(deps: any) {
-  // eslint-disable-next-line new-cap
   const router = Router();
   router.get(`${Paths.question}/:questionOrdinal/submit`, deps.prereqMiddleware, getSubmitQuestion(deps.questionService));
-  router.post(`${Paths.question}/:questionOrdinal/submit`, deps.prereqMiddleware, postSubmitAnswer(deps.submitAnswerService, deps.questionService));
+  router.post(`${Paths.question}/:questionOrdinal/submit`, deps.prereqMiddleware, postSubmitAnswer(deps.questionService));
   return router;
 }
 
