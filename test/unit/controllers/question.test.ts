@@ -45,11 +45,11 @@ describe('controllers/question', () => {
 
   describe('getQuestion', () => {
     let getQuestionService;
-    let getAllQuestionsService;
+    let questionService;
 
     beforeEach(() => {
       getQuestionService = null;
-      getAllQuestionsService = {
+      questionService = {
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
       };
     });
@@ -72,7 +72,7 @@ describe('controllers/question', () => {
         answer_date: questionAnswerDate,
         evidence: questionEvidence
       });
-      await getQuestion(getAllQuestionsService, getQuestionService)(req, res, next);
+      await getQuestion(questionService, getQuestionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           questionId,
@@ -93,14 +93,14 @@ describe('controllers/question', () => {
     it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       getQuestionService = () => Promise.reject(error);
-      await getQuestion(getAllQuestionsService, getQuestionService)(req, res, next);
+      await getQuestion(questionService, getQuestionService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     it('redirects to task list if question id is not found', async() => {
-      getAllQuestionsService.getQuestionIdFromOrdinal.returns(undefined);
-      await getQuestion(getAllQuestionsService, getQuestionService)(req, res, next);
+      questionService.getQuestionIdFromOrdinal.returns(undefined);
+      await getQuestion(questionService, getQuestionService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
   });
