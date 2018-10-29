@@ -2,8 +2,9 @@ import * as AppInsights from '../app-insights';
 import * as moment from 'moment';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
+import { QuestionService } from '../services/question';
 
-function processDeadline(expiryDate: Date, allQuestionsSubmitted: boolean) {
+function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
   if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
 
   const endOfToday = moment.utc().endOf('day');
@@ -14,11 +15,11 @@ function processDeadline(expiryDate: Date, allQuestionsSubmitted: boolean) {
 
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 
-function getTaskList(getAllQuestionsService: any) {
+function getTaskList(questionService: QuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const hearing = req.session.hearing;
     try {
-      const response = await getAllQuestionsService.getAllQuestions(hearing.online_hearing_id);
+      const response = await questionService.getAllQuestions(hearing.online_hearing_id);
 
       req.session.hearing.deadline = response.deadline_expiry_date;
       req.session.questions = response.questions;
@@ -40,7 +41,7 @@ function getTaskList(getAllQuestionsService: any) {
 
 function setupTaskListController(deps: any): Router {
   const router: Router = Router();
-  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList(deps.getAllQuestionsService));
+  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList(deps.questionService));
   return router;
 }
 
