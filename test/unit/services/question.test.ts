@@ -8,12 +8,12 @@ const config = require('config');
 const apiUrl = config.get('api.url');
 
 describe('services/question', () => {
+  const hearingId = '121';
   let questionService;
   before(() => {
     questionService = new QuestionService(apiUrl);
   });
   describe('#getAllQuestions', () => {
-    const hearingId = '121';
     const path = `/continuous-online-hearings/${hearingId}`;
 
     const apiResponse = {
@@ -94,6 +94,44 @@ describe('services/question', () => {
       expect(questionService.getQuestionIdFromOrdinal(req)).to.be.undefined;
     });
   });
-});
 
-export {};
+  describe('#getQuestion', () => {
+    const questionId = '62';
+    const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+
+    const apiResponse = {
+      question_id: questionId,
+      question_header_text: 'What is the meaning of life?'
+    };
+
+    describe('resolving the promise', () => {
+      beforeEach(() => {
+        nock(apiUrl)
+          .get(path)
+          .reply(OK, apiResponse);
+      });
+
+      it('resolves the promise', () => (
+        expect(questionService.getQuestion(hearingId, questionId)).to.be.fulfilled
+      ));
+
+      it('resolves the promise with the response', () => (
+        expect(questionService.getQuestion(hearingId, questionId)).to.eventually.eql(apiResponse)
+      ));
+    });
+
+    describe('rejecting the promise', () => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+      beforeEach(() => {
+        nock(apiUrl)
+          .get(path)
+          .replyWithError(error);
+      });
+
+      it('rejects the promise with the error', () => (
+        expect(questionService.getQuestion(hearingId, questionId)).to.be.rejectedWith(error)
+      ));
+    });
+  });
+});

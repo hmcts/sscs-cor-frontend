@@ -44,47 +44,39 @@ describe('controllers/question', () => {
   });
 
   describe('getQuestion', () => {
-    let getQuestionService;
     let questionService;
+    const question = {
+      question_id: questionId,
+      question_ordinal: questionOrdinal,
+      question_header_text: 'What is the meaning of life?',
+      question_body_text: 'Many people ask this question...',
+      answer: '',
+      answer_state: 'unanswered',
+      answer_date: moment.utc().format(),
+      evidence: []
+    };
 
     beforeEach(() => {
-      getQuestionService = null;
       questionService = {
+        getQuestion: sinon.stub().resolves(question),
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
       };
     });
 
     it('should call render with the template and question header', async() => {
-      const questionHeading = 'What is the meaning of life?';
-      const questionBody = 'Many people ask this question...';
-      const questionAnswer = '';
-      const questionAnswerState = 'unanswered';
-      const questionAnswerDate = moment.utc().format();
-      const questionEvidence = [];
-
-      getQuestionService = () => Promise.resolve({
-        question_id: questionId,
-        question_ordinal: questionOrdinal,
-        question_header_text: questionHeading,
-        question_body_text: questionBody,
-        answer: questionAnswer,
-        answer_state: questionAnswerState,
-        answer_date: questionAnswerDate,
-        evidence: questionEvidence
-      });
-      await getQuestion(questionService, getQuestionService)(req, res, next);
+      await getQuestion(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           questionId,
           questionOrdinal: '1',
-          header: questionHeading,
-          body: questionBody,
+          header: question.question_header_text,
+          body: question.question_body_text,
           answer: {
-            value: questionAnswer,
-            date: questionAnswerDate
+            value: '',
+            date: question.answer_date
           },
-          answer_state: questionAnswerState,
-          evidence: questionEvidence
+          answer_state: question.answer_state,
+          evidence: []
         },
         showEvidenceUpload: false
       });
@@ -92,15 +84,15 @@ describe('controllers/question', () => {
 
     it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      getQuestionService = () => Promise.reject(error);
-      await getQuestion(questionService, getQuestionService)(req, res, next);
+      questionService.getQuestion.rejects(error);
+      await getQuestion(questionService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     it('redirects to task list if question id is not found', async() => {
       questionService.getQuestionIdFromOrdinal.returns(undefined);
-      await getQuestion(questionService, getQuestionService)(req, res, next);
+      await getQuestion(questionService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
   });

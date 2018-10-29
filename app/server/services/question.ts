@@ -31,6 +31,15 @@ export class QuestionService {
     }
   }
 
+  async getQuestion(hearingId, questionId) {
+    try {
+      const response = await request.get(`${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`);
+      return Promise.resolve(response.body);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   getQuestionIdFromOrdinal(req: Request): string {
     const questions: QuestionSummary[] = req.session.questions;
     if (!questions) {
