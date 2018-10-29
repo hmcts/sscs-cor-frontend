@@ -44,47 +44,39 @@ describe('controllers/question', () => {
   });
 
   describe('getQuestion', () => {
-    let getQuestionService;
     let questionService;
+    const question = {
+      question_id: questionId,
+      question_ordinal: questionOrdinal,
+      question_header_text: 'What is the meaning of life?',
+      question_body_text: 'Many people ask this question...',
+      answer: '',
+      answer_state: 'unanswered',
+      answer_date: moment.utc().format(),
+      evidence: []
+    };
 
     beforeEach(() => {
-      getQuestionService = null;
       questionService = {
+        getQuestion: sinon.stub().resolves(question),
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
       };
     });
 
     it('should call render with the template and question header', async() => {
-      const questionHeading = 'What is the meaning of life?';
-      const questionBody = 'Many people ask this question...';
-      const questionAnswer = '';
-      const questionAnswerState = 'unanswered';
-      const questionAnswerDate = moment.utc().format();
-      const questionEvidence = [];
-
-      getQuestionService = () => Promise.resolve({
-        question_id: questionId,
-        question_ordinal: questionOrdinal,
-        question_header_text: questionHeading,
-        question_body_text: questionBody,
-        answer: questionAnswer,
-        answer_state: questionAnswerState,
-        answer_date: questionAnswerDate,
-        evidence: questionEvidence
-      });
-      await getQuestion(questionService, getQuestionService)(req, res, next);
+      await getQuestion(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           questionId,
           questionOrdinal: '1',
-          header: questionHeading,
-          body: questionBody,
+          header: question.question_header_text,
+          body: question.question_body_text,
           answer: {
-            value: questionAnswer,
-            date: questionAnswerDate
+            value: '',
+            date: question.answer_date
           },
-          answer_state: questionAnswerState,
-          evidence: questionEvidence
+          answer_state: question.answer_state,
+          evidence: []
         },
         showEvidenceUpload: false
       });
@@ -92,30 +84,29 @@ describe('controllers/question', () => {
 
     it('should call next and appInsights with the error when there is one', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      getQuestionService = () => Promise.reject(error);
-      await getQuestion(questionService, getQuestionService)(req, res, next);
+      questionService.getQuestion.rejects(error);
+      await getQuestion(questionService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     it('redirects to task list if question id is not found', async() => {
       questionService.getQuestionIdFromOrdinal.returns(undefined);
-      await getQuestion(questionService, getQuestionService)(req, res, next);
+      await getQuestion(questionService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
   });
 
   describe('postAnswer', () => {
-    let postAnswerService;
-    let getAllQuestionsService;
-    let uploadService;
+    let questionService;
+    let evidenceService;
 
     beforeEach(() => {
-      postAnswerService = null;
-      getAllQuestionsService = {
-        getQuestionIdFromOrdinal: sinon.stub().returns('001')
+      questionService = {
+        getQuestionIdFromOrdinal: sinon.stub().returns('001'),
+        saveAnswer: sinon.stub().resolves()
       };
-      uploadService = null;
+      evidenceService = null;
     });
 
     afterEach(() => {
@@ -124,31 +115,29 @@ describe('controllers/question', () => {
 
     it('should call res.redirect when saving an answer and there are no errors', async() => {
       req.body['question-field'] = 'My amazing answer';
-      postAnswerService = () => Promise.resolve();
-      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+      await postAnswer(questionService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
 
     it('should call res.redirect when submitting an answer and there are no errors', async() => {
       req.body['question-field'] = 'My amazing answer';
       req.body.submit = 'submit';
-      postAnswerService = () => Promise.resolve();
-      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+      await postAnswer(questionService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(`${Paths.question}/${questionOrdinal}/submit`);
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
       req.body['question-field'] = 'My amazing answer';
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      postAnswerService = () => Promise.reject(error);
-      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+      questionService.saveAnswer.rejects(error);
+      await postAnswer(questionService, evidenceService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
 
     it('should call res.render with the validation error message', async () => {
       req.body['question-field'] = '';
-      await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
+      await postAnswer(questionService, evidenceService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
           answer: {
@@ -171,21 +160,20 @@ describe('controllers/question', () => {
     describe('add-file submit', () => {
       beforeEach(() => {
         req.body['add-file'] = 'Add file';
-        postAnswerService = sinon.stub().resolves();
       });
 
       it('saves the answer if one exists, then redirects', async () => {
         const answerText = 'My amazing answer';
         req.body['question-field'] = answerText;
-        await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
-        expect(postAnswerService).to.have.been.calledOnce.calledWith('1', questionId, 'draft', answerText);
+        await postAnswer(questionService, evidenceService)(req, res, next);
+        expect(questionService.saveAnswer).to.have.been.calledOnce.calledWith('1', questionId, 'draft', answerText);
         expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}/upload-evidence`);
       });
 
       it('does not attempt to save the answer if one does not exist, then redirects', async () => {
         req.body['question-field'] = '';
-        await postAnswer(getAllQuestionsService, postAnswerService, uploadService)(req, res, next);
-        expect(postAnswerService).not.to.have.been.called;
+        await postAnswer(questionService, evidenceService)(req, res, next);
+        expect(questionService.saveAnswer).not.to.have.been.called;
         expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}/upload-evidence`);
       });
     });
@@ -193,8 +181,7 @@ describe('controllers/question', () => {
 
   describe('setupQuestionController', () => {
     const deps = {
-      getQuestionService: {},
-      postAnswerService: {}
+      getQuestionService: {}
     };
 
     beforeEach(() => {
@@ -221,7 +208,7 @@ describe('controllers/question', () => {
     });
 
     it('returns the router', () => {
-      const controller = setupQuestionController({ getQuestionService: {} });
+      const controller = setupQuestionController(deps);
       expect(controller).to.equal(express.Router());
     });
   });
@@ -324,5 +311,3 @@ describe('controllers/question', () => {
     });
   });
 });
-
-export {};

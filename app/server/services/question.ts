@@ -21,10 +21,18 @@ export class QuestionService {
     this.apiUrl = apiUrl;
   }
 
-  async getAllQuestions(hearingId): Promise<QuestionRound> {
+  async getAllQuestions(hearingId: string): Promise<QuestionRound> {
     try {
-      const response = await
-      request.get(`${this.apiUrl}/continuous-online-hearings/${hearingId}`);
+      const response = await request.get(`${this.apiUrl}/continuous-online-hearings/${hearingId}`);
+      return Promise.resolve(response.body);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async getQuestion(hearingId: string, questionId: string) {
+    try {
+      const response = await request.get(`${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`);
       return Promise.resolve(response.body);
     } catch (error) {
       return Promise.reject(error);
@@ -43,5 +51,35 @@ export class QuestionService {
       return undefined;
     }
     return currentQuestion.question_id;
+  }
+
+  buildAnswerUrl(hearingId, questionId) {
+    return `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+  }
+
+  async saveAnswer(hearingId: string, questionId: string, answerState: string, answerText: string) {
+    try {
+      const response = await request
+        .put(this.buildAnswerUrl(hearingId, questionId))
+        .send({
+          answer_state: answerState,
+          answer: answerText
+        });
+      return Promise.resolve(response.body);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async submitAnswer(hearingId: string, questionId: string) {
+    try {
+      const response = await request
+        .post(this.buildAnswerUrl(hearingId, questionId))
+        .set('Content-Length', '0')
+        .send();
+      return Promise.resolve(response.body);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
