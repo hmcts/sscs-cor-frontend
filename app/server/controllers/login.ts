@@ -59,9 +59,6 @@ function getIdamCallback(
   return async (req: Request, res: Response, next: NextFunction) => {
 
     const code: string = req.query.code;
-    // username is only required when running with the idam stub
-    // it is so that the /details stub can reply with the email address used to sign-in
-    const username: string = req.query.username;
 
     if (!code) {
       return redirectToIdam(req, res);
@@ -69,7 +66,7 @@ function getIdamCallback(
 
     try {
       const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-      const userDetails: UserDetails = await idamService.getUserDetails(tokenResponse.access_token, username);
+      const userDetails: UserDetails = await idamService.getUserDetails(tokenResponse.access_token);
       // todo Maybe need to check userDetails.accountStatus is 'active' and userDetails.roles contains 'citizen' on userDetails
 
       req.session.accessToken = tokenResponse.access_token;

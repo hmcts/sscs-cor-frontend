@@ -1,8 +1,13 @@
 import { Router, Request, Response } from 'express';
 import { NO_CONTENT } from 'http-status-codes';
 const config = require('config');
+const cache = require('memory-cache');
 
 const enableStub = config.get('idam.enableStub') === 'true';
+
+function generateRandomNumber() {
+  return Math.floor(Math.random() * 100000);
+}
 
 function getLogin(req: Request, res: Response) {
   res.append('Content-Type', 'text/html');
@@ -19,15 +24,23 @@ function getLogin(req: Request, res: Response) {
 }
 
 function postLogin(req: Request, res: Response) {
-  res.redirect(`${req.body.redirect_uri}?code=123&username=${req.body.username}`);
+  const code = generateRandomNumber();
+  cache.put(`idamStub.code.${code}`, req.body.username);
+  res.redirect(`${req.body.redirect_uri}?code=${code}&username=${req.body.username}`);
 }
 
 function getToken(req: Request, res: Response) {
-  res.json({ access_token: '09876' });
+  const code = req.body.code;
+  const username = cache.get(`idamStub.code.${code}`);
+  const token = generateRandomNumber();
+  cache.put(`idamStub.token.${token}`, username);
+  res.json({ access_token: token });
 }
 
 function getDetails(req: Request, res: Response) {
-  res.json({ email: req.query.username });
+  const token = req.headers.authorization.replace('Bearer ', '');
+  const username = cache.get(`idamStub.token.${token}`);
+  res.json({ email: username });
 }
 
 function deleteToken(req: Request, res: Response) {
