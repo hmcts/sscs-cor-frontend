@@ -16,6 +16,7 @@ def idamUrlAat = "https://sscs-cor-frontend-aat-staging.service.core-compute-aat
 def idamApiUrlAat = "https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub" //"https://idam-api.aat.platform.hmcts.net"
 
 withPipeline("nodejs", product, component) {
+    after('checkout') {sh 'yarn cache clean'}
     after('build') {sh 'yarn build'}
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
