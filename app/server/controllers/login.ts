@@ -41,14 +41,13 @@ function getLogout(idamService: IdamService) {
 function redirectToIdam(idamPath: string, idamService: IdamService) {
   return (req: Request, res: Response) => {
     const idamUrl: URL = new URL(idamUrlString);
-    idamUrl.pathname = idamPath;
+    idamUrl.pathname = idamUrl.pathname + idamPath;
 
     const redirectUrl: string = idamService.getRedirectUrl(req.protocol, req.hostname);
 
     idamUrl.searchParams.append('redirect_uri', redirectUrl);
     idamUrl.searchParams.append('client_id', idamClientId);
     idamUrl.searchParams.append('response_type', 'code');
-
     return res.redirect(idamUrl.href);
   };
 }
@@ -60,6 +59,9 @@ function getIdamCallback(
   return async (req: Request, res: Response, next: NextFunction) => {
 
     const code: string = req.query.code;
+    // username is only required when running with the idam stub
+    // it is so that the /details stub can reply with the email address used to sign-in
+    const username: string = req.query.username;
 
     if (!code) {
       return redirectToIdam(req, res);
@@ -67,7 +69,7 @@ function getIdamCallback(
 
     try {
       const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-      const userDetails: UserDetails = await idamService.getUserDetails(tokenResponse.access_token);
+      const userDetails: UserDetails = await idamService.getUserDetails(tokenResponse.access_token, username);
       // todo Maybe need to check userDetails.accountStatus is 'active' and userDetails.roles contains 'citizen' on userDetails
 
       req.session.accessToken = tokenResponse.access_token;

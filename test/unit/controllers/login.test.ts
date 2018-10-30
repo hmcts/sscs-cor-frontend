@@ -5,8 +5,11 @@ import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { HearingService } from 'app/server/services/hearing';
+const config = require('config');
 
-describe('controllers/login.ts', () => {
+const idamUrl = config.get('idam.url');
+
+describe('controllers/login', () => {
   let next;
   let req;
   let res;
@@ -67,9 +70,9 @@ describe('controllers/login.ts', () => {
       const idamServiceStub = {
         getRedirectUrl: sinon.stub().withArgs('http', 'localhost').returns('http://redirect_url')
       } as IdamService;
-      redirectToIdam('idam_path', idamServiceStub)(req, res);
+      redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
-      expect(res.redirect).to.have.been.calledOnce.calledWith('http://localhost:8082/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs-cor&response_type=code');
+      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs-cor&response_type=code');
     });
   });
 

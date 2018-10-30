@@ -28,7 +28,6 @@ let taskListPage;
 
 async function startBrowser() {
   if (!browser) {
-    /* tslint:disable:no-console */
     console.log('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
     if (httpProxy) {
@@ -55,7 +54,8 @@ function startAppServer(): Promise<void> {
     const app = setup(createSession(), { disableAppInsights: true });
     dysonSetupCorBackend();
     dysonSetupCoh();
-    dysonSetupIdam();
+    // reinstate once we are able to use a stable deployment of SIDAM in AAT - sidam stub now exists on the app
+    // dysonSetupIdam();
     server = createServer(app).listen(port, error => {
       if (error) {
         console.log(`Unable to start server on port ${port} because of ${error.message}`);
@@ -97,7 +97,8 @@ async function startServices(options?) {
     const bootstrapResult = await bootstrap();
     ccdCase = bootstrapResult.ccdCase;
     cohTestData = bootstrapResult.cohTestData;
-    sidamUsers.unshift(bootstrapResult.sidamUser);
+    // reinstate once we are able to use a stable deployment of SIDAM in AAT
+    // sidamUsers.unshift(bootstrapResult.sidamUser);
   }
   if (opts.issueDecision) {
     const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
