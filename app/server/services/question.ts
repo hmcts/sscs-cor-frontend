@@ -1,5 +1,5 @@
 import { Request } from 'express';
-const request = require('superagent');
+const request = require('request-promise');
 
 interface QuestionSummary {
   question_id: string;
@@ -23,8 +23,11 @@ export class QuestionService {
 
   async getAllQuestions(hearingId: string): Promise<QuestionRound> {
     try {
-      const response = await request.get(`${this.apiUrl}/continuous-online-hearings/${hearingId}`);
-      return Promise.resolve(response.body);
+      const body = await request.get({
+        uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`,
+        json: true
+      });
+      return Promise.resolve(body);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -32,8 +35,11 @@ export class QuestionService {
 
   async getQuestion(hearingId: string, questionId: string) {
     try {
-      const response = await request.get(`${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`);
-      return Promise.resolve(response.body);
+      const body = await request.get({
+        uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`,
+        json: true
+      });
+      return Promise.resolve(body);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -59,13 +65,15 @@ export class QuestionService {
 
   async saveAnswer(hearingId: string, questionId: string, answerState: string, answerText: string) {
     try {
-      const response = await request
-        .put(this.buildAnswerUrl(hearingId, questionId))
-        .send({
+      const body = await request.put({
+        uri: this.buildAnswerUrl(hearingId, questionId),
+        body: {
           answer_state: answerState,
           answer: answerText
-        });
-      return Promise.resolve(response.body);
+        },
+        json: true
+      });
+      return Promise.resolve(body);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -73,11 +81,14 @@ export class QuestionService {
 
   async submitAnswer(hearingId: string, questionId: string) {
     try {
-      const response = await request
-        .post(this.buildAnswerUrl(hearingId, questionId))
-        .set('Content-Length', '0')
-        .send();
-      return Promise.resolve(response.body);
+      const body = await request.post({
+        uri: this.buildAnswerUrl(hearingId, questionId),
+        headers: {
+          'Content-Length': '0'
+        },
+        json: true
+      });
+      return Promise.resolve(body);
     } catch (error) {
       return Promise.reject(error);
     }
