@@ -10,7 +10,8 @@ const white = clc.whiteBright;
 
 /* tslint:disable no-console */
 async function runBootstrap() {
-  const { ccdCase, cohTestData, sidamUser } = await bootstrap();
+  // reinstate assignment of `sidamUser` once we are able to use a stable deployment of SIDAM in AAT
+  const { ccdCase, cohTestData } = await bootstrap();
 
   console.log('\n' + bold(_.pad(' CCD case ', 60, '-')) + '\n');
 
@@ -20,9 +21,9 @@ async function runBootstrap() {
 
   _.each(cohTestData, (value, key) => console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40))));
 
-  console.log('\n' + bold(_.pad('SIDAM user', 60, '-')) + '\n');
-
-  _.each(sidamUser, (value, key) => console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40))));
+  // reinstate once we are able to use a stable deployment of SIDAM in AAT
+  // console.log('\n' + bold(_.pad('SIDAM user', 60, '-')) + '\n');
+  // _.each(sidamUser, (value, key) => console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40))));
 
   console.log('\n' + bold(_.pad('', 60, '-')) + '\n');
 }

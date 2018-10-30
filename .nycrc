@@ -8,7 +8,8 @@
     "app/server/app.ts",
     "app/server/paths.ts",
     "app/server/routes.ts",
-    "app/server/server.ts"
+    "app/server/server.ts",
+    "app/server/controllers/idam-stub.ts"
   ],  
   "reporter": [
     "lcov",

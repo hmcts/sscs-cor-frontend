@@ -4,5 +4,8 @@
       "enabled": "true",
       "overrideAllowed": "false"
     }
+  },
+  "idam": {
+    "enableStub": "true"
   }
 }

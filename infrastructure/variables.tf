@@ -47,6 +47,11 @@ variable "idam_api_url" {
   description = "url for idam api"
 }
 
+variable "idam_enable_stub" {
+  description = "Mount idam stub routes on the app or not"
+  default = "false"
+}
+
 variable "evidence_upload_question_page_enabled" {
   description = "Feature switch for evidence upload per question",
   default = "false"

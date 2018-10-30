@@ -15,6 +15,7 @@ import { setupTribunalViewController } from './controllers/tribunal-view';
 import { setupHearingConfirmController } from './controllers/hearing-confirm';
 import { setupHearingWhyController } from './controllers/hearing-why';
 import { setupTribunalViewAcceptedController } from './controllers/tribunal-view-accepted';
+import { setupIdamStubController } from './controllers/idam-stub';
 
 const router = express.Router();
 
@@ -47,7 +48,9 @@ const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ pre
 const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
 const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const loginController = setupLoginController({ hearingService, idamService });
+const idamStubController = setupIdamStubController();
 
+router.use(idamStubController);
 router.use(loginController);
 router.use(submitQuestionController);
 router.use(questionsCompletedController);
