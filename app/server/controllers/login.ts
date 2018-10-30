@@ -41,14 +41,13 @@ function getLogout(idamService: IdamService) {
 function redirectToIdam(idamPath: string, idamService: IdamService) {
   return (req: Request, res: Response) => {
     const idamUrl: URL = new URL(idamUrlString);
-    idamUrl.pathname = idamPath;
+    idamUrl.pathname = idamUrl.pathname + idamPath;
 
     const redirectUrl: string = idamService.getRedirectUrl(req.protocol, req.hostname);
 
     idamUrl.searchParams.append('redirect_uri', redirectUrl);
     idamUrl.searchParams.append('client_id', idamClientId);
     idamUrl.searchParams.append('response_type', 'code');
-
     return res.redirect(idamUrl.href);
   };
 }
