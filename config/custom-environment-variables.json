@@ -29,7 +29,8 @@
     "api-url": "IDAM_API_URL",
     "client": {
       "secret": "IDAM_CLIENT_SECRET"
-    }
+    },
+    "enableStub": "IDAM_ENABLE_STUB"
   },
   "evidenceUpload": {
     "questionPage": {
