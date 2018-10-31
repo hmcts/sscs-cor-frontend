@@ -54,8 +54,7 @@ function startAppServer(): Promise<void> {
     const app = setup(createSession(), { disableAppInsights: true });
     dysonSetupCorBackend();
     dysonSetupCoh();
-    // reinstate once we are able to use a stable deployment of SIDAM in AAT - sidam stub now exists on the app
-    // dysonSetupIdam();
+    dysonSetupIdam();
     server = createServer(app).listen(port, error => {
       if (error) {
         console.log(`Unable to start server on port ${port} because of ${error.message}`);
