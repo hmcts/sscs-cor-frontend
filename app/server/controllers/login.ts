@@ -65,8 +65,12 @@ function getIdamCallback(
     }
 
     try {
+      logger.info('getting token');
       const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
+      logger.info('tokenResponse', tokenResponse);
+      logger.info('getting user details');
       const userDetails: UserDetails = await idamService.getUserDetails(tokenResponse.access_token);
+      logger.info('userDetails', userDetails);
       // todo Maybe need to check userDetails.accountStatus is 'active' and userDetails.roles contains 'citizen' on userDetails
 
       req.session.accessToken = tokenResponse.access_token;

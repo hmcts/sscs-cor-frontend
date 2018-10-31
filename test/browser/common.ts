@@ -70,7 +70,7 @@ function startAppServer(): Promise<void> {
 
 export async function login(page, force?) {
   const sidamUser = sidamUsers[0];
-  const email = sidamUser && sidamUser.email || 'someone@example.com';
+  const email = (sidamUser && sidamUser.email) || (ccdCase && ccdCase.email) || 'someone@example.com';
   const password = sidamUser && sidamUser.password || 'somePassword';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
