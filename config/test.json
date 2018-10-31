@@ -18,8 +18,8 @@
     }
   },
   "idam": {
-    "url": "http://localhost:9999/idam-stub",
-    "api-url": "http://localhost:9999/idam-stub",
-    "enableStub": "true"
+    "url": "http://localhost:8082",
+    "api-url": "http://localhost:8082",
+    "enableStub": "false"
   }
 }

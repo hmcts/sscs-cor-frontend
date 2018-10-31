@@ -41,7 +41,7 @@ function getLogout(idamService: IdamService) {
 function redirectToIdam(idamPath: string, idamService: IdamService) {
   return (req: Request, res: Response) => {
     const idamUrl: URL = new URL(idamUrlString);
-    idamUrl.pathname = idamUrl.pathname + idamPath;
+    idamUrl.pathname = idamUrl.pathname !== '/' ? idamUrl.pathname + idamPath : idamPath;
 
     const redirectUrl: string = idamService.getRedirectUrl(req.protocol, req.hostname);
 
