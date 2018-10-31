@@ -22,6 +22,15 @@
     "api-url": "http://localhost:8082",
     "enableStub": "false"
   },
+  "saucelabs": {
+    "browser": "chrome",
+    "username": "username",
+    "key": "privatekey",
+    "tunnelId": "reformtunnel",
+    "waitForTimeout": "30000",
+    "smartWait": "15000",
+    "outputDir": "./functional-output/crossbrowser/reports"
+  },
   "apiCallTimeout" : 40000,
   "navigationTimeout" : 140000
 }
