@@ -40,6 +40,7 @@ async function waitForDecisionIssued(hearingId, attemptNum) {
   return Promise.resolve(decision);
 }
 
+/* eslint-disable-next-line consistent-return */
 async function bootstrapCoh(ccdCase) {
   try {
     const hearingId = await coh.createOnlineHearing(ccdCase.caseId);
@@ -83,11 +84,9 @@ async function bootstrapSidamUser(ccdCase) {
 export async function bootstrap() {
   try {
     const ccdCase = await bootstrapCcdCase();
-    // reinstate once we are able to use a stable deployment of SIDAM in AAT
-    // const sidamUser = await bootstrapSidamUser(ccdCase);
+    const sidamUser = await bootstrapSidamUser(ccdCase);
     const cohTestData = await bootstrapCoh(ccdCase);
-    // reinstate return of `sidamUser` once we are able to use a stable deployment of SIDAM in AAT
-    return { ccdCase, cohTestData };
+    return { ccdCase, cohTestData, sidamUser };
   } catch (error) {
     return Promise.reject(error);
   }

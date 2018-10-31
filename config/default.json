@@ -23,13 +23,12 @@
     }
   },
   "idam": {
-    "url": "http://localhost:3000/idam-stub",
-    "api-url": "http://localhost:3000/idam-stub",
+    "url": "http://localhost:8082",
+    "api-url": "http://localhost:8082",
     "client": {
       "id": "sscs-cor",
       "secret": "a_secret"
-    },
-    "enableStub": "false"
+    }
   },
   "httpProxy": false,
   "evidenceUpload": {

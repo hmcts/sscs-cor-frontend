@@ -11,9 +11,8 @@ def component = "frontend"
 
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
 def sscsCorBackEndUrlAat = "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
-// revert once we are able to use a stable deployment of SIDAM in AAT
-def idamUrlAat = "https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub" //"https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal"
-def idamApiUrlAat = "https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub" //"https://idam-api.aat.platform.hmcts.net"
+def idamUrlAat = "https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal"
+def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
 
 withPipeline("nodejs", product, component) {
     after('checkout') {sh 'yarn cache clean'}

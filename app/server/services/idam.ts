@@ -63,8 +63,7 @@ export class IdamService {
 
   async getUserDetails(token: string): Promise<UserDetails> {
     try {
-      let uri = `${this.apiUrl}/details`;
-      const response: request.Response = await this.makeProxiedRequest(request.get(uri) as ProxyRequest)
+      const response: request.Response = await this.makeProxiedRequest(request.get(`${this.apiUrl}/details`) as ProxyRequest)
         .set('Accept', 'application/json')
         .set('Authorization', 'Bearer ' + token);
 
