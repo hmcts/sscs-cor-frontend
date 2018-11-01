@@ -274,6 +274,7 @@ describe('controllers/question', () => {
   describe('#postUploadEvidence', () => {
     let getAllQuestionsService;
     let evidenceService;
+    const someFile = { size: 5 * 1048576 };
 
     beforeEach(() => {
       getAllQuestionsService = {
@@ -290,14 +291,31 @@ describe('controllers/question', () => {
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
 
-    it('calls out to upload evidence service', async () => {
-      req.file = 'some file';
+    it('reloads upload-evidence.html with error if no file upload', async () => {
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
-      expect(evidenceService.upload).to.have.been.calledOnce.calledWith('1', '001', 'some file');
+      expect(res.render).to.have.been.calledOnce.calledWith(
+          'question/upload-evidence.html',
+          { questionOrdinal, error: i18n.questionUploadEvidence.error.empty }
+        );
+    });
+
+    it('reloads upload-evidence.html with error if no file too large', async () => {
+      req.file = { size: 11 * 1048576 };
+      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith(
+          'question/upload-evidence.html',
+          { questionOrdinal, error: `${i18n.questionUploadEvidence.error.tooLarge} 10MB.` }
+        );
+    });
+
+    it('calls out to upload evidence service', async () => {
+      req.file = someFile;
+      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      expect(evidenceService.upload).to.have.been.calledOnce.calledWith('1', '001', someFile);
     });
 
     it('redirects back to question when successful', async () => {
-      req.file = 'some file';
+      req.file = someFile;
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
     });
