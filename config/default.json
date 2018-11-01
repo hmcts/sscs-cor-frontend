@@ -36,6 +36,7 @@
     "questionPage": {
       "enabled": "false",
       "overrideAllowed": "false"
-    }
+    },
+    "maxFileSizeInMb": 10
   }
 }
