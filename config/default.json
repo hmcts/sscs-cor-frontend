@@ -41,6 +41,6 @@
   "s2s": {
     "microservice": "sscs",
     "secret": "s2s_secret",
-    "url": "http://localhost:10000/thisDoesNotExist"
+    "url": "http://localhost:10000"
   }
 }
