@@ -95,7 +95,8 @@
     "backToQuestionText": "Back to question",
     "uploadAFile": "Upload a file",
     "error": {
-      "empty": "You have not selected a file."
+      "empty": "You have not selected a file.",
+      "tooLarge": "The file you have uploaded is too big. Please upload a file under"
     }
   },
   "submitQuestion": {

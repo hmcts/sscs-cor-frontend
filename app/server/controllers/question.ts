@@ -13,6 +13,7 @@ const i18n = require('../../../locale/en.json');
 const upload = multer();
 const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
 const evidenceUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
+const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
 export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploadOverrideAllowed?: boolean, cookies?): boolean {
   if (evidenceUploadEnabled) {
@@ -150,6 +151,9 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
 
     if (!req.file) {
       const error = i18n.questionUploadEvidence.error.empty;
+      return res.render('question/upload-evidence.html', { questionOrdinal, error });
+    } else if (req.file.size > maxFileSizeInMb * 1048576) {
+      const error = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
 
