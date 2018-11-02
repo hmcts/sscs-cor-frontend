@@ -9,6 +9,7 @@ import * as multer from 'multer';
 import { QuestionService } from '../services/question';
 import { EvidenceService } from '../services/evidence';
 const i18n = require('../../../locale/en.json');
+const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 
 const upload = multer();
 const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
@@ -151,6 +152,9 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
 
     if (!req.file) {
       const error = i18n.questionUploadEvidence.error.empty;
+      return res.render('question/upload-evidence.html', { questionOrdinal, error });
+    } else if (!mimeTypeWhitelist.includes(req.file.mimetype)) {
+      const error = i18n.questionUploadEvidence.error.invalidFileType;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     } else if (req.file.size > maxFileSizeInMb * 1048576) {
       const error = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;

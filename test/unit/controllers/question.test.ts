@@ -274,7 +274,6 @@ describe('controllers/question', () => {
   describe('#postUploadEvidence', () => {
     let getAllQuestionsService;
     let evidenceService;
-    const someFile = { size: 5 * 1048576 };
 
     beforeEach(() => {
       getAllQuestionsService = {
@@ -282,6 +281,10 @@ describe('controllers/question', () => {
       };
       evidenceService = {
         upload: sinon.stub().resolves()
+      };
+      req.file = {
+        size: 5 * 1048576,
+        mimetype: 'image/png'
       };
     });
 
@@ -292,6 +295,7 @@ describe('controllers/question', () => {
     });
 
     it('reloads upload-evidence.html with error if no file upload', async () => {
+      req.file = null;
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
           'question/upload-evidence.html',
@@ -299,8 +303,17 @@ describe('controllers/question', () => {
         );
     });
 
+    it('reloads upload-evidence.html with error if file type not allowed', async () => {
+      req.file.mimetype = 'plain/disallowed';
+      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'question/upload-evidence.html',
+        { questionOrdinal, error: i18n.questionUploadEvidence.error.invalidFileType }
+      );
+    });
+
     it('reloads upload-evidence.html with error if no file too large', async () => {
-      req.file = { size: 11 * 1048576 };
+      req.file.size = 11 * 1048576;
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
           'question/upload-evidence.html',
@@ -309,13 +322,11 @@ describe('controllers/question', () => {
     });
 
     it('calls out to upload evidence service', async () => {
-      req.file = someFile;
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
-      expect(evidenceService.upload).to.have.been.calledOnce.calledWith('1', '001', someFile);
+      expect(evidenceService.upload).to.have.been.calledOnce.calledWith('1', '001', req.file);
     });
 
     it('redirects back to question when successful', async () => {
-      req.file = someFile;
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
     });
