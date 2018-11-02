@@ -12,7 +12,7 @@ import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as cookieParser from 'cookie-parser';
 import * as moment from 'moment';
-
+const { fileTypes } = require('./utils/mimeTypeWhitelist');
 const dateFilter = require('nunjucks-date-filter');
 dateFilter.setDefaultFormat(CONST.DATE_FORMAT);
 
@@ -31,6 +31,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   const app = express();
 
   app.locals.i18n = locale;
+  app.locals.fileTypeWhiteList = fileTypes;
 
   if (!isDevelopment) {
     app.set('trust proxy', 1);
