@@ -153,7 +153,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     if (!req.file) {
       const error = i18n.questionUploadEvidence.error.empty;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
-    } else if (!mimeTypeWhitelist.includes(req.file.mimetype)) {
+    } else if (!mimeTypeWhitelist.mimeTypes.includes(req.file.mimetype)) {
       const error = i18n.questionUploadEvidence.error.invalidFileType;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     } else if (req.file.size > maxFileSizeInMb * 1048576) {
