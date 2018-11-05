@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import * as AppInsights from '../app-insights';
 import { NextFunction, Request, Response, Router } from 'express';
 import * as Paths from '../paths';
+const path = require('path');
 import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
@@ -183,10 +184,11 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
 }
 
 function fileTypeInWhitelist(req, file, cb) {
-  if (!mimeTypeWhitelist.mimeTypes.includes(file.mimetype)) {
-    cb(new multer.MulterError(fileTypeError));
-  } else {
+  const fileExtension = path.extname(file.originalname);
+  if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension)) {
     cb(null, true);
+  } else {
+    cb(new multer.MulterError(fileTypeError));
   }
 }
 
