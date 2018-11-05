@@ -288,7 +288,7 @@ describe('controllers/question', () => {
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
       };
       evidenceService = {
-        upload: sinon.stub().resolves()
+        upload: sinon.stub().resolves({ statusCode: 200 })
       };
       req.file = {
         size: 5 * 1048576,
@@ -319,6 +319,15 @@ describe('controllers/question', () => {
     it('redirects back to question when successful', async () => {
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
+    });
+
+    it('reloads upload-evidence.html with error if file cannot be uploaded', async () => {
+      evidenceService = { upload: sinon.stub().resolves({ statusCode: 422 }) };
+      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'question/upload-evidence.html',
+        { questionOrdinal, error: i18n.questionUploadEvidence.error.fileCannotBeUploaded }
+      );
     });
 
     it('should call next and appInsights upon error', async() => {
