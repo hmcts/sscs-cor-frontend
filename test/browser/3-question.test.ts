@@ -175,7 +175,16 @@ describe('Question page', () => {
       expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
     });
 
-    it('uploads a second evidience file and shows in upload list', async () => {
+    it('tries to upload evidence file that is not an allowed type', async () => {
+      await uploadEvidencePage.visitPage();
+      await uploadEvidencePage.selectFile('disallowed_evidence.disallowed');
+      await uploadEvidencePage.submit();
+
+      expect(await uploadEvidencePage.getElementText('#file-upload-1-error'))
+        .contain(i18n.questionUploadEvidence.error.invalidFileType);
+    });
+
+    it('uploads a second evidence file and shows in upload list', async () => {
       await uploadEvidencePage.visitPage();
       await uploadEvidencePage.selectFile('evidence.pdf');
       await uploadEvidencePage.submit();

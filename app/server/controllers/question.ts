@@ -2,11 +2,10 @@ import * as _ from 'lodash';
 import * as AppInsights from '../app-insights';
 import { NextFunction, Request, Response, Router } from 'express';
 import * as Paths from '../paths';
-const path = require('path');
+import * as path from 'path';
 import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
-// import * as multer from 'multer';
 const multer = require('multer');
 import { QuestionService } from '../services/question';
 import { EvidenceService } from '../services/evidence';
@@ -169,7 +168,8 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       const response: rp.Response = await evidenceService.upload(hearingId, currentQuestionId, req.file);
       if (response.statusCode === OK) {
         return res.redirect(`${Paths.question}/${questionOrdinal}`);
-      } else if (response.statusCode === UNPROCESSABLE_ENTITY) {
+      }
+      if (response.statusCode === UNPROCESSABLE_ENTITY) {
         const error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
         return res.render('question/upload-evidence.html', { questionOrdinal, error });
       }
