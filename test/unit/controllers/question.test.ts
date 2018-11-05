@@ -340,16 +340,35 @@ describe('controllers/question', () => {
   });
 
   describe('#fileTypeInWhitelist', () => {
+    const cb = sinon.stub();
+    const file = {
+      mimetype: 'image/png',
+      originalname: 'someImage.png'
+    };
+
+    beforeEach(() => {
+      cb.reset();
+    });
+
     it('file is in whitelist', () => {
-      const cb = sinon.stub();
-      const file = { mimetype: 'image/png' };
       fileTypeInWhitelist(req, file, cb);
       expect(cb).to.have.been.calledOnce.calledWith(null, true);
     });
 
-    it('file is not in whitelist', () => {
-      const cb = sinon.stub();
-      const file = { mimetype: 'plain/disallowed' };
+    it('file mime type is not in whitelist', () => {
+      file.mimetype = 'plain/disallowed';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file extension type is not in whitelist', () => {
+      file.originalname = 'disallowed.file';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file does not have an extension ', () => {
+      file.originalname = 'disallowedfile';
       fileTypeInWhitelist(req, file, cb);
       expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
     });
