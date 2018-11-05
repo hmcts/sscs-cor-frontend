@@ -1,8 +1,15 @@
 const { expect, sinon } = require('test/chai-sinon');
 const mockData = require('test/mock/cor-backend/services/all-questions').template;
 import {
-  checkEvidenceUploadFeature, getQuestion, getUploadEvidence, postAnswer, postUploadEvidence, setupQuestionController,
-  showEvidenceUpload
+  checkEvidenceUploadFeature,
+  getQuestion,
+  getUploadEvidence,
+  handleFileUploadErrors,
+  postAnswer,
+  postUploadEvidence,
+  setupQuestionController,
+  showEvidenceUpload,
+  fileTypeInWhitelist
 } from 'app/server/controllers/question';
 const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
@@ -10,6 +17,7 @@ import * as express from 'express';
 import * as Paths from 'app/server/paths';
 const i18n = require('locale/en');
 import * as moment from 'moment';
+const multer = require('multer');
 
 describe('controllers/question', () => {
   const next = sinon.stub();
@@ -303,24 +311,6 @@ describe('controllers/question', () => {
         );
     });
 
-    it('reloads upload-evidence.html with error if file type not allowed', async () => {
-      req.file.mimetype = 'plain/disallowed';
-      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-        'question/upload-evidence.html',
-        { questionOrdinal, error: i18n.questionUploadEvidence.error.invalidFileType }
-      );
-    });
-
-    it('reloads upload-evidence.html with error if no file too large', async () => {
-      req.file.size = 11 * 1048576;
-      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-          'question/upload-evidence.html',
-          { questionOrdinal, error: `${i18n.questionUploadEvidence.error.tooLarge} 10MB.` }
-        );
-    });
-
     it('calls out to upload evidence service', async () => {
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(evidenceService.upload).to.have.been.calledOnce.calledWith('1', '001', req.file);
@@ -337,6 +327,59 @@ describe('controllers/question', () => {
       await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
+    });
+  });
+
+  describe('#fileTypeInWhitelist', () => {
+    it('file is in whitelist', () => {
+      const cb = sinon.stub();
+      const file = { mimetype: 'image/png' };
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWith(null, true);
+    });
+
+    it('file is not in whitelist', () => {
+      const cb = sinon.stub();
+      const file = { mimetype: 'plain/disallowed' };
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+  });
+
+  describe('#handleFileUploadErrors', () => {
+    afterEach(() => {
+      res.redirect.reset();
+      next.reset();
+    });
+
+    it('reloads upload-evidence.html with error if file type not allowed', () => {
+      handleFileUploadErrors(new multer.MulterError('LIMIT_FILE_TYPE'), req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'question/upload-evidence.html',
+        { questionOrdinal, error: i18n.questionUploadEvidence.error.invalidFileType }
+      );
+    });
+
+    it('reloads upload-evidence.html with error if file too large', () => {
+      handleFileUploadErrors(new multer.MulterError('LIMIT_FILE_SIZE'), req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'question/upload-evidence.html',
+        { questionOrdinal, error: `${i18n.questionUploadEvidence.error.tooLarge} 10MB.` }
+      );
+    });
+
+    it('reloads upload-evidence.html with error if Multer error not handled', () => {
+      handleFileUploadErrors(new multer.MulterError('SOME_OTHER_ERROR'), req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'question/upload-evidence.html',
+        { questionOrdinal, error: i18n.questionUploadEvidence.error.fileCannotBeUploaded }
+      );
+    });
+
+    it('does not handle other errors', () => {
+      const err = new Error();
+      handleFileUploadErrors(err, req, res, next);
+      expect(next).to.have.been.calledOnce.calledWith(err);
     });
   });
 });

@@ -95,6 +95,7 @@
     "backToQuestionText": "Back to question",
     "uploadAFile": "Upload a file",
     "error": {
+      "fileCannotBeUploaded": "File cannot be uploaded",
       "empty": "You have not selected a file.",
       "tooLarge": "The file you have uploaded is too big. Please upload a file under",
       "invalidFileType": "The type of file you have uploaded is not acceptable. Please convert it to a common file format and try again."
