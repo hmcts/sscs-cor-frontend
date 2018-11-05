@@ -15,8 +15,11 @@ describe('services/evidence', () => {
   });
 
   const apiResponse = {
-    id: '5425f1eb-92bd-4784-83df-9afa348fd1b3',
-    file_name: 'some_file_name.txt'
+    body: {
+      id: '5425f1eb-92bd-4784-83df-9afa348fd1b3',
+      file_name: 'some_file_name.txt'
+    },
+    statusCode: 200
   };
 
   const file = {
@@ -44,6 +47,8 @@ describe('services/evidence', () => {
             value: file.buffer
           }
         },
+        resolveWithFullResponse: true,
+        simple: false,
         url: `http://sscs-cor-backend.net/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`
       });
     });

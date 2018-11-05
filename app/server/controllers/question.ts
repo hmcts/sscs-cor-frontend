@@ -11,6 +11,8 @@ import { QuestionService } from '../services/question';
 import { EvidenceService } from '../services/evidence';
 const i18n = require('../../../locale/en.json');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
+import * as rp from 'request-promise';
+import { OK, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 
 const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
 const evidenceUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
@@ -163,8 +165,16 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     }
 
     try {
-      await evidenceService.upload(hearingId, currentQuestionId, req.file);
-      res.redirect(`${Paths.question}/${questionOrdinal}`);
+      const response: rp.Response = await evidenceService.upload(hearingId, currentQuestionId, req.file);
+      if (response.statusCode === OK) {
+        return res.redirect(`${Paths.question}/${questionOrdinal}`);
+      } else if (response.statusCode === UNPROCESSABLE_ENTITY) {
+        const error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
+        return res.render('question/upload-evidence.html', { questionOrdinal, error });
+      }
+      const errorMessage = `Cannot upload evidence ${JSON.stringify(response)}`;
+      AppInsights.trackException(errorMessage);
+      next(new Error(errorMessage));
     } catch (error) {
       AppInsights.trackException(error);
       next(error);
