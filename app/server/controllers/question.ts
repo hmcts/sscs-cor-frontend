@@ -5,16 +5,22 @@ import * as Paths from '../paths';
 import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
-import * as multer from 'multer';
+// import * as multer from 'multer';
+const multer = require('multer');
 import { QuestionService } from '../services/question';
 import { EvidenceService } from '../services/evidence';
 const i18n = require('../../../locale/en.json');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 
-const upload = multer();
 const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
 const evidenceUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
+const fileTypeError = 'LIMIT_FILE_TYPE';
+
+const upload = multer({
+  limits: { fileSize:  maxFileSizeInMb * 1048576 },
+  fileFilter: fileTypeInWhitelist
+});
 
 export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploadOverrideAllowed?: boolean, cookies?): boolean {
   if (evidenceUploadEnabled) {
@@ -148,16 +154,11 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
+
     const hearingId = req.session.hearing.online_hearing_id;
 
     if (!req.file) {
       const error = i18n.questionUploadEvidence.error.empty;
-      return res.render('question/upload-evidence.html', { questionOrdinal, error });
-    } else if (!mimeTypeWhitelist.mimeTypes.includes(req.file.mimetype)) {
-      const error = i18n.questionUploadEvidence.error.invalidFileType;
-      return res.render('question/upload-evidence.html', { questionOrdinal, error });
-    } else if (req.file.size > maxFileSizeInMb * 1048576) {
-      const error = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
 
@@ -169,6 +170,28 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       next(error);
     }
   };
+}
+
+function fileTypeInWhitelist(req, file, cb) {
+  if (!mimeTypeWhitelist.mimeTypes.includes(file.mimetype)) {
+    cb(new multer.MulterError(fileTypeError));
+  } else {
+    cb(null, true);
+  }
+}
+
+function handleFileUploadErrors(err, req: Request, res: Response, next: NextFunction) {
+  const questionOrdinal: string = req.params.questionOrdinal;
+  if (err instanceof multer.MulterError) {
+    let error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      error = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
+    } else if (err.code === fileTypeError) {
+      error = i18n.questionUploadEvidence.error.invalidFileType;
+    }
+    return res.render('question/upload-evidence.html', { questionOrdinal, error });
+  }
+  next(err);
 }
 
 function setupQuestionController(deps) {
@@ -183,7 +206,8 @@ function setupQuestionController(deps) {
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
     upload.single('file-upload-1'),
-    postUploadEvidence(deps.questionService, deps.evidenceService)
+    postUploadEvidence(deps.questionService, deps.evidenceService),
+    handleFileUploadErrors
   );
   return router;
 }
@@ -193,5 +217,7 @@ export {
   getQuestion,
   postAnswer,
   getUploadEvidence,
-  postUploadEvidence
+  postUploadEvidence,
+  handleFileUploadErrors,
+  fileTypeInWhitelist
 };
