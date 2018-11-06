@@ -169,8 +169,12 @@ describe('Question page', () => {
       expect(firstListItem).to.equal('evidence.txt');
     });
 
-    it('shows quesion has draft status', async () => {
-      await taskListPage.visitPage();
+    it('allows saving an empty answer and returns to the task list', async() => {
+      await questionPage.saveAnswer('A valid answer');
+      taskListPage.verifyPage();
+    });
+
+    it('shows question has draft status', async () => {
       const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
       expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
     });
@@ -201,8 +205,8 @@ describe('Question page', () => {
     });
   });
 
-  it('displays an error message in the summary when you try to save an empty answer', async () => {
-    await questionPage.saveAnswer('');
+  it('displays an error message in the summary when you try to submit an empty answer', async () => {
+    await questionPage.submitAnswer('');
     expect(await questionPage.getElementText('.govuk-error-summary'))
       .contain(i18n.question.textareaField.error.empty);
     expect(await questionPage.getElementText('#question-field-error'))
