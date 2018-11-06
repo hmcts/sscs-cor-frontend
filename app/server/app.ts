@@ -6,7 +6,7 @@ import nunjucks = require('nunjucks');
 import express = require('express');
 import { router as routes } from './routes';
 const errors = require('./middleware/error-handler');
-const health = require('./middleware/health');
+import * as health from './middleware/health';
 const locale = require('../../locale/en.json');
 import * as Paths from './paths';
 const bodyParser = require('body-parser');
