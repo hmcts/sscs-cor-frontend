@@ -1,5 +1,6 @@
 import { IdamService } from 'app/server/services/idam';
-const { expect } = require('test/chai-sinon');
+import * as request from 'request-promise';
+const { expect, sinon } = require('test/chai-sinon');
 import { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } from 'http-status-codes';
 
 const nock = require('nock');
@@ -41,11 +42,7 @@ describe('services/idam', () => {
           .reply(OK, apiResponse);
       });
 
-      it('resolves the promise', () => (
-        expect(idamService.getUserDetails(token)).to.be.fulfilled
-      ));
-
-      it('resolves the promise with the response', () => (
+      it('resolves with the response', async () => (
         expect(idamService.getUserDetails(token)).to.eventually.eql(apiResponse)
       ));
     });
@@ -59,7 +56,7 @@ describe('services/idam', () => {
           .replyWithError(error);
       });
 
-      it('rejects the promise with the error', () => (
+      it('with the error', async () => (
         expect(idamService.getUserDetails(token)).to.be.rejectedWith(error)
       ));
     });
@@ -70,13 +67,24 @@ describe('services/idam', () => {
     const code = 'someCode';
     const protocol = 'http';
     const host = 'example.com';
+    let redirectUrl;
+    let postSpy: sinon.SinonSpy;
+
+    beforeEach(() => {
+      postSpy = sinon.spy(request, 'post');
+      redirectUrl = encodeURI(idamService.getRedirectUrl(protocol, host));
+    });
+
+    afterEach(() => {
+      postSpy.restore();
+    });
 
     describe('resolving the promise', () => {
       let apiResponse = { 'email': 'someEmail@example.com' };
 
       beforeEach(() => {
         nock(apiUrl)
-          .post(path, 'grant_type=authorization_code&code=' + code + '&redirect_uri=' + encodeURIComponent(idamService.getRedirectUrl(protocol, host)))
+          .post(path)
           .basicAuth({
             user: 'sscs-cor',
             pass: appSecret
@@ -84,9 +92,20 @@ describe('services/idam', () => {
           .reply(OK, apiResponse);
       });
 
-      it('resolves the promise', () => (
-        expect(idamService.getToken(code, protocol, host)).to.be.fulfilled
-      ));
+      it('makes correct post request', async () => {
+        await idamService.getToken(code, protocol, host);
+        expect(request.post).to.have.been.calledOnce.calledWith({
+          auth: { pass: 'a_secret', user: 'sscs-cor' },
+          formData: {
+            code: 'someCode',
+            grant_type: 'authorization_code',
+            redirect_uri: 'http://example.com/sign-in'
+          },
+          headers: { Accept: 'application/json' },
+          json: true,
+          uri: 'http://localhost:8082/oauth2/token'
+        });
+      });
 
       it('resolves the promise with the response', () => (
         expect(idamService.getToken(code, protocol, host)).to.eventually.eql(apiResponse)
@@ -98,7 +117,7 @@ describe('services/idam', () => {
 
       beforeEach(() => {
         nock(apiUrl)
-          .post(path, 'grant_type=authorization_code&code=' + code + '&redirect_uri=' + encodeURIComponent(idamService.getRedirectUrl(protocol, host)))
+          .post(path)
           .replyWithError(error);
       });
 
