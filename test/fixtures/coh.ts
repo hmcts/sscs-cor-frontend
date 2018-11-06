@@ -1,6 +1,7 @@
 const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/cor-backend/services/question').template;
+import { generateToken } from './s2s';
 
 const cohUrl = require('config').get('cohUrl');
 
@@ -12,11 +13,14 @@ const HEARING_STATUS = 'continuous_online_hearing_started';
 const QUESTION_OWNER_REF = 'SSCS-COR';
 const QUESTION_ROUND = '1';
 
-const headers = {
-  Authorization: '123',
-  ServiceAuthorization: '123',
-  'Content-Type': 'application/json'
-};
+async function getHeaders() {
+  const token = await generateToken();
+  return {
+    Authorization: 'oauth2Token',
+    ServiceAuthorization: `Bearer ${token}`, // do we need to add Bearer,
+    'Content-Type': 'application/json'
+  };
+}
 
 const onlineHearingBody = caseId => {
   return {
@@ -51,6 +55,7 @@ const decisionBody = {
 };
 
 async function createOnlineHearing(caseId) {
+  const headers = await getHeaders();
   const options = {
     url: `${cohUrl}/continuous-online-hearings`,
     headers,
@@ -63,6 +68,7 @@ async function createOnlineHearing(caseId) {
 }
 
 async function createQuestion(hearingId, mockQuestionRef, ordinal) {
+  const headers = await getHeaders();
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questions`,
     headers,
@@ -83,6 +89,7 @@ async function createQuestions(hearingId) {
 }
 
 async function setQuestionRoundToIssued(hearingId) {
+  const headers = await getHeaders();
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questionrounds/1`,
     headers,
@@ -94,6 +101,7 @@ async function setQuestionRoundToIssued(hearingId) {
 }
 
 async function getQuestionRound(hearingId, roundNum) {
+  const headers = await getHeaders();
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questionrounds/${roundNum}`,
     headers,
@@ -104,6 +112,7 @@ async function getQuestionRound(hearingId, roundNum) {
 }
 
 async function getDecision(hearingId) {
+  const headers = await getHeaders();
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
@@ -114,6 +123,7 @@ async function getDecision(hearingId) {
 }
 
 async function createDecision(hearingId) {
+  const headers = await getHeaders();
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
@@ -126,6 +136,7 @@ async function createDecision(hearingId) {
 }
 
 async function issueDecision(hearingId) {
+  const headers = await getHeaders();
   const body = { ...decisionBody, decision_state: 'decision_issue_pending' };
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,

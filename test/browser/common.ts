@@ -9,6 +9,7 @@ const config = require('config');
 const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 const dysonSetupCoh = require('test/mock/coh/dysonSetup');
 const dysonSetupIdam = require('test/mock/idam/dysonSetup');
+const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
 
 const idamUrl = config.get('idam.url');
@@ -55,6 +56,7 @@ function startAppServer(): Promise<void> {
     dysonSetupCorBackend();
     dysonSetupCoh();
     dysonSetupIdam();
+    dysonSetupS2s();
     server = createServer(app).listen(port, error => {
       if (error) {
         console.log(`Unable to start server on port ${port} because of ${error.message}`);
