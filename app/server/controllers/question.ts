@@ -106,7 +106,10 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
       };
     }
 
-    const validationMessage = answerValidation(answerText);
+    let validationMessage;
+    if (req.body.submit) {
+      validationMessage = answerValidation(answerText);
+    }
 
     if (validationMessage) {
       const question = req.session.question;
@@ -120,7 +123,9 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
       });
     } else {
       try {
-        await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
+        if (answerText.length > 0) {
+          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
+        }
         if (req.body.submit) {
           res.redirect(`${Paths.question}/${questionOrdinal}/submit`);
         } else {

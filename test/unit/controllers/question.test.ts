@@ -124,6 +124,7 @@ describe('controllers/question', () => {
     it('should call res.redirect when saving an answer and there are no errors', async() => {
       req.body['question-field'] = 'My amazing answer';
       await postAnswer(questionService, evidenceService)(req, res, next);
+      expect(questionService.saveAnswer).to.have.been.calledOnce.calledWith('1', questionId, 'draft', req.body['question-field']);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
 
@@ -131,6 +132,7 @@ describe('controllers/question', () => {
       req.body['question-field'] = 'My amazing answer';
       req.body.submit = 'submit';
       await postAnswer(questionService, evidenceService)(req, res, next);
+      expect(questionService.saveAnswer).to.have.been.calledOnce.calledWith('1', questionId, 'draft', req.body['question-field']);
       expect(res.redirect).to.have.been.calledWith(`${Paths.question}/${questionOrdinal}/submit`);
     });
 
@@ -143,8 +145,16 @@ describe('controllers/question', () => {
       expect(next).to.have.been.calledWith(error);
     });
 
-    it('should call res.render with the validation error message', async () => {
+    it('should not update an empty answer when saving', async () => {
       req.body['question-field'] = '';
+      await postAnswer(questionService, evidenceService)(req, res, next);
+      expect(questionService.saveAnswer).not.to.have.been.called;
+      expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+    });
+
+    it('should call res.render with the validation error message when submitting', async () => {
+      req.body['question-field'] = '';
+      req.body.submit = 'submit';
       await postAnswer(questionService, evidenceService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
