@@ -38,4 +38,11 @@ export class QuestionPage extends BasePage {
     const elements = await this.page.$$('#files-uploaded tbody tr');
     return elements[index].$eval('td:first-child', el => el.innerText);
   }
+
+  async deleteEvidence() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      this.clickElement('input[name="delete"]')
+    ]);
+  }
 }

@@ -95,15 +95,13 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
 
     // TODO refactor after merge
     if (req.body.delete) {
-      return async () => {
-        try {
-          await evidenceService.remove(hearingId, currentQuestionId, req.body.id);
-          res.redirect(`${Paths.question}/${questionOrdinal}`);
-        } catch (error) {
-          AppInsights.trackException(error);
-          next(error);
-        }
-      };
+      try {
+        await evidenceService.remove(hearingId, currentQuestionId, req.body.id);
+        return res.redirect(`${Paths.question}/${questionOrdinal}`);
+      } catch (error) {
+        AppInsights.trackException(error);
+        return next(error);
+      }
     }
 
     let validationMessage;

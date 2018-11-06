@@ -114,7 +114,9 @@ describe('controllers/question', () => {
         getQuestionIdFromOrdinal: sinon.stub().returns('001'),
         saveAnswer: sinon.stub().resolves()
       };
-      evidenceService = null;
+      evidenceService = {
+        remove: sinon.stub().resolves()
+      };
     });
 
     afterEach(() => {
@@ -167,12 +169,11 @@ describe('controllers/question', () => {
       });
     });
 
-    it.skip('should delete a file', async() => {
+    it('should delete a file', async() => {
       req.body.delete = 'Delete';
       req.body.id = 'uuid';
-      // someService = () => Promise.resolve();
-      // await postAnswer(someService)(req, res, next);
-      // expect(somehthing)
+      await postAnswer(questionService, evidenceService)(req, res, next);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
     });
 
     describe('add-file submit', () => {
