@@ -199,9 +199,12 @@ describe('Question page', () => {
       expect(secondListItem).to.equal('evidence.pdf');
     });
 
-    it.skip('deletes uploaded evidence', async () => {
-      const firstListItem: string = await questionPage.getEvidenceListText(0);
-      expect(firstListItem).to.equal('No files uploaded');
+    it('deletes uploaded evidence', async () => {
+      const initialCount: number = await questionPage.countEvidence();
+      expect(initialCount).to.equal(2);
+      await questionPage.deleteEvidence();
+      const finalCount: number = await questionPage.countEvidence();
+      expect(finalCount).to.equal(1);
     });
   });
 
