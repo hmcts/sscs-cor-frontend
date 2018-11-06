@@ -1,28 +1,31 @@
-const request = require('superagent');
-const { OK, SERVICE_UNAVAILABLE } = require('http-status-codes');
+import * as request from 'request-promise';
+import { OK, SERVICE_UNAVAILABLE } from 'http-status-codes';
 import * as AppInsights from '../app-insights';
 const { Logger } = require('@hmcts/nodejs-logging');
 const healthCheck = require('@hmcts/nodejs-healthcheck');
 
 const logger = Logger.getLogger('health.js');
-const apiUrl = require('config').get('api.url');
+const apiUrl: string = require('config').get('api.url');
 
-async function getApiHealth() {
+async function getApiHealth(): Promise<string> {
   try {
-    const result = await request.get(`${apiUrl}/health`);
-    return result.status === OK ? 'UP' : 'DOWN';
+    const result: request.Response = await request.get({
+      uri: `${apiUrl}/health`,
+      resolveWithFullResponse: true
+    });
+    return result.statusCode === OK ? 'UP' : 'DOWN';
   } catch (error) {
-    AppInsights.trackException(error);
-    logger.error('Error trying to check health of API', error);
+    AppInsights.trackException(error.error);
+    logger.error('Error trying to check health of API', error.error);
     return 'DOWN';
   }
 }
 
-function livenessCheck(req, res) {
+export function livenessCheck(req, res): void {
   res.json(healthCheck.up());
 }
 
-async function readinessCheck(req, res) {
+export async function readinessCheck(req, res): Promise<void> {
   const redisStatus = req.session ? 'UP' : 'DOWN';
   const apiStatus = await getApiHealth();
   let appStatus = healthCheck.up();
@@ -35,5 +38,3 @@ async function readinessCheck(req, res) {
   res.status(statusCode);
   res.json(status);
 }
-
-export { livenessCheck, readinessCheck };

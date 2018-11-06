@@ -3,7 +3,7 @@ const nock = require('nock');
 const { OK, INTERNAL_SERVER_ERROR, SERVICE_UNAVAILABLE } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 const config = require('config');
-const { livenessCheck, readinessCheck } = require('app/server/middleware/health.ts');
+import { livenessCheck, readinessCheck } from 'app/server/middleware/health';
 
 const apiUrl = config.get('api.url');
 
@@ -23,7 +23,7 @@ describe('middleware/health', () => {
     });
 
     it('returns JSON with health status UP', async() => {
-      await livenessCheck(req, res);
+      livenessCheck(req, res);
       expect(res.json).to.have.been.calledOnce.calledWith({ status: 'UP' });
     });
   });
