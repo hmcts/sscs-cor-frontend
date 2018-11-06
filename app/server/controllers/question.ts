@@ -2,17 +2,27 @@ import * as _ from 'lodash';
 import * as AppInsights from '../app-insights';
 import { NextFunction, Request, Response, Router } from 'express';
 import * as Paths from '../paths';
+import * as path from 'path';
 import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
-import * as multer from 'multer';
+const multer = require('multer');
 import { QuestionService } from '../services/question';
 import { EvidenceService } from '../services/evidence';
 const i18n = require('../../../locale/en.json');
+const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
+import * as rp from 'request-promise';
+import { OK, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 
-const upload = multer();
 const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
 const evidenceUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
+const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
+const fileTypeError = 'LIMIT_FILE_TYPE';
+
+const upload = multer({
+  limits: { fileSize:  maxFileSizeInMb * 1048576 },
+  fileFilter: fileTypeInWhitelist
+});
 
 export function showEvidenceUpload(evidenceUploadEnabled: boolean, evidendeUploadOverrideAllowed?: boolean, cookies?): boolean {
   if (evidenceUploadEnabled) {
@@ -146,6 +156,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
+
     const hearingId = req.session.hearing.online_hearing_id;
 
     if (!req.file) {
@@ -154,13 +165,45 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     }
 
     try {
-      await evidenceService.upload(hearingId, currentQuestionId, req.file);
-      res.redirect(`${Paths.question}/${questionOrdinal}`);
+      const response: rp.Response = await evidenceService.upload(hearingId, currentQuestionId, req.file);
+      if (response.statusCode === OK) {
+        return res.redirect(`${Paths.question}/${questionOrdinal}`);
+      }
+      if (response.statusCode === UNPROCESSABLE_ENTITY) {
+        const error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
+        return res.render('question/upload-evidence.html', { questionOrdinal, error });
+      }
+      const errorMessage = `Cannot upload evidence ${JSON.stringify(response)}`;
+      AppInsights.trackException(errorMessage);
+      next(new Error(errorMessage));
     } catch (error) {
       AppInsights.trackException(error);
       next(error);
     }
   };
+}
+
+function fileTypeInWhitelist(req, file, cb) {
+  const fileExtension = path.extname(file.originalname);
+  if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension)) {
+    cb(null, true);
+  } else {
+    cb(new multer.MulterError(fileTypeError));
+  }
+}
+
+function handleFileUploadErrors(err, req: Request, res: Response, next: NextFunction) {
+  const questionOrdinal: string = req.params.questionOrdinal;
+  if (err instanceof multer.MulterError) {
+    let error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      error = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
+    } else if (err.code === fileTypeError) {
+      error = i18n.questionUploadEvidence.error.invalidFileType;
+    }
+    return res.render('question/upload-evidence.html', { questionOrdinal, error });
+  }
+  next(err);
 }
 
 function setupQuestionController(deps) {
@@ -175,7 +218,8 @@ function setupQuestionController(deps) {
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
     upload.single('file-upload-1'),
-    postUploadEvidence(deps.questionService, deps.evidenceService)
+    postUploadEvidence(deps.questionService, deps.evidenceService),
+    handleFileUploadErrors
   );
   return router;
 }
@@ -185,5 +229,7 @@ export {
   getQuestion,
   postAnswer,
   getUploadEvidence,
-  postUploadEvidence
+  postUploadEvidence,
+  handleFileUploadErrors,
+  fileTypeInWhitelist
 };

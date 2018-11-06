@@ -11,6 +11,8 @@ export class EvidenceService {
     try {
       const body = await request.post({
         url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`,
+        simple: false,
+        resolveWithFullResponse: true,
         formData: {
           file: {
             value: file.buffer,
