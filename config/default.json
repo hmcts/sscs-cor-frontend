@@ -36,7 +36,8 @@
     "questionPage": {
       "enabled": "false",
       "overrideAllowed": "false"
-    }
+    },
+    "maxFileSizeInMb": 10
   },
   "s2s": {
     "microservice": "sscs",
