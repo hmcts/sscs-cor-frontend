@@ -27,7 +27,7 @@
     "test:functional": "yarn test:browser -g '@smoke|@pa11y' --invert",
     "test:smoke": "yarn test:browser -g @smoke",
     "test:create-data": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json node --require tsconfig-paths/register --require ts-node/register create-test-data.ts",
-    "test:create-data-aat": "cross-env HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net yarn test:create-data",
+    "test:create-data-aat": "cross-env HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal yarn test:create-data",
     "test:coverage": "yarn transpile && nyc yarn test:unit",
     "test:a11y": "yarn test:browser -g @pa11y",
     "test:all": "yarn test && yarn test:a11y && yarn test:coverage",
