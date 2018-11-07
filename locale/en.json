@@ -60,6 +60,7 @@
       }
     },
     "evidenceUpload": {
+      "checkbox": "I want to provide evidence to support my answer",
       "header": "Provide evidence to support your answer",
       "info": "You can upload evidence to support your answer such as letters, photos, video or audio. If you are taking a picture of a letter, place it on a flat surface and take the picture from above.",
       "addFileButton": "Add file",
@@ -93,7 +94,7 @@
   "questionUploadEvidence": {
     "header": "Upload your evidence",
     "backToQuestionText": "Back to question",
-    "uploadAFile": "Upload a file",
+    "label": "Choose file",
     "error": {
       "fileCannotBeUploaded": "File cannot be uploaded",
       "empty": "You have not selected a file.",
