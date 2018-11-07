@@ -122,7 +122,7 @@ describe('Question page', () => {
     it('also displays guidance posting evidence with reference', async () => {
       const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
       const displayedCaseRef = await questionPage.getElementText('#evidence-case-reference');
-      expect(summaryText).to.equal(i18n.question.evidenceUpload.postEvidence.summary);
+      expect(summaryText).to.contain(i18n.question.evidenceUpload.postEvidence.summary);
       expect(displayedCaseRef).to.equal(caseReference);
     });
 
@@ -134,15 +134,15 @@ describe('Question page', () => {
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
 
-    it('shows the upload evidence page', async () => {
-      await questionPage.clickElement('#add-file');
+    it('shows the upload evidence page NO-JS', async () => {
+      await uploadEvidencePage.visitPage();
       await questionPage.screenshot('question-upload-evidence');
       uploadEvidencePage.verifyPage();
       expect(await uploadEvidencePage.getHeading()).to.equal(i18n.questionUploadEvidence.header);
     });
 
     /* PA11Y */
-    it('checks /upload-evidence passes @pa11y', async () => {
+    it('checks /upload-evidence passes NO-JS @pa11y', async () => {
       await uploadEvidencePage.visitPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-upload-evidence.png`;
       pa11yOpts.page = uploadEvidencePage.page;
@@ -150,13 +150,13 @@ describe('Question page', () => {
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
 
-    it('validates that a file has been chosen', async () => {
+    it('validates that a file has been chosen NO-JS', async () => {
       await uploadEvidencePage.submit();
       expect(await uploadEvidencePage.getElementText('.govuk-error-summary')).contain(i18n.questionUploadEvidence.error.empty);
       expect(await questionPage.getElementText('#file-upload-1-error')).equal(i18n.questionUploadEvidence.error.empty);
     });
 
-    it('takes the user back to the question after submitting evidence', async () => {
+    it('takes the user back to the question after submitting evidence NO-JS', async () => {
       await uploadEvidencePage.selectFile('evidence.txt');
       await uploadEvidencePage.submit();
       questionPage.verifyPage();
