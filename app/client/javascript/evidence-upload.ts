@@ -1,14 +1,14 @@
 export class EvidenceUpload {
-  public NOJS_ELEMENT_CLASS: string = '.evidence-upload-nojs';
-  public JS_ELEMENT_CLASS: string = '.evidence-upload-js';
+  public NOJS_ELEMENT_SELECTOR: string = '.evidence-upload-nojs';
+  public JS_ELEMENT_SELECTOR: string = '.evidence-upload-js';
   public CHECKBOX_ID: string = 'provide-evidence-1';
-  public FILE_UPLOAD: string = 'file-upload-1';
-  public FILE_UPLOAD_LABEL: string = '[for="file-upload-1"]';
-  public REVEAL_CONTAINER: string = 'evidence-upload-reveal-container';
+  public FILE_UPLOAD_ID: string = 'file-upload-1';
+  public FILE_UPLOAD_LABEL_SELECTOR: string = '[for="file-upload-1"]';
+  public REVEAL_CONTAINER_ID: string = 'evidence-upload-reveal-container';
   private revealContainer: HTMLElement;
 
   constructor() {
-    this.revealContainer = document.getElementById(this.REVEAL_CONTAINER);
+    this.revealContainer = document.getElementById(this.REVEAL_CONTAINER_ID);
     this.showHideElements();
     this.setRevealStartState();
     this.setFileUploadState();
@@ -24,14 +24,28 @@ export class EvidenceUpload {
     }
   }
 
+  uploadFile(): void {
+    const formAction: string = document.forms['answer-form'].action;
+    const formElement = document.createElement('form');
+    formElement.setAttribute('id', 'js-upload-form');
+    formElement.setAttribute('action', formAction);
+    formElement.setAttribute('method', 'post');
+    formElement.setAttribute('enctype', 'multipart/form-data');
+    formElement.appendChild(document.getElementById(this.FILE_UPLOAD_ID));
+    document.body.appendChild(formElement);
+    document.forms['js-upload-form'].submit();
+  }
+
   attachEventListeners(): void {
     const provideEvidence: HTMLElement = document.getElementById(this.CHECKBOX_ID);
     provideEvidence.addEventListener('click', this.showHideRevealContainer.bind(this));
+    const fileUpload: HTMLElement = document.getElementById(this.FILE_UPLOAD_ID);
+    fileUpload.addEventListener('change', this.uploadFile.bind(this));
   }
 
   setFileUploadState(): void {
-    document.getElementById(this.FILE_UPLOAD).style.display = 'none';
-    const fileUploadLabel: HTMLElement = document.querySelector(this.FILE_UPLOAD_LABEL);
+    document.getElementById(this.FILE_UPLOAD_ID).style.display = 'none';
+    const fileUploadLabel: HTMLElement = document.querySelector(this.FILE_UPLOAD_LABEL_SELECTOR);
     fileUploadLabel.style.display = '';
     fileUploadLabel.className = 'govuk-button secondary-button';
   }
@@ -50,8 +64,8 @@ export class EvidenceUpload {
   }
 
   showHideElements(): void {
-    const noJsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.NOJS_ELEMENT_CLASS);
-    const jsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.JS_ELEMENT_CLASS);
+    const noJsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.NOJS_ELEMENT_SELECTOR);
+    const jsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.JS_ELEMENT_SELECTOR);
     noJsElements.forEach(e => e.style.display = 'none');
     jsElements.forEach(e => e.style.display = 'block');
   }
