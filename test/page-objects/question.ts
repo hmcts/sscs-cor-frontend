@@ -1,5 +1,6 @@
 const { question } = require('app/server/paths');
 import { BasePage } from 'test/page-objects/base';
+import * as path from 'path';
 
 export class QuestionPage extends BasePage {
   constructor(page, questionOrdinal) {
@@ -25,7 +26,7 @@ export class QuestionPage extends BasePage {
   }
 
   async getFileList() {
-    const elements = await this.page.$$('#files-uploaded tbody tr');
+    const elements = await this.page.$$('#files-uploaded tbody tr.evidence');
     return elements;
   }
 
@@ -44,5 +45,11 @@ export class QuestionPage extends BasePage {
       this.page.waitForNavigation(),
       this.clickElement('input[name="delete"]')
     ]);
+  }
+
+  async selectFile(filename: string) {
+    const fileInput = await this.getElement('#file-upload-1');
+    const filePath = path.join(__dirname, `/../fixtures/evidence/${filename}`);
+    await fileInput.uploadFile(filePath);
   }
 }
