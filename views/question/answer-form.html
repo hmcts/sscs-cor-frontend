@@ -1,7 +1,7 @@
 {% from "checkboxes/macro.njk" import govukCheckboxes %}
 {% from "file-upload/macro.njk" import govukFileUpload %}
 
-<form action="/question/{{ question.questionOrdinal }}" method="post">
+<form id="answer-form" action="/question/{{ question.questionOrdinal }}" method="post">
   <div>
     {{ govukTextarea({
         id: 'question-field',
@@ -53,8 +53,8 @@
             accept: fileTypeWhiteList
           },
           "errorMessage": {
-            "text": error
-          } if error
+            "text": fileUploadError
+          } if fileUploadError
         }) }}
 
         {% include "question/evidence-list.html" %}

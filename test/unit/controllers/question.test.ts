@@ -51,7 +51,7 @@ describe('controllers/question', () => {
     (AppInsights.trackException as sinon.SinonStub).restore();
   });
 
-  describe('getQuestion', () => {
+  describe('#getQuestion', () => {
     let questionService;
     const question = {
       question_id: questionId,
@@ -105,7 +105,7 @@ describe('controllers/question', () => {
     });
   });
 
-  describe('postAnswer', () => {
+  describe('#postAnswer', () => {
     let questionService;
     let evidenceService;
 
@@ -115,6 +115,7 @@ describe('controllers/question', () => {
         saveAnswer: sinon.stub().resolves()
       };
       evidenceService = {
+        upload: sinon.stub().resolves({ statusCode: 200 }),
         remove: sinon.stub().resolves()
       };
     });
@@ -194,6 +195,16 @@ describe('controllers/question', () => {
         await postAnswer(questionService, evidenceService)(req, res, next);
         expect(questionService.saveAnswer).not.to.have.been.called;
         expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}/upload-evidence`);
+      });
+    });
+
+    describe('posting a file using javascript', () => {
+      beforeEach(() => {
+        req.file = { name: 'myfile.txt' };
+      });
+      it('calls postUploadEvidence to upload the file', async () => {
+        await postAnswer(questionService, evidenceService)(req, res, next);
+        expect(evidenceService.upload).to.have.been.calledOnce;
       });
     });
   });
@@ -291,11 +302,11 @@ describe('controllers/question', () => {
   });
 
   describe('#postUploadEvidence', () => {
-    let getAllQuestionsService;
+    let questionService;
     let evidenceService;
 
     beforeEach(() => {
-      getAllQuestionsService = {
+      questionService = {
         getQuestionIdFromOrdinal: sinon.stub().returns('001')
       };
       evidenceService = {
@@ -308,33 +319,33 @@ describe('controllers/question', () => {
     });
 
     it('redirects to task list if no question is found', async () => {
-      getAllQuestionsService.getQuestionIdFromOrdinal.returns(undefined);
-      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      questionService.getQuestionIdFromOrdinal.returns(undefined);
+      await postUploadEvidence(questionService, evidenceService, false)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
 
     it('reloads upload-evidence.html with error if no file upload', async () => {
       req.file = null;
-      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-          'question/upload-evidence.html',
-          { questionOrdinal, error: i18n.questionUploadEvidence.error.empty }
-        );
+      await postUploadEvidence(questionService, evidenceService, false)(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith('question/upload-evidence.html', {
+        questionOrdinal,
+        error: i18n.questionUploadEvidence.error.empty
+      });
     });
 
     it('calls out to upload evidence service', async () => {
-      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      await postUploadEvidence(questionService, evidenceService, false)(req, res, next);
       expect(evidenceService.upload).to.have.been.calledOnce.calledWith('1', '001', req.file);
     });
 
     it('redirects back to question when successful', async () => {
-      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      await postUploadEvidence(questionService, evidenceService, false)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
     });
 
     it('reloads upload-evidence.html with error if file cannot be uploaded', async () => {
       evidenceService = { upload: sinon.stub().resolves({ statusCode: 422 }) };
-      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      await postUploadEvidence(questionService, evidenceService, false)(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
         'question/upload-evidence.html',
         { questionOrdinal, error: i18n.questionUploadEvidence.error.fileCannotBeUploaded }
@@ -344,9 +355,21 @@ describe('controllers/question', () => {
     it('should call next and appInsights upon error', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       evidenceService.upload.rejects(error);
-      await postUploadEvidence(getAllQuestionsService, evidenceService)(req, res, next);
+      await postUploadEvidence(questionService, evidenceService, false)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
+    });
+
+    describe('javascript evidence upload', () => {
+      it('reloads question page with error if file cannot be uploaded', async () => {
+        evidenceService = { upload: sinon.stub().resolves({ statusCode: 422 }) };
+        await postUploadEvidence(questionService, evidenceService, true)(req, res, next);
+        expect(res.render).to.have.been.calledOnce.calledWith('question/index.html', {
+          question: {},
+          showEvidenceUpload: false,
+          fileUploadError: i18n.questionUploadEvidence.error.fileCannotBeUploaded
+        });
+      });
     });
   });
 
@@ -392,7 +415,7 @@ describe('controllers/question', () => {
     });
 
     it('reloads upload-evidence.html with error if file type not allowed', () => {
-      handleFileUploadErrors(new multer.MulterError('LIMIT_FILE_TYPE'), req, res, next);
+      handleFileUploadErrors(false)(new multer.MulterError('LIMIT_FILE_TYPE'), req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
         'question/upload-evidence.html',
         { questionOrdinal, error: i18n.questionUploadEvidence.error.invalidFileType }
@@ -400,7 +423,7 @@ describe('controllers/question', () => {
     });
 
     it('reloads upload-evidence.html with error if file too large', () => {
-      handleFileUploadErrors(new multer.MulterError('LIMIT_FILE_SIZE'), req, res, next);
+      handleFileUploadErrors(false)(new multer.MulterError('LIMIT_FILE_SIZE'), req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
         'question/upload-evidence.html',
         { questionOrdinal, error: `${i18n.questionUploadEvidence.error.tooLarge} 10MB.` }
@@ -408,7 +431,7 @@ describe('controllers/question', () => {
     });
 
     it('reloads upload-evidence.html with error if Multer error not handled', () => {
-      handleFileUploadErrors(new multer.MulterError('SOME_OTHER_ERROR'), req, res, next);
+      handleFileUploadErrors(false)(new multer.MulterError('SOME_OTHER_ERROR'), req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
         'question/upload-evidence.html',
         { questionOrdinal, error: i18n.questionUploadEvidence.error.fileCannotBeUploaded }
@@ -417,7 +440,7 @@ describe('controllers/question', () => {
 
     it('does not handle other errors', () => {
       const err = new Error();
-      handleFileUploadErrors(err, req, res, next);
+      handleFileUploadErrors(false)(err, req, res, next);
       expect(next).to.have.been.calledOnce.calledWith(err);
     });
   });

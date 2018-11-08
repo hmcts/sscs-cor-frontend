@@ -45,4 +45,7 @@ table#files-uploaded {
   [for=file-upload-1] {
     margin-bottom: 0;
   }
+  #file-upload-1-error {
+    margin-top: 15px;
+  }
 }

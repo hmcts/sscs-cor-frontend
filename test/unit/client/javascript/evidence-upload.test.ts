@@ -1,7 +1,8 @@
-import { expect } from 'test/chai-sinon';
+import { expect, sinon } from 'test/chai-sinon';
 import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 
-const html = `<div id="evidence-upload">
+const html = `<form id="answer-form" action="/question/1" method="post"></form>
+<div id="evidence-upload">
 <div class="govuk-form-group">
   <div class="govuk-checkboxes evidence-upload-js" style="display: block;">
     <div class="govuk-checkboxes__item">
@@ -64,21 +65,21 @@ describe('evidence-upload', () => {
 
   describe('#constructor', () => {
     it('hide no-JS elements', () => {
-      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(evidenceUpload.NOJS_ELEMENT_CLASS);
+      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(evidenceUpload.NOJS_ELEMENT_SELECTOR);
       noJsElements.forEach(e => expect(e.style.display).to.equal('none'));
     });
     it('shows JS elements with expection of file input', () => {
-      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(`${evidenceUpload.JS_ELEMENT_CLASS}:not(#${evidenceUpload.FILE_UPLOAD})`);
+      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(`${evidenceUpload.JS_ELEMENT_SELECTOR}:not(#${evidenceUpload.FILE_UPLOAD_ID})`);
       jsElements.forEach(e => expect(e.style.display).to.equal('block'));
     });
     it('hide reveal container by default', () => {
-      const revealContainer: HTMLElement = document.getElementById(evidenceUpload.REVEAL_CONTAINER);
+      const revealContainer: HTMLElement = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
       expect(revealContainer.style.display).to.equal('none');
       expect(revealContainer.className).to.equal('panel-indent');
     });
     it('sets file upload state', () => {
-      const fileUpload: HTMLElement = document.getElementById(evidenceUpload.FILE_UPLOAD);
-      const fileUploadLabel: HTMLElement = body.querySelector(evidenceUpload.FILE_UPLOAD_LABEL);
+      const fileUpload: HTMLElement = document.getElementById(evidenceUpload.FILE_UPLOAD_ID);
+      const fileUploadLabel: HTMLElement = body.querySelector(evidenceUpload.FILE_UPLOAD_LABEL_SELECTOR);
       expect(fileUpload.style.display).to.equal('none');
       expect(fileUploadLabel.style.display).to.equal('');
       expect(fileUploadLabel.className).to.equal('govuk-button secondary-button');
@@ -88,7 +89,7 @@ describe('evidence-upload', () => {
   describe('#showHideRevealContainer', () => {
     let revealContainer: HTMLElement;
     before(() => {
-      revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER);
+      revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
     });
     it('hides if checkbox is not checked', () => {
       const target = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
@@ -102,12 +103,19 @@ describe('evidence-upload', () => {
       evidenceUpload.showHideRevealContainer({ target });
       expect(revealContainer.style.display).to.equal('block');
     });
+    it('clicking the tickbox shows/hides the reveal', () => {
+      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
+      checkbox.click();
+      expect(revealContainer.style.display).to.equal('none');
+      checkbox.click();
+      expect(revealContainer.style.display).to.equal('block');
+    });
   });
 
   describe('#setRevealStartState', () => {
     let revealContainer: HTMLElement;
     before(() => {
-      revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER);
+      revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
     });
     it('starts hidden if no uploaded files exist', () => {
       evidenceUpload.setRevealStartState();
@@ -128,6 +136,29 @@ describe('evidence-upload', () => {
       const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
       expect(revealContainer.style.display).to.equal('block');
       expect(checkbox.checked).to.equal(true);
+    });
+  });
+
+  describe('#uploadFile', () => {
+    let submitStub: sinon.SinonStub;
+    beforeEach(() => {
+      submitStub = sinon.stub(HTMLFormElement.prototype, 'submit');
+    });
+    afterEach(() => {
+      submitStub.restore();
+    });
+    it('creates a form element appended to the body', () => {
+      expect(document.forms.length).to.equal(1);
+      evidenceUpload.uploadFile();
+      expect(document.forms.length).to.equal(2);
+      const form = document.forms['js-upload-form'];
+      expect(form.action).to.equal('/question/1');
+      expect(form.method).to.equal('post');
+      expect(form.enctype).to.equal('multipart/form-data');
+    });
+    it('submits the form', () => {
+      evidenceUpload.uploadFile();
+      expect(submitStub).to.have.been.calledOnce;
     });
   });
 });
