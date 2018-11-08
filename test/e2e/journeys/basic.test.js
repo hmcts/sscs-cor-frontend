@@ -1,6 +1,6 @@
 Feature('Basic user journey');
 
-Scenario('A PIP appellant can see their appeal', I => {
+Scenario('A PIP appellant can answer a question on their appeal', I => {
   I.loginWithPIPAppellant();
-  I.waitForText('Your PIP benefit appeal');
+  I.answerQuestion('How do you interact with people?', 'By phone.');
 });
