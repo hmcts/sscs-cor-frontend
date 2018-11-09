@@ -72,6 +72,10 @@ function getQuestion(questionService: QuestionService) {
 // TODO rename function
 function postAnswer(questionService: QuestionService, evidenceService: EvidenceService) {
   return async(req: Request, res: Response, next: NextFunction) => {
+    if (req.file) {
+      return postUploadEvidence(questionService, evidenceService, true)(req, res, next);
+    }
+
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
@@ -152,7 +156,7 @@ function getUploadEvidence(req: Request, res: Response, next: NextFunction) {
   res.render('question/upload-evidence.html', { questionOrdinal });
 }
 
-function postUploadEvidence(questionService: QuestionService, evidenceService: EvidenceService) {
+function postUploadEvidence(questionService: QuestionService, evidenceService: EvidenceService, isJsUpload: boolean) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
@@ -174,6 +178,14 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       }
       if (response.statusCode === UNPROCESSABLE_ENTITY) {
         const error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
+        if (isJsUpload) {
+          const question = req.session.question;
+          return res.render('question/index.html', {
+            question,
+            showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
+            fileUploadError: error
+          });
+        }
         return res.render('question/upload-evidence.html', { questionOrdinal, error });
       }
       const errorMessage = `Cannot upload evidence ${JSON.stringify(response)}`;
@@ -195,24 +207,39 @@ function fileTypeInWhitelist(req, file, cb) {
   }
 }
 
-function handleFileUploadErrors(err, req: Request, res: Response, next: NextFunction) {
-  const questionOrdinal: string = req.params.questionOrdinal;
-  if (err instanceof multer.MulterError) {
-    let error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
-    if (err.code === 'LIMIT_FILE_SIZE') {
-      error = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
-    } else if (err.code === fileTypeError) {
-      error = i18n.questionUploadEvidence.error.invalidFileType;
+function handleFileUploadErrors(isJsUpload: boolean) {
+  return (err, req: Request, res: Response, next: NextFunction) => {
+    const questionOrdinal: string = req.params.questionOrdinal;
+    if (err instanceof multer.MulterError) {
+      let error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        error = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
+      } else if (err.code === fileTypeError) {
+        error = i18n.questionUploadEvidence.error.invalidFileType;
+      }
+      if (isJsUpload) {
+        const question = req.session.question;
+        return res.render('question/index.html', {
+          question,
+          showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
+          fileUploadError: error
+        });
+      }
+      return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
-    return res.render('question/upload-evidence.html', { questionOrdinal, error });
-  }
-  next(err);
+    next(err);
+  };
 }
 
 function setupQuestionController(deps) {
   const router = Router();
   router.get('/:questionOrdinal', deps.prereqMiddleware, getQuestion(deps.questionService));
-  router.post('/:questionOrdinal', deps.prereqMiddleware, postAnswer(deps.questionService, deps.evidenceService));
+  router.post('/:questionOrdinal',
+    deps.prereqMiddleware,
+    upload.single('file-upload-1'),
+    postAnswer(deps.questionService, deps.evidenceService),
+    handleFileUploadErrors(true)
+  );
   router.get('/:questionOrdinal/upload-evidence',
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
@@ -221,8 +248,8 @@ function setupQuestionController(deps) {
     deps.prereqMiddleware,
     checkEvidenceUploadFeature(evidenceUploadEnabled, evidenceUploadOverrideAllowed),
     upload.single('file-upload-1'),
-    postUploadEvidence(deps.questionService, deps.evidenceService),
-    handleFileUploadErrors
+    postUploadEvidence(deps.questionService, deps.evidenceService, false),
+    handleFileUploadErrors(false)
   );
   return router;
 }

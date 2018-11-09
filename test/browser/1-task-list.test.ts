@@ -74,7 +74,7 @@ describe('Task list page', () => {
   it('displays guidance for submitting evidence with case reference', async () => {
     const summaryText = await taskListPage.getElementText('#sending-evidence-guide summary span');
     const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
-    expect(summaryText).to.equal(i18n.taskList.sendingEvidence.summary);
+    expect(summaryText.trim()).to.equal(i18n.taskList.sendingEvidence.summary);
     expect(displayedCaseRef).to.equal(caseReference);
   });
 

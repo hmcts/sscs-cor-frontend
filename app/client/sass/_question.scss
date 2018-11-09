@@ -32,3 +32,20 @@ table#files-uploaded {
     }
   }
 }
+
+#evidence-upload {
+  .evidence-upload-js {
+    display: none;
+  }
+  .panel-indent {
+    border-left: 5px solid $govuk-border-colour;
+    padding-top: 15px;
+    padding-left: 15px;
+  }
+  [for=file-upload-1] {
+    margin-bottom: 0;
+  }
+  #file-upload-1-error {
+    margin-top: 15px;
+  }
+}

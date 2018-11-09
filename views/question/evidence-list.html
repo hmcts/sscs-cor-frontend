@@ -6,10 +6,8 @@
   </thead>
   <tbody class="govuk-table__body">
     {% for file in question.evidence %}
-      <tr class="govuk-table__row">
-        <td class="govuk-table__cell">
-          <span>{{ file.filename }}</span>
-        </td>
+      <tr class="govuk-table__row evidence">
+        <td class="govuk-table__cell">{{ file.filename }}</td>
         <td class="govuk-table__cell">
           <form action="/question/{{ question.questionOrdinal }}" method="post">
             <input type="hidden" name="id" value="{{ file.id }}">
