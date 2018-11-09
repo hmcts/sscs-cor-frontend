@@ -18,6 +18,12 @@ Once you have those, you need to install the dependencies using:
 yarn
 ```
 
+Then run the necessary build tasks using:
+
+```bash
+yarn build
+```
+
 Once complete you can start the application and required mocks using:
 
 ```bash
@@ -65,7 +71,8 @@ The same browser test suite is used for running locally and when running against
 Points to note when running the tests against your local environment:
 
 * backend API is stubbed using Dyson
-* any request for question will display a standard response
+* the stubbed service has a basic way of storing state, such as answers to questions etc
+* the "state" will be reset when the stub is restarted
 
 ##### Integrated environments
 
@@ -93,65 +100,90 @@ To do this you must set some extra environment variables locally:
 * COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
 * TEST_URL - this is the URL you are testing e.g. https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
 * HEADLESS - optionally choose to show the browser by setting this to false
-* IDAM_ULR - Used to check the user returns to idam when logged out
-* IDAM_API_URL - Used to create a user in idam that can login to the system
+* IDAM_URL - Used to check the user returns to idam when logged out (currently https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub when using stub)
+* IDAM_API_URL - Used to create a user in idam that can login to the system (not currently used with idam stub)
+* S2S_SECRET - used to provide auth for connecting to backend services
+* S2S_URL - the service-2-service application for generating access tokens
 
 Put these together with the required `yarn` command in one line like this:
 
 ```bash
-HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net yarn test:smoke
+HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal yarn test:functional
 ```
+
+Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
 
 ### Creating test data in AAT
 
-You can easily create a benefit appeal in CCD with online panel and associate it with an online hearing. The hearing will have one question and the question round will be issued.
+You can easily create a benefit appeal in CCD with online panel and associate it with an online hearing. The hearing will have three questions and the question round will be issued.
 
-This cam be done locally by using a yarn command
+Since this script directly accesses services such as CCD and COH, which are protected by service-2-service auth, you must specify the secret in order to connect.
+
+This can be done locally by using a yarn command with a required environment variable 
 
 ```bash
-yarn test:create-data-aat
+S2S_SECRET=XXXXXXXXXXXXX yarn test:create-data-aat
 ```
 
 The command will output something like this:
 
 ```
-Created CCD case for Zora_Little33@gmail.com with ID 1536321469004833 and reference CR45cb7fc1-d932-4d9e-9716-aa34bf0ff4f6
-Created online hearing with ID fc03d461-feb9-4058-a6b8-ef7195aee8c1
-Created question with ID 8601e701-11ca-4897-8ada-f29a0a51d82a
+Created CCD case for test5631931@hmcts.net with ID 1541757922252787 and reference SC285/17/1523910000
+Created online hearing with ID 4bc401a3-0fe8-4be3-821b-fe1d84be8a9e
+Created question with ID 43b96298-c797-43a0-9d46-2b5807a4e0c6
+Created question with ID 77ce837b-eb99-4a95-bf4e-19c9b7012d17
+Created question with ID c1917163-18aa-4d93-8a7b-f83e11cb69ea
 Question round issued, status pending
 Question round not issued at attempt 1: question_issue_pending
-Question round issued successfully at attempt 2
+Question round not issued at attempt 2: question_issue_pending
+Question round issued successfully at attempt 3
 
 ------------------------- CCD case -------------------------
-email               Easton.Schaden@gmail.com
-caseId              1536321383328128
-caseReference       CR210c5296-166a-4762-8b9b-d4e1c76e6c1d
+
+email               test5631931@hmcts.net
+caseId              1541757922252787
+caseReference       SC285/17/1523910000
+
 ---------------------- COH test data -----------------------
-hearingId           15cee00b-bc1d-4639-b872-3e3bd095ed7f
-questionId          2fffb323-e807-48d0-ba59-5e5246fa28dd
+
+hearingId           4bc401a3-0fe8-4be3-821b-fe1d84be8a9e
+questionIdList      43b96298-c797-43a0-9d46-2b5807a4e0c6,77ce837b-eb99-4a95-bf4e-19c9b7012d17,c1917163-18aa-4d93-8a7b-f83e11cb69ea
+questionId          43b96298-c797-43a0-9d46-2b5807a4e0c6
+questionOrdinal     1
 questionHeader      How do you interact with people?
 questionBody        You said you avoid interacting with people if possible. We'd like to know more about the times when you see friends and family.
+
 Tell us about three separate occasions in 2017 that you have met with friends and family.
+
 Tell us:
+
 - who you met
+
 - when
+
 - where
+
 - how it made you feel
-deadlineExpiryDate  2018-09-14T23:59:59Z
+deadlineExpiryDate  2018-11-16T23:59:59Z
+
 ------------------------------------------------------------
 ```
 
-If you visit https://sscs-cor-frontend-aat.service.core-compute-aat.internal/login and enter the email address shown you should be able to use the service.
+If you visit https://sscs-cor-frontend-aat.service.core-compute-aat.internal/ and enter the email address shown you should be able to use the service.
 
 If you need to run against different environments, you can set the following environment variables:
 
 * HTTP_PROXY - to configure the tests to use the HMCTS proxy
 * SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-cor-backend-aat.service.core-compute-aat.internal for AAT
 * COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
+* S2S_SECRET - used to provide auth for connecting to backend services
+* S2S_URL - the service-2-service application for generating access tokens
+* IDAM_API_URL - Used to create a user in idam that can login to the system
 
-And use the command
+And use the command:
+
 ```bash
-HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal yarn test:create-data
+HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_SECRET=XXXXXXXXXXXXX yarn test:create-data
 ```
 
 ### Analytics
@@ -186,3 +218,22 @@ It's possible to override a setting and temporarily enable a feature for testing
 |--------------------------|-----------------------------------------------|--------------------------------------------------|-------------------------------|
 | Question evidence upload | `evidenceUpload.questionPage.overrideAllowed` | `EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED` | `evidenceUploadOverride=true` |
 
+### SIDAM
+
+We had previously integrated with SIDAM for user registration and sign-in. This included making use of the testing features, such as creating test accounts to allow sign-in to COR.
+At the time of writing SIDAM is not available to use on AAT and therefore we were forced to bypass it in order to continue developing and testing this service.
+To do this we added a stub to the running service, enabled via the config option "idam.enableStub", and configured the service to use that instead of the usual SIDAM URLs for the API and web interfaces.
+The SIDAM stub makes use of redis to track the username associated with code/token throughout the sign-in process.
+
+This means that 2 SIDAM stubs currently exist, as follows:
+
+_Dyson SIDAM stub_
+* found under `test/mock/idam`
+* uses `memory-cache` module to keep track of username associated with code/token
+* used when running functional tests locally and on the pipeline "Test" stage (note: not "Functional Test")
+
+_Application mounted SIDAM stub_
+* found at `app/server/controller/idam-stub.ts`
+* uses Redis to keep track of username associated with code/token
+* used when running functional tests as part of the "Functional Test" stages on the pipeline
+* also used when signing into the service on preview or AAT environments 
