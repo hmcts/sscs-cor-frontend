@@ -11,14 +11,20 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      {% if question.answer.error %}
+      {% if question.answer.error or fileUploadError %}
         {{ govukErrorSummary({
             titleText: i18n.errorSummary.titleText,
             descriptionText: i18n.errorSummary.descriptionText,
-            errorList: [{
-                text: question.answer.error,
-                href: "#question-field"
-            }]
+            errorList: [
+              {
+                  text: question.answer.error,
+                  href: "#question-field"
+              } if question.answer.error,
+              {
+                text: fileUploadError,
+                href: "#file-upload-1-error"
+              } if fileUploadError
+            ]
         }) }}
       {% endif %}
 

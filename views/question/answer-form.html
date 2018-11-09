@@ -1,4 +1,7 @@
-<form action="/question/{{ question.questionOrdinal }}" method="post">
+{% from "checkboxes/macro.njk" import govukCheckboxes %}
+{% from "file-upload/macro.njk" import govukFileUpload %}
+
+<form id="answer-form" action="/question/{{ question.questionOrdinal }}" method="post">
   <div>
     {{ govukTextarea({
         id: 'question-field',
@@ -23,14 +26,44 @@
   {% if showEvidenceUpload %}
     <div id="evidence-upload">
 
-      <h2 class="govuk-heading-m">{{ i18n.question.evidenceUpload.header }}</h2>
-      <p>{{ i18n.question.evidenceUpload.info }}</p>
+      {{ govukCheckboxes({
+        "idPrefix": "provide-evidence",
+        "name": "provide-evidence",
+        "classes": "evidence-upload-js",
+        "items": [{
+          "value": "yes",
+          "text": i18n.question.evidenceUpload.checkbox
+        }]
+      }) }}
 
-      {% include "question/evidence-list.html" %}
+      <div id="evidence-upload-reveal-container">
 
-      <input id="add-file" name="add-file" type="submit" value="{{ i18n.question.evidenceUpload.addFileButton }}" class="govuk-button secondary-button">
+        <h2 class="govuk-heading-m evidence-upload-nojs">{{ i18n.question.evidenceUpload.header }}</h2>
+        <p>{{ i18n.question.evidenceUpload.info }}</p>
 
-      {% include "question/sending-evidence.html" %}
+        {{ govukFileUpload({
+          id: "file-upload-1",
+          name: "file-upload-1",
+          classes: "evidence-upload-js",
+          label: {
+            text: i18n.questionUploadEvidence.label,
+            classes: "evidence-upload-js"
+          },
+          attributes: {
+            accept: fileTypeWhiteList
+          },
+          "errorMessage": {
+            "text": fileUploadError
+          } if fileUploadError
+        }) }}
+
+        {% include "question/evidence-list.html" %}
+
+        <input id="add-file" name="add-file" type="submit" value="{{ i18n.question.evidenceUpload.addFileButton }}" class="govuk-button secondary-button evidence-upload-nojs">
+
+        {% include "question/sending-evidence.html" %}
+
+      </div>
 
     </div>
 
