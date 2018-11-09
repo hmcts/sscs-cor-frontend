@@ -4,7 +4,7 @@ properties(
          pipelineTriggers([[$class: 'GitHubPushTrigger']])]
 )
 
-@Library("Infrastructure")
+@Library("Infrastructure@unfix-yarn-version")
 
 def product = "sscs-cor"
 def component = "frontend"
