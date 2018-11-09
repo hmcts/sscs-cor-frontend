@@ -3,6 +3,9 @@ import { NO_CONTENT } from 'http-status-codes';
 const config = require('config');
 const { Logger } = require('@hmcts/nodejs-logging');
 const Redis = require('ioredis');
+const multer = require('multer');
+
+const multipart = multer();
 
 const logger = Logger.getLogger('idam-stub');
 
@@ -69,7 +72,7 @@ function setupIdamStubController(): Router {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
     router.get('/idam-stub/login', getLogin);
     router.post('/idam-stub/login', postLogin);
-    router.post('/idam-stub/oauth2/token', getToken);
+    router.post('/idam-stub/oauth2/token', multipart.none(), getToken);
     router.get('/idam-stub/details', getDetails);
     router.delete('/idam-stub/session/:token', deleteToken);
   }
