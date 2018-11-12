@@ -95,6 +95,7 @@
     "header": "Upload your evidence",
     "backToQuestionText": "Back to question",
     "label": "Choose file",
+    "sizeWarning": "Larger files may take a few minutes to upload",
     "error": {
       "fileCannotBeUploaded": "File cannot be uploaded",
       "empty": "You have not selected a file.",
