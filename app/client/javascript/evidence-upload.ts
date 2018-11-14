@@ -52,8 +52,9 @@ export class EvidenceUpload {
 
   setRevealStartState(): void {
     const uploadedFiles = document.querySelectorAll('#files-uploaded tr.evidence');
+    const uploadError = document.querySelectorAll('#file-upload-1-error');
     const provideEvidence = document.getElementById(this.CHECKBOX_ID) as HTMLInputElement;
-    if (uploadedFiles.length === 0) {
+    if (uploadedFiles.length === 0 && uploadError.length === 0) {
       provideEvidence.checked = false;
       this.revealContainer.style.display = 'none';
     } else {
