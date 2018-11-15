@@ -25,7 +25,7 @@ export class EvidenceUpload {
   }
 
   uploadFile(): void {
-    const formAction: string = document.forms['answer-form'].action;
+    const formAction: string = document.forms['answer-form'].action + '#evidence-upload';
     const formElement = document.createElement('form');
     formElement.setAttribute('id', 'js-upload-form');
     formElement.setAttribute('action', formAction);
