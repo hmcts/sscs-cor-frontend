@@ -41,25 +41,34 @@
         <h2 class="govuk-heading-m evidence-upload-nojs">{{ i18n.question.evidenceUpload.header }}</h2>
         <p>{{ i18n.question.evidenceUpload.info }}</p>
 
-        {{ govukFileUpload({
-          id: "file-upload-1",
-          name: "file-upload-1",
-          classes: "evidence-upload-js",
-          label: {
-            text: i18n.questionUploadEvidence.label,
-            classes: "evidence-upload-js"
-          },
-          attributes: {
-            accept: fileTypeWhiteList
-          },
-          "errorMessage": {
-            "text": fileUploadError
-          } if fileUploadError
-        }) }}
+        <div id="uploadFileButton">
+          {{ govukFileUpload({
+            id: "file-upload-1",
+            name: "file-upload-1",
+            classes: "evidence-upload-js",
+            label: {
+              text: i18n.questionUploadEvidence.label,
+              classes: "evidence-upload-js"
+            },
+            attributes: {
+              accept: fileTypeWhiteList
+            },
+            "errorMessage": {
+              "text": fileUploadError
+            } if fileUploadError
+          }) }}
+        </div>
+
+        <div id="upload-spinner">
+          <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+          <div class="govuk-heading-m spinner-text">{{ i18n.question.evidenceUpload.fileUploading }}</div>
+        </div>
 
         {% include "question/evidence-list.html" %}
 
         <input id="add-file" name="add-file" type="submit" value="{{ i18n.question.evidenceUpload.addFileButton }}" class="govuk-button secondary-button evidence-upload-nojs">
+
 
         {% include "question/sending-evidence.html" %}
 
