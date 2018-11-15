@@ -33,6 +33,12 @@ export class EvidenceUpload {
     formElement.setAttribute('enctype', 'multipart/form-data');
     formElement.appendChild(document.getElementById(this.FILE_UPLOAD_ID));
     document.body.appendChild(formElement);
+
+    const spinner = document.getElementById('upload-spinner');
+    spinner.style.display = 'block';
+    const fileUpload = document.getElementById('uploadFileButton');
+    fileUpload.style.display = 'none';
+
     document.forms['js-upload-form'].submit();
   }
 
