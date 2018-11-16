@@ -35,7 +35,7 @@ withPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
     after('checkout') {sh 'yarn cache clean'}
     after('build') {sh 'yarn build'}
-    enableDockerBuild()
+    onPR { enableDockerBuild() }
     enableDeployToAKS()
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
