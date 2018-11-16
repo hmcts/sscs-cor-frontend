@@ -35,8 +35,11 @@ const html = `<form id="answer-form" action="/question/1" method="post"></form>
       </tr>
   </tbody>
 </table>
+    <div id="uploadFileButton">
         <input id="add-file" name="add-file" type="submit" value="Add file" class="govuk-button secondary-button evidence-upload-nojs" style="display: none;">
-        <details id="sending-evidence-guide" class="govuk-details" role="group">
+    </div>
+    <div id="upload-spinner"></div>
+    <details id="sending-evidence-guide" class="govuk-details" role="group">
   <summary class="govuk-details__summary" role="button" aria-controls="details-content-00f525bb-889a-4507-af48-0eee2be4e967" aria-expanded="false">
     <span class="govuk-details__summary-text">
       You can also post evidence to the tribunal
@@ -160,9 +163,16 @@ describe('evidence-upload', () => {
       evidenceUpload.uploadFile();
       expect(document.forms.length).to.equal(2);
       const form = document.forms['js-upload-form'];
-      expect(form.action).to.equal('/question/1');
+      expect(form.action).to.equal('/question/1#evidence-upload');
       expect(form.method).to.equal('post');
       expect(form.enctype).to.equal('multipart/form-data');
+    });
+    it('shows the spinner and hides the file upload', () => {
+      evidenceUpload.uploadFile();
+      const uploadSpinner = document.getElementById('upload-spinner');
+      expect(uploadSpinner.style.display).to.equal('block');
+      const uploadFileButton = document.getElementById('uploadFileButton');
+      expect(uploadFileButton.style.display).to.equal('none');
     });
     it('submits the form', () => {
       evidenceUpload.uploadFile();
