@@ -9,10 +9,7 @@
       <tr class="govuk-table__row evidence">
         <td class="govuk-table__cell">{{ file.filename }}</td>
         <td class="govuk-table__cell">
-          <form action="/question/{{ question.questionOrdinal }}" method="post">
-            <input type="hidden" name="id" value="{{ file.id }}">
-            <input type="submit" name="delete" value="{{ i18n.general.delete }}" class="govuk-link">
-          </form>
+            <input type="submit" name="delete[{{ file.id }}]" value="{{ i18n.general.delete }}" class="govuk-link">
         </td>
       </tr>
     {% else %}
