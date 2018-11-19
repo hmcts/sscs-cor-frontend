@@ -236,6 +236,9 @@ function handleFileUploadErrors(isJsUpload: boolean) {
       }
       if (isJsUpload) {
         const question = req.session.question;
+        question.answer = {
+          value: req.body['question-field']
+        };
         return res.render('question/index.html', {
           question,
           showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
