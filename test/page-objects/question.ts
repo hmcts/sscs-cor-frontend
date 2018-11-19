@@ -43,7 +43,7 @@ export class QuestionPage extends BasePage {
   async deleteEvidence() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('input[name="delete"]')
+      this.clickElement('input[name^="delete"]')
     ]);
   }
 

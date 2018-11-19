@@ -171,9 +171,12 @@ describe('controllers/question', () => {
     });
 
     it('should delete a file', async() => {
-      req.body.delete = 'Delete';
+      req.body.delete = { 'fileId1': 'Delete' };
       req.body.id = 'uuid';
+      req.body['question-field'] = 'some question answer';
       await postAnswer(questionService, evidenceService)(req, res, next);
+      expect(questionService.saveAnswer).to.have.been.calledOnce.calledWith('1', questionId, 'draft', req.body['question-field']);
+      expect(evidenceService.remove).to.have.been.calledWith('1', questionId, 'fileId1');
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
     });
 
@@ -203,7 +206,9 @@ describe('controllers/question', () => {
         req.file = { name: 'myfile.txt' };
       });
       it('calls postUploadEvidence to upload the file', async () => {
+        req.body['question-field'] = 'some question answer';
         await postAnswer(questionService, evidenceService)(req, res, next);
+        expect(questionService.saveAnswer).to.have.been.calledOnce.calledWith('1', questionId, 'draft', req.body['question-field']);
         expect(evidenceService.upload).to.have.been.calledOnce;
       });
     });

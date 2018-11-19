@@ -72,10 +72,6 @@ function getQuestion(questionService: QuestionService) {
 // TODO rename function
 function postAnswer(questionService: QuestionService, evidenceService: EvidenceService) {
   return async(req: Request, res: Response, next: NextFunction) => {
-    if (req.file) {
-      return postUploadEvidence(questionService, evidenceService, true)(req, res, next);
-    }
-
     const questionOrdinal: string = req.params.questionOrdinal;
     const currentQuestionId = questionService.getQuestionIdFromOrdinal(req);
     if (!currentQuestionId) {
@@ -83,6 +79,18 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
     }
     const hearingId = req.session.hearing.online_hearing_id;
     const answerText = req.body['question-field'];
+
+    if (req.file) {
+      if (answerText.length > 0) {
+        try {
+          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
+        } catch (error) {
+          AppInsights.trackException(error);
+          return next(error);
+        }
+      }
+      return postUploadEvidence(questionService, evidenceService, true)(req, res, next);
+    }
 
     // TODO refactor after merge
     if (req.body['add-file']) {
@@ -99,8 +107,17 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
 
     // TODO refactor after merge
     if (req.body.delete) {
+      if (answerText.length > 0) {
+        try {
+          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
+        } catch (error) {
+          AppInsights.trackException(error);
+          return next(error);
+        }
+      }
       try {
-        await evidenceService.remove(hearingId, currentQuestionId, req.body.id);
+        const fileId = Object.keys(req.body.delete)[0];
+        await evidenceService.remove(hearingId, currentQuestionId, fileId);
         return res.redirect(`${Paths.question}/${questionOrdinal}`);
       } catch (error) {
         AppInsights.trackException(error);
