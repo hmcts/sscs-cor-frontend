@@ -69,7 +69,25 @@ function getQuestion(questionService: QuestionService) {
   };
 }
 
-// TODO rename function
+async function validateAnswer(req: Request, res: Response, answerText: string, callback) {
+  let validationMessage;
+  if (req.body.submit) {
+    validationMessage = answerValidation(answerText);
+  }
+  if (validationMessage) {
+    const question = req.session.question;
+    question.answer = {
+      value: answerText,
+      error: validationMessage
+    };
+    return res.render('question/index.html', {
+      question,
+      showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
+    });
+  }
+  await callback();
+}
+
 function postAnswer(questionService: QuestionService, evidenceService: EvidenceService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
@@ -80,80 +98,29 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
     const hearingId = req.session.hearing.online_hearing_id;
     const answerText = req.body['question-field'];
 
-    if (req.file) {
-      if (answerText.length > 0) {
-        try {
-          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
-        } catch (error) {
-          AppInsights.trackException(error);
-          return next(error);
-        }
-      }
-      return postUploadEvidence(questionService, evidenceService, true)(req, res, next);
-    }
-
-    // TODO refactor after merge
-    if (req.body['add-file']) {
-      if (answerText.length > 0) {
-        try {
-          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
-        } catch (error) {
-          AppInsights.trackException(error);
-          return next(error);
-        }
-      }
-      return res.redirect(`${Paths.question}/${questionOrdinal}/upload-evidence`);
-    }
-
-    // TODO refactor after merge
-    if (req.body.delete) {
-      if (answerText.length > 0) {
-        try {
-          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
-        } catch (error) {
-          AppInsights.trackException(error);
-          return next(error);
-        }
-      }
-      try {
-        const fileId = Object.keys(req.body.delete)[0];
-        await evidenceService.remove(hearingId, currentQuestionId, fileId);
-        return res.redirect(`${Paths.question}/${questionOrdinal}`);
-      } catch (error) {
-        AppInsights.trackException(error);
-        return next(error);
-      }
-    }
-
-    let validationMessage;
-    if (req.body.submit) {
-      validationMessage = answerValidation(answerText);
-    }
-
-    if (validationMessage) {
-      const question = req.session.question;
-      question.answer = {
-        value: answerText,
-        error: validationMessage
-      };
-      res.render('question/index.html', {
-        question,
-        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
-      });
-    } else {
-      try {
+    try {
+      await validateAnswer(req, res, answerText, async () => {
         if (answerText.length > 0) {
           await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
         }
-        if (req.body.submit) {
+
+        if (req.file) {
+          return postUploadEvidence(questionService, evidenceService, true)(req, res, next);
+        } else if (req.body['add-file']) {
+          return res.redirect(`${Paths.question}/${questionOrdinal}/upload-evidence`);
+        } else if (req.body.delete) {
+          const fileId = Object.keys(req.body.delete)[0];
+          await evidenceService.remove(hearingId, currentQuestionId, fileId);
+          return res.redirect(`${Paths.question}/${questionOrdinal}`);
+        } else if (req.body.submit) {
           res.redirect(`${Paths.question}/${questionOrdinal}/submit`);
         } else {
           res.redirect(Paths.taskList);
         }
-      } catch (error) {
-        AppInsights.trackException(error);
-        next(error);
-      }
+      });
+    } catch (error) {
+      AppInsights.trackException(error);
+      return next(error);
     }
   };
 }
@@ -187,7 +154,6 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       const error = i18n.questionUploadEvidence.error.empty;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
-
     try {
       const response: rp.Response = await evidenceService.upload(hearingId, currentQuestionId, req.file);
       if (response.statusCode === OK) {
