@@ -183,7 +183,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
 
 function fileTypeInWhitelist(req, file, cb) {
   const fileExtension = path.extname(file.originalname);
-  if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension)) {
+  if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
   } else {
     cb(new multer.MulterError(fileTypeError));
