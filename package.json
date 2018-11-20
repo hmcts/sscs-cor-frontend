@@ -108,7 +108,7 @@
     "nock": "^9.4.4",
     "nodemon": "^1.18.3",
     "nyc": "^13.0.1",
-    "pa11y": "git+https://github.com/jozzhart/pa11y.git",
+    "pa11y": "https://github.com/chrisgrimble/pa11y/tarball/v5.1.0-HMCTS-BUG-FIX",
     "pre-commit": "^1.2.2",
     "puppeteer": "^1.10.0",
     "sinon": "^2.1.0",
