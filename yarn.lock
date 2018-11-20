@@ -5037,9 +5037,9 @@ pa11y-reporter-json@^1.0.0:
   dependencies:
     bfj "^4.2.3"
 
-"pa11y@git+https://github.com/jozzhart/pa11y.git":
+"pa11y@https://github.com/chrisgrimble/pa11y/tarball/v5.1.0-HMCTS-BUG-FIX":
   version "5.1.0"
-  resolved "git+https://github.com/jozzhart/pa11y.git#30ed35268b18d7b77fa1de034c6e419de407ac43"
+  resolved "https://github.com/chrisgrimble/pa11y/tarball/v5.1.0-HMCTS-BUG-FIX#08673eb288028eb283fc864f563ec5868d99a3b3"
   dependencies:
     commander "^2.19.0"
     fs-extra "^5.0.0"
