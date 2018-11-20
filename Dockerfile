@@ -11,13 +11,13 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 COPY yarn.lock ./
 
-RUN yarn install
+# RUN yarn install
 # If you are building your code for production
 # RUN npm install --only=production
 
 # Bundle app source
 COPY . .
-RUN yarn build
+# RUN yarn build
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
