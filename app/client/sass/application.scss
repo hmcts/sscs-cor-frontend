@@ -34,6 +34,10 @@ $govuk-assets-path: '/public/govuk-frontend/';
   }
 }
 
+.button-padding {
+  margin-right: 30px !important;
+}
+
 // Link styled buttons
 input {
   display: block;
