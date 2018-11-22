@@ -114,6 +114,65 @@ describe('controllers/login', () => {
         expect(res.redirect).to.have.been.calledWith(Paths.taskList);
       });
     });
+
+    describe('on load case failure', () => {
+      let hearingServiceStub;
+      const registerUrl = 'someUrl';
+      let idamServiceStub;
+      let redirectToIdam;
+
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode' };
+        redirectToIdam = sinon.stub();
+        let accessToken = 'someAccessToken';
+
+        idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' }),
+          getRegisterUrl: sinon.stub().withArgs('http', 'localhost').returns(registerUrl)
+        } as IdamService;
+      });
+
+      it('loads error page when cannot find appeal', async () => {
+        hearingServiceStub = {
+          getOnlineHearing: sinon.stub().resolves({ statusCode: 404 })
+        } as HearingService;
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+
+        expect(res.render).to.have.been.calledWith('load-case-error.html', {
+          errorBody: '<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>',
+          errorHeader: 'There is no benefit appeal associated with this email address',
+          registerUrl
+        });
+      });
+
+      it('loads error page when multiple appeals found', async () => {
+        hearingServiceStub = {
+          getOnlineHearing: sinon.stub().resolves({ statusCode: 422 })
+        } as HearingService;
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+
+        expect(res.render).to.have.been.calledWith('load-case-error.html', {
+          errorBody: '<p>There is a technical problem with the account you are using to access your benefit appeal.</p><p>Please email <a href="mailto:benefitappeals@hmcts.net">benefitappeals@hmcts.net</a> and we will resolve it for you. Include your appeal reference number and name.</p><p>We apologise for any inconvenience.</p>',
+          errorHeader: 'There is a technical problem with your account'
+        });
+      });
+
+      it('loads error page when appeal found but it is not cor', async () => {
+        hearingServiceStub = {
+          getOnlineHearing: sinon.stub().resolves({ statusCode: 409 })
+        } as HearingService;
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+
+        expect(res.render).to.have.been.calledWith('load-case-error.html', {
+          errorBody: '<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>',
+          errorHeader: 'You cannot access this service'
+        });
+      });
+    });
   });
 
   describe('on error', () => {
