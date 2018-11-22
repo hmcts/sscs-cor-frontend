@@ -8,8 +8,12 @@ export class QuestionPage extends BasePage {
     this.pagePath = `${question}/${questionOrdinal}`;
   }
 
-  async answer(answer, submit) {
+  async answerNoSubmit(answer) {
     await this.enterTextintoField('#question-field', answer);
+  }
+
+  async answer(answer, submit) {
+    await this.answerNoSubmit(answer);
     const buttonId = submit ? '#submit-answer' : '#save-answer';
     await Promise.all([
       this.page.waitForNavigation(),
@@ -43,7 +47,7 @@ export class QuestionPage extends BasePage {
   async deleteEvidence() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('input[name="delete"]')
+      this.clickElement('input[name^="delete"]')
     ]);
   }
 
