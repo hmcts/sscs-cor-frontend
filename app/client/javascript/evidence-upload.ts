@@ -30,8 +30,9 @@ export class EvidenceUpload {
     formElement.setAttribute('id', 'js-upload-form');
     formElement.setAttribute('action', formAction);
     formElement.setAttribute('method', 'post');
-    formElement.setAttribute('enctype', 'multipart/form-data');
+    formElement.appendChild(document.getElementById('question-field'));
     formElement.appendChild(document.getElementById(this.FILE_UPLOAD_ID));
+    formElement.setAttribute('enctype', 'multipart/form-data');
     document.body.appendChild(formElement);
 
     const spinner = document.getElementById('upload-spinner');

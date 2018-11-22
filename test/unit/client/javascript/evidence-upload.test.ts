@@ -1,7 +1,9 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 
-const html = `<form id="answer-form" action="/question/1" method="post"></form>
+const html = `<form id="answer-form" action="/question/1" method="post">
+    <input type="text" id="question-field" name="question-field"/>
+</form>
 <div id="evidence-upload">
 <div class="govuk-form-group">
   <div class="govuk-checkboxes evidence-upload-js" style="display: block;">

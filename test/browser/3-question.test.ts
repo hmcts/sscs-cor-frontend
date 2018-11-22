@@ -238,6 +238,31 @@ describe('Question page', () => {
         const finalCount: number = await questionPage.countEvidence();
         expect(finalCount).to.equal(0);
       });
+
+      it('remembers changes to answer when uploading evidence', async () => {
+        await questionPage.visitPage();
+        const newAnswer = 'a new upload answer no js';
+        await questionPage.answerNoSubmit(newAnswer);
+        await Promise.all([
+          page.waitForNavigation(),
+          questionPage.clickElement('#add-file')
+        ]);
+        await uploadEvidencePage.selectFile('evidence.pdf');
+        await uploadEvidencePage.submit();
+        questionPage.verifyPage();
+        const savedAnswer = await questionPage.getElementValue('#question-field');
+        expect(savedAnswer).to.equal(newAnswer);
+      });
+
+      it('remembers changes to answer when deleting evidence', async () => {
+        await questionPage.visitPage();
+        const newAnswer = 'a new delete answer no js';
+        await questionPage.answerNoSubmit(newAnswer);
+        await questionPage.deleteEvidence();
+        questionPage.verifyPage();
+        const savedAnswer = await questionPage.getElementValue('#question-field');
+        expect(savedAnswer).to.equal(newAnswer);
+      });
     });
 
     describe('with javascript ON', () => {
@@ -317,6 +342,39 @@ describe('Question page', () => {
         }
         const finalCount: number = await questionPage.countEvidence();
         expect(finalCount).to.equal(0);
+      });
+
+      it('remembers changes to answer when uploading evidence', async () => {
+        const newAnswer = 'a new upload answer';
+        await questionPage.answerNoSubmit(newAnswer);
+        await Promise.all([
+          page.waitForNavigation(),
+          questionPage.selectFile('evidence.pdf')
+        ]);
+        questionPage.verifyPage();
+        const savedAnswer = await questionPage.getElementValue('#question-field');
+        expect(savedAnswer).to.equal(newAnswer);
+      });
+
+      it('remembers changes to answer when deleting evidence', async () => {
+        const newAnswer = 'a new delete answer';
+        await questionPage.answerNoSubmit(newAnswer);
+        await questionPage.deleteEvidence();
+        questionPage.verifyPage();
+        const savedAnswer = await questionPage.getElementValue('#question-field');
+        expect(savedAnswer).to.equal(newAnswer);
+      });
+
+      it('remembers changes to answer when evidence not allowed', async () => {
+        const newAnswer = 'a new not allowed answer';
+        await questionPage.answerNoSubmit(newAnswer);
+        await Promise.all([
+          page.waitForNavigation(),
+          questionPage.selectFile('disallowed_evidence.disallowed')
+        ]);
+        questionPage.verifyPage();
+        const savedAnswer = await questionPage.getElementValue('#question-field');
+        expect(savedAnswer).to.equal(newAnswer);
       });
     });
   });
