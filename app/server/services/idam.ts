@@ -87,8 +87,16 @@ export class IdamService {
     }
   }
 
-  getRedirectUrl(protocol: string, host: string): string {
+  getUrl(protocol: string, host: string, path: string): string {
     const portString = (host === 'localhost') ? ':' + this.appPort : '';
-    return protocol + '://' + host + portString + Paths.login;
+    return protocol + '://' + host + portString + path;
+  }
+
+  getRedirectUrl(protocol: string, host: string): string {
+    return this.getUrl(protocol, host, Paths.login);
+  }
+
+  getRegisterUrl(protocol: string, host: string): string {
+    return this.getUrl(protocol, host, Paths.register);
   }
 }

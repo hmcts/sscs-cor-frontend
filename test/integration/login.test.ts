@@ -34,14 +34,21 @@ describe('Login page', () => {
     await loginPage.visitPage();
     await loginPage.login('not.found@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
-    expect(errorSummary).contain(i18n.emailNotFound.header);
+    expect(errorSummary).contain(i18n.login.failed.emailNotFound.header);
   });
 
   it('handles multiple online hearings found', async() => {
     await loginPage.visitPage();
     await loginPage.login('multiple@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
-    expect(errorSummary).contain(i18n.emailNotFound.header);
+    expect(errorSummary).contain(i18n.login.failed.technicalError.header);
+  });
+
+  it('handles non cor hearing found', async() => {
+    await loginPage.visitPage();
+    await loginPage.login('not.cor@example.com', 'examplePassword');
+    const errorSummary = await loginPage.getElementText('.govuk-heading-l');
+    expect(errorSummary).contain(i18n.login.failed.cannotUseService.header);
   });
 
   it('logs in successfully and shows the task list', async() => {

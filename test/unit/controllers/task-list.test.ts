@@ -51,6 +51,15 @@ describe('controllers/task-list', () => {
       ];
     });
 
+    it('should call render with the template and the empty list of questions', async() => {
+      questionService.getAllQuestions = () => Promise.resolve({ });
+      await getTaskList(questionService)(req, res, next);
+      expect(res.render).to.have.been.calledWith('task-list.html', {
+        deadlineExpiryDate: null,
+        questions: []
+      });
+    });
+
     it('should call render with the template and the list of questions and deadline details', async() => {
       questionService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
       await getTaskList(questionService)(req, res, next);
