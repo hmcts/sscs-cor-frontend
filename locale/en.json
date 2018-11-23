@@ -152,7 +152,8 @@
     }
   },
   "tribunalView": {
-    "header": "The tribunal’s view on your appeal",
+    "header": "Read the tibunal's view",
+    "headerText": "You have to say whether you accept it by {{ respondBy }}. You can do this at the bottom of the page.",
     "reasonsHeader": "Reasons for the tribunal’s view",
     "whatNextHeader": "What happens next",
     "whatNextPara": "You can accept the view or if you feel the view is wrong you can have a face to face hearing.",
