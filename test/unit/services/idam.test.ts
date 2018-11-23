@@ -28,6 +28,18 @@ describe('services/idam', () => {
     });
   });
 
+  describe('getRegisterUrl', () => {
+    it('adds port for localhost', () => {
+      const redirectUrl = idamService.getRegisterUrl('http', 'localhost');
+      expect(redirectUrl).to.be.eql(`http://localhost:${appPort}/register`);
+    });
+
+    it('does not add port for remote host', () => {
+      const redirectUrl = idamService.getRegisterUrl('http', 'example.com');
+      expect(redirectUrl).to.be.eql('http://example.com/register');
+    });
+  });
+
   describe('getUserDetails', () => {
     const path = '/details';
     const token = 'someToken';

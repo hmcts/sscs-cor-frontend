@@ -22,15 +22,18 @@ function getTaskList(questionService: QuestionService) {
       const response = await questionService.getAllQuestions(hearing.online_hearing_id);
 
       req.session.hearing.deadline = response.deadline_expiry_date;
-      req.session.questions = response.questions;
+      req.session.questions = response.questions ? response.questions : [];
       req.session.hearing.extensionCount = response.deadline_extension_count;
 
-      const totalQuestionCount = response.questions.length;
-      const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);
-      const deadlineDetails = processDeadline(response.deadline_expiry_date, allQuestionsSubmitted);
+      const totalQuestionCount = req.session.questions.length;
+      let deadlineDetails = null;
+      if (totalQuestionCount !== 0) {
+        const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(req.session.questions);
+        deadlineDetails = processDeadline(response.deadline_expiry_date, allQuestionsSubmitted);
+      }
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
-        questions: response.questions
+        questions: req.session.questions
       });
     } catch (error) {
       AppInsights.trackException(error);

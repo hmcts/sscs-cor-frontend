@@ -1,10 +1,11 @@
-const { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } = require('http-status-codes');
+const { OK, NOT_FOUND, UNPROCESSABLE_ENTITY, CONFLICT } = require('http-status-codes');
 const cache = require('memory-cache');
 const moment = require('moment');
 
 const emailToResCodeMap = {
   'not.found@example.com': NOT_FOUND,
-  'multiple@example.com': UNPROCESSABLE_ENTITY
+  'multiple@example.com': UNPROCESSABLE_ENTITY,
+  'not.cor@example.com': CONFLICT
 };
 const emailHearingIdMap = {
   'completed@example.com': '2-completed',
