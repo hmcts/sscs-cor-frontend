@@ -55,7 +55,7 @@ function getQuestion(questionService: QuestionService) {
           value: response.answer,
           date: response.answer_date
         },
-        evidence: _.sortBy(_.map(response.evidence, (i) => ({ filename: i.file_name, id: i.id })), 'created_date')
+        evidence: _.sortBy(_.map(response.evidence, (i) => ({ filename: i.file_name, id: i.id })), 'created_date').reverse()
       };
       req.session.question = question;
       res.render('question/index.html', {

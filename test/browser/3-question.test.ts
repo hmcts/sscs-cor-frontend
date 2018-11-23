@@ -224,9 +224,9 @@ describe('Question page', () => {
         await uploadEvidencePage.submit();
 
         const count: number = await questionPage.countEvidence();
-        const secondListItem: string = await questionPage.getEvidenceListText(1);
+        const firstItemInList: string = await questionPage.getEvidenceListText(0);
         expect(count).to.equal(2);
-        expect(secondListItem.trim()).to.equal('evidence.pdf');
+        expect(firstItemInList.trim()).to.equal('evidence.pdf');
       });
 
       it('deletes uploaded evidence', async () => {
@@ -329,9 +329,9 @@ describe('Question page', () => {
         ]);
         questionPage.verifyPage();
         const count: number = await questionPage.countEvidence();
-        const secondListItem: string = await questionPage.getEvidenceListText(1);
+        const firstItemInList: string = await questionPage.getEvidenceListText(0);
         expect(count).to.equal(2);
-        expect(secondListItem.trim()).to.equal('evidence.pdf');
+        expect(firstItemInList.trim()).to.equal('evidence.pdf');
       });
 
       it('deletes uploaded evidence', async () => {

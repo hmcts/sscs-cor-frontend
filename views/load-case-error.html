@@ -1,14 +1,13 @@
 {% extends "layout.html" %}
 
-{% block content %}
+{% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">{{ errorHeader }}</h1>
-            {{ errorBody | safe }}
+            {{ errorBody | eval | safe }}
             {% if registerUrl %}
             <p><a class="govuk-link" href="{{ registerUrl }}">{{ registerUrl }}</a></p>
             {% endif %}
-            {% include "includes/contact-us.html" %}
         </div>
     </div>
 {% endblock %}
