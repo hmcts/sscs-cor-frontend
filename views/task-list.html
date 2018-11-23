@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block content %}
+{% block corContent %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
@@ -68,7 +68,6 @@
                 <p>{{ i18n.taskList.sendingEvidence.details.closingPara2 }}</p>
             </div>
         </details>
-        {% include "includes/contact-us.html" %}
     </div>
 </div>
 {% endblock %}

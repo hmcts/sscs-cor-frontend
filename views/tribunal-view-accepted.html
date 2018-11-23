@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block content %}
+{% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">{{ i18n.tribunalViewAccepted.header }}</h1>
@@ -11,8 +11,6 @@
             <p>
                 <a class="govuk-link" href="/sign-out">{{ i18n.tribunalViewAccepted.exitService }}</a>
             </p>
-
-            {% include "includes/contact.html" %}
         </div>
     </div>
 {% endblock %}
