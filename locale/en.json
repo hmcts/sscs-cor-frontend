@@ -228,23 +228,6 @@
     "titleText": "There are errors on the page",
     "descriptionText": "Please fix the errors before you continue"
   },
-  "contact": {
-    "summary": "Contact us for help",
-    "email": {
-      "header": "Email",
-      "link": {
-        "text": "Send us a message",
-        "newWindow": "(opens in a new page)"
-      },
-      "text": "We'll get back to you within 2 days"
-    },
-    "telephone": {
-      "header": "Telephone",
-      "no": "0300 123 1142",
-      "hours": "(Monday to Friday, 9.00am to 5.00pm)",
-      "cost": "Cost 10p per minute from landlines and 3p to 40p per minute from mobiles (approximate)"
-    }
-  },
   "contactUs": {
     "title": "Contact us",
     "emailText": "You can request support by emailing",
