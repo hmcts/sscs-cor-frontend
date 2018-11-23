@@ -1,9 +1,10 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import * as AppInsights from '../app-insights';
 import { Request, Response, NextFunction, Router } from 'express';
-import { NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import { NOT_FOUND, UNPROCESSABLE_ENTITY, CONFLICT } from 'http-status-codes';
 import * as Paths from '../paths';
 import { URL } from 'url';
+const i18n = require('../../../locale/en.json');
 
 const config = require('config');
 
@@ -73,7 +74,7 @@ function getIdamCallback(
 
       req.session.accessToken = tokenResponse.access_token;
 
-      return await loadHearingAndEnterService(hearingService, userDetails.email, req, res);
+      return await loadHearingAndEnterService(hearingService, idamService, userDetails.email, req, res);
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
@@ -83,15 +84,29 @@ function getIdamCallback(
 
 async function loadHearingAndEnterService(
   hearingService: HearingService,
+  idamService: IdamService,
   email: string,
   req: Request,
   res: Response) {
   const response: rp.Response = await hearingService.getOnlineHearing(email);
-  if (response.statusCode === NOT_FOUND || response.statusCode === UNPROCESSABLE_ENTITY) {
-    logger.info(`Know issue trying to find hearing for ${email}, status ${response.statusCode}`);
-
-    return res.render('email-not-found.html');
+  if (response.statusCode === NOT_FOUND) {
+    logger.info(`Cannot find any case for ${email}`);
+    const registerUrl = idamService.getRegisterUrl(req.protocol, req.hostname);
+    const errorHeader = i18n.login.failed.emailNotFound.header;
+    const errorBody = i18n.login.failed.emailNotFound.body;
+    return res.render('load-case-error.html', { errorHeader, errorBody, registerUrl });
+  } else if (response.statusCode === UNPROCESSABLE_ENTITY) {
+    logger.info(`Found multiple appeals for ${email}`);
+    const errorHeader = i18n.login.failed.technicalError.header;
+    const errorBody = i18n.login.failed.technicalError.body;
+    return res.render('load-case-error.html', { errorHeader, errorBody });
+  } else if (response.statusCode === CONFLICT) {
+    logger.info(`Found a non cor appeal for ${email}`);
+    const errorHeader = i18n.login.failed.cannotUseService.header;
+    const errorBody = i18n.login.failed.cannotUseService.body;
+    return res.render('load-case-error.html', { errorHeader, errorBody });
   }
+
   req.session.hearing = response.body;
   logger.info(`Logging in ${email}`);
   return res.redirect(Paths.taskList);

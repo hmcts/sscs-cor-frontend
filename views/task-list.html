@@ -14,32 +14,40 @@
     <div class="govuk-grid-column-two-thirds">
         <div id="task-list">
             <h2 class="govuk-heading-s">Questions from the tribunal</h2>
-            <p>
-                <span id="deadline-status">{{ i18n.taskList.deadline[deadlineExpiryDate.status] }}</span>
-                {% if deadlineExpiryDate.expiryDate %}
-                    <span id="deadline-date">{{ deadlineExpiryDate.expiryDate | date }}</span>.
-                {% endif %}
-                {% if deadlineExpiryDate.extendable %}
-                    <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>
-                {% endif %}
-            </p>
-            <ul class="govuk-list">
-                {% for question in questions %}
-                    {% set answerState = question.answer_state %}
-                    <li id="question-{{ question.question_id }}">
-                        <a class="govuk-link question-header-text" href="/question/{{ loop.index }}">{{ question.question_header_text }}</a>
-                        {% if answerState != 'unanswered' %}
+            {% if questions.length != 0 %}
+                <p>
+                    <span id="deadline-status">{{ i18n.taskList.deadline[deadlineExpiryDate.status] }}</span>
+                    {% if deadlineExpiryDate.expiryDate %}
+                        <span id="deadline-date">{{ deadlineExpiryDate.expiryDate | date }}</span>.
+                    {% endif %}
+                    {% if deadlineExpiryDate.extendable %}
+                        <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>
+                    {% endif %}
+                </p>
+                <ul class="govuk-list">
+                    {% for question in questions %}
+                        {% set answerState = question.answer_state %}
+                        <li id="question-{{ question.question_id }}">
+                            <a class="govuk-link question-header-text" href="/question/{{ loop.index }}">{{ question.question_header_text }}</a>
+                            {% if answerState != 'unanswered' %}
                             <span class="answer-state {{ question.answer_state }}">
-                                {{
-                                    i18n.taskList.answerState.completed
-                                    if answerState === 'submitted'
-                                    else i18n.taskList.answerState.draft
-                                }}
-                            </span>
-                        {% endif %}
+                                            {{
+                                                i18n.taskList.answerState.completed
+                                                if answerState === 'submitted'
+                                                else i18n.taskList.answerState.draft
+                                            }}
+                                        </span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <ul class="govuk-list">
+                    <li>
+                        {{ i18n.taskList.noQuestions }}
                     </li>
-                {% endfor %}
-            </ul>
+                </ul>
+            {% endif %}
         </div>
 
         <h2 class="govuk-heading-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
@@ -60,7 +68,7 @@
                 <p>{{ i18n.taskList.sendingEvidence.details.closingPara2 }}</p>
             </div>
         </details>
-
+        {% include "includes/contact-us.html" %}
     </div>
 </div>
 {% endblock %}
