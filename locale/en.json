@@ -9,7 +9,6 @@
   "guidance": {
     "sendingEvidence": {
       "byEmailHeader": "Send by email",
-      "emailAddress": "benefitappeals@hmcts.net",
       "byPostHeader": "Send by post",
       "postalAddress": "Birmingham ASC<br/>HM Courts and Tribunals Service<br/>Administrative Support Centre (ASC)<br/>P O Box 14620<br/>Birmingham<br/>B16 6FR"
     }
@@ -31,7 +30,7 @@
       },
       "technicalError": {
         "header": "There is a technical problem with your account",
-        "body": "<p>There is a technical problem with the account you are using to access your benefit appeal.</p><p>Please email <a href=\"mailto:benefitappeals@hmcts.net\">benefitappeals@hmcts.net</a> and we will resolve it for you. Include your appeal reference number and name.</p><p>We apologise for any inconvenience.</p>"
+        "body": "<p>There is a technical problem with the account you are using to access your benefit appeal.</p><p>Please email <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> and we will resolve it for you. Include your appeal reference number and name.</p><p>We apologise for any inconvenience.</p>"
       },
       "cannotUseService": {
         "header": "You cannot access this service",
@@ -143,7 +142,6 @@
       "header": "You need to provide reasons",
       "para1": "You need to contact the tribunal and explain why you need more time.",
       "para2": "Send an email explaining why you need more time and the date you can respond by to:",
-      "email": "benefitappeals@hmcts.net",
       "para3": "Your reasons will be reviewed by a judge.",
       "para4": "You will then receive another email telling you whether you have been granted additional time and how the tribunal wish to proceed."
     },
@@ -201,8 +199,7 @@
       "header": "A hearing needs to be booked for your appeal",
       "para1": "You'll receive an email with the details of your hearing by {{ responseDate }}.",
       "para2": "If you require a hearing room with disabled access or any other support then please email the tribunal at ",
-      "para3": "Include your appeal reference number on any emails to the tribunal:",
-      "contactEmail": "benefitappeals@hmcts.net"
+      "para3": "Include your appeal reference number on any emails to the tribunal:"
     }
   },
   "error": {
