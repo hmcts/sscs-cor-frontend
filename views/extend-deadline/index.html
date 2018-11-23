@@ -7,7 +7,7 @@
   {{ super() }}
 {% endblock %}
 
-{% block content %}
+{% block corContent %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
@@ -40,9 +40,6 @@
         {% include "extend-deadline/confirmation-no.html" %}
 
       {% endif %}
-
-      {% include "includes/contact.html" %}
-
     </div>
   </div>
 {% endblock %}
