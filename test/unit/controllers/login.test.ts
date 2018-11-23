@@ -6,6 +6,7 @@ import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { HearingService } from 'app/server/services/hearing';
 const config = require('config');
+const i18n = require('locale/en');
 
 const idamUrl = config.get('idam.url');
 
@@ -155,8 +156,8 @@ describe('controllers/login', () => {
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
-          errorBody: '<p>There is a technical problem with the account you are using to access your benefit appeal.</p><p>Please email <a href="mailto:benefitappeals@hmcts.net">benefitappeals@hmcts.net</a> and we will resolve it for you. Include your appeal reference number and name.</p><p>We apologise for any inconvenience.</p>',
-          errorHeader: 'There is a technical problem with your account'
+          errorBody: i18n.login.failed.technicalError.body,
+          errorHeader: i18n.login.failed.technicalError.header
         });
       });
 
