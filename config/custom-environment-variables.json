@@ -40,6 +40,14 @@
   },
   "s2s": {
     "secret": "S2S_SECRET",
-    "url": "S2S_URL"
+    "url": "S2S_URL",
+    "oauth2": {
+      "url": "S2S_OAUTH2_URL",
+      "user": "IDAM_SSCS_SYSTEMUPDATE_USER",
+      "password": "IDAM_SSCS_SYSTEMUPDATE_PASSWORD",
+      "client": {
+        "secret": "IDAM_OAUTH2_CLIENT_SECRET"
+      }
+    }
   }
 }

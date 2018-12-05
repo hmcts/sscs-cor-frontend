@@ -104,11 +104,15 @@ To do this you must set some extra environment variables locally:
 * IDAM_API_URL - Used to create a user in idam that can login to the system (not currently used with idam stub)
 * S2S_SECRET - used to provide auth for connecting to backend services
 * S2S_URL - the service-2-service application for generating access tokens
+* IDAM_SSCS_SYSTEMUPDATE_USER - The user to to get s2s token
+* IDAM_SSCS_SYSTEMUPDATE_PASSWORD - Password for the user
+* IDAM_OAUTH2_CLIENT_SECRET - Client secret to get auth token
+* S2S_OAUTH2_URL - Url to get token and auth_token from
 
 Put these together with the required `yarn` command in one line like this:
 
 ```bash
-HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal yarn test:functional
+HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=XXXXXXXXXXX IDAM_OAUTH2_CLIENT_SECRET=XXXXXXXXXXX S2S_OAUTH2_URL=https://preprod-idamapi.reform.hmcts.net:3511 yarn test:functional
 ```
 
 Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
