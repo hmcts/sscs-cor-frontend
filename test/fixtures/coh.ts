@@ -1,7 +1,7 @@
 const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/cor-backend/services/question').template;
-import { generateToken } from './s2s';
+import { generateToken, generateOauth2 } from './s2s';
 
 const cohUrl = require('config').get('cohUrl');
 
@@ -15,9 +15,11 @@ const QUESTION_ROUND = '1';
 
 async function getHeaders() {
   const token = await generateToken();
+  const oauthToken: string = await generateOauth2();
+
   return {
-    Authorization: 'oauth2Token',
-    ServiceAuthorization: `Bearer ${token}`, // do we need to add Bearer,
+    Authorization: `Bearer ${oauthToken}`,
+    ServiceAuthorization: `Bearer ${token}`,
     'Content-Type': 'application/json'
   };
 }
