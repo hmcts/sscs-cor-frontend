@@ -42,6 +42,14 @@
   "s2s": {
     "microservice": "sscs",
     "secret": "s2s_secret",
-    "url": "http://localhost:10000"
+    "url": "http://localhost:10000",
+    "oauth2": {
+      "url": "http://localhost:10000",
+      "user": "some_user",
+      "password": "some_password",
+      "client": {
+        "secret": "some_secret"
+      }
+    }
   }
 }
