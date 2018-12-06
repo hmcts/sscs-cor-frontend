@@ -65,7 +65,7 @@ withPipeline("nodejs", product, component) {
         sh 'echo IDAM_API_URL=$IDAM_API_URL'
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
-        env.S2S_OAUTH_URL = "https://preprod-idamapi.reform.hmcts.net:3511"
-        sh 'echo S2S_OAUTH_URL=$S2S_OAUTH_URL'
+        env.S2S_OAUTH2_URL = "https://preprod-idamapi.reform.hmcts.net:3511"
+        sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
 }
