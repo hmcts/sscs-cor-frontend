@@ -29,15 +29,7 @@ function postTribunalView(hearingService) {
       return res.render('tribunal-view.html', { decision: hearing.decision, respondBy, error: validationMessage });
     }
     if (acceptView === 'yes') {
-      try {
-        await hearingService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
-        req.session.hearing.decision.appellant_reply = 'decision_accepted';
-        req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
-        return res.redirect(Paths.tribunalViewAccepted);
-      } catch (error) {
-        AppInsights.trackException(error);
-        next(error);
-      }
+      return res.redirect(Paths.tribunalViewConfirm);
     }
     if (acceptView === 'no') {
       return res.redirect(Paths.hearingConfirm);
