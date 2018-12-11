@@ -10,6 +10,7 @@ export const extendDeadline = '/extend-deadline';
 export const idamCallback = '/oauth2/callback';
 export const decision = '/decision';
 export const tribunalView = '/tribunal-view';
+export const tribunalViewConfirm = '/tribunal-view-confirm';
 export const tribunalViewAccepted = '/tribunal-view-accepted';
 export const hearingConfirm = '/hearing-confirm';
 export const hearingWhy = '/hearing-why';

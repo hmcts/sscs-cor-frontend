@@ -6,6 +6,7 @@ import { Page } from 'puppeteer';
 import { startServices, login } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 import { TribunalViewAcceptedPage } from 'test/page-objects/tribunal-view-accepted';
+import { TribunalViewConfirmPage } from 'test/page-objects/tribunal-view-confirm';
 const i18n = require('locale/en');
 const config = require('config');
 
@@ -17,6 +18,7 @@ describe('Tribunal view page', () => {
   let page: Page;
   let tribunalViewPage: TribunalViewPage;
   let tribunalViewAcceptedPage: TribunalViewAcceptedPage;
+  let tribunalViewConfirmPage: TribunalViewConfirmPage;
   let browser;
 
   before('start services and bootstrap data in CCD/COH', async () => {
@@ -26,6 +28,7 @@ describe('Tribunal view page', () => {
     pa11yOpts.browser = browser;
     tribunalViewPage = new TribunalViewPage(page);
     tribunalViewAcceptedPage = new TribunalViewAcceptedPage(page);
+    tribunalViewConfirmPage = new TribunalViewConfirmPage(page);
     await tribunalViewPage.screenshot('tribunal-view-issued');
   });
 
@@ -70,22 +73,33 @@ describe('Tribunal view page', () => {
   });
 
   describe('accepting the tribunal\'s view shows the accepts page', () => {
-    before(async () => {
-      await tribunalViewPage.acceptTribunalsView();
-      await tribunalViewPage.submit();
-    });
-
-    it('verifies the page', async () => {
-      tribunalViewAcceptedPage.verifyPage();
-      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+    it('is on the /tribunal-view path', async () => {
+      tribunalViewPage.verifyPage();
     });
 
     /* PA11Y */
-    it('checks /tribunal-view-accepted passes @pa11y', async () => {
-      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/view-accpet.png`;
-      pa11yOpts.page = tribunalViewAcceptedPage.page;
+    it('checks /tribunal-view-confirm passes @pa11y', async () => {
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/view-confirm.png`;
+      pa11yOpts.page = tribunalViewConfirmPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+
+    it('accept tribunal view and shows confirming page', async () => {
+      await tribunalViewPage.acceptTribunalsView();
+      await tribunalViewPage.submit();
+
+      tribunalViewConfirmPage.verifyPage();
+      expect(await tribunalViewConfirmPage.getHeading()).to.equal(i18n.tribunalViewConfirm.header);
+    });
+
+    it('confirms view and shows tribunal accepted', async () => {
+      await tribunalViewConfirmPage.acceptTribunalsView();
+      await tribunalViewConfirmPage.submit();
+
+      tribunalViewAcceptedPage.verifyPage();
+      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+
     });
 
     it('returns the user to the acceptance page if they sign-in later', async () => {
