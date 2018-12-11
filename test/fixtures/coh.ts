@@ -157,5 +157,6 @@ export {
   getQuestionRound,
   getDecision,
   createDecision,
-  issueDecision
+  issueDecision,
+  getHeaders
 };
