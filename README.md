@@ -190,6 +190,15 @@ And use the command:
 HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_SECRET=XXXXXXXXXXXXX yarn test:create-data
 ```
 
+If you then want to make calls directly to COH to change the state of an online hearing you will need the S2S headers 
+these can be generated with
+
+```bash
+yarn test:create-s2s-headers
+```
+
+You will need the same environment variables used when creating test data. 
+
 ### Analytics
 
 Analytics are tracking using Google Tag Manager (GTM) and Google Analytics (GA), all managed under the SSCS account.

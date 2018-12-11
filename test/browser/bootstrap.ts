@@ -102,3 +102,8 @@ export async function createAndIssueDecision(hearingId) {
     return Promise.reject(error);
   }
 }
+
+export async function bootstrapCreateS2sTokens() {
+  const headers = await coh.getHeaders();
+  return headers;
+}
