@@ -1,0 +1,60 @@
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
+{% extends "layout.html" %}
+
+{% block corContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if error %}
+        {{ govukErrorSummary({
+          titleText: i18n.errorSummary.titleText,
+          descriptionText: i18n.errorSummary.descriptionText,
+          errorList: [{
+            text: error,
+            href: "#accept-view-1"
+          }]
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">{{ i18n.tribunalViewConfirm.header }}</h1>
+      <p>{{ i18n.tribunalViewConfirm.headerText | eval | date }}</p>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      
+      <form action="/tribunal-view-confirm" method="post">
+        {{ govukRadios({
+            classes: "govuk-radios",
+            idPrefix: "accept-view",
+            name: "accept-view",
+            items: [
+              {
+                value: "yes",
+                text: i18n.tribunalViewConfirm.acceptYes
+              },
+              {
+                value: "no",
+                text: i18n.tribunalViewConfirm.acceptNo
+              }
+            ],
+            errorMessage: {
+              text: error
+            } if error
+          }) 
+        }}
+        <p>{{ i18n.tribunalViewConfirm.acceptHelp | eval | date }}</p>
+        <div id="submit-button">
+          {{
+            govukButton({
+            text: i18n.general.continue
+            })
+          }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

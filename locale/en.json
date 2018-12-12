@@ -164,6 +164,13 @@
       "empty": "You must accept the tribunal's view or request a hearing."
     }
   },
+  "tribunalViewConfirm": {
+    "header": "Are you sure you want to accept the view?",
+    "headerText": "You will not be able to change your mind.",
+    "acceptYes": "Yes, I want to accept the view",
+    "acceptNo": "No, I want to go back",
+    "acceptHelp": "If you need help deciding then you could talk to your representative or a friend or family member who know about your condition."
+  },
   "tribunalViewAccepted": {
     "header": "You have accepted the tribunal’s view",
     "para1": "This view has also been communicated to DWP.",
