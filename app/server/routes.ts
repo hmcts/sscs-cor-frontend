@@ -67,4 +67,9 @@ router.use(hearingController);
 router.use(hearingWhyController);
 router.get('/', redirectToLogin);
 
+router.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send('User-agent: *\nDisallow: /');
+});
+
 export { router };
