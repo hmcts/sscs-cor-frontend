@@ -33,7 +33,7 @@ export class EvidenceUpload {
     formElement.appendChild(document.getElementById('question-field'));
     formElement.appendChild(document.getElementById(this.FILE_UPLOAD_ID));
     formElement.setAttribute('enctype', 'multipart/form-data');
-    document.body.appendChild(formElement);
+    document.getElementById('answer-form').prepend(formElement);
 
     const spinner = document.getElementById('upload-spinner');
     spinner.style.display = 'block';
