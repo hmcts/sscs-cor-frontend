@@ -73,7 +73,7 @@
     "evidenceUpload": {
       "checkbox": "I want to provide evidence to support my answer",
       "header": "Provide evidence to support your answer",
-      "info": "You can upload evidence to support your answer such as letters, photos, video or audio. If you are taking a picture of a letter, place it on a flat surface and take the picture from above.",
+      "info": "You can upload evidence to support your answer such as letters, photos and documents. If you are taking a picture of a letter, place it on a flat surface and take the picture from above.",
       "addFileButton": "Add file",
       "fileUploading": "File uploading",
       "postEvidence": {
@@ -81,7 +81,8 @@
         "details": {
           "para1": "You can post evidence to the address below.",
           "para2": "Make sure it’s clearly marked with your appeal reference number:",
-          "closingPara1": "Try to post it as soon as possible to avoid delaying your appeal."
+          "closingPara1": "Try to post it as soon as possible to avoid delaying your appeal.",
+          "closingPara2": "Tell the tribunal in your answer if you plan on posting evidence. Briefly describe what you are posting and say when you think it will arrive."
         }
       },
       "fileList": {
