@@ -79,8 +79,8 @@ describe('Task list page', () => {
   });
 
   it('displays the deadline details as pending', async () => {
-    expect(await taskListPage.getElementText('#deadline-status')).to.equal(i18n.taskList.deadline.pending);
-    expect(await taskListPage.getElementText('#deadline-date')).to.equal(deadlineExpiryDateFormatted);
+    expect(await taskListPage.getElementText('#deadline-status')).to.contain(i18n.taskList.deadline.pending);
+    expect(await taskListPage.getElementText('#deadline-status')).to.contain(deadlineExpiryDateFormatted);
   });
 
   it('displays the list of questions', async () => {
