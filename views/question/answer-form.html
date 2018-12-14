@@ -1,9 +1,10 @@
 {% from "checkboxes/macro.njk" import govukCheckboxes %}
 {% from "file-upload/macro.njk" import govukFileUpload %}
+{% from "character-count/macro.njk" import govukCharacterCount %}
 
 <form id="answer-form" action="/question/{{ question.questionOrdinal }}" method="post">
   <div>
-    {{ govukTextarea({
+    {{ govukCharacterCount({
         id: 'question-field',
         classes: 'auto-expand',
         name: 'question-field',
@@ -16,6 +17,7 @@
             placeholder: i18n.question.textareaField.placeholder
         },
         rows: 6,
+        maxlength: 10000,
         errorMessage: {
             text: question.answer.error
         } if question.answer.error
