@@ -67,11 +67,10 @@ describe('Login page', () => {
 
   it('displays the deadline text and date', async() => {
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
-    const deadlineDate = await taskListPage.getElementText('#deadline-date');
     /* eslint-disable-next-line no-magic-numbers */
     const expectedDeadlineDate = moment.utc().add(7, 'days').endOf('day').format('D MMMM YYYY');
-    expect(deadlineStatus).to.equal(i18n.taskList.deadline.pending);
-    expect(deadlineDate).to.equal(expectedDeadlineDate);
+    expect(deadlineStatus).to.contain(i18n.taskList.deadline.pending);
+    expect(deadlineStatus).to.contain(expectedDeadlineDate);
   });
 
   it('displays the deadline appropriately when expired', async() => {
@@ -80,10 +79,10 @@ describe('Login page', () => {
     await loginPage.screenshot('expired-login');
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
-    const deadlineDate = await taskListPage.getElementText('#deadline-date');
+
     const expectedDeadlineDate = moment.utc().subtract(1, 'day').endOf('day').format('D MMMM YYYY');
-    expect(deadlineStatus).to.equal(i18n.taskList.deadline.expired);
-    expect(deadlineDate).to.equal(expectedDeadlineDate);
+    expect(deadlineStatus).to.contain(i18n.taskList.deadline.expired);
+    expect(deadlineStatus).to.contain(expectedDeadlineDate);
   });
 
   it('displays the deadline appropriately when completed', async() => {
@@ -92,7 +91,7 @@ describe('Login page', () => {
     await loginPage.screenshot('completed-login');
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
-    expect(deadlineStatus).to.equal(i18n.taskList.deadline.completed);
+    expect(deadlineStatus).to.contain(i18n.taskList.deadline.completed);
   });
 
   it('displays the tribunal view page', async() => {
