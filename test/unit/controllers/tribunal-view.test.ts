@@ -1,12 +1,10 @@
 import { OnlineHearing } from 'app/server/services/hearing';
 const { expect, sinon } = require('test/chai-sinon');
 const { getTribunalView, postTribunalView, setupTribunalViewController } = require('app/server/controllers/tribunal-view');
-import { postTribunalViewConfirm } from 'app/server/controllers/tribunal-view-confirm';
 const express = require('express');
 const i18n = require('locale/en.json');
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
-import { CONST } from 'app/constants';
 import * as AppInsights from 'app/server/app-insights';
 
 describe('controllers/tribunal-view', () => {
