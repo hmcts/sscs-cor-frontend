@@ -14,6 +14,8 @@ import * as cookieParser from 'cookie-parser';
 import * as moment from 'moment';
 const { fileTypes } = require('./utils/mimeTypeWhitelist');
 const dateFilter = require('nunjucks-date-filter');
+const helmet = require('helmet');
+
 dateFilter.setDefaultFormat(CONST.DATE_FORMAT);
 
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -29,6 +31,42 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   }
 
   const app = express();
+
+  // Protect against some well known web vulnerabilities
+  // by setting HTTP headers appropriately.
+  app.use(helmet());
+
+  // Helmet content security policy (CSP) to allow only assets from same domain.
+  app.use(helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ['\'self\''],
+      fontSrc: ['\'self\' data:'],
+      scriptSrc: [
+        '\'self\'',
+        '\'unsafe-inline\'',
+        'www.google-analytics.com',
+        'www.googletagmanager.com'
+      ],
+      connectSrc: ['\'self\'', 'www.gov.uk'],
+      mediaSrc: ['\'self\''],
+      frameSrc: ['\'none\''],
+      imgSrc: [
+        '\'self\'',
+        'www.google-analytics.com',
+        'www.googletagmanager.com'
+      ]
+    }
+  }));
+
+  // Helmet referrer policy
+  app.use(helmet.referrerPolicy({ policy: 'origin' }));
+
+  // Disallow search index indexing
+  app.use((req, res, next) => {
+    // Setting headers stops pages being indexed even if indexed pages link to them
+    res.setHeader('X-Robots-Tag', 'noindex');
+    next();
+  });
 
   app.locals.i18n = locale;
   app.locals.fileTypeWhiteList = fileTypes;
