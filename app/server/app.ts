@@ -15,7 +15,6 @@ import * as moment from 'moment';
 const { fileTypes } = require('./utils/mimeTypeWhitelist');
 const dateFilter = require('nunjucks-date-filter');
 const helmet = require('helmet');
-const os = require('os');
 
 dateFilter.setDefaultFormat(CONST.DATE_FORMAT);
 
@@ -66,8 +65,6 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use((req, res, next) => {
     // Setting headers stops pages being indexed even if indexed pages link to them
     res.setHeader('X-Robots-Tag', 'noindex');
-    res.setHeader('X-Served-By', os.hostname());
-    res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
     next();
   });
 

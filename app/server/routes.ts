@@ -52,6 +52,13 @@ const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensur
 const loginController = setupLoginController({ hearingService, idamService });
 const idamStubController = setupIdamStubController();
 
+router.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+  res.header('Pragma', 'no-cache');
+  res.header('Expires', 0);
+  next();
+});
+
 router.use(idamStubController);
 router.use(loginController);
 router.use(submitQuestionController);
