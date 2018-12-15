@@ -238,5 +238,9 @@
     "emailText": "You can request support by emailing",
     "includeRefNum": "Please include your appeal reference number.",
     "getBackIn": "We’ll get back to you within 2 days."
+  },
+  "cookieBanner" : {
+    "message" : "GOV.UK uses cookies to make the site simpler. ",
+    "link" : "Find out more about cookies"
   }
 }
