@@ -8,7 +8,7 @@ describe('Client/check-cookies', () => {
     document.body.innerHTML = `<div id="${checkCookies.COOKIE_BANNER}"></div>`;
   });
 
-  describe('#cookieBanner', () => {
+  describe('Browser Cookie Tests', () => {
     it('Cookie disabled', () => {
       const mockWindow = { navigator : { cookieEnabled : false }, document : {} };
       // Lock cookie property to simulate browser disabled cookies.
@@ -25,7 +25,9 @@ describe('Client/check-cookies', () => {
       let result = checkCookies.testCookies(mockWindow);
       expect(result).to.equal(true);
     });
+  });
 
+  describe('#cookieBanner', () => {
     it('Cookie banner toggle', () => {
       const target: HTMLElement = document.getElementById(checkCookies.COOKIE_BANNER);
       checkCookies.toggleBanner(true);
