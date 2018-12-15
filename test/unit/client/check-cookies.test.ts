@@ -1,11 +1,11 @@
 import { expect } from 'test/chai-sinon';
 import { CheckCookies } from 'app/client/javascript/check-cookies';
 
-describe('expanding-textbox', () => {
+describe('Client/check-cookies', () => {
   let checkCookies;
   before(() => {
     checkCookies = new CheckCookies();
-    document.body.innerHTML = '<div id="app-cookie-banner"></div>';
+    document.body.innerHTML = `<div id="${checkCookies.COOKIE_BANNER}"></div>`;
   });
 
   describe('#cookieBanner', () => {
