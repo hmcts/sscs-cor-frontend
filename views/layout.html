@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block header %}
+    {% include "includes/cookie-banner.html" %}
     {% set navigation = [] %}
     {% if showSignOut %}
         {% set navigation = [{
