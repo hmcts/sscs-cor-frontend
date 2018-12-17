@@ -26,9 +26,9 @@ export class CheckCookies {
     return ret;
   }
 
-  toggleBanner(cookieEnabled: boolean): void {
+  toggleBanner(showCookieBanner: boolean): void {
     const cookieBanner = document.getElementById(this.COOKIE_BANNER);
-    if (!cookieEnabled) {
+    if (showCookieBanner) {
       cookieBanner.style.display = 'block';
     } else {
       cookieBanner.style.display = 'none';

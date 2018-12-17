@@ -20,7 +20,7 @@ function initCheckCookies() {
   let cookiesEnabled = checkCookies.isCookieEnabled(window);
 
   if (cookiesEnabled) {
-    showCookieBanner = checkCookies.isCookiePrivacyMessageDisplayed(window);
+    showCookieBanner = !checkCookies.isCookiePrivacyMessageDisplayed(window);
   } else {
     showCookieBanner = true;
   }
