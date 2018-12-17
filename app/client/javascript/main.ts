@@ -17,14 +17,7 @@ function initEvidenceUpload() {
 function initCheckCookies() {
   checkCookies = new CheckCookies();
   let showCookieBanner = false;
-  let cookiesEnabled = checkCookies.isCookieEnabled(window);
-
-  if (cookiesEnabled) {
-    showCookieBanner = !checkCookies.isCookiePrivacyMessageDisplayed(window);
-  } else {
-    showCookieBanner = true;
-  }
-
+  showCookieBanner = !checkCookies.isCookiePrivacyMessageDisplayed(window);
   checkCookies.toggleBanner(showCookieBanner);
 }
 

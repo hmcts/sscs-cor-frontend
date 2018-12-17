@@ -1,19 +1,6 @@
 export class CheckCookies {
   public COOKIE_BANNER: string = 'app-cookie-banner';
 
-  isCookieEnabled(window): boolean {
-    try {
-      // Create cookie
-      window.document.cookie = 'cookietest=1';
-      let ret = window.document.cookie.indexOf('cookietest=') !== -1;
-      // Delete cookie
-      window.document.cookie = 'cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT';
-      return ret;
-    } catch (e) {
-      return false;
-    }
-  }
-
   isCookiePrivacyMessageDisplayed(window): boolean {
     let ret = window.document.cookie.indexOf('seen_cookie_message=1') !== -1;
 
