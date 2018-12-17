@@ -17,7 +17,7 @@ function initEvidenceUpload() {
 function initCheckCookies() {
   checkCookies = new CheckCookies();
   let showCookieBanner = false;
-  let cookiesEnabled = checkCookies.isCookieEnable(window);
+  let cookiesEnabled = checkCookies.isCookieEnabled(window);
 
   if (cookiesEnabled) {
     showCookieBanner = checkCookies.isCookiePrivacyMessageDisplayed(window);
