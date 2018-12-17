@@ -42,10 +42,10 @@ describe('Client/check-cookies', () => {
     it('Cookie banner toggle', () => {
       const target: HTMLElement = document.getElementById(checkCookies.COOKIE_BANNER);
       checkCookies.toggleBanner(true);
-      expect(target.style.display).to.equal('none');
+      expect(target.style.display).to.equal('block');
 
       checkCookies.toggleBanner(false);
-      expect(target.style.display).to.equal('block');
+      expect(target.style.display).to.equal('none');
     });
   });
 });
