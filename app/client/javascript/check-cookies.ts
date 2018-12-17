@@ -7,7 +7,8 @@ export class CheckCookies {
     // If Cookie Message is not shown in the past.
     // Add a seen_cookie_message  cookie to user's browser for one year.
     if (!ret) {
-      window.document.cookie = `seen_cookie_message=1; expires=${new Date(new Date().setFullYear(new Date().getFullYear() + 1))}`;
+      let CurrentDate = new Date();
+      window.document.cookie = `seen_cookie_message=1; expires=${CurrentDate.setMonth(CurrentDate.getMonth() + 1)}`;
     }
 
     return ret;
