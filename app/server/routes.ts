@@ -17,6 +17,7 @@ import { setupHearingWhyController } from './controllers/hearing-why';
 import { setupTribunalViewAcceptedController } from './controllers/tribunal-view-accepted';
 import { setupTribunalViewConfirmController } from './controllers/tribunal-view-confirm';
 import { setupIdamStubController } from './controllers/idam-stub';
+import { setupCookiePrivacyController } from './controllers/policies';
 
 const router = express.Router();
 
@@ -51,6 +52,7 @@ const hearingController = setupHearingConfirmController({ prereqMiddleware: ensu
 const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const loginController = setupLoginController({ hearingService, idamService });
 const idamStubController = setupIdamStubController();
+const cookiePrivacyController = setupCookiePrivacyController();
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -72,6 +74,7 @@ router.use(tribunalViewAcceptedController);
 router.use(tribunalViewConfirmController);
 router.use(hearingController);
 router.use(hearingWhyController);
+router.use(cookiePrivacyController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {
