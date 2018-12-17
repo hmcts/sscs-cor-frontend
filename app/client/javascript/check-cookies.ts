@@ -1,7 +1,7 @@
 export class CheckCookies {
   public COOKIE_BANNER: string = 'app-cookie-banner';
 
-  isCookieEnable(window): boolean {
+  isCookieEnabled(window): boolean {
     try {
       // Create cookie
       window.document.cookie = 'cookietest=1';
@@ -18,6 +18,7 @@ export class CheckCookies {
     let ret = window.document.cookie.indexOf('seen_cookie_message=1') !== -1;
 
     // If Cookie Message is not shown in the past.
+    // Add a seen_cookie_message  cookie to user's browser for one year.
     if (!ret) {
       window.document.cookie = `seen_cookie_message=1; expires=${new Date(new Date().setFullYear(new Date().getFullYear() + 1))}`;
     }
