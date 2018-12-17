@@ -47,6 +47,7 @@
       "expired": "Deadline to respond expired on "
     },
     "answerState": {
+      "unanswered": "Not answered",
       "draft": "Draft",
       "completed": "Completed"
     },

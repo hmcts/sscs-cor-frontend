@@ -25,8 +25,17 @@
                 <ul class="govuk-list">
                     {% for question in questions %}
                         {% set answerState = question.answer_state %}
+                        {% if answerState === 'submitted' %}
+                            {% set answerStateLabel = i18n.taskList.answerState.completed %}
+                        {% elif answerState === 'draft' %}
+                            {% set answerStateLabel = i18n.taskList.answerState.draft %}
+                        {% else %}
+                            {% set answerStateLabel = i18n.taskList.answerState.unanswered %}
+                        {% endif %}
                         <li id="question-{{ question.question_id }}">
-                            <a class="govuk-link question-header-text" href="/question/{{ loop.index }}">{{ question.question_header_text }}</a>
+                            <a class="govuk-link question-header-text" 
+                                href="/question/{{ loop.index }}" 
+                                title="{{ answerStateLabel }}, List {{ loop.index }} of {{ loop.length }}">{{ question.question_header_text }}</a>
                             {% if answerState != 'unanswered' %}
                             <span class="answer-state {{ question.answer_state }}">
                                             {{
