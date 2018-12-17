@@ -16,13 +16,13 @@ describe('Client/check-cookies', () => {
         value: '',
         writable: false
       });
-      let result = checkCookies.isCookieEnable(mockWindow);
+      let result = checkCookies.isCookieEnabled(mockWindow);
       expect(result).to.equal(false);
     });
 
     it('Cookie enabled', () => {
       const mockWindow = { navigator : { cookieEnabled : true }, document : {} };
-      let result = checkCookies.isCookieEnable(mockWindow);
+      let result = checkCookies.isCookieEnabled(mockWindow);
       expect(result).to.equal(true);
     });
 
