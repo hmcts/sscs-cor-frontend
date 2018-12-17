@@ -1,7 +1,7 @@
 export class CheckCookies {
   public COOKIE_BANNER: string = 'app-cookie-banner';
 
-  testCookies(window): boolean {
+  isCookieEnable(window): boolean {
     try {
       // Create cookie
       window.document.cookie = 'cookietest=1';
@@ -12,6 +12,17 @@ export class CheckCookies {
     } catch (e) {
       return false;
     }
+  }
+
+  isCookiePrivacyMessageDisplayed(window): boolean {
+    let ret = window.document.cookie.indexOf('seen_cookie_message=1') !== -1;
+
+    // If Cookie Message is not shown in the past.
+    if (!ret) {
+      window.document.cookie = `seen_cookie_message=1; expires=${new Date(new Date().setFullYear(new Date().getFullYear() + 1))}`;
+    }
+
+    return ret;
   }
 
   toggleBanner(cookieEnabled: boolean): void {

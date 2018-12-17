@@ -16,8 +16,16 @@ function initEvidenceUpload() {
 
 function initCheckCookies() {
   checkCookies = new CheckCookies();
-  let isCookiesEnabled = checkCookies.testCookies(window);
-  checkCookies.toggleBanner(isCookiesEnabled);
+  let showCookieBanner = false;
+  let cookiesEnabled = checkCookies.isCookieEnable(window);
+
+  if (cookiesEnabled) {
+    showCookieBanner = checkCookies.isCookiePrivacyMessageDisplayed(window);
+  } else {
+    showCookieBanner = true;
+  }
+
+  checkCookies.toggleBanner(showCookieBanner);
 }
 
 domready(function () {

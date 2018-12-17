@@ -16,15 +16,26 @@ describe('Client/check-cookies', () => {
         value: '',
         writable: false
       });
-      let result = checkCookies.testCookies(mockWindow);
+      let result = checkCookies.isCookieEnable(mockWindow);
       expect(result).to.equal(false);
     });
 
     it('Cookie enabled', () => {
       const mockWindow = { navigator : { cookieEnabled : true }, document : {} };
-      let result = checkCookies.testCookies(mockWindow);
+      let result = checkCookies.isCookieEnable(mockWindow);
       expect(result).to.equal(true);
     });
+
+    it('test if Cookie Privacy Message Displayed', () => {
+      const mockWindow = { navigator : { cookieEnabled : true }, document : { cookie: '' } };
+      // First time visit
+      let result = checkCookies.isCookiePrivacyMessageDisplayed(mockWindow);
+      expect(result).to.equal(false);
+      // Second time visit
+      result = checkCookies.isCookiePrivacyMessageDisplayed(mockWindow);
+      expect(result).to.equal(true);
+    });
+
   });
 
   describe('#cookieBanner', () => {
