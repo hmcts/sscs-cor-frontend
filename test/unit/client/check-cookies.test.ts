@@ -9,23 +9,6 @@ describe('Client/check-cookies', () => {
   });
 
   describe('Browser Cookie Tests', () => {
-    it('Cookie disabled', () => {
-      const mockWindow = { navigator : { cookieEnabled : false }, document : {} };
-      // Lock cookie property to simulate browser disabled cookies.
-      Object.defineProperty(mockWindow.document, 'cookie', {
-        value: '',
-        writable: false
-      });
-      let result = checkCookies.isCookieEnabled(mockWindow);
-      expect(result).to.equal(false);
-    });
-
-    it('Cookie enabled', () => {
-      const mockWindow = { navigator : { cookieEnabled : true }, document : {} };
-      let result = checkCookies.isCookieEnabled(mockWindow);
-      expect(result).to.equal(true);
-    });
-
     it('test if Cookie Privacy Message Displayed', () => {
       const mockWindow = { navigator : { cookieEnabled : true }, document : { cookie: '' } };
       // First time visit
