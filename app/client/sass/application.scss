@@ -6,6 +6,7 @@ $govuk-assets-path: '/public/govuk-frontend/';
 @import "_task-list";
 @import "_contact-include";
 @import "_decision";
+@import "_cookie-banner";
 
 .divider {
   border-bottom: 3px solid govuk-colour("blue");
