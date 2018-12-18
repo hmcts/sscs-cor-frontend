@@ -325,7 +325,7 @@
           "Expires after"
         ],
         "items": [{
-          "name": "session",
+          "name": "connect.sid",
           "purpose": "Keeps track of your answers",
           "expires": "When you close your browser"
         }, {
