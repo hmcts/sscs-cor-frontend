@@ -9,7 +9,7 @@ export class CheckCookies {
     if (!ret) {
       let currentDate = new Date();
       let expiryDate = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
-      window.document.cookie = `seen_cookie_message=1; expires=${expiryDate}`;
+      window.document.cookie = `seen_cookie_message=1; expires=${expiryDate};path=/`;
     }
 
     return ret;
