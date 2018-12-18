@@ -1,4 +1,4 @@
-import { bootstrap } from './test/browser/bootstrap';
+import { bootstrap, createAndIssueDecision } from './test/browser/bootstrap';
 import * as clc from 'cli-color';
 import * as _ from 'lodash';
 
@@ -12,6 +12,9 @@ const white = clc.whiteBright;
 async function runBootstrap() {
   // reinstate assignment of `sidamUser` once we are able to use a stable deployment of SIDAM in AAT
   const { ccdCase, cohTestData } = await bootstrap();
+  if (process.env.ISSUE_DECISION) {
+    await createAndIssueDecision(cohTestData.hearingId);
+  }
 
   console.log('\n' + bold(_.pad(' CCD case ', 60, '-')) + '\n');
 

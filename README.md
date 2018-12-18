@@ -197,7 +197,9 @@ these can be generated with
 yarn test:create-s2s-headers
 ```
 
-You will need the same environment variables used when creating test data. 
+You will need the same environment variables used when creating test data.
+
+If you wish to also issue a decision then add the environment variable ISSUE_DECISION=true. NB it does not matter the value of the variable just that it exists to issue the decision.
 
 ### Analytics
 
