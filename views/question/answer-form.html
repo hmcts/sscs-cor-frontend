@@ -9,11 +9,10 @@
         classes: 'auto-expand',
         name: 'question-field',
         value: question.answer.value,
-        label: {
-            text: i18n.question.textareaField.label
-        },
+
         attributes: {
-            placeholder: i18n.question.textareaField.placeholder
+            placeholder: i18n.question.textareaField.placeholder,
+            "aria-label": i18n.question.textareaField.label
         },
         rows: 6,
         maxlength: 10000,
