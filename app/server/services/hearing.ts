@@ -1,10 +1,8 @@
 import * as request from 'request-promise';
 
 interface OnlineHearingDecision {
-  decision_award: string;
-  decision_header: string;
-  decision_reason: string;
-  decision_text: string;
+  start_date: string;
+  end_date: string;
   decision_state: string;
   decision_state_datetime: string;
   appellant_reply?: string;

@@ -18,10 +18,8 @@ describe('controllers/hearing-confirm', () => {
       case_reference: 'SC/123/456',
       appellant_name: 'John Smith',
       decision: {
-        decision_award: 'appeal-upheld',
-        decision_header: 'appeal-upheld',
-        decision_reason: 'Decision reasons',
-        decision_text: 'Decision reasons',
+        start_date: '2019-01-01',
+        end_date: '2020-10-10',
         decision_state: 'decision_issued',
         decision_state_datetime: moment.utc().format()
       }

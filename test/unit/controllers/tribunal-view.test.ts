@@ -13,6 +13,8 @@ describe('controllers/tribunal-view', () => {
   let next: sinon.SinonSpy;
   let hearingDetails: OnlineHearing;
   let respondBy;
+  let startDate;
+  let endDate;
 
   beforeEach(() => {
     hearingDetails = {
@@ -20,10 +22,8 @@ describe('controllers/tribunal-view', () => {
       case_reference: 'SC/123/456',
       appellant_name: 'John Smith',
       decision: {
-        decision_award: 'appeal-upheld',
-        decision_header: 'appeal-upheld',
-        decision_reason: 'Decision reasons',
-        decision_text: 'Decision reasons',
+        start_date: '2018-10-17',
+        end_date: '2019-09-01',
         decision_state: 'decision_issued',
         decision_state_datetime: moment.utc().format()
       }
@@ -42,12 +42,14 @@ describe('controllers/tribunal-view', () => {
     } as any;
     next = sinon.spy();
     respondBy = moment.utc(req.session.hearing.decision.decision_state_datetime).add(7, 'day').format();
+    startDate = moment.utc(req.session.hearing.decision.start_date).format();
+    endDate = moment.utc(req.session.hearing.decision.end_date).format();
   });
 
   describe('getTribunalView', () => {
     it('renders tribunal view page with issued decision', async () => {
       await getTribunalView(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy });
+      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy, startDate, endDate });
     });
 
     it('redirects to /sign-out if decision is not issued', async () => {

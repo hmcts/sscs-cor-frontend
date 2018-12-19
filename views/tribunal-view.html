@@ -28,11 +28,97 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <div id="decision">
+        <div id="decision-outcome" class="panel-blue">
+          <p>{{ i18n.tribunalView.decision.consideredAllInfo }}</p>
+          <p>{{ i18n.tribunalView.decision.viewEntitledTo | eval | date }}</p>
+          <table class="govuk-table">
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <th class="govuk-table__cell">
+                {{ i18n.tribunalView.decision.dailyLiving }}
+              </th>
+              <td class="govuk-table__cell">
+                {{ i18n.tribunalView.decision.rate[decision.decision_rates.daily_living] }}
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <th class="govuk-table__cell">
+                {{ i18n.tribunalView.decision.mobility }}
+              </th>
+              <td class="govuk-table__cell">
+                {{ i18n.tribunalView.decision.rate[decision.decision_rates.mobility] }}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <p>{{ i18n.tribunalView.decision.dwp[decision.decision_rates.compared_to_dwp] }}</p>
+          <p>{{ i18n.tribunalView.decision.bothAccept }}</p>
+        </div>
         <div id="decision-reason">
           <h2 class="govuk-heading-m">{{ i18n.tribunalView.reasonsHeader }}</h2>
-          <p id="decision-text">{{ decision.decision_text }}</p>
+          <p id="decision-text">{{ decision.reason }}</p>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="decision-activities">
+      <div>
+        <details class="govuk-details contact-us">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              {{ i18n.tribunalView.activitiesSummary }}
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <h2 class="govuk-heading-m">{{ i18n.tribunalView.dailyLivingActivitiesHeader }}</h2>
+            <table class="govuk-table">
+              <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th class="govuk-table__header" >{{ i18n.tribunalView.activitiesTable.headerActivity }}</th>
+                <th class="govuk-table__header" >{{ i18n.tribunalView.activitiesTable.headerDescriptor }}</th>
+                <th class="govuk-table__header" >{{ i18n.tribunalView.activitiesTable.headerPoints }}</th>
+              </tr>
+              </thead>
+              <tbody class="govuk-table__body">
+              {% for activity in decision.activities.daily_living %}
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">{{ i18n.tribunalView.activities.dailyLiving[activity.activity].name }}</td>
+                  <td class="govuk-table__cell">{{ i18n.tribunalView.activities.dailyLiving[activity.activity].scores[activity.selection_key].text | safe }}</td>
+                  <td class="govuk-table__cell">{{ i18n.tribunalView.activities.dailyLiving[activity.activity].scores[activity.selection_key].score }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>hearing-confirm.test.ts
+            </table>
+            <br />
+
+            <h2 class="govuk-heading-m">{{ i18n.tribunalView.mobilityActivitiesHeader }}</h2>
+            <table class="govuk-table">
+              <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th class="govuk-table__header" >{{ i18n.tribunalView.activitiesTable.headerActivity }}</th>
+                <th class="govuk-table__header" >{{ i18n.tribunalView.activitiesTable.headerDescriptor }}</th>
+                <th class="govuk-table__header" >{{ i18n.tribunalView.activitiesTable.headerPoints }}</th>
+              </tr>
+              </thead>
+              <tbody class="govuk-table__body">
+              {% for activity in decision.activities.mobility %}
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{ i18n.tribunalView.activities.mobility[activity.activity].name }}</td>
+                <td class="govuk-table__cell">{{ i18n.tribunalView.activities.mobility[activity.activity].scores[activity.selection_key].text | safe }}</td>
+                <td class="govuk-table__cell">{{ i18n.tribunalView.activities.mobility[activity.activity].scores[activity.selection_key].score }}</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div>
 
       <h2 class="govuk-heading-m">{{ i18n.tribunalView.whatNextHeader }}</h2>
       <p>{{ i18n.tribunalView.whatNextPara }}</p>
@@ -74,6 +160,7 @@
         </div>
       </form>
     </div>
+  </div>
   </div>
 
 {% endblock %}

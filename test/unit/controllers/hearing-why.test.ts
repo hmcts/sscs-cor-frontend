@@ -22,10 +22,8 @@ describe('controllers/hearing-why', () => {
       case_reference: 'SC/123/456',
       appellant_name: 'John Smith',
       decision: {
-        decision_award: 'appeal-upheld',
-        decision_header: 'appeal-upheld',
-        decision_reason: 'Decision reasons',
-        decision_text: 'Decision reasons',
+        start_date: '2018-10-17',
+        end_date: '2019-09-01',
         decision_state: 'decision_issued',
         decision_state_datetime: now
       }

@@ -85,7 +85,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   });
   nunEnv.addFilter('date', function(text) {
     if (!text) return '';
-    const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/;
+    const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
     return text.replace(isoDateRegex, (date) => moment.utc(date).format(CONST.DATE_FORMAT));
   });
   nunEnv.addFilter('eval', function(text) {
