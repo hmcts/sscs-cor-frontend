@@ -58,7 +58,21 @@ const createDecision = email => {
       decision_award: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
       decision_header: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
       decision_reason: 'The final decision is this.',
-      decision_text: 'The final decision is this.',
+      decision_rates: {
+        compared_to_dwp: 'Higher',
+        daily_living: 'noAward',
+        mobility: 'noAward'
+      },
+      activities: {
+        daily_living: [
+          { activity: 'preparingFood', selection_key: '8' },
+          { activity: 'washingBathing', selection_key: '2.0' }
+        ],
+        mobility: [{ activity: 'movingAround', selection_key: '12.1' }]
+      },
+      start_date: '2017-01-05',
+      end_date: '2018-10-05',
+      reason: 'The final decision is this.',
       decision_state: decisionState,
       decision_state_datetime: moment.utc().format(),
       ...appellantReply
