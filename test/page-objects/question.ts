@@ -9,7 +9,7 @@ export class QuestionPage extends BasePage {
   }
 
   async answerNoSubmit(answer) {
-    await this.enterTextintoField('#question-field', answer);
+    await this.setTextintoField('#question-field', answer);
   }
 
   async answer(answer, submit) {

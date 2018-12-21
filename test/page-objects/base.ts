@@ -58,6 +58,12 @@ export class BasePage {
     return elements;
   }
 
+  async setTextintoField(selector, text) {
+    await this.page.evaluate((data) => {
+      return document.querySelector(data.selector).value = data.text;
+    }, { selector, text });
+  }
+
   async enterTextintoField(selector, text) {
     await this.page.$eval(selector, el => {
       el.value = '';
