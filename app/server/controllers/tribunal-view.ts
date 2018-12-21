@@ -1,5 +1,4 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import * as AppInsights from '../app-insights';
 import * as Paths from '../paths';
 import { OnlineHearing } from '../services/hearing';
 import { CONST } from '../../constants';
@@ -14,7 +13,13 @@ function getTribunalView(req: Request, res: Response) {
   const hearing: OnlineHearing = req.session.hearing;
   if (hearing.decision && hearing.decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE) {
     const respondBy = getRespondByDate(hearing.decision.decision_state_datetime);
-    return res.render('tribunal-view.html', { decision: hearing.decision, respondBy });
+
+    const startDate = moment.utc(hearing.decision.start_date).format();
+    const model = { decision: hearing.decision, respondBy, startDate };
+    if (hearing.decision.end_date) {
+      model['endDate'] = moment.utc(hearing.decision.end_date).format();
+    }
+    return res.render('tribunal-view.html', model);
   }
   return res.redirect(Paths.logout);
 }
