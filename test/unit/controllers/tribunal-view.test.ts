@@ -52,6 +52,12 @@ describe('controllers/tribunal-view', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy, startDate, endDate });
     });
 
+    it('renders tribunal view page with issued decision without end date', async () => {
+      hearingDetails.decision.end_date = null;
+      await getTribunalView(req, res);
+      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy, startDate });
+    });
+
     it('redirects to /sign-out if decision is not issued', async () => {
       req.session.hearing.decision.decision_state = 'decision_drafted';
       await getTribunalView(req, res);

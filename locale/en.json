@@ -157,6 +157,7 @@
     "decision": {
       "consideredAllInfo": "The tribunal have considered all the information submitted by you and DWP.",
       "viewEntitledTo": "Their view is that you’re entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
+      "viewEntitledToIndefinite": "Their view is that you’re entitled to PIP at the rate below from {{ startDate }}.",
       "dailyLiving": "Daily living",
       "mobility": "Mobility",
       "rate": {

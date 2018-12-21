@@ -15,9 +15,11 @@ function getTribunalView(req: Request, res: Response) {
     const respondBy = getRespondByDate(hearing.decision.decision_state_datetime);
 
     const startDate = moment.utc(hearing.decision.start_date).format();
-    const endDate = moment.utc(hearing.decision.end_date).format();
-
-    return res.render('tribunal-view.html', { decision: hearing.decision, respondBy, startDate, endDate });
+    const model = { decision: hearing.decision, respondBy, startDate };
+    if (hearing.decision.end_date) {
+      model['endDate'] = moment.utc(hearing.decision.end_date).format();
+    }
+    return res.render('tribunal-view.html', model);
   }
   return res.redirect(Paths.logout);
 }

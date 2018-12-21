@@ -30,7 +30,12 @@
       <div id="decision">
         <div id="decision-outcome" class="panel-blue">
           <p>{{ i18n.tribunalView.decision.consideredAllInfo }}</p>
-          <p>{{ i18n.tribunalView.decision.viewEntitledTo | eval | date }}</p>
+          <p>
+            {% if endDate %}
+            {{ i18n.tribunalView.decision.viewEntitledTo | eval | date }}</p>
+            {% else %}
+              {{ i18n.tribunalView.decision.viewEntitledToIndefinite | eval | date }}</p>
+            {% endif %}
           <table class="govuk-table">
             <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
