@@ -49,12 +49,7 @@ const questionBody = (mockQuestionRef, ordinal) => {
   };
 };
 
-const decisionBody = {
-  decision_award: 'appeal-upheld',
-  decision_header: 'appeal-upheld',
-  decision_reason: 'This is the decision.',
-  decision_text: 'This is the decision.'
-};
+const decisionText = '{\\"decisions_SSCS_benefit_{case_id}\\":{\\"preliminaryView\\":\\"yes\\",\\"visitedPages\\":{\\"create\\":true,\\"preliminary-advanced\\":true,\\"set-award-dates\\":true,\\"scores\\":true,\\"budgeting-decisions\\":true,\\"planning-journeys\\":true},\\"forDailyLiving\\":\\"noAward\\",\\"forMobility\\":\\"enhancedRate\\",\\"compareToDWPAward\\":\\"Higher\\",\\"awardEndDateDay\\":\\"11\\",\\"awardEndDateMonth\\":\\"12\\",\\"awardEndDateYear\\":\\"2018\\",\\"approveDraftConsent\\":\\"indefinite\\",\\"preparingFood\\":false,\\"takingNutrition\\":false,\\"managingTherapy\\":false,\\"washingBathing\\":false,\\"managingToilet\\":false,\\"dressingUndressing\\":false,\\"communicatingVerbally\\":false,\\"readingAndUnderstanding\\":false,\\"engagingWithOtherPeople\\":false,\\"makingBudgetingDecisions\\":true,\\"planningFollowingJourneys\\":true,\\"movingAround\\":false,\\"dailyLivingMakingBudgetDecisions\\":\\"6\\",\\"MobilityPlanningJourneys\\":\\"12\\",\\"reasonsTribunalView\\":\\"There was a reason!\\",\\"awardStartDateDay\\":\\"1\\",\\"awardStartDateMonth\\":\\"4\\",\\"awardStartDateYear\\":\\"2017\\"}}';
 
 async function createOnlineHearing(caseId) {
   const headers = await getHeaders();
@@ -124,12 +119,21 @@ async function getDecision(hearingId) {
   return body;
 }
 
-async function createDecision(hearingId) {
+function decisionBody(caseId) {
+  return {
+    decision_award: 'appeal-upheld',
+    decision_header: 'appeal-upheld',
+    decision_reason: 'This is the decision.',
+    decision_text: decisionText.replace('{case_id}', caseId)
+  };
+}
+
+async function createDecision(hearingId, caseId) {
   const headers = await getHeaders();
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
-    body: decisionBody,
+    body: decisionBody(caseId),
     json: true
   };
   const body = await rp.post(options);
@@ -137,9 +141,9 @@ async function createDecision(hearingId) {
   return body;
 }
 
-async function issueDecision(hearingId) {
+async function issueDecision(hearingId, caseId) {
   const headers = await getHeaders();
-  const body = { ...decisionBody, decision_state: 'decision_issue_pending' };
+  const body = { ...decisionBody(caseId), decision_state: 'decision_issue_pending' };
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,

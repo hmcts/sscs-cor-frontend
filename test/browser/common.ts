@@ -103,7 +103,7 @@ async function startServices(options?) {
   }
   if (opts.issueDecision) {
     const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
-    await createAndIssueDecision(hearingId);
+    await createAndIssueDecision(hearingId, ccdCase && ccdCase.caseId);
   }
   await startAppServer();
   const browser = await startBrowser();

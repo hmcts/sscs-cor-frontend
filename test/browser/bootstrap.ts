@@ -93,10 +93,10 @@ export async function bootstrap() {
   }
 }
 
-export async function createAndIssueDecision(hearingId) {
+export async function createAndIssueDecision(hearingId, caseId) {
   try {
-    await coh.createDecision(hearingId);
-    await coh.issueDecision(hearingId);
+    await coh.createDecision(hearingId, caseId);
+    await coh.issueDecision(hearingId, caseId);
     await waitForDecisionIssued(hearingId, 1);
   } catch (error) {
     return Promise.reject(error);
