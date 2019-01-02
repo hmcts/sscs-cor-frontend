@@ -4,27 +4,16 @@ import { EvidenceUpload } from './evidence-upload';
 import { CheckCookies } from './check-cookies';
 const domready = require('domready');
 
-let evidenceUpload;
-let checkCookies;
-
-function initEvidenceUpload() {
-  const evidenceUploadContainer = document.getElementById('evidence-upload');
-  if (evidenceUploadContainer) {
-    evidenceUpload = new EvidenceUpload();
-  }
-}
-
-function initCheckCookies() {
-  checkCookies = new CheckCookies();
-  const showCookieBanner = !checkCookies.isCookiePrivacyMessageDisplayed(window);
-  checkCookies.toggleBanner(showCookieBanner);
-}
-
-domready(function () {
-  initCheckCookies();
+const onReady = () => {
+  let checkCookies = new CheckCookies();
+  checkCookies.initCookies(window);
   govUK.initAll();
   expandingTextBox.init();
-  initEvidenceUpload();
-});
+  const evidence = new EvidenceUpload();
+};
 
-export default {};
+domready(onReady);
+
+export {
+  onReady
+};

@@ -58,10 +58,27 @@ describe('controllers/submit-question', () => {
       getSubmitQuestion(questionService)(req, res);
       expect(res.render).to.have.been.calledWith('submit-question.html', { questionOrdinal });
     });
+
+    it('should redirect to taskList if questionService does not return with a currentQuestionId', () => {
+      questionService = {
+        getQuestionIdFromOrdinal: sinon.stub().returns(false)
+      };
+
+      getSubmitQuestion(questionService)(req, res);
+      expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+    });
   });
 
   describe('postSubmitAnswer', () => {
     it('redirects to /task-list', async() => {
+      await postSubmitAnswer(questionService)(req, res, next);
+      expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+    });
+
+    it('should redirect to taskList if questionService does not return with a currentQuestionId', async() => {
+      questionService = {
+        getQuestionIdFromOrdinal: sinon.stub().returns(false)
+      };
       await postSubmitAnswer(questionService)(req, res, next);
       expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
