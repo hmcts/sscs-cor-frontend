@@ -8,11 +8,17 @@ export class EvidenceUpload {
   private revealContainer: HTMLElement;
 
   constructor() {
-    this.revealContainer = document.getElementById(this.REVEAL_CONTAINER_ID);
-    this.showHideElements();
-    this.setRevealStartState();
-    this.setFileUploadState();
-    this.attachEventListeners();
+    this.init();
+  }
+
+  init() {
+    if (document.getElementById('evidence-upload')) {
+      this.revealContainer = document.getElementById(this.REVEAL_CONTAINER_ID);
+      this.showHideElements();
+      this.setRevealStartState();
+      this.setFileUploadState();
+      this.attachEventListeners();
+    }
   }
 
   showHideRevealContainer(e: any): void {

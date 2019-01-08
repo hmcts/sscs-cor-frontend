@@ -22,5 +22,6 @@ function attachEventListeners(): void {
 
 export {
   init,
+  attachEventListeners,
   autoExpand
 };

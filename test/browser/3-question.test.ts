@@ -272,7 +272,7 @@ describe('Question page', () => {
 
       it('displays evidence upload section toggle', async () => {
         const checkboxLabel = await questionPage.getElementText('[for=provide-evidence-1]');
-        expect(checkboxLabel).to.equal(i18n.question.evidenceUpload.checkbox);
+        expect(checkboxLabel.trim()).to.equal(i18n.question.evidenceUpload.checkbox);
       });
 
       it('checking the box reveals the upload section', async () => {

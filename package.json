@@ -19,7 +19,7 @@
     "copy-assets": "cp -R ./node_modules/govuk-frontend/assets ./public/govuk-frontend",
     "build-js": "mkdir -p public/js && browserify ./app/client/javascript/main.ts -p [ tsify -p app/client ] | uglifyjs -c > ./public/js/main.js",
     "test": "yarn test:unit && yarn test:integration && yarn test:functional",
-    "test:unit": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test nyc mocha --recursive --require jsdom-global/register \"test/unit/**/*.ts\"",
+    "test:unit": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test nyc mocha --exit --recursive --require jsdom-global/register \"test/unit/*.ts\" \"test/unit/**/*.ts\"",
     "test:unit-server": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/unit/*.ts test/unit/**/*.ts",
     "test:unit-client": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/client/tsconfig.json NODE_ENV=test mocha --require jsdom-global/register test/unit/client/**/*.ts",
     "test:browser": "NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/browser/**/*.ts --exit",

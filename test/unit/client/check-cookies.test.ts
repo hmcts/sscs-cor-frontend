@@ -8,6 +8,15 @@ describe('Client/check-cookies', () => {
     document.body.innerHTML = `<div id="${checkCookies.COOKIE_BANNER}"></div>`;
   });
 
+  describe('Class', () => {
+    it('should initialize', () => {
+      const mockWindow = { navigator : { cookieEnabled : true }, document : { cookie: '' } };
+      checkCookies.initCookies(mockWindow);
+      const target: HTMLElement = document.getElementById(checkCookies.COOKIE_BANNER);
+      expect(target.style.display).to.equal('block');
+    });
+  });
+
   describe('Browser Cookie Tests', () => {
     it('test if Cookie Privacy Message Displayed', () => {
       const mockWindow = { navigator : { cookieEnabled : true }, document : { cookie: '' } };

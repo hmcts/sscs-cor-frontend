@@ -4,10 +4,7 @@
   ],
   "exclude": [
     "**/*.d.ts",
-    "app/client/javascript/main.ts",
     "app/server/app.ts",
-    "app/server/paths.ts",
-    "app/server/routes.ts",
     "app/server/server.ts",
     "app/server/controllers/idam-stub.ts"
   ],  
@@ -20,6 +17,6 @@
     ".ts"
   ],
   "report-dir": "./test/coverage/html",
-  "temp-dir": "./test/coverage/.nyc_output",
+  "temp-directory": "./test/coverage/.nyc_output",
   "all": true
 }
