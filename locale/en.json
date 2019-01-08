@@ -152,12 +152,10 @@
     }
   },
   "tribunalView": {
-    "header": "Read the tribunal's view",
-    "headerText": "You have to say whether you accept it by {{ respondBy }}. You can do this at the bottom of the page.",
+    "header": "Read the tribunal's view on your appeal",
     "decision": {
-      "consideredAllInfo": "The tribunal have considered all the information submitted by you and DWP.",
-      "viewEntitledTo": "Their view is that you’re entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
-      "viewEntitledToIndefinite": "Their view is that you’re entitled to PIP at the rate below from {{ startDate }}.",
+      "viewEntitledTo": "You are entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
+      "viewEntitledToIndefinite": "You are entitled to PIP at the rate below from {{ startDate }}.",
       "dailyLiving": "Daily living",
       "mobility": "Mobility",
       "rate": {
@@ -167,10 +165,10 @@
       },
       "dwp": {
         "Same": "This is the same as DWP initially awarded you.",
-        "Higher": "This is higher than DWP initially awarded you.",
-        "Lower": "Thisi is lower than DWP initially awarded you."
+        "Higher": "This is more than DWP initially awarded you.",
+        "Lower": "This is less than DWP initially awarded you."
       },
-      "bothAccept": "If both you and DWP accept this view, you’ll be awarded PIP at the above rate."
+      "confirmAccept": "Confirm whether you accept this view at the bottom of the page, after reading the tribunal's reason below."
     },
     "reasonsHeader": "The reason for the tribunal’s view",
     "activitiesSummary": "PIP activities and the descriptors we consider apply to your appeal",
@@ -515,13 +513,12 @@
         }
       }
     },
-
-    "whatNextHeader": "What happens next",
-    "whatNextPara": "You can accept the view or if you feel the view is wrong you can have a face to face hearing.",
+    "whatNextPara": "You can either accept this view or if you want to provide further evidence to the tribunal then you can request a hearing. You can ask a friend, family member or support worker for help in making this decision.",
     "acceptHeader": "Do you accept this view?",
     "acceptYes": "I accept the tribunal’s view",
     "acceptNo": "I want a hearing",
-    "acceptRespondBy": "You have to respond to this question by {{ respondBy }}. If you don’t respond we will assume you are accepting the view and it will be sent to you.",
+    "acceptRespondBy": "Please respond by {{ respondBy }}.",
+    "submitResponse": "Submit response",
     "error": {
       "empty": "You must accept the tribunal's view or request a hearing."
     }
