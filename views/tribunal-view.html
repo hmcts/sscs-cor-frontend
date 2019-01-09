@@ -18,7 +18,6 @@
       {% endif %}
 
       <h1 class="govuk-heading-l">{{ i18n.tribunalView.header }}</h1>
-      <p>{{ i18n.tribunalView.headerText | eval | date }}</p>
       {% include "includes/appellant-details.html" %}
     </div>
   </div>
@@ -29,7 +28,6 @@
     <div class="govuk-grid-column-two-thirds">
       <div id="decision">
         <div id="decision-outcome" class="panel-blue">
-          <p>{{ i18n.tribunalView.decision.consideredAllInfo }}</p>
           <p>
             {% if endDate %}
             {{ i18n.tribunalView.decision.viewEntitledTo | eval | date }}</p>
@@ -57,8 +55,8 @@
             </tbody>
           </table>
           <p>{{ i18n.tribunalView.decision.dwp[decision.decision_rates.compared_to_dwp] }}</p>
-          <p>{{ i18n.tribunalView.decision.bothAccept }}</p>
         </div>
+        <p class="govuk-inset-text">{{ i18n.tribunalView.decision.confirmAccept }}</p>
         <div id="decision-reason">
           <h2 class="govuk-heading-m">{{ i18n.tribunalView.reasonsHeader }}</h2>
           <p id="decision-text">{{ decision.reason }}</p>
@@ -93,7 +91,7 @@
                   <td class="govuk-table__cell">{{ i18n.tribunalView.activities.dailyLiving[activity.activity].scores[activity.selection_key].score }}</td>
                 </tr>
               {% endfor %}
-              </tbody>hearing-confirm.test.ts
+              </tbody>
             </table>
             <br />
 
@@ -125,7 +123,7 @@
     <div class="govuk-grid-column-two-thirds">
       <div>
 
-      <h2 class="govuk-heading-m">{{ i18n.tribunalView.whatNextHeader }}</h2>
+      <h2 class="govuk-heading-m">{{ i18n.tribunalView.acceptHeader }}</h2>
       <p>{{ i18n.tribunalView.whatNextPara }}</p>
 
       <form action="/tribunal-view" method="post">
@@ -133,13 +131,6 @@
             classes: "govuk-radios",
             idPrefix: "accept-view",
             name: "accept-view",
-            fieldset: {
-              legend: {
-                text: i18n.tribunalView.acceptHeader,
-                isPageHeading: false,
-                classes: "govuk-fieldset__legend--m"
-              }
-            },
             items: [
               {
                 value: "yes",
@@ -159,7 +150,7 @@
         <div id="submit-button">
           {{
             govukButton({
-            text: i18n.general.continue
+            text: i18n.tribunalView.submitResponse
             })
           }}
         </div>
