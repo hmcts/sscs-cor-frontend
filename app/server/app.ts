@@ -40,20 +40,29 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ['\'self\''],
-      fontSrc: ['\'self\' data:'],
+      fontSrc: ['\'self\' data:', '*.gstatic.com'],
       scriptSrc: [
         '\'self\'',
         '\'unsafe-inline\'',
         'www.google-analytics.com',
-        'www.googletagmanager.com'
+        'www.googletagmanager.com',
+        'tagmanager.google.com'
+      ],
+      styleSrc: [
+        '\'self\'',
+        '\'unsafe-inline\'',
+        'tagmanager.google.com',
+        'fonts.googleapis.com/'
       ],
       connectSrc: ['\'self\'', 'www.gov.uk'],
       mediaSrc: ['\'self\''],
       frameSrc: ['\'none\''],
       imgSrc: [
-        '\'self\'',
+        '\'self\' data:',
         'www.google-analytics.com',
-        'www.googletagmanager.com'
+        'www.googletagmanager.com',
+        'tagmanager.google.com',
+        '*.gstatic.com'
       ]
     }
   }));
