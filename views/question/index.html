@@ -30,8 +30,9 @@
 
       <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
 
-      <div>
-        <p id="question-body">{{ question.body }}</p>
+      <div id="question-body">
+        {% set body = question.body %}
+        {{ body|safe }}
       </div>
 
       {% if question.answer_state !== 'submitted' %}
