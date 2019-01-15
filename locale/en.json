@@ -586,7 +586,8 @@
     "back": "Back",
     "exitService": "Exit Service",
     "signOut": "Sign out",
-    "delete": "Delete"
+    "delete": "Delete",
+    "serviceTitle": "Appeal a benefit decision"
   },
   "errorSummary": {
     "titleText": "There are errors on the page",
