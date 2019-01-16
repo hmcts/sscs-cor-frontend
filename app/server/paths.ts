@@ -15,3 +15,4 @@ export const tribunalViewAccepted = '/tribunal-view-accepted';
 export const hearingConfirm = '/hearing-confirm';
 export const hearingWhy = '/hearing-why';
 export const cookiePrivacy = '/cookie-policy';
+export const sesionExtention = '/sess-extend';
