@@ -2,7 +2,7 @@
 module.exports = {
   '001': {
     header: 'How do you interact with people?',
-    body: 'You said you avoid interacting with people if possible. We\'d like to know more about the times when you see friends and family.\n\nTell us about three separate occasions in 2017 that you have met with friends and family.\n\nTell us:\n\n- who you met\n\n- when\n\n- where\n\n- how it made you feel'
+    body: '<p>This <b>has bold</b> formatting</p><p><i>Italic</i> writing</p><p>Underscoring of words that need underscoring</p><p>Bullet points</p><ul><li>bullet1</li><li>bullet2</li><li>bullet3</li></ul><p>and ordered bullets</p><ol><li>one</li><li>two</li><li>three</li></ol>'
   },
   '002': {
     header: 'How do you walk to the doctors?',
