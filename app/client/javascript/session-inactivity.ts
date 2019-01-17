@@ -7,7 +7,7 @@ export class SessionInactivity {
   public lastReset: moment.Moment = null;
   public answerFormEl: HTMLElement = null;
   public ANSWER_FORM: string = 'answer-form';
-  public keyStrokeEventListener;
+  public keyStrokeEventListener: any;
 
   init(): void {
     this.answerFormEl = document.getElementById(this.ANSWER_FORM);

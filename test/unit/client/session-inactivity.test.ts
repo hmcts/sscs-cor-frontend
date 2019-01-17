@@ -5,7 +5,6 @@ import axios from 'axios';
 
 describe('Client/session-inactivity', () => {
   let sessionInactivity: SessionInactivity;
-  let body: HTMLBodyElement;
   let target: HTMLElement;
   let extendSessionMock: any;
   let axiosSpy: any;
@@ -14,8 +13,7 @@ describe('Client/session-inactivity', () => {
     sessionInactivity = new SessionInactivity();
     extendSessionMock = sinon.stub(SessionInactivity.prototype, 'extendSession');
     axiosSpy = sinon.spy(axios, 'get');
-    body = document.querySelector('body');
-    body.innerHTML = `<form id="${sessionInactivity.ANSWER_FORM}"></form>`;
+    document.body.innerHTML = `<form id="${sessionInactivity.ANSWER_FORM}"></form>`;
     target = document.getElementById(sessionInactivity.ANSWER_FORM);
   });
 
