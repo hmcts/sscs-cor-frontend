@@ -2,9 +2,9 @@
   "pageTitle": "Continuous Online Resolution",
   "contactEmail": "benefitappeals@hmcts.net",
   "phaseBanner": {
-    "new": "This is a new service – your",
-    "feedback": "feedback",
-    "improve": "will help us to improve it."
+    "new": "This is a new service – ",
+    "report": "Report a problem",
+    "improve": "and help improve it for others."
   },
   "guidance": {
     "sendingEvidence": {

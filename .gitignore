@@ -4,6 +4,7 @@ node_modules
 yarn-error.log
 public
 test/coverage
+.nyc_output
 functional-output/*
 dump.rdb
 .vscode
