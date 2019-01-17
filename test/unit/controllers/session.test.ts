@@ -41,7 +41,7 @@ describe('controllers/session.ts', () => {
     it('calls router.get with the path and middleware', () => {
       setupSessionController(deps);
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(Paths.sesionExtension);
+      expect(express.Router().get).to.have.been.calledWith(Paths.sessionExtension);
     });
   });
 });

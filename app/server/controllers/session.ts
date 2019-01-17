@@ -10,7 +10,7 @@ function extendSession(req: Request, res: Response) {
 
 function setupSessionController(deps: any): Router {
   const router = Router();
-  router.get(Paths.sesionExtension, deps.prereqMiddleware, extendSession);
+  router.get(Paths.sessionExtension, deps.prereqMiddleware, extendSession);
   return router;
 }
 

@@ -20,9 +20,8 @@ export class SessionInactivity {
   }
 
   extendSession(): void {
-    console.log('hola');
     if (this.lastReset === null || moment().diff(this.lastReset, 's') - this.sessionExtendBuffer > 0) {
-      axios.get('/sess-extend').then((response: any): void => {
+      axios.get('/session-extension').then((response: any): void => {
         if (response['data'].expireInSeconds) {
           this.sessionExpiry = moment().add(response['data'].expireInSeconds, 'seconds');
           this.lastReset = moment();
