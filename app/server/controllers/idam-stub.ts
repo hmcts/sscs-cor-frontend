@@ -22,7 +22,6 @@ function getLogin(req: Request, res: Response) {
   res.append('Content-Type', 'text/html');
   // use the redirect url in request for the final redirect
   const redirectUri = req.query.redirect_uri;
-
   res.render('login.html', { redirectUri });
 }
 
