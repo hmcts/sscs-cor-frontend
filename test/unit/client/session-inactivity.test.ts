@@ -34,19 +34,19 @@ describe('Client/session-inactivity', () => {
 
     it('should extendSession if first time', () => {
       sessionInactivity.lastReset = null;
-      const result = sessionInactivity.extendSession();
+      sessionInactivity.extendSession();
       expect(axiosSpy).to.have.been.called;
     });
 
     it('within the buffer  make an extension call', () => {
       sessionInactivity.lastReset = moment().subtract(sessionInactivity.sessionExtendBuffer - 10, 's');
-      const result = sessionInactivity.extendSession();
+      sessionInactivity.extendSession();
       expect(axiosSpy).to.not.have.been.called;
     });
 
     it('outside the buffer wait', () => {
       sessionInactivity.lastReset = moment().subtract(sessionInactivity.sessionExtendBuffer + 10, 's');
-      const result = sessionInactivity.extendSession();
+      sessionInactivity.extendSession();
       expect(axiosSpy).to.have.been.called;
     });
 
@@ -58,7 +58,6 @@ describe('Client/session-inactivity', () => {
     });
 
     it('should remove keystroke event', () => {
-
       sessionInactivity.removeKeyStrokeListener();
       target.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'a' }));
       expect(extendSessionMock).to.not.have.been.called;
