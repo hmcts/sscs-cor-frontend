@@ -2,39 +2,42 @@ import * as moment from 'moment';
 import axios from 'axios';
 
 export class SessionInactivity {
-  sessionExtendBuffer: number;
-  sessionExpiry: moment.Moment;
-  lastReset: moment.Moment;
-  window: Window;
+  public sessionExtendBuffer: number = 2 * 60;
+  public sessionExpiry: moment.Moment = null;
+  public lastReset: moment.Moment = null;
+  public answerFormEl: HTMLElement = null;
+  public ANSWER_FORM: string = 'answer-form';
+  public keyStrokeEventListener;
 
-  constructor(window: Window) {
-    this.sessionExtendBuffer = 2 * 60; // 2 min
-    this.sessionExpiry = null;
-    this.lastReset = null;
-    this.window = window;
-  }
-  init() {
-    this.bindKeyStrokes();
-    this.extendSession();
+  init(): void {
+    this.answerFormEl = document.getElementById(this.ANSWER_FORM);
+    this.keyStrokeEventListener = this.extendSession.bind(this);
+
+    if (this.answerFormEl) {
+      this.bindKeyStrokeListener();
+      this.extendSession();
+    }
   }
 
-  extendSession() {
-    if (this.lastReset === null || (moment().diff(this.lastReset, 's') - this.sessionExtendBuffer) > 0) {
+  extendSession(): void {
+    console.log('hola');
+    if (this.lastReset === null || moment().diff(this.lastReset, 's') - this.sessionExtendBuffer > 0) {
       axios.get('/sess-extend').then((response: any): void => {
         if (response['data'].expireInSeconds) {
           this.sessionExpiry = moment().add(response['data'].expireInSeconds, 'seconds');
           this.lastReset = moment();
         } else { // It means logged out
-          this.removeKeyStrokes();
+          this.removeKeyStrokeListener();
         }
-      }).catch(() => this.removeKeyStrokes());
+      }).catch(() => this.removeKeyStrokeListener());
     }
   }
 
-  bindKeyStrokes() {
-    this.window.document.addEventListener('keydown', this.extendSession.bind(this));
+  bindKeyStrokeListener(): void {
+    this.answerFormEl.addEventListener('keydown', this.keyStrokeEventListener);
   }
-  removeKeyStrokes() {
-    this.window.document.removeEventListener('keydown',this.extendSession.bind(this));
+
+  removeKeyStrokeListener(): void {
+    this.answerFormEl.removeEventListener('keydown', this.keyStrokeEventListener);
   }
 }

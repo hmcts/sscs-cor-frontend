@@ -8,11 +8,11 @@ const domready = require('domready');
 
 const onReady = () => {
   let checkCookies = new CheckCookies();
+  const evidence = new EvidenceUpload();
+  let sessionInactivity = new SessionInactivity();
   checkCookies.initCookies(window);
   govUK.initAll();
   expandingTextBox.init();
-  const evidence = new EvidenceUpload();
-  let sessionInactivity = new SessionInactivity(window);
   sessionInactivity.init();
 };
 
