@@ -10,7 +10,7 @@ const onReady = () => {
   let checkCookies = new CheckCookies();
   const evidence = new EvidenceUpload();
   let sessionInactivity = new SessionInactivity();
-  checkCookies.initCookies(window);
+  checkCookies.init();
   govUK.initAll();
   expandingTextBox.init();
   sessionInactivity.init();
