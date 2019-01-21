@@ -43,21 +43,25 @@ function setup(sessionHandler: RequestHandler, options: Options) {
       fontSrc: ['\'self\' data:', '*.gstatic.com'],
       scriptSrc: [
         '\'self\'',
-        '\'unsafe-inline\'',
+        '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\'',
+        '\'sha256-OI6laJfMT/d/W+qGc6OUr8efvZ7nY/7JqW4FF3Xfq7w=\'',
         'www.google-analytics.com',
         'www.googletagmanager.com',
         'tagmanager.google.com'
       ],
       styleSrc: [
         '\'self\'',
-        '\'unsafe-inline\'',
         'tagmanager.google.com',
         'fonts.googleapis.com/'
       ],
       connectSrc: ['\'self\'', 'www.gov.uk'],
       mediaSrc: ['\'self\''],
-      frameSrc: ['\'none\''],
+      frameSrc: [
+        '\'self\'',
+        'www.googletagmanager.com'
+      ],
       imgSrc: [
+        '\'self\'',
         '\'self\' data:',
         'www.google-analytics.com',
         'www.googletagmanager.com',
