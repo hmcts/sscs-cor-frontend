@@ -15,9 +15,9 @@ describe('client main js', () => {
     sandbox.restore();
   });
   it('onReady', () => {
-    const govUKMock = sinon.stub(govUK, 'initAll');
+    const govUKMock = sandbox.stub(govUK, 'initAll');
     const expandingTextBoxMock = sandbox.stub(expandingTextBox, 'init');
-    const checkCookiesMock = sandbox.stub(CheckCookies.prototype, 'initCookies');
+    const checkCookiesMock = sandbox.stub(CheckCookies.prototype, 'init');
     const initEvidenceUploadMock = sandbox.stub(EvidenceUpload.prototype, 'init');
     const sessionInactivityMock = sandbox.stub(SessionInactivity.prototype, 'init');
 
