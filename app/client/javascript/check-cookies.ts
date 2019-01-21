@@ -1,32 +1,31 @@
 export class CheckCookies {
   public COOKIE_BANNER: string = 'app-cookie-banner';
-
-  initCookies(window): void {
-    const showCookieBanner = !this.isCookiePrivacyMessageDisplayed(window);
-    this.toggleBanner(showCookieBanner);
+  public cookieBannerElement: HTMLElement;
+  init(): void {
+    this.cookieBannerElement = document.getElementById(this.COOKIE_BANNER);
+    this.isCookiePrivacyMessageDisplayed();
   }
 
-  isCookiePrivacyMessageDisplayed(window): boolean {
-    let ret = window.document.cookie.indexOf('seen_cookie_message=1') !== -1;
-
+  isCookiePrivacyMessageDisplayed(): void {
+    let isSessionSeenCookieExist = document.cookie.indexOf('seen_cookie_message=1') > -1;
     // If Cookie Message is not shown in the past.
     // Add a seen_cookie_message  cookie to user's browser for one year.
-    if (!ret) {
+    if (isSessionSeenCookieExist) {
+      this.toggleBanner(false);
+    } else {
       let currentDate = new Date();
       let expiryDate = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
-      window.document.cookie = `seen_cookie_message=1; expires=${expiryDate}; path=/`;
+      document.cookie = `seen_cookie_message=1; expires=${expiryDate}; path=/`;
+      this.toggleBanner(true);
     }
-
-    return ret;
   }
 
   toggleBanner(showCookieBanner: boolean): void {
-    const cookieBanner = document.getElementById(this.COOKIE_BANNER);
-    if (cookieBanner) {
+    if (this.cookieBannerElement) {
       if (showCookieBanner) {
-        cookieBanner.style.display = 'block';
+        this.cookieBannerElement.style.display = 'block';
       } else {
-        cookieBanner.style.display = 'none';
+        this.cookieBannerElement.style.display = 'none';
       }
     }
   }

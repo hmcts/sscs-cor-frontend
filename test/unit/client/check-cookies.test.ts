@@ -1,43 +1,76 @@
-import { expect } from 'test/chai-sinon';
+import { expect, sinon } from 'test/chai-sinon';
 import { CheckCookies } from 'app/client/javascript/check-cookies';
 
 describe('Client/check-cookies', () => {
-  let checkCookies;
+  let checkCookies: CheckCookies;
+  let toggleBannerSpy: any;
+
+  function deleteAllCookies() {
+    let cookies = document.cookie.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i];
+      let eqPos = cookie.indexOf('=');
+      let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    }
+  }
+
   before(() => {
     checkCookies = new CheckCookies();
     document.body.innerHTML = `<div id="${checkCookies.COOKIE_BANNER}"></div>`;
+    toggleBannerSpy = sinon.spy(checkCookies, 'toggleBanner');
   });
 
   describe('Class', () => {
+    before(() => {
+      deleteAllCookies();
+    });
+
+    beforeEach(() => {
+      toggleBannerSpy.reset();
+    });
+
     it('should initialize', () => {
-      const mockWindow = { navigator : { cookieEnabled : true }, document : { cookie: '' } };
-      checkCookies.initCookies(mockWindow);
-      const target: HTMLElement = document.getElementById(checkCookies.COOKIE_BANNER);
-      expect(target.style.display).to.equal('block');
+      checkCookies.init();
+      expect(checkCookies.cookieBannerElement.style.display).to.equal('block');
     });
   });
 
   describe('Browser Cookie Tests', () => {
-    it('test if Cookie Privacy Message Displayed', () => {
-      const mockWindow = { navigator : { cookieEnabled : true }, document : { cookie: '' } };
-      // First time visit
-      let result = checkCookies.isCookiePrivacyMessageDisplayed(mockWindow);
-      expect(result).to.equal(false);
-      // Second time visit
-      result = checkCookies.isCookiePrivacyMessageDisplayed(mockWindow);
-      expect(result).to.equal(true);
+    before(() => {
+      deleteAllCookies();
+    });
+
+    beforeEach(() => {
+      toggleBannerSpy.reset();
+    });
+
+    it('isCookiePrivacyMessageDisplayed First Visit', () => {
+      console.log('First Call', document.cookie);
+      checkCookies.isCookiePrivacyMessageDisplayed();
+      expect(toggleBannerSpy).to.have.been.calledWith(true);
+    });
+
+    it('isCookiePrivacyMessageDisplayed Second Visit', () => {
+      console.log('Second Call', document.cookie);
+      checkCookies.isCookiePrivacyMessageDisplayed();
+      expect(toggleBannerSpy).to.have.been.calledWith(false);
     });
 
   });
 
-  describe('#cookieBanner', () => {
+  describe('Banner toggle', () => {
+    beforeEach(() => {
+      toggleBannerSpy.reset();
+    });
+
     it('Cookie banner toggle', () => {
-      const target: HTMLElement = document.getElementById(checkCookies.COOKIE_BANNER);
       checkCookies.toggleBanner(true);
-      expect(target.style.display).to.equal('block');
+      expect(checkCookies.cookieBannerElement.style.display).to.equal('block');
 
       checkCookies.toggleBanner(false);
-      expect(target.style.display).to.equal('none');
+      expect(checkCookies.cookieBannerElement.style.display).to.equal('none');
     });
   });
 });
