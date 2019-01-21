@@ -600,7 +600,7 @@
     "getBackIn": "We’ll get back to you within 2 days."
   },
   "cookieBanner" : {
-    "message" : "GOV.UK uses cookies to make the site simpler. ",
+    "message" : "HMCTS uses cookies to make the site simpler. ",
     "link" : "Find out more about cookies"
   },
   "cookiePrivacy" : {
