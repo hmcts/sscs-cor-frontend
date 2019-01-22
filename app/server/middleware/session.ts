@@ -13,6 +13,7 @@ function createSession(store?: session.Store) {
     resave: true,
     saveUninitialized: true,
     secret: config.get('session.redis.secret'),
+    rolling: true,
     store
   });
 }

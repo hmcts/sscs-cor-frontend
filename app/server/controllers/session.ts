@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import * as moment from 'moment';
+const config = require('config');
 
 function extendSession(req: Request, res: Response) {
   res.setHeader('Content-Type', 'application/json');
-  const expiry: Date = new Date(req.session.cookie.expires.toString()) || moment().add(30, 'minute').toDate();
-  res.send(JSON.stringify({ expireInSeconds: moment(expiry).diff(moment(),'s') }));
+  res.send(JSON.stringify({ expireInSeconds: config.get('session.cookie.maxAgeInMs') }));
 }
 
 function setupSessionController(deps: any): Router {

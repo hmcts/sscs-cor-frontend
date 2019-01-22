@@ -46,6 +46,9 @@
 
 {% block content %}
     {% block corContent %}{% endblock %}
+    {% if showSignOut %}
+        {% include "session-inactivity-modal.html" %}
+    {% endif %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         {% include "includes/contact-us.html" %}
