@@ -8,6 +8,7 @@ test/coverage
 functional-output/*
 dump.rdb
 .vscode
+.DS_Store
 dist
 test/accessibility/**/*.js
 test/browser/**/*.js
