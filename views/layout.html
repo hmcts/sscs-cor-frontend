@@ -12,20 +12,7 @@
 
 {% block header %}
     {% include "includes/cookie-banner.html" %}
-    {% set navigation = [] %}
-    {% if showSignOut %}
-        {% set navigation = [{
-            "href": "/sign-out",
-            "text": i18n.general.signOut,
-            "active": false
-        }] %}
-    {% endif %}
-    {{
-        govukHeader({
-            "navigation": navigation,
-            "navigationClasses": "sign-out"
-        })
-    }}
+    {% include "includes/header.html" %}
 {% endblock %}
 
 {% block bodyStart %}

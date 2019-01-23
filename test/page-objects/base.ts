@@ -85,7 +85,7 @@ export class BasePage {
   async signOut() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('.sign-out a')
+      this.clickElement('.govuk-header__link--signout')
     ]);
   }
 
