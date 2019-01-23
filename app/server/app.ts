@@ -40,7 +40,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ['\'self\''],
-      fontSrc: ['\'self\' data:', '*.gstatic.com'],
+      fontSrc: ['\'self\' data:'],
       scriptSrc: [
         '\'self\'',
         '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\'',
@@ -65,8 +65,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
         '\'self\' data:',
         'www.google-analytics.com',
         'www.googletagmanager.com',
-        'tagmanager.google.com',
-        '*.gstatic.com'
+        'tagmanager.google.com'
       ]
     }
   }));
