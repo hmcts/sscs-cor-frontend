@@ -20,7 +20,7 @@ spec:
         - name: SSCS_API_URL
           value: http://sscs-cor-backend-aat.service.core-compute-aat.internal
         - name: IDAM_URL
-          value: "https://idam.preprod.ccidam.reform.hmcts.net/login"
+          value: "https://idam.preprod.ccidam.reform.hmcts.net"
         - name: IDAM_API_URL
           value: "https://preprod-idamapi.reform.hmcts.net:3511"
         - name: IDAM_CLIENT_SECRET
