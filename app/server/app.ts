@@ -60,6 +60,10 @@ function setup(sessionHandler: RequestHandler, options: Options) {
         '\'self\'',
         'www.googletagmanager.com'
       ],
+      frameAncestors: [
+        '\'self\'',
+        'www.googletagmanager.com'
+      ],
       imgSrc: [
         '\'self\'',
         '\'self\' data:',
