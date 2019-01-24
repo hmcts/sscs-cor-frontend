@@ -13,12 +13,14 @@ export interface UserDetails {
 export class IdamService {
   private apiUrl: string;
   private appPort: string;
+  private appUser: string;
   private appSecret: string;
   private httpProxy: string;
 
-  constructor(apiUrl: string, appPort: string, appSecret: string, httpProxy: string) {
+  constructor(apiUrl: string, appPort: string, appUser: string, appSecret: string, httpProxy: string) {
     this.apiUrl = apiUrl;
     this.appPort = appPort;
+    this.appUser = appUser;
     this.appSecret = appSecret;
     this.httpProxy = httpProxy;
   }
@@ -33,7 +35,7 @@ export class IdamService {
           'Accept': 'application/json'
         },
         auth: {
-          user: 'sscs-cor',
+          user: 'sscs_cor',
           pass: this.appSecret
         },
         form: {
