@@ -7,13 +7,14 @@ const nock = require('nock');
 const config = require('config');
 
 const apiUrl = config.get('idam.api-url');
+const appUser: string = config.get('idam.client.id');
 const appSecret = config.get('idam.client.secret');
 const appPort = config.get('node.port');
 
 describe('services/idam', () => {
   let idamService;
   before(() => {
-    idamService = new IdamService(apiUrl, appPort, appSecret, '');
+    idamService = new IdamService(apiUrl, appPort, appUser, appSecret, '');
   });
 
   describe('getRedirectUrl', () => {
@@ -98,7 +99,7 @@ describe('services/idam', () => {
         nock(apiUrl)
           .post(path)
           .basicAuth({
-            user: 'sscs-cor',
+            user: 'sscs_cor',
             pass: appSecret
           })
           .reply(OK, apiResponse);
@@ -107,8 +108,8 @@ describe('services/idam', () => {
       it('makes correct post request', async () => {
         await idamService.getToken(code, protocol, host);
         expect(request.post).to.have.been.calledOnce.calledWith({
-          auth: { pass: 'a_secret', user: 'sscs-cor' },
-          formData: {
+          auth: { pass: 'a_secret', user: 'sscs_cor' },
+          form: {
             code: 'someCode',
             grant_type: 'authorization_code',
             redirect_uri: 'http://example.com/sign-in'
