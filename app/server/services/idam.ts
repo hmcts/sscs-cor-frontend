@@ -36,7 +36,7 @@ export class IdamService {
           user: 'sscs-cor',
           pass: this.appSecret
         },
-        formData: {
+        form: {
           grant_type: 'authorization_code',
           code,
           redirect_uri: redirectUri
