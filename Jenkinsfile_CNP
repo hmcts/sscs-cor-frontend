@@ -12,8 +12,10 @@ def component = "frontend"
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
 def sscsCorBackEndUrlAat = "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
 // revert once we are able to use a stable deployment of SIDAM in AAT
-def idamUrlAat = "https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub" //"https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal"
-def idamApiUrlAat = "https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub" //"https://idam-api.aat.platform.hmcts.net"
+def idamUrlAat = "https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal"
+def idamUrlTest = "https://idam-test.dev.ccidam.reform.hmcts.net"
+def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
+def idamApiUrlTest = "http://betaDevBccidamAppLB.reform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
 
 List<LinkedHashMap<String, Object>> secrets = [
@@ -45,9 +47,9 @@ withPipeline("nodejs", product, component) {
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
         sh 'echo SSCS_API_URL=$SSCS_API_URL'
-        env.IDAM_URL = "https://sscs-cor-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/idam-stub"
+        env.IDAM_URL = idamUrlTest
         sh 'echo IDAM_URL=$IDAM_URL'
-        env.IDAM_API_URL = idamApiUrlAat
+        env.IDAM_API_URL = idamApiUrlTest
         sh 'echo IDAM_API_URL=$IDAM_API_URL'
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
