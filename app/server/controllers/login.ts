@@ -66,14 +66,16 @@ function getIdamCallback(
     }
 
     try {
-      logger.info('getting token');
-      const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-      logger.info('getting user details');
-      const userDetails: UserDetails = await idamService.getUserDetails(tokenResponse.access_token);
+      if (!req.session.accessToken) {
+        logger.info('getting token');
+        const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
+        logger.info('getting user details');
+
+        req.session.accessToken = tokenResponse.access_token;
+      }
+      const userDetails: UserDetails = await idamService.getUserDetails(req.session.accessToken);
+
       // todo Maybe need to check userDetails.accountStatus is 'active' and userDetails.roles contains 'citizen' on userDetails
-
-      req.session.accessToken = tokenResponse.access_token;
-
       return await loadHearingAndEnterService(hearingService, idamService, userDetails.email, req, res);
     } catch (error) {
       AppInsights.trackException(error);
@@ -88,7 +90,8 @@ async function loadHearingAndEnterService(
   email: string,
   req: Request,
   res: Response) {
-  const response: rp.Response = await hearingService.getOnlineHearing(email);
+  const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
+  const response: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor);
   if (response.statusCode === NOT_FOUND) {
     logger.info(`Cannot find any case for ${email}`);
     const registerUrl = idamService.getRegisterUrl(req.protocol, req.hostname);
