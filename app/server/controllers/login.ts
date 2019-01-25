@@ -62,7 +62,15 @@ function getIdamCallback(
     const code: string = req.query.code;
 
     if (!code) {
-      return redirectToIdam(req, res);
+      const sessionId: string = req.session.id;
+      return req.session.destroy(error => {
+        if (error) {
+          logger.error(`Error destroying session ${sessionId}`);
+          throw error;
+        }
+        logger.info(`Session destroyed ${sessionId}`);
+        return redirectToIdam(req, res);
+      });
     }
 
     try {
