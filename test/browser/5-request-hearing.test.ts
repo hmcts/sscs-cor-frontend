@@ -17,7 +17,7 @@ const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
-describe('Request a hearing', () => {
+describe('Request a hearing @chris', () => {
   let page: Page;
   let tribunalViewPage: TribunalViewPage;
   let hearingConfirmPage: HearingConfirmPage;
@@ -41,6 +41,7 @@ describe('Request a hearing', () => {
   });
 
   it('is on the /tribunal-view path', async () => {
+    await hearingConfirmPage.screenshot('request-hearing-tribunal-view');
     tribunalViewPage.verifyPage();
   });
 
