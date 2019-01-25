@@ -106,6 +106,7 @@ describe('Tribunal view page', () => {
       await login(page);
       tribunalViewAcceptedPage.verifyPage();
       expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.tribunalViewAccepted.header);
+      await tribunalViewAcceptedPage.signOut();
     });
   });
 
