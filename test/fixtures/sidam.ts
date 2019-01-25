@@ -44,7 +44,8 @@ async function createUser(ccdCase) {
       forename: 'ATestForename',
       password: password,
       surname: 'ATestSurname'
-    }
+    },
+    insecure: true
   };
   await rp.post(options);
   console.log(`Created idam user for ${ccdCase.email} with password ${password}`);
@@ -54,7 +55,8 @@ async function createUser(ccdCase) {
 async function deleteUser(sidamUser) {
   const email = querystring.stringify(sidamUser.email);
   const options = {
-    url: `${sidamApiUrl}/testing-support/accounts/${email}`
+    url: `${sidamApiUrl}/testing-support/accounts/${email}`,
+    insecure: true
   };
   await rp.delete(options);
   console.log(`Deleted SIDAM user for ${sidamUser.email}`);
