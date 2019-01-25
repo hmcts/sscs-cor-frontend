@@ -72,7 +72,7 @@ async function bootstrapCcdCase() {
 
 async function bootstrapSidamUser(ccdCase) {
   try {
-    await sidam.registerRedirectUri();
+    // await sidam.registerRedirectUri();
     return await sidam.createUser(ccdCase);
   } catch (error) {
     console.log('Error bootstrapping SIDAM user', error);
@@ -83,11 +83,9 @@ async function bootstrapSidamUser(ccdCase) {
 export async function bootstrap() {
   try {
     const ccdCase = await bootstrapCcdCase();
-    // reinstate once we are able to use a stable deployment of SIDAM in AAT
-    // const sidamUser = await bootstrapSidamUser(ccdCase);
+    const sidamUser = await bootstrapSidamUser(ccdCase);
     const cohTestData = await bootstrapCoh(ccdCase);
-    // reinstate return of `sidamUser` once we are able to use a stable deployment of SIDAM in AAT
-    return { ccdCase, cohTestData };
+    return { ccdCase, cohTestData, sidamUser };
   } catch (error) {
     return Promise.reject(error);
   }
