@@ -7,10 +7,6 @@ resource "azurerm_resource_group" "rg" {
     )}"
 }
 
-provider "vault" {
-  address = "https://vault.reform.hmcts.net:6200"
-}
-
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
@@ -26,8 +22,9 @@ data "azurerm_key_vault" "sscs_key_vault" {
   resource_group_name = "${local.azureVaultName}"
 }
 
-data "vault_generic_secret" "sscs-cor-idam-client-secret" {
-  path = "secret/${var.infrastructure_env}/ccidam/idam-api/oauth2/client-secrets/sscs-cor"
+data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret-test" {
+  name      = "sscs-cor-idam-client-secret-test"
+  vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
 }
 
 module "sscs-cor-frontend" {
@@ -54,7 +51,7 @@ module "sscs-cor-frontend" {
     IDAM_URL                                       = "${var.idam_url}"
     IDAM_API_URL                                   = "${var.idam_api_url}"
     IDAM_ENABLE_STUB                               = "${var.idam_enable_stub}"
-    IDAM_CLIENT_SECRET                             = "${data.vault_generic_secret.sscs-cor-idam-client-secret.value}"
+    IDAM_CLIENT_SECRET                             = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret-test.value}"
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED          = "${var.evidence_upload_question_page_enabled}"
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED = "${var.evidence_upload_question_page_override_allowed}"
   }
