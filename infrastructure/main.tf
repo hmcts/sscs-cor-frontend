@@ -7,6 +7,10 @@ resource "azurerm_resource_group" "rg" {
     )}"
 }
 
+provider "vault" {
+  address = "https://vault.reform.hmcts.net:6200"
+}
+
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
