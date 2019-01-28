@@ -41,6 +41,7 @@ describe('Request a hearing', () => {
   });
 
   it('is on the /tribunal-view path', async () => {
+    await hearingConfirmPage.screenshot('request-hearing-tribunal-view');
     tribunalViewPage.verifyPage();
   });
 

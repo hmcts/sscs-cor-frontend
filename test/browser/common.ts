@@ -98,8 +98,7 @@ async function startServices(options?) {
     const bootstrapResult = await bootstrap();
     ccdCase = bootstrapResult.ccdCase;
     cohTestData = bootstrapResult.cohTestData;
-    // reinstate once we are able to use a stable deployment of SIDAM in AAT
-    // sidamUsers.unshift(bootstrapResult.sidamUser);
+    sidamUsers.unshift(bootstrapResult.sidamUser);
   }
   if (opts.issueDecision) {
     const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
@@ -121,7 +120,7 @@ async function startServices(options?) {
 after(async() => {
   if (sidamUsers.length) {
     console.log('Clean up sidam');
-    await sidam.unregisterRedirectUri();
+    // await sidam.unregisterRedirectUri();
     sidamUsers.forEach(async (sidamUser) => {
       console.log(`Deleting user ${sidamUser.email}`);
       await sidam.deleteUser(sidamUser);

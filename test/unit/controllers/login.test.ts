@@ -73,7 +73,7 @@ describe('controllers/login', () => {
       } as IdamService;
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
-      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs-cor&response_type=code');
+      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs_cor&response_type=code');
     });
   });
 
@@ -109,6 +109,36 @@ describe('controllers/login', () => {
 
       it('calls the online hearing service', () => {
         expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com');
+      });
+
+      it('redirects to task list page', () => {
+        expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+      });
+    });
+
+    describe('on success with case id', () => {
+      let hearingServiceStub;
+      beforeEach(async () => {
+        req.query = {
+          'code': 'someCode',
+          'caseId': 'someCaseId'
+        };
+        const redirectToIdam = sinon.stub();
+        let accessToken = 'someAccessToken';
+        const idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearing: sinon.stub().resolves({ body: hearingDetails })
+        } as HearingService;
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+      });
+
+      it('calls the online hearing service', () => {
+        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com+someCaseId');
       });
 
       it('redirects to task list page', () => {

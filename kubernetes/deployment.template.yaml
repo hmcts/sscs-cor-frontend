@@ -20,9 +20,9 @@ spec:
         - name: SSCS_API_URL
           value: http://sscs-cor-backend-aat.service.core-compute-aat.internal
         - name: IDAM_URL
-          value: "https://sscs-cor-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/idam-stub"
+          value: "https://idam-test.dev.ccidam.reform.hmcts.net"
         - name: IDAM_API_URL
-          value: "https://sscs-cor-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/idam-stub"
+          value: "http://betaDevBccidamAppLB.reform.hmcts.net"
         - name: IDAM_CLIENT_SECRET
           value: "${IDAM_CLIENT_SECRET}"
         - name: S2S_URL

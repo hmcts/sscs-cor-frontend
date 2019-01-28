@@ -30,11 +30,12 @@ import { EvidenceService } from './services/evidence';
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
 const appPort: string = config.get('node.port');
+const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
 const httpProxy: string = config.get('httpProxy');
 
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
-const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret, httpProxy);
+const idamService: IdamService = new IdamService(idamApiUrl, appPort, appUser, appSecret, httpProxy);
 const hearingService: HearingService = new HearingService(apiUrl);
 const questionService: QuestionService = new QuestionService(apiUrl);
 

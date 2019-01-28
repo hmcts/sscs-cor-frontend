@@ -26,7 +26,7 @@
     "url": "http://localhost:3000/idam-stub",
     "api-url": "http://localhost:3000/idam-stub",
     "client": {
-      "id": "sscs-cor",
+      "id": "sscs_cor",
       "secret": "a_secret"
     },
     "enableStub": "false"
