@@ -49,6 +49,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
     idamUrl.searchParams.append('redirect_uri', redirectUrl);
     idamUrl.searchParams.append('client_id', idamClientId);
     idamUrl.searchParams.append('response_type', 'code');
+    logger.log(`Redirecting to [${idamUrl.href}]`);
     return res.redirect(idamUrl.href);
   };
 }
