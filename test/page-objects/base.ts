@@ -15,6 +15,7 @@ export class BasePage {
   }
 
   async visitPage() {
+    console.log(`goto [${testUrl}${this.pagePath}]`);
     await this.page.goto(`${testUrl}${this.pagePath}`);
     await this.page.waitForSelector('body');
   }
