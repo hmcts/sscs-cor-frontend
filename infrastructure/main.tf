@@ -51,7 +51,7 @@ module "sscs-cor-frontend" {
     IDAM_URL                                       = "${var.idam_url}"
     IDAM_API_URL                                   = "${var.idam_api_url}"
     IDAM_ENABLE_STUB                               = "${var.idam_enable_stub}"
-    IDAM_CLIENT_SECRET                             = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret-test.value}"
+    IDAM_CLIENT_SECRET                             = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret.value}"
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED          = "${var.evidence_upload_question_page_enabled}"
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED = "${var.evidence_upload_question_page_override_allowed}"
   }
