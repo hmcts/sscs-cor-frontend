@@ -75,9 +75,14 @@ export async function login(page, force?) {
   const password = sidamUser && sidamUser.password || 'somePassword';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
+  console.log('in login');
   await taskListPage.visitPage();
+  console.log('visited task list page');
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
   const signInFailed = () => page.url().indexOf(`${testUrl}/sign-in`) >= 0;
+  console.log(`is on idam page [${isOnIdamPage}]`);
+  console.log(`sign in failed [${signInFailed}]`);
+  console.log(`force [${force}]`);
   if (isOnIdamPage() || force) {
     await loginPage.visitPage();
     await loginPage.login(email, password);

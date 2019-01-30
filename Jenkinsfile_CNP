@@ -12,15 +12,16 @@ def component = "frontend"
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
 def sscsCorBackEndUrlAat = "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
 // revert once we are able to use a stable deployment of SIDAM in AAT
-def idamUrlAat = "https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal"
+def idamUrlAat = "https://idam.preprod.ccidam.reform.hmcts.net"
 def idamUrlTest = "https://idam-test.dev.ccidam.reform.hmcts.net"
-def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
+def idamApiUrlAat = "https://preprod-idamapi.reform.hmcts.net:3511"
 def idamApiUrlTest = "http://betaDevBccidamAppLB.reform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
 
 List<LinkedHashMap<String, Object>> secrets = [
   secret('sscs-s2s-secret', 'S2S_SECRET'),
-  secret('sscs-cor-idam-client-secret-test', 'IDAM_CLIENT_SECRET'),
+  secret('sscs-cor-idam-client-secret-test', 'IDAM_CLIENT_SECRET_TEST'),
+  secret('sscs-cor-idam-client-secret', 'IDAM_CLIENT_SECRET_AAT'),
   secret('idam-sscs-systemupdate-user', 'IDAM_SSCS_SYSTEMUPDATE_USER'),
   secret('idam-sscs-systemupdate-password', 'IDAM_SSCS_SYSTEMUPDATE_PASSWORD'),
   secret('idam-sscs-oauth2-client-secret', 'IDAM_OAUTH2_CLIENT_SECRET')
@@ -51,6 +52,7 @@ withPipeline("nodejs", product, component) {
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlTest
         sh 'echo IDAM_API_URL=$IDAM_API_URL'
+        env.IDAM_CLIENT_SECRET=env.IDAM_CLIENT_SECRET_TEST
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
         env.S2S_OAUTH2_URL = "https://preprod-idamapi.reform.hmcts.net:3511"
@@ -65,6 +67,7 @@ withPipeline("nodejs", product, component) {
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
         sh 'echo IDAM_API_URL=$IDAM_API_URL'
+        env.IDAM_CLIENT_SECRET=env.IDAM_CLIENT_SECRET_AAT
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
         env.S2S_OAUTH2_URL = "https://preprod-idamapi.reform.hmcts.net:3511"
