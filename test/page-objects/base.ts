@@ -10,7 +10,7 @@ export class BasePage {
 
   constructor(page) {
     this.page = page;
-    this.page.setDefaultNavigationTimeout(90000);
+    this.page.setDefaultNavigationTimeout(60000);
     this.pagePath = '/';
   }
 
