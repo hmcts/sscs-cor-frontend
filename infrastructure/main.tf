@@ -22,8 +22,8 @@ data "azurerm_key_vault" "sscs_key_vault" {
   resource_group_name = "${local.azureVaultName}"
 }
 
-data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret-test" {
-  name      = "sscs-cor-idam-client-secret-test"
+data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret" {
+  name      = "sscs-cor-idam-client-secret"
   vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
 }
 
