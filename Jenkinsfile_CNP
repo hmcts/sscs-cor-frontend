@@ -71,3 +71,4 @@ withPipeline("nodejs", product, component) {
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
 }
+
