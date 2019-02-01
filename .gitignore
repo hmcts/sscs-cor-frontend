@@ -3,6 +3,7 @@
 node_modules
 yarn-error.log
 public
+build
 test/coverage
 .nyc_output
 functional-output/*
