@@ -24,7 +24,7 @@
     "test:unit": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test nyc mocha --exit --recursive --require jsdom-global/register \"test/unit/*.ts\" \"test/unit/**/*.ts\"",
     "test:unit-server": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/unit/*.ts test/unit/**/*.ts",
     "test:unit-client": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/client/tsconfig.json NODE_ENV=test mocha --require jsdom-global/register test/unit/client/**/*.ts",
-    "test:browser": "NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/browser/**/*.ts --exit",
+    "test:browser": "NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json JUNIT_REPORT_PATH=/report.xml NODE_ENV=test mocha test/browser/**/*.ts --colors --reporter mocha-jenkins-reporter  --exit",
     "test:integration": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/integration/**/*.ts --exit",
     "test:functional": "yarn test:browser -g '@smoke|@pa11y' --invert",
     "test:smoke": "yarn test:browser -g @smoke",
