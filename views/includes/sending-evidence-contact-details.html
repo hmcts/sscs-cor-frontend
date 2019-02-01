@@ -1,4 +1,6 @@
 <h2 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.byEmailHeader }}</h2>
 <p><a href="mailto:{{ i18n.contactEmail }}?subject=Evidence:%20{{ hearing.case_reference }}">{{ i18n.contactEmail }}</a></p>
 <h2 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.byPostHeader}}</h2>
-<p>{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</p>
+<address aria-label="{{ i18n.guidance.sendingEvidence.screenReaderPostalAddress }}">
+    <span aria-hidden="true">{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</span>
+</address>

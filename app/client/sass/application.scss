@@ -95,3 +95,11 @@ ol {
   font-size: 21px;
   margin-top: 1px;
 }
+
+address {
+  font-style: normal;
+}
+
+.govuk-details__text address {
+  margin-bottom: 20px;
+}
