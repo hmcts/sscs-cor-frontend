@@ -136,7 +136,8 @@ describe('Routes', () => {
               appellant_reply_datetime: '23-02-1999',
               decision_state: CONST.DECISION_ACCEPTED_STATE
             },
-            decision_state: ''
+            decision_state: '',
+            final_decision: { reason: 'final decision reason' }
           };
           next();
         });

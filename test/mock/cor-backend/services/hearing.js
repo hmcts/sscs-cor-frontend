@@ -17,6 +17,18 @@ const emailHearingIdMap = {
   'appeal.denied@example.com': '6-appeal-denied'
 };
 
+const createFinalDecision = email => {
+  const finalDecisionEmails = [
+    'appeal.upheld@example.com',
+    'appeal.denied@example.com'
+  ];
+
+  if (finalDecisionEmails.includes(email)) {
+    return { reason: 'final decision reason' };
+  }
+  return {};
+};
+
 const createDecision = email => {
   const decisionIssued = cache.get('decisionIssued');
   const tribunalViewReply = cache.get('tribunalViewReply');
@@ -93,6 +105,7 @@ module.exports = {
     appellant_name: 'Adam Jenkins',
     case_reference: 'SC/112/233',
     online_hearing_id: (params, query) => emailHearingIdMap[query.email] || '1-pending',
-    decision: (params, query) => createDecision(query.email)
+    decision: (params, query) => createDecision(query.email),
+    final_decision: (params, query) => createFinalDecision(query.email)
   }
 };

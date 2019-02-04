@@ -20,6 +20,9 @@ describe('controllers/decision.js', () => {
         end_date: '2020-10-10',
         decision_state: 'decision_accepted',
         decision_state_datetime: moment.utc().format()
+      },
+      final_decision: {
+        reason: 'final decision reason'
       }
     };
     req = {
@@ -36,13 +39,19 @@ describe('controllers/decision.js', () => {
   describe('getDecision', () => {
     it('renders decision page with accepted decision', async() => {
       await getDecision(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('decision.html', { decision: hearingDetails.decision });
+      expect(res.render).to.have.been.calledOnce.calledWith('decision.html', {
+        decision: hearingDetails.decision,
+        final_decision: hearingDetails.final_decision.reason
+      });
     });
 
     it('renders decision page with rejected decision', async() => {
       req.session.hearing.decision.decision_state = 'decision_rejected';
       await getDecision(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('decision.html', { decision: hearingDetails.decision });
+      expect(res.render).to.have.been.calledOnce.calledWith('decision.html', {
+        decision: hearingDetails.decision,
+        final_decision: hearingDetails.final_decision.reason
+      });
     });
 
     it('redirects to /sign-out if decision is not issued', async() => {
