@@ -9,7 +9,9 @@
     <p>{{ i18n.question.evidenceUpload.postEvidence.details.para2 }}<br>
       <strong id="evidence-case-reference">{{ hearing.case_reference }}</strong>
     </p>
-    <p>{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</p>
+    <address aria-label="{{ i18n.guidance.sendingEvidence.screenReaderPostalAddress }}">
+        <span aria-hidden="true">{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</span>
+    </address>
     <p>{{ i18n.question.evidenceUpload.postEvidence.details.closingPara1 }}</p>
     <p>{{ i18n.question.evidenceUpload.postEvidence.details.closingPara2 }}</p>
   </div>
