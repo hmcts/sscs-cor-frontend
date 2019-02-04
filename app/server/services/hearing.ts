@@ -9,11 +9,16 @@ interface OnlineHearingDecision {
   appellant_reply_datetime?: string;
 }
 
+interface FinalDecision {
+  reason: string;
+}
+
 export interface OnlineHearing {
   appellant_name: string;
   case_reference: string;
   online_hearing_id: string;
   decision?: OnlineHearingDecision;
+  final_decision?: FinalDecision;
 }
 
 interface ExtendDeadlineResponse {

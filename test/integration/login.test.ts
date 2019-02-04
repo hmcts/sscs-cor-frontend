@@ -110,7 +110,7 @@ describe('Login page', () => {
     decisionPage.verifyPage();
     expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
     expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.tribunalDecision.outcome.decision_accepted);
-    expect(await decisionPage.getElementText('#decision-text')).to.equal('The final decision is this.');
+    expect(await decisionPage.getElementText('#decision-text')).to.equal('final decision reason');
   });
 
   it('displays the decision page with appeal denied', async() => {
@@ -120,7 +120,7 @@ describe('Login page', () => {
     decisionPage.verifyPage();
     expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
     expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.tribunalDecision.outcome.decision_rejected);
-    expect(await decisionPage.getElementText('#decision-text')).to.equal('The final decision is this.');
+    expect(await decisionPage.getElementText('#decision-text')).to.equal('final decision reason');
   });
 
   it('does not allow access to task list when decision is issued', async() => {

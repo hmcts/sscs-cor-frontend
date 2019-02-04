@@ -7,7 +7,7 @@ function getDecision(req: Request, res: Response) {
   const hearing: OnlineHearing = req.session.hearing;
   const decisionStates = [CONST.DECISION_ACCEPTED_STATE, CONST.DECISION_REJECTED_STATE];
   if (hearing.decision && decisionStates.includes(hearing.decision.decision_state)) {
-    return res.render('decision.html', { decision: hearing.decision });
+    return res.render('decision.html', { decision: hearing.decision, final_decision: hearing.final_decision.reason });
   }
   return res.redirect(Paths.logout);
 }
