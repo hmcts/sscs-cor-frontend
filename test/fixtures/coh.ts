@@ -2,7 +2,8 @@ const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/cor-backend/services/question').template;
 import { generateToken, generateOauth2 } from './s2s';
-
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('coh.ts');
 const cohUrl = require('config').get('cohUrl');
 
 const JURISDICTION = 'SSCS';
@@ -13,6 +14,7 @@ const HEARING_STATUS = 'continuous_online_hearing_started';
 const QUESTION_OWNER_REF = 'SSCS-COR';
 const QUESTION_ROUND = '1';
 
+const timeout = require('config').get('apiCallTimeout');
 async function getHeaders() {
   const token = await generateToken();
   const oauthToken: string = await generateOauth2();
@@ -57,9 +59,17 @@ async function createOnlineHearing(caseId) {
     url: `${cohUrl}/continuous-online-hearings`,
     headers,
     body: onlineHearingBody(caseId),
-    json: true
+    json: true,
+    timeout
   };
-  const body = await rp.post(options);
+
+  let body;
+  try {
+    body = await rp.post(options);
+  } catch (error) {
+    logger.error('Error createOnlineHearing', error);
+  }
+
   console.log('Created online hearing with ID', body.online_hearing_id);
   return body.online_hearing_id;
 }
@@ -70,9 +80,15 @@ async function createQuestion(hearingId, mockQuestionRef, ordinal) {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questions`,
     headers,
     body: questionBody(mockQuestionRef, ordinal),
-    json: true
+    json: true,
+    timeout
   };
-  const body = await rp.post(options);
+  let body;
+  try {
+    body = await rp.post(options);
+  } catch (error) {
+    logger.error('Error Created question with ID', error);
+  }
   console.log('Created question with ID', body.question_id);
   return body;
 }
@@ -91,9 +107,15 @@ async function setQuestionRoundToIssued(hearingId) {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questionrounds/1`,
     headers,
     body: { state_name: 'question_issue_pending' },
-    json: true
+    json: true,
+    timeout
   };
-  await rp.put(options);
+
+  try {
+    await rp.put(options);
+  } catch (error) {
+    logger.error('Error setQuestionRoundToIssued',error);
+  }
   console.log('Question round issued, status pending');
 }
 
@@ -102,9 +124,15 @@ async function getQuestionRound(hearingId, roundNum) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questionrounds/${roundNum}`,
     headers,
-    json: true
+    json: true,
+    timeout
   };
-  const body = await rp.get(options);
+  let body;
+  try {
+    body = await rp.get(options);
+  } catch (error) {
+    logger.error('Error getQuestionRound',error);
+  }
   return body;
 }
 
@@ -113,9 +141,15 @@ async function getDecision(hearingId) {
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
-    json: true
+    json: true,
+    timeout
   };
-  const body = await rp.get(options);
+  let body;
+  try {
+    body = await rp.get(options);
+  } catch (error) {
+    logger.error('Error getDecision' , error);
+  }
   return body;
 }
 
@@ -134,9 +168,15 @@ async function createDecision(hearingId, caseId) {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
     body: decisionBody(caseId),
-    json: true
+    json: true,
+    timeout
   };
-  const body = await rp.post(options);
+  let body;
+  try {
+    body = await rp.post(options);
+  } catch (error) {
+    logger.error('Error Created decision with ID',error);
+  }
   console.log('Created decision with ID', body.decision_id);
   return body;
 }
@@ -148,9 +188,15 @@ async function issueDecision(hearingId, caseId) {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
     body,
-    json: true
+    json: true,
+    timeout
   };
-  await rp.put(options);
+
+  try {
+    await rp.put(options);
+  } catch (error) {
+    logger.error('Error Decision issued, status pending',error);
+  }
   console.log('Decision issued, status pending');
 }
 

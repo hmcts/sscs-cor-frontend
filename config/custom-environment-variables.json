@@ -49,5 +49,6 @@
         "secret": "IDAM_OAUTH2_CLIENT_SECRET"
       }
     }
-  }
+  },
+  "apiCallTimeout" : "API_CALL_TIMEOUT"
 }

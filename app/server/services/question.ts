@@ -1,5 +1,8 @@
 import { Request } from 'express';
 const request = require('request-promise');
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('question.ts');
+const timeout = require('config').get('apiCallTimeout');
 
 interface QuestionSummary {
   question_id: string;
@@ -25,10 +28,12 @@ export class QuestionService {
     try {
       const body = await request.get({
         uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`,
-        json: true
+        json: true,
+        timeout
       });
       return Promise.resolve(body);
     } catch (error) {
+      logger.error('Error getAllQuestions', error);
       return Promise.reject(error);
     }
   }
@@ -37,10 +42,12 @@ export class QuestionService {
     try {
       const body = await request.get({
         uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`,
-        json: true
+        json: true,
+        timeout
       });
       return Promise.resolve(body);
     } catch (error) {
+      logger.error('Error getQuestion', error);
       return Promise.reject(error);
     }
   }
@@ -71,10 +78,12 @@ export class QuestionService {
           answer_state: answerState,
           answer: answerText
         },
-        json: true
+        json: true,
+        timeout
       });
       return Promise.resolve(body);
     } catch (error) {
+      logger.error('Error saveAnswer', error);
       return Promise.reject(error);
     }
   }
@@ -86,10 +95,12 @@ export class QuestionService {
         headers: {
           'Content-Length': '0'
         },
-        json: true
+        json: true,
+        timeout
       });
       return Promise.resolve(body);
     } catch (error) {
+      logger.error('Error submitAnswer', error);
       return Promise.reject(error);
     }
   }

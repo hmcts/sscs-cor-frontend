@@ -51,5 +51,6 @@
         "secret": "some_secret"
       }
     }
-  }
+  },
+  "apiCallTimeout" : 40000
 }
