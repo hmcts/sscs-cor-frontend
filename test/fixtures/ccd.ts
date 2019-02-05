@@ -1,6 +1,9 @@
 const rp = require('request-promise');
 
 const backendApiUrl = require('config').get('api.url');
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('ccd.ts');
+const timeout = 40 * 1000;
 
 async function createCase() {
   const randomNumber = parseInt(Math.random() * 10000000 + '', 10);
@@ -8,9 +11,17 @@ async function createCase() {
   const options = {
     url: `${backendApiUrl}/case`,
     qs: { email },
-    json: true
+    json: true,
+    timeout
   };
-  const body = await rp.post(options);
+
+  let body;
+  try {
+    body = await rp.post(options);
+  } catch (error) {
+    logger.error('Error createCase', error);
+  }
+
   const caseId = body.id;
   const caseReference = body.case_reference;
   console.log(`Created CCD case for ${email} with ID ${caseId} and reference ${caseReference}`);

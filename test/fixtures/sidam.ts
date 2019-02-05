@@ -4,6 +4,10 @@ const querystring = require('querystring');
 const sidamApiUrl = require('config').get('idam.api-url');
 const testUrl = require('config').get('testUrl');
 
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('sidam.ts');
+const timeout = 40 * 1000;
+
 async function manageRedirectUri(operation) {
   const redirectUri = `${testUrl}/sign-in`;
   if (redirectUri.startsWith('https://pr-')) {
@@ -14,9 +18,16 @@ async function manageRedirectUri(operation) {
         operation: operation,
         field: 'redirect_uri',
         value: redirectUri
-      }]
+      }],
+      timeout
     };
-    await rp.patch(options);
+
+    try {
+      await rp.patch(options);
+    } catch (error) {
+      logger.error('Error manageRedirectUri', error);
+    }
+
     if (operation === 'add') {
       console.log(`Register redirect uri [${redirectUri}]`);
     } else {
@@ -45,9 +56,16 @@ async function createUser(ccdCase) {
       password: password,
       surname: 'ATestSurname'
     },
-    insecure: true
+    insecure: true,
+    timeout
   };
-  await rp.post(options);
+
+  try {
+    await rp.post(options);
+  } catch (error) {
+    logger.error('Error createUser', error);
+  }
+
   console.log(`Created idam user for ${ccdCase.email} with password ${password}`);
   return { email: ccdCase.email, password };
 }
@@ -56,9 +74,16 @@ async function deleteUser(sidamUser) {
   const email = querystring.stringify(sidamUser.email);
   const options = {
     url: `${sidamApiUrl}/testing-support/accounts/${email}`,
-    insecure: true
+    insecure: true,
+    timeout
   };
-  await rp.delete(options);
+
+  try {
+    await rp.delete(options);
+  } catch (error) {
+    logger.error('Error deleteUser', error);
+  }
+
   console.log(`Deleted SIDAM user for ${sidamUser.email}`);
 }
 
