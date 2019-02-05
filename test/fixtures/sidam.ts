@@ -6,7 +6,7 @@ const testUrl = require('config').get('testUrl');
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('sidam.ts');
-const timeout = require('config').get('apiCallTimeOut');
+const timeout = require('config').get('apiCallTimeout');
 
 async function manageRedirectUri(operation) {
   const redirectUri = `${testUrl}/sign-in`;

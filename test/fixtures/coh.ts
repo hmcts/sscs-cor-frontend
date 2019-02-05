@@ -14,7 +14,7 @@ const HEARING_STATUS = 'continuous_online_hearing_started';
 const QUESTION_OWNER_REF = 'SSCS-COR';
 const QUESTION_ROUND = '1';
 
-const timeout = require('config').get('apiCallTimeOut');
+const timeout = require('config').get('apiCallTimeout');
 async function getHeaders() {
   const token = await generateToken();
   const oauthToken: string = await generateOauth2();

@@ -12,7 +12,7 @@ const clientSecret = config.get('s2s.oauth2.client.secret');
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('question.ts');
-const timeout = require('config').get('apiCallTimeOut');
+const timeout = require('config').get('apiCallTimeout');
 
 interface TokenResponse {
   access_token: string;
