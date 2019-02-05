@@ -1,7 +1,7 @@
 /* eslint-disable no-process-env */
 
 const config = require('config');
-const supportedBrowsers = require('./crossbrowser/supportedBrowsers.js');
+const supportedBrowsers = require('./supportedBrowsers.js');
 const { Logger } = require('@hmcts/nodejs-logging');
 
 const logger = Logger.getLogger('saucelabs.conf.js');
@@ -33,6 +33,7 @@ const pauseFor = seconds => {
 const setupConfig = {
   tests: './journeys/*.test.js',
   output: config.get('saucelabs.outputDir'),
+  require: ['ts-node/register'],
   helpers: {
     WebDriverIO: {
       url: process.env.TEST_URL || config.get('testUrl'),
@@ -46,10 +47,11 @@ const setupConfig = {
       key: process.env.SAUCE_ACCESS_KEY || config.get('saucelabs.key'),
       desiredCapabilities: {}
     },
+    BootstrapHelper: { require: './helpers/BootstrapHelper' },
     SauceLabsReportingHelper: { require: './helpers/SauceLabsReportingHelper.js' }
   },
   include: {
-    I: './page-objects/steps.js'
+    I: './pages/steps.js'
   },
   teardownAll: done => {
     // Pause to allow SauceLabs to finish updating before Jenkins queries it for results

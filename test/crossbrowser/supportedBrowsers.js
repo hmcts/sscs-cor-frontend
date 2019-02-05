@@ -1,17 +1,17 @@
 const supportedBrowsers = {
   microsoft: {
-    ie11_win10: {
+    ie11: {
       browserName: 'internet explorer',
-      name: 'IE11_Win10',
+      name: 'IE11',
       platform: 'Windows 10',
       ignoreZoomSetting: true,
       nativeEvents: false,
       ignoreProtectedModeSettings: true,
-      version: '11'
+      version: '11.285'
     },
-    edge_win10: {
+    edge: {
       browserName: 'MicrosoftEdge',
-      name: 'Edge_Win10',
+      name: 'Edge',
       platform: 'Windows 10',
       ignoreZoomSetting: true,
       nativeEvents: false,
@@ -51,8 +51,8 @@ const supportedBrowsers = {
     safari11: {
       browserName: 'safari',
       name: 'SAFARI_11',
-      platform: 'macOS 10.13',
-      version: '11.1',
+      platform: 'macOS 10.14',
+      version: 'latest',
       avoidProxy: true
     }
   }
