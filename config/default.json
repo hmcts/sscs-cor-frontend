@@ -52,5 +52,5 @@
       }
     }
   },
-  "apiCallTimeout" : 40
+  "apiCallTimeout" : 40000
 }
