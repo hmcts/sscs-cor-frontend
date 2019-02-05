@@ -3,7 +3,7 @@ const rp = require('request-promise');
 const backendApiUrl = require('config').get('api.url');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('ccd.ts');
-const timeout = 40 * 1000;
+const timeout = require('config').get('apiCallTimeOut');
 
 async function createCase() {
   const randomNumber = parseInt(Math.random() * 10000000 + '', 10);
