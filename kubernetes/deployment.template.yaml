@@ -24,7 +24,7 @@ spec:
         - name: IDAM_API_URL
           value: "http://betaDevBccidamAppLB.reform.hmcts.net"
         - name: IDAM_CLIENT_SECRET
-          value: "${IDAM_CLIENT_SECRET_TEST}"
+          value: "${IDAM_CLIENT_SECRET}"
         - name: S2S_URL
           value: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
         - name: S2S_SECRET
