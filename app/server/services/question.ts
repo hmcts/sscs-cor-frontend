@@ -2,7 +2,7 @@ import { Request } from 'express';
 const request = require('request-promise');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('question.ts');
-const timeout = 40 * 1000;
+const timeout = require('config').get('apiCallTimeOut');
 
 interface QuestionSummary {
   question_id: string;
