@@ -22,5 +22,6 @@
     "api-url": "http://localhost:8082",
     "enableStub": "false"
   },
-  "apiCallTimeout" : 40000
+  "apiCallTimeout" : 40000,
+  "navigationTimeout" : 180000
 }

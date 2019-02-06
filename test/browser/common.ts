@@ -12,6 +12,9 @@ const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
 
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('commong.js');
+
 const idamUrl = config.get('idam.url');
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
@@ -111,7 +114,14 @@ async function startServices(options?) {
   }
   await startAppServer();
   const browser = await startBrowser();
-  const page: puppeteer.Page = await browser.newPage();
+  let page: puppeteer.Page;
+
+  try {
+    page = await browser.newPage();
+  } catch (error) {
+    logger.error('Error startServices browser new page', error);
+  }
+
   await page.setViewport({
     height: 700,
     width: 1100
