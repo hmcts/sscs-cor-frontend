@@ -23,5 +23,4 @@ COPY --from=build $WORKDIR/public ./public
 COPY --from=build $WORKDIR/views ./views
 COPY --from=build $WORKDIR/server.js ./
 EXPOSE 3000
-CMD [ "npm", "start" ]
 USER hmcts
