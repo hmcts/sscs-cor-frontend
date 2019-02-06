@@ -50,5 +50,7 @@
       }
     }
   },
-  "apiCallTimeout" : "API_CALL_TIMEOUT"
+  "apiCallTimeout" : "API_CALL_TIMEOUT",
+  "navigationTimeout" : "NAVIGATION_TIMEOUT"
+
 }
