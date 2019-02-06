@@ -1,5 +1,5 @@
 # ---- Base image ----
-FROM node:8.12.0-slim AS base
+FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8:latest AS base
 ENV WORKDIR /usr/src/app
 WORKDIR ${WORKDIR}
 COPY package.json yarn.lock ./
