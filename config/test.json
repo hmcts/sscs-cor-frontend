@@ -23,5 +23,5 @@
     "enableStub": "false"
   },
   "apiCallTimeout" : 40000,
-  "navigationTimeout" : 180000
+  "navigationTimeout" : 140000
 }
