@@ -1,7 +1,5 @@
 # ---- Base image ----
 FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8:latest AS base
-ENV WORKDIR /usr/src/app
-WORKDIR ${WORKDIR}
 COPY package.json yarn.lock ./
 RUN yarn install \
     --ignore-scripts \
@@ -26,3 +24,4 @@ COPY --from=build $WORKDIR/views ./views
 COPY --from=build $WORKDIR/server.js ./
 EXPOSE 3000
 CMD [ "npm", "start" ]
+USER hmcts
