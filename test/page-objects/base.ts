@@ -2,7 +2,7 @@ const { expect } = require('test/chai-sinon');
 const config = require('config');
 
 const testUrl = config.get('testUrl');
-const navigationTimeoout = config.get('navigationTimeout');
+const navigationTimeout = config.get('navigationTimeout');
 export class BasePage {
 
   public page: any;
@@ -10,7 +10,7 @@ export class BasePage {
 
   constructor(page) {
     this.page = page;
-    this.page.setDefaultNavigationTimeout(navigationTimeoout);
+    this.page.setDefaultNavigationTimeout(navigationTimeout);
     this.pagePath = '/';
   }
 
