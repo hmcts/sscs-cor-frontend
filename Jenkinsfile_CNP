@@ -12,7 +12,7 @@ def component = "frontend"
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
 def sscsCorBackEndUrlAat = "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
 // revert once we are able to use a stable deployment of SIDAM in AAT
-def idamUrlAat = "https://idam.preprod.ccidam.reform.hmcts.net"
+def idamUrlAat = "https://idam-test.dev.ccidam.reform.hmcts.net"
 def idamUrlTest = "https://idam-test.dev.ccidam.reform.hmcts.net"
 def idamApiUrlAat = "https://preprod-idamapi.reform.hmcts.net:3511"
 def idamApiUrlTest = "http://betaDevBccidamAppLB.reform.hmcts.net"
