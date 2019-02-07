@@ -79,7 +79,12 @@ export async function login(page, force?) {
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
   console.log('in login');
-  await taskListPage.visitPage();
+  try {
+    await taskListPage.visitPage();
+  } catch (error) {
+    console.log(error);
+  }
+
   console.log('visited task list page');
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
   const signInFailed = () => page.url().indexOf(`${testUrl}/sign-in`) >= 0;
