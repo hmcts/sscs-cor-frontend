@@ -63,11 +63,11 @@ withPipeline("nodejs", product, component) {
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
         sh 'echo SSCS_API_URL=$SSCS_API_URL'
-        env.IDAM_URL = idamUrlTest
+        env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
-        env.IDAM_API_URL = idamApiUrlTest
+        env.IDAM_API_URL = idamApiUrlAat
         sh 'echo IDAM_API_URL=$IDAM_API_URL'
-        env.IDAM_CLIENT_SECRET=env.IDAM_CLIENT_SECRET_TEST
+        env.IDAM_CLIENT_SECRET=env.IDAM_CLIENT_SECRET_AAT
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
         env.S2S_OAUTH2_URL = "https://preprod-idamapi.reform.hmcts.net:3511"

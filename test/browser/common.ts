@@ -19,7 +19,7 @@ const idamUrl = config.get('idam.url');
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
 const headless = config.get('headless') !== 'false';
-const httpProxy = config.get('httpProxy');
+const httpProxy = config.get('httpProxy') || 'http://proxyout.reform.hmcts.net:8080' ;
 const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 
 let browser;
@@ -34,6 +34,7 @@ async function startBrowser() {
   if (!browser) {
     console.log('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
+    console.log(`Http proxy ${httpProxy}`);
     if (httpProxy) {
       args.push(`-proxy-server=${httpProxy}`);
     }
@@ -79,11 +80,8 @@ export async function login(page, force?) {
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
   console.log('in login');
-  try {
-    await taskListPage.visitPage();
-  } catch (error) {
-    console.log(error);
-  }
+
+  await taskListPage.visitPage();
 
   console.log('visited task list page');
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
