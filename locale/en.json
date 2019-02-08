@@ -172,9 +172,11 @@
       "confirmAccept": "Confirm whether you accept this view at the bottom of the page, after reading the tribunal's reason below."
     },
     "reasonsHeader": "The reason for the tribunal’s view",
-    "activitiesSummary": "PIP activities and the descriptors we consider apply to your appeal",
-    "dailyLivingActivitiesHeader": "Daily living activities and descriptors the tribunal considers to apply",
-    "mobilityActivitiesHeader": "Mobility activities and descriptors the tribunal considers to apply",
+    "activitiesSummary": "PIP activities and descriptors the tribunal consider apply to your appeal",
+    "dailyLivingActivitiesHeader": "Daily living activities and descriptors",
+    "dailyLivingActivitiesHeaderEmpty": "The tribunal's view is that no daily living activities apply to your appeal",
+    "mobilityActivitiesHeader": "Mobility activities and descriptors",
+    "mobilityActivitiesHeaderEmpty": "The tribunal's view is that no mobility activities apply to your appeal",
     "activitiesTable": {
       "headerActivity": "Activity",
       "headerDescriptor": "Descriptor",
