@@ -6,6 +6,11 @@ import { SessionInactivity } from './session-inactivity';
 
 const domready = require('domready');
 
+function goBack() {
+  window.history.go(-1);
+  return false;
+}
+
 const onReady = () => {
   let checkCookies = new CheckCookies();
   const evidence = new EvidenceUpload();
@@ -14,6 +19,8 @@ const onReady = () => {
   govUK.initAll();
   expandingTextBox.init();
   sessionInactivity.init();
+
+  document.querySelectorAll('#buttonBack').forEach(element => element.addEventListener('click', goBack));
 };
 
 domready(onReady);
