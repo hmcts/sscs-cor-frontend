@@ -74,6 +74,7 @@
             </span>
           </summary>
           <div class="govuk-details__text">
+            {% if decision.activities.daily_living %}
             <h2 class="govuk-heading-m">{{ i18n.tribunalView.dailyLivingActivitiesHeader }}</h2>
             <table class="govuk-table">
               <thead class="govuk-table__head">
@@ -91,10 +92,13 @@
                   <td class="govuk-table__cell">{{ i18n.tribunalView.activities.dailyLiving[activity.activity].scores[activity.selection_key].score }}</td>
                 </tr>
               {% endfor %}
+              {% else %}
+                <h2 class="govuk-heading-m">{{ i18n.tribunalView.dailyLivingActivitiesHeaderEmpty }}</h2>
+              {% endif %}
               </tbody>
             </table>
             <br />
-
+            {% if decision.activities.mobility %}
             <h2 class="govuk-heading-m">{{ i18n.tribunalView.mobilityActivitiesHeader }}</h2>
             <table class="govuk-table">
               <thead class="govuk-table__head">
@@ -112,6 +116,9 @@
                 <td class="govuk-table__cell">{{ i18n.tribunalView.activities.mobility[activity.activity].scores[activity.selection_key].score }}</td>
               </tr>
               {% endfor %}
+              {% else %}
+                <h2 class="govuk-heading-m">{{ i18n.tribunalView.mobilityActivitiesHeaderEmpty }}</h2>
+              {% endif %}
               </tbody>
             </table>
           </div>
