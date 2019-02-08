@@ -17,6 +17,7 @@ def idamUrlTest = "https://idam-test.dev.ccidam.reform.hmcts.net"
 def idamApiUrlAat = "https://preprod-idamapi.reform.hmcts.net:3511"
 def idamApiUrlTest = "http://betaDevBccidamAppLB.reform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+def httpProxy =  "http://proxyout.reform.hmcts.net:8080"
 
 List<LinkedHashMap<String, Object>> secrets = [
   secret('sscs-s2s-secret', 'S2S_SECRET'),
@@ -67,6 +68,8 @@ withPipeline("nodejs", product, component) {
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
         sh 'echo IDAM_API_URL=$IDAM_API_URL'
+        env.HTTP_PROXY = httpProxy
+        sh 'echo HTTP_PROXY=$HTTP_PROXY'
         env.IDAM_CLIENT_SECRET=env.IDAM_CLIENT_SECRET_AAT
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'

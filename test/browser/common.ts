@@ -19,7 +19,7 @@ const idamUrl = config.get('idam.url');
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
 const headless = config.get('headless') !== 'false';
-const httpProxy = config.get('httpProxy') || 'http://proxyout.reform.hmcts.net:8080' ;
+const httpProxy = config.get('httpProxy');
 const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 
 let browser;
