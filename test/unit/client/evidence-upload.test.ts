@@ -52,7 +52,7 @@ const html = `<form id="answer-form" action="/question/1" method="post">
     <p>Make sure it’s clearly marked with your appeal reference number:<br>
       <strong id="evidence-case-reference">SC/112/233</strong>
     </p>
-    <p>Birmingham ASC<br>HM Courts and Tribunals Service<br>Administrative Support Centre (ASC)<br>P O Box 14620<br>Birmingham<br>B16 6FR</p>
+    <p>HMCTS<br/>Copthall House<br/>9 The Pavement<br/>Grove Road<br/>Sutton<br/>SM1 1DA</p>
     <p>Try to post it as soon as possible to avoid delaying your appeal.</p>
   </div>
 </details>
