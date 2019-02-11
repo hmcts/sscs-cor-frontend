@@ -578,7 +578,7 @@
     },
     "error500": {
       "header": "Sorry, we're experiencing technical difficulties",
-      "content": "Please try again in a few minutes."
+      "content": "Please try again."
     }
   },
   "general": {
