@@ -10,8 +10,8 @@
     "sendingEvidence": {
       "byEmailHeader": "Send by email",
       "byPostHeader": "Send by post",
-      "postalAddress": "Birmingham ASC<br/>HM Courts and Tribunals Service<br/>Administrative Support Centre (ASC)<br/>P O Box 14620<br/>Birmingham<br/>B16 6FR",
-      "screenReaderPostalAddress": "Birmingham ASC H M Courts and Tribunals Service Administrative Support Centre (ASC) P O Box 14620 Birmingham B16 6FR"
+      "postalAddress": "HMCTS<br/>Copthall House<br/>9 The Pavement<br/>Grove Road<br/>Sutton<br/>SM1 1DA",
+      "screenReaderPostalAddress": "HMCTS Copthall House 9 The Pavement Grove Road Sutton SM1 1DA"
     }
   },
   "login": {
