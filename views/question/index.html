@@ -30,7 +30,7 @@
 
       <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
 
-      <div id="question-body">
+      <div class="govuk-body-m govuk-body" id="question-body">
         {% set body = question.body %}
         {{ body|safe }}
       </div>
