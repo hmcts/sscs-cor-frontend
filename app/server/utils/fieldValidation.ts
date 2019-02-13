@@ -26,11 +26,10 @@ function answerValidation(answer) {
 
 function hearingWhyValidation(answer) {
   const schema = Joi.string()
-    .required()
+    .allow('')
     .max(maxCharacters)
     .options({
       language: {
-        any: { empty: `!!${i18n.hearingWhy.error.empty}` },
         string: { max: `!!${i18n.hearingWhy.error.maxCharacters}` }
       }
     });
