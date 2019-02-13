@@ -102,14 +102,6 @@ describe('Request a hearing', () => {
         expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
       });
 
-      it('validates that a reason must be given', async () => {
-        await hearingWhyPage.giveReasonWhy('');
-        await hearingWhyPage.submit();
-        expect(await hearingConfirmPage.getElementText('#error-summary-title')).contain(i18n.errorSummary.titleText);
-        expect(await hearingConfirmPage.getElementText('.govuk-error-summary__body')).contain(i18n.hearingWhy.error.empty);
-        await hearingWhyPage.screenshot('hearing-why-validaiton');
-      });
-
       describe('submits the reason', () => {
         before(async () => {
           await hearingWhyPage.giveReasonWhy('The reason why I want a hearing');

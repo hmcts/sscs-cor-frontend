@@ -14,9 +14,6 @@ describe('utils/fieldValidation.js', () => {
   });
 
   describe('hearingWhyValidation', () => {
-    it('returns the error message if answer is empty', () => {
-      expect(hearingWhyValidation('')).to.equal(i18n.hearingWhy.error.empty);
-    });
 
     it('returns false if answer is valid', () => {
       expect(hearingWhyValidation('Valid answer')).to.equal(false);

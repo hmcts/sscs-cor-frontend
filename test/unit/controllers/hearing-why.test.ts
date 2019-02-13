@@ -92,20 +92,6 @@ describe('controllers/hearing-why', () => {
       (AppInsights.trackException as sinon.SinonStub).restore();
     });
 
-    describe('validation failed', () => {
-
-      beforeEach(async () => {
-        req.body['explain-why'] = '';
-        await postIndex(hearingService)(req, res, next);
-      });
-
-      it('renders the view with the error message', () => {
-        expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', {
-          error: i18n.hearingWhy.error.empty
-        });
-      });
-    });
-
     describe('validation passed', () => {
 
       const inSixWeeks = moment.utc().add(6, 'weeks').format(CONST.DATE_FORMAT);
