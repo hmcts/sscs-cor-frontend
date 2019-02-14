@@ -3,7 +3,9 @@ function answerQuestion(question, answer) {
 
   I.waitInUrl('/task-list');
   I.waitForText('Your PIP benefit appeal');
+  I.waitForText(question);
   I.click(question);
+  I.waitInUrl('/question/');
   I.waitForText(question);
   I.fillField('#question-field', answer);
   I.click('Submit answer to the tribunal');
