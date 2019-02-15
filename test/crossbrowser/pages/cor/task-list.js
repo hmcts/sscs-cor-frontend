@@ -1,12 +1,18 @@
+const config = require('config');
+
+const timeout = parseInt(config.get('saucelabs.waitForTimeout'));
+
 function answerQuestion(question, answer) {
   const I = this;
 
+  I.wait(2);
   I.waitInUrl('/task-list');
-  I.waitForText('Your PIP benefit appeal');
-  I.waitForText(question);
+  I.waitForHeader('Your PIP benefit appeal');
+  I.waitForText(question, timeout, '#task-list');
   I.click(question);
   I.waitInUrl('/question/');
-  I.waitForText(question);
+  I.waitForHeader(question);
+  I.waitForVisible('#question-field');
   I.fillField('#question-field', answer);
   I.click('Submit answer to the tribunal');
   I.waitInUrl('/submit');
@@ -17,7 +23,7 @@ function haveAnsweredAllQuestions() {
   const I = this;
 
   I.waitInUrl('/questions-completed');
-  I.waitForText('You have answered the tribunal’s questions');
+  I.waitForHeader('You have answered the tribunal’s questions');
 }
 
 module.exports = { answerQuestion, haveAnsweredAllQuestions };

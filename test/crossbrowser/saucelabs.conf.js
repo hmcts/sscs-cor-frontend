@@ -50,7 +50,8 @@ const setupConfig = {
       }
     },
     BootstrapHelper: { require: './helpers/BootstrapHelper' },
-    SauceLabsReportingHelper: { require: './helpers/SauceLabsReportingHelper.js' }
+    GeneralHelpers: { require: './helpers/GeneralHelpers' },
+    SauceLabsReportingHelper: { require: './helpers/SauceLabsReportingHelper' }
   },
   include: {
     I: './pages/steps.js'
