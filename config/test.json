@@ -27,8 +27,8 @@
     "username": "username",
     "key": "privatekey",
     "tunnelId": "reformtunnel",
-    "waitForTimeout": "300000",
-    "smartWait": "60000",
+    "waitForTimeout": "180000",
+    "smartWait": "30000",
     "outputDir": "./functional-output/crossbrowser/reports"
   },
   "apiCallTimeout" : 40000,

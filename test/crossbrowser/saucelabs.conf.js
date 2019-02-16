@@ -88,9 +88,6 @@ const setupConfig = {
     },
     firefox: {
       browsers: getBrowserConfig('firefox')
-    },
-    safari: {
-      browsers: getBrowserConfig('safari')
     }
   },
   name: 'SSCS COR Crossbrowser Tests'
