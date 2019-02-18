@@ -1,6 +1,6 @@
 infrastructure_env = "prod"
 node_environment = "prod"
-idam_url = "https://hmcts-access.service.gov.uk"
-idam_api_url = "https://idam-api.platform.hmcts.net"
+idam_url = "https://DUMMY"
+idam_api_url = "https://DUMMY"
 evidence_upload_question_page_enabled = "false"
 evidence_upload_question_page_override_allowed = "false"
