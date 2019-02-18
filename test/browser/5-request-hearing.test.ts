@@ -34,6 +34,15 @@ describe('Request a hearing', () => {
     caseReference = res.ccdCase.caseReference || mockDataHearing.case_reference;
   });
 
+  afterEach(function () {
+    if (this.currentTest.state !== 'passed') {
+      const testName = this.currentTest.title.replace(/[ \/]/g, '_');
+      tribunalViewPage.screenshot('failed-' + testName).catch(err => {
+        console.log(err);
+      });
+    }
+  });
+
   after(async () => {
     if (page && page.close) {
       await page.close();
