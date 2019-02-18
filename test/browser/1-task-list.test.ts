@@ -48,6 +48,15 @@ describe('Task list page', () => {
     await taskListPage.screenshot('task-list');
   });
 
+  afterEach(function () {
+    if (this.currentTest.state !== 'passed') {
+      const testName = this.currentTest.title.replace(/[ \/]/g, '_');
+      taskListPage.screenshot('failed-' + testName).catch(err => {
+        console.log(err);
+      });
+    }
+  });
+
   after(async () => {
     if (page && page.close) {
       await page.close();
