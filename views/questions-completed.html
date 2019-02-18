@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% set pageHeader = i18n.questionsCompleted.header  %}
 {% block beforeContent %}
     {{ super() }}
     <a href="/task-list" class="govuk-back-link">{{ i18n.general.backToQuestions }}</a>

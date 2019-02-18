@@ -3,6 +3,24 @@
 
 {% extends "layout.html" %}
 
+{% if (not extend) and (hearing.extensionCount > 0) %}
+
+  {% set pageHeader = i18n.extendDeadline.contactTribunal.header %}
+
+{% elseif not extend %}
+
+  {% set pageHeader = i18n.extendDeadline.header %} 
+
+{% elseif extend == 'yes' %}
+
+  {% set pageHeader = i18n.extendDeadline.yes.header %}
+
+{% elseif extend == 'no' %}
+
+  {% set pageHeader = i18n.extendDeadline.no.header %}
+
+{% endif %}
+
 {% block beforeContent %}
   {{ super() }}
 {% endblock %}
