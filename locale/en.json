@@ -592,7 +592,8 @@
     "logo": "HMCTS Logo",
     "signOut": "Sign out",
     "delete": "Delete",
-    "serviceTitle": "Appeal a benefit decision"
+    "serviceTitle": "Appeal a benefit decision",
+    "exitLink" : "https://www.smartsurvey.co.uk/s/D2NIM/?pageurl="
   },
   "errorSummary": {
     "titleText": "There are errors on the page",
