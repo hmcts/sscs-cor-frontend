@@ -46,7 +46,7 @@ const setupConfig = {
       user: process.env.SAUCE_USERNAME || config.get('saucelabs.username'),
       key: process.env.SAUCE_ACCESS_KEY || config.get('saucelabs.key'),
       desiredCapabilities: {
-        idleTimeout: 180
+        idleTimeout: 300
       }
     },
     BootstrapHelper: { require: './helpers/BootstrapHelper' },
