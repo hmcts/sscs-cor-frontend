@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% from "back-link/macro.njk" import govukBackLink %}
-
+{% set pageHeader = i18n.cookiePrivacy.cookies.title  %}
 {% macro cookieTable(items, columnNames) %}
     <table class="govuk-table">
         <thead class="govuk-table__head">

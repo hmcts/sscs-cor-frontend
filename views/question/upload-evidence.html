@@ -2,7 +2,7 @@
 {% from "file-upload/macro.njk" import govukFileUpload %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
-
+{% set pageHeader = i18n.questionUploadEvidence.header  %}
 {% block beforeContent %}
   {{ super() }}
   <a class="govuk-back-link" href="/question/{{ questionOrdinal }}">{{ i18n.questionUploadEvidence.backToQuestionText }}</a>
