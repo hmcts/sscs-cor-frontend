@@ -2,7 +2,7 @@
 {% from "components/textarea/macro.njk" import govukTextarea %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
-
+{% set pageHeader = i18n.hearingWhy.booking.header %}
 {% block beforeContent %}
   {{ super() }}
   {% if not submitted %}

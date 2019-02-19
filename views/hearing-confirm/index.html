@@ -2,7 +2,7 @@
 {% from "button/macro.njk" import govukButton %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
-
+{% set pageHeader = i18n.hearingConfirm.header %}
 {% block beforeContent %}
   {{ super() }}
   <a href="/tribunal-view" class="govuk-back-link">{{ i18n.general.back }}</a>
