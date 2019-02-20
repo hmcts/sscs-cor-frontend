@@ -12,7 +12,7 @@ import * as cookieParser from 'cookie-parser';
 
 const { fileTypes } = require('./utils/mimeTypeWhitelist');
 
-import { configureHelmet, configureHeaders, configureNunjucks } from './configurations';
+import { configureHelmet, configureHeaders, configureNunjucks } from './app-configurations';
 
 import watch from './watch';
 
