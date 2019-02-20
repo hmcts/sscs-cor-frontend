@@ -34,7 +34,12 @@ function getLogout(idamService: IdamService) {
         logger.error(`Error destroying session ${sessionId}`);
       }
       logger.info(`Session destroyed ${sessionId}`);
-      return res.redirect(Paths.login);
+
+      if (req.query.redirectUrl) {
+        return res.redirect(req.query.redirectUrl);
+      } else {
+        return res.redirect(Paths.login);
+      }
     });
   };
 }
