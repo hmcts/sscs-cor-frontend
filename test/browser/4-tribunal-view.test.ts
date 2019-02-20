@@ -32,6 +32,15 @@ describe('Tribunal view page', () => {
     await tribunalViewPage.screenshot('tribunal-view-issued');
   });
 
+  afterEach(function () {
+    if (this.currentTest.state !== 'passed') {
+      const testName = this.currentTest.title.replace(/[ \/]/g, '_');
+      tribunalViewPage.screenshot('failed-' + testName).catch(err => {
+        console.log(err);
+      });
+    }
+  });
+
   after(async () => {
     if (page && page.close) {
       await page.close();
