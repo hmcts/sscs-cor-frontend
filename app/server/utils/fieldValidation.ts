@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const i18n = require('../../../locale/en');
 
-const maxCharacters = 10000;
+const maxCharacters = 20000;
 
 function answerValidation(answer) {
   const schema = Joi.string()

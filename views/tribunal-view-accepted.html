@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
-
+{% from "button/macro.njk" import govukButton %}
+{% set pageHeader = i18n.tribunalViewAccepted.header %}
 {% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -9,7 +10,12 @@
             <p>{{ i18n.tribunalViewAccepted.para3 }}</p>
             <p>{{ i18n.tribunalViewAccepted.para4 | eval | date }}</p>
             <p>
-                <a class="govuk-link" href="/sign-out">{{ i18n.tribunalViewAccepted.exitService }}</a>
+                {{
+                    govukButton({
+                    text: i18n.general.continue,
+                    href: '/sign-out/?redirectUrl=' + i18n.tribunalViewAccepted.exitLink
+                    })
+                }}
             </p>
         </div>
     </div>

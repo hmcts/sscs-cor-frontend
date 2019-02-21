@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% from "components/textarea/macro.njk" import govukTextarea %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
-
+{% set pageHeader = question.header  %}
 {% block beforeContent %}
   {{ super() }}
   <a href="/task-list" class="govuk-back-link">{{ i18n.general.backToQuestions }}</a>

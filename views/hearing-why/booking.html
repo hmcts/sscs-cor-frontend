@@ -1,3 +1,4 @@
+{% from "button/macro.njk" import govukButton %}
 <h1 class="govuk-heading-l">{{ i18n.hearingWhy.booking.header }}</h1>
 <p id="responseDate">{{ i18n.hearingWhy.booking.para1 | eval | date }}</p>
 <p>{{ i18n.hearingWhy.booking.para2 }} 
@@ -6,4 +7,11 @@
   </a>
 </p>
 <p id="caseReference">{{ i18n.hearingWhy.booking.para3 }} {{ hearing.case_reference }}</p>
-<p><a href="/sign-out">{{ i18n.general.exitService }}</a></p>
+<p>
+  {{
+    govukButton({
+    text: i18n.general.continue,
+    href: '/sign-out/?redirectUrl=' + i18n.hearingWhy.booking.exitLink
+    })
+  }}
+</p>
