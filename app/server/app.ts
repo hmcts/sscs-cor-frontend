@@ -35,10 +35,12 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.locals.i18n = locale;
   app.locals.fileTypeWhiteList = fileTypes;
 
+  configureHelmet(app);
+
   if (!isDevelopment) {
     app.set('trust proxy', 1);
     // Protect against some well known web vulnerabilities
-    configureHelmet(app);
+
   } else {
     watch(app);
     app.locals.isDev = true;
