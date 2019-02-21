@@ -30,16 +30,17 @@ function setup(sessionHandler: RequestHandler, options: Options) {
 
   const app = express();
 
+  if (!isDevelopment) {
+    // Protect against some well known web vulnerabilities
+    configureHelmet(app);
+  }
   configureHeaders(app);
 
   app.locals.i18n = locale;
   app.locals.fileTypeWhiteList = fileTypes;
 
-  configureHelmet(app);
-
   if (!isDevelopment) {
     app.set('trust proxy', 1);
-    // Protect against some well known web vulnerabilities
 
   } else {
     watch(app);
