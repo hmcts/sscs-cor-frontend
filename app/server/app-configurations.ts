@@ -68,7 +68,8 @@ function configureNunjucks(app: object) {
     'node_modules/govuk-frontend/components/'
   ], {
     autoescape: true,
-    express: app
+    express: app,
+    noCache:  true
   });
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
