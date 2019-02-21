@@ -17,7 +17,7 @@ export default function watch(app: any) {
     shell.exec('yarn build-js:dev');
   });
 
-  chokidar.watch(['./public'], { ignored: /(^|[\/\\])\../ }).on('all', (event, path) => {
+  chokidar.watch(['./public', './views'], { ignored: /(^|[\/\\])\../ }).on('all', (event, path) => {
     // logger.info('Public Folder Updated: Refreshing browser.', event, path);
     reloadServer.reload();
   });
