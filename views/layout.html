@@ -44,5 +44,8 @@
 {% endblock %}
 
 {% block bodyEnd %}
+    {% if isDev %}
+    <script src="/reload/reload.js"></script> 
+    {% endif %}
     <script src="/public/js/main.js"></script>
 {% endblock %}
