@@ -5,7 +5,6 @@ const timeout = parseInt(config.get('saucelabs.waitForTimeout'));
 function answerQuestion(question, answer) {
   const I = this;
 
-  // I.wait(2);
   I.waitInUrl('/task-list');
   I.waitForHeader('Your PIP benefit appeal');
   I.waitForText(question, timeout, '#task-list');
