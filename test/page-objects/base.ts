@@ -15,9 +15,25 @@ export class BasePage {
   }
 
   async visitPage() {
-    console.log(`goto [${testUrl}${this.pagePath}]`);
-    await this.page.goto(`${testUrl}${this.pagePath}`);
-    await this.page.waitForSelector('body');
+    try {
+      console.log(`goto [${testUrl}${this.pagePath}]`);
+      await this.page.goto(`${testUrl}${this.pagePath}`);
+      await this.page.waitForSelector('body');
+    } catch (error) {
+      const filename = this.getFileName();
+      console.log(`Exception catched in visitPage, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-visit-${filename}`);
+    }
+  }
+
+  getFileName() {
+    let filename: string;
+    if (this.pagePath === '/') {
+      filename = 'home';
+    } else {
+      filename = this.pagePath.replace(/\//g,'-');
+    }
+    return filename;
   }
 
   verifyPage() {
@@ -30,24 +46,48 @@ export class BasePage {
   }
 
   async getHeading() {
-    const heading = await this.page.$eval('h1', el => el.innerHTML);
-    return heading;
+    try {
+      const heading = await this.page.$eval('h1', el => el.innerHTML);
+      return heading;
+    } catch (error) {
+      const filename = this.getFileName();
+      console.log(`Exception catched in getHeading, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-getHeading-${filename}`);
+    }
   }
 
   async getBody() {
-    const body = await this.page.$eval('body', el => el.innerHTML);
-    return body;
+    try {
+      const body = await this.page.$eval('body', el => el.innerHTML);
+      return body;
+    } catch (error) {
+      const filename = this.getFileName();
+      console.log(`Exception catched in getBody, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-getBody-${filename}`);
+    }
   }
 
   async getElementText(selector) {
-    await this.page.waitForSelector(selector);
-    const element = await this.page.$eval(selector, el => el.innerText);
-    return element;
+    try {
+      await this.page.waitForSelector(selector);
+      const element = await this.page.$eval(selector, el => el.innerText);
+      return element;
+    } catch (error) {
+      const filename = this.getFileName();
+      console.log(`Exception catched in getElementText, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-getElementText-${filename}`);
+    }
   }
 
   async getElementValue(selector) {
-    const element = await this.page.$eval(selector, el => el.value);
-    return element;
+    try {
+      const element = await this.page.$eval(selector, el => el.value);
+      return element;
+    } catch (error) {
+      const filename = this.getFileName();
+      console.log(`Exception catched in getElementValue, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-getElementVal-${filename}`);
+    }
   }
 
   async getElement(selector) {
@@ -67,14 +107,26 @@ export class BasePage {
   }
 
   async enterTextintoField(selector, text) {
-    await this.page.$eval(selector, el => {
-      el.value = '';
-    });
-    await this.page.type(selector, text);
+    try {
+      await this.page.$eval(selector, el => {
+        el.value = '';
+      });
+      await this.page.type(selector, text);
+    } catch (error) {
+      const filename = this.getFileName();
+      console.log(`Exception catched in enterTextintoField, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-enterText-${filename}`);
+    }
   }
 
   async clickElement(selector) {
-    await this.page.click(selector);
+    try {
+      await this.page.click(selector);
+    } catch (error) {
+      const filename = this.getFileName();
+      console.log(`Exception catched in clickElement, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-click-${filename}`);
+    }
   }
 
   async screenshot(filename) {
