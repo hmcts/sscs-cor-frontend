@@ -58,6 +58,15 @@ describe('Question page', () => {
     pa11yOpts.page = questionPage.page;
   });
 
+  afterEach(function () {
+    if (this.currentTest.state !== 'passed') {
+      const testName = this.currentTest.title.replace(/[ \/]/g, '_');
+      taskListPage.screenshot('failed-' + testName).catch(err => {
+        console.log(err);
+      });
+    }
+  });
+
   after(async () => {
     if (page && page.close) {
       await page.close();

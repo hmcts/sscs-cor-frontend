@@ -30,7 +30,8 @@ describe('controllers/login', () => {
         'email-address': 'test@example.com'
       },
       protocol: 'http',
-      hostname: 'localhost'
+      hostname: 'localhost',
+      query: { redirectUrl : '' }
     };
     res = {
       render: sinon.stub(),
@@ -62,6 +63,22 @@ describe('controllers/login', () => {
       expect(idamServiceStub.deleteToken).to.have.been.calledOnce.calledWith(req.session.accessToken);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
+    });
+
+  });
+
+  describe('#getLogout with redirectUrl Parameter', () => {
+    it('destroys the session and redirects to custom url with redirectUrl parameter.', async () => {
+      req.session.accessToken = 'accessToken';
+      req.query.redirectUrl = Paths.taskList;
+      const idamServiceStub = {
+        deleteToken: sinon.stub().withArgs(req.session.accessToken).resolves({})
+      } as IdamService;
+
+      await getLogout(idamServiceStub)(req, res);
+      expect(idamServiceStub.deleteToken).to.have.been.calledOnce.calledWith(req.session.accessToken);
+      expect(req.session.destroy).to.have.been.calledOnce.calledWith();
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
   });
 
