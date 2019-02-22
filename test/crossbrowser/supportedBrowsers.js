@@ -1,14 +1,15 @@
 const supportedBrowsers = {
   microsoft: {
-    ie11: {
-      browserName: 'internet explorer',
-      name: 'IE11',
-      platform: 'Windows 10',
-      ignoreZoomSetting: true,
-      nativeEvents: false,
-      ignoreProtectedModeSettings: true,
-      version: '11.285'
-    },
+    // IE11 extremely unstable on TIDAM - retry once SIDAM is in use. (22/02/19)
+    // ie11: {
+    //   browserName: 'internet explorer',
+    //   name: 'IE11',
+    //   platform: 'Windows 10',
+    //   ignoreZoomSetting: true,
+    //   nativeEvents: false,
+    //   ignoreProtectedModeSettings: true,
+    //   version: '11.285'
+    // },
     edge: {
       browserName: 'MicrosoftEdge',
       name: 'Edge',
