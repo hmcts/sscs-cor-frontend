@@ -4,6 +4,7 @@ functional-output/
 govuk_modules/
 test/coverage
 dist
+test/crossbrowser/pages/steps.js
 test/accessibility/**/*.js
 test/browser/**/*.js
 test/integration/**/*.js

@@ -32,6 +32,7 @@
     "test:create-data": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json node --require tsconfig-paths/register --require ts-node/register create-test-data.ts",
     "test:create-data-aat": "cross-env HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://preprod-idamapi.reform.hmcts.net:3511 S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_OAUTH2_URL=https://preprod-idamapi.reform.hmcts.net:3511 yarn test:create-data",
     "test:create-data-demo": "cross-env HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-demo.service.core-compute-demo.internal COH_URL=http://coh-cor-demo.service.core-compute-demo.internal IDAM_API_URL=https://preprod-idamapi.reform.hmcts.net:3511 S2S_URL=http://rpe-service-auth-provider-demo.service.core-compute-demo.internal S2S_OAUTH2_URL=https://preprod-idamapi.reform.hmcts.net:3511 yarn test:create-data",
+    "test:crossbrowser": "cross-env SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://preprod-idamapi.reform.hmcts.net:3511 S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_OAUTH2_URL=https://preprod-idamapi.reform.hmcts.net:3511 NODE_PATH=. NODE_ENV=test codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/crossbrowser/saucelabs.conf.js --steps --reporter mocha-multi --verbose",
     "test:coverage": "nyc report",
     "test:a11y": "yarn test:browser -g @pa11y",
     "test:all": "yarn test && yarn test:a11y && yarn test:coverage",
@@ -103,6 +104,7 @@
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.2.0",
     "cli-color": "^1.3.0",
+    "codeceptjs": "^2.0.4",
     "concurrently": "^3.6.1",
     "cross-env": "^4.0.0",
     "domready": "^1.0.8",
@@ -112,6 +114,7 @@
     "jsdom-global": "^3.0.2",
     "memory-cache": "^0.2.0",
     "mocha": "^5.2.0",
+    "mocha-multi": "^1.0.1",
     "mochawesome": "^3.1.1",
     "nock": "^9.4.4",
     "nodemon": "^1.18.3",
@@ -132,6 +135,7 @@
     "tslint-no-unused-expression-chai": "^0.1.4",
     "typescript": "^3.0.0",
     "uglifyjs": "^2.4.11",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "webdriverio": "^4.14.0"
   }
 }

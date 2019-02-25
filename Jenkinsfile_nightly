@@ -1,7 +1,10 @@
 #!groovy
 
 properties([
-        pipelineTriggers([cron('00 21 * * *')])
+        pipelineTriggers([cron('00 08 * * *')]),
+        parameters([
+                string(name: 'URL_TO_TEST', defaultValue: 'https://sscs-cor-frontend-aat.service.core-compute-aat.internal', description: 'The URL you want to run these tests against'),
+        ])
 ])
 
 @Library("Infrastructure")
@@ -9,6 +12,29 @@ properties([
 def product = "sscs-cor"
 def component = "frontend"
 
+List<LinkedHashMap<String, Object>> secrets = [
+        secret('sscs-s2s-secret', 'S2S_SECRET'),
+        secret('sscs-cor-idam-client-secret-test', 'IDAM_CLIENT_SECRET_TEST'),
+        secret('sscs-cor-idam-client-secret', 'IDAM_CLIENT_SECRET_AAT'),
+        secret('idam-sscs-systemupdate-user', 'IDAM_SSCS_SYSTEMUPDATE_USER'),
+        secret('idam-sscs-systemupdate-password', 'IDAM_SSCS_SYSTEMUPDATE_PASSWORD'),
+        secret('idam-sscs-oauth2-client-secret', 'IDAM_OAUTH2_CLIENT_SECRET')
+]
+
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+    [ $class: 'AzureKeyVaultSecret',
+      secretType: 'Secret',
+      name: secretName,
+      version: '',
+      envVariable: envVar
+    ]
+}
+
 withNightlyPipeline("nodejs", product, component) {
+    setVaultName('sscs')
+    loadVaultSecrets(secrets)
+    env.TEST_URL = params.URL_TO_TEST
+
+    enableCrossBrowserTest()
     enableSlackNotifications('#sscs-tech')
 }
