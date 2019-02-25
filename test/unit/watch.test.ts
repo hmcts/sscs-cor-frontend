@@ -26,6 +26,10 @@ describe('watch.ts', () => {
     watchInstances['public'].emit('all', './public');
   });
 
+  after(() => {
+    sb.restore();
+  });
+
   it('Expect chokidar watch to be called', () => {
     expect(chokidaySpy.callCount).to.equal(3);
   });
