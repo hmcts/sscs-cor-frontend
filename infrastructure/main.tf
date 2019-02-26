@@ -40,7 +40,7 @@ module "sscs-cor-frontend" {
   is_frontend          = "${var.env != "preview" ? 1: 0}"
   subscription         = "${var.subscription}"
   additional_host_name = "${var.env != "preview" ? var.additional_hostname : "null"}"
-  https_only           = "${var.env != "preview" ? "true" : "true"}"
+  https_only           = "${var.https_only_flag}"
   common_tags          = "${var.common_tags}"
   asp_rg               = "${var.product}-${var.component}-${var.env}"
   asp_name             = "${var.product}-${var.component}-${var.env}"
