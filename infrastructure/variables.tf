@@ -61,3 +61,8 @@ variable "evidence_upload_question_page_override_allowed" {
   description = "Feature switch for enabling evidence upload per question to be enabled using a cookie",
   default = "false"
 }
+
+variable "https_only_flag" {
+  type = "string"
+  default = "true"
+}
