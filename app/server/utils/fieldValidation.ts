@@ -76,7 +76,7 @@ function tribunalViewAcceptedValidation(acceptView, isConfirm = false) {
     if (isConfirm) {
       return i18n.tribunalView.error.emptyOnConfirm;
     } else {
-      return i18n.tribunalView.error.empty;
+      return i18n.tribunalView.error.emptyOnDecisionPick;
     }
   }
   return false;
