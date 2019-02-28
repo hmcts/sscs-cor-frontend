@@ -7,7 +7,7 @@ function answerValidation(answer, req) {
 
   let emptyErrorMsg = i18n.question.textareaField.errorOnSave.empty;
 
-  // On Save
+  // On Submit
   if (req.body.submit) {
     emptyErrorMsg = i18n.question.textareaField.error.empty;
   }
