@@ -70,10 +70,14 @@ function loginEmailAddressValidation(email) {
   return error;
 }
 
-function tribunalViewAcceptedValidation(acceptView) {
+function tribunalViewAcceptedValidation(acceptView, isConfirm = false) {
   const allowedValues = ['yes', 'no'];
   if (!allowedValues.includes(acceptView)) {
-    return i18n.tribunalView.error.empty;
+    if (isConfirm) {
+      return i18n.tribunalView.error.emptyOnConfirm;
+    } else {
+      return i18n.tribunalView.error.empty;
+    }
   }
   return false;
 }
