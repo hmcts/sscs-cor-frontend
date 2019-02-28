@@ -220,7 +220,6 @@ describe('Question page', () => {
         expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
       });
 
-
       it('tries to upload evidence file that is not an allowed type', async () => {
         await questionPage.visitPage();
         await Promise.all([
