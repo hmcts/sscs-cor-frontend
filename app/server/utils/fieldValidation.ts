@@ -3,13 +3,21 @@ const i18n = require('../../../locale/en');
 
 const maxCharacters = 20000;
 
-function answerValidation(answer) {
+function answerValidation(answer, req) {
+
+  let emptyErrorMsg = i18n.question.textareaField.errorOnSave.empty;
+
+  // On Save
+  if (req.body.submit) {
+    emptyErrorMsg = i18n.question.textareaField.error.empty;
+  }
+
   const schema = Joi.string()
     .required()
     .max(maxCharacters)
     .options({
       language: {
-        any: { empty: `!!${i18n.question.textareaField.error.empty}` },
+        any: { empty: `!!${emptyErrorMsg}` },
         string: { max: `!!${i18n.question.textareaField.error.maxCharacters}` }
       }
     });

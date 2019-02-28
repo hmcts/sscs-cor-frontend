@@ -68,8 +68,11 @@
       "label": "Please enter your answer here",
       "placeholder": "You can write as much as you want",
       "error": {
-        "empty": "You have not entered any information so you cannot save your answer. Enter some information before saving.",
+        "empty": "You have not entered any information. Enter some information before submitting your response.",
         "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+      },
+      "errorOnSave" :{
+         "empty": "You have not entered any information. Enter some information before saving."
       }
     },
     "evidenceUpload": {

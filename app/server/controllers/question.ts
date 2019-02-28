@@ -71,9 +71,10 @@ function getQuestion(questionService: QuestionService) {
 
 async function validateAnswer(req: Request, res: Response, answerText: string, callback) {
   let validationMessage;
-  if (req.body.submit) {
-    validationMessage = answerValidation(answerText);
+  if (req.body.save || req.body.submit) {
+    validationMessage = answerValidation(answerText, req);
   }
+
   if (validationMessage) {
     const question = req.session.question;
     question.answer = {

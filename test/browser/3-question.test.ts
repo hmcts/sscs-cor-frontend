@@ -96,9 +96,9 @@ describe('Question page', () => {
     expect(await questionPage.getElement('#question-field')).to.not.be.null
   ));
 
-  it('allows saving an empty answer and returns to the task list', async() => {
+  it('D not allow saving an empty answer and stay on question page', async() => {
     await questionPage.saveAnswer('');
-    taskListPage.verifyPage();
+    questionPage.verifyPage();
   });
 
   it('displays an error message in the summary when you try to submit an empty answer', async () => {
@@ -208,11 +208,18 @@ describe('Question page', () => {
         expect(firstListItem.trim()).to.equal('evidence.txt');
       });
 
-      it('shows question as draft status', async () => {
+      it('Invalid answer text, do not shows question as draft status', async () => {
         await questionPage.saveAnswer('');
+        const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
+        expect(answerState).not.equal(i18n.taskList.answerState.draft.toUpperCase());
+      });
+
+      it('shows question as draft status', async () => {
+        await questionPage.saveAnswer('Valid Answer');
         const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
         expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
       });
+
 
       it('tries to upload evidence file that is not an allowed type', async () => {
         await questionPage.visitPage();
@@ -314,8 +321,14 @@ describe('Question page', () => {
         expect(firstListItem.trim()).to.equal('evidence.txt');
       });
 
-      it('shows question as draft status', async () => {
+      it('Invalid answer text, do not shows question as draft status', async () => {
         await questionPage.saveAnswer('');
+        const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
+        expect(answerState).not.equal(i18n.taskList.answerState.draft.toUpperCase());
+      });
+
+      it('shows question as draft status', async () => {
+        await questionPage.saveAnswer('Valid Answer');
         const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
         expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
       });
