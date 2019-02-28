@@ -152,7 +152,6 @@ describe('controllers/question', () => {
       req.body['question-field'] = '';
       await postAnswer(questionService, evidenceService)(req, res, next);
       expect(questionService.saveAnswer).not.to.have.been.called;
-      expect(res.redirect).to.have.been.calledWith(Paths.taskList);
     });
 
     it('should call res.render with the validation error message when submitting', async () => {
@@ -197,7 +196,6 @@ describe('controllers/question', () => {
         req.body['question-field'] = '';
         await postAnswer(questionService, evidenceService)(req, res, next);
         expect(questionService.saveAnswer).not.to.have.been.called;
-        expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}/upload-evidence`);
       });
     });
 
