@@ -88,7 +88,7 @@ describe('controllers/tribunal-view', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', {
           decision: hearingDetails.decision,
           respondBy,
-          error: i18n.tribunalView.error.empty
+          error: i18n.tribunalView.error.emptyOnDecisionPick
         });
       });
     });

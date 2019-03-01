@@ -526,7 +526,8 @@
     "acceptRespondBy": "Please respond by {{ respondBy }}.",
     "submitResponse": "Submit response",
     "error": {
-      "empty": "You must accept the tribunal's view or request a hearing."
+      "emptyOnDecisionPick": "You must accept the tribunal's view or request a hearing.",
+      "emptyOnConfirm": "You need to say whether you want to accept the view or want to go back."
     }
   },
   "tribunalViewConfirm": {

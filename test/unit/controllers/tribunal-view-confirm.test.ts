@@ -78,7 +78,7 @@ describe('controllers/tribunal-view-confirm', () => {
 
       it('renders the view with the error message', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-confirm.html', {
-          error: i18n.tribunalView.error.empty
+          error: i18n.tribunalView.error.emptyOnConfirm
         });
       });
     });

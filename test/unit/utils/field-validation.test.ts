@@ -54,11 +54,19 @@ describe('utils/fieldValidation.js', () => {
     });
 
     it('returns empty error message is answer is anything else', () => {
-      expect(tribunalViewAcceptedValidation('not valid')).to.equal(i18n.tribunalView.error.empty);
+      expect(tribunalViewAcceptedValidation('not valid')).to.equal(i18n.tribunalView.error.emptyOnDecisionPick);
     });
 
     it('returns empty error message is answer is missing', () => {
-      expect(tribunalViewAcceptedValidation(undefined)).to.equal(i18n.tribunalView.error.empty);
+      expect(tribunalViewAcceptedValidation(undefined)).to.equal(i18n.tribunalView.error.emptyOnDecisionPick);
+    });
+
+    it('returns empty error message is confirmation is anything else', () => {
+      expect(tribunalViewAcceptedValidation('not valid', true)).to.equal(i18n.tribunalView.error.emptyOnConfirm);
+    });
+
+    it('returns empty error message is confirmation is missing', () => {
+      expect(tribunalViewAcceptedValidation(undefined, true)).to.equal(i18n.tribunalView.error.emptyOnConfirm);
     });
   });
 

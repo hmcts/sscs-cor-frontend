@@ -18,7 +18,7 @@ function postTribunalViewConfirm(hearingService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const hearing: OnlineHearing = req.session.hearing;
     const acceptView = req.body['accept-view'];
-    const validationMessage = tribunalViewAcceptedValidation(acceptView);
+    const validationMessage = tribunalViewAcceptedValidation(acceptView, true);
     if (validationMessage) {
       return res.render('tribunal-view-confirm.html', { error: validationMessage });
     }
