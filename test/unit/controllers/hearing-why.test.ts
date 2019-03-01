@@ -26,7 +26,8 @@ describe('controllers/hearing-why', () => {
         end_date: '2019-09-01',
         decision_state: 'decision_issued',
         decision_state_datetime: now
-      }
+      },
+      has_final_decision: false
     };
     req = {
       session: {

@@ -16,6 +16,9 @@ export function checkDecision(req: Request, res: Response, next: NextFunction) {
   logger.info(`Disallowing request for ${req.path} due to decision state ${decisionState}`);
   if (decisionState === CONST.TRIBUNAL_VIEW_ISSUED_STATE) {
     const appellantReply = hearing.decision.appellant_reply;
+    if (hearing.has_final_decision) {
+      return res.redirect(Paths.decision);
+    }
     if (appellantReply === 'decision_accepted') {
       return res.redirect(Paths.tribunalViewAccepted);
     }

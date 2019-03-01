@@ -61,6 +61,11 @@ describe('middleware/check-decision', () => {
       checkDecision(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingWhy);
     });
+    it('redirects to decision page if a final decision has been issued', () => {
+      req.session.hearing.has_final_decision = true;
+      checkDecision(req, res, next);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.decision);
+    });
   });
 
   it('redirects to decision page if decision is accepted', () => {

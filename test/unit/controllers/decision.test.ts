@@ -23,7 +23,8 @@ describe('controllers/decision.js', () => {
       },
       final_decision: {
         reason: 'final decision reason'
-      }
+      },
+      has_final_decision: true
     };
     req = {
       session: {
@@ -37,7 +38,7 @@ describe('controllers/decision.js', () => {
   });
 
   describe('getDecision', () => {
-    it('renders decision page with accepted decision', async() => {
+    it('renders decision page when have final decision', async() => {
       await getDecision(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('decision.html', {
         decision: hearingDetails.decision,
@@ -45,23 +46,8 @@ describe('controllers/decision.js', () => {
       });
     });
 
-    it('renders decision page with rejected decision', async() => {
-      req.session.hearing.decision.decision_state = 'decision_rejected';
-      await getDecision(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('decision.html', {
-        decision: hearingDetails.decision,
-        final_decision: hearingDetails.final_decision.reason
-      });
-    });
-
-    it('redirects to /sign-out if decision is not issued', async() => {
-      req.session.hearing.decision.decision_state = 'decision_drafted';
-      await getDecision(req, res);
-      expect(res.redirect).to.have.been.calledWith(Paths.logout);
-    });
-
-    it('redirects to /sign-out if decision is not present', async() => {
-      delete req.session.hearing.decision;
+    it('redirects to /sign-out if final decision is not issued', async() => {
+      req.session.hearing.has_final_decision = false;
       await getDecision(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
     });
