@@ -137,7 +137,8 @@ describe('Routes', () => {
               decision_state: CONST.DECISION_ACCEPTED_STATE
             },
             decision_state: '',
-            final_decision: { reason: 'final decision reason' }
+            final_decision: { reason: 'final decision reason' },
+            has_final_decision: true
           };
           next();
         });
