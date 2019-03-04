@@ -451,7 +451,7 @@
               "text": "Cannot make any budgeting decisions at all",
               "score": 6
             },
-            "2.0": {
+            "2": {
               "text": "Needs prompting or assistance to be able to make complex budgeting decisions",
               "score": 2
             }
