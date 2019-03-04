@@ -10,7 +10,7 @@ const acceptedDecisionStates = [CONST.TRIBUNAL_VIEW_ISSUED_STATE, CONST.DECISION
 export function checkDecision(req: Request, res: Response, next: NextFunction) {
   const hearing: OnlineHearing = req.session.hearing;
   const decisionState = hearing.decision && hearing.decision.decision_state;
-  if (!acceptedDecisionStates.includes(decisionState)) {
+  if (!acceptedDecisionStates.includes(decisionState) && !hearing.has_final_decision) {
     return next();
   }
   logger.info(`Disallowing request for ${req.path} due to decision state ${decisionState}`);
