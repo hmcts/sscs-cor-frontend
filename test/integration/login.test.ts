@@ -113,16 +113,6 @@ describe('Login page', () => {
     expect(await decisionPage.getElementText('#decision-text')).to.equal('final decision reason');
   });
 
-  it('displays the decision page with appeal denied', async() => {
-    await loginPage.visitPage();
-    await loginPage.login('appeal.denied@example.com', 'examplePassword');
-    await loginPage.screenshot('decision-denied-upheld-login');
-    decisionPage.verifyPage();
-    expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
-    expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.tribunalDecision.outcome.decision_rejected);
-    expect(await decisionPage.getElementText('#decision-text')).to.equal('final decision reason');
-  });
-
   it('does not allow access to task list when decision is issued', async() => {
     await taskListPage.visitPage();
     await loginPage.screenshot('decision-issued-task-list-navigate');
