@@ -26,7 +26,8 @@ describe('controllers/tribunal-view', () => {
         end_date: '2019-09-01',
         decision_state: 'decision_issued',
         decision_state_datetime: moment.utc().format()
-      }
+      },
+      has_final_decision: false
     };
     req = {
       session: {
@@ -88,7 +89,7 @@ describe('controllers/tribunal-view', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', {
           decision: hearingDetails.decision,
           respondBy,
-          error: i18n.tribunalView.error.empty
+          error: i18n.tribunalView.error.emptyOnDecisionPick
         });
       });
     });

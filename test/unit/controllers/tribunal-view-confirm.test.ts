@@ -25,8 +25,8 @@ describe('controllers/tribunal-view-confirm', () => {
         end_date: '2019-09-01',
         decision_state: 'decision_issued',
         decision_state_datetime: moment.utc().format()
-
-      }
+      },
+      has_final_decision: false
     };
     req = {
       session: {
@@ -78,7 +78,7 @@ describe('controllers/tribunal-view-confirm', () => {
 
       it('renders the view with the error message', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-confirm.html', {
-          error: i18n.tribunalView.error.empty
+          error: i18n.tribunalView.error.emptyOnConfirm
         });
       });
     });

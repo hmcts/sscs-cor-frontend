@@ -68,7 +68,7 @@
       "label": "Please enter your answer here",
       "placeholder": "You can write as much as you want",
       "error": {
-        "empty": "You have not entered any information. Enter some information before submitting your response.",
+        "empty": "You have not entered any information. Enter some information before submitting.",
         "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
       },
       "errorOnSave" :{
@@ -451,7 +451,7 @@
               "text": "Cannot make any budgeting decisions at all",
               "score": 6
             },
-            "2.0": {
+            "2": {
               "text": "Needs prompting or assistance to be able to make complex budgeting decisions",
               "score": 2
             }
@@ -526,7 +526,8 @@
     "acceptRespondBy": "Please respond by {{ respondBy }}.",
     "submitResponse": "Submit response",
     "error": {
-      "empty": "You must accept the tribunal's view or request a hearing."
+      "emptyOnDecisionPick": "You must accept the tribunal's view or request a hearing.",
+      "emptyOnConfirm": "You need to say whether you want to accept the view or want to go back."
     }
   },
   "tribunalViewConfirm": {

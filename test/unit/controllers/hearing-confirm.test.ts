@@ -22,7 +22,8 @@ describe('controllers/hearing-confirm', () => {
         end_date: '2020-10-10',
         decision_state: 'decision_issued',
         decision_state_datetime: moment.utc().format()
-      }
+      },
+      has_final_decision: false
     };
     req = {
       session: {
