@@ -25,10 +25,11 @@ describe('services/hearing', () => {
 
     describe('success response', () => {
       const userToken = 'someUserToken';
+      const serviceToken = 'someServiceToken';
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: 'Bearer serviceAuth'
+          ServiceAuthorization: `Bearer ${serviceToken}`
         })
           .get(path)
           .query({ email })
@@ -36,7 +37,7 @@ describe('services/hearing', () => {
       });
 
       it('resolves the promise', () => (
-        expect(hearingService.getOnlineHearing(email, userToken)).to.be.fulfilled
+        expect(hearingService.getOnlineHearing(email, userToken, serviceToken)).to.be.fulfilled
       ));
 
       it('resolves the promise with the response', async () => {
@@ -48,11 +49,12 @@ describe('services/hearing', () => {
     describe('error response', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       const userToken = 'someUserToken';
+      const serviceToken = 'someServiceToken';
 
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: 'Bearer serviceAuth'
+          ServiceAuthorization: `Bearer ${serviceToken}`
         })
           .get(path)
           .query({ email })
@@ -60,16 +62,17 @@ describe('services/hearing', () => {
       });
 
       it('rejects the promise with the error', () => (
-        expect(hearingService.getOnlineHearing(email, userToken)).to.be.rejectedWith(error)
+        expect(hearingService.getOnlineHearing(email, userToken, serviceToken)).to.be.rejectedWith(error)
       ));
     });
 
     describe('hearing not found', () => {
       const userToken = 'someUserToken';
+      const serviceToken = 'someServiceToken';
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: 'Bearer serviceAuth'
+          ServiceAuthorization: `Bearer ${serviceToken}`
         })
           .get(path)
           .query({ email })
@@ -77,17 +80,18 @@ describe('services/hearing', () => {
       });
 
       it('resolves the promise with 404 status', async () => {
-        const response = await hearingService.getOnlineHearing(email, userToken);
+        const response = await hearingService.getOnlineHearing(email, userToken, serviceToken);
         expect(response.statusCode).to.equal(NOT_FOUND);
       });
     });
 
     describe('multiple hearings found', () => {
       const userToken = 'someUserToken';
+      const serviceToken = 'someServiceToken';
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: 'Bearer serviceAuth'
+          ServiceAuthorization: `Bearer ${serviceToken}`
         })
           .get(path)
           .query({ email })
@@ -95,7 +99,7 @@ describe('services/hearing', () => {
       });
 
       it('resolves the promise with 422 status', async () => {
-        const response = await hearingService.getOnlineHearing(email, userToken);
+        const response = await hearingService.getOnlineHearing(email, userToken, serviceToken);
         expect(response.statusCode).to.equal(UNPROCESSABLE_ENTITY);
       });
     });
@@ -108,22 +112,33 @@ describe('services/hearing', () => {
       deadline_expiry_date: moment.utc().add(14, 'day').format()
     };
 
+    const userToken = 'someUserToken';
+    const serviceToken = 'someServiceToken';
+
     describe('Update hearing deadline', () => {
       beforeEach(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${userToken}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        })
           .patch(path)
           .reply(OK, apiResponse);
       });
       it('resolves the promise with the response', async () => (
-        expect(hearingService.extendDeadline(hearingId)).to.eventually.eql(apiResponse)
+        expect(hearingService.extendDeadline(hearingId, userToken, serviceToken)).to.eventually.eql(apiResponse)
       ));
     });
 
     describe('rejecting the promises', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
+      const userToken = 'someUserToken';
+      const serviceToken = 'someServiceToken';
       before(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${userToken}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        })
           .get(path)
           .replyWithError(error);
       });
@@ -133,7 +148,7 @@ describe('services/hearing', () => {
       });
 
       it('rejects updateDeadline with the error', () => (
-        expect(hearingService.extendDeadline(hearingId)).to.be.rejectedWith(error)
+        expect(hearingService.extendDeadline(hearingId, userToken, serviceToken)).to.be.rejectedWith(error)
       ));
     });
   });
@@ -143,17 +158,18 @@ describe('services/hearing', () => {
     const path = `/continuous-online-hearings/${hearingId}/tribunal-view`;
 
     const userToken = 'someUserToken';
+    const serviceToken = 'someServiceToken';
     describe('on success', () => {
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: 'Bearer serviceAuth'
+          ServiceAuthorization: `Bearer ${serviceToken}`
         })
           .patch(path)
           .reply(NO_CONTENT);
       });
       it('resolves the promise', async () => (
-        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted', userToken)).to.eventually.be.fulfilled
+        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted', userToken, serviceToken)).to.eventually.be.fulfilled
       ));
     });
     describe('on failure', () => {
@@ -164,7 +180,7 @@ describe('services/hearing', () => {
           .replyWithError(error);
       });
       it('rejects updateDeadline with the error', () => (
-        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted', userToken)).to.be.rejectedWith(error)
+        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted', userToken, serviceToken)).to.be.rejectedWith(error)
       ));
     });
   });

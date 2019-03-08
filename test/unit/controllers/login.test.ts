@@ -107,6 +107,7 @@ describe('controllers/login', () => {
     });
 
     const accessToken = 'someAccessToken';
+    const serviceToken = 'someServiceToken';
     describe('on success', () => {
       let hearingServiceStub;
       beforeEach(async () => {

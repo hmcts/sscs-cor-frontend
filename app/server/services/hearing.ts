@@ -33,14 +33,14 @@ export class HearingService {
     this.apiUrl = apiUrl;
   }
 
-  async getOnlineHearing(email: string, userCode: string): Promise<request.Response> {
+  async getOnlineHearing(email: string, userCode: string, serviceToken: string): Promise<request.Response> {
     try {
       const response: request.Response = await request.get({
         uri: `${this.apiUrl}/continuous-online-hearings`,
         qs: { email },
         headers: {
           Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: 'Bearer serviceAuth'
+          ServiceAuthorization: `Bearer ${serviceToken}`
         },
         resolveWithFullResponse: true,
         simple: false,
@@ -52,13 +52,13 @@ export class HearingService {
     }
   }
 
-  async extendDeadline(hearingId: string, userCode: string): Promise<ExtendDeadlineResponse> {
+  async extendDeadline(hearingId: string, userCode: string, serviceToken: string): Promise<ExtendDeadlineResponse> {
     try {
       const body = await request.patch({
         uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`,
         headers: {
           Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: 'Bearer serviceAuth'
+          ServiceAuthorization: `Bearer ${serviceToken}`
         },
         json: true
       });
@@ -68,13 +68,13 @@ export class HearingService {
     }
   }
 
-  async recordTribunalViewResponse(hearingId: string, reply: string, userCode: string, reason?: string): Promise<void> {
+  async recordTribunalViewResponse(hearingId: string, reply: string, userCode: string, serviceToken: string, reason?: string): Promise<void> {
     try {
       await request.patch({
         uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/tribunal-view`,
         headers: {
           Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: 'Bearer serviceAuth'
+          ServiceAuthorization: `Bearer ${serviceToken}`
         },
         body: { reply, reason: reason ? reason : '' },
         json: true
