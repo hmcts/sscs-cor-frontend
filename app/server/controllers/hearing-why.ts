@@ -32,7 +32,7 @@ function postIndex(hearingService) {
     try {
       const hearing: OnlineHearing = req.session.hearing;
       const responseDate = getResponseDate();
-      await hearingService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_REJECTED_STATE, explainWhy);
+      await hearingService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_REJECTED_STATE, req.session.accessToken, explainWhy);
       req.session.hearing.decision.appellant_reply = 'decision_rejected';
       req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
       return res.render('hearing-why/index.html', { submitted: true, hearing: req.session.hearing, responseDate });

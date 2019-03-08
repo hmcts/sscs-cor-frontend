@@ -24,7 +24,7 @@ function postTribunalViewConfirm(hearingService) {
     }
     if (acceptView === 'yes') {
       try {
-        await hearingService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_ACCEPTED_STATE);
+        await hearingService.recordTribunalViewResponse(hearing.online_hearing_id, CONST.DECISION_ACCEPTED_STATE, req.session.accessToken);
         req.session.hearing.decision.appellant_reply = 'decision_accepted';
         req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
         return res.redirect(Paths.tribunalViewAccepted);

@@ -21,7 +21,7 @@ function extensionConfirmation(hearingService: HearingService) {
     try {
 
       if (extend === 'yes') {
-        const response = await hearingService.extendDeadline(hearingId);
+        const response = await hearingService.extendDeadline(hearingId, req.session.accessToken);
         req.session.hearing.deadline = response.deadline_expiry_date;
       }
 

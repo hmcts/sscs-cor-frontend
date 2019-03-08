@@ -15,6 +15,7 @@ describe('controllers/hearing-why', () => {
   let hearingDetails: OnlineHearing;
   let serviceCall: any;
   const now = moment.utc().format();
+  const accessToken = 'accessToken';
 
   beforeEach(() => {
     hearingDetails = {
@@ -31,7 +32,8 @@ describe('controllers/hearing-why', () => {
     };
     req = {
       session: {
-        hearing: hearingDetails
+        hearing: hearingDetails,
+        accessToken: accessToken
       },
       body: {
         'explain-why': 'My explanation of why I want a hearing'
@@ -84,6 +86,7 @@ describe('controllers/hearing-why', () => {
       serviceCall = [
         hearingDetails.online_hearing_id,
         CONST.DECISION_REJECTED_STATE,
+        accessToken,
         req.body['explain-why']
       ];
 
