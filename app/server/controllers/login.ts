@@ -86,6 +86,8 @@ function getIdamCallback(
         logger.info('getting user details');
 
         req.session.accessToken = tokenResponse.access_token;
+
+        logger.info(`accessToken: ${tokenResponse.access_token}`);
       }
       const userDetails: UserDetails = await idamService.getUserDetails(req.session.accessToken);
 
