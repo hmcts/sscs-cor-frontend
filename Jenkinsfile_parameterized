@@ -14,5 +14,8 @@ properties([
 ])
 
 withParameterizedPipeline(params.TYPE, params.PRODUCT_NAME, params.APP, params.ENVIRONMENT, params.SUBSCRIPTION) {
-
+  setVaultName('sscs')
+  after('checkout') {sh 'yarn cache clean'}
+  after('build') {sh 'yarn build'}
+  before('securitychecks') {sh 'yarn audit'}
 }
