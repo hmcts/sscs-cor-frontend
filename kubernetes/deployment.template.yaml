@@ -30,7 +30,7 @@ spec:
         - name: S2S_SECRET
           value: "${S2S_SECRET}"
         - name: REDIS_URL
-          value: ${SERVICE_NAME}-redis-master://redis
+          value: redis://redis
         - name: SESSION_SECRET
           value:
         - name: NODE_ENV
