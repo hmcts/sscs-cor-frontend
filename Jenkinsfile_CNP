@@ -39,8 +39,6 @@ withPipeline("nodejs", product, component) {
     after('checkout') {sh 'yarn cache clean'}
     after('build') {sh 'yarn build'}
     enableDockerBuild()
-    //enableDeployToAKS()
-    enableDockerBuild()
     installCharts()
     before('securitychecks') {sh 'yarn audit'}
     before("functionalTest:preview") {
