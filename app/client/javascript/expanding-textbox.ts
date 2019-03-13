@@ -14,8 +14,8 @@ function autoExpand(event: any): void {
 }
 
 function attachEventListeners(): void {
-  const els = document.querySelectorAll('textarea.auto-expand');
-  els.forEach((el) => {
+  const els: NodeListOf<HTMLElement> = document.querySelectorAll('textarea.auto-expand');
+  Array.from(els).forEach((el) => {
     el.addEventListener('input', (e) => { autoExpand(e); }, false);
   });
 }
