@@ -1,0 +1,21 @@
+nodejs:
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
+  applicationPort: 3000
+  memoryRequests: 256Mi
+  cpuRequests: 0.2
+  memoryLimits: 512Mi
+  cpuLimits: 1
+  environment:
+    SSCS_API_URL: http://sscs-cor-backend-aat.service.core-compute-aat.internal
+    IDAM_URL: https://idam.preprod.ccidam.reform.hmcts.net
+    IDAM_API_URL: https://preprod-idamapi.reform.hmcts.net:3511
+    IDAM_CLIENT_SECRET: ${IDAM_CLIENT_SECRET}
+    S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    S2S_SECRET: ${S2S_SECRET}
+    REDIS_URL: redis://redis
+    SESSION_SECRET:
+    NODE_ENV: preview
+    HTTP_PROTOCOL: http
+    IDAM_ENABLE_STUB: true
+    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
