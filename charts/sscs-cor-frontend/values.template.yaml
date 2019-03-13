@@ -13,22 +13,9 @@ nodejs:
     IDAM_CLIENT_SECRET: ${IDAM_CLIENT_SECRET}
     S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     S2S_SECRET: ${S2S_SECRET}
-    REDIS_URL: ${SERVICE_NAME}-redis-master://redis
+    REDIS_URL: redis://redis
     SESSION_SECRET:
     NODE_ENV: preview
     HTTP_PROTOCOL: http
     IDAM_ENABLE_STUB: true
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
-
-  # Don't modify below here
-  image: ${IMAGE_NAME}
-  ingressHost: ${SERVICE_FQDN}
-
-redis:
-  cluster:
-    enabled: false
-    slaveCount: 0
-  usePassword: false
-  master:
-    persistence:
-      enabled: false
