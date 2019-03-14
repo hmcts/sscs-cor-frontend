@@ -14,7 +14,7 @@
   },
   "session": {
     "redis": {
-      "url": "sscs-cor-frontend-pr-282-redis-master://redis",
+      "url": "REDIS_URL",
       "secret": "SESSION_SECRET",
       "timeout": "SESSION_TIME_OUT"
     },
