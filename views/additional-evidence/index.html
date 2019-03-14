@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% if additionalEvidence.state === 'evidenceOptions' %}
+
+  {% set pageHeader = i18n.additionalEvidence.evidenceOptions.header %}
+
+{% elseif additionalEvidence.state === 'evidencePost' %}
+
+  {% set pageHeader = i18n.additionalEvidence.evidencePost.header %} 
+
+{% elseif additionalEvidence.state === 'evidenceUpload' %}
+
+  {% set pageHeader = i18n.additionalEvidence.evidenceUpload.header %}
+
+{% elseif additionalEvidence.state === 'evidenceStatement' %}
+
+  {% set pageHeader = i18n.additionalEvidence.evidenceStatement.header %}
+
+{% endif %}
+
+{% block beforeContent %}
+  {{ super() }}
+  <a href="/task-list" class="govuk-back-link">{{ i18n.general.back }}</a>
+{% endblock %}
+
+{% block corContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if additionalEvidence.state === 'evidenceOptions' %}
+
+          {% include "additional-evidence/evidence-options.html" %}
+
+      {% elseif additionalEvidence.state === 'evidencePost' %}
+
+          {% include "additional-evidence/evidence-post.html" %}
+
+      {% elseif additionalEvidence.state === 'evidenceUpload' %}
+
+          {% include "additional-evidence/evidence-upload.html" %}
+
+      {% elseif additionalEvidence.state === 'evidenceStatement' %}
+
+          {% include "additional-evidence/evidence-statement.html" %}
+
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
