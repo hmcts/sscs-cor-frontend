@@ -1,17 +1,20 @@
 import { Router, Request, Response } from 'express';
+
 import * as Paths from '../paths';
 
-function getEvidenceOptions (req: Request, res: Response) {
-  return res.render('additional-info/evidence-options.html');
+function getAdditionalInfo (req: Request, res: Response) {
+  // TODO Logic should be added for now this is just an example.
+  let additionalInfo = { state: 'evidencePost' };
+  return res.render('additional-info/index.html', { additionalInfo });
 }
 
-function setupEvidenceOptionsController(deps: any) {
+function setupAdditionalInfoController(deps: any) {
   // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(Paths.evidenceOptions, deps.prereqMiddleware, getEvidenceOptions);
+  router.get(Paths.additionalInfo, deps.prereqMiddleware, getAdditionalInfo);
   return router;
 }
 
 export {
-  setupEvidenceOptionsController
+  setupAdditionalInfoController
 };

@@ -715,5 +715,19 @@
       "extend": "Stay signed in ",
       "cancel": "Sign out"
     }
+  },
+  "additionalInfo" : {
+    "evindenceOptions" : {},
+    "evindenceStatement" : {},
+    "evindenceUpload" : {},
+    "evindencePost" : {
+       "header" : "Posting evidence to the tribunal",
+       "subtitle": "Post evidence to the address below.",
+       "description" : {
+         "para1" : "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. <a href='#'>You can download a new cover sheet here </a>, if you need one.",
+         "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
+         "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
+       }
+    }
   }
 }
