@@ -64,12 +64,6 @@
       }
     }
   },
-  "additionalEvidence": {
-    "backToAppeal": "Back to Your benefit appeal",
-    "evidenceOptions": {
-      "title": "How do you want to provide additional evidence?"
-    }
-  },
   "question": {
     "textareaField": {
       "label": "Please enter your answer here",
@@ -724,10 +718,16 @@
     }
   },
   "additionalEvidence" : {
-    "evindenceOptions" : {},
-    "evindenceStatement" : {},
-    "evindenceUpload" : {},
-    "evindencePost" : {
+    "evidenceOptions" : {
+      "header": "How do you want to provide additional evidence?"
+    },
+    "evidenceStatement" : {
+      "header": "Write your statement"
+    },
+    "evidenceUpload" : {
+      "header": "Upload additional evidence"
+    },
+    "evidencePost" : {
        "header" : "Posting evidence to the tribunal",
        "subtitle": "Post evidence to the address below.",
        "description" : {

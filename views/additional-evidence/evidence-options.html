@@ -1,44 +1,31 @@
 {% from "radios/macro.njk" import govukRadios %}
-{% extends "layout.html" %}
 
-{% block beforeContent %}
-  {{ super() }}
-  <a href="/task-list" class="govuk-back-link">{{ i18n.additionalEvidence.backToAppeal }}</a>
-{% endblock %}
-
-{% block corContent %}
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceOptions.title }}</h1>
-            <form>
-                    {{ govukRadios({
-                        idPrefix: "additional-evidence-option",
-                        name: "upload-option",
-                        fieldset: {
-                            legend: {
-                            text: i18n.additionalEvidence.evidenceOptions.title,
-                            isPageHeading: true,
-                            classes: "govuk-fieldset__legend--xl"
-                            }
-                        },
-                        items: [
-                            {
-                                value: "evidence-statement",
-                                text: "Write a statement online"
-                            },
-                            {
-                                value: "evidence-upload",
-                                text: "Upload letters, documents or photos"
-                            },
-                            {
-                                value: "evidence-post",
-                                text: "Send by post"
-                            }
-                        ]
-                        }) 
-                    }}
-                </form>
-        </div>
-    </div>
-    
-{% endblock %}}
+<h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceOptions.header }}</h1>
+<form>
+        {{ govukRadios({
+            idPrefix: "additional-evidence-option",
+            name: "upload-option",
+            fieldset: {
+                legend: {
+                text: i18n.additionalEvidence.evidenceOptions.title,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--xl"
+                }
+            },
+            items: [
+                {
+                    value: "evidence-statement",
+                    text: "Write a statement online"
+                },
+                {
+                    value: "evidence-upload",
+                    text: "Upload letters, documents or photos"
+                },
+                {
+                    value: "evidence-post",
+                    text: "Send by post"
+                }
+            ]
+            }) 
+        }}
+    </form>
