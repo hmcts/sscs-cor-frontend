@@ -20,6 +20,10 @@ nodejs:
     IDAM_ENABLE_STUB: true
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
 
+  # Don't modify below here
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
+
 redis:
   cluster:
     enabled: false
