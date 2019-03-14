@@ -19,7 +19,7 @@ import { setupTribunalViewConfirmController } from './controllers/tribunal-view-
 import { setupIdamStubController } from './controllers/idam-stub';
 import { setupCookiePrivacyController } from './controllers/policies';
 import { setupSessionController } from './controllers/session';
-import { setupEvidenceOptionsController } from './controllers/additional-info';
+import { setupadditionalEvidenceController } from './controllers/additional-evidence';
 
 const router = express.Router();
 
@@ -57,7 +57,7 @@ const loginController = setupLoginController({ hearingService, idamService });
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
-const evidenceOptionsController = setupEvidenceOptionsController({ prereqMiddleware: ensureAuthenticated });
+const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
