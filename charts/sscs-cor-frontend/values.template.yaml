@@ -19,3 +19,12 @@ nodejs:
     HTTP_PROTOCOL: http
     IDAM_ENABLE_STUB: true
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
+
+redis:
+  cluster:
+    enabled: false
+    slaveCount: 0
+  usePassword: false
+  master:
+    persistence:
+      enabled: false
