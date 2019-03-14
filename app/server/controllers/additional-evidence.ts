@@ -2,16 +2,25 @@ import { Router, Request, Response } from 'express';
 
 import * as Paths from '../paths';
 
+const allowedActions = [
+  'upload',
+  'statement',
+  'post'
+];
+
 function getadditionalEvidence (req: Request, res: Response) {
-  // TODO Logic should be added for now this is just an example.
-  let additionalEvidence = { state: 'evidencePost' };
-  return res.render('additional-evidence/index.html', { additionalEvidence });
+  const action: string =
+    (!allowedActions.includes(req.params.action) || !req.params.action) ?
+      'options'
+      :
+      req.params.action;
+
+  return res.render('additional-evidence/index.html', { action });
 }
 
 function setupadditionalEvidenceController(deps: any) {
-  // eslint-disable-next-line new-cap
   const router = Router();
-  router.get(Paths.additionalEvidence, deps.prereqMiddleware, getadditionalEvidence);
+  router.get(`${Paths.additionalEvidence}/:action?`, deps.prereqMiddleware, getadditionalEvidence);
   return router;
 }
 

@@ -1,6 +1,31 @@
-{% extends "layout.html" %}
+{% from "radios/macro.njk" import govukRadios %}
 
-
-{% block corContent %}
-    Additional Evidence
-{% endblock %}}
+<h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceOptions.header }}</h1>
+<form>
+        {{ govukRadios({
+            idPrefix: "additional-evidence-option",
+            name: "upload-option",
+            fieldset: {
+                legend: {
+                text: i18n.additionalEvidence.evidenceOptions.title,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--xl"
+                }
+            },
+            items: [
+                {
+                    value: "evidence-statement",
+                    text: "Write a statement online"
+                },
+                {
+                    value: "evidence-upload",
+                    text: "Upload letters, documents or photos"
+                },
+                {
+                    value: "evidence-post",
+                    text: "Send by post"
+                }
+            ]
+            }) 
+        }}
+    </form>

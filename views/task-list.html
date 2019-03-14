@@ -58,23 +58,10 @@
         </div>
 
         <h2 class="govuk-heading-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
-        <p>{{ i18n.taskList.sendingEvidence.intro }}</p>
-
-        <details id="sending-evidence-guide" class="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                  {{ i18n.taskList.sendingEvidence.summary }}
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-                <p>{{ i18n.taskList.sendingEvidence.details.para1 }} <strong id="evidence-case-reference">{{ hearing.case_reference }}</strong></p>
-
-                {% include "includes/sending-evidence-contact-details.html" %}
-
-                <p>{{ i18n.taskList.sendingEvidence.details.closingPara1 }}</p>
-                <p>{{ i18n.taskList.sendingEvidence.details.closingPara2 }}</p>
-            </div>
-        </details>
+        <p>
+            {{ i18n.taskList.sendingEvidence.intro }} 
+            <a id="evidence-options-link" href="/evidence-options">{{ i18n.taskList.sendingEvidence.anchorText }}</a>
+        </p>
     </div>
 </div>
 {% endblock %}
