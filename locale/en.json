@@ -64,6 +64,12 @@
       }
     }
   },
+  "additionalEvidence": {
+    "backToAppeal": "Back to Your benefit appeal",
+    "evidenceOptions": {
+      "title": "How do you want to provide additional evidence?"
+    }
+  },
   "question": {
     "textareaField": {
       "label": "Please enter your answer here",
