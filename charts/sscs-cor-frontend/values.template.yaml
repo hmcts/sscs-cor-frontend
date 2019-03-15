@@ -23,12 +23,3 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-
-redis:
-  cluster:
-    enabled: false
-    slaveCount: 0
-  usePassword: false
-  master:
-    persistence:
-      enabled: false

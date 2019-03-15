@@ -2,6 +2,3 @@ dependencies:
   - name: nodejs
     version: 0.2.1
     repository: '@hmcts'
-  - name: redis
-    version: "5.1.2"
-    repository: "@stable"
