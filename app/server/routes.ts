@@ -27,6 +27,7 @@ import { QuestionService } from './services/question';
 import { HearingService } from './services/hearing';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
+import { AdditionalEvidenceService } from './services/additional-evidence';
 
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
@@ -39,6 +40,7 @@ const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appUser, appSecret, httpProxy);
 const hearingService: HearingService = new HearingService(apiUrl);
 const questionService: QuestionService = new QuestionService(apiUrl);
+const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
 
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
@@ -57,7 +59,7 @@ const loginController = setupLoginController({ hearingService, idamService });
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
-const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated });
+const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');

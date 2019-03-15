@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% if action === 'options' %}
 
@@ -16,6 +17,10 @@
 
   {% set pageHeader = i18n.additionalEvidence.evidenceStatement.header %}
 
+{% elseif action === 'confirm' %}
+
+  {% set pageHeader = i18n.additionalEvidence.evidenceConfirm.header %}
+
 {% endif %}
 
 {% block beforeContent %}
@@ -26,6 +31,20 @@
 {% block corContent %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
+      {% if statement.error %}
+        {{ govukErrorSummary({
+            titleText: i18n.errorSummary.titleText,
+            descriptionText: i18n.errorSummary.descriptionText,
+            errorList: [
+              {
+                  text: statement.error,
+                  href: "#question-field"
+              } if statement.error
+            ]
+        }) }}
+      {% endif %}  
+
       {% if action === 'options' %}
 
           {% include "additional-evidence/evidence-options.html" %}
@@ -41,6 +60,10 @@
       {% elseif action === 'statement' %}
 
           {% include "additional-evidence/evidence-statement.html" %}
+
+      {% elseif action === 'confirm' %}
+
+          {% include "additional-evidence/evidence-confirm.html" %}
 
       {% endif %}
     </div>
