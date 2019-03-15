@@ -24,7 +24,7 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 
-redis:
+${SERVICE_NAME}-redis:
   cluster:
     enabled: false
     slaveCount: 0
