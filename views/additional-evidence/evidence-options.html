@@ -1,31 +1,40 @@
+{% from "button/macro.njk" import govukButton %}
 {% from "radios/macro.njk" import govukRadios %}
 
 <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceOptions.header }}</h1>
-<form>
-        {{ govukRadios({
-            idPrefix: "additional-evidence-option",
-            name: "upload-option",
-            fieldset: {
-                legend: {
-                text: i18n.additionalEvidence.evidenceOptions.title,
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--xl"
-                }
+<form action="/additional-evidence", method="post">
+    {{ govukRadios({
+        idPrefix: "additional-evidence-option",
+        name: "additional-evidence-option",
+        fieldset: {
+            legend: {
+            text: i18n.additionalEvidence.evidenceOptions.title,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+            }
+        },
+        items: [
+            {
+                value: "statement",
+                text: "Write a statement online"
             },
-            items: [
-                {
-                    value: "evidence-statement",
-                    text: "Write a statement online"
-                },
-                {
-                    value: "evidence-upload",
-                    text: "Upload letters, documents or photos"
-                },
-                {
-                    value: "evidence-post",
-                    text: "Send by post"
-                }
-            ]
+            {
+                value: "upload",
+                text: "Upload letters, documents or photos"
+            },
+            {
+                value: "post",
+                text: "Send by post"
+            }
+        ]
+        }) 
+    }}
+    <div id="submit-buttons">
+        {{ 
+            govukButton({
+                name: "continue",
+                text: "Continue"
             }) 
         }}
-    </form>
+    </div>
+</form>

@@ -90,6 +90,11 @@ export class BasePage {
     }
   }
 
+  async getElementsValues(selector) {
+    const divsCounts = await this.page.$$eval(selector, divs => divs.map(div => div.value));
+    return divsCounts;
+  }
+
   async getElement(selector) {
     const element = await this.page.$(selector);
     return element;
