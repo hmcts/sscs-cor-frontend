@@ -25,9 +25,11 @@ function postSubmitAnswer(questionService: QuestionService) {
     const hearingId = req.session.hearing.online_hearing_id;
 
     try {
-      await questionService.submitAnswer(hearingId, currentQuestionId);
+      await questionService.submitAnswer(hearingId, currentQuestionId, req.session.accessToken,
+        req.session.serviceToken);
 
-      const response = await questionService.getAllQuestions(hearingId);
+      const response = await questionService.getAllQuestions(hearingId, req.session.accessToken,
+        req.session.serviceToken);
       const totalQuestionCount = response.questions.length;
       const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);
 

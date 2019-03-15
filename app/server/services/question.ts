@@ -24,9 +24,13 @@ export class QuestionService {
     this.apiUrl = apiUrl;
   }
 
-  async getAllQuestions(hearingId: string): Promise<QuestionRound> {
+  async getAllQuestions(hearingId: string, userCode: string, serviceToken: string): Promise<QuestionRound> {
     try {
       const body = await request.get({
+        headers: {
+          Authorization: `Bearer ${userCode}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        },
         uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`,
         json: true,
         timeout
@@ -38,9 +42,13 @@ export class QuestionService {
     }
   }
 
-  async getQuestion(hearingId: string, questionId: string) {
+  async getQuestion(hearingId: string, questionId: string, userCode: string, serviceToken: string) {
     try {
       const body = await request.get({
+        headers: {
+          Authorization: `Bearer ${userCode}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        },
         uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`,
         json: true,
         timeout
@@ -70,10 +78,14 @@ export class QuestionService {
     return `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`;
   }
 
-  async saveAnswer(hearingId: string, questionId: string, answerState: string, answerText: string) {
+  async saveAnswer(hearingId: string, questionId: string, answerState: string, answerText: string, userCode: string, serviceToken: string) {
     try {
       const body = await request.put({
         uri: this.buildAnswerUrl(hearingId, questionId),
+        headers: {
+          Authorization: `Bearer ${userCode}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        },
         body: {
           answer_state: answerState,
           answer: answerText
@@ -88,11 +100,13 @@ export class QuestionService {
     }
   }
 
-  async submitAnswer(hearingId: string, questionId: string) {
+  async submitAnswer(hearingId: string, questionId: string, userCode: string, serviceToken: string) {
     try {
       const body = await request.post({
         uri: this.buildAnswerUrl(hearingId, questionId),
         headers: {
+          Authorization: `Bearer ${userCode}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`,
           'Content-Length': '0'
         },
         json: true,

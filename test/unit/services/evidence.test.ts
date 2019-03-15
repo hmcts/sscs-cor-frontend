@@ -31,6 +31,8 @@ describe('services/evidence', () => {
 
   describe('#upload', () => {
     let rpPostStub: sinon.SinonStub;
+    const userToken = 'someUserToken';
+    const serviceToken = 'someServiceToken';
     beforeEach(() => {
       rpPostStub = sinon.stub(request, 'post');
     });
@@ -39,13 +41,17 @@ describe('services/evidence', () => {
     });
 
     it('calls out to service', async () => {
-      await evidenceService.upload(hearingId, questionId, file);
+      await evidenceService.upload(hearingId, questionId, file, userToken,serviceToken);
       expect(rpPostStub).to.have.been.calledOnce.calledWith({
         formData: {
           file: {
             options: { contentType: file.mimetype, filename: file.originalname },
             value: file.buffer
           }
+        },
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
         },
         resolveWithFullResponse: true,
         simple: false,
@@ -58,7 +64,7 @@ describe('services/evidence', () => {
         rpPostStub.resolves(apiResponse);
       });
       it('resolves with the response body', async () => {
-        const body = await evidenceService.upload(hearingId, questionId, file);
+        const body = await evidenceService.upload(hearingId, questionId, file, userToken,serviceToken);
         expect(body).to.deep.equal(apiResponse);
       });
     });
@@ -70,13 +76,15 @@ describe('services/evidence', () => {
       });
 
       it('rejects the promise with the error', () => (
-        expect(evidenceService.upload(hearingId, questionId, {})).to.be.rejectedWith(error)
+        expect(evidenceService.upload(hearingId, questionId, {}, userToken,serviceToken)).to.be.rejectedWith(error)
       ));
     });
   });
 
   describe('#remove', () => {
     let rpDeleteStub: sinon.SinonStub;
+    const userToken = 'someUserToken';
+    const serviceToken = 'someServiceToken';
     beforeEach(() => {
       rpDeleteStub = sinon.stub(request, 'delete');
     });
@@ -85,9 +93,9 @@ describe('services/evidence', () => {
     });
 
     it('calls out to service', async () => {
-      await evidenceService.remove(hearingId, questionId, '123');
+      await evidenceService.remove(hearingId, questionId, '123', userToken, serviceToken);
       expect(rpDeleteStub).to.have.been.calledOnce.calledWith({
-        headers: { 'Content-Length': '0' },
+        headers: { 'Content-Length': '0', Authorization: `Bearer ${userToken}`, ServiceAuthorization: `Bearer ${serviceToken}` },
         url: `http://sscs-cor-backend.net/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`
       });
     });
@@ -97,7 +105,7 @@ describe('services/evidence', () => {
         rpDeleteStub.resolves(apiResponse);
       });
       it('resolves', async () => {
-        const result = await evidenceService.remove(hearingId, questionId, '123');
+        const result = await evidenceService.remove(hearingId, questionId, '123', userToken, serviceToken);
         expect(result).to.be.undefined;
       });
     });
@@ -109,7 +117,7 @@ describe('services/evidence', () => {
       });
 
       it('rejects the promise with the error', () => (
-        expect(evidenceService.remove(hearingId, questionId, '123')).to.be.rejectedWith(error)
+        expect(evidenceService.remove(hearingId, questionId, '123', userToken, serviceToken)).to.be.rejectedWith(error)
       ));
     });
   });

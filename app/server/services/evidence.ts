@@ -7,12 +7,16 @@ export class EvidenceService {
     this.apiUrl = apiUrl;
   }
 
-  async upload(hearingId: string, questionId: string, file) {
+  async upload(hearingId: string, questionId: string, file, userCode: string, serviceToken: string) {
     try {
       const body = await request.post({
         url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`,
         simple: false,
         resolveWithFullResponse: true,
+        headers: {
+          Authorization: `Bearer ${userCode}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        },
         formData: {
           file: {
             value: file.buffer,
@@ -29,11 +33,13 @@ export class EvidenceService {
     }
   }
 
-  async remove(hearingId: string, questionId: string, fileId: string) {
+  async remove(hearingId: string, questionId: string, fileId: string,userCode: string, serviceToken: string) {
     try {
       await request.delete({
         url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/${fileId}`,
         headers: {
+          Authorization: `Bearer ${userCode}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`,
           'Content-Length': '0'
         }
       });
