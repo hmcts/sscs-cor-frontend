@@ -18,6 +18,7 @@ export interface OnlineHearing {
   case_reference: string;
   online_hearing_id: string;
   decision?: OnlineHearingDecision;
+  has_final_decision: boolean;
   final_decision?: FinalDecision;
 }
 

@@ -3,13 +3,21 @@ const i18n = require('../../../locale/en');
 
 const maxCharacters = 20000;
 
-function answerValidation(answer) {
+function answerValidation(answer, req) {
+
+  let emptyErrorMsg = i18n.question.textareaField.errorOnSave.empty;
+
+  // On Submit
+  if (req.body.submit) {
+    emptyErrorMsg = i18n.question.textareaField.error.empty;
+  }
+
   const schema = Joi.string()
     .required()
     .max(maxCharacters)
     .options({
       language: {
-        any: { empty: `!!${i18n.question.textareaField.error.empty}` },
+        any: { empty: `!!${emptyErrorMsg}` },
         string: { max: `!!${i18n.question.textareaField.error.maxCharacters}` }
       }
     });
@@ -62,10 +70,14 @@ function loginEmailAddressValidation(email) {
   return error;
 }
 
-function tribunalViewAcceptedValidation(acceptView) {
+function tribunalViewAcceptedValidation(acceptView, isConfirm = false) {
   const allowedValues = ['yes', 'no'];
   if (!allowedValues.includes(acceptView)) {
-    return i18n.tribunalView.error.empty;
+    if (isConfirm) {
+      return i18n.tribunalView.error.emptyOnConfirm;
+    } else {
+      return i18n.tribunalView.error.emptyOnDecisionPick;
+    }
   }
   return false;
 }

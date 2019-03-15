@@ -53,8 +53,9 @@
       "completed": "Completed"
     },
     "sendingEvidence": {
-      "header": "Sending additional evidence",
-      "intro": "You can provide additional information that’s relevant to your appeal. You don’t have to provide anything if you don’t have it.",
+      "header": "Providing additional evidence",
+      "intro": "If you have any additional information that is relevant to your appeal, you can",
+      "anchorText": "submit it to the tribunal.",
       "summary": "How to send additional evidence",
       "details": {
         "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
@@ -68,8 +69,11 @@
       "label": "Please enter your answer here",
       "placeholder": "You can write as much as you want",
       "error": {
-        "empty": "You have not entered any information so you cannot save your answer. Enter some information before saving.",
+        "empty": "You have not entered any information. Enter some information before submitting.",
         "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+      },
+      "errorOnSave" :{
+         "empty": "You have not entered any information. Enter some information before saving."
       }
     },
     "evidenceUpload": {
@@ -448,7 +452,7 @@
               "text": "Cannot make any budgeting decisions at all",
               "score": 6
             },
-            "2.0": {
+            "2": {
               "text": "Needs prompting or assistance to be able to make complex budgeting decisions",
               "score": 2
             }
@@ -523,7 +527,8 @@
     "acceptRespondBy": "Please respond by {{ respondBy }}.",
     "submitResponse": "Submit response",
     "error": {
-      "empty": "You must accept the tribunal's view or request a hearing."
+      "emptyOnDecisionPick": "You must accept the tribunal's view or request a hearing.",
+      "emptyOnConfirm": "You need to say whether you want to accept the view or want to go back."
     }
   },
   "tribunalViewConfirm": {
@@ -710,6 +715,26 @@
       "info": "You will lose any unsaved information you have entered.",
       "extend": "Stay signed in ",
       "cancel": "Sign out"
+    }
+  },
+  "additionalEvidence" : {
+    "evidenceOptions" : {
+      "header": "How do you want to provide additional evidence?"
+    },
+    "evidenceStatement" : {
+      "header": "Write your statement"
+    },
+    "evidenceUpload" : {
+      "header": "Upload additional evidence"
+    },
+    "evidencePost" : {
+       "header" : "Posting evidence to the tribunal",
+       "subtitle": "Post evidence to the address below.",
+       "description" : {
+         "para1" : "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. <a href='#'>You can download a new cover sheet here </a>, if you need one.",
+         "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
+         "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
+       }
     }
   }
 }

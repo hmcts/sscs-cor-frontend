@@ -3,13 +3,23 @@ import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedVali
 const i18n = require('locale/en');
 
 describe('utils/fieldValidation.js', () => {
-  describe('answerValidation', () => {
+  describe('answerValidation on submit', () => {
     it('returns the error message if answer is empty', () => {
-      expect(answerValidation('')).to.equal(i18n.question.textareaField.error.empty);
+      expect(answerValidation('', { body : { submit : true } })).to.equal(i18n.question.textareaField.error.empty);
     });
 
     it('returns false if answer is valid', () => {
-      expect(answerValidation('Valid answer')).to.equal(false);
+      expect(answerValidation('Valid answer', { body : { submit : true } })).to.equal(false);
+    });
+  });
+
+  describe('answerValidation on save', () => {
+    it('returns the error message if answer is empty', () => {
+      expect(answerValidation('', { body : { submit : false } })).to.equal(i18n.question.textareaField.errorOnSave.empty);
+    });
+
+    it('returns false if answer is valid', () => {
+      expect(answerValidation('Valid answer', { body : { submit : false } })).to.equal(false);
     });
   });
 
@@ -44,11 +54,19 @@ describe('utils/fieldValidation.js', () => {
     });
 
     it('returns empty error message is answer is anything else', () => {
-      expect(tribunalViewAcceptedValidation('not valid')).to.equal(i18n.tribunalView.error.empty);
+      expect(tribunalViewAcceptedValidation('not valid')).to.equal(i18n.tribunalView.error.emptyOnDecisionPick);
     });
 
     it('returns empty error message is answer is missing', () => {
-      expect(tribunalViewAcceptedValidation(undefined)).to.equal(i18n.tribunalView.error.empty);
+      expect(tribunalViewAcceptedValidation(undefined)).to.equal(i18n.tribunalView.error.emptyOnDecisionPick);
+    });
+
+    it('returns empty error message is confirmation is anything else', () => {
+      expect(tribunalViewAcceptedValidation('not valid', true)).to.equal(i18n.tribunalView.error.emptyOnConfirm);
+    });
+
+    it('returns empty error message is confirmation is missing', () => {
+      expect(tribunalViewAcceptedValidation(undefined, true)).to.equal(i18n.tribunalView.error.emptyOnConfirm);
     });
   });
 

@@ -22,7 +22,8 @@ describe('middleware/check-decision', () => {
             decision_reason: 'The decision',
             decision_text: 'The decision',
             decision_state: 'decision_drafted'
-          }
+          },
+          has_final_decision: false
         }
       }
     } as any;
@@ -61,6 +62,18 @@ describe('middleware/check-decision', () => {
       checkDecision(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingWhy);
     });
+    it('redirects to decision page if a final decision has been issued', () => {
+      req.session.hearing.has_final_decision = true;
+      checkDecision(req, res, next);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.decision);
+    });
+  });
+
+  it('redirects to decision page if final decision has been issued and no prelimary view', () => {
+    req.session.hearing.has_final_decision = true;
+    req.session.hearing.decision = { 'reason': 'FINAL decision notes' };
+    checkDecision(req, res, next);
+    expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.decision);
   });
 
   it('redirects to decision page if decision is accepted', () => {

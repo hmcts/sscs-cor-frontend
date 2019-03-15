@@ -39,7 +39,8 @@ export class EvidenceUpload {
     formElement.appendChild(document.getElementById('question-field'));
     formElement.appendChild(document.getElementById(this.FILE_UPLOAD_ID));
     formElement.setAttribute('enctype', 'multipart/form-data');
-    document.getElementById('answer-form').prepend(formElement);
+    const answerForm: HTMLFormElement = document.getElementById('answer-form') as HTMLFormElement;
+    answerForm.prepend(formElement);
 
     const spinner = document.getElementById('upload-spinner');
     spinner.style.display = 'block';
@@ -80,7 +81,7 @@ export class EvidenceUpload {
   showHideElements(): void {
     const noJsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.NOJS_ELEMENT_SELECTOR);
     const jsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.JS_ELEMENT_SELECTOR);
-    noJsElements.forEach(e => e.style.display = 'none');
-    jsElements.forEach(e => e.style.display = 'block');
+    Array.from(noJsElements).forEach(e => e.style.display = 'none');
+    Array.from(jsElements).forEach(e => e.style.display = 'block');
   }
 }
