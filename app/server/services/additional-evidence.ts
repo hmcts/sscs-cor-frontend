@@ -13,13 +13,14 @@ export class AdditionalEvidenceService {
   async saveStatement(statementText: string) {
     try {
       const body = await request.put({
-        uri: this.apiUrl,
+        uri: `${this.apiUrl}/additional-evidence/statmenet`,
         body: {
           statementText
         },
         json: true,
         timeout
       });
+
       return Promise.resolve(body);
     } catch (error) {
       logger.error('Error saveAnswer', error);
