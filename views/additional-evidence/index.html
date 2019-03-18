@@ -25,7 +25,11 @@
 
 {% block beforeContent %}
   {{ super() }}
+  {% if action === 'options' %}
   <a href="/task-list" class="govuk-back-link">{{ i18n.general.back }}</a>
+   {% else %}
+  <a href="/additional-evidence" class="govuk-back-link">{{ i18n.general.back }}</a>
+  {% endif %}
 {% endblock %}
 
 {% block corContent %}
