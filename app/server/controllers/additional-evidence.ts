@@ -74,5 +74,7 @@ function setupadditionalEvidenceController(deps: any) {
 export {
   allowedActions,
   getadditionalEvidence,
-  setupadditionalEvidenceController
+  setupadditionalEvidenceController,
+  postEvidenceStatement,
+  postAdditionalEvidence
 };
