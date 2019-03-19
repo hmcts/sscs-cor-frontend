@@ -83,25 +83,19 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
       // Answer validation check.
       let validationMessage = answerValidation(answerText, req);
 
-      // If Submit or Save button clicked, display message validation error.
-      if (req.body.save || req.body.submit) {
-
-        if (validationMessage) {
-          const question = req.session.question;
-          question.answer = {
-            value: answerText,
-            error: validationMessage
-          };
-          return res.render('question/index.html', {
-            question,
-            showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
-          });
-        }
-      }
-
       // Save Answer if there is no validation error.
       if (!validationMessage) {
         await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText, req);
+      } else if (req.body.save || req.body.submit) { // Display error message on submit and save
+        const question = req.session.question;
+        question.answer = {
+          value: answerText,
+          error: validationMessage
+        };
+        return res.render('question/index.html', {
+          question,
+          showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
+        });
       }
 
       // Handle file upload.
