@@ -1,1 +1,27 @@
+{% from "components/textarea/macro.njk" import govukTextarea %}
 <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceStatement.header }}</h1>
+<p>{{i18n.additionalEvidence.evidenceStatement.description}}</p>
+
+<form id="statement-form" action="/additional-evidence/statement" method="post">
+  <div>
+    {{ govukTextarea({
+        id: 'question-field',
+        classes: 'auto-expand',
+        name: 'question-field',
+        value: '',
+        attributes: {
+            placeholder: i18n.additionalEvidence.evidenceStatement.placeholder,
+            "aria-label": i18n.additionalEvidence.evidenceStatement.label,
+            "autocomplete": "off"
+        },
+        rows: 6,
+        errorMessage: {
+            text: statement.error
+        } if statement.error
+      })
+    }}
+  </div>
+  <div id="submit-buttons">
+    <input id="submit-statement" type="submit" name="submit" value="{{i18n.additionalEvidence.evidenceStatement.button}}" class="govuk-button button-padding">
+  </div>
+ </form> 

@@ -35,6 +35,9 @@ describe('Additional Evidence', () => {
     expect(header).to.equal(i18n.additionalEvidence.evidenceOptions.header);
 
     const options = await additionalEvidencePage.getElementsValues("input[name='additional-evidence-option']");
-    expect(options).to.have.members(allowedActions);
+
+    options.forEach(option => {
+      expect(allowedActions).to.contain(option);
+    });
   });
 });
