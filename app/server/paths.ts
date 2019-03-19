@@ -17,3 +17,4 @@ export const hearingWhy = '/hearing-why';
 export const cookiePrivacy = '/cookie-policy';
 export const sessionExtension = '/session-extension';
 export const additionalEvidence = '/additional-evidence';
+export const aboutEvidence = '/about-evidence';

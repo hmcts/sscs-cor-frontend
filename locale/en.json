@@ -742,6 +742,37 @@
     },
     "evidenceConfirm": {
       "header" : "You have submitted additional evidence"
+    },
+    "about": {
+        "header": "Providing evidence to support your appeal",
+        "leadParagraph": "Evidence is any information that supports your appeal, such as a letter, written statement or medical report. What you say at a hearing is also evidence. It all helps the tribunal understand the facts of your appeal.",
+        "intro": "You should post evidence as soon as possible, if you have it. This is so the tribunal have time to read it before your hearing. The address will be sent to you by post or email, if you provide your email address.",
+        "types": {
+            "medical": {
+              "header": "Medical evidence",
+              "para1": "This type of evidence helps the tribunal understand your condition from the perspective of a medical professional. For example, letters you have from your hospital consultant, doctor, physiotherapist or social worker. A useful letter explains how your condition affects your life at the time of the decision by DWP. Appointment letters are not useful.", 
+              "para2": "If you don’t have any letters and you think one will help your appeal, you could ask the medical professional who has been treating your condition to write one. Please be aware they may charge you for this and they can take a long time to organise. The tribunal can’t pay for these."
+            },
+            "statement": {
+              "header": "Written statement",
+              "para1": "Someone who lives with you or knows you well could write a statement. A useful statement describes how your condition affects your life and includes the types of activities you can and can’t do. It should be their own view.",
+              "para2": "It can written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you."
+            },
+            "photographic": {
+              "header": "Photographic evidence",
+              "para1": "A useful photo will show how your condition affects your life, for example you could take a picture of any aids you use to help you move. Don’t send in photos of your body."
+            },
+            "oral": {
+              "header": "Oral evidence",
+              "para1": "What you or anyone else says on your behalf at the hearing (if you go) is called oral evidence. If you have a carer or someone who supports you in your home, you could invite them to come and tell the tribunal about your condition. You should check the person is willing to talk at your hearing and available on the day."
+            },
+            "post": {
+              "header": "Sending evidence to the tribunal",
+              "para1": "Post your evidence to the address below as soon as possible. This is so the tribunal have time to read it before they make a decision on your appeal.",
+              "para2": "Make sure you include a copy of the ‘evidence cover sheet’ that was sent to you. The cover sheet was in the first letter you received about your benefit appeal. You can <a href=''>download a new cover sheet here</a>, if you need one.",
+              "para3": "SSCS<br/>HMCTS SSCS Tribunal<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF"
+            }
+        }
     }
   }
 }

@@ -19,7 +19,7 @@ async function createCase() {
   try {
     body = await rp.post(options);
   } catch (error) {
-    logger.error('Error createCase', error);
+    logger.error('Error at CCD createCase:', error.error);
   }
 
   const caseId = body.id;

@@ -175,7 +175,7 @@ async function createDecision(hearingId, caseId) {
   try {
     body = await rp.post(options);
   } catch (error) {
-    logger.error('Error Created decision with ID',error);
+    logger.error('Error Created decision with ID', `Code: ${error.statusCode} \nError: ${error.error}`);
   }
   console.log('Created decision with ID', body.decision_id);
   return body;
