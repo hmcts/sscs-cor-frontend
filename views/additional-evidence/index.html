@@ -27,15 +27,13 @@
   {{ super() }}
   {% if action === 'options' %}
   <a href="/task-list" class="govuk-back-link">{{ i18n.general.back }}</a>
-   {% else %}
+   {% elseif action !== 'confirm' %}
   <a href="/additional-evidence" class="govuk-back-link">{{ i18n.general.back }}</a>
   {% endif %}
 {% endblock %}
 
 {% block corContent %}
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-
       {% if statement.error %}
         {{ govukErrorSummary({
             titleText: i18n.errorSummary.titleText,
@@ -70,6 +68,5 @@
           {% include "additional-evidence/evidence-confirm.html" %}
 
       {% endif %}
-    </div>
   </div>
 {% endblock %}
