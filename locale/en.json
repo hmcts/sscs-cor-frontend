@@ -722,7 +722,11 @@
       "header": "How do you want to provide additional evidence?"
     },
     "evidenceStatement" : {
-      "header": "Write your statement"
+      "header": "Write your statement",
+      "description": "A useful statement describes how your condition affects your life, including the activities you can and can’t do.",
+      "placeholder": "You can write as much as you want",
+      "label": "Additional statement filed",
+      "button": "Submit your statement to the tribunal"
     },
     "evidenceUpload" : {
       "header": "Upload additional evidence"
@@ -735,6 +739,9 @@
          "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
          "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
        }
+    },
+    "evidenceConfirm": {
+      "header" : "You have submitted additional evidence"
     }
   }
 }
