@@ -1,8 +1,5 @@
 import { Request } from 'express';
-const request = require('request-promise');
-const { Logger } = require('@hmcts/nodejs-logging');
-const logger = Logger.getLogger('question.ts');
-const timeout = require('config').get('apiCallTimeout');
+import { RequestPromise } from './request-wrapper';
 
 interface QuestionSummary {
   question_id: string;
@@ -24,40 +21,37 @@ export class QuestionService {
     this.apiUrl = apiUrl;
   }
 
-  async getAllQuestions(hearingId: string, userCode: string, serviceToken: string): Promise<QuestionRound> {
-    try {
-      const body = await request.get({
-        headers: {
-          Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
-        },
-        uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`,
-        json: true,
-        timeout
-      });
-      return Promise.resolve(body);
-    } catch (error) {
-      logger.error('Error getAllQuestions', error);
-      return Promise.reject(error);
-    }
+  async getAllQuestions(hearingId: string, req: Request): Promise<QuestionRound> {
+    return RequestPromise.request({
+      method: 'GET',
+      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`
+    }, req);
   }
 
-  async getQuestion(hearingId: string, questionId: string, userCode: string, serviceToken: string) {
-    try {
-      const body = await request.get({
-        headers: {
-          Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
-        },
-        uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`,
-        json: true,
-        timeout
-      });
-      return Promise.resolve(body);
-    } catch (error) {
-      logger.error('Error getQuestion', error);
-      return Promise.reject(error);
-    }
+  async getQuestion(hearingId: string, questionId: string, req: Request) {
+    return RequestPromise.request({
+      method: 'GET',
+      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`
+    }, req);
+  }
+
+  async saveAnswer(hearingId: string, questionId: string, answerState: string, answerText: string, req: Request) {
+    return RequestPromise.request({
+      method: 'PUT',
+      uri: this.buildAnswerUrl(hearingId, questionId),
+      body: {
+        answer_state: answerState,
+        answer: answerText
+      }
+    }, req);
+  }
+
+  async submitAnswer(hearingId: string, questionId: string, req: Request) {
+    return RequestPromise.request({
+      method: 'POST',
+      headers: {  'Content-Length': '0' },
+      uri: this.buildAnswerUrl(hearingId, questionId)
+    }, req);
   }
 
   getQuestionIdFromOrdinal(req: Request): string {
@@ -76,46 +70,5 @@ export class QuestionService {
 
   buildAnswerUrl(hearingId, questionId) {
     return `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`;
-  }
-
-  async saveAnswer(hearingId: string, questionId: string, answerState: string, answerText: string, userCode: string, serviceToken: string) {
-    try {
-      const body = await request.put({
-        uri: this.buildAnswerUrl(hearingId, questionId),
-        headers: {
-          Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
-        },
-        body: {
-          answer_state: answerState,
-          answer: answerText
-        },
-        json: true,
-        timeout
-      });
-      return Promise.resolve(body);
-    } catch (error) {
-      logger.error('Error saveAnswer', error);
-      return Promise.reject(error);
-    }
-  }
-
-  async submitAnswer(hearingId: string, questionId: string, userCode: string, serviceToken: string) {
-    try {
-      const body = await request.post({
-        uri: this.buildAnswerUrl(hearingId, questionId),
-        headers: {
-          Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`,
-          'Content-Length': '0'
-        },
-        json: true,
-        timeout
-      });
-      return Promise.resolve(body);
-    } catch (error) {
-      logger.error('Error submitAnswer', error);
-      return Promise.reject(error);
-    }
   }
 }

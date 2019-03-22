@@ -27,8 +27,7 @@ function postTribunalViewConfirm(hearingService) {
         await hearingService.recordTribunalViewResponse(
           hearing.online_hearing_id,
           CONST.DECISION_ACCEPTED_STATE,
-          req.session.accessToken,
-          req.session.serviceToken
+          req
         );
         req.session.hearing.decision.appellant_reply = 'decision_accepted';
         req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();

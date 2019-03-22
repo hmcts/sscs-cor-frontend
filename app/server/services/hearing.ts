@@ -1,4 +1,5 @@
-import * as request from 'request-promise';
+import { Request } from 'express';
+import { RequestPromise } from './request-wrapper';
 
 interface OnlineHearingDecision {
   start_date: string;
@@ -33,55 +34,28 @@ export class HearingService {
     this.apiUrl = apiUrl;
   }
 
-  async getOnlineHearing(email: string, userCode: string, serviceToken: string): Promise<request.Response> {
-    try {
-      const response: request.Response = await request.get({
-        uri: `${this.apiUrl}/continuous-online-hearings`,
-        qs: { email },
-        headers: {
-          Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
-        },
-        resolveWithFullResponse: true,
-        simple: false,
-        json: true
-      });
-      return Promise.resolve(response);
-    } catch (error) {
-      return Promise.reject(error);
-    }
+  async getOnlineHearing(email: string, req: Request) {
+    return RequestPromise.request({
+      method: 'GET',
+      uri: `${this.apiUrl}/continuous-online-hearings`,
+      qs: { email },
+      resolveWithFullResponse: true,
+      simple: false
+    }, req);
   }
 
-  async extendDeadline(hearingId: string, userCode: string, serviceToken: string): Promise<ExtendDeadlineResponse> {
-    try {
-      const body = await request.patch({
-        uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`,
-        headers: {
-          Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
-        },
-        json: true
-      });
-      return Promise.resolve(body);
-    } catch (error) {
-      return Promise.reject(error);
-    }
+  async extendDeadline(hearingId: string, req: Request) {
+    return RequestPromise.request({
+      method: 'PATCH',
+      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`
+    }, req);
   }
 
-  async recordTribunalViewResponse(hearingId: string, reply: string, userCode: string, serviceToken: string, reason?: string): Promise<void> {
-    try {
-      await request.patch({
-        uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/tribunal-view`,
-        headers: {
-          Authorization: `Bearer ${userCode}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
-        },
-        body: { reply, reason: reason ? reason : '' },
-        json: true
-      });
-      return Promise.resolve();
-    } catch (error) {
-      return Promise.reject(error);
-    }
+  async recordTribunalViewResponse(hearingId: string, reply: string, req: Request, reason?: string) {
+    return RequestPromise.request({
+      method: 'PATCH',
+      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/tribunal-view`,
+      body: { reply, reason: reason ? reason : '' }
+    }, req);
   }
 }

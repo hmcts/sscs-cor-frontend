@@ -88,8 +88,7 @@ describe('controllers/hearing-why', () => {
       serviceCall = [
         hearingDetails.online_hearing_id,
         CONST.DECISION_REJECTED_STATE,
-        accessToken,
-        serviceToken,
+        req,
         req.body['explain-why']
       ];
 

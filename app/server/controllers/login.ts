@@ -108,7 +108,7 @@ async function loadHearingAndEnterService(
   req: Request,
   res: Response) {
   const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
-  const response: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req.session.accessToken, req.session.serviceToken);
+  const response: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req);
   if (response.statusCode === NOT_FOUND) {
     logger.info(`Cannot find any case for ${email}`);
     const registerUrl = idamService.getRegisterUrl(req.protocol, req.hostname);

@@ -35,8 +35,7 @@ function postIndex(hearingService) {
       await hearingService.recordTribunalViewResponse(
         hearing.online_hearing_id,
         CONST.DECISION_REJECTED_STATE,
-        req.session.accessToken,
-        req.session.serviceToken,
+        req,
         explainWhy
       );
       req.session.hearing.decision.appellant_reply = 'decision_rejected';

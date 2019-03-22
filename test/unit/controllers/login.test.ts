@@ -126,7 +126,7 @@ describe('controllers/login', () => {
       });
 
       it('calls the online hearing service', () => {
-        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com', accessToken);
+        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com', req);
       });
 
       it('redirects to task list page', () => {
@@ -156,7 +156,7 @@ describe('controllers/login', () => {
       });
 
       it('calls the online hearing service', () => {
-        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com+someCaseId', accessToken);
+        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com+someCaseId', req);
       });
 
       it('redirects to task list page', () => {
