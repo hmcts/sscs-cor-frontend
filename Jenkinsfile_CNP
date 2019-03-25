@@ -40,7 +40,7 @@ withPipeline("nodejs", product, component) {
     after('build') {sh 'yarn build'}
     enableDockerBuild()
     enableDeployToAKS()
-    before('securitychecks') {sh 'yarn audit'}
+    before('securitychecks') {sh 'yarn test:audit'}
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
