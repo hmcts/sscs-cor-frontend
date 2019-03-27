@@ -11,8 +11,8 @@ def component = "frontend"
 
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
 def sscsCorBackEndUrlAat = "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
-def idamUrlAat = "https://idam.preprod.ccidam.reform.hmcts.net"
-def idamApiUrlAat = "https://preprod-idamapi.reform.hmcts.net:3511"
+def idamUrlAat = "https://idam-web-public.aat.platform.hmcts.net"
+def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
 def httpProxy =  "http://proxyout.reform.hmcts.net:8080"
 
@@ -40,7 +40,25 @@ withPipeline("nodejs", product, component) {
     after('build') {sh 'yarn build'}
     enableDockerBuild()
     enableDeployToAKS()
-    before('securitychecks') {sh 'yarn audit'}
+    before('securitychecks') {sh 'yarn test:audit'}
+
+    before('smoketest:aks') {
+      // workaround to fix SIDAM whitelisting for PR AKS URLs
+      try {
+        def encodedServiceName = 'SSCS%20COR'
+        def aksUrlToWhitelist = env.TEST_URL + '/sign-in'
+        sh('curl -X PATCH https://idam-api.aat.platform.hmcts.net/testing-support/services/' + encodedServiceName +
+          ' -H \'Content-Type: application/json\'' +
+          ' -H \'cache-control: no-cache\'' +
+          ' -d \'[{' +
+            '"operation":"add",' +
+            '"field":"redirect_uri",' +
+            '"value":"' + aksUrlToWhitelist + '"' +
+          '}]\'')
+      } catch (err) {
+        notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update SIDAM PR whitelisting'
+      }
+    }
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
@@ -54,7 +72,7 @@ withPipeline("nodejs", product, component) {
         sh 'echo HTTP_PROXY=$HTTP_PROXY'
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
-        env.S2S_OAUTH2_URL = "https://preprod-idamapi.reform.hmcts.net:3511"
+        env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
     after("functionalTest:preview") {
@@ -74,7 +92,7 @@ withPipeline("nodejs", product, component) {
         sh 'echo HTTP_PROXY=$HTTP_PROXY'
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
-        env.S2S_OAUTH2_URL = "https://preprod-idamapi.reform.hmcts.net:3511"
+        env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
     after("functionalTest:aat") {
