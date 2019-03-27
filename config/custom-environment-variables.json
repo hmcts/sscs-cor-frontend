@@ -45,6 +45,7 @@
       "url": "S2S_OAUTH2_URL",
       "user": "IDAM_SSCS_SYSTEMUPDATE_USER",
       "password": "IDAM_SSCS_SYSTEMUPDATE_PASSWORD",
+      "redirectUrl": "IDAM_REDIRECT_URL",
       "client": {
         "secret": "IDAM_OAUTH2_CLIENT_SECRET"
       }

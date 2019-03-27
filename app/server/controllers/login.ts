@@ -4,6 +4,8 @@ import { Request, Response, NextFunction, Router } from 'express';
 import { NOT_FOUND, UNPROCESSABLE_ENTITY, CONFLICT } from 'http-status-codes';
 import * as Paths from '../paths';
 import { URL } from 'url';
+import { generateToken } from '../services/s2s';
+
 const i18n = require('../../../locale/en.json');
 
 const config = require('config');
@@ -86,6 +88,7 @@ function getIdamCallback(
         logger.info('getting user details');
 
         req.session.accessToken = tokenResponse.access_token;
+        req.session.serviceToken = await generateToken();
       }
       const userDetails: UserDetails = await idamService.getUserDetails(req.session.accessToken);
 
@@ -105,7 +108,7 @@ async function loadHearingAndEnterService(
   req: Request,
   res: Response) {
   const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
-  const response: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor);
+  const response: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req);
   if (response.statusCode === NOT_FOUND) {
     logger.info(`Cannot find any case for ${email}`);
     const registerUrl = idamService.getRegisterUrl(req.protocol, req.hostname);

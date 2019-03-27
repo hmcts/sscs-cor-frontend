@@ -1,8 +1,8 @@
 import { IdamService } from 'app/server/services/idam';
-import * as request from 'request-promise';
+import { RequestPromise } from 'app/server/services/request-wrapper';
 const { expect, sinon } = require('test/chai-sinon');
 import { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } from 'http-status-codes';
-
+const timeout = require('config').get('apiCallTimeout');
 const nock = require('nock');
 const config = require('config');
 
@@ -14,7 +14,7 @@ const appPort = config.get('node.port');
 describe('services/idam', () => {
   let idamService;
   before(() => {
-    idamService = new IdamService(apiUrl, appPort, appUser, appSecret, '');
+    idamService = new IdamService(apiUrl, appPort, appSecret);
   });
 
   describe('getRedirectUrl', () => {
@@ -81,15 +81,15 @@ describe('services/idam', () => {
     const protocol = 'http';
     const host = 'example.com';
     let redirectUrl;
-    let postSpy: sinon.SinonSpy;
+    let requestSpy: sinon.SinonSpy;
 
     beforeEach(() => {
-      postSpy = sinon.spy(request, 'post');
+      requestSpy = sinon.spy(RequestPromise, 'request');
       redirectUrl = encodeURI(idamService.getRedirectUrl(protocol, host));
     });
 
     afterEach(() => {
-      postSpy.restore();
+      requestSpy.restore();
     });
 
     describe('resolving the promise', () => {
@@ -107,16 +107,17 @@ describe('services/idam', () => {
 
       it('makes correct post request', async () => {
         await idamService.getToken(code, protocol, host);
-        expect(request.post).to.have.been.calledOnce.calledWith({
+        expect(requestSpy).to.have.been.calledOnce.calledWith({
           auth: { pass: 'a_secret', user: 'sscs_cor' },
           form: {
             code: 'someCode',
             grant_type: 'authorization_code',
             redirect_uri: 'http://example.com/sign-in'
           },
-          headers: { Accept: 'application/json' },
           json: true,
-          uri: 'http://localhost:8082/oauth2/token'
+          uri: 'http://localhost:8082/oauth2/token',
+          method: 'POST',
+          timeout: timeout
         });
       });
 

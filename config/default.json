@@ -47,6 +47,7 @@
       "url": "http://localhost:10000",
       "user": "some_user",
       "password": "some_password",
+      "redirectUrl": "https://evidence-sharing-preprod.sscs.reform.hmcts.net",
       "client": {
         "secret": "some_secret"
       }

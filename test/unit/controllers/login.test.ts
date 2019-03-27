@@ -106,12 +106,13 @@ describe('controllers/login', () => {
       });
     });
 
+    const accessToken = 'someAccessToken';
+    const serviceToken = 'someServiceToken';
     describe('on success', () => {
       let hearingServiceStub;
       beforeEach(async () => {
         req.query = { 'code': 'someCode' };
         const redirectToIdam = sinon.stub();
-        let accessToken = 'someAccessToken';
         const idamServiceStub = {
           getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
@@ -125,7 +126,7 @@ describe('controllers/login', () => {
       });
 
       it('calls the online hearing service', () => {
-        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com');
+        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com', req);
       });
 
       it('redirects to task list page', () => {
@@ -134,6 +135,7 @@ describe('controllers/login', () => {
     });
 
     describe('on success with case id', () => {
+      const accessToken = 'someAccessToken';
       let hearingServiceStub;
       beforeEach(async () => {
         req.query = {
@@ -141,7 +143,6 @@ describe('controllers/login', () => {
           'caseId': 'someCaseId'
         };
         const redirectToIdam = sinon.stub();
-        let accessToken = 'someAccessToken';
         const idamServiceStub = {
           getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
@@ -155,7 +156,7 @@ describe('controllers/login', () => {
       });
 
       it('calls the online hearing service', () => {
-        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com+someCaseId');
+        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com+someCaseId', req);
       });
 
       it('redirects to task list page', () => {

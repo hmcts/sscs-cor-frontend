@@ -8,10 +8,16 @@ describe('controllers/additional-evidence.js', () => {
   let res;
   const next = sinon.stub();
   const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
+  const accessToken = 'accessToken';
+  const serviceToken = 'serviceToken';
   beforeEach(() => {
     req = {
       params: {
         action: ''
+      },
+      session: {
+        accessToken: accessToken,
+        serviceToken: serviceToken
       },
       body: {}
     } as any;
@@ -89,7 +95,7 @@ describe('controllers/additional-evidence.js', () => {
     it('should call res.redirect when saving an statement and there are no errors', async() => {
       req.body['question-field'] = 'My amazing statement';
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
-      expect(additionalEvidenceService.saveStatement).to.have.been.calledOnce.calledWith(req.body['question-field']);
+      expect(additionalEvidenceService.saveStatement).to.have.been.calledOnce.calledWith(req.body['question-field'], req);
       expect(res.redirect).to.have.been.calledWith(`${Paths.additionalEvidence}/confirm`);
     });
 
