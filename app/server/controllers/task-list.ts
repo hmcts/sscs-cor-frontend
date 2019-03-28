@@ -19,7 +19,7 @@ function getTaskList(questionService: QuestionService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     const hearing = req.session.hearing;
     try {
-      const response = await questionService.getAllQuestions(hearing.online_hearing_id);
+      const response = await questionService.getAllQuestions(hearing.online_hearing_id, req);
 
       req.session.hearing.deadline = response.deadline_expiry_date;
       req.session.questions = response.questions ? response.questions : [];

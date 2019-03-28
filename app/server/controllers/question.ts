@@ -43,7 +43,7 @@ function getQuestion(questionService: QuestionService) {
     }
     const hearingId = req.session.hearing.online_hearing_id;
     try {
-      const response = await questionService.getQuestion(hearingId, currentQuestionId);
+      const response = await questionService.getQuestion(hearingId, currentQuestionId, req);
 
       const question = {
         questionId: currentQuestionId,
@@ -102,7 +102,7 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
     try {
       await validateAnswer(req, res, answerText, async () => {
         if (answerText.length > 0) {
-          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText);
+          await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText, req);
         }
 
         if (req.file) {
@@ -111,7 +111,7 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
           return res.redirect(`${Paths.question}/${questionOrdinal}/upload-evidence`);
         } else if (req.body.delete) {
           const fileId = Object.keys(req.body.delete)[0];
-          await evidenceService.remove(hearingId, currentQuestionId, fileId);
+          await evidenceService.remove(hearingId, currentQuestionId, fileId, req);
           return res.redirect(`${Paths.question}/${questionOrdinal}`);
         } else if (req.body.submit) {
           res.redirect(`${Paths.question}/${questionOrdinal}/submit`);
@@ -156,7 +156,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
     try {
-      const response: rp.Response = await evidenceService.upload(hearingId, currentQuestionId, req.file);
+      const response: rp.Response = await evidenceService.upload(hearingId, currentQuestionId, req.file, req);
       if (response.statusCode === OK) {
         return res.redirect(`${Paths.question}/${questionOrdinal}`);
       }
