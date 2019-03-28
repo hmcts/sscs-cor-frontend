@@ -3,15 +3,28 @@ import * as path from 'path';
 import * as fs from 'fs';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-const request = require('request-promise');
+import { RequestPromise } from 'app/server/services/request-wrapper';
 
 describe('services/evidence', () => {
   const hearingId = '121';
   const questionId = '62';
   let evidenceService;
-
+  const req: any = {};
+  let rpStub: sinon.SinonStub;
   before(() => {
     evidenceService = new EvidenceService('http://sscs-cor-backend.net');
+    req.session = {
+      accessToken : 'someUserToken',
+      serviceToken : 'someServiceToken'
+    };
+  });
+
+  beforeEach(() => {
+    rpStub = sinon.stub(RequestPromise, 'request');
+  });
+
+  afterEach(() => {
+    rpStub.restore();
   });
 
   const apiResponse = {
@@ -30,35 +43,36 @@ describe('services/evidence', () => {
   };
 
   describe('#upload', () => {
-    let rpPostStub: sinon.SinonStub;
-    beforeEach(() => {
-      rpPostStub = sinon.stub(request, 'post');
-    });
-    afterEach(() => {
-      rpPostStub.restore();
-    });
-
     it('calls out to service', async () => {
-      await evidenceService.upload(hearingId, questionId, file);
-      expect(rpPostStub).to.have.been.calledOnce.calledWith({
+      await evidenceService.upload(hearingId, questionId, file, req);
+
+      const expectedOptions = {
         formData: {
           file: {
             options: { contentType: file.mimetype, filename: file.originalname },
             value: file.buffer
           }
         },
+        method: 'POST',
         resolveWithFullResponse: true,
         simple: false,
         url: `http://sscs-cor-backend.net/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`
-      });
+      };
+
+      expect(rpStub).to.have.been.calledOnce.calledWith(sinon.match(expectedOptions, req));
     });
 
     describe('on success', () => {
       beforeEach(() => {
-        rpPostStub.resolves(apiResponse);
+        rpStub.resolves(apiResponse);
       });
+
+      afterEach(() => {
+        rpStub.restore();
+      });
+
       it('resolves with the response body', async () => {
-        const body = await evidenceService.upload(hearingId, questionId, file);
+        const body = await evidenceService.upload(hearingId, questionId, file, req);
         expect(body).to.deep.equal(apiResponse);
       });
     });
@@ -66,50 +80,60 @@ describe('services/evidence', () => {
     describe('on failure', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       beforeEach(() => {
-        rpPostStub.rejects(error);
+        rpStub.rejects(error);
+      });
+
+      afterEach(() => {
+        rpStub.restore();
       });
 
       it('rejects the promise with the error', () => (
-        expect(evidenceService.upload(hearingId, questionId, {})).to.be.rejectedWith(error)
+        expect(evidenceService.upload(hearingId, questionId, {}, req)).to.be.rejectedWith(error)
       ));
     });
   });
 
   describe('#remove', () => {
-    let rpDeleteStub: sinon.SinonStub;
-    beforeEach(() => {
-      rpDeleteStub = sinon.stub(request, 'delete');
-    });
-    afterEach(() => {
-      rpDeleteStub.restore();
-    });
 
     it('calls out to service', async () => {
-      await evidenceService.remove(hearingId, questionId, '123');
-      expect(rpDeleteStub).to.have.been.calledOnce.calledWith({
+      await evidenceService.remove(hearingId, questionId, '123', req);
+
+      const expectedOptions = {
+        method: 'DELETE',
         headers: { 'Content-Length': '0' },
         url: `http://sscs-cor-backend.net/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`
-      });
+      };
+
+      expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
     describe('on success', () => {
       beforeEach(() => {
-        rpDeleteStub.resolves(apiResponse);
+        rpStub.resolves(apiResponse);
       });
+
+      afterEach(() => {
+        rpStub.restore();
+      });
+
       it('resolves', async () => {
-        const result = await evidenceService.remove(hearingId, questionId, '123');
-        expect(result).to.be.undefined;
+        const result = await evidenceService.remove(hearingId, questionId, '123', req);
+        expect(result).to.equal(apiResponse);
       });
     });
 
     describe('on failure', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       beforeEach(() => {
-        rpDeleteStub.rejects(error);
+        rpStub.rejects(error);
+      });
+
+      afterEach(() => {
+        rpStub.restore();
       });
 
       it('rejects the promise with the error', () => (
-        expect(evidenceService.remove(hearingId, questionId, '123')).to.be.rejectedWith(error)
+        expect(evidenceService.remove(hearingId, questionId, '123', req)).to.be.rejectedWith(error)
       ));
     });
   });

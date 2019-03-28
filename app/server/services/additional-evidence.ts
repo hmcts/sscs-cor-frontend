@@ -1,7 +1,5 @@
-const request = require('request-promise');
-const { Logger } = require('@hmcts/nodejs-logging');
-const logger = Logger.getLogger('additional-evidence.ts');
-const timeout = require('config').get('apiCallTimeout');
+import { Request } from 'express';
+import { RequestPromise } from './request-wrapper';
 
 export class AdditionalEvidenceService {
   private apiUrl: string;
@@ -10,21 +8,13 @@ export class AdditionalEvidenceService {
     this.apiUrl = apiUrl;
   }
 
-  async saveStatement(statementText: string) {
-    try {
-      const body = await request.put({
-        uri: `${this.apiUrl}/additional-evidence/statmenet`,
-        body: {
-          statementText
-        },
-        json: true,
-        timeout
-      });
-
-      return Promise.resolve(body);
-    } catch (error) {
-      logger.error('Error saveAnswer', error);
-      return Promise.reject(error);
-    }
+  async saveStatement(statementText: string, req: Request) {
+    return RequestPromise.request({
+      method: 'PUT',
+      body: {
+        statementText
+      },
+      uri: `${this.apiUrl}/additional-evidence/statmenet`
+    }, req);
   }
 }

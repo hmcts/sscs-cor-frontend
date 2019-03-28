@@ -11,9 +11,13 @@ describe('services/hearing', () => {
   const email = 'test@example.com';
   const path = '/continuous-online-hearings';
   let hearingService;
-
+  const req: any = {};
   before(() => {
     hearingService = new HearingService(apiUrl);
+    req.session = {
+      accessToken : 'someUserToken',
+      serviceToken : 'someServiceToken'
+    };
   });
 
   describe('#getOnlineHearing', () => {
@@ -24,19 +28,24 @@ describe('services/hearing', () => {
     };
 
     describe('success response', () => {
+      const userToken = 'someUserToken';
+      const serviceToken = 'someServiceToken';
       beforeEach(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${userToken}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        })
           .get(path)
           .query({ email })
           .reply(OK, apiResponseBody);
       });
 
       it('resolves the promise', () => (
-        expect(hearingService.getOnlineHearing(email)).to.be.fulfilled
+        expect(hearingService.getOnlineHearing(email, req)).to.be.fulfilled
       ));
 
       it('resolves the promise with the response', async () => {
-        const response = await hearingService.getOnlineHearing(email);
+        const response = await hearingService.getOnlineHearing(email, req);
         expect(response.body).to.deep.equal(apiResponseBody);
       });
     });
@@ -45,41 +54,52 @@ describe('services/hearing', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
       beforeEach(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${req.session.accessToken}`,
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        })
           .get(path)
           .query({ email })
           .replyWithError(error);
       });
 
       it('rejects the promise with the error', () => (
-        expect(hearingService.getOnlineHearing(email)).to.be.rejectedWith(error)
+        expect(hearingService.getOnlineHearing(email, req)).to.be.rejectedWith(error)
       ));
     });
 
     describe('hearing not found', () => {
+
       beforeEach(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${req.session.accessToken}`,
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        })
           .get(path)
           .query({ email })
           .reply(NOT_FOUND);
       });
 
       it('resolves the promise with 404 status', async () => {
-        const response = await hearingService.getOnlineHearing(email);
+        const response = await hearingService.getOnlineHearing(email, req);
         expect(response.statusCode).to.equal(NOT_FOUND);
       });
     });
 
     describe('multiple hearings found', () => {
+
       beforeEach(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${req.session.accessToken}`,
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        })
           .get(path)
           .query({ email })
           .reply(UNPROCESSABLE_ENTITY);
       });
 
       it('resolves the promise with 422 status', async () => {
-        const response = await hearingService.getOnlineHearing(email);
+        const response = await hearingService.getOnlineHearing(email, req);
         expect(response.statusCode).to.equal(UNPROCESSABLE_ENTITY);
       });
     });
@@ -92,14 +112,20 @@ describe('services/hearing', () => {
       deadline_expiry_date: moment.utc().add(14, 'day').format()
     };
 
+    const userToken = 'someUserToken';
+    const serviceToken = 'someServiceToken';
+
     describe('Update hearing deadline', () => {
       beforeEach(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${req.session.accessToken}`,
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        })
           .patch(path)
           .reply(OK, apiResponse);
       });
       it('resolves the promise with the response', async () => (
-        expect(hearingService.extendDeadline(hearingId)).to.eventually.eql(apiResponse)
+        expect(hearingService.extendDeadline(hearingId, userToken, req)).to.eventually.eql(apiResponse)
       ));
     });
 
@@ -107,7 +133,10 @@ describe('services/hearing', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
       before(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${req.session.accessToken}`,
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        })
           .get(path)
           .replyWithError(error);
       });
@@ -117,7 +146,7 @@ describe('services/hearing', () => {
       });
 
       it('rejects updateDeadline with the error', () => (
-        expect(hearingService.extendDeadline(hearingId)).to.be.rejectedWith(error)
+        expect(hearingService.extendDeadline(hearingId, req)).to.be.rejectedWith(error)
       ));
     });
   });
@@ -128,12 +157,15 @@ describe('services/hearing', () => {
 
     describe('on success', () => {
       beforeEach(() => {
-        nock(apiUrl)
+        nock(apiUrl, {
+          Authorization: `Bearer ${req.session.accessToken}`,
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        })
           .patch(path)
           .reply(NO_CONTENT);
       });
       it('resolves the promise', async () => (
-        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted')).to.eventually.be.fulfilled
+        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted', req)).to.eventually.be.fulfilled
       ));
     });
     describe('on failure', () => {
@@ -144,7 +176,7 @@ describe('services/hearing', () => {
           .replyWithError(error);
       });
       it('rejects updateDeadline with the error', () => (
-        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted')).to.be.rejectedWith(error)
+        expect(hearingService.recordTribunalViewResponse(hearingId, 'decision_accepted', req)).to.be.rejectedWith(error)
       ));
     });
   });

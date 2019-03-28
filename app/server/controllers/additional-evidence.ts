@@ -37,7 +37,7 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
     try {
       await validateAnswer(req, res, statementText, async () => {
         if (statementText.length > 0) {
-          await additionalEvidenceService.saveStatement(statementText);
+          await additionalEvidenceService.saveStatement(statementText, req);
           res.redirect(`${Paths.additionalEvidence}/confirm`);
         }
       });

@@ -9,6 +9,7 @@ const s2sOauthUrl = config.get('s2s.oauth2.url');
 const systemUpdateUser = config.get('s2s.oauth2.user');
 const systemUpdatePassword = config.get('s2s.oauth2.password');
 const clientSecret = config.get('s2s.oauth2.client.secret');
+const redirectUrl = config.get('s2s.oauth2.redirectUrl');
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('question.ts');
@@ -69,7 +70,7 @@ async function authorize(): Promise<AuthorizeResponse> {
       form: {
         response_type: 'code',
         client_id: microservice,
-        redirect_uri: 'https://evidence-sharing-preprod.sscs.reform.hmcts.net'
+        redirect_uri: redirectUrl
       },
       timeout
     });
@@ -89,7 +90,7 @@ async function getToken(code: string): Promise<TokenResponse> {
       form: {
         code,
         grant_type: 'authorization_code',
-        redirect_uri: 'https://evidence-sharing-preprod.sscs.reform.hmcts.net',
+        redirect_uri: redirectUrl,
         client_id: microservice,
         client_secret: clientSecret
       },

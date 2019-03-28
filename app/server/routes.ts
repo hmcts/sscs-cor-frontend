@@ -37,7 +37,7 @@ const appSecret: string = config.get('idam.client.secret');
 const httpProxy: string = config.get('httpProxy');
 
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
-const idamService: IdamService = new IdamService(idamApiUrl, appPort, appUser, appSecret, httpProxy);
+const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret);
 const hearingService: HearingService = new HearingService(apiUrl);
 const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);

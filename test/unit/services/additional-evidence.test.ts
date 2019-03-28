@@ -1,21 +1,24 @@
 import { AdditionalEvidenceService } from 'app/server/services/additional-evidence';
 import * as path from 'path';
 import * as fs from 'fs';
-const { expect, sinon } = require('test/chai-sinon');
-const { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } = require('http-status-codes');
-const request = require('request-promise');
+const { expect } = require('test/chai-sinon');
+const { INTERNAL_SERVER_ERROR, NO_CONTENT } = require('http-status-codes');
 const nock = require('nock');
 const config = require('config');
 
 describe('services/additional-evidence', () => {
   let additionalEvidenceService;
   const apiUrl = config.get('api.url');
+  const req: any = {};
   before(() => {
     additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
+    req.session = {
+      accessToken : 'someUserToken',
+      serviceToken : 'someServiceToken'
+    };
   });
 
   describe('#saveStatement', () => {
-    let rpPostStub: sinon.SinonStub;
     let statementText = 'This is my statement';
 
     const apiResponse = {
@@ -32,7 +35,7 @@ describe('services/additional-evidence', () => {
       });
 
       it('resolves the promise with the response', () => {
-        expect(additionalEvidenceService.saveStatement(statementText)).to.eventually.eql(apiResponse);
+        expect(additionalEvidenceService.saveStatement(statementText, req)).to.eventually.eql(apiResponse);
       });
     });
 
@@ -48,7 +51,7 @@ describe('services/additional-evidence', () => {
       });
 
       it('rejects the save statement promise with the error', () => (
-        expect(additionalEvidenceService.saveStatement(statementText)).to.be.rejectedWith(error)
+        expect(additionalEvidenceService.saveStatement(statementText, req)).to.be.rejectedWith(error)
       ));
     });
   });
