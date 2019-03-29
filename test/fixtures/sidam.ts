@@ -46,6 +46,7 @@ async function unregisterRedirectUri() {
 
 async function createUser(ccdCase) {
 // eslint-disable-next-line no-magic-numbers
+  logger.info(`Creating user [${ccdCase.email}] on [${sidamApiUrl}]`);
   const password = 'Apassword123';
   const options = {
     url: `${sidamApiUrl}/testing-support/accounts`,
