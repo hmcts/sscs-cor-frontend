@@ -19,6 +19,7 @@ export class EvidenceUpload {
       this.setFileUploadState();
       this.attachEventListeners();
     }
+    this.additionalEvidenceAttachEventListeners();
   }
 
   showHideRevealContainer(e: any): void {
@@ -55,6 +56,15 @@ export class EvidenceUpload {
     provideEvidence.addEventListener('click', this.showHideRevealContainer.bind(this));
     const fileUpload: HTMLElement = document.getElementById(this.FILE_UPLOAD_ID);
     fileUpload.addEventListener('change', this.uploadFile.bind(this));
+  }
+
+  additionalEvidenceAttachEventListeners(): void {
+    const additionalEvidence = document.querySelector('#additional-evidence-file');
+    if (additionalEvidence) {
+      additionalEvidence.addEventListener('change', (input: any) => {
+        document.forms['additional-evidence-form'].submit();
+      });
+    }
   }
 
   setFileUploadState(): void {

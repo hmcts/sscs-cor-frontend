@@ -5,7 +5,7 @@ function cacheStatementState(statementText) {
 }
 
 module.exports = {
-  path: '/additional-evidence/statmenet',
+  path: '/continuous-online-hearings/:onlineHearingId/statment',
   method: 'PUT',
   cache: false,
   status: (req, res, next) => {
