@@ -1,40 +1,42 @@
 {% from "button/macro.njk" import govukButton %}
 {% from "radios/macro.njk" import govukRadios %}
 
-<h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceOptions.header }}</h1>
-<form action="/additional-evidence", method="post">
-    {{ govukRadios({
-        idPrefix: "additional-evidence-option",
-        name: "additional-evidence-option",
-        fieldset: {
-            legend: {
-            text: i18n.additionalEvidence.evidenceOptions.title,
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--xl"
-            }
-        },
-        items: [
-            {
-                value: "statement",
-                text: "Write a statement online"
+<div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceOptions.header }}</h1>
+    <form action="/additional-evidence", method="post">
+        {{ govukRadios({
+            idPrefix: "additional-evidence-option",
+            name: "additional-evidence-option",
+            fieldset: {
+                legend: {
+                text: i18n.additionalEvidence.evidenceOptions.title,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--xl"
+                }
             },
-            {
-                value: "upload",
-                text: "Upload letters, documents or photos"
-            },
-            {
-                value: "post",
-                text: "Send by post"
-            }
-        ]
-        }) 
-    }}
-    <div id="submit-buttons">
-        {{ 
-            govukButton({
-                name: "continue",
-                text: "Continue"
+            items: [
+                {
+                    value: "statement",
+                    text: "Write a statement online"
+                },
+                {
+                    value: "upload",
+                    text: "Upload letters, documents or photos"
+                },
+                {
+                    value: "post",
+                    text: "Send by post"
+                }
+            ]
             }) 
         }}
-    </div>
-</form>
+        <div id="submit-buttons">
+            {{ 
+                govukButton({
+                    name: "continue",
+                    text: "Continue"
+                }) 
+            }}
+        </div>
+    </form>
+</div>

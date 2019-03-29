@@ -741,7 +741,9 @@
        }
     },
     "evidenceConfirm": {
-      "header" : "You have submitted additional evidence"
+      "header" : "You have submitted additional evidence",
+      "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
+      "link": "Return to Your PIP benefit appeal"
     },
     "about": {
         "header": "Providing evidence to support your appeal",
