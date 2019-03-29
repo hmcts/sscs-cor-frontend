@@ -16,7 +16,7 @@ describe('Additional Evidence', () => {
     page = res.page;
     taskListPage = new TaskListPage(page);
     additionalEvidencePage = new AdditionalEvidencePage(page);
-    // await taskListPage.visitPage();
+    await taskListPage.visitPage();
     await taskListPage.clickElement('#evidence-options-link');
   });
 
