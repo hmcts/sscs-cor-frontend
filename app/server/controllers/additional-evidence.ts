@@ -35,31 +35,22 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
     const statementText = req.body['question-field'];
 
     try {
-      await validateAnswer(req, res, statementText, async () => {
-        if (statementText.length > 0) {
-          await additionalEvidenceService.saveStatement(statementText, req);
-          res.redirect(`${Paths.additionalEvidence}/confirm`);
-        }
-      });
+      let validationMessage = answerValidation(statementText, req);
+
+      if (!validationMessage) {
+        await additionalEvidenceService.saveStatement(statementText, req);
+        res.redirect(`${Paths.additionalEvidence}/confirm`);
+      } else {
+        const statement = { error: validationMessage };
+        res.render('additional-evidence/index.html', { statement , action : 'statement' });
+      }
+
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
     }
   };
 
-}
-
-async function validateAnswer(req: Request, res: Response, answerText: string, callback) {
-  let validationMessage;
-  if (req.body.submit) {
-    validationMessage = answerValidation(answerText, req);
-  }
-
-  if (validationMessage) {
-    const statement = { error: validationMessage };
-    return res.render('additional-evidence/index.html', { statement , action : 'statement' });
-  }
-  await callback();
 }
 
 function setupadditionalEvidenceController(deps: any) {

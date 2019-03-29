@@ -2,6 +2,7 @@ const Joi = require('joi');
 const i18n = require('../../../locale/en');
 
 const maxCharacters = 20000;
+const minCharecters = 1;
 
 function answerValidation(answer, req) {
 
@@ -14,6 +15,7 @@ function answerValidation(answer, req) {
 
   const schema = Joi.string()
     .required()
+    .min(minCharecters)
     .max(maxCharacters)
     .options({
       language: {
