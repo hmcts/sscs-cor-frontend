@@ -13,6 +13,11 @@ $govuk-assets-path: '/public/govuk-frontend/';
   border-bottom: 3px solid govuk-colour("blue");
 }
 
+.divider--l {
+  border-bottom: 10px solid govuk-colour("blue");
+  margin-bottom: 10px;
+}
+
 #navigation {
   float: right;
 }

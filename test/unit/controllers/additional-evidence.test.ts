@@ -1,4 +1,4 @@
-import { getadditionalEvidence, postEvidenceStatement, postAdditionalEvidence } from 'app/server/controllers/additional-evidence';
+import { getAboutEvidence, getadditionalEvidence, postEvidenceStatement, postAdditionalEvidence } from 'app/server/controllers/additional-evidence';
 import * as Paths from 'app/server/paths';
 const { expect, sinon } = require('test/chai-sinon');
 import * as AppInsights from 'app/server/app-insights';
@@ -32,6 +32,11 @@ describe('controllers/additional-evidence.js', () => {
 
   afterEach(() => {
     (AppInsights.trackException as sinon.SinonStub).restore();
+  });
+
+  it('should render about evidence page', () => {
+    getAboutEvidence(req, res);
+    expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/about-evidence.html');
   });
 
   it('should pass "options" as argument to view if param action empty', () => {

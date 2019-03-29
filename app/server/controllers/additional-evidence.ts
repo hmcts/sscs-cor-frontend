@@ -12,6 +12,10 @@ const allowedActions = [
   'confirm'
 ];
 
+function getAboutEvidence(req: Request, res: Response) {
+  return res.render('additional-evidence/about-evidence.html');
+}
+
 function getadditionalEvidence (req: Request, res: Response) {
   const action: string =
     (!allowedActions.includes(req.params.action) || !req.params.action) ?
@@ -60,6 +64,7 @@ async function validateAnswer(req: Request, res: Response, answerText: string, c
 
 function setupadditionalEvidenceController(deps: any) {
   const router = Router();
+  router.get(Paths.aboutEvidence, deps.prereqMiddleware, getAboutEvidence);
   router.get(`${Paths.additionalEvidence}/:action?`, deps.prereqMiddleware, getadditionalEvidence);
   router.post(`${Paths.additionalEvidence}`, deps.prereqMiddleware, postAdditionalEvidence);
 
@@ -73,8 +78,9 @@ function setupadditionalEvidenceController(deps: any) {
 
 export {
   allowedActions,
-  getadditionalEvidence,
-  setupadditionalEvidenceController,
   postEvidenceStatement,
-  postAdditionalEvidence
+  postAdditionalEvidence,
+  getAboutEvidence,
+  getadditionalEvidence,
+  setupadditionalEvidenceController
 };
