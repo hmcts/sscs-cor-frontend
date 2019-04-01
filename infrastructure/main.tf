@@ -33,6 +33,11 @@ data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret" {
   vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
 }
 
+data "azurerm_key_vault_secret" "sscs-s2s-secret" {
+  name = "sscs-s2s-secret"
+  vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
+}
+
 module "sscs-cor-frontend" {
   source               = "git@github.com:contino/moj-module-webapp?ref=master"
   product              = "${var.product}-${var.component}"
