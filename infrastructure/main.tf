@@ -19,6 +19,8 @@ locals {
 
   local_env = "${(var.env == "preview") ? "aat" : (var.env == "spreview") ? "saat" : var.env}"
   azureVaultName = "sscs-${local.local_env}"
+
+  s2sUrl = "http://rpe-service-auth-provider-${local.local_env}.service.${local.aseName}.internal"
 }
 
 data "azurerm_key_vault" "sscs_key_vault" {
@@ -58,6 +60,8 @@ module "sscs-cor-frontend" {
     IDAM_CLIENT_SECRET                             = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret.value}"
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED          = "${var.evidence_upload_question_page_enabled}"
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED = "${var.evidence_upload_question_page_override_allowed}"
+    S2S_URL                                        = "${local.s2sUrl}"
+    S2S_SECRET                                     = "${data.azurerm_key_vault_secret.sscs-s2s-secret.value}"
   }
 }
 
