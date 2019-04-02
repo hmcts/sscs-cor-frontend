@@ -1,4 +1,5 @@
-const request = require('request-promise');
+import { Request } from 'express';
+import { RequestPromise } from './request-wrapper';
 const timeout = require('config').get('apiCallTimeout');
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -17,27 +18,29 @@ export class AdditionalEvidenceService {
     this.apiUrl = apiUrl;
   }
 
-  async saveStatement(onlineHearingId: string, statementText: string) {
+  async saveStatement(onlineHearingId: string, statementText: string, req: Request) {
     try {
-      const body = await request.put({
+      const body = await RequestPromise.request({
+        method: 'PUT',
         uri: `${this.apiUrl}/continuous-online-hearings/${onlineHearingId}/statement`,
         body: {
           statementText
         },
         json: true,
         timeout
-      });
+      }, req);
 
       return Promise.resolve(body);
     } catch (error) {
-      logger.error('Error saveAnswer', error);
-      return Promise.reject(error);
+      logger.error('Error saveStatement', error.message);
+      return Promise.reject(error.message);
     }
   }
 
-  async uploadEvidence(hearingId: string, file: Express.Multer.File): Promise<EvidenceDescriptor> {
+  async uploadEvidence(hearingId: string, file: Express.Multer.File, req: Request): Promise<EvidenceDescriptor> {
     try {
-      const evidence: EvidenceDescriptor = await request.put({
+      const evidence: EvidenceDescriptor = await RequestPromise.request({
+        method: 'PUT',
         url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
         simple: false,
         resolveWithFullResponse: true,
@@ -50,43 +53,46 @@ export class AdditionalEvidenceService {
             }
           }
         }
-      });
+      }, req);
       return Promise.resolve(evidence);
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  async removeEvidence(hearingId: string, evidenceId: string) {
+  async removeEvidence(hearingId: string, evidenceId: string, req: Request) {
     try {
-      await request.delete({
+      await RequestPromise.request({
+        method: 'delete',
         url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/${evidenceId}`,
         headers: {
           'Content-Length': '0'
         }
-      });
+      }, req);
       return Promise.resolve();
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  async getEvidences(hearingId: string): Promise<EvidenceDescriptor[]> {
+  async getEvidences(hearingId: string, req: Request): Promise<EvidenceDescriptor[]> {
     try {
-      const evidences: EvidenceDescriptor[] = await request.get({
+      const evidences: EvidenceDescriptor[] = await RequestPromise.request({
+        method: 'get',
         url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
         json: true,
         timeout
-      });
+      }, req);
       return Promise.resolve(evidences);
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  async submitEvidences(hearingId: string) {
+  async submitEvidences(hearingId: string, req: Request) {
     try {
-      await request.post({
+      await RequestPromise.request({
+        method: 'post',
         url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
         headers: {
           'Content-Length': '0'

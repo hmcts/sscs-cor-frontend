@@ -55,7 +55,7 @@
     "sendingEvidence": {
       "header": "Providing additional evidence",
       "intro": "If you have any additional information that is relevant to your appeal, you can",
-      "anchorText": "submit it to the tribunal.",
+      "anchorText": "submit it to the tribunal",
       "summary": "How to send additional evidence",
       "details": {
         "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
@@ -732,7 +732,7 @@
       "header": "Upload additional evidence",
       "description": {
         "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
-        "para2": "Useful evidence describes or shows how your condition affects your life. <a href='/about-evidence'>Read more about what evidence the tribunal finds useful</a>"
+        "para2": "Useful evidence describes or shows how your condition affects your life. <a href='/about-evidence'><br/>Read more about what evidence the tribunal finds useful</a>"
       }
     },
     "evidencePost" : {

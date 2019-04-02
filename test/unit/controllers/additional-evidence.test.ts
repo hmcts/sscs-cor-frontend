@@ -71,7 +71,7 @@ describe('controllers/additional-evidence.js', () => {
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'upload',
       question: { evidence: [] },
-      success: false
+      error: false
     });
   });
 
