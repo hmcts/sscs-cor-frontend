@@ -13,7 +13,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <div id="task-list">
-            <h2 class="govuk-heading-s">Questions from the tribunal</h2>
+            <h2 class="govuk-heading-s --margin-bottom-s">Questions from the tribunal</h2>
             {% if questions.length != 0 %}
                 <p>
                     <span id="deadline-status">
@@ -57,10 +57,10 @@
             {% endif %}
         </div>
 
-        <h2 class="govuk-heading-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
+        <h2 class="govuk-heading-s --margin-bottom-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
         <p>
             {{ i18n.taskList.sendingEvidence.intro }} 
-            <a id="evidence-options-link" href="/additional-evidence">{{ i18n.taskList.sendingEvidence.anchorText }}</a>
+            <a id="evidence-options-link" href="/additional-evidence">{{ i18n.taskList.sendingEvidence.anchorText }}</a>.
         </p>
     </div>
 </div>
