@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as config from 'config';
 const multer = require('multer');
-const cache = require('memory-cache');
 import * as _ from 'lodash';
 import * as AppInsights from '../app-insights';
 import { answerValidation } from '../utils/fieldValidation';
