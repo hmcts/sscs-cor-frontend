@@ -55,7 +55,12 @@ async function createUser(ccdCase) {
       email: ccdCase.email,
       forename: 'ATestForename',
       password: password,
-      surname: 'ATestSurname'
+      surname: 'ATestSurname',
+      roles: [
+        {
+          code: 'citizen'
+        }
+      ]
     },
     insecure: true,
     timeout
