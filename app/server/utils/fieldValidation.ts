@@ -4,7 +4,7 @@ const i18n = require('../../../locale/en');
 const maxCharacters = 20000;
 const minCharecters = 1;
 
-function answerValidation(answer, req) {
+function answerValidation(answer, req?) {
 
   let emptyErrorMsg = i18n.question.textareaField.errorOnSave.empty;
 

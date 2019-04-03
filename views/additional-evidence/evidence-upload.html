@@ -1,3 +1,47 @@
+{% from "button/macro.njk" import govukButton %}
+{% from "file-upload/macro.njk" import govukFileUpload %}
+{% from "textarea/macro.njk" import govukTextarea %}
+
 <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceUpload.header }}</h1>
+    <p>{{ i18n.additionalEvidence.evidenceUpload.description.para1 }}</p>
+    <p>{{ i18n.additionalEvidence.evidenceUpload.description.para2  | eval | safe }}.</p>
+    <form class="--padding-top-m" id="additional-evidence-form" name="additional-evidence-form" action="/additional-evidence/upload" method="POST" enctype="multipart/form-data">
+        {{ govukTextarea({
+            name: "additional-evidence-description",
+            id: "additional-evidence-description",
+            label: {
+              text: "Describe the evidence",
+              classes: "--font-weight-b --margin-none"
+            },
+            hint: {
+              text: "Briefly describe what you’re uploading and why"
+            },
+            errorMessage: {
+                text: error
+            } if error
+          }) }}
+
+        {{ govukFileUpload({
+            id: "additional-evidence-file",
+            name: "additional-evidence-file",
+            classes: "display--none",
+            label: {
+                text: i18n.questionUploadEvidence.label,
+                classes: "govuk-button secondary-button element--inline "
+            },
+            attributes: {
+                accept: fileTypeWhiteList
+            },
+            "errorMessage": {
+                "text": fileUploadError
+            } if fileUploadError
+        }) }}
+
+        {% include "question/evidence-list.html" %}
+
+        <div id="submit-buttons">
+            <input id="submit-evidences" type="submit" name="buttonSubmit" value="Submit evidence to the tribunal" class="govuk-button">
+        </div>
+    </form>
 </div>
