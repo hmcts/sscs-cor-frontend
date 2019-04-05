@@ -24,7 +24,8 @@ describe('controllers/additional-evidence.js', () => {
         accessToken: accessToken,
         serviceToken: serviceToken,
         hearing: {
-          online_hearing_id: ''
+          online_hearing_id: '',
+          case_reference: 'mockedCaseRef'
         }
       },
       body: {},
@@ -113,9 +114,10 @@ describe('controllers/additional-evidence.js', () => {
   });
 
   describe('#postAdditionalEvidence', () => {
-    it('should render the send by post additional evidence page.', () => {
+    it('should render the send by post additional evidence page', () => {
       postAdditionalEvidence(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', { action: req.body['additional-evidence-option'] });
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'additional-evidence/index.html', { action: req.body['additional-evidence-option'], caseRef: req.session.hearing.case_reference });
     });
   });
 

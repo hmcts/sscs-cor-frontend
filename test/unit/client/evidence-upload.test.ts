@@ -80,7 +80,7 @@ describe('evidence-upload', () => {
     it('hide reveal container by default', () => {
       const revealContainer: HTMLElement = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
       expect(revealContainer.style.display).to.equal('none');
-      expect(revealContainer.className).to.equal('panel-indent');
+      expect(revealContainer.className).to.equal('govuk-details__text --margin-bottom-m');
     });
     it('sets file upload state', () => {
       const fileUpload: HTMLElement = document.getElementById(evidenceUpload.FILE_UPLOAD_ID);
