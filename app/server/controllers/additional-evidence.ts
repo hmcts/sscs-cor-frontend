@@ -26,7 +26,7 @@ function getAboutEvidence(req: Request, res: Response) {
 }
 
 function postAdditionalEvidence (req: Request, res: Response) {
-  return res.render('additional-evidence/index.html', { action: req.body['additional-evidence-option'] });
+  return res.render('additional-evidence/index.html', { action: req.body['additional-evidence-option'], caseRef: req.session.hearing.case_reference });
 }
 
 function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceService) {

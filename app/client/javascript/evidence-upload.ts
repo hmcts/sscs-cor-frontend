@@ -85,7 +85,7 @@ export class EvidenceUpload {
       provideEvidence.checked = true;
       this.revealContainer.style.display = 'block';
     }
-    this.revealContainer.className = 'panel-indent';
+    this.revealContainer.className = 'govuk-details__text --margin-bottom-m';
   }
 
   showHideElements(): void {
