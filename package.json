@@ -44,7 +44,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "yarn test && yarn test:audit"
     }
   },
   "repository": {
