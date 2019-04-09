@@ -16,10 +16,10 @@ export class AdditionalEvidenceService {
 
   async saveStatement(onlineHearingId: string, statementText: string, req: Request) {
     return RequestPromise.request({
-      method: 'PUT',
+      method: 'POST',
       uri: `${this.apiUrl}/continuous-online-hearings/${onlineHearingId}/statement`,
       body: {
-        statementText
+        body: statementText
       }
     }, req);
   }
