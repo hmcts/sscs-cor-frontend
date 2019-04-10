@@ -733,6 +733,10 @@
       "description": {
         "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
         "para2": "Useful evidence describes or shows how your condition affects your life. <a href='/about-evidence'><br/>Read more about what evidence the tribunal finds useful</a>"
+      },
+      "error": {
+        "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
+        "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading."
       }
     },
     "evidencePost" : {

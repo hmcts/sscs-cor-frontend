@@ -1,5 +1,5 @@
 const { expect } = require('test/chai-sinon');
-import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedValidation, newHearingAcceptedValidation, hearingWhyValidation } from 'app/server/utils/fieldValidation.ts';
+import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedValidation, newHearingAcceptedValidation, hearingWhyValidation, uploadDescriptionValidation } from 'app/server/utils/fieldValidation.ts';
 const i18n = require('locale/en');
 
 describe('utils/fieldValidation.js', () => {
@@ -27,6 +27,16 @@ describe('utils/fieldValidation.js', () => {
 
     it('returns false if answer is valid', () => {
       expect(hearingWhyValidation('Valid answer')).to.equal(false);
+    });
+  });
+
+  describe('uploadDescriptionValidation', () => {
+    it('returns false if answer is valid', () => {
+      expect(uploadDescriptionValidation('Valid answer')).to.equal(false);
+    });
+
+    it('returns the error message if answer is not an email', () => {
+      expect(uploadDescriptionValidation('')).to.equal(i18n.additionalEvidence.evidenceUpload.error.emptyDescription);
     });
   });
 

@@ -4,6 +4,24 @@ const i18n = require('../../../locale/en');
 const maxCharacters = 20000;
 const minCharecters = 1;
 
+function uploadDescriptionValidation(description) {
+  let error = false;
+  const schema = Joi.string()
+    .required()
+    .max(maxCharacters)
+    .options({
+      language: {
+        any: { empty: `!!${i18n.additionalEvidence.evidenceUpload.error.emptyDescription}` },
+        string: { max: `!!${i18n.hearingWhy.error.maxCharacters}` }
+      }
+    });
+  const result = schema.validate(description);
+  if (result.error) {
+    error = result.error.details[0].message;
+  }
+  return error;
+}
+
 function answerValidation(answer, req?) {
 
   let emptyErrorMsg = i18n.question.textareaField.errorOnSave.empty;
@@ -97,5 +115,6 @@ export {
   loginEmailAddressValidation,
   tribunalViewAcceptedValidation,
   newHearingAcceptedValidation,
-  hearingWhyValidation
+  hearingWhyValidation,
+  uploadDescriptionValidation
 };

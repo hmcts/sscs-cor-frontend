@@ -40,9 +40,13 @@
             descriptionText: i18n.errorSummary.descriptionText,
             errorList: [
               {
-                  text: error,
-                  href: "#question-field"
-              } if error
+                text: error,
+                href: "#question-field"
+              } if error,
+              {
+                text: fileUploadError,
+                href: "#file-field"
+              } if fileUploadError
             ]
         }) }}
       {% endif %}  

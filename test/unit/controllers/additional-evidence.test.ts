@@ -2,6 +2,8 @@ import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdd
 import * as Paths from 'app/server/paths';
 const { expect, sinon } = require('test/chai-sinon');
 import * as AppInsights from 'app/server/app-insights';
+import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
+const i18n = require('locale/en');
 
 describe('controllers/additional-evidence.js', () => {
   let req;
@@ -26,7 +28,8 @@ describe('controllers/additional-evidence.js', () => {
         hearing: {
           online_hearing_id: '',
           case_reference: 'mockedCaseRef'
-        }
+        },
+        additional_evidence: {}
       },
       body: {},
       file: null,
@@ -64,15 +67,17 @@ describe('controllers/additional-evidence.js', () => {
   });
 
   it('should pass "upload" as argument to view if param action is "upload"', async () => {
+    const description: string = 'this is a description for the files to be upload';
     req.params.action = 'upload';
     req.session.hearing.online_hearing_id = 'hearingId';
+    req.session.additional_evidence.description = description;
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
 
     expect(additionalEvidenceService.getEvidences).to.have.been.calledOnce.calledWith('hearingId');
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'upload',
-      question: { evidence: [] },
-      error: false
+      description,
+      question: { evidence: [] }
     });
   });
 
@@ -116,8 +121,7 @@ describe('controllers/additional-evidence.js', () => {
   describe('#postAdditionalEvidence', () => {
     it('should render the send by post additional evidence page', () => {
       postAdditionalEvidence(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-        'additional-evidence/index.html', { action: req.body['additional-evidence-option'], caseRef: req.session.hearing.case_reference });
+      expect(res.redirect).to.have.been.calledWith(`${Paths.additionalEvidence}/${req.body['additional-evidence-option']}`);
     });
   });
 
@@ -206,6 +210,40 @@ describe('controllers/additional-evidence.js', () => {
       expect(additionalEvidenceService.removeEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.online_hearing_id, fileId);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledOnce.calledWith(error);
+    });
+
+    it('should show errors when no files submitted and missing descr', async () => {
+      req.body.buttonSubmit = 'there';
+      await postFileUpload(additionalEvidenceService)(req, res, next);
+
+      expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
+        action: 'upload',
+        question: { evidence: [] },
+        description: '',
+        error: i18n.additionalEvidence.evidenceUpload.error.emptyDescription,
+        fileUploadError: i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded
+      });
+    });
+
+    it('should submit evidences and description and redirect to confirmation page', async () => {
+      req.body.buttonSubmit = 'there';
+      const hearingId = req.session.hearing.online_hearing_id;
+      const evidence: EvidenceDescriptor = {
+        'created_date': "2018-10-24'T'12:11:21Z",
+        'file_name': 'some_file_name.txt',
+        'id': '8f79deb3-5d7a-4e6f-846a-a8131ac6a3bb'
+      };
+      additionalEvidenceService = {
+        getEvidences: sandbox.stub().resolves([evidence]),
+        submitEvidences: sandbox.stub().resolves()
+      };
+      const description: string = 'this is a description for the files to be upload';
+      req.body['additional-evidence-description'] = description;
+
+      await postFileUpload(additionalEvidenceService)(req, res, next);
+
+      expect(additionalEvidenceService.submitEvidences).to.have.been.calledOnce.calledWith(hearingId, description, req);
+      expect(req.session.additional_evidence.description).to.equal('');
     });
 
     it('should redirect to Task List if no file to upload or delete', async () => {

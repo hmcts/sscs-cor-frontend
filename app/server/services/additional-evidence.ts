@@ -44,7 +44,7 @@ export class AdditionalEvidenceService {
 
   async removeEvidence(hearingId: string, evidenceId: string, req: Request) {
     return RequestPromise.request({
-      method: 'delete',
+      method: 'DELETE',
       url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/${evidenceId}`,
       headers: {
         'Content-Length': '0'
@@ -54,15 +54,18 @@ export class AdditionalEvidenceService {
 
   async getEvidences(hearingId: string, req: Request): Promise<EvidenceDescriptor[]> {
     return RequestPromise.request({
-      method: 'get',
+      method: 'GET',
       url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence`
     }, req);
   }
 
-  async submitEvidences(hearingId: string, req: Request) {
+  async submitEvidences(hearingId: string, description: string, req: Request) {
     return RequestPromise.request({
-      method: 'post',
+      method: 'POST',
       url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
+      body: {
+        body: description
+      },
       headers: {
         'Content-Length': '0'
       }
