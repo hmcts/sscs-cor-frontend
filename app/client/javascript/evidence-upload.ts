@@ -62,6 +62,11 @@ export class EvidenceUpload {
     const additionalEvidence = document.querySelector('#additional-evidence-file');
     if (additionalEvidence) {
       additionalEvidence.addEventListener('change', (input: any) => {
+        const spinner = document.getElementById('upload-spinner');
+        spinner.style.display = 'block';
+        const fileUpload: HTMLElement = document.querySelector('[for="additional-evidence-file"]');
+        fileUpload.style.display = 'none';
+
         document.forms['additional-evidence-form'].submit();
       });
     }
