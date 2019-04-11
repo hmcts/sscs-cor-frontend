@@ -107,7 +107,7 @@ describe('Question page', () => {
     expect(await questionPage.getElementText('.govuk-error-summary'))
       .contain(i18n.question.textareaField.error.empty);
     expect(await questionPage.getElementText('#question-field-error'))
-      .equal(i18n.question.textareaField.error.empty);
+      .to.containIgnoreSpaces(i18n.question.textareaField.error.empty);
   });
 
   describe('evidence upload per question disabled', () => {
@@ -192,7 +192,7 @@ describe('Question page', () => {
       it('validates that a file has been chosen', async () => {
         await uploadEvidencePage.submit();
         expect(await uploadEvidencePage.getElementText('.govuk-error-summary')).contain(i18n.questionUploadEvidence.error.empty);
-        expect(await questionPage.getElementText('#file-upload-1-error')).equal(i18n.questionUploadEvidence.error.empty);
+        expect(await questionPage.getElementText('#file-upload-1-error')).to.containIgnoreSpaces(i18n.questionUploadEvidence.error.empty);
       });
 
       it('takes the user back to the question after submitting evidence', async () => {

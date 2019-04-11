@@ -8,9 +8,10 @@
 {% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.about.header }}</h1>
+                <h1 class="govuk-heading-xl question-header">{{ i18n.additionalEvidence.about.header }}</h1>
                 <p class="govuk-body-l">{{ i18n.additionalEvidence.about.leadParagraph }}</p>
-                <p>{{ i18n.additionalEvidence.about.intro }}</p>
+                <p>{{ i18n.additionalEvidence.about.intro.para1 }}</p>
+                <p>{{ i18n.additionalEvidence.about.intro.para2 }}</p>
 
                 <h2 class="govuk-heading-m">{{ i18n.additionalEvidence.about.types.medical.header }}</h2>
                 <p>{{ i18n.additionalEvidence.about.types.medical.para1 }}</p>
@@ -25,12 +26,12 @@
 
                 <h2 class="govuk-heading-m">{{ i18n.additionalEvidence.about.types.oral.header }}</h2>
                 <p>{{ i18n.additionalEvidence.about.types.oral.para1 }}</p>
+                <p>{{ i18n.additionalEvidence.about.types.oral.para2 }}</p>
 
-                <h2 class="govuk-heading-m">{{ i18n.additionalEvidence.about.types.post.header }}</h2>
-                <p>{{ i18n.additionalEvidence.about.types.post.para1 }}</p>
-                <p>{{ i18n.additionalEvidence.about.types.post.para2  | eval | safe }}</p>
-                <p>{{ i18n.additionalEvidence.about.types.post.para3  | eval | safe }}</p>
-
+                <h2 class="govuk-heading-m">{{ i18n.additionalEvidence.about.howto.header }}</h2>
+                <p>{{ i18n.additionalEvidence.about.howto.para1 }}</p>
+                {{ i18n.additionalEvidence.about.howto.options | eval | safe }}
+                <p>{{ i18n.additionalEvidence.about.howto.cta | eval | safe  }}</p>
         </div>
     </div>
 {% endblock %}

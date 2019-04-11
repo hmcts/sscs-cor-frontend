@@ -78,7 +78,7 @@ describe('Tribunal view page', () => {
   it('validates that one option must be selected', async () => {
     await tribunalViewPage.submit();
     expect(await tribunalViewPage.getElementText('.govuk-error-summary')).contain(i18n.tribunalView.error.emptyOnDecisionPick);
-    expect(await tribunalViewPage.getElementText('#accept-view-error')).equal(i18n.tribunalView.error.emptyOnDecisionPick);
+    expect(await tribunalViewPage.getElementText('#accept-view-error')).to.containIgnoreSpaces(i18n.tribunalView.error.emptyOnDecisionPick);
   });
 
   describe('accepting the tribunal\'s view shows the accepts page', () => {
