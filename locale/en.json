@@ -754,8 +754,11 @@
     },
     "about": {
         "header": "Providing evidence to support your appeal",
-        "leadParagraph": "Evidence is any information that supports your appeal, such as a letter, written statement or medical report. What you say at a hearing is also evidence. It all helps the tribunal understand the facts of your appeal.",
-        "intro": "You should post evidence as soon as possible, if you have it. This is so the tribunal have time to read it before your hearing. The address will be sent to you by post or email, if you provide your email address.",
+        "leadParagraph": "Evidence is any information that supports your appeal, such as a letter, written statement or medical report. It all helps the tribunal understand the facts of your appeal.",
+        "intro": {
+          "para1": "You should provide evidence as soon as you can, if you have any. This is so the tribunal have time to consider it before making a decision on your benefit appeal.",
+          "para2": "You can provide evidence online or by post. Find out more about how to provide it at the bottom of this page."
+        },
         "types": {
             "medical": {
               "header": "Medical evidence",
@@ -773,14 +776,15 @@
             },
             "oral": {
               "header": "Oral evidence",
-              "para1": "What you or anyone else says on your behalf at the hearing (if you go) is called oral evidence. If you have a carer or someone who supports you in your home, you could invite them to come and tell the tribunal about your condition. You should check the person is willing to talk at your hearing and available on the day."
-            },
-            "post": {
-              "header": "Sending evidence to the tribunal",
-              "para1": "Post your evidence to the address below as soon as possible. This is so the tribunal have time to read it before they make a decision on your appeal.",
-              "para2": "Make sure you include a copy of the ‘evidence cover sheet’ that was sent to you. The cover sheet was in the first letter you received about your benefit appeal. You can <a href=''>download a new cover sheet here</a>, if you need one.",
-              "para3": "SSCS<br/>HMCTS SSCS Tribunal<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF"
+              "para1": "What you or anyone else says at a hearing (if you have one) is called ‘oral evidence’. The tribunal will use what is said to help them make a decision on your appeal.",
+              "para2": "If you have a hearing then you could invite someone who knows you well to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day."
             }
+        },
+        "howto": {
+          "header": "How to provide evidence to the tribunal",
+          "para1": "You can provide evidence to the tribunal by:",
+          "options": "<ul><li>writing a message online</li><li>uploading files, documents or photos</li><li>sending it by post</li></ul>",
+          "cta": "<a href='/additional-evidence'>Provide evidence to the tribunal</a>"
         }
     }
   }
