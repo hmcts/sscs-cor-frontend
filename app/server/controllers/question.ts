@@ -55,7 +55,7 @@ function getQuestion(questionService: QuestionService) {
           value: response.answer,
           date: response.answer_date
         },
-        evidence: _.sortBy(_.map(response.evidence, (i) => ({ filename: i.file_name, id: i.id })), 'created_date').reverse()
+        evidences: response.evidence ? response.evidence.reverse() : []
       };
       req.session.question = question;
       res.render('question/index.html', {
@@ -64,7 +64,7 @@ function getQuestion(questionService: QuestionService) {
       });
     } catch (error) {
       AppInsights.trackException(error);
-      next(error);
+      return next(error);
     }
   };
 }
@@ -168,10 +168,10 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       }
       const errorMessage = `Cannot upload evidence ${JSON.stringify(response)}`;
       AppInsights.trackException(errorMessage);
-      next(new Error(errorMessage));
+      return next(new Error(errorMessage));
     } catch (error) {
       AppInsights.trackException(error);
-      next(error);
+      return next(error);
     }
   };
 }
@@ -186,7 +186,7 @@ function fileTypeInWhitelist(req, file, cb) {
 }
 
 function handleFileUploadErrors(isJsUpload: boolean) {
-  return (err, req: Request, res: Response, next: NextFunction) => {
+  return (err: any, req: Request, res: Response, next: NextFunction) => {
     const questionOrdinal: string = req.params.questionOrdinal;
     if (err instanceof multer.MulterError) {
       let error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
@@ -208,7 +208,7 @@ function handleFileUploadErrors(isJsUpload: boolean) {
       }
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
-    next(err);
+    return next(err);
   };
 }
 

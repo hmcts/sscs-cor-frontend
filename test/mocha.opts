@@ -2,3 +2,4 @@
 --require source-map-support/register
 --require tsconfig-paths/register
 --timeout=180000
+--bail

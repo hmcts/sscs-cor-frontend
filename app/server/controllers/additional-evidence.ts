@@ -6,6 +6,7 @@ import * as AppInsights from '../app-insights';
 import { answerValidation, uploadDescriptionValidation } from '../utils/fieldValidation';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService, EvidenceDescriptor } from '../services/additional-evidence';
+import { handleFileUploadErrors } from '../middleware/file-upload-validation';
 const i18n = require('../../../locale/en');
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
@@ -27,7 +28,6 @@ function getAboutEvidence(req: Request, res: Response) {
 
 function postAdditionalEvidence (req: Request, res: Response) {
   const action = req.body['additional-evidence-option'];
-
   return res.redirect(`${Paths.additionalEvidence}/${action}`);
 }
 
@@ -60,10 +60,13 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
         const { description } = req.session.additional_evidence || '';
         const hearingId = req.session.hearing.online_hearing_id;
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(hearingId, req);
-        const question = {
-          evidence: _.sortBy(_.map(evidences, (i) => ({ filename: i.file_name, id: i.id })), 'created_date').reverse()
-        };
-        return res.render('additional-evidence/index.html', { action, question, description });
+        return res.render('additional-evidence/index.html',
+          {
+            action,
+            evidences: evidences ? evidences.reverse() : [],
+            description
+          }
+        );
       }
       return res.render('additional-evidence/index.html', { action });
     } catch (error) {
@@ -93,13 +96,10 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         const evidencesValidationMsg = evidences.length ? false : i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded;
 
         if (descriptionValidationMsg || evidencesValidationMsg) {
-          const question = {
-            evidence: _.sortBy(_.map(evidences, (i) => ({ filename: i.file_name, id: i.id })), 'created_date').reverse()
-          };
           return res.render('additional-evidence/index.html',
             {
               action: 'upload',
-              question,
+              evidences: evidences ? evidences.reverse() : [],
               description,
               error: descriptionValidationMsg,
               fileUploadError: evidencesValidationMsg
@@ -109,6 +109,17 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         await additionalEvidenceService.submitEvidences(hearingId, evidenceDescription, req);
         req.session.additional_evidence.description = '';
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
+      } else if (res.locals.multerError) {
+        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(hearingId, req);
+
+        return res.render('additional-evidence/index.html',
+          {
+            action: 'upload',
+            evidences: evidences ? evidences.reverse() : [],
+            description,
+            fileUploadError: res.locals.multerError
+          }
+        );
       } else {
         return res.redirect(Paths.taskList);
       }
@@ -136,6 +147,7 @@ function setupadditionalEvidenceController(deps: any) {
   router.post(`${Paths.additionalEvidence}/upload`,
     deps.prereqMiddleware,
     upload.single('additional-evidence-file'),
+    handleFileUploadErrors,
     postFileUpload(deps.additionalEvidenceService)
   );
 

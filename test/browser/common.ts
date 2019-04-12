@@ -101,6 +101,7 @@ export async function login(page, force?) {
       maxRetries--;
     }
   }
+  console.log(`Login function finished. On ${page.url()}`);
 }
 
 async function startServices(options?) {

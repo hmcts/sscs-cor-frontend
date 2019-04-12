@@ -1,9 +1,13 @@
+const multer = require('multer');
+import * as config from 'config';
 import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdditionalEvidence, postFileUpload } from 'app/server/controllers/additional-evidence';
 import * as Paths from 'app/server/paths';
 const { expect, sinon } = require('test/chai-sinon');
 import * as AppInsights from 'app/server/app-insights';
 import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
 const i18n = require('locale/en');
+
+const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
 describe('controllers/additional-evidence.js', () => {
   let req;
@@ -38,7 +42,8 @@ describe('controllers/additional-evidence.js', () => {
 
     res = {
       render: sandbox.spy(),
-      redirect: sandbox.spy()
+      redirect: sandbox.spy(),
+      locals: {}
     } as any;
     additionalEvidenceService = {
       getEvidences: sandbox.stub().resolves([]),
@@ -77,7 +82,7 @@ describe('controllers/additional-evidence.js', () => {
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'upload',
       description,
-      question: { evidence: [] }
+      evidences: []
     });
   });
 
@@ -218,7 +223,7 @@ describe('controllers/additional-evidence.js', () => {
 
       expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
         action: 'upload',
-        question: { evidence: [] },
+        evidences: [],
         description: '',
         error: i18n.additionalEvidence.evidenceUpload.error.emptyDescription,
         fileUploadError: i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded
@@ -246,12 +251,23 @@ describe('controllers/additional-evidence.js', () => {
       expect(req.session.additional_evidence.description).to.equal('');
     });
 
-    it('should redirect to Task List if no file to upload or delete', async () => {
+    it('should show errors when file size is bigger than certain limit', async () => {
+      const fileSizeErrorMsg = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
+      res.locals.multerError = fileSizeErrorMsg;
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
+      expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
+        action: 'upload',
+        evidences: [],
+        description: '',
+        fileUploadError: fileSizeErrorMsg
+      });
+    });
+
+    it('should redirect to Task List if no file to upload or delete', async () => {
+      await postFileUpload(additionalEvidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
 
   });
-
 });

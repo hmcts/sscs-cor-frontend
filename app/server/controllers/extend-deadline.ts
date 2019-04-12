@@ -29,7 +29,7 @@ function extensionConfirmation(hearingService: HearingService) {
 
     } catch (error) {
       AppInsights.trackException(error);
-      next(error);
+      return next(error);
     }
   };
 }
