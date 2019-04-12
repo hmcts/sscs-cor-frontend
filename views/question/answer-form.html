@@ -1,5 +1,6 @@
 {% from "checkboxes/macro.njk" import govukCheckboxes %}
 {% from "file-upload/macro.njk" import govukFileUpload %}
+{% from "components/spinner.html" import spinner %}
 
 <form id="answer-form" action="/question/{{ question.questionOrdinal }}" method="post">
   <div>
@@ -57,11 +58,7 @@
           }) }}
         </div>
 
-        <div id="upload-spinner">
-          <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-
-          <div class="govuk-heading-m spinner-text">{{ i18n.question.evidenceUpload.fileUploading }}</div>
-        </div>
+        {{ spinner(i18n.question.evidenceUpload.fileUploading) }}
 
         {% include "question/evidence-list.html" %}
 
