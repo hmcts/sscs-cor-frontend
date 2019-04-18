@@ -5,13 +5,12 @@ import { handleFileUploadErrors } from 'app/server/middleware/file-upload-valida
 import * as config from 'config';
 const i18n = require('../../../locale/en.json');
 
-const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
-
 describe('#handleFileUploadErrors middleware', () => {
   let req: Request;
   let res: Response;
   let next: NextFunction;
   let sandbox: sinon.SinonSandbox;
+  const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
