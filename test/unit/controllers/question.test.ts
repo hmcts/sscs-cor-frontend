@@ -60,8 +60,7 @@ describe('controllers/question', () => {
       question_body_text: 'Many people ask this question...',
       answer: '',
       answer_state: 'unanswered',
-      answer_date: moment.utc().format(),
-      evidence: []
+      answer_date: moment.utc().format()
     };
 
     beforeEach(() => {
@@ -71,7 +70,7 @@ describe('controllers/question', () => {
       };
     });
 
-    it('should call render with the template and question header', async() => {
+    it('should call render with the template and question header and no evidences', async() => {
       await getQuestion(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
         question: {
@@ -84,7 +83,34 @@ describe('controllers/question', () => {
             date: question.answer_date
           },
           answer_state: question.answer_state,
-          evidence: []
+          evidences: []
+        },
+        showEvidenceUpload: false
+      });
+    });
+
+    it('should call render with the template and question header and evidences', async() => {
+      const mockEvidence = {
+        id: '2',
+        file_name: 'filename',
+        created_date: 'date'
+      };
+      question['evidence'] = [
+        mockEvidence
+      ];
+      await getQuestion(questionService)(req, res, next);
+      expect(res.render).to.have.been.calledWith('question/index.html', {
+        question: {
+          questionId,
+          questionOrdinal: '1',
+          header: question.question_header_text,
+          body: question.question_body_text,
+          answer: {
+            value: '',
+            date: question.answer_date
+          },
+          answer_state: question.answer_state,
+          evidences: [mockEvidence]
         },
         showEvidenceUpload: false
       });

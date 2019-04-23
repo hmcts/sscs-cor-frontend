@@ -2,6 +2,7 @@
 {% from "file-upload/macro.njk" import govukFileUpload %}
 {% from "textarea/macro.njk" import govukTextarea %}
 {% from "components/spinner.html" import spinner %}
+{% from "components/evidence-list.html" import evidenceList with context %}
 
 <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceUpload.header }}</h1>
@@ -43,7 +44,7 @@
 
         {{ spinner(i18n.question.evidenceUpload.fileUploading) }}
 
-        {% include "question/evidence-list.html" %}
+        {{ evidenceList(evidences) }}
 
         <div id="submit-buttons">
             <input id="submit-evidences" type="submit" name="buttonSubmit" value="Submit evidence to the tribunal" class="govuk-button">

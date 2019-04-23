@@ -61,7 +61,7 @@ describe('Question page', () => {
   afterEach(function () {
     if (this.currentTest.state !== 'passed') {
       const testName = this.currentTest.title.replace(/[ \/]/g, '_');
-      taskListPage.screenshot('failed-' + testName).catch(err => {
+      taskListPage.screenshot('test-failed-' + testName).catch(err => {
         console.log(err);
       });
     }

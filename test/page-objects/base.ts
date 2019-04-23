@@ -50,9 +50,9 @@ export class BasePage {
       const heading = await this.page.$eval('h1', el => el.innerHTML);
       return heading;
     } catch (error) {
-      const filename = this.getFileName();
-      console.log(`Exception catched in getHeading, taking screenshot ${filename}.png. Error is: ${error}`);
-      await this.screenshot(`failed-getHeading-${filename}`);
+      const filename = `failed-getHeading-${this.getFileName()}`;
+      console.log(`Exception catched in getHeading on ${this.page.url()}, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(filename);
     }
   }
 
@@ -129,8 +129,8 @@ export class BasePage {
       await this.page.click(selector);
     } catch (error) {
       const filename = this.getFileName();
-      console.log(`Exception catched in clickElement, taking screenshot ${filename}.png. Error is: ${error}`);
-      await this.screenshot(`failed-click-${filename}`);
+      console.log(`Exception catched in clickElement with selector ${selector}, taking screenshot failed-click-${selector}-${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-click-${selector}-${filename}`);
     }
   }
 

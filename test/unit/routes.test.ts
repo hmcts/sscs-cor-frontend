@@ -3,7 +3,6 @@ import * as session from 'express-session';
 import express = require('express');
 import { setup } from '../../app/server/app';
 import { expect } from 'test/chai-sinon';
-const bodyParser = require('body-parser');
 const i18n = require('locale/en.json');
 const { createSession } = require('../../app/server/middleware/session');
 import { CONST } from '../../app/constants';
