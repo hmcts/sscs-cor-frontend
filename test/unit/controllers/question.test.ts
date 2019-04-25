@@ -4,7 +4,6 @@ import {
   checkEvidenceUploadFeature,
   getQuestion,
   getUploadEvidence,
-  handleFileUploadErrors,
   postAnswer,
   postUploadEvidence,
   setupQuestionController,
@@ -18,6 +17,7 @@ import * as Paths from 'app/server/paths';
 const i18n = require('locale/en');
 import * as moment from 'moment';
 const multer = require('multer');
+import * as config from 'config';
 
 describe('controllers/question', () => {
   const next = sinon.stub();
@@ -26,6 +26,7 @@ describe('controllers/question', () => {
   const questionId = '001';
   const questionOrdinal = '1';
   const questions = mockData.questions({});
+  const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
   beforeEach(() => {
     req.session = {
@@ -42,6 +43,7 @@ describe('controllers/question', () => {
     };
     req.body = {};
     req.cookies = {};
+    res.locals = {};
     res.render = sinon.stub();
     res.redirect = sinon.stub();
     sinon.stub(AppInsights, 'trackException');
@@ -203,6 +205,22 @@ describe('controllers/question', () => {
       expect(questionService.saveAnswer).to.have.been.calledOnce.calledWith('1', questionId, 'draft', req.body['question-field']);
       expect(evidenceService.remove).to.have.been.calledWith('1', questionId, 'fileId1');
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.question}/${questionOrdinal}`);
+    });
+
+    it('should render question page with (multer) upload validation error message', async () => {
+      const question = {
+        value: ''
+      };
+      const errorMessage = 'This could be an error message';
+      res.locals.multerError = errorMessage;
+      req.session.question = question;
+
+      await postAnswer(questionService, evidenceService)(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith('question/index.html', {
+        question,
+        showEvidenceUpload: false,
+        fileUploadError: errorMessage
+      });
     });
 
     describe('add-file submit', () => {
@@ -434,43 +452,6 @@ describe('controllers/question', () => {
       file.originalname = 'disallowedfile';
       fileTypeInWhitelist(req, file, cb);
       expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
-    });
-  });
-
-  describe('#handleFileUploadErrors', () => {
-    afterEach(() => {
-      res.redirect.reset();
-      next.reset();
-    });
-
-    it('reloads upload-evidence.html with error if file type not allowed', () => {
-      handleFileUploadErrors(false)(new multer.MulterError('LIMIT_FILE_TYPE'), req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-        'question/upload-evidence.html',
-        { questionOrdinal, error: i18n.questionUploadEvidence.error.invalidFileType }
-      );
-    });
-
-    it('reloads upload-evidence.html with error if file too large', () => {
-      handleFileUploadErrors(false)(new multer.MulterError('LIMIT_FILE_SIZE'), req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-        'question/upload-evidence.html',
-        { questionOrdinal, error: `${i18n.questionUploadEvidence.error.tooLarge} 10MB.` }
-      );
-    });
-
-    it('reloads upload-evidence.html with error if Multer error not handled', () => {
-      handleFileUploadErrors(false)(new multer.MulterError('SOME_OTHER_ERROR'), req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-        'question/upload-evidence.html',
-        { questionOrdinal, error: i18n.questionUploadEvidence.error.fileCannotBeUploaded }
-      );
-    });
-
-    it('does not handle other errors', () => {
-      const err = new Error();
-      handleFileUploadErrors(false)(err, req, res, next);
-      expect(next).to.have.been.calledOnce.calledWith(err);
     });
   });
 });
