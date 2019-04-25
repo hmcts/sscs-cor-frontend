@@ -1,217 +1,104 @@
-import { AdditionalEvidenceService, EvidenceDescriptor } from 'app/server/services/additional-evidence';
 import * as path from 'path';
 import * as fs from 'fs';
-const request = require('request-promise');
 const { expect, sinon } = require('test/chai-sinon');
-const { INTERNAL_SERVER_ERROR, NO_CONTENT } = require('http-status-codes');
-const nock = require('nock');
 const config = require('config');
-const timeout = require('config').get('apiCallTimeout');
+import { AdditionalEvidenceService } from 'app/server/services/additional-evidence';
+import { RequestPromise } from 'app/server/services/request-wrapper';
 
 describe('services/additional-evidence', () => {
-  let additionalEvidenceService;
-  const apiUrl = config.get('api.url');
+  let rpStub: sinon.SinonStub;
+  let sandbox: sinon.SinonSandbox = sinon.sandbox.create();
   const req: any = {};
-  before(() => {
-    additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
-    req.session = {
-      accessToken : 'someUserToken',
-      serviceToken : 'someServiceToken'
-    };
+  const apiUrl = config.get('api.url');
+  const additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
+  req.session = {
+    accessToken : 'someUserToken',
+    serviceToken : 'someServiceToken'
+  };
+  const hearingId: string = 'hearingId';
+  const evidenceId: string = 'evidenceId';
+  const file: Partial<Express.Multer.File> = {
+    fieldname: 'file-upload-1',
+    originalname: 'some_evidence.txt',
+    mimetype: 'text/plain',
+    buffer: fs.readFileSync(path.join(__dirname, '/../../fixtures/evidence/evidence.txt'))
+  };
+
+  beforeEach(() => {
+    rpStub = sandbox.stub(RequestPromise, 'request');
   });
 
-  describe('#saveStatement', () => {
-    let statementText = 'This is my statement';
-
-    const apiResponse = {
-      success: true
-    };
-
-    describe('resolving the save statement promise', () => {
-      beforeEach(() => {
-        nock(apiUrl)
-          .put(path, {
-            statementText
-          })
-          .reply(NO_CONTENT, apiResponse);
-      });
-
-      it('resolves the promise with the response', () => {
-        expect(additionalEvidenceService.saveStatement(statementText, req)).to.eventually.eql(apiResponse);
-      });
-    });
-
-    describe('rejecting the promise', () => {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-
-      beforeEach(() => {
-        nock(apiUrl)
-          .put(path, {
-            statementText
-          })
-          .replyWithError(error);
-      });
-
-      it('rejects the save statement promise with the error', () => (
-        expect(additionalEvidenceService.saveStatement(statementText, req)).to.be.rejectedWith(error)
-      ));
-    });
+  afterEach(() => {
+    sandbox.restore();
   });
 
-  // describe('Upload Evidence', () => {
-  //   const apiResponse = {};
-  //   beforeEach(() => {
-  //     nock(apiUrl)
-  //       .put(path)
-  //       .reply(NO_CONTENT, apiResponse);
-  //   });
+  it('should save Statement', async () => {
+    const expectedRequestOptions = {
+      body: {
+        body: 'text'
+      },
+      method: 'POST',
+      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/statement`
+    };
 
-  //   it('resolves the promise with the response', async () => {
-  //     additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
-  //     const hearingId: string = 'hearingId';
-  //     const file = {
-  //       fieldname: 'file-upload-1',
-  //       originalname: 'evidence.txt',
-  //       mimetype: 'text/plain',
-  //       buffer: fs.readFileSync(path.join(__dirname, '/../../fixtures/evidence/evidence.txt'))
-  //     };
-  //     const response = await additionalEvidenceService.uploadEvidence(hearingId, file);
-  //     expect(response).to.eventually.eql(apiResponse);
-  //   });
-  // });
+    await additionalEvidenceService.saveStatement(hearingId, 'text', req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
 
-  // describe('#uploadEvidence', () => {
-  //   let sandbox: sinon.SinonSandbox;
-  //   const file = {
-  //     fieldname: 'file-upload-1',
-  //     originalname: 'evidence.txt',
-  //     mimetype: 'text/plain',
-  //     buffer: fs.readFileSync(path.join(__dirname, '/../../fixtures/evidence/evidence.txt'))
-  //   };
-  //   const hearingId: string = 'hearingId';
-  //   beforeEach(() => {
-  //     sandbox = sinon.sandbox.create();
-  //   });
+  it('should uploadEvidence', async () => {
+    const expectedRequestOptions = {
+      formData: {
+        file: {
+          value: file.buffer,
+          options: {
+            filename: file.originalname,
+            contentType: file.mimetype
+          }
+        }
+      },
+      simple: false,
+      resolveWithFullResponse: true,
+      method: 'PUT',
+      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
+    };
 
-  //   afterEach(() => {
-  //     sandbox.restore();
-  //   });
+    await additionalEvidenceService.uploadEvidence(hearingId, file as Express.Multer.File, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
 
-  //   it('should call upload service and resolve', async () => {
-  //     const apiResponse = { statusCode: 200 };
-  //     const requestStub = sandbox.stub(request, 'put').resolves(apiResponse);
-  //     const response = await additionalEvidenceService.uploadEvidence(hearingId, file);
+  it('should removeEvidence', async () => {
+    const expectedRequestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Length': '0' },
+      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/${evidenceId}`
+    };
 
-  //     expect(requestStub).to.have.been.calledOnce.calledWith({
-  //       url: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
-  //       simple: false,
-  //       resolveWithFullResponse: true,
-  //       formData: {
-  //         file: {
-  //           value: file.buffer,
-  //           options: { filename: file.originalname, contentType: file.mimetype }
-  //         }
-  //       }
-  //     });
+    await additionalEvidenceService.removeEvidence(hearingId, evidenceId, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
 
-  //     expect(apiResponse).to.deep.equal(response);
-  //   });
+  it('should getEvidences', async () => {
+    const expectedRequestOptions = {
+      method: 'GET',
+      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
+    };
 
-  //   it('should catch error and reject with error', async () => {
-  //     const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-  //     sandbox.stub(request, 'post').rejects(error);
+    await additionalEvidenceService.getEvidences(hearingId, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
 
-  //     expect(additionalEvidenceService.uploadEvidence(hearingId, file)).to.be.rejectedWith(error);
-  //   });
-  // });
+  it('should submitEvidences', async () => {
+    const description: string = 'An evidence description';
+    const expectedRequestOptions = {
+      method: 'POST',
+      body: {
+        body: description
+      },
+      headers: { 'Content-Length': '0' },
+      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
+    };
 
-  // describe('#removeEvidence', () => {
-  //   const hearingId: string = 'hearingId';
-  //   const evidenceId: string = 'the-file';
-  //   let sandbox: sinon.SinonSandbox;
-  //   beforeEach(() => {
-  //     sandbox = sinon.sandbox.create();
-  //   });
-
-  //   afterEach(() => {
-  //     sandbox.restore();
-  //   });
-
-  //   it('should call remove evidence service and resolve', async () => {
-  //     const requestStub = sandbox.stub(request, 'delete').resolves();
-  //     const response = await additionalEvidenceService.removeEvidence(hearingId, evidenceId);
-
-  //     expect(requestStub).to.have.been.calledOnce.calledWith({
-  //       url: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/${evidenceId}`,
-  //       headers: { 'Content-Length': '0' }
-  //     });
-  //     expect(response).to.deep.equal();
-  //   });
-
-  //   it('should catch error and reject with error', async () => {
-  //     const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-  //     sandbox.stub(request, 'delete').rejects(error);
-
-  //     expect(additionalEvidenceService.removeEvidence(hearingId, evidenceId)).to.be.rejectedWith(error);
-  //   });
-  // });
-
-  // describe('#getEvidences', () => {
-  //   const hearingId: string = 'hearingId';
-  //   let sandbox: sinon.SinonSandbox;
-  //   beforeEach(() => {
-  //     sandbox = sinon.sandbox.create();
-  //   });
-
-  //   afterEach(() => {
-  //     sandbox.restore();
-  //   });
-
-  //   it('should call getEvidences service and resolve', async () => {
-  //     const evidences: EvidenceDescriptor[] = [{
-  //       created_date: 'date',
-  //       file_name: 'filename',
-  //       id: 'id'
-  //     }];
-  //     const requestStub = sandbox.stub(request, 'get').resolves(evidences);
-  //     const response = await additionalEvidenceService.getEvidences(hearingId);
-
-  //     expect(requestStub).to.have.been.calledOnce.calledWith({
-  //       url: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
-  //       json: true,
-  //       timeout
-  //     });
-  //     expect(response).to.deep.equal(evidences);
-  //   });
-
-  //   it('should catch error and reject with error', async () => {
-  //     const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-  //     sandbox.stub(request, 'get').rejects(error);
-
-  //     expect(additionalEvidenceService.getEvidences(hearingId)).to.be.rejectedWith(error);
-  //   });
-  // });
-
-  // describe('#submitEvidences', () => {
-  //   const hearingId: string = 'hearingId';
-  //   let sandbox: sinon.SinonSandbox;
-  //   beforeEach(() => {
-  //     sandbox = sinon.sandbox.create();
-  //   });
-  //   afterEach(() => {
-  //     sandbox.restore();
-  //   });
-
-  //   it('should call submitEvidences endpoint and resolve', () => {
-  //     const requestStub = sandbox.stub(request, 'post').resolves();
-  //     additionalEvidenceService.submitEvidences(hearingId);
-
-  //     expect(requestStub).to.have.been.calledOnce.calledWith({
-  //       url: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
-  //       headers: { 'Content-Length': '0' },
-  //       json: true,
-  //       timeout
-  //     });
-  //   });
-  // });
+    await additionalEvidenceService.submitEvidences(hearingId, description, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
 });

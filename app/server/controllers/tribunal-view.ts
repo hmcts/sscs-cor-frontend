@@ -5,14 +5,10 @@ import { CONST } from '../../constants';
 import * as moment from 'moment';
 import { tribunalViewAcceptedValidation } from '../utils/fieldValidation';
 
-function getRespondByDate(decisionStateDatetime: string): string {
-  return moment.utc(decisionStateDatetime).add(7, 'day').format();
-}
-
 function getTribunalView(req: Request, res: Response) {
   const hearing: OnlineHearing = req.session.hearing;
   if (hearing.decision && hearing.decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE) {
-    const respondBy = getRespondByDate(hearing.decision.decision_state_datetime);
+    const respondBy = moment.utc(hearing.decision.decision_state_datetime).add(7, 'day').format();
 
     const startDate = moment.utc(hearing.decision.start_date).format();
     const model = { decision: hearing.decision, respondBy, startDate };
@@ -30,7 +26,7 @@ function postTribunalView(hearingService) {
     const acceptView = req.body['accept-view'];
     const validationMessage = tribunalViewAcceptedValidation(acceptView);
     if (validationMessage) {
-      const respondBy = getRespondByDate(hearing.decision.decision_state_datetime);
+      const respondBy = moment.utc(hearing.decision.decision_state_datetime).add(7, 'day').format();
       return res.render('tribunal-view.html', { decision: hearing.decision, respondBy, error: validationMessage });
     }
     if (acceptView === 'yes') {
