@@ -142,12 +142,22 @@ describe('controllers/additional-evidence.js', () => {
       sandbox.restore();
     });
 
-    it('should call res.redirect when saving an statement and there are no errors', async() => {
+    it('should save statement and redirect to confirmation page', async() => {
       req.body['question-field'] = 'My amazing statement';
       req.session.hearing.online_hearing_id = 'hearingId';
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
       expect(additionalEvidenceService.saveStatement).to.have.been.calledOnce.calledWith('hearingId', req.body['question-field']);
       expect(res.redirect).to.have.been.calledWith(`${Paths.additionalEvidence}/confirm`);
+    });
+
+    it('should not save statement and render index page with validation error', async () => {
+      req.body['question-field'] = '';
+      await postEvidenceStatement(additionalEvidenceService)(req, res, next);
+      expect(additionalEvidenceService.saveStatement).not.to.have.been.called;
+      expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
+        action: 'statement',
+        error: i18n.question.textareaField.errorOnSave.empty
+      });
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
@@ -157,20 +167,6 @@ describe('controllers/additional-evidence.js', () => {
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
-
-    it('should not update an empty answer when saving', async () => {
-      req.body['question-field'] = '';
-      await postEvidenceStatement(additionalEvidenceService)(req, res, next);
-      expect(additionalEvidenceService.saveStatement).not.to.have.been.called;
-    });
-
-    it('should call res.render with the validation error message when submitting', async () => {
-      req.body['question-field'] = '';
-      req.body.submit = 'submit';
-      await postEvidenceStatement(additionalEvidenceService)(req, res, next);
-      expect(res.render).to.have.been.calledOnce;
-    });
-
   });
 
   describe('#postFileUpload', () => {
