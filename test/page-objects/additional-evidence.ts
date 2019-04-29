@@ -22,7 +22,7 @@ export class AdditionalEvidencePage extends BasePage {
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#submit-button button')
+      this.clickElement('#submit-buttons button')
     ]);
   }
 }

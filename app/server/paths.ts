@@ -18,3 +18,5 @@ export const cookiePrivacy = '/cookie-policy';
 export const sessionExtension = '/session-extension';
 export const additionalEvidence = '/additional-evidence';
 export const aboutEvidence = '/about-evidence';
+export const postEvidence = '/post-evidence';
+export const coversheet = '/coversheet';

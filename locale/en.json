@@ -55,7 +55,7 @@
     "sendingEvidence": {
       "header": "Providing additional evidence",
       "intro": "If you have any additional information that is relevant to your appeal, you can",
-      "anchorText": "submit it to the tribunal",
+      "anchorText": "post it to the tribunal",
       "summary": "How to send additional evidence",
       "details": {
         "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
@@ -579,6 +579,15 @@
       "para3": "Include your appeal reference number on any emails to the tribunal:", 
       "exitLink": "https://www.smartsurvey.co.uk/s/JETIK/"
     }
+  },
+  "postEvidence": {
+    "header": "Posting evidence to the tribunal",
+    "info": "Post evidence to the address below.",
+    "postalAddress": "SSCS<br/>HMCTS SSCS Tribunal<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF",
+    "screenReaderPostalAddress": "SSCS HMCTS SSCS Tribunal PO Box 12626 Harlow CM20 9QF",
+    "para1": "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href='/coversheet'>download a new cover sheet here</a>, if you need one.",
+    "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
+    "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
   },
   "error": {
     "error404": {

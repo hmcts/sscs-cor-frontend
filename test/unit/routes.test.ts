@@ -119,6 +119,11 @@ describe('Routes', () => {
         const response = await request(mockApp).get('/about-evidence');
         expect(response.status).to.be.equal(200);
       });
+
+      it('GET /post-evidence should return 200', async () => {
+        const response = await request(mockApp).get('/post-evidence');
+        expect(response.status).to.be.equal(200);
+      });
     });
 
     describe('Decision', () => {

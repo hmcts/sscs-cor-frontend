@@ -59,6 +59,13 @@ export class AdditionalEvidenceService {
     }, req);
   }
 
+  async getCoversheet(hearingId: string, req: Request): Promise<EvidenceDescriptor[]> {
+    return RequestPromise.request({
+      method: 'GET',
+      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`
+    }, req);
+  }
+
   async submitEvidences(hearingId: string, description: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
