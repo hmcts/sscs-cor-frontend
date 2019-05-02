@@ -72,7 +72,6 @@ async function bootstrapCcdCase() {
 
 async function bootstrapSidamUser(ccdCase) {
   try {
-    await sidam.registerRedirectUri();
     return await sidam.createUser(ccdCase);
   } catch (error) {
     console.log('Error bootstrapping SIDAM user', error);
