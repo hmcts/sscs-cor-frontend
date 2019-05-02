@@ -5,7 +5,6 @@ nodejs:
     IDAM_API_URL: "https://idam-api.aat.platform.hmcts.net"
     IDAM_CLIENT_SECRET: ${IDAM_CLIENT_SECRET}
     S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-    S2S_SECRET: ${S2S_SECRET}
     REDIS_URL: redis://${SERVICE_NAME}-redis-master
     SESSION_SECRET:
     NODE_ENV: preview

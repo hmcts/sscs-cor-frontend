@@ -9,6 +9,7 @@ nodejs:
   environment:
     SESSION_SECRET:
     HTTP_PROTOCOL: http
+    S2S_SECRET: ${S2S_SECRET}
     IDAM_ENABLE_STUB: false
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
 
