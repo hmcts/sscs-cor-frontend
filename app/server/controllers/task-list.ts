@@ -2,7 +2,9 @@ import * as AppInsights from '../app-insights';
 import * as moment from 'moment';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
+import { AdditionalEvidenceService } from '../services/additional-evidence';
 import { QuestionService } from '../services/question';
+import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
 function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
   if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
@@ -33,8 +35,40 @@ function getTaskList(questionService: QuestionService) {
       }
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
-        questions: req.session.questions
+        questions: req.session.questions,
+        enableAdditionalEvidence: isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies)
       });
+    } catch (error) {
+      AppInsights.trackException(error);
+      next(error);
+    }
+  };
+}
+
+function getEvidencePost(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (!isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies)) {
+      res.render('post-evidence.html');
+    } else {
+      res.render('errors/404.html');
+    }
+  } catch (error) {
+    AppInsights.trackException(error);
+    next(error);
+  }
+}
+
+function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies)) {
+        const hearingId = req.session.hearing.online_hearing_id;
+        const coversheet = await additionalEvidenceService.getCoversheet(hearingId, req);
+        res.header('content-type', 'application/pdf');
+        res.send(coversheet);
+      } else {
+        res.render('errors/404.html');
+      }
     } catch (error) {
       AppInsights.trackException(error);
       next(error);
@@ -45,11 +79,15 @@ function getTaskList(questionService: QuestionService) {
 function setupTaskListController(deps: any): Router {
   const router: Router = Router();
   router.get(Paths.taskList, deps.prereqMiddleware, getTaskList(deps.questionService));
+  router.get(Paths.postEvidence, deps.prereqMiddleware, getEvidencePost);
+  router.get(Paths.coversheet, deps.prereqMiddleware, getCoversheet(deps.additionalEvidenceService));
   return router;
 }
 
 export {
   setupTaskListController,
+  getCoversheet,
+  getEvidencePost,
   getTaskList,
   processDeadline
 };

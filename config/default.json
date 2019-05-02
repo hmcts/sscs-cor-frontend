@@ -54,5 +54,9 @@
     }
   },
   "apiCallTimeout" : 40000,
-  "navigationTimeout" : 140000
+  "navigationTimeout" : 140000,
+  "featureFlags": {
+    "testFeature": false,
+    "additionalEvidence": "false"
+  }
 }
