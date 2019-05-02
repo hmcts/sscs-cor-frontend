@@ -135,7 +135,7 @@ async function loadHearingAndEnterService(
 function setupLoginController(deps) {
   const router = Router();
   router.get(Paths.login, getIdamCallback(redirectToIdam('/login', deps.idamService), deps.idamService, deps.hearingService));
-  router.get(Paths.register, redirectToIdam('/register', deps.idamService));
+  router.get(Paths.register, redirectToIdam('/users/selfRegister', deps.idamService));
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;
 }
