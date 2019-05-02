@@ -87,6 +87,16 @@ describe('services/additional-evidence', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
+  it('should getCoversheet', async () => {
+    const expectedRequestOptions = {
+      method: 'GET',
+      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`
+    };
+
+    await additionalEvidenceService.getCoversheet(hearingId, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
+
   it('should submitEvidences', async () => {
     const description: string = 'An evidence description';
     const expectedRequestOptions = {

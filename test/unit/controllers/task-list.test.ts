@@ -1,15 +1,25 @@
 const { expect, sinon } = require('test/chai-sinon');
-import { setupTaskListController, getTaskList, processDeadline } from 'app/server/controllers/task-list';
+import {
+  setupTaskListController,
+  getCoversheet,
+  getEvidencePost,
+  getTaskList,
+  processDeadline
+} from 'app/server/controllers/task-list';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const moment = require('moment');
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
+import { Feature } from 'app/server/utils/featureEnabled';
 
 describe('controllers/task-list', () => {
   let req;
   let res;
   let next;
+  let additionalEvidenceService;
+  let sandbox: sinon.SinonSandbox;
+  const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   const hearingDetails = {
     online_hearing_id: '1',
     case_reference: 'SC/123/456',
@@ -17,20 +27,63 @@ describe('controllers/task-list', () => {
   };
 
   beforeEach(() => {
+    sandbox = sinon.sandbox.create();
     req = {
       session: {
         hearing: hearingDetails
-      }
+      },
+      cookies: {}
     };
     res = {
-      render: sinon.stub()
+      render: sandbox.stub(),
+      send: sandbox.stub(),
+      header: sandbox.stub()
     };
-    next = sinon.stub();
+    next = sandbox.stub();
     sinon.stub(AppInsights, 'trackException');
+    additionalEvidenceService = {
+      getCoversheet: sandbox.stub().resolves('file')
+    };
   });
 
   afterEach(() => {
     (AppInsights.trackException as sinon.SinonStub).restore();
+    sandbox.restore();
+  });
+
+  describe('getCoversheet', () => {
+    it('should return a pdf file', async () => {
+      await getCoversheet(additionalEvidenceService)(req, res, next);
+      expect(res.send).to.have.been.calledOnce.calledWith('file');
+    });
+
+    it('should render 404.html page if additional evidence feature enabled', async () => {
+      req.cookies[`${Feature.ADDITIONAL_EVIDENCE_FEATURE}`] = 'true';
+      await getCoversheet(additionalEvidenceService)(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
+    });
+
+    it('should track Exception with AppInsights and call next(error)', async () => {
+      additionalEvidenceService = {
+        getCoversheet: sandbox.stub().rejects(error)
+      };
+      await getCoversheet(additionalEvidenceService)(req, res, next);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(next).to.have.been.calledWith(error);
+    });
+  });
+
+  describe('getEvidencePost', () => {
+    it('should render post-evidence.html page', () => {
+      getEvidencePost(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith('post-evidence.html');
+    });
+
+    it('should render 404.html page if additional evidence enabled', () => {
+      req.cookies[`${Feature.ADDITIONAL_EVIDENCE_FEATURE}`] = 'true';
+      getEvidencePost(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
+    });
   });
 
   describe('getTaskList', () => {
@@ -56,6 +109,7 @@ describe('controllers/task-list', () => {
       await getTaskList(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         deadlineExpiryDate: null,
+        enableAdditionalEvidence: false,
         questions: []
       });
     });
@@ -69,7 +123,8 @@ describe('controllers/task-list', () => {
           extendable: true,
           expiryDate: expectedDeadline,
           status: 'pending'
-        }
+        },
+        enableAdditionalEvidence: false
       });
     });
 
@@ -83,7 +138,8 @@ describe('controllers/task-list', () => {
           extendable: false,
           expiryDate: null,
           status: 'completed'
-        }
+        },
+        enableAdditionalEvidence: false
       });
     });
 
@@ -99,12 +155,12 @@ describe('controllers/task-list', () => {
           extendable: true,
           expiryDate: expectedExpiredDeadline,
           status: 'expired'
-        }
+        },
+        enableAdditionalEvidence: false
       });
     });
 
     it('should call next and appInsights with the error when there is one', async() => {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       questionService.getAllQuestions = () => Promise.reject(error);
       await getTaskList(questionService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
