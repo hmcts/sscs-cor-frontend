@@ -1,3 +1,5 @@
+tags:
+  - idam-pr
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
@@ -16,7 +18,6 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-
 redis:
   cluster:
     enabled: false
@@ -25,3 +26,7 @@ redis:
   master:
     persistence:
       enabled: false
+idam-pr:
+  service:
+    name: SSCS COR # this is the label (name) of the service as configured in IDAM. If unsure, see below.
+    redirect_uri: https://${SERVICE_FQDN}/sign-in # this is the application callback URL where IDAM will send back the authentication code. SERVICE_FQDN is injected by Jenkins.
