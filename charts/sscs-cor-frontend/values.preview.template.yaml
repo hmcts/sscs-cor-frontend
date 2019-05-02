@@ -1,3 +1,5 @@
+tags:
+  idam-pr: true
 nodejs:
   environment:
     SSCS_API_URL: "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
@@ -9,3 +11,7 @@ nodejs:
     SESSION_SECRET:
     NODE_ENV: preview
     HTTP_PROTOCOL: http
+idam-pr:
+  service:
+    name: SSCS COR
+    redirect_uri: https://${SERVICE_FQDN}/sign-in
