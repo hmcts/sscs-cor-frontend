@@ -1,0 +1,18 @@
+nodejs:
+  environment:
+    SSCS_API_URL: "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
+    IDAM_URL: "https://idam-web-public.aat.platform.hmcts.net"
+    IDAM_API_URL: "https://idam-api.aat.platform.hmcts.net"
+    IDAM_CLIENT_SECRET: ${IDAM_CLIENT_SECRET}
+    S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+    S2S_SECRET: ${S2S_SECRET}
+    REDIS_URL: redis://${SERVICE_NAME}-redis-master
+    SESSION_SECRET:
+    NODE_ENV: preview
+    HTTP_PROTOCOL: http
+tags:
+  - idam-pr
+idam-pr:
+  service:
+    name: SSCS COR # this is the label (name) of the service as configured in IDAM. If unsure, see below.
+    redirect_uri: https://${SERVICE_FQDN}/sign-in # this is the application callback URL where IDAM will send back the authentication code. SERVICE_FQDN is injected by Jenkins.
