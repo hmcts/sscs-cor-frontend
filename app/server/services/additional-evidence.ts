@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import * as request from 'request-promise';
 import { RequestPromise } from './request-wrapper';
 
 export interface EvidenceDescriptor {
@@ -60,10 +61,15 @@ export class AdditionalEvidenceService {
   }
 
   async getCoversheet(hearingId: string, req: Request): Promise<EvidenceDescriptor[]> {
-    return RequestPromise.request({
-      method: 'GET',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`
-    }, req);
+    const result: request.Response = await request.get({
+      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`,
+      resolveWithFullResponse: true
+    });
+    return result;
+    // return RequestPromise.request({
+    //   method: 'GET',
+    //   uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`
+    // }, req);
   }
 
   async submitEvidences(hearingId: string, description: string, req: Request) {
