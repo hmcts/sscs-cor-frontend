@@ -63,6 +63,12 @@ export class AdditionalEvidenceService {
   async getCoversheet(hearingId: string, req: Request): Promise<EvidenceDescriptor[]> {
     const result: request.Response = await request.get({
       uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`,
+      encoding: 'binary',
+      headers: {
+        Authorization: `Bearer ${req.session.accessToken}`,
+        ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+        'Content-type': 'applcation/pdf'
+      },
       resolveWithFullResponse: true
     });
     return result;

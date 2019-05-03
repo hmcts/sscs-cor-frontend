@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as request from 'request';
+const nock = require('nock');
 const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
 import { AdditionalEvidenceService } from 'app/server/services/additional-evidence';
@@ -90,14 +91,16 @@ describe('services/additional-evidence', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  // it('should getCoversheet', async () => {
+  // it('should getCoversheet @only', async () => {
   //   const expectedRequestOptions = {
   //     method: 'GET',
   //     uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`
   //   };
+  //   nock(apiUrl).get(`/continuous-online-hearings/${hearingId}/evidence/coversheet`).reply('200');
 
-  //   await additionalEvidenceService.getCoversheet(hearingId, req);
-  //   expect(reqStub).to.have.been.calledOnce;
+  //   const result = await additionalEvidenceService.getCoversheet(hearingId, req);
+  //   console.log('result', result);
+  //   expect(result).to.eventually.eql();
   //   // .calledWith(expectedRequestOptions);
   // });
 
