@@ -1,0 +1,32 @@
+tags:
+  - idam-pr
+nodejs:
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
+  applicationPort: 3000
+  memoryRequests: 256Mi
+  cpuRequests: 0.2
+  memoryLimits: 512Mi
+  cpuLimits: 1
+  environment:
+    SESSION_SECRET:
+    HTTP_PROTOCOL: http
+    S2S_SECRET: ${S2S_SECRET}
+    IDAM_ENABLE_STUB: false
+    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
+
+  # Don't modify below here
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
+redis:
+  cluster:
+    enabled: false
+    slaveCount: 0
+  usePassword: false
+  master:
+    persistence:
+      enabled: false
+idam-pr:
+  service:
+    name: SSCS COR # this is the label (name) of the service as configured in IDAM. If unsure, see below.
+    redirect_uri: https://${SERVICE_FQDN}/sign-in # this is the application callback URL where IDAM will send back the authentication code. SERVICE_FQDN is injected by Jenkins.

@@ -66,6 +66,8 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
         console.log('Coversheet IS available');
         const hearingId = req.session.hearing.online_hearing_id;
         const coversheet = await additionalEvidenceService.getCoversheet(hearingId, req);
+        // tslint:disable-next-line
+        console.log('Coversheet is:', coversheet);
         res.header('content-type', 'application/pdf');
         res.send(coversheet);
       } else {
