@@ -39,26 +39,9 @@ withPipeline("nodejs", product, component) {
     after('checkout') {sh 'yarn cache clean'}
     after('build') {sh 'yarn build'}
     enableDockerBuild()
-    enableDeployToAKS()
+    installCharts()
     before('securitychecks') {sh 'yarn test:audit'}
 
-    before('smoketest:preview') {
-      // workaround to fix SIDAM whitelisting for PR AKS URLs
-      try {
-        def encodedServiceName = 'SSCS%20COR'
-        def aksUrlToWhitelist = env.TEST_URL + '/sign-in'
-        sh('curl -X PATCH https://idam-api.aat.platform.hmcts.net/testing-support/services/' + encodedServiceName +
-          ' -H \'Content-Type: application/json\'' +
-          ' -H \'cache-control: no-cache\'' +
-          ' -d \'[{' +
-            '"operation":"add",' +
-            '"field":"redirect_uri",' +
-            '"value":"' + aksUrlToWhitelist + '"' +
-          '}]\'')
-      } catch (err) {
-        notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update SIDAM PR whitelisting'
-      }
-    }
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
