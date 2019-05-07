@@ -62,17 +62,11 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (!isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies)) {
-        // tslint:disable-next-line
-        console.log('Coversheet IS available');
         const hearingId = req.session.hearing.online_hearing_id;
         const coversheet = await additionalEvidenceService.getCoversheet(hearingId, req);
-        // tslint:disable-next-line
-        console.log('Coversheet is:', coversheet);
         res.header('content-type', 'application/pdf');
-        res.send(coversheet);
+        res.send(new Buffer(coversheet, 'binary'));
       } else {
-        // tslint:disable-next-line
-        console.log('Coversheet not available');
         res.render('errors/404.html');
       }
     } catch (error) {
