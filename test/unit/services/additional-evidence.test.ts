@@ -90,7 +90,11 @@ describe('services/additional-evidence', () => {
   it('should getCoversheet', async () => {
     const expectedRequestOptions = {
       method: 'GET',
-      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`
+      encoding: 'binary',
+      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`,
+      headers: {
+        'Content-type': 'applcation/pdf'
+      }
     };
 
     await additionalEvidenceService.getCoversheet(hearingId, req);

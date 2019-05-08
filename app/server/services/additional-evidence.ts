@@ -59,10 +59,14 @@ export class AdditionalEvidenceService {
     }, req);
   }
 
-  async getCoversheet(hearingId: string, req: Request): Promise<EvidenceDescriptor[]> {
+  async getCoversheet(hearingId: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`
+      encoding: 'binary',
+      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`,
+      headers: {
+        'Content-type': 'applcation/pdf'
+      }
     }, req);
   }
 

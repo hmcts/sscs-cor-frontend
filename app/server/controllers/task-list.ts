@@ -65,7 +65,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
         const hearingId = req.session.hearing.online_hearing_id;
         const coversheet = await additionalEvidenceService.getCoversheet(hearingId, req);
         res.header('content-type', 'application/pdf');
-        res.send(coversheet);
+        res.send(new Buffer(coversheet, 'binary'));
       } else {
         res.render('errors/404.html');
       }

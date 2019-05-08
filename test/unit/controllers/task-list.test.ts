@@ -54,7 +54,7 @@ describe('controllers/task-list', () => {
   describe('getCoversheet', () => {
     it('should return a pdf file', async () => {
       await getCoversheet(additionalEvidenceService)(req, res, next);
-      expect(res.send).to.have.been.calledOnce.calledWith('file');
+      expect(res.send).to.have.been.calledOnce.calledWith(new Buffer('file', 'binary'));
     });
 
     it('should render 404.html page if additional evidence feature enabled', async () => {

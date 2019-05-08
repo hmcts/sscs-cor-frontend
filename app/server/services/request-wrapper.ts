@@ -6,11 +6,13 @@ import * as AppInsights from '../app-insights';
 export class RequestPromise {
 
   static async request(options, req?: Request) {
-
-    const defaultOptions = {
-      timeout,
-      json: true
-    };
+    let defaultOptions = {};
+    if (!options.encoding && options.encoding !== 'binary') {
+      defaultOptions = {
+        timeout,
+        json: true
+      };
+    }
 
     if (req && req.session) {
       defaultOptions['headers'] = {
