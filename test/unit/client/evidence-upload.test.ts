@@ -15,7 +15,7 @@ const html = `<form id="answer-form" action="/question/1" method="post">
     </div>
   </div>
 </div>
-      <div id="evidence-upload-reveal-container" class="panel-indent" style="display: block;">
+      <div id="evidence-upload-reveal-container" class="govuk-details__text --margin-bottom-m" style="display: block;">
         <h2 class="govuk-heading-m evidence-upload-nojs" style="display: none;">Provide evidence to support your answer</h2>
         <p>You can upload evidence to support your answer such as letters, photos, video or audio. If you are taking a picture of a letter, place it on a flat surface and take the picture from above.</p>
 <div class="govuk-form-group">

@@ -553,8 +553,8 @@
       "decision_accepted": "Your appeal has been successful",
       "decision_rejected": "Your appeal has not been successful"
     },
-    "reasonsHeader": "Reasons for the tribunal’s decision",
-    "postInfo": "A formal decision notice has also been sent to your registered postal address."
+    "reasonsHeader": "A decision has been made on your PIP benefit appeal",
+    "postInfo": "<p>A 'Decision Notice' has been emailed to you and posted to your registered address.<p/> <p>Please note that we cannot give you your decision over the phone. This is to protect your personal information.</p>"
   },
   "hearingConfirm": {
     "header": "A new tribunal panel will decide your appeal",

@@ -15,15 +15,12 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div id="decision">
-                <div id="decision-outcome" class="panel-blue">
-                    <h2 class="govuk-heading-m">{{ i18n.tribunalDecision.outcome.decision_accepted }}</h2>
-                </div>
                 <div id="decision-reason">
-                    <h2 class="govuk-heading-m">{{ i18n.tribunalDecision.reasonsHeader }}</h2>
+                    <h2 class="govuk-heading-m">{{ i18n.tribunalDecision.reasonsHeader | safe }}</h2>
                     <p id="decision-text">{{ final_decision }}</p>
                 </div>
                 {{ govukInsetText({
-                    "text": i18n.tribunalDecision.postInfo
+                    "html": i18n.tribunalDecision.postInfo
                 }) }}
             </div>
         </div>

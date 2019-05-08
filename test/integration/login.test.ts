@@ -109,7 +109,6 @@ describe('Login page', () => {
     await loginPage.screenshot('decision-appeal-upheld-login');
     decisionPage.verifyPage();
     expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
-    expect(await decisionPage.getElementText('#decision-outcome h2')).to.equal(i18n.tribunalDecision.outcome.decision_accepted);
     expect(await decisionPage.getElementText('#decision-text')).to.equal('final decision reason');
   });
 
