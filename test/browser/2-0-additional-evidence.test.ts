@@ -7,9 +7,9 @@ import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { AdditionalEvidencePage } from 'test/page-objects/additional-evidence';
 import { allowedActions } from 'app/server/controllers/additional-evidence';
-// import { AdditionalEvidenceStatementPage } from 'test/page-objects/additional-evidence-statement';
-// import { AdditionalEvidenceConfirmationPage } from 'test/page-objects/additional-evidence-confirmation';
-// import { AdditionalEvidenceUploadPage } from 'test/page-objects/additional-evidence-upload';
+import { AdditionalEvidenceStatementPage } from 'test/page-objects/additional-evidence-statement';
+import { AdditionalEvidenceConfirmationPage } from 'test/page-objects/additional-evidence-confirmation';
+import { AdditionalEvidenceUploadPage } from 'test/page-objects/additional-evidence-upload';
 const i18n = require('locale/en');
 
 const testUrl = config.get('testUrl');
@@ -18,19 +18,18 @@ describe('Additional Evidence', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
-  // let additionalEvidenceStatementPage: AdditionalEvidenceStatementPage;
-  // let additionalEvidenceConfirmationPage: AdditionalEvidenceConfirmationPage;
-  // let additionalEvidenceUploadPage: AdditionalEvidenceUploadPage;
+  let additionalEvidenceStatementPage: AdditionalEvidenceStatementPage;
+  let additionalEvidenceConfirmationPage: AdditionalEvidenceConfirmationPage;
+  let additionalEvidenceUploadPage: AdditionalEvidenceUploadPage;
   before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ performLogin: true });
     page = res.page;
     taskListPage = new TaskListPage(page);
     await taskListPage.setCookie('additionalEvidence', 'true');
     additionalEvidencePage = new AdditionalEvidencePage(page);
-    // additionalEvidenceStatementPage = new AdditionalEvidenceStatementPage(page);
-    // additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
-    // additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
-    // await taskListPage.clickElement('#evidence-options-link');
+    additionalEvidenceStatementPage = new AdditionalEvidenceStatementPage(page);
+    additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
+    additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
   });
 
   after(async () => {
@@ -41,7 +40,10 @@ describe('Additional Evidence', () => {
 
   beforeEach(async () => {
     await taskListPage.visitPage();
-    await taskListPage.clickElement('#evidence-options-link');
+    await Promise.all([
+      taskListPage.clickElement('#evidence-options-link'),
+      taskListPage.page.waitForNavigation()
+    ]);
   });
 
   it('navigates to additional evidence page and shows options', async () => {
@@ -55,28 +57,22 @@ describe('Additional Evidence', () => {
     });
   });
 
-  // it('fills a statement and submit and shows confirmation page', async () => {
-  //   additionalEvidencePage.verifyPage();
-  //   await page.waitFor(4000);
-  //   await additionalEvidencePage.selectStatementOption();
-  //   await page.waitFor(4000);
-  //   await additionalEvidencePage.submit();
+  it('fills a statement and submit and shows confirmation page', async () => {
+    // await page.waitFor(4000);
+    additionalEvidencePage.verifyPage();
+    await additionalEvidencePage.selectStatementOption();
+    await additionalEvidencePage.submit();
 
-  //   additionalEvidenceStatementPage.verifyPage();
-  // });
+    additionalEvidenceStatementPage.verifyPage();
+  });
 
-  // it('uploads a file and shows file list', async () => {
-  //   additionalEvidencePage.verifyPage();
-  //   await additionalEvidencePage.selectPostOption();
-  //   await page.waitFor(4000);
-  //   await additionalEvidencePage.submit();
-  //   await page.waitFor(4000);
+  it('uploads a file and shows file list', async () => {
+    additionalEvidencePage.verifyPage();
+    await additionalEvidencePage.selectUploadOption();
+    await additionalEvidencePage.submit();
 
-  //   const header = await taskListPage.getHeading();
-  //   const header2 = await taskListPage.getElementText('h2');
+    additionalEvidenceUploadPage.verifyPage();
 
-  //   console.log(`header should be upload page ${header} ${header2}`);
-
-  //   expect(additionalEvidenceUploadPage.getHeading()).to.equal('adsf');
-  // });
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
+  });
 });
