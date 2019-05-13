@@ -1,3 +1,4 @@
+import * as path from 'path';
 const { expect } = require('test/chai-sinon');
 import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
@@ -14,14 +15,20 @@ export class AdditionalEvidenceUploadPage extends BasePage {
     expect(headerText).to.equal(i18n.additionalEvidence.evidenceUpload.header);
   }
 
-  async addStatement(statement: string) {
-    await this.setTextintoField('#question-field', statement);
+  async selectFile(filename: string) {
+    const fileInput = await this.getElement('#additional-evidence-file');
+    const filePath = path.join(__dirname, `/../fixtures/evidence/${filename}`);
+    await fileInput.uploadFile(filePath);
+  }
+
+  async addDescription(statement: string) {
+    await this.setTextintoField('#additional-evidence-description', statement);
   }
 
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#submit-statement')
+      this.clickElement('#submit-evidences')
     ]);
   }
 }

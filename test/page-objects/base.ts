@@ -69,7 +69,6 @@ export class BasePage {
 
   async getElementText(selector) {
     try {
-      await this.page.waitForSelector(selector);
       const element = await this.page.$eval(selector, el => el.innerText);
       return element;
     } catch (error) {
