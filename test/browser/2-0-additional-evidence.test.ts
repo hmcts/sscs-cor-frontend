@@ -10,6 +10,7 @@ import { allowedActions } from 'app/server/controllers/additional-evidence';
 import { AdditionalEvidenceStatementPage } from 'test/page-objects/additional-evidence-statement';
 import { AdditionalEvidenceConfirmationPage } from 'test/page-objects/additional-evidence-confirmation';
 import { AdditionalEvidenceUploadPage } from 'test/page-objects/additional-evidence-upload';
+import { AdditionalEvidencePostPage } from 'test/page-objects/additional-evidence-post';
 const i18n = require('locale/en');
 
 const testUrl = config.get('testUrl');
@@ -21,6 +22,7 @@ describe('Additional Evidence', () => {
   let additionalEvidenceStatementPage: AdditionalEvidenceStatementPage;
   let additionalEvidenceConfirmationPage: AdditionalEvidenceConfirmationPage;
   let additionalEvidenceUploadPage: AdditionalEvidenceUploadPage;
+  let additionalEvidencePostPage: AdditionalEvidencePostPage;
   before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ performLogin: true });
     page = res.page;
@@ -30,6 +32,7 @@ describe('Additional Evidence', () => {
     additionalEvidenceStatementPage = new AdditionalEvidenceStatementPage(page);
     additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
     additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
+    additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
   });
 
   after(async () => {
@@ -57,13 +60,40 @@ describe('Additional Evidence', () => {
     });
   });
 
-  it('fills a statement and submit and shows confirmation page', async () => {
-    // await page.waitFor(4000);
+  it('fills a statement and submit and shows confirmation page and returns to appeal page', async () => {
     additionalEvidencePage.verifyPage();
     await additionalEvidencePage.selectStatementOption();
     await additionalEvidencePage.submit();
 
     additionalEvidenceStatementPage.verifyPage();
+    await additionalEvidenceStatementPage.addStatement('this is my statement');
+    await additionalEvidenceStatementPage.submit();
+
+    additionalEvidenceConfirmationPage.verifyPage();
+    await additionalEvidenceConfirmationPage.returnToAppealPage();
+    taskListPage.verifyPage();
+  });
+
+  it('shows an error if no file to upload and no description', async () => {
+    additionalEvidencePage.verifyPage();
+    await additionalEvidencePage.selectUploadOption();
+    await additionalEvidencePage.submit();
+
+    additionalEvidenceUploadPage.verifyPage();
+    await additionalEvidenceUploadPage.submit();
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.emptyDescription);
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+  });
+
+  it('shows an error if no file to upload', async () => {
+    additionalEvidencePage.verifyPage();
+    await additionalEvidencePage.selectUploadOption();
+    await additionalEvidencePage.submit();
+
+    additionalEvidenceUploadPage.verifyPage();
+    await additionalEvidenceUploadPage.addDescription('The evidence description');
+    await additionalEvidenceUploadPage.submit();
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
   it('uploads a file and shows file list', async () => {
@@ -72,7 +102,28 @@ describe('Additional Evidence', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-
+    await page.waitFor(4000);
     expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
+
+    await additionalEvidenceUploadPage.selectFile('evidence.txt');
+    await additionalEvidenceUploadPage.submit();
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
+
+    await additionalEvidenceUploadPage.addDescription('The evidence description');
+    await additionalEvidenceUploadPage.submit();
+    additionalEvidenceConfirmationPage.verifyPage();
+
+    await additionalEvidenceConfirmationPage.returnToAppealPage();
+    taskListPage.verifyPage();
+  });
+
+  it('shows additional evidence post page', async () => {
+    additionalEvidencePage.verifyPage();
+    await additionalEvidencePage.selectPostOption();
+    await additionalEvidencePage.submit();
+
+    additionalEvidencePostPage.verifyPage();
+    await additionalEvidencePostPage.returnToAppealPage();
+    additionalEvidencePage.verifyPage();
   });
 });

@@ -7,7 +7,7 @@ export class AdditionalEvidenceConfirmationPage extends BasePage {
     this.pagePath = `${additionalEvidence}/confirm`;
   }
 
-  async goToTaskList() {
+  async returnToAppealPage() {
     await Promise.all([
       this.page.waitForNavigation(),
       this.clickElement('#goToTaskList')
