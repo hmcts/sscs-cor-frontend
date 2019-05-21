@@ -1,7 +1,7 @@
 {
   "evidenceUpload": {
     "questionPage": {
-      "enabled": "true",
+      "enabled": "false",
       "overrideAllowed": "false"
     }
   },
@@ -9,6 +9,7 @@
     "enableStub": "true"
   },
   "featureFlags": {
-    "additionalEvidence": "false"
+    "additionalEvidence": "false",
+    "manageYourAppeal": "false"
   }
 }

@@ -1,0 +1,37 @@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="mya-contact__content">
+        <h2 class="govuk-heading-s">Help and support</h2>
+        <ul class="govuk-list">
+          <li><a href="#">Service guide</a></li>
+          <li><a href="#">Representatives</a></li>
+        </ul>
+        <details class="govuk-details contact-us">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              {{ i18n.myaContactUs.title }}
+            </span>
+          </summary>
+
+          <div class="govuk-details__text">
+            <div class="mya-contact__option">
+              <h2 class="govuk-heading-m">{{ i18n.myaContactUs.webChat.title }}</h2>
+              <p>{{ i18n.myaContactUs.webChat.para1 | eval | safe }}</p>
+            </div>
+            <div class="mya-contact__option">
+              <h2 class="govuk-heading-m">{{ i18n.myaContactUs.sendMessage.title }}</h2>
+              <p>{{ i18n.myaContactUs.sendMessage.para1 | eval | safe }}</p>
+            </div>
+            <div class="mya-contact__option">
+              <h2 class="govuk-heading-m">{{ i18n.myaContactUs.telephone.title }}</h2>
+              <p>{{ i18n.myaContactUs.telephone.description }}</p>
+              <h2 class="govuk-heading-s">{{ i18n.myaContactUs.telephone.england.title }}</h2>
+              <p>{{ i18n.myaContactUs.telephone.england.para1 | eval | safe }}</p>
+              <h2 class="govuk-heading-s">{{ i18n.myaContactUs.telephone.scotland.title }}</h2>
+              <p>{{ i18n.myaContactUs.telephone.scotland.para1 | eval | safe }}</p>
+            </div>  
+          </div>
+        </details>
+      </div>
+    </div>
+</div>

@@ -41,7 +41,6 @@ function setup(sessionHandler: RequestHandler, options: Options) {
 
   if (!isDevelopment) {
     app.set('trust proxy', 1);
-
   } else {
     watch(app);
     app.locals.isDev = true;
@@ -53,11 +52,8 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     extended: true
   }));
   app.use(cookieParser());
-
   app.use('/public', express.static(`${__dirname}/../../public`));
-
   app.use(Express.accessLogger());
-
   app.use(sessionHandler);
   app.use(Paths.health, health.livenessCheck);
   app.use(Paths.readiness, health.readinessCheck);

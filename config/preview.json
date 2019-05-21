@@ -1,0 +1,13 @@
+{
+    "evidenceUpload": {
+      "questionPage": {
+        "enabled": "false",
+        "overrideAllowed": "false"
+      }
+    },
+    "featureFlags": {
+      "additionalEvidence": "false",
+      "manageYourAppeal": "false"
+    }
+  }
+  

@@ -29,6 +29,9 @@
         },
         html: i18n.phaseBanner.new +  '<a class="govuk-link" href="'+ i18n.general.exitLink + pageHeader  +'">' + i18n.phaseBanner.report + '</a> ' + i18n.phaseBanner.improve
     }) }}
+    {% if featureFlags.manageYourAppeal %}
+        {% include "includes/account-navigation.html" %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -36,11 +39,12 @@
     {% if showSignOut %}
         {% include "session-inactivity-modal.html" %}
     {% endif %}
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+
+    {% if featureFlags.manageYourAppeal %}
+        {% include "includes/mya-contact-us.html" %}
+    {% else %}
         {% include "includes/contact-us.html" %}
-    </div>
-</div>
+    {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}

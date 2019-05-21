@@ -8,6 +8,7 @@ $govuk-assets-path: '/public/govuk-frontend/';
 @import "_decision";
 @import "_cookie-banner";
 @import "_session-modal";
+@import "_account-navigation";
 
 .divider {
   border-bottom: 3px solid govuk-colour("blue");
