@@ -67,6 +67,8 @@ module "sscs-cor-frontend" {
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED = "${var.evidence_upload_question_page_override_allowed}"
     S2S_URL                                        = "${local.s2sUrl}"
     S2S_SECRET                                     = "${data.azurerm_key_vault_secret.sscs-s2s-secret.value}"
+    MYA_FEATURE_FLAG                               = "${var.mya_feature_flag}"
+    ADDITIONAL_EVIDENCE_FEATURE_FLAG               = "${var.additional_evidence_feature_flag}"
   }
 }
 

@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% from "components/navigation-tabs.html" import navigationTabs %}
 {% set pageHeader = i18n.taskList.header %}
 {% block corContent %}
 <div class="govuk-grid-row">
@@ -12,7 +13,8 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <div id="task-list">
+        <div class="task-list">
+            {{ navigationTabs('questions') }}
             <h2 class="govuk-heading-s --margin-bottom-s">Questions from the tribunal</h2>
             {% if questions.length != 0 %}
                 <p>
@@ -22,7 +24,7 @@
                         {%- if deadlineExpiryDate.extendable %} <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>{%- endif %}
                     </span>
                 </p>
-                <ul class="govuk-list">
+                <ul class="govuk-list questions-list">
                     {% for question in questions %}
                         {% set answerState = question.answer_state %}
                         {% if answerState === 'submitted' %}

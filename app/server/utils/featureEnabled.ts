@@ -2,6 +2,7 @@ import * as config from 'config';
 
 enum Feature {
   ADDITIONAL_EVIDENCE_FEATURE = 'additionalEvidence',
+  MANAGE_YOUR_APPEAL = 'manageYourAppeal',
   TEST_FEATURE = 'testFeature'
 }
 

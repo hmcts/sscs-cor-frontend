@@ -1,0 +1,41 @@
+.navigation-tabs {
+    position: relative;
+    height: 2.5rem;
+    margin-bottom: 2.5rem;
+    &__list {
+        position: absolute;
+        width: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-bottom: 0.125rem solid #bfc1c3;
+        li {
+            float: left;
+            margin: 0 3px 0 0;
+            a {
+                border: solid 2px #fff;
+                border-bottom: none;
+                float: left;
+                height: 2.5rem;
+                line-height: 2.5rem;
+                margin-bottom: -2px;
+                padding: 0 20px;
+
+                &:hover {
+                    background-color: #f8f8f8;
+                }
+            }
+            &.selected {
+                a {
+                    border: 0.125rem solid #bfc1c3;
+                    border-bottom: none;
+                    padding-bottom: 2px;
+                    background-color: white;
+                    pointer-events: none;
+                    text-decoration: none;
+                    color: #0b0c0c;
+                }
+            }
+        }
+    }
+}

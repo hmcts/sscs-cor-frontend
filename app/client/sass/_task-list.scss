@@ -1,23 +1,26 @@
-#task-list {
+.task-list {
   margin-top: 40px;
   margin-bottom: 40px;
-  li {
-    border-bottom: 1px solid $govuk-border-colour;
-    padding: 10px 0;
-
-    &:first-child {
-      border-top: 1px solid $govuk-border-colour;
-    }
-
-    .answer-state {
-      @extend .govuk-tag;
-      float: right;
-
-      &.draft {
-        background-color: govuk-colour("grey-1");
+  .questions-list {
+    li {
+      border-bottom: 1px solid $govuk-border-colour;
+      padding: 10px 0;
+  
+      &:first-child {
+        border-top: 1px solid $govuk-border-colour;
+      }
+  
+      .answer-state {
+        @extend .govuk-tag;
+        float: right;
+  
+        &.draft {
+          background-color: govuk-colour("grey-1");
+        }
       }
     }
   }
+  
   h2 {
     margin-bottom: 6px;
   }

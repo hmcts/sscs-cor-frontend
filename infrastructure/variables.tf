@@ -57,6 +57,16 @@ variable "evidence_upload_question_page_enabled" {
   default = "false"
 }
 
+variable "mya_feature_flag" {
+  description = "Feature switch for enabling Manage your appeal application"
+  default = "false"
+}
+
+variable "additional_evidence_feature_flag" {
+  description = "Feature switch for enabling additional evidence upload per case"
+  default = "false"
+}
+
 variable "evidence_upload_question_page_override_allowed" {
   description = "Feature switch for enabling evidence upload per question to be enabled using a cookie",
   default = "false"

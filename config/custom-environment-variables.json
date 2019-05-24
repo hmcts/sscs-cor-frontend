@@ -38,6 +38,10 @@
       "overrideAllowed": "EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED"
     }
   },
+  "featureFlags": {
+    "manageYourAppeal": "MYA_FEATURE_FLAG",
+    "additionalEvidence": "ADDITIONAL_EVIDENCE_FEATURE_FLAG"
+  },
   "s2s": {
     "secret": "S2S_SECRET",
     "url": "S2S_URL",
