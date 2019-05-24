@@ -10,6 +10,6 @@
   },
   "featureFlags": {
     "additionalEvidence": "false",
-    "manageYourAppeal": "false"
+    "manageYourAppeal": "true"
   }
 }
