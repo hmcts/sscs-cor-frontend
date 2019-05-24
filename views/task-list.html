@@ -14,7 +14,9 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <div class="task-list">
-            {{ navigationTabs('questions') }}
+            {% if featureFlags.manageYourAppeal %}
+                {{ navigationTabs('questions') }}
+            {% endif %}
             <h2 class="govuk-heading-s --margin-bottom-s">Questions from the tribunal</h2>
             {% if questions.length != 0 %}
                 <p>
