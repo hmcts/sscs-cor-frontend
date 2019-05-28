@@ -28,6 +28,7 @@ import { HearingService } from './services/hearing';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
+import { setupStatusController } from './controllers/status';
 
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
@@ -60,6 +61,7 @@ const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
 const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
+const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -84,6 +86,7 @@ router.use(hearingWhyController);
 router.use(cookiePrivacyController);
 router.use(sessionController);
 router.use(evidenceOptionsController);
+router.use(statusController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {
