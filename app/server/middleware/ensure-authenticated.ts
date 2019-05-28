@@ -26,7 +26,31 @@ function setLocals(req, res, next) {
   next();
 }
 
-const ensureAuthenticated = [checkAccessToken, setLocals];
+function setTabNavigationItems(req, res, next) {
+  const tabs = {
+    'status': {
+      'title': 'Status',
+      'url': '/status'
+    },
+    'questions': {
+      'title': 'Provide Evidence',
+      'url': '/task-list'
+    },
+    'hearing': {
+      'title': 'Hearing',
+      'url': '#'
+    },
+    'history': {
+      'title': 'History',
+      'url': '#'
+    }
+  };
+
+  Object.assign(res.locals, { tabs });
+  next();
+}
+
+const ensureAuthenticated = [checkAccessToken, setLocals, setTabNavigationItems];
 
 export {
   checkAccessToken,

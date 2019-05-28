@@ -67,7 +67,7 @@ describe('middleware/ensure-authenticated', () => {
     it('is an array of middleware functions', () => {
       expect(ensureAuthenticated).to.be.an('array');
       /* eslint-disable-next-line no-magic-numbers */
-      expect(ensureAuthenticated).to.have.lengthOf(2);
+      expect(ensureAuthenticated).to.have.lengthOf(3);
     });
   });
 });

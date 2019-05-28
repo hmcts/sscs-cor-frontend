@@ -20,3 +20,4 @@ export const additionalEvidence = '/additional-evidence';
 export const aboutEvidence = '/about-evidence';
 export const postEvidence = '/post-evidence';
 export const coversheet = '/coversheet';
+export const status = '/status';
