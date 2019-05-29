@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% from "components/navigation-tabs.html" import navigationTabs with context%}
+{% from "components/status-bar.html" import statusBar with context%}
 {% set pageHeader = i18n.taskList.header %}
 {% block corContent %}
 <div class="govuk-grid-row">
@@ -17,8 +18,10 @@
             {% if featureFlags.manageYourAppeal %}
                 {{ navigationTabs('status') }}
             {% endif %}
-            <h2 class="govuk-heading-s --margin-bottom-s">Questions from the tribunal</h2>
-            <p>here the content for status page</p>
+            <h2 class="govuk-heading-m --margin-bottom-s">Status of your appeal</h2>
+            {% if featureFlags.manageYourAppeal %}
+                {{ statusBar('status') }}
+            {% endif %}
         </div>
     </div>
 </div>
