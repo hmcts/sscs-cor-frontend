@@ -10,6 +10,7 @@ $govuk-assets-path: '/public/govuk-frontend/';
 @import "_session-modal";
 @import "_account-navigation";
 @import "_navigation-tabs";
+@import "_status-bar";
 
 .divider {
   border-bottom: 3px solid govuk-colour("blue");

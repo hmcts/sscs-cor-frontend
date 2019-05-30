@@ -1,0 +1,81 @@
+@mixin for-tablet-portrait-up {
+    @media (min-width: 600px) { @content; }
+}
+
+.status-bar {
+    @include for-tablet-portrait-up {
+        display: flex;
+        margin: 3.125rem 0;
+    }
+    &__stage {
+        display: flex;
+        @include for-tablet-portrait-up {
+            flex-direction: column;
+            &:not(:first-child) {
+                width: 100%;    
+            }
+        }
+        h4 {
+            margin: 0;
+            margin-left: .5rem;
+            line-height: 2.75rem;
+            font-weight: 400;
+            @include for-tablet-portrait-up {
+                margin: 0;
+            }
+        }
+
+        &:not(:first-child) {
+            height: 4.6875rem;
+            @include for-tablet-portrait-up {
+                height: auto;
+            }
+        }
+    }
+
+    &__ring {
+        border-radius: 50%;
+        border: 6px solid #006435;
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+.--leg {
+    position: relative;
+    > * {
+        position: relative;
+        top: 2rem;
+        @include for-tablet-portrait-up {
+            top: 0;
+            left: calc(100% - 2.75rem);
+        }
+    }
+
+    &:before {
+        content: '';
+        border: solid .1875rem #006435;
+        height: 2rem;
+        position: absolute;
+        left: 1.1875rem;
+        @include for-tablet-portrait-up {
+            height: auto;
+            width: calc(100% - 3rem);
+            left: 0;
+            top: calc(100% / 2 - 1.5rem);
+        }
+    }
+}
+
+.stage--active {
+    .status-bar__ring {
+        background-image: url('/public/images/tick.png');
+        background-repeat: no-repeat;
+        background-color: #006435;
+        background-position: center;
+    }
+
+    h4 {
+        font-weight: 700;
+    }
+}
