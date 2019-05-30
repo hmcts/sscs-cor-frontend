@@ -27,6 +27,7 @@ function setLocals(req, res, next) {
 }
 
 function setTabNavigationItems(req, res, next) {
+  // TODO: req.session contains appeal or hearing, show/hide tabs accordingly
   const tabs = {
     'status': {
       'title': 'Status',

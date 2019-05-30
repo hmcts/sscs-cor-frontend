@@ -32,6 +32,9 @@
     },
     "enableStub": "IDAM_ENABLE_STUB"
   },
+  "tribunals": {
+    "api-url": "TRIBUNALS_API_URL"
+  },
   "evidenceUpload": {
     "questionPage": {
       "enabled": "EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED",

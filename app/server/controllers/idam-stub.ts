@@ -4,7 +4,6 @@ const config = require('config');
 const { Logger } = require('@hmcts/nodejs-logging');
 const Redis = require('ioredis');
 const multer = require('multer');
-
 const multipart = multer();
 
 const logger = Logger.getLogger('idam-stub');

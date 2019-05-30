@@ -29,9 +29,11 @@ import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { setupStatusController } from './controllers/status';
+import { TrackYourApealService } from './services/tyaService';
 
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
+const tribunalsApiUrl: string = config.get('tribunals.api-url');
 const appPort: string = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
@@ -42,6 +44,7 @@ const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret)
 const hearingService: HearingService = new HearingService(apiUrl);
 const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
+const trackYourApealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
 
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
@@ -56,7 +59,7 @@ const tribunalViewController = setupTribunalViewController({ prereqMiddleware: e
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
 const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
-const loginController = setupLoginController({ hearingService, idamService });
+const loginController = setupLoginController({ hearingService, idamService, trackYourApealService });
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });

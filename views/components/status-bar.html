@@ -1,20 +1,10 @@
-{% macro statusBar(text) %}
+{% macro statusBar(stages) %}
     <div class="status-bar">
-        <div class="status-bar__stage stage--active">
+    {% for stage in stages %}
+        <div class="status-bar__stage {{ 'stage--active' if stage.active }} {{ '--leg' if not loop.first }}">
             <div class="status-bar__ring"></div>
-            <h4 class="govuk-heading-s">Title</h4>
+            <h4 class="govuk-heading-s">{{ stage.title }}</h4>
         </div>
-        <div class="status-bar__stage --leg">
-            <div class="status-bar__ring"></div>
-            <h4 class="govuk-heading-s">Title</h4>
-        </div>
-        <div class="status-bar__stage --leg">
-            <div class="status-bar__ring"></div>
-            <h4 class="govuk-heading-s">Title</h4>
-        </div>
-        <div class="status-bar__stage --leg">
-            <div class="status-bar__ring"></div>
-            <h4 class="govuk-heading-s">Title</h4>
-        </div>
+    {% endfor %}
     </div>
 {% endmacro %}

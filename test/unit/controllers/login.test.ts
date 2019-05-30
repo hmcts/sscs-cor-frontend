@@ -100,7 +100,7 @@ describe('controllers/login', () => {
         req.query = {};
 
         const redirectToIdam = sinon.stub();
-        await getIdamCallback(redirectToIdam, null, null)(req, res, next);
+        await getIdamCallback(redirectToIdam, null, null, null)(req, res, next);
 
         expect(redirectToIdam).to.have.been.calledOnce.calledWith(req, res);
       });
@@ -121,7 +121,7 @@ describe('controllers/login', () => {
           getOnlineHearing: sinon.stub().resolves({ body: hearingDetails })
         } as HearingService;
 
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
       });
 
@@ -151,7 +151,7 @@ describe('controllers/login', () => {
           getOnlineHearing: sinon.stub().resolves({ body: hearingDetails })
         } as HearingService;
 
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
       });
 
@@ -187,7 +187,7 @@ describe('controllers/login', () => {
           getOnlineHearing: sinon.stub().resolves({ statusCode: 404 })
         } as HearingService;
 
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: '<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>',
@@ -201,7 +201,7 @@ describe('controllers/login', () => {
           getOnlineHearing: sinon.stub().resolves({ statusCode: 422 })
         } as HearingService;
 
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: i18n.login.failed.technicalError.body,
@@ -214,7 +214,7 @@ describe('controllers/login', () => {
           getOnlineHearing: sinon.stub().resolves({ statusCode: 409 })
         } as HearingService;
 
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: '<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>',
@@ -239,7 +239,7 @@ describe('controllers/login', () => {
         getOnlineHearing: sinon.stub().rejects(error)
       } as HearingService;
 
-      await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub)(req, res, next);
+      await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
     });
 
     it('tracks the exception', () => {
