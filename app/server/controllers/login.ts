@@ -13,6 +13,8 @@ const config = require('config');
 import * as rp from 'request-promise';
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
 import { HearingService } from '../services/hearing';
+import { TrackYourApealService } from '../services/tyaService';
+import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 
 const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
@@ -64,7 +66,8 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
 function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   idamService: IdamService,
-  hearingService: HearingService) {
+  hearingService: HearingService,
+  trackYourApealService: TrackYourApealService) {
   return async (req: Request, res: Response, next: NextFunction) => {
 
     const code: string = req.query.code;
@@ -91,6 +94,12 @@ function getIdamCallback(
         req.session.serviceToken = await generateToken();
       }
       const userDetails: UserDetails = await idamService.getUserDetails(req.session.accessToken);
+
+      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL)) {
+        // TODO: Appeal case hardcoded for the time being until cor backend api responds with both Appeal and Online Hearing objects
+        const response = await trackYourApealService.getAppeal('appeal.paper.received@example.com', req);
+        req.session.appeal = response.appeal;
+      }
 
       // todo Maybe need to check userDetails.accountStatus is 'active' and userDetails.roles contains 'citizen' on userDetails
       return await loadHearingAndEnterService(hearingService, idamService, userDetails.email, req, res);
@@ -134,7 +143,7 @@ async function loadHearingAndEnterService(
 
 function setupLoginController(deps) {
   const router = Router();
-  router.get(Paths.login, getIdamCallback(redirectToIdam('/login', deps.idamService), deps.idamService, deps.hearingService));
+  router.get(Paths.login, getIdamCallback(redirectToIdam('/login', deps.idamService), deps.idamService, deps.hearingService, deps.trackYourApealService));
   router.get(Paths.register, redirectToIdam('/users/selfRegister', deps.idamService));
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;

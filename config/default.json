@@ -31,6 +31,9 @@
     },
     "enableStub": "false"
   },
+  "tribunals": {
+    "api-url": "http://localhost:8083"
+  },
   "httpProxy": false,
   "evidenceUpload": {
     "questionPage": {

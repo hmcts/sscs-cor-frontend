@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% from "components/navigation-tabs.html" import navigationTabs with context%}
 {% from "components/status-bar.html" import statusBar with context%}
+{% from "components/panel.html" import panel %}
 {% set pageHeader = i18n.taskList.header %}
 {% block corContent %}
 <div class="govuk-grid-row">
@@ -15,13 +16,11 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <div class="task-list">
-            {% if featureFlags.manageYourAppeal %}
-                {{ navigationTabs('status') }}
-            {% endif %}
+            {{ navigationTabs('status') }}
             <h2 class="govuk-heading-m --margin-bottom-s">Status of your appeal</h2>
-            {% if featureFlags.manageYourAppeal %}
-                {{ statusBar('status') }}
-            {% endif %}
+            {{ statusBar(stages) }}
+
+            {{ panel('Latest update', 'bla blab lblablab') }}
         </div>
     </div>
 </div>

@@ -5,11 +5,12 @@
 .status-bar {
     @include for-tablet-portrait-up {
         display: flex;
-        margin: 3.125rem 0;
+        padding: 3.125rem 0;
     }
     &__stage {
         display: flex;
         @include for-tablet-portrait-up {
+            position: relative;
             flex-direction: column;
             &:not(:first-child) {
                 width: 100%;    
@@ -22,6 +23,10 @@
             font-weight: 400;
             @include for-tablet-portrait-up {
                 margin: 0;
+                position: absolute;
+                top: 3rem;
+                right: 0;
+                transform:translateX(30%);
             }
         }
 
@@ -43,7 +48,7 @@
 
 .--leg {
     position: relative;
-    > * {
+    > .status-bar__ring {
         position: relative;
         top: 2rem;
         @include for-tablet-portrait-up {
@@ -62,7 +67,7 @@
             height: auto;
             width: calc(100% - 3rem);
             left: 0;
-            top: calc(100% / 2 - 1.5rem);
+            top: calc(100% / 2 - 0.1875rem);
         }
     }
 }
