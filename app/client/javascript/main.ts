@@ -3,6 +3,7 @@ import * as expandingTextBox from './expanding-textbox';
 import { EvidenceUpload } from './evidence-upload';
 import { CheckCookies } from './check-cookies';
 import { SessionInactivity } from './session-inactivity';
+import { DetailsTabIndexToggle } from './detailsToggle';
 
 const domready = require('domready');
 
@@ -12,13 +13,16 @@ function goBack() {
 }
 
 const onReady = () => {
-  let checkCookies = new CheckCookies();
+  const checkCookies = new CheckCookies();
   const evidence = new EvidenceUpload();
-  let sessionInactivity = new SessionInactivity();
+  const sessionInactivity = new SessionInactivity();
+  const detailsToggle = new DetailsTabIndexToggle();
+
   checkCookies.init();
   govUK.initAll();
   expandingTextBox.init();
   sessionInactivity.init();
+  detailsToggle.init();
 
   document.querySelectorAll('#buttonBack').forEach(element => element.addEventListener('click', goBack));
 };
