@@ -2,26 +2,20 @@
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% if action === 'options' %}
-
-  {% set pageHeader = i18n.additionalEvidence.evidenceOptions.header %} 
-
+  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceOptions.header %}
 {% elseif action === 'post' %}
-
-  {% set pageHeader = i18n.additionalEvidence.evidencePost.header %} 
-
+  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidencePost.header %}
 {% elseif action === 'upload' %}
-
-  {% set pageHeader = i18n.additionalEvidence.evidenceUpload.header %}
-
+  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceUpload.header %}
 {% elseif action === 'statement' %}
-
-  {% set pageHeader = i18n.additionalEvidence.evidenceStatement.header %}
-
+  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceStatement.header %}
 {% elseif action === 'confirm' %}
-
-  {% set pageHeader = i18n.additionalEvidence.evidenceConfirm.header %}
-
+  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceConfirm.header %}
 {% endif %}
+
+{% block pageTitle %}
+  {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
 
 {% block beforeContent %}
   {{ super() }}

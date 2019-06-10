@@ -1,4 +1,7 @@
 {% extends "layout.html" %}
+{% block pageTitle %}
+    {{ i18n.postEvidence.header }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
 {% block beforeContent %}
   {{ super() }}
   <a href="/task-list" class="govuk-back-link">{{ i18n.general.back }}</a>
