@@ -69,6 +69,7 @@ module "sscs-cor-frontend" {
     S2S_SECRET                                     = "${data.azurerm_key_vault_secret.sscs-s2s-secret.value}"
     MYA_FEATURE_FLAG                               = "${var.mya_feature_flag}"
     ADDITIONAL_EVIDENCE_FEATURE_FLAG               = "${var.additional_evidence_feature_flag}"
+    FORCE_CHANGE                                   = "true"
   }
 }
 
