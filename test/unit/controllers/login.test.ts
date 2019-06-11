@@ -118,7 +118,7 @@ describe('controllers/login', () => {
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
         hearingServiceStub = {
-          getOnlineHearing: sinon.stub().resolves({ body: hearingDetails })
+          getOnlineHearing: sinon.stub().resolves({ statusCode: 200, body: hearingDetails })
         } as HearingService;
 
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
@@ -148,7 +148,7 @@ describe('controllers/login', () => {
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
         hearingServiceStub = {
-          getOnlineHearing: sinon.stub().resolves({ body: hearingDetails })
+          getOnlineHearing: sinon.stub().resolves({ statusCode: 200, body: hearingDetails })
         } as HearingService;
 
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);

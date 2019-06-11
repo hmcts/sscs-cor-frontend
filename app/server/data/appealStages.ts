@@ -37,7 +37,28 @@ const paperAppealStages = [
   }
 ];
 
+const corAppealStages = [
+  {
+    status: 'APPEAL_RECEIVED',
+    title: 'Stages',
+    latestUpdateText: 'text'
+  }, {
+    status: 'DWP_RESPOND',
+    title: 'for COR appeal',
+    latestUpdateText: 'text'
+  }, {
+    status: 'HEARING',
+    title: 'still to',
+    latestUpdateText: 'text'
+  }, {
+    status: 'HEARING 2',
+    title: 'define',
+    latestUpdateText: 'text'
+  }
+];
+
 export {
+  corAppealStages,
   oralAppealStages,
   paperAppealStages
 };
