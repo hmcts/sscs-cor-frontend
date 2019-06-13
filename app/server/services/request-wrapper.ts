@@ -30,8 +30,8 @@ export class RequestPromise {
       const body = await request(options);
       return Promise.resolve(body);
     } catch (error) {
-      AppInsights.trackException(error);
-      return Promise.reject(error);
+      AppInsights.trackException(`error is: ${error.message} calling ${options.uri}`);
+      return Promise.reject(`error is: ${error.message} calling ${options.uri}`);
     }
 
   }

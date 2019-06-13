@@ -3,9 +3,9 @@ const paperAppealReceived = require('../data/paper/appealReceived');
 
 function getAppeal(appealNumber) {
   switch (appealNumber) {
-  case 'appeal.received@example.com':
+  case '1234567890':
     return oralAppealReceived;
-  case 'appeal.paper.received@example.com':
+  case '2345678901':
     return paperAppealReceived;
   default:
     return {};
@@ -13,8 +13,8 @@ function getAppeal(appealNumber) {
 }
 
 module.exports = {
-  path: '/appeals/:appealNumber',
+  path: '/appeals',
   method: 'GET',
   cache: false,
-  template: params => getAppeal(params.appealNumber)
+  template: (params, query) => getAppeal(query.caseId)
 };

@@ -8,10 +8,13 @@ export class TrackYourApealService {
     this.tribunalApiUrl = url;
   }
 
-  async getAppeal(appealNumber: string, req: Request) {
+  async getAppeal(caseId: string, req: Request) {
+    // tslint:disable-next-line
+    console.log('calling tribunalappeals endpoint with id', caseId);
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.tribunalApiUrl}/appeals/${appealNumber}`
+      uri: `${this.tribunalApiUrl}/appeals`,
+      qs: { caseId }
     }, req);
   }
 
