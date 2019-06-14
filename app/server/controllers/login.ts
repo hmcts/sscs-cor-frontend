@@ -99,8 +99,6 @@ function getIdamCallback(
       if (statusCode !== OK) return renderErrorPage(emailToSearchFor, statusCode, idamService, req, res);
 
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
-        // tslint:disable-next-line
-        console.log('about to call getAppeal in login');
         const { appeal } = await trackYourApealService.getAppeal(body.case_id, req);
         req.session.appeal = appeal;
       }

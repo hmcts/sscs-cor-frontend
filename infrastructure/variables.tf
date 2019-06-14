@@ -48,7 +48,7 @@ variable "idam_api_url" {
 }
 
 variable "tribunals_api_url" {
-  description = "url for Tribunals api"
+  description = "URL for Tribunals api"
 }
 
 variable "idam_enable_stub" {
