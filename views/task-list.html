@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% from "components/navigation-tabs.html" import navigationTabs with context %}
 {% set pageHeader = i18n.taskList.header %}
+{% block pageTitle %}
+    {{ i18n.taskList.header }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
 {% block corContent %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
