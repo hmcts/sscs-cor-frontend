@@ -3,6 +3,7 @@ nodejs:
     SSCS_API_URL: "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
     IDAM_URL: "https://idam-web-public.aat.platform.hmcts.net"
     IDAM_API_URL: "https://idam-api.aat.platform.hmcts.net"
+    TRIBUNALS_API_URL: "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
     IDAM_CLIENT_SECRET: ${IDAM_CLIENT_SECRET}
     S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
     REDIS_URL: redis://${SERVICE_NAME}-redis-master
