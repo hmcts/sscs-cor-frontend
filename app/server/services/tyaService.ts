@@ -8,10 +8,11 @@ export class TrackYourApealService {
     this.tribunalApiUrl = url;
   }
 
-  async getAppeal(appealNumber: string, req: Request) {
+  async getAppeal(caseId: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.tribunalApiUrl}/appeals/${appealNumber}`
+      uri: `${this.tribunalApiUrl}/appeals`,
+      qs: { caseId }
     }, req);
   }
 

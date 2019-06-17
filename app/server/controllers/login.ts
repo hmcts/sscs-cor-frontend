@@ -1,7 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import * as AppInsights from '../app-insights';
 import { Request, Response, NextFunction, Router } from 'express';
-import { NOT_FOUND, UNPROCESSABLE_ENTITY, CONFLICT } from 'http-status-codes';
+import { NOT_FOUND, UNPROCESSABLE_ENTITY, CONFLICT, OK } from 'http-status-codes';
 import * as Paths from '../paths';
 import { URL } from 'url';
 import { generateToken } from '../services/s2s';
@@ -93,16 +93,19 @@ function getIdamCallback(
         req.session.accessToken = tokenResponse.access_token;
         req.session.serviceToken = await generateToken();
       }
-      const userDetails: UserDetails = await idamService.getUserDetails(req.session.accessToken);
+      const { email }: UserDetails = await idamService.getUserDetails(req.session.accessToken);
+      const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
+      const { statusCode, body }: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req);
+      if (statusCode !== OK) return renderErrorPage(emailToSearchFor, statusCode, idamService, req, res);
 
-      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL)) {
-        // TODO: Appeal case hardcoded for the time being until cor backend api responds with both Appeal and Online Hearing objects
-        const response = await trackYourApealService.getAppeal('appeal.paper.received@example.com', req);
-        req.session.appeal = response.appeal;
+      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
+        const { appeal } = await trackYourApealService.getAppeal(body.case_id, req);
+        req.session.appeal = appeal;
       }
 
-      // todo Maybe need to check userDetails.accountStatus is 'active' and userDetails.roles contains 'citizen' on userDetails
-      return await loadHearingAndEnterService(hearingService, idamService, userDetails.email, req, res);
+      req.session.hearing = body;
+      logger.info(`Logging in ${emailToSearchFor}`);
+      return res.redirect(Paths.taskList);
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
@@ -110,35 +113,23 @@ function getIdamCallback(
   };
 }
 
-async function loadHearingAndEnterService(
-  hearingService: HearingService,
-  idamService: IdamService,
-  email: string,
-  req: Request,
-  res: Response) {
-  const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
-  const response: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req);
-  if (response.statusCode === NOT_FOUND) {
+function renderErrorPage(email: string, statusCode: number, idamService: IdamService, req: Request, res: Response) {
+  const options = {};
+  if (statusCode === NOT_FOUND) {
     logger.info(`Cannot find any case for ${email}`);
-    const registerUrl = idamService.getRegisterUrl(req.protocol, req.hostname);
-    const errorHeader = i18n.login.failed.emailNotFound.header;
-    const errorBody = i18n.login.failed.emailNotFound.body;
-    return res.render('load-case-error.html', { errorHeader, errorBody, registerUrl });
-  } else if (response.statusCode === UNPROCESSABLE_ENTITY) {
+    options['registerUrl'] = idamService.getRegisterUrl(req.protocol, req.hostname);
+    options['errorHeader'] = i18n.login.failed.emailNotFound.header;
+    options['errorBody'] = i18n.login.failed.emailNotFound.body;
+  } else if (statusCode === UNPROCESSABLE_ENTITY) {
     logger.info(`Found multiple appeals for ${email}`);
-    const errorHeader = i18n.login.failed.technicalError.header;
-    const errorBody = i18n.login.failed.technicalError.body;
-    return res.render('load-case-error.html', { errorHeader, errorBody });
-  } else if (response.statusCode === CONFLICT) {
+    options['errorHeader'] = i18n.login.failed.technicalError.header;
+    options['errorBody'] = i18n.login.failed.technicalError.body;
+  } else if (statusCode === CONFLICT) {
     logger.info(`Found a non cor appeal for ${email}`);
-    const errorHeader = i18n.login.failed.cannotUseService.header;
-    const errorBody = i18n.login.failed.cannotUseService.body;
-    return res.render('load-case-error.html', { errorHeader, errorBody });
+    options['errorHeader'] = i18n.login.failed.cannotUseService.header;
+    options['errorBody'] = i18n.login.failed.cannotUseService.body;
   }
-
-  req.session.hearing = response.body;
-  logger.info(`Logging in ${email}`);
-  return res.redirect(Paths.taskList);
+  return res.render('load-case-error.html', { ...options });
 }
 
 function setupLoginController(deps) {
