@@ -17,6 +17,11 @@ const emailHearingIdMap = {
   'appeal.denied@example.com': '6-appeal-denied'
 };
 
+const emailToCaseIdMap = {
+  'appeal.received@example.com': '1234567890',
+  'appeal.paper.received@example.com': '2345678901'
+};
+
 const createFinalDecision = email => {
   const finalDecisionEmails = [
     'appeal.upheld@example.com',
@@ -113,6 +118,7 @@ module.exports = {
   template: {
     appellant_name: 'Adam Jenkins',
     case_reference: 'SC/112/233',
+    case_id: (params, query) => emailToCaseIdMap[query.email],
     online_hearing_id: (params, query) => emailHearingIdMap[query.email] || '1-pending',
     decision: (params, query) => createDecision(query.email),
     final_decision: (params, query) => createFinalDecision(query.email),

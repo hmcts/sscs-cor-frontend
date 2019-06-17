@@ -9,11 +9,9 @@ const locale = require('../../locale/en.json');
 import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as cookieParser from 'cookie-parser';
-
 const { fileTypes } = require('./utils/mimeTypeWhitelist');
-
+import * as screenReaderUtils from './utils/screenReaderUtils';
 import { configureHelmet, configureHeaders, configureNunjucks } from './app-configurations';
-
 import watch from './watch';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -38,6 +36,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
 
   app.locals.i18n = locale;
   app.locals.fileTypeWhiteList = fileTypes;
+  app.locals.screenReaderUtils = screenReaderUtils;
 
   if (!isDevelopment) {
     app.set('trust proxy', 1);
