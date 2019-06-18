@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% from "components/navigation-tabs.html" import navigationTabs with context%}
+{% from "components/panel.html" import panel %}
+{% set pageHeader = i18n.taskList.header %}
+{% block corContent %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
+        {% include "includes/appellant-details.html" %}
+    </div>
+</div>
+
+{% include "includes/divider.html" %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="task-list">
+            {{ navigationTabs('history') }}
+            <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.historyPage.header }}</h2>
+            <ul class="history-list">
+                {% if appeal.historicalEvents %}
+                    {% for event in appeal.historicalEvents %}
+                        <li tabindex="0" class="history-list__item">
+                            <span>{{ i18n.appealEvents[event.type].heading | eval }}</span>
+                            <span>{{ event.date | dateFilter("DD MMMM YYYY") }}</span>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                <li tabindex="0" class="history-list__item">
+                    no historical events
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{
+  "appeal": {
+    "caseReference": "SC285/18/10020",
+    "appealNumber": "gghCoPUjOP",
+    "status": "HEARING",
+    "benefitType": "esa",
+    "hearingType" : "oral",
+    "name": "Miss AN Test",
+    "surname": "Test",
+    "latestEvents": [
+      {
+        "date": "2018-07-08T13:38:26.443Z",
+        "type": "HEARING",
+        "contentKey": "status.dormant",
+        "decisionLetterReceiveByDate": "2018-06-19T13:38:26.443Z"
+      }
+    ],
+    "historicalEvents": [
+      {
+        "date": "2018-02-09T14:38:26.443Z",
+        "type": "HEARING_BOOKED",
+        "contentKey": "status.hearingBooked",
+        "postcode": "G2 2XL",
+        "hearingDateTime": "2018-03-25T14:30:00.000Z",
+        "venueName": "Wellington House",
+        "addressLine1": "134-136 Wellington Street",
+        "addressLine2": "",
+        "addressLine3": "Glasgow",
+        "googleMapUrl": "https://www.google.com/maps/place/134-136+Wellington+Street+Glasgow+G2+2XL/@55.864541,-4.259269"
+      },
+      {
+        "date": "2018-02-09T14:38:26.443Z",
+        "type": "DWP_RESPOND",
+        "contentKey": "status.dwpRespond",
+        "hearingContactDate": "2018-03-23T14:38:26.443Z"
+      },
+      {
+        "date": "2018-02-03T14:38:26.443Z",
+        "type": "APPEAL_RECEIVED",
+        "contentKey": "status.appealReceived",
+        "dwpResponseDate": "2018-03-10T14:38:26.443Z"
+      }
+    ],
+    "regionalProcessingCenter": {
+      "name": "BIRMINGHAM",
+      "addressLines": [
+        "HM Courts & Tribunals Service",
+        "Social Security & Child Support Appeals",
+        "Administrative Support Centre",
+        "PO Box 14620"
+      ],
+      "city": "BIRMINGHAM",
+      "postcode": "B16 6FR",
+      "phoneNumber": "0300 123 1142",
+      "faxNumber": "0126 434 7983"
+    }
+  }
+}

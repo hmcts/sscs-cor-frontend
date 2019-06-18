@@ -823,5 +823,175 @@
   },
   "yourDetails": {
     "header": "Your details"
+  },
+  "statusPage": {
+    "header": "Status of your appeal"
+  },
+  "historyPage": {
+    "header": "History of your appeal"
+  },
+  "appealEvents": {
+    "ADJOURNED": {
+      "heading": "Hearing didn't take place",
+      "content": {
+        "oral": [
+          "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
+          "You will receive another email or text message when your new hearing has been booked."
+        ],
+        "paper": [
+          "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
+          "You will receive another email or text message when your new hearing has been booked."
+        ]
+      }
+    },
+    "APPEAL_RECEIVED": {
+      "heading": "Appeal Received",
+      "content": {
+        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
+        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+      }
+    },
+    "CLOSED": {
+      "heading": "Appeal closed",
+      "content": {
+        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
+        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+      }
+    },
+    "DORMANT": {
+      "heading": "Hearing took place",
+      "content": {
+        "oral": [
+          "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+          "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+        ],
+        "paper": [
+          "The tribunal have reviewed all the information you and {{appeal.benefitType | agencyAcronym}} have provided and have reached a decision on your {{appeal.benefitType}} appeal.",
+          "The decision notice has been posted to you. This has the tribunal's decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
+          "Please note we cannot give you your decision over the phone. This is to protect your personal information."
+        ]
+      }
+    },
+    "DWP_RESPOND": {
+      "heading": "{{appeal.benefitType | agencyAcronym}} response",
+      "content": {
+        "oral": [
+          "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitAcronym}} benefit appeal. They should have sent you a copy of their response in the post.",
+          "You do not need to do anything. You will receive another email or text message update when your hearing has been booked. Unfortunately we cannot say how long this will be but it may be several months."
+        ],
+        "paper": [
+          "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitAcronym}} appeal. They should have sent you a copy in the post. Read their response and send your comments to the tribunal, if you have any.",
+          "A tribunal panel made up of {{appeal.benefitType|panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
+        ]
+      }
+    },
+    "DWP_RESPOND_OVERDUE": {
+      "heading": "{{appeal.benefitType | agencyAcronym}} response overdue",
+      "content": {
+        "oral": [
+          "{{appeal.benefitType | agencyAcronym}} were due to respond to your appeal but they have not yet done so. You do not have to do anything. We’ve contacted them again to ask them to respond. We’ll let you know when they do."
+        ],
+        "paper": [
+          "{{appeal.benefitType | agencyAcronym}} were due to respond to your appeal but they have not yet done so. You do not have to do anything. We’ve contacted them again to ask them to respond. We’ll let you know when they do."
+        ]
+      }
+    },
+    "EVIDENCE_RECEIVED": {
+      "heading": "Evidence received",
+      "content": {
+        "oral": ["The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."],
+        "paper": ["The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."]
+      }
+    },
+    "HEARING": {
+      "heading": "Hearing took place",
+      "content": {
+        "oral": [
+          "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+          "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+        ],
+        "paper": [
+          "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+          "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+        ]
+      }
+    },
+    "HEARING_BOOKED": {
+      "heading": "Hearing booked",
+      "content": {
+        "oral": ["A hearing has been booked for your appeal."],
+        "paper": ["A hearing has been booked for your appeal."]
+      }
+    },
+    "LAPSED_REVISED": {
+      "heading": "Change of decision",
+      "content": {
+        "oral": [
+          "{{appeal.benefitType | agencyAcronym}} have told us they changed their decision on your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal. If you don’t agree with their new decision you can start a new appeal.",
+          "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+        ],
+        "paper": [
+          "{{appeal.benefitType | agencyAcronym}} has told us they changed their decision about your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal.",
+          "If you don’t agree with their new decision you can start a new appeal: <a href=\"https://www.gov.uk/appeal-benefit-decision\">https://www.gov.uk/appeal-benefit-decision</a>",
+          "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+        ]
+      }
+    },
+    "NEW_HEARING_BOOKED": {
+      "heading": "New hearing booked",
+      "content": {
+        "oral": ["A new hearing has been booked for your appeal."],
+        "paper": ["A new hearing has been booked for your appeal."]
+      }
+    },
+    "PAST_HEARING_BOOKED": {
+      "heading": "Still booking a hearing",
+      "content": {
+        "oral": ["We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."],
+        "paper": ["We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."]
+      }
+    },
+    "POSTPONED": {
+      "heading": "Hearing postponed",
+      "content": {
+        "oral": [
+          "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
+          "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
+        ],
+        "paper": [
+          "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
+          "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
+        ]
+      }
+    },
+    "WITHDRAWN": {
+      "heading": "Appeal withdrawn",
+      "content": {
+        "oral": [
+          "You told us you wanted to withdraw your appeal so we’ve closed it.",
+          "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+        ],
+        "paper": [
+          "You told us you wanted to withdraw your appeal so we’ve closed it.",
+          "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+        ]
+      }
+    }
+  },
+  "benefitTypes": {
+    "esa": {
+      "acronym": "ESA",
+      "fullDescription": "Employment and Support Allowance (ESA)",
+      "agency": "Department for Work and Pensions",
+      "agencyAcronym": "DWP",
+      "panel": "a judge and a doctor"
+    },
+    "pip": {
+      "acronym": "PIP",
+      "fullDescription": "Personal Independence Payment (PIP)",
+      "agency": "Department for Work and Pensions",
+      "agencyAcronym": "DWP",
+      "panel": "a judge, doctor and disability expert"
+    }
   }
 }

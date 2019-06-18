@@ -12,6 +12,7 @@ $govuk-assets-path: '/public/govuk-frontend/';
 @import "_navigation-tabs";
 @import "_status-bar";
 @import "_panel";
+@import "_history-list";
 
 .divider {
   border-bottom: 3px solid govuk-colour("blue");

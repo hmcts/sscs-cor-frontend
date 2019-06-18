@@ -18,7 +18,9 @@ const emailHearingIdMap = {
 };
 
 const emailToCaseIdMap = {
-  'appeal.received@example.com': '1234567890',
+  'oral.appealReceived@example.com': '1',
+  'oral.hearingBooked@example.com': '2',
+  'oral.hearing@example.com': '3',
   'appeal.paper.received@example.com': '2345678901'
 };
 

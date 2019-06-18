@@ -3,6 +3,8 @@ import { CONST } from '../constants';
 import nunjucks = require('nunjucks');
 const dateFilter = require('nunjucks-date-filter');
 import * as moment from 'moment';
+import express = require('express');
+const locale = require('../../locale/en.json');
 
 function configureHelmet(app) {
 
@@ -60,7 +62,7 @@ function configureHeaders(app) {
   });
 }
 
-function configureNunjucks(app: object) {
+function configureNunjucks(app: express.Application) {
 
   const nunEnv = nunjucks.configure([
     'views',
@@ -78,6 +80,17 @@ function configureNunjucks(app: object) {
   });
   nunEnv.addFilter('eval', function (text) {
     return nunjucks.renderString(text, this.ctx);
+  });
+
+  nunEnv.addFilter('isArray', function(input) {
+    return Array.isArray(input);
+  });
+  nunEnv.addFilter('dateFilter', dateFilter);
+  nunEnv.addFilter('agencyAcronym', benefitType => {
+    return nunjucks.renderString(locale.benefitTypes[benefitType].agencyAcronym, this.ctx);
+  });
+  nunEnv.addFilter('benefitAcronym', benefitType => {
+    return nunjucks.renderString(locale.benefitTypes[benefitType].acronym, this.ctx);
   });
 }
 
