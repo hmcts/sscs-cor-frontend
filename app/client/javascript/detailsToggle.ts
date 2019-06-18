@@ -3,9 +3,9 @@ export class DetailsTabIndexToggle {
   init(): void {
     this.detailsSelectors = Array.from(document.querySelectorAll('details.govuk-details'));
     this.detailsSelectors.forEach(selector => {
-      const detailsText = selector.querySelector('.govuk-details__text');
-      if (selector.open) detailsText.removeAttribute('tabindex');
-      else detailsText.setAttribute('tabindex', '-1');
+      const detailsText = selector.querySelectorAll('.govuk-details__text a');
+      if (selector.open) detailsText.forEach(child => child.removeAttribute('tabindex'));
+      else detailsText.forEach(child => child.setAttribute('tabindex', '-1'));
     });
     this.attachListeners();
   }
@@ -19,9 +19,9 @@ export class DetailsTabIndexToggle {
 
   toggleAttribute(selector: HTMLDetailsElement, target: Element): any {
     if (selector.open) {
-      target.removeAttribute('tabindex');
+      target.querySelectorAll('a').forEach(child => child.removeAttribute('tabindex'));
     } else {
-      target.setAttribute('tabindex', '-1');
+      target.querySelectorAll('a').forEach(child => child.setAttribute('tabindex', '-1'));
     }
   }
 }

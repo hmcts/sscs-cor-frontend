@@ -49,12 +49,12 @@ describe('detailsTabIndexToggle', () => {
     detailsToggle = new DetailsTabIndexToggle();
     detailsToggle.init();
     expect(attachListernersMock).to.have.been.called;
-    const value = document.querySelector('.govuk-details__text').getAttribute('tabindex');
+    const value = document.querySelector('.govuk-details__text a').getAttribute('tabindex');
     expect(value).to.equal('-1');
   });
 
   it('should remove tabindex attribute on init', () => {
-    const removeAttributeMock = sandbox.stub(document.querySelector('.govuk-details__text'), 'removeAttribute');
+    const removeAttributeMock = sandbox.stub(document.querySelector('.govuk-details__text a'), 'removeAttribute');
     document.querySelector('details').open = true;
     detailsToggle.init();
 
@@ -71,8 +71,8 @@ describe('detailsTabIndexToggle', () => {
   it('should toggle tabindex attribute', () => {
     const selector: HTMLDetailsElement = document.querySelector('.govuk-details');
     const target = document.querySelector('.govuk-details__text');
-    const removeAttributeMock = sandbox.stub(target, 'removeAttribute');
-    const setAttributeMock = sandbox.stub(target, 'setAttribute');
+    const removeAttributeMock = sandbox.stub(target.querySelector('a'), 'removeAttribute');
+    const setAttributeMock = sandbox.stub(target.querySelector('a'), 'setAttribute');
     detailsToggle.toggleAttribute(selector, target);
 
     expect(removeAttributeMock).to.have.been.called;
