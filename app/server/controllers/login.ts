@@ -5,7 +5,6 @@ import { NOT_FOUND, UNPROCESSABLE_ENTITY, CONFLICT, OK } from 'http-status-codes
 import * as Paths from '../paths';
 import { URL } from 'url';
 import { generateToken } from '../services/s2s';
-
 const i18n = require('../../../locale/en.json');
 
 const config = require('config');
@@ -58,6 +57,13 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
     idamUrl.searchParams.append('redirect_uri', redirectUrl);
     idamUrl.searchParams.append('client_id', idamClientId);
     idamUrl.searchParams.append('response_type', 'code');
+
+    if (req.query.tya) {
+      idamUrl.searchParams.append('state', req.query.tya);
+    } else if (req.query.state) {
+      idamUrl.searchParams.append('state', req.query.state);
+    }
+
     logger.log(`Redirecting to [${idamUrl.href}]`);
     return res.redirect(idamUrl.href);
   };
@@ -92,6 +98,7 @@ function getIdamCallback(
 
         req.session.accessToken = tokenResponse.access_token;
         req.session.serviceToken = await generateToken();
+        req.session.tya = req.query.state;
       }
       const { email }: UserDetails = await idamService.getUserDetails(req.session.accessToken);
       const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
