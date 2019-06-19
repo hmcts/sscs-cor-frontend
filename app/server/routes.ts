@@ -20,6 +20,7 @@ import { setupIdamStubController } from './controllers/idam-stub';
 import { setupCookiePrivacyController } from './controllers/policies';
 import { setupSessionController } from './controllers/session';
 import { setupadditionalEvidenceController } from './controllers/additional-evidence';
+import { setupYourDetailsController } from './controllers/your-details';
 
 const router = express.Router();
 
@@ -65,6 +66,7 @@ const cookiePrivacyController = setupCookiePrivacyController();
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
 const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
+const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -90,6 +92,7 @@ router.use(cookiePrivacyController);
 router.use(sessionController);
 router.use(evidenceOptionsController);
 router.use(statusController);
+router.use(yourDetailsController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {

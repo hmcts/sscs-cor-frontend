@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% set pageHeader = i18n.taskList.header %}
+{% block corContent %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">{{ i18n.yourDetails.header }}</h1>
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header --vertical-align-top" scope="row">Address</th>
+                    <td class="govuk-table__cell">
+                        <address aria-label='{{ i18n.guidance.sendingEvidence.screenReaderPostalAddress }}'>
+                            <span aria-hidden='true'>{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</span>
+                        </address>
+                    </td>
+                    <td class="govuk-table__cell --vertical-align-top"><a href="#">Change</a></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header --vertical-align-top" scope="row">Email address</th>
+                    <td class="govuk-table__cell">email@test.com</td>
+                    <td class="govuk-table__cell --vertical-align-top"><a href="#">Change</a></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header --vertical-align-top" scope="row">Contact phone number</th>
+                    <td class="govuk-table__cell">07972 438178</td>
+                    <td class="govuk-table__cell --vertical-align-top"><a href="#">Change</a></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header --vertical-align-top" scope="row">Text message updates</th>
+                    <td class="govuk-table__cell">07972 438178</td>
+                    <td class="govuk-table__cell --vertical-align-top"><a href="#">Change</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -820,5 +820,8 @@
           "cta": "<a href='/additional-evidence'>Provide evidence to the tribunal</a>"
         }
     }
+  },
+  "yourDetails": {
+    "header": "Your details"
   }
 }
