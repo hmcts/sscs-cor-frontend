@@ -7,8 +7,10 @@ import { oralAppealStages, paperAppealStages, corAppealStages } from '../data/ap
 function getStatus(req: Request, res: Response) {
   if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
   let stages: IAppealStage[] = [];
-  if (req.session.appeal) {
-    const { hearingType, status } = req.session.appeal;
+  const { appeal } = req.session;
+  const noProgressBarStages = ['CLOSED', 'LAPSED_REVISED', 'WITHDRAWN'];
+  const { hearingType, status } = appeal;
+  if (!noProgressBarStages.includes(status)) {
     if (hearingType === 'oral') {
       stages = getActiveStages(status, oralAppealStages);
     } else if (hearingType === 'paper') {
@@ -17,7 +19,7 @@ function getStatus(req: Request, res: Response) {
       stages = getActiveStages(status, corAppealStages);
     }
   }
-  return res.render('status.html', { stages, appeal: req.session.appeal ? req.session.appeal : 'no appeal' });
+  return res.render('status-tab.html', { stages, appeal });
 }
 
 function setupStatusController(deps: any) {
@@ -27,8 +29,6 @@ function setupStatusController(deps: any) {
 }
 
 export {
-  IAppealStage,
-  getActiveStages,
   getStatus,
   setupStatusController
 };

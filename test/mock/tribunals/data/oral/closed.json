@@ -1,0 +1,30 @@
+{
+  "appeal": {
+    "caseReference": "SC285/18/00006",
+    "appealNumber": "D8dg4cGLHZ",
+    "benefitType": "esa",
+    "hearingType" : "oral",
+    "name": "Mrs. AN Test",
+    "surname": "Test",
+    "status": "CLOSED",
+    "latestEvents": [{
+        "date": "2016-12-11T12:50:11.437Z",
+        "type": "CLOSED",
+        "contentKey": "status.closed"
+      }
+    ]
+  },
+  "regionalProcessingCenter": {
+    "name": "CARDIFF",
+    "addressLines": [
+      "HM Courts & Tribunals Service",
+      "Social Security & Child Support Appeals",
+      "Eastgate House",
+      "Newport Road"
+    ],
+    "city": "CARDIFF",
+    "postcode": "CF24 0AB",
+    "phoneNumber": "0300 123 1142",
+    "faxNumber": "0870 739 4438"
+  }
+}

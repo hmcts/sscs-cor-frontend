@@ -40,7 +40,7 @@ describe('controllers/task-list', () => {
       header: sandbox.stub()
     };
     next = sandbox.stub();
-    sinon.stub(AppInsights, 'trackException');
+    sandbox.stub(AppInsights, 'trackException');
     additionalEvidenceService = {
       getCoversheet: sandbox.stub().resolves('file')
     };
@@ -107,10 +107,10 @@ describe('controllers/task-list', () => {
     it('should call render with the template and the empty list of questions', async() => {
       questionService.getAllQuestions = () => Promise.resolve({ });
       await getTaskList(questionService)(req, res, next);
-      expect(res.render).to.have.been.calledWith('task-list.html', {
+      expect(res.render).to.have.been.called.calledWith('task-list.html', {
         deadlineExpiryDate: null,
-        enableAdditionalEvidence: false,
-        questions: []
+        questions: [],
+        hearingType: 'cor'
       });
     });
 
@@ -124,7 +124,7 @@ describe('controllers/task-list', () => {
           expiryDate: expectedDeadline,
           status: 'pending'
         },
-        enableAdditionalEvidence: false
+        hearingType: 'cor'
       });
     });
 
@@ -139,7 +139,7 @@ describe('controllers/task-list', () => {
           expiryDate: null,
           status: 'completed'
         },
-        enableAdditionalEvidence: false
+        hearingType: 'cor'
       });
     });
 
@@ -156,7 +156,7 @@ describe('controllers/task-list', () => {
           expiryDate: expectedExpiredDeadline,
           status: 'expired'
         },
-        enableAdditionalEvidence: false
+        hearingType: 'cor'
       });
     });
 

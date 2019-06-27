@@ -824,10 +824,32 @@
   "yourDetails": {
     "header": "Your details"
   },
-  "statusPage": {
+  "statusTab": {
     "header": "Status of your appeal"
   },
-  "historyPage": {
+  "provideEvidenceTab": {
+    "header": "Provide evidence to the tribunal"
+  },
+  "hearingTab": {
+    "header": "The hearing for your appeal",
+    "noHearingDate": "You will receive an email when your hearing has been booked.",
+    "notAttendingDescription": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
+    "toBeConfirmed": "To be confirmed",
+    "mapsAndDirections": "Maps and directions",
+    "languageInterpreter": "Language interpreter",
+    "signInterpreter": "Sign interpreter",
+    "hearingLoop": "Hearing loop",
+    "disableAccess": "Disable access",
+    "otherArrangements": "Any other arrangements",
+    "tribunalLookLike": "Find out what a tribunal hearing is like if you attend",
+    "contactIfChanges": "<a href=''>Contact us</a> to let us know about any changes or if you cannot attend.",
+    "notAttending": {
+      "info": "You have chosen not to attend your hearing.",
+      "description": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
+      "contactToAttend": "<a href='#'>Contact us</a> if you want to attend."
+    }
+  },
+  "historyTab": {
     "header": "History of your appeal"
   },
   "appealEvents": {

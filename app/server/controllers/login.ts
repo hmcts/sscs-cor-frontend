@@ -115,7 +115,7 @@ function getIdamCallback(
           req.session.appeal = appeal;
 
           logger.info(`Logging in ${email}`);
-          return res.redirect(Paths.taskList);
+          return res.redirect(Paths.status);
         } else {
           return res.redirect(Paths.selectCase);
         }

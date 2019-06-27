@@ -7,7 +7,7 @@ describe('getActiveStatus', () => {
     const oralStages = oralAppealStages.map(stage => {
       if (stage.status === 'APPEAL_RECEIVED') return { ...stage, active: true };
       return { ...stage, active: false };
-    });
+    }).filter(stage => stage.showOnBar);
     expect(getActiveStages('APPEAL_RECEIVED', oralAppealStages)).to.eql(oralStages);
   });
 });

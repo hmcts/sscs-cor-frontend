@@ -24,6 +24,7 @@ function setLocals(req, res, next) {
   // Retrieve feature Flags and adding them as local variables so views can easily access to them
   res.locals.featureFlags = {};
   res.locals.featureFlags[Feature.MANAGE_YOUR_APPEAL] = isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies);
+  res.locals.featureFlags[Feature.ADDITIONAL_EVIDENCE_FEATURE] = isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies);
   next();
 }
 
@@ -40,7 +41,7 @@ function setTabNavigationItems(req, res, next) {
     },
     'hearing': {
       'title': 'Hearing',
-      'url': '#'
+      'url': '/hearing'
     },
     'history': {
       'title': 'History',

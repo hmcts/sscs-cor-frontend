@@ -1,0 +1,31 @@
+{
+  "appeal": {
+    "caseReference": "SC285/18/00012",
+    "appealNumber": "xnfPfeKbJn",
+    "benefitType": "esa",
+    "hearingType" : "oral",
+    "name": "Ms. AN Test",
+    "surname": "Test",
+    "status": "WITHDRAWN",
+    "latestEvents": [
+      {
+        "date": "2017-03-02T17:27:50.297Z",
+        "type": "WITHDRAWN",
+        "contentKey": "status.withdrawn"
+      }
+    ],
+    "regionalProcessingCenter": {
+      "name": "LIVERPOOL",
+      "addressLines": [
+        "HM Courts & Tribunals Service",
+        "Social Security & Child Support Appeals",
+        "Prudential Buildings",
+        "36 Dale Street"
+      ],
+      "city": "LIVERPOOL",
+      "postcode": "L2 5UZ",
+      "phoneNumber": "0300 123 1142",
+      "faxNumber": "0870 324 0109"
+    }
+  }
+}

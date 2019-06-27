@@ -13,6 +13,12 @@ $govuk-assets-path: '/public/govuk-frontend/';
 @import "_status-bar";
 @import "_panel";
 @import "_history-list";
+@import "_hearing-details";
+
+body {
+  font-size: 1.1875rem;
+  font-family: "nta",Arial,sans-serif;
+}
 
 .divider {
   border-bottom: 3px solid govuk-colour("blue");

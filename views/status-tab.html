@@ -17,9 +17,16 @@
     <div class="govuk-grid-column-two-thirds">
         <div class="task-list">
             {{ navigationTabs('status') }}
-            <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.statusPage.header }}</h2>
-            {{ statusBar(stages) }}
-            {{ panel('Latest update', i18n.appealEvents[appeal.status]['content'][appeal.hearingType]) }}
+            <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.statusTab.header }}</h2>
+            {% if stages | length %}
+                {{ statusBar(stages) }}
+            {% endif %}
+            {% if appeal.hearingType == 'cor' %}
+                {% set latestUpdate = "TBC" %}
+            {% else %}
+                {% set latestUpdate = i18n.appealEvents[appeal.status]['content'][appeal.hearingType] %}
+            {% endif %}
+            {{ panel('Latest update', latestUpdate) }}
         </div>
     </div>
 </div>
