@@ -22,3 +22,4 @@ export const postEvidence = '/post-evidence';
 export const coversheet = '/coversheet';
 export const status = '/status';
 export const yourDetails = '/your-details';
+export const history = '/history';

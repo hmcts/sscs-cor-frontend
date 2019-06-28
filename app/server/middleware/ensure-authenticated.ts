@@ -44,7 +44,7 @@ function setTabNavigationItems(req, res, next) {
     },
     'history': {
       'title': 'History',
-      'url': '#'
+      'url': '/history'
     }
   };
 

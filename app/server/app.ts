@@ -26,7 +26,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     AppInsights.enable();
   }
 
-  const app = express();
+  const app: express.Application = express();
 
   if (!isDevelopment) {
     // Protect against some well known web vulnerabilities

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
-{% from "components/navigation-tabs.html" import navigationTabs with context%}
-{% from "components/status-bar.html" import statusBar with context%}
-{% from "components/panel.html" import panel %}
+{% from "components/navigation-tabs.html" import navigationTabs with context %}
+{% from "components/status-bar.html" import statusBar with context %}
+{% from "components/panel.html" import panel with context %}
 {% set pageHeader = i18n.taskList.header %}
 {% block corContent %}
 <div class="govuk-grid-row">
@@ -17,10 +17,9 @@
     <div class="govuk-grid-column-two-thirds">
         <div class="task-list">
             {{ navigationTabs('status') }}
-            <h2 class="govuk-heading-m --margin-bottom-s">Status of your appeal</h2>
+            <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.statusPage.header }}</h2>
             {{ statusBar(stages) }}
-
-            {{ panel('Latest update', 'bla blab lblablab') }}
+            {{ panel('Latest update', i18n.appealEvents[appeal.status]['content'][appeal.hearingType]) }}
         </div>
     </div>
 </div>

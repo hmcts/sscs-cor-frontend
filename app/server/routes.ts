@@ -21,6 +21,8 @@ import { setupCookiePrivacyController } from './controllers/policies';
 import { setupSessionController } from './controllers/session';
 import { setupadditionalEvidenceController } from './controllers/additional-evidence';
 import { setupYourDetailsController } from './controllers/your-details';
+import { setupStatusController } from './controllers/status';
+import { setupHistoryController } from './controllers/history';
 
 const router = express.Router();
 
@@ -29,7 +31,6 @@ import { HearingService } from './services/hearing';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
-import { setupStatusController } from './controllers/status';
 import { TrackYourApealService } from './services/tyaService';
 
 const apiUrl: string = config.get('api.url');
@@ -67,6 +68,7 @@ const sessionController = setupSessionController({ prereqMiddleware: ensureAuthe
 const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
+const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -93,6 +95,7 @@ router.use(sessionController);
 router.use(evidenceOptionsController);
 router.use(statusController);
 router.use(yourDetailsController);
+router.use(historyController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {

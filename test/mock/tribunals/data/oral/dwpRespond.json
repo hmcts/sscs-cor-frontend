@@ -1,0 +1,40 @@
+{
+  "appeal": {
+    "caseReference": "SC285/18/00018",
+    "appealNumber": "ZFEosvLF4N",
+    "status": "DWP_RESPOND",
+    "benefitType": "pip",
+    "hearingType" : "oral",
+    "name": "Mr D test",
+    "surname": "test",
+    "latestEvents": [
+      {
+        "date": "2019-04-08T15:14:20.000Z",
+        "type": "DWP_RESPOND",
+        "contentKey": "status.dwpRespond",
+        "hearingContactDate": "2019-06-03T14:14:20.000Z"
+      }
+    ],
+    "historicalEvents": [
+      {
+        "date": "2018-05-20T14:14:20.000Z",
+        "type": "APPEAL_RECEIVED",
+        "contentKey": "status.appealReceived",
+        "dwpResponseDate": "2018-06-24T14:14:20.000Z"
+      }
+    ],
+    "regionalProcessingCenter": {
+      "name": "BIRMINGHAM",
+      "addressLines": [
+        "HM Courts & Tribunals Service",
+        "Social Security & Child Support Appeals",
+        "Administrative Support Centre",
+        "PO Box 14620"
+      ],
+      "city": "BIRMINGHAM",
+      "postcode": "B16 6FR",
+      "phoneNumber": "0300 123 1142",
+      "faxNumber": "0126 434 7983"
+    }
+  }
+}
