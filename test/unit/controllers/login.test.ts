@@ -5,6 +5,7 @@ import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { HearingService } from 'app/server/services/hearing';
+import { Feature } from '../../../app/server/utils/featureEnabled';
 const config = require('config');
 const i18n = require('locale/en');
 
@@ -15,6 +16,7 @@ describe('controllers/login', () => {
   let req;
   let res;
   const hearingDetails = {
+    case_id: 12345,
     online_hearing_id: '1',
     case_reference: 'SC/123/456',
     appellant_name: 'John Smith'
@@ -31,7 +33,8 @@ describe('controllers/login', () => {
       },
       protocol: 'http',
       hostname: 'localhost',
-      query: { redirectUrl : '', tya: 'tya-number' }
+      query: { redirectUrl : '', tya: 'tya-number' },
+      cookies: {}
     };
     res = {
       render: sinon.stub(),
@@ -173,6 +176,105 @@ describe('controllers/login', () => {
 
       it('redirects to task list page', () => {
         expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+      });
+    });
+
+    describe('on success with MYA enabled', () => {
+      let hearingServiceStub;
+      let trackYourAppealService;
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode', 'state': 'tya-number' };
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        const redirectToIdam = sinon.stub();
+        const idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: [ hearingDetails ] })
+        } as HearingService;
+
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : {} })
+        };
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
+      });
+
+      it('calls the online hearing service', () => {
+        expect(hearingServiceStub.getOnlineHearingsForCitizen).to.have.been.calledOnce.calledWith('someEmail@example.com', 'tya-number', req);
+      });
+
+      it('redirects to task list page', () => {
+        expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+      });
+    });
+
+    describe('cannot find case with MYA enabled', () => {
+      let hearingServiceStub;
+      let trackYourAppealService;
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode', 'state': 'tya-number' };
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        const redirectToIdam = sinon.stub();
+        const idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: [] })
+        } as HearingService;
+
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : {} })
+        };
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
+      });
+
+      it('calls the online hearing service', () => {
+        expect(hearingServiceStub.getOnlineHearingsForCitizen).to.have.been.calledOnce.calledWith('someEmail@example.com', 'tya-number', req);
+      });
+
+      it('redirects to assign case page', () => {
+        expect(res.redirect).to.have.been.calledWith(Paths.assignCase);
+      });
+    });
+
+    describe('finds multiple cases with MYA enabled', () => {
+      let hearingServiceStub;
+      let trackYourAppealService;
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode', 'state': 'tya-number' };
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        const redirectToIdam = sinon.stub();
+        const idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: [ hearingDetails, hearingDetails] })
+        } as HearingService;
+
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : {} })
+        };
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
+      });
+
+      it('calls the online hearing service', () => {
+        expect(hearingServiceStub.getOnlineHearingsForCitizen).to.have.been.calledOnce.calledWith('someEmail@example.com', 'tya-number', req);
+      });
+
+      it('redirects to assign case page', () => {
+        expect(res.redirect).to.have.been.calledWith(Paths.selectCase);
       });
     });
 

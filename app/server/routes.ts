@@ -23,6 +23,7 @@ import { setupadditionalEvidenceController } from './controllers/additional-evid
 import { setupYourDetailsController } from './controllers/your-details';
 import { setupStatusController } from './controllers/status';
 import { setupHistoryController } from './controllers/history';
+import { setupAssignCaseController } from './controllers/assign-case';
 
 const router = express.Router();
 
@@ -69,6 +70,7 @@ const evidenceOptionsController = setupadditionalEvidenceController({ prereqMidd
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
+const assignCaseController = setupAssignCaseController({ hearingService });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -96,6 +98,7 @@ router.use(evidenceOptionsController);
 router.use(statusController);
 router.use(yourDetailsController);
 router.use(historyController);
+router.use(assignCaseController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {

@@ -23,3 +23,5 @@ export const coversheet = '/coversheet';
 export const status = '/status';
 export const yourDetails = '/your-details';
 export const history = '/history';
+export const assignCase = '/assign-case';
+export const selectCase = '/select-case';

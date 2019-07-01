@@ -101,18 +101,34 @@ function getIdamCallback(
         req.session.tya = req.query.state;
       }
       const { email }: UserDetails = await idamService.getUserDetails(req.session.accessToken);
-      const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
-      const { statusCode, body }: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req);
-      if (statusCode !== OK) return renderErrorPage(emailToSearchFor, statusCode, idamService, req, res);
+      req.session.idamEmail = email;
 
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
-        const { appeal } = await trackYourApealService.getAppeal(body.case_id, req);
-        req.session.appeal = appeal;
-      }
+        const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
+        if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
-      req.session.hearing = body;
-      logger.info(`Logging in ${emailToSearchFor}`);
-      return res.redirect(Paths.taskList);
+        if (body.length === 0) {
+          return res.redirect(Paths.assignCase);
+        } else if (body.length === 1) {
+          req.session.hearing = body[0];
+          const { appeal } = await trackYourApealService.getAppeal(req.session.hearing.case_id, req);
+          req.session.appeal = appeal;
+
+          logger.info(`Logging in ${email}`);
+          return res.redirect(Paths.taskList);
+        } else {
+          return res.redirect(Paths.selectCase);
+        }
+      } else {
+        const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
+        const { statusCode, body }: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req);
+        if (statusCode !== OK) return renderErrorPage(emailToSearchFor, statusCode, idamService, req, res);
+
+        req.session.hearing = body;
+
+        logger.info(`Logging in ${emailToSearchFor}`);
+        return res.redirect(Paths.taskList);
+      }
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
