@@ -44,6 +44,27 @@ export class HearingService {
     }, req);
   }
 
+  async getOnlineHearingsForCitizen(email: string, tya: string, req: Request) {
+    const path = tya ? `/${tya}` : '';
+    return RequestPromise.request({
+      method: 'GET',
+      uri: `${this.apiUrl}/citizen${path}`,
+      qs: { email },
+      resolveWithFullResponse: true,
+      simple: false
+    }, req);
+  }
+
+  async assignOnlineHearingsToCitizen(email: string, tya: string, postcode: string, req: Request) {
+    return RequestPromise.request({
+      method: 'POST',
+      uri: `${this.apiUrl}/citizen/${tya}`,
+      body: { email, postcode },
+      resolveWithFullResponse: true,
+      simple: false
+    }, req);
+  }
+
   async extendDeadline(hearingId: string, req: Request) {
     return RequestPromise.request({
       method: 'PATCH',

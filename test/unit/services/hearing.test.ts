@@ -105,6 +105,105 @@ describe('services/hearing', () => {
     });
   });
 
+  describe('#getOnlineHearingsForCitizen', () => {
+    const tya = 'someTyaNumber';
+    const apiResponseBody = [{
+      appellant_name: 'Adam Jenkins',
+      case_reference: 'SC/112/233',
+      online_hearing_id: 'abc-123-def-456'
+    }];
+
+    describe('success response', () => {
+      const userToken = 'someUserToken';
+      const serviceToken = 'someServiceToken';
+      beforeEach(() => {
+        nock(apiUrl, {
+          Authorization: `Bearer ${userToken}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        })
+          .get('/citizen/' + tya)
+          .query({ email })
+          .reply(OK, apiResponseBody);
+      });
+
+      it('resolves the promise', () => (
+        expect(hearingService.getOnlineHearingsForCitizen(email, tya, req)).to.be.fulfilled
+      ));
+
+      it('resolves the promise with the response', async () => {
+        const response = await hearingService.getOnlineHearingsForCitizen(email, tya, req);
+        expect(response.body).to.deep.equal(apiResponseBody);
+      });
+    });
+
+    describe('error response', () => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+      beforeEach(() => {
+        nock(apiUrl, {
+          Authorization: `Bearer ${req.session.accessToken}`,
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        })
+          .get('/citizen/' + tya)
+          .query({ email })
+          .replyWithError(error);
+      });
+
+      it('rejects the promise with the error', () => (
+        expect(hearingService.getOnlineHearingsForCitizen(email, tya, req)).to.be.rejectedWith(error)
+      ));
+    });
+  });
+
+  describe('#assignOnlineHearingsToCitizen', () => {
+    const tya = 'someTyaNumber';
+    const postcode = 'somePostcode';
+    const apiResponseBody = {
+      appellant_name: 'Adam Jenkins',
+      case_reference: 'SC/112/233',
+      online_hearing_id: 'abc-123-def-456'
+    };
+
+    describe('success response', () => {
+      const userToken = 'someUserToken';
+      const serviceToken = 'someServiceToken';
+      beforeEach(() => {
+        nock(apiUrl, {
+          Authorization: `Bearer ${userToken}`,
+          ServiceAuthorization: `Bearer ${serviceToken}`
+        })
+          .post('/citizen/' + tya, { email, postcode })
+          .reply(OK, apiResponseBody);
+      });
+
+      it('resolves the promise', () => (
+        expect(hearingService.assignOnlineHearingsToCitizen(email, tya, postcode, req)).to.be.fulfilled
+      ));
+
+      it('resolves the promise with the response', async () => {
+        const response = await hearingService.assignOnlineHearingsToCitizen(email, tya, postcode, req);
+        expect(response.body).to.deep.equal(apiResponseBody);
+      });
+    });
+
+    describe('error response', () => {
+      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+      beforeEach(() => {
+        nock(apiUrl, {
+          Authorization: `Bearer ${req.session.accessToken}`,
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        })
+          .post('/citizen/' + tya, { email, postcode })
+          .replyWithError(error);
+      });
+
+      it('rejects the promise with the error', () => (
+        expect(hearingService.assignOnlineHearingsToCitizen(email, tya, postcode, req)).to.be.rejectedWith(error)
+      ));
+    });
+  });
+
   describe('#extendDeadline', () => {
     const hearingId = '121';
     const path = `/continuous-online-hearings/${hearingId}`;

@@ -1,0 +1,31 @@
+{% from "input/macro.njk" import govukInput %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% extends "layout.html" %}
+
+{% block corContent %}
+  {% if error %}
+    {{ govukErrorSummary({
+        titleText: "Case not found",
+        descriptionText: "Error adding case to user",
+        errorList: [{
+          text: "Case not found for given postcode",
+          href: "#Postcode"
+        }]
+      })
+    }}
+  {% endif %}
+  <form id="answer-form" action="/assign-case" method="post">
+    {{ govukInput({
+        label: {
+          text: "Postcode"
+        },
+        id: "postcode",
+        name: "postcode",
+        "classes": "govuk-input--width-20"
+      })
+    }}
+
+    <input id="assign-case" name="assign-case" type="submit" class="govuk-button secondary-button">
+  </form>
+{% endblock %}
