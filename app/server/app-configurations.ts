@@ -92,6 +92,9 @@ function configureNunjucks(app: express.Application) {
   nunEnv.addFilter('benefitAcronym', benefitType => {
     return nunjucks.renderString(locale.benefitTypes[benefitType].acronym, this.ctx);
   });
+  nunEnv.addFilter('panel', benefitType => {
+    return nunjucks.renderString(locale.benefitTypes[benefitType].panel, this.ctx);
+  });
 }
 
 export { configureHelmet, configureHeaders, configureNunjucks };

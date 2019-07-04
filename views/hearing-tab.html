@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% from "inset-text/macro.njk" import govukInsetText %}
+{% from "components/navigation-tabs.html" import navigationTabs with context%}
+{% set pageHeader = i18n.taskList.header %}
+{% block corContent %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
+        {% include "includes/appellant-details.html" %}
+    </div>
+</div>
+
+{% include "includes/divider.html" %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="task-list">
+            {{ navigationTabs('hearing') }}
+            <h2 class="govuk-heading-m --margin-bottom-s">The hearing for your appeal</h2>
+            {% if attending %}
+                {% if not hearingInfo.hearingDateTime %}
+                    <div>{{ i18n.hearingTab.noHearingDate }}</div>
+                {% endif %}
+                <div class="hearing-details">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Date</dt>
+                            <dd class="govuk-summary-list__value">
+                                {{ hearingInfo.hearingDateTime | dateFilter('DD MMMM YYYY') if hearingInfo else i18n.hearingTab.toBeConfirmed }}
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Time</dt>
+                            <dd class="govuk-summary-list__value">
+                                {{ hearingInfo.hearingDateTime | dateFilter('HH:mm') if hearingInfo else i18n.hearingTab.toBeConfirmed }}
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Location</dt>
+                            <dd class="govuk-summary-list__value">
+                                {% if hearingInfo %}
+                                    {{ hearingInfo.venueName }} <br />
+                                    {{ hearingInfo.addressLine1 }} <br />
+                                    {{ hearingInfo.addressLine2 }} <br />
+                                    {{ hearingInfo.addressLine3 }} <br />
+                                    {{ hearingInfo.postcode }} <br />
+                                    <a href="{{ hearingInfo.googleMapUrl }}">{{ i18n.hearingTab.mapsAndDirections }}</a>
+                                {% else %}
+                                    {{ i18n.hearingTab.toBeConfirmed }}
+                                {% endif %}
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">{{ i18n.hearingTab.languageInterpreter }}</dt>
+                            <dd class="govuk-summary-list__value">
+                                Not required
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">{{ i18n.hearingTab.signInterpreter }}</dt>
+                            <dd class="govuk-summary-list__value">
+                                British Sign Language
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">{{ i18n.hearingTab.hearingLoop }}</dt>
+                            <dd class="govuk-summary-list__value">
+                                Not required
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">{{ i18n.hearingTab.disableAccess }}</dt>
+                            <dd class="govuk-summary-list__value">
+                                Required
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">{{ i18n.hearingTab.otherArrangements }}</dt>
+                            <dd class="govuk-summary-list__value">
+                                Hearing room near to a toilet
+                            </dd>
+                        </div>
+                    </dl>
+                    <div>
+                        <a href="#">{{ i18n.hearingTab.tribunalLookLike }}</a>
+                    </div>
+                </div>
+                {{ govukInsetText({
+                    html: i18n.hearingTab.contactIfChanges | eval | safe
+                }) }}
+            {% else %}
+                {{ govukInsetText({
+                    text: i18n.hearingTab.notAttending.info
+                }) }}
+                <p>{{ i18n.hearingTab.notAttending.description }}</p>
+                <p>
+                    <a href="#">{{ i18n.hearingTab.tribunalLookLike }}</a>
+                </p>
+                <p>
+                    {{ i18n.hearingTab.notAttending.contactToAttend | eval | safe }}
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

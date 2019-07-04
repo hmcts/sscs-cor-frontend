@@ -24,6 +24,7 @@ import { setupYourDetailsController } from './controllers/your-details';
 import { setupStatusController } from './controllers/status';
 import { setupHistoryController } from './controllers/history';
 import { setupAssignCaseController } from './controllers/assign-case';
+import { setupHearingController } from './controllers/hearing';
 
 const router = express.Router();
 
@@ -60,7 +61,7 @@ const decisionController = setupDecisionController({ prereqMiddleware: ensureAut
 const tribunalViewConfirmController = setupTribunalViewConfirmController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
-const hearingController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
+const hearingConfirmController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
 const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const loginController = setupLoginController({ hearingService, idamService, trackYourApealService });
 const idamStubController = setupIdamStubController();
@@ -71,6 +72,7 @@ const statusController = setupStatusController({ prereqMiddleware: ensureAuthent
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
 const assignCaseController = setupAssignCaseController({ hearingService });
+const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -90,7 +92,7 @@ router.use(decisionController);
 router.use(tribunalViewController);
 router.use(tribunalViewAcceptedController);
 router.use(tribunalViewConfirmController);
-router.use(hearingController);
+router.use(hearingConfirmController);
 router.use(hearingWhyController);
 router.use(cookiePrivacyController);
 router.use(sessionController);
@@ -99,6 +101,7 @@ router.use(statusController);
 router.use(yourDetailsController);
 router.use(historyController);
 router.use(assignCaseController);
+router.use(hearingTabController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {

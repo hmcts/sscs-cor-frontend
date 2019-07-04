@@ -25,3 +25,4 @@ export const yourDetails = '/your-details';
 export const history = '/history';
 export const assignCase = '/assign-case';
 export const selectCase = '/select-case';
+export const hearing = '/hearing';

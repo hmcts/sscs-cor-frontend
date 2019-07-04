@@ -208,7 +208,7 @@ describe('controllers/login', () => {
       });
 
       it('redirects to task list page', () => {
-        expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+        expect(res.redirect).to.have.been.calledWith(Paths.status);
       });
     });
 

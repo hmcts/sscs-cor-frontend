@@ -9,7 +9,7 @@
     "enableStub": "true"
   },
   "featureFlags": {
-    "additionalEvidence": "false",
+    "additionalEvidence": "true",
     "manageYourAppeal": "true"
   }
 }

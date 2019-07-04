@@ -58,7 +58,7 @@ describe('controllers/status', () => {
       const getActiveStagesStub = sandbox.stub(appealStagesUtils, 'getActiveStages').returns([]);
       status.getStatus(req, res);
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(oralAppealReceived.appeal.status);
-      expect(res.render).to.have.been.calledOnce.calledWith('status.html', { stages: [], appeal: oralAppealReceived.appeal });
+      expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', { stages: [], appeal: oralAppealReceived.appeal });
     });
 
     it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async() => {
@@ -67,7 +67,7 @@ describe('controllers/status', () => {
       const getActiveStagesStub = sandbox.stub(appealStagesUtils, 'getActiveStages').returns([]);
       status.getStatus(req, res);
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(paperAppealReceived.appeal.status);
-      expect(res.render).to.have.been.calledOnce.calledWith('status.html', { stages: [], appeal: paperAppealReceived.appeal });
+      expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', { stages: [], appeal: paperAppealReceived.appeal });
     });
   });
 });

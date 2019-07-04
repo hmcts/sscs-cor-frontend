@@ -1,0 +1,47 @@
+{
+  "appeal": {
+    "caseReference": "SC100/00/00004",
+    "appealNumber": "md010",
+    "benefitType": "pip",
+    "hearingType" : "oral",
+    "name": "Ms. Q Test",
+    "surname": "Test",
+    "status": "NEW_HEARING_BOOKED",
+    "latestEvents": [
+      {
+        "postcode": "L2 5UZ",
+        "venueName": "Prudential House",
+        "hearingDateTime": "2017-05-24T23:00:00.000Z",
+        "addressLine1": "36 Dale Street",
+        "addressLine2": "",
+        "addressLine3": "Liverpool",
+        "googleMapUrl": "https://www.google.com/maps/place/36+Dale+Street+Liverpool+Merseyside+L2+5UZ/@53.407820,-2.988509",
+        "date": "2017-05-25T17:31:00Z",
+        "type": "NEW_HEARING_BOOKED",
+        "contentKey": "status.newHearingBooked"
+      }
+    ],
+    "historicalEvents": [
+      {
+        "date": "2017-03-02T17:27:50.297Z",
+        "adjournedLetterReceivedByDate": "2017-03-09T17:27:50.297Z",
+        "hearingContactDate": "2017-04-13T17:27:50.297Z",
+        "type": "ADJOURNED",
+        "contentKey": "status.adjourned"
+      }
+    ],
+    "regionalProcessingCenter": {
+      "name": "CARDIFF",
+      "addressLines": [
+        "HM Courts & Tribunals Service",
+        "Social Security & Child Support Appeals",
+        "Eastgate House",
+        "Newport Road"
+      ],
+      "city": "CARDIFF",
+      "postcode": "CF24 0AB",
+      "phoneNumber": "0300 123 1142",
+      "faxNumber": "0870 739 4438"
+    }
+  }
+}
