@@ -2,6 +2,7 @@ import { getIndex, postIndex } from 'app/server/controllers/assign-case';
 import { expect, sinon } from '../../chai-sinon';
 import { OK } from 'http-status-codes';
 import { HearingService } from '../../../app/server/services/hearing';
+import { TrackYourApealService } from '../../../app/server/services/tyaService';
 
 describe('controllers/assign-case.js', () => {
   let sandbox: sinon.SinonSandbox;
@@ -43,8 +44,11 @@ describe('controllers/assign-case.js', () => {
     const idamEmail = 'someEmail@example.com';
     const tya = 'some-tya-number';
     const postcode = 'somePostcode';
+    const caseId = 'caseId';
     let onlineHearing;
+    let appeal;
     let hearingService: HearingService;
+    let trackYourAppealService: TrackYourApealService;
     let underTest;
 
     beforeEach(() => {
@@ -54,7 +58,11 @@ describe('controllers/assign-case.js', () => {
       } as any;
 
       onlineHearing = {
-        hearingId: 'hearingId'
+        hearingId: 'hearingId',
+        case_id: caseId
+      };
+      appeal = {
+        hearingType: 'paper'
       };
 
       hearingService = {
@@ -63,8 +71,14 @@ describe('controllers/assign-case.js', () => {
           body: onlineHearing
         })
       } as any;
+      trackYourAppealService = {
+        getAppeal: sandbox.stub().resolves({
+          statusCode: OK,
+          appeal: appeal
+        })
+      } as any;
 
-      underTest = postIndex(hearingService);
+      underTest = postIndex(hearingService, trackYourAppealService);
     });
 
     it('assigns user to case', async () => {
@@ -73,16 +87,28 @@ describe('controllers/assign-case.js', () => {
       expect(hearingService.assignOnlineHearingsToCitizen).to.have.been.calledOnce.calledWith(idamEmail, tya, postcode, req);
     });
 
+    it('gets appeal', async () => {
+      await underTest(req, res);
+
+      expect(trackYourAppealService.getAppeal).to.have.been.calledOnce.calledWith(caseId, req);
+    });
+
     it('redirects to task-list', async () => {
       await underTest(req, res);
 
-      expect(res.redirect).to.have.been.calledOnce.calledWith('/task-list');
+      expect(res.redirect).to.have.been.calledOnce.calledWith('/status');
     });
 
     it('sets hearing in session', async () => {
       await underTest(req, res);
 
       expect(req.session.hearing).to.be.eql(onlineHearing);
+    });
+
+    it('sets appeal in session', async () => {
+      await underTest(req, res);
+
+      expect(req.session.appeal).to.be.eql(appeal);
     });
   });
 });
