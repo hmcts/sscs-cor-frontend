@@ -48,7 +48,7 @@ const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret)
 const hearingService: HearingService = new HearingService(apiUrl);
 const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
-const trackYourApealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
+const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
 
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
@@ -63,7 +63,7 @@ const tribunalViewController = setupTribunalViewController({ prereqMiddleware: e
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const hearingConfirmController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
 const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
-const loginController = setupLoginController({ hearingService, idamService, trackYourApealService });
+const loginController = setupLoginController({ hearingService, idamService, trackYourApealService: trackYourAppealService });
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
@@ -71,7 +71,7 @@ const evidenceOptionsController = setupadditionalEvidenceController({ prereqMidd
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
-const assignCaseController = setupAssignCaseController({ hearingService });
+const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService });
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
 
 router.use((req, res, next) => {
