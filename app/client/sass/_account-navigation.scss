@@ -18,7 +18,14 @@
 
     &__links {
         display: flex;
-        flex-basis: 20%;
-        justify-content: space-between;
+        flex-direction: column;
+        @include govuk-media-query($from: tablet) {
+            flex-direction: row;
+            flex-basis: 20%;
+            justify-content: space-between;
+        }
+        a {
+            line-height: 1.5rem;
+        }
     }
 }
