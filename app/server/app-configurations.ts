@@ -5,6 +5,8 @@ const dateFilter = require('nunjucks-date-filter');
 import * as moment from 'moment';
 import express = require('express');
 const locale = require('../../locale/en.json');
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('app-configuration.ts');
 
 function configureHelmet(app) {
 
@@ -79,7 +81,16 @@ function configureNunjucks(app: express.Application) {
     return text.replace(isoDateRegex, (date) => moment.utc(date).format(CONST.DATE_FORMAT));
   });
   nunEnv.addFilter('eval', function (text) {
-    return nunjucks.renderString(text, this.ctx);
+    try {
+      if (Array.isArray(text)) {
+        text = text.join(' ');
+      }
+      return nunjucks.renderString(text, this.ctx);
+    } catch (error) {
+      logger.error(`Error rendering text eval: ${JSON.stringify(error)} : ${text}`);
+      return 'Error redering text';
+    }
+
   });
 
   nunEnv.addFilter('isArray', function(input) {
