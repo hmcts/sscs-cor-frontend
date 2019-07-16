@@ -9,4 +9,9 @@ describe('#screenReaderUtils', () => {
   it('should spell out a long number', () => {
     expect(spellNumbersOut('0782  922 300')).to.equal('0 7 8 2. 9 2 2. 3 0 0');
   });
+
+  it('should handled undefined name', () => {
+    const word = undefined;
+    expect(spellNumbersOut(word)).to.equal(word);
+  });
 });
