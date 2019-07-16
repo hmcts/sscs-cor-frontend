@@ -1,5 +1,5 @@
 # ---- Base image ----
-FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8:latest AS base
+FROM hmctspublic.azurecr.io/base/node/stretch-slim-lts-8:8-stretch-slim AS base
 COPY package.json yarn.lock ./
 RUN yarn install \
     --ignore-scripts \
