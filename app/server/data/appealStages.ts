@@ -49,8 +49,8 @@ const paperAppealStages = [
     latestUpdateText: 'text',
     showOnBar: true
   }, {
-    status: 'HEARING',
-    title: 'Hearing',
+    status: 'APPEAL_DORMANT',
+    title: 'Decision',
     latestUpdateText: 'text',
     showOnBar: true
   }
