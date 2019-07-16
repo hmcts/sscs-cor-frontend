@@ -1,5 +1,8 @@
 function spellNumbersOut(word: string) {
-  return word.replace(/(\s){1,}/g, '.').split('').join(' ').replace(/ [\/\.]/g, '.');
+  if (word) {
+    return word.replace(/(\s){1,}/g, '.').split('').join(' ').replace(/ [\/\.]/g, '.');
+  }
+  return word;
 }
 
 export { spellNumbersOut };
