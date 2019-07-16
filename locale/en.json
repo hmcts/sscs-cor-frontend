@@ -576,7 +576,7 @@
       "header": "A hearing needs to be booked for your appeal",
       "para1": "You'll receive an email with the details of your hearing by {{ responseDate }}.",
       "para2": "If you require a hearing room with disabled access or any other support then please email the tribunal at ",
-      "para3": "Include your appeal reference number on any emails to the tribunal:", 
+      "para3": "Include your appeal reference number on any emails to the tribunal:",
       "exitLink": "https://www.smartsurvey.co.uk/s/JETIK/"
     }
   },
@@ -610,7 +610,8 @@
     "delete": "Delete",
     "serviceTitle": "Appeal a benefit decision",
     "govUK": "GOV.UK",
-    "exitLink" : "https://www.smartsurvey.co.uk/s/D2NIM/?pageurl="
+    "exitLink" : "https://www.smartsurvey.co.uk/s/D2NIM/?pageurl=",
+    "tbc" : "To be confirmed"
   },
   "errorSummary": {
     "titleText": "There are errors on the page",
@@ -795,7 +796,7 @@
         "types": {
             "medical": {
               "header": "Medical evidence",
-              "para1": "This type of evidence helps the tribunal understand your condition from the perspective of a medical professional. For example, letters you have from your hospital consultant, doctor, physiotherapist or social worker. A useful letter explains how your condition affects your life at the time of the decision by DWP. Appointment letters are not useful.", 
+              "para1": "This type of evidence helps the tribunal understand your condition from the perspective of a medical professional. For example, letters you have from your hospital consultant, doctor, physiotherapist or social worker. A useful letter explains how your condition affects your life at the time of the decision by DWP. Appointment letters are not useful.",
               "para2": "If you don’t have any letters and you think one will help your appeal, you could ask the medical professional who has been treating your condition to write one. Please be aware they may charge you for this and they can take a long time to organise. The tribunal can’t pay for these."
             },
             "statement": {
