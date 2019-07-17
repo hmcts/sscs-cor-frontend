@@ -1,7 +1,7 @@
 const express = require('express');
 import * as Paths from './paths';
 import * as config from 'config';
-import { ensureAuthenticated } from './middleware/ensure-authenticated';
+import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
 import { setupQuestionController } from './controllers/question';
@@ -18,6 +18,7 @@ import { setupTribunalViewAcceptedController } from './controllers/tribunal-view
 import { setupTribunalViewConfirmController } from './controllers/tribunal-view-confirm';
 import { setupIdamStubController } from './controllers/idam-stub';
 import { setupCookiePrivacyController } from './controllers/policies';
+import { setupSupportEvidenceController } from './controllers/support';
 import { setupSessionController } from './controllers/session';
 import { setupadditionalEvidenceController } from './controllers/additional-evidence';
 import { setupYourDetailsController } from './controllers/your-details';
@@ -66,6 +67,7 @@ const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensur
 const loginController = setupLoginController({ hearingService, idamService, trackYourApealService: trackYourAppealService });
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
+const supportEvidenceController = setupSupportEvidenceController({ setLocals });
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
 const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
@@ -95,6 +97,7 @@ router.use(tribunalViewConfirmController);
 router.use(hearingConfirmController);
 router.use(hearingWhyController);
 router.use(cookiePrivacyController);
+router.use(supportEvidenceController);
 router.use(sessionController);
 router.use(evidenceOptionsController);
 router.use(statusController);

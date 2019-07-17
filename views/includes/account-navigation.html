@@ -7,8 +7,12 @@
             </span>
         </div>
         <div class="account-navigation__links">
-            <a href="/your-details">Your details</a>
-            <a href="#">Sign out</a>
+            {% if showSignOut %}
+                <a href="/your-details">Your details</a>
+                <a href="#">Sign out</a>
+            {% else %}
+                <a href="/">Sign in</a>
+            {% endif %}
         </div>
     </div>
 </div>
