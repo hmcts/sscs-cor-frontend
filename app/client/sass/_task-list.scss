@@ -9,10 +9,19 @@
       &:first-child {
         border-top: 1px solid $govuk-border-colour;
       }
+
+      a {
+        display: block;
+        @include govuk-media-query($from: tablet) {
+          display: inline;
+        }
+      }
   
       .answer-state {
         @extend .govuk-tag;
-        float: right;
+        @include govuk-media-query($from: tablet) {
+          float: right;
+        }
   
         &.draft {
           background-color: govuk-colour("grey-1");

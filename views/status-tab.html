@@ -15,8 +15,8 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        {{ navigationTabs('status') }}
         <div class="task-list">
-            {{ navigationTabs('status') }}
             <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.statusTab.header }}</h2>
             {% if stages | length %}
                 {{ statusBar(stages) }}

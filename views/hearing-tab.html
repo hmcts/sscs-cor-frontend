@@ -14,8 +14,8 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        {{ navigationTabs('hearing') }}
         <div class="task-list">
-            {{ navigationTabs('hearing') }}
             <h2 class="govuk-heading-m --margin-bottom-s">The hearing for your appeal</h2>
             {% if attending %}
                 {% if not hearingInfo.hearingDateTime %}

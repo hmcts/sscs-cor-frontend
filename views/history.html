@@ -14,8 +14,8 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        {{ navigationTabs('history') }}
         <div class="task-list">
-            {{ navigationTabs('history') }}
             <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.historyTab.header }}</h2>
             <ul class="history-list">
                 {% if appeal.historicalEvents %}

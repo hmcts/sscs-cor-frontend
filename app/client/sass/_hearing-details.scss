@@ -6,6 +6,8 @@
     .govuk-summary-list__key,
     .govuk-summary-list__value {
         border-bottom: none;
-        width: 50%;
+        @include govuk-media-query($from: tablet) {
+            width: 50%;
+        }
     }
 }
