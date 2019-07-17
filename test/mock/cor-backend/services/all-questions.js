@@ -27,6 +27,31 @@ function extensionCount(hearingId) {
   return cache.get(`${hearingId}.extensionCount`) || 0;
 }
 
+function getQuestions(onlineHearingId) {
+  let questions = [];
+  if (onlineHearingId !== '0-no-questions') {
+    questions = [
+      {
+        question_id: '001',
+        question_ordinal: 1,
+        question_header_text: questionData['001'].header,
+        answer_state: answerState('001', onlineHearingId)
+      }, {
+        question_id: '002',
+        question_ordinal: 1,
+        question_header_text: questionData['002'].header,
+        answer_state: answerState('002', onlineHearingId)
+      }, {
+        question_id: '003',
+        question_ordinal: 1,
+        question_header_text: questionData['003'].header,
+        answer_state: answerState('003', onlineHearingId)
+      }
+    ];
+  }
+  return questions;
+}
+
 module.exports = {
   path: '/continuous-online-hearings/:onlineHearingId',
   method: 'GET',
@@ -34,23 +59,6 @@ module.exports = {
   template: {
     deadline_extension_count: params => extensionCount(params.onlineHearingId),
     deadline_expiry_date: params => deadlineDate(params.onlineHearingId),
-    questions: params => [
-      {
-        question_id: '001',
-        question_ordinal: 1,
-        question_header_text: questionData['001'].header,
-        answer_state: answerState('001', params.onlineHearingId)
-      }, {
-        question_id: '002',
-        question_ordinal: 1,
-        question_header_text: questionData['002'].header,
-        answer_state: answerState('002', params.onlineHearingId)
-      }, {
-        question_id: '003',
-        question_ordinal: 1,
-        question_header_text: questionData['003'].header,
-        answer_state: answerState('003', params.onlineHearingId)
-      }
-    ]
+    questions: params => getQuestions(params.onlineHearingId)
   }
 };
