@@ -1016,5 +1016,22 @@
       "agencyAcronym": "DWP",
       "panel": "a judge, doctor and disability expert"
     }
+  },
+  "helpGuides": {
+    "evidence": {
+    },
+    "claimExpenses": {
+    },
+    "hearing": {
+    },
+    "representitves":{
+
+    },
+    "withdrawAppeal":{
+
+    },
+    "relatedLinks": {
+
+    }
   }
 }

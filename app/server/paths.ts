@@ -27,3 +27,7 @@ export const assignCase = '/assign-case';
 export const selectCase = '/select-case';
 export const hearing = '/hearing';
 export const supportEvidence = '/support-evidence';
+export const supportHearingExpenses = '/support-hearing-expenses';
+export const supportHearing = '/support-hearing';
+export const supportRepresentatives = '/support-representatives';
+export const supportWithdrawAppeal = '/support-withdraw-appeal';

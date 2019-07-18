@@ -1,17 +1,16 @@
-
-{% macro contactUs(hideSupport) %}
-  {% if hideSupport === false  %}
+{% macro contactUs(showSupport = true) %}
+  {% if showSupport  %}
     {% include "includes/divider.html" %}
   {% endif %}
   <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <div class="mya-contact__content">
-          {% if hideSupport === false %}
-          <h2 class="govuk-heading-s">Help and support</h2>
-          <ul class="govuk-list">
-            <li><a href="#">Representatives</a></li>
-            <li><a href="#">Withdrawing an appeal</a></li>
-          </ul>
+          {% if showSupport %}
+            <h2 class="govuk-heading-s">Help and support</h2>
+            <ul class="govuk-list">
+              <li><a href="/support-representatives">Representatives</a></li>
+              <li><a href="/support-withdraw-appeal">Withdrawing an appeal</a></li>
+            </ul>
           {% endif %}
           <details class="govuk-details contact-us">
             <summary class="govuk-details__summary">

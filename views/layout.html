@@ -42,7 +42,7 @@
     {% endif %}
 
     {% if featureFlags.manageYourAppeal %}
-        {{ contactUs(false) }} 
+        {{ contactUs() }} 
     {% else %}
         {% include "includes/contact-us.html" %}
     {% endif %}
