@@ -1,11 +1,16 @@
 {% extends "help-guides/support-layout.html" %}
+{% set pageHeader = i18n.helpGuides.withdrawAppeal.title %}
+{% block pageTitle %}
+   {{i18n.helpGuides.withdrawAppeal.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
 
 {% block supportTitle %}
-   Withdrawing your appeal
+   {{i18n.helpGuides.withdrawAppeal.title}}
 {% endblock%}
 
 {% block supportContent %}
-     <p class="govuk-!-font-size-24">You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged. </p>
-     <p>You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.</p>   
-     <p>If you still want to withdraw your appeal then you should <a href="withdraw-appeal-sure">let the tribunal know</a> as soon as possible. This is so the tribunal do not do any more work on your appeal.  </p>
+     <p class="govuk-!-font-size-24">{{i18n.helpGuides.withdrawAppeal.entry}}</p>
+     <p>{{i18n.helpGuides.withdrawAppeal.para1}}</p>   
+     <p>{{i18n.helpGuides.withdrawAppeal.para2}}</p>
+     <p>{{i18n.helpGuides.withdrawAppeal.para3 | safe}}</p>
 {% endblock%}

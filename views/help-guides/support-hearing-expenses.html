@@ -1,11 +1,15 @@
 {% extends "help-guides/support-layout.html" %}
+{% set pageHeader = i18n.helpGuides.claimExpenses.title %}
+{% block pageTitle %}
+   {{i18n.helpGuides.claimExpenses.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
 
 {% block supportTitle %}
-   Claiming expenses to attend your hearing
+   {{i18n.helpGuides.claimExpenses.title}}
 {% endblock%}
 
 {% block supportContent %}
-      <p class="govuk-!-font-size-24">You may be able to claim back some of the money you spend on attending your hearing.</p>
-      <p>You should use public transport where possible. Keep your travel tickets and bring them with you to your hearing. You’ll be given a claim form to fill out by the tribunal clerk.</p>
-      <p>If you have a health condition or disability which means you can’t get yourself to the hearing then you might be able to claim for a taxi. You’ll need to get authorisation first by phoning 0300 123 1142.</p>
+      <p class="govuk-!-font-size-24">{{i18n.helpGuides.claimExpenses.entry}}</p>
+      <p>{{i18n.helpGuides.claimExpenses.para1}}</p>
+      <p>{{i18n.helpGuides.claimExpenses.para2}}</p>
 {% endblock%}

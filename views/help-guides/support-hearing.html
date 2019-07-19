@@ -1,33 +1,35 @@
 {% extends "help-guides/support-layout.html" %}
+{% set pageHeader = i18n.helpGuides.hearing.title %}
+{% block pageTitle %}
+   {{i18n.helpGuides.hearing.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
 
 {% block supportTitle %}
-   What to expect at your appeal hearing
+   {{i18n.helpGuides.hearing.title}}
 {% endblock%}
 
+
 {% block supportContent %}
-    <p class="govuk-!-font-size-24">Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the Department of Work and Pensions (DWP).</p>
+    <p class="govuk-!-font-size-24">{{i18n.helpGuides.hearing.entry}}</p>
     <img src="/public/images/hearing-formal-2panel.png" width="100%">
-    <p>A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.</p>
-    <h2 class="govuk-heading-m">Before your hearing</h2>
-    <p>Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing.</p> 
-    <p>You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. </p>
-    <h2 class="hgovuk-heading-m">When you arrive </h2>
-    <p>You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href="support-hearing-expenses">Read about claiming expenses for your hearing.</a></p>
-    <h2 class="govuk-heading-m">The hearing room </h2>
-    <p>The tribunal clerk will take you into the hearing room. The tribunal panel will be sat behind a table. You’ll be invited to sit opposite them. If you have someone to support you or to give evidence, they’ll sit next to you.</p>
-    <h2 class="govuk-heading-m">The people at your hearing </h2>
-    <p>The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP. </p>
-    <p>The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people. 
-    </p>
-    <h2 class="govuk-heading-m">During your hearing </h2>
-    <p>The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour.</p>
-    <p>It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. 
-    </p>
-    <h2 class="govuk-heading-m">Getting a decision</h2>
-    <p>After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.</p>
-    <p>The judge will explain whether you’re entitled to the benefit and if so, at what level.</p>
-    <p>Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you.
-    </p>
-    <h2 class="govuk-heading-m">Department for Work and Pensions (DWP) </h2>
-    <p>A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits.</p>
+    <p>{{i18n.helpGuides.hearing.imageText}}</p>
+    <h2 class="govuk-heading-m">{{i18n.helpGuides.hearing.beforeHearingTitle}}</h2>
+    <p>{{i18n.helpGuides.hearing.beforeHearingDesc.para1}}</p> 
+    <p>{{i18n.helpGuides.hearing.beforeHearingDesc.para2}}</p>
+    <h2 class="hgovuk-heading-m">{{i18n.helpGuides.hearing.arriveTitle}}</h2>
+    <p>{{i18n.helpGuides.hearing.arriveDesc.para1 | safe }}</p>
+    <h2 class="govuk-heading-m">{{i18n.helpGuides.hearing.hearingRoomTitle}}</h2>
+    <p>{{i18n.helpGuides.hearing.hearingRoomDesc.para1}}</p>
+    <h2 class="govuk-heading-m">{{i18n.helpGuides.hearing.peopleInTheRoomTitle}}</h2>
+    <p>{{i18n.helpGuides.hearing.peopleInTheRoomDesc.para1}}</p>
+    <p>{{i18n.helpGuides.hearing.peopleInTheRoomDesc.para2}}</p>
+    <h2 class="govuk-heading-m">{{i18n.helpGuides.hearing.duringHearingTitle}}</h2>
+    <p>{{i18n.helpGuides.hearing.duringHearingDesc.para1}}</p>
+    <p>{{i18n.helpGuides.hearing.duringHearingDesc.para2}}</p>
+    <h2 class="govuk-heading-m">{{i18n.helpGuides.hearing.gettingDecisionTitle}}</h2>
+    <p>{{i18n.helpGuides.hearing.gettingDecisionDesc.para1}}</p>
+    <p>{{i18n.helpGuides.hearing.gettingDecisionDesc.para2}}</p>
+    <p>{{i18n.helpGuides.hearing.gettingDecisionDesc.para3}}</p>
+    <h2 class="govuk-heading-m">{{i18n.helpGuides.hearing.dwpTitle}}</h2>
+    <p>{{i18n.helpGuides.hearing.dwpDesc.para1}}</p>
 {% endblock%}

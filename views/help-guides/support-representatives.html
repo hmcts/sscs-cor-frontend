@@ -1,19 +1,25 @@
 {% extends "help-guides/support-layout.html" %}
+{% set pageHeader = i18n.helpGuides.representitves.title %}
+{% block pageTitle %}
+   {{i18n.helpGuides.representitves.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
 
 {% block supportTitle %}
-   Representatives
+   {{i18n.helpGuides.representitves.title}}
 {% endblock%}
 
 {% block supportContent %}
-    <p class="govuk-!-font-size-24">You can appoint someone as a ‘representative’ to help you with your benefit appeal. </p>
-    <p>A representative can:</p>
-    <ul class="govuk-list govuk-list-bullet">
-        <li>help you submit your appeal or prepare evidence</li>
-        <li>act on your behalf during the appeal (they should ask your permission first)</li> 
-        <li>give you advice</li>
+    <p class="govuk-!-font-size-24">{{i18n.helpGuides.representitves.entry}}</p>
+    <p>{{i18n.helpGuides.representitves.what}}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{i18n.helpGuides.representitves.whatList.item1}}</li>
+        <li>{{i18n.helpGuides.representitves.whatList.item2}}</li> 
+        <li>{{i18n.helpGuides.representitves.whatList.item3}}</li>
     </ul>
-    <p>Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. </p>
-    <p>You can find representatives at your local advice centre, law centre or <a href="https://www.citizensadvice.org.uk/">Citizens Advice.</a></p>
-    <h3 class="govuk-heading-s">Representative </h3>
-    <p>If you have someone who you would like to be your representative then you can <a href="your-representative-register">register them here</a>.</p>
+    <p>{{i18n.helpGuides.representitves.para1}}</p>
+    <p>{{i18n.helpGuides.representitves.para2 | safe}}</p>
+    <h3 class="govuk-heading-s">{{i18n.helpGuides.representitves.representative.title}}</h3>
+    <p>{{i18n.helpGuides.representitves.representative.para1 | safe}}</p>
+    <p>{{i18n.helpGuides.representitves.representative.para2 | safe}}</p>
+    <p>{{i18n.helpGuides.representitves.representative.para3 | safe}}</p>
 {% endblock%}
