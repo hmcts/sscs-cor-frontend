@@ -21,8 +21,10 @@
         flex-direction: column;
         @include govuk-media-query($from: tablet) {
             flex-direction: row;
-            flex-basis: 20%;
             justify-content: space-between;
+            a {
+                margin-left: 20px;
+            }
         }
         a {
             line-height: 1.5rem;
