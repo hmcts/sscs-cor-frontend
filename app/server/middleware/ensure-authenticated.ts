@@ -19,8 +19,11 @@ function checkAccessToken(req, res, next) {
 }
 
 function setLocals(req, res, next) {
-  res.locals.hearing = req.session.hearing;
-  res.locals.showSignOut = true;
+  if (req.session.accessToken) {
+    res.locals.hearing = req.session.hearing;
+    res.locals.showSignOut = true;
+  }
+
   // Retrieve feature Flags and adding them as local variables so views can easily access to them
   res.locals.featureFlags = {};
   res.locals.featureFlags[Feature.MANAGE_YOUR_APPEAL] = isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies);

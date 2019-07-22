@@ -1,0 +1,25 @@
+{% extends "help-guides/support-layout.html" %}
+{% set pageHeader = i18n.helpGuides.representitves.title %}
+{% block pageTitle %}
+   {{i18n.helpGuides.representitves.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
+
+{% block supportTitle %}
+   {{i18n.helpGuides.representitves.title}}
+{% endblock%}
+
+{% block supportContent %}
+    <p class="govuk-!-font-size-24">{{i18n.helpGuides.representitves.entry}}</p>
+    <p>{{i18n.helpGuides.representitves.what}}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{i18n.helpGuides.representitves.whatList.item1}}</li>
+        <li>{{i18n.helpGuides.representitves.whatList.item2}}</li> 
+        <li>{{i18n.helpGuides.representitves.whatList.item3}}</li>
+    </ul>
+    <p>{{i18n.helpGuides.representitves.para1}}</p>
+    <p>{{i18n.helpGuides.representitves.para2 | safe}}</p>
+    <h3 class="govuk-heading-s">{{i18n.helpGuides.representitves.representative.title}}</h3>
+    <p>{{i18n.helpGuides.representitves.representative.para1 | safe}}</p>
+    <p>{{i18n.helpGuides.representitves.representative.para2 | safe}}</p>
+    <p>{{i18n.helpGuides.representitves.representative.para3 | safe}}</p>
+{% endblock%}

@@ -1016,5 +1016,114 @@
       "agencyAcronym": "DWP",
       "panel": "a judge, doctor and disability expert"
     }
+  },
+  "helpGuides": {
+    "evidence": {
+      "title": "Providing evidence to support your appeal",
+      "entry": "Evidence is any information that supports your side of the appeal, such as a letter, written statement or medical report. It can help the tribunal understand the facts of your appeal. You do not have to send in evidence but it can help your appeal.",
+      "para1": "You should send any evidence to the tribunal as soon as you can. This is so the tribunal have time to consider it before making a decision on your appeal.",
+      "medicalEvidenceTitle": "Medical evidence",
+      "medicalEvidenceDesc": {
+        "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. It should also be focussed on the time that DWP made their decision about your entitlement to the benefit. Letters which just show you had an appointment are not useful.",
+        "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
+      },
+      "writtenStatementTitle": "Written statement",
+      "writtenStatementDesc": {
+        "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. It should also be focussed on the time that the DWP made their decision about your entitlement to benefits. ",
+        "para2": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
+      },
+      "photographsTitle": "Photographs",
+      "photographsDesc": {
+        "para1": "Sometimes a photo can be useful to help the tribunal panel see how your medical condition affects your life. For example, you could take a picture of any modifications in your home or aids you use to help you move. Do not send in any photos of your body. "
+      },
+      "whatYouSayTitle": "What you say at the hearing",
+      "whatYouSayDesc": {
+        "para1": "What you say at the hearing can be the most useful form of evidence. The tribunal will listen to what you say to help them make a decision on your appeal.",
+        "para2": "If you have a carer or someone who supports you at home, you could ask them to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day. "
+      },
+      "sendingEvidenceTitle": "Sending evidence to the tribunal",
+      "sendingEvidenceDesc": {
+        "para1": "Post your evidence to the address below, as soon as possible. This is so the tribunal have time to read it before they make a decision.",
+        "para2": "Make sure you include the ‘document cover sheet’. This helps us match your evidence with your appeal. You received this cover sheet in the first letter that was sent to you about your appeal.",
+        "para3": "SSCS<br> HMCTS SSCS Tribunal<br>PO Box 12626<br>Harlow<br>CM20 9QF"
+      }
+    },
+    "claimExpenses": {
+      "title": "Claiming expenses to attend your hearing",
+      "entry": "You may be able to claim back some of the money you spend on attending your hearing.",
+      "para1": "You should use public transport where possible. Keep your travel tickets and bring them with you to your hearing. You’ll be given a claim form to fill out by the tribunal clerk.",
+      "para2": "If you have a health condition or disability which means you can’t get yourself to the hearing then you might be able to claim for a taxi. You’ll need to get authorisation first by phoning 0300 123 1142."
+    },
+    "hearing": {
+      "title": "What to expect at your appeal hearing",
+      "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the Department of Work and Pensions (DWP).",
+      "imageText": "A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.",
+      "beforeHearingTitle": "Before your hearing",
+      "beforeHearingDesc": {
+        "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing." ,
+        "para2": "You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. "
+      },
+      "arriveTitle": "When you arrive",
+      "arriveDesc": {
+        "para1": "You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href='support-hearing-expenses'>Read about claiming expenses for your hearing.</a>" 
+      },
+      "hearingRoomTitle": "The hearing room",
+      "hearingRoomDesc": {
+        "para1": "The tribunal clerk will take you into the hearing room. The tribunal panel will be sat behind a table. You’ll be invited to sit opposite them. If you have someone to support you or to give evidence, they’ll sit next to you." 
+      },
+      "peopleInTheRoomTitle": "The people at your hearing",
+      "peopleInTheRoomDesc": {
+        "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP." ,
+        "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people."
+      },
+      "duringHearingTitle": "During your hearing",
+      "duringHearingDesc": {
+        "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour." ,
+        "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
+      },
+      "gettingDecisionTitle": "Getting a decision",
+      "gettingDecisionDesc": {
+        "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision." ,
+        "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level." ,
+        "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
+      },
+      "dwpTitle": "Department for Work and Pensions (DWP)",
+      "dwpDesc": {
+        "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits."
+      }
+    },
+    "representitves":{
+      "title": "Representatives",
+      "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
+      "what": "A representative can:",
+      "whatList": {
+        "item1": "give you advice in relation to your appeal",
+        "item2": "help you submit your appeal or prepare evidence",
+        "item3": "act on your behalf during the appeal (they should ask your permission first)"
+      },
+      "para1": "Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. ",
+      "para2": "You can get a representative at your local advice centre, law centre or <a href='https://www.citizensadvice.org.uk/'>Citizens Advice</a> You will need to register them with the tribunal.",
+      "representative": {
+        "title": "Registering a representative",
+        "para1": "You can register someone as your representative by phoning the tribunal:",
+        "para2": "England and Wales: 0300 123 1142 </br> Scotland: 0141 354 8400",
+        "para3": "Have your representative's name and address ready before you call. If you want them to receive updates on your appeal then you will also need to provide their email address and phone number."
+      }
+    },
+    "withdrawAppeal":{
+      "title": " Withdrawing your appeal",
+      "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
+      "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
+      "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible, by calling the number below:",
+      "para3": "England and Wales: 0300 123 1142 </br> Scotland: 0141 354 8400"
+    },
+    "relatedLinks": {
+      "title": "Related guidance",
+      "supportEvidence": "Providing evidence to support your appeal",
+      "supportHearing": "What to expect at your hearing",
+      "supportHearingExpenses": "Claiming hearing expenses",
+      "supportWithdrawAppeal": "Withdrawing your appeal",
+      "supportRepresentatives": "Representatives"
+    }
   }
 }

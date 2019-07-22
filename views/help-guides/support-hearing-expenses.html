@@ -1,0 +1,15 @@
+{% extends "help-guides/support-layout.html" %}
+{% set pageHeader = i18n.helpGuides.claimExpenses.title %}
+{% block pageTitle %}
+   {{i18n.helpGuides.claimExpenses.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+{% endblock %}
+
+{% block supportTitle %}
+   {{i18n.helpGuides.claimExpenses.title}}
+{% endblock%}
+
+{% block supportContent %}
+      <p class="govuk-!-font-size-24">{{i18n.helpGuides.claimExpenses.entry}}</p>
+      <p>{{i18n.helpGuides.claimExpenses.para1}}</p>
+      <p>{{i18n.helpGuides.claimExpenses.para2}}</p>
+{% endblock%}
