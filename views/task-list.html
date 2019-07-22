@@ -20,8 +20,9 @@
             {{ navigationTabs('questions') }}
         {% endif %}
         <div class="task-list">
+            <h2 class="govuk-heading-m --margin-bottom-m">{{ i18n.provideEvidenceTab.header }}</h2>
             {% if hearingType == 'cor' %}
-                <h2 class="govuk-heading-s --margin-bottom-s">Questions from the tribunal</h2>
+                <h2 class="govuk-heading-s --margin-bottom-s">{{ i18n.provideEvidenceTab.corCase.header }}</h2>
                 {% if questions.length != 0 %}
                     <p>
                         <span id="deadline-status">
@@ -59,7 +60,7 @@
                 {% else %}
                     <ul class="govuk-list">
                         <li>
-                            {{ i18n.taskList.noQuestions }}
+                            {{ i18n.provideEvidenceTab.corCase.noQuestions }}
                         </li>
                     </ul>
                 {% endif %}
@@ -67,11 +68,8 @@
         </div>
 
         {% if featureFlags.additionalEvidence %}
-            <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.provideEvidenceTab.header }}</h2>
-            <p>
-                {{ i18n.taskList.sendingEvidence.intro }} 
-                <a id="evidence-options-link" href="/additional-evidence">{{ i18n.taskList.sendingEvidence.anchorText }}</a>.
-            </p>
+            <h2 class="govuk-heading-s --margin-bottom-s">{{ i18n.provideEvidenceTab.additionalEvidence.header }}</h2>
+            <p>{{ i18n.provideEvidenceTab.additionalEvidence.content | safe }}</p>
         {% else %}
             <h2 class="govuk-heading-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
             <p>

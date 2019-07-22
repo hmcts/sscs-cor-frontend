@@ -829,7 +829,15 @@
     "header": "Status of your appeal"
   },
   "provideEvidenceTab": {
-    "header": "Provide evidence to the tribunal"
+    "header": "Provide evidence to the tribunal",
+    "corCase": {
+      "header": "Information requested by the tribunal",
+      "noQuestions": "The tribunal have not requested any information from you. You will receive an email if they do."
+    },
+    "additionalEvidence": {
+      "header": "Send evidence to the tribunal",
+      "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit it here</a>."
+    }
   },
   "hearingTab": {
     "header": "The hearing for your appeal",

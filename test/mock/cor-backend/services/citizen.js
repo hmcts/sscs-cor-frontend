@@ -8,6 +8,8 @@ const emailToResCodeMap = {
   'not.cor@example.com': CONFLICT
 };
 const emailHearingIdMap = {
+  'no.questions@example.com': '0-no-questions',
+  'pending@example.com': '1-pending',
   'completed@example.com': '2-completed',
   'expired@example.com': '3-expired',
   'view.issued@example.com': '4-view-issued',
@@ -129,7 +131,7 @@ module.exports = {
       appellant_name: 'Adam Jenkins',
       case_reference: 'SC/112/233',
       case_id: (params, query) => emailToCaseIdMap[query.email],
-      online_hearing_id: (params, query) => emailHearingIdMap[query.email] || '1-pending',
+      online_hearing_id: (params, query) => emailHearingIdMap[query.email],
       decision: (params, query) => createDecision(query.email),
       final_decision: (params, query) => createFinalDecision(query.email),
       has_final_decision: (params, query) => hasFinalDecision(query.email)
