@@ -823,7 +823,8 @@
     }
   },
   "yourDetails": {
-    "header": "Your details"
+    "header": "Your details",
+    "contact": "If any of your details are incorrect then phone: 0300 123 1142"
   },
   "statusTab": {
     "header": "Status of your appeal"

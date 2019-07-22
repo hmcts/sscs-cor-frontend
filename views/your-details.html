@@ -1,3 +1,4 @@
+{% from "inset-text/macro.njk" import govukInsetText %}
 {% extends "layout.html" %}
 {% set pageHeader = i18n.taskList.header %}
 {% block corContent %}
@@ -8,31 +9,36 @@
         <table class="govuk-table">
             <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top" scope="row">Address</th>
+                    <th class="govuk-table__header --vertical-align-top --width-65" scope="row">Address</th>
                     <td class="govuk-table__cell">
                         <address aria-label='{{ i18n.guidance.sendingEvidence.screenReaderPostalAddress }}'>
-                            <span aria-hidden='true'>{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</span>
+                            {{ details.address_details.line1 }}<br/>
+                            {% if details.address_details.line1 %}
+                                {{ details.address_details.line2 }}<br/>
+                            {% endif %}
+                            {{ details.address_details.town }}<br/>
+                            {{ details.address_details.county }}<br/>
+                            {{ details.address_details.postcode }}<br/>
                         </address>
                     </td>
-                    <td class="govuk-table__cell --vertical-align-top"><a href="#">Change</a></td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header --vertical-align-top" scope="row">Email address</th>
-                    <td class="govuk-table__cell">email@test.com</td>
-                    <td class="govuk-table__cell --vertical-align-top"><a href="#">Change</a></td>
+                    <td class="govuk-table__cell">{{ details.email }}</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header --vertical-align-top" scope="row">Contact phone number</th>
                     <td class="govuk-table__cell">07972 438178</td>
-                    <td class="govuk-table__cell --vertical-align-top"><a href="#">Change</a></td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header --vertical-align-top" scope="row">Text message updates</th>
                     <td class="govuk-table__cell">07972 438178</td>
-                    <td class="govuk-table__cell --vertical-align-top"><a href="#">Change</a></td>
                 </tr>
             </tbody>
         </table>
+        {{ govukInsetText({
+            html: i18n.yourDetails.contact | eval | safe
+        }) }}
     </div>
 </div>
 

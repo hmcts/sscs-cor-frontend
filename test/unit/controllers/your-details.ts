@@ -12,7 +12,10 @@ describe('controllers/your-details', () => {
     sandbox = sinon.sandbox.create();
     req = {
       session: {
-        appeal: {}
+        appeal: {},
+        hearing: {
+          appellant_details: {}
+        }
       },
       cookies: {}
     } as any;
@@ -49,7 +52,7 @@ describe('controllers/your-details', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
     });
 
-    it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async() => {
+    it('should render your details page when mya feature enabled', async() => {
       req.cookies.manageYourAppeal = 'true';
       yourDetails.getYourDetails(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('your-details.html');

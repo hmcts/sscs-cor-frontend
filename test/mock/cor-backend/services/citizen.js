@@ -118,6 +118,21 @@ const createDecision = email => {
   return null;
 };
 
+const getApellantDetails = email => {
+  return {
+    email,
+    phone: '07972438178',
+    mobile: '07972438178',
+    address_details: {
+      line1: '14 Oxford Road',
+      line2: 'Hastings',
+      town: 'East Sussex',
+      county: 'Sussex',
+      postcode: 'TN38 6EW'
+    }
+  };
+};
+
 module.exports = {
   path: '/citizen',
   method: 'GET',
@@ -134,7 +149,8 @@ module.exports = {
       online_hearing_id: (params, query) => emailHearingIdMap[query.email],
       decision: (params, query) => createDecision(query.email),
       final_decision: (params, query) => createFinalDecision(query.email),
-      has_final_decision: (params, query) => hasFinalDecision(query.email)
+      has_final_decision: (params, query) => hasFinalDecision(query.email),
+      appellant_details: (params, query) => getApellantDetails(query.email)
     }
   ]
 };
