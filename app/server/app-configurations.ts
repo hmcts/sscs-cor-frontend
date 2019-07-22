@@ -88,7 +88,7 @@ function configureNunjucks(app: express.Application) {
       return nunjucks.renderString(text, this.ctx);
     } catch (error) {
       logger.error(`Error rendering text eval: ${JSON.stringify(error)} : ${text}`);
-      return 'Error rendering text';
+      return 'Error redering text';
     }
 
   });
