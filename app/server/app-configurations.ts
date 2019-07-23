@@ -23,8 +23,7 @@ function configureHelmet(app) {
       fontSrc: ['\'self\' data:'],
       scriptSrc: [
         '\'self\'',
-        '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\'',
-        '\'sha256-OI6laJfMT/d/W+qGc6OUr8efvZ7nY/7JqW4FF3Xfq7w=\'',
+        '\'unsafe-inline\'',
         'www.google-analytics.com',
         'www.googletagmanager.com',
         'tagmanager.google.com'

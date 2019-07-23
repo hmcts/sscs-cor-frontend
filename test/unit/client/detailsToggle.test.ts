@@ -24,7 +24,7 @@ const html = `
       <h2 class="govuk-heading-s">Benefit appeals helpline (England and Wales)</h2>
       <p>Telephone: 0300 123 1142<br>Monday to Friday, 8:30am to 5pm<br><a href="#">Find out about call charges</a></p>
       <h2 class="govuk-heading-s">Benefit appeals helpline (Scotland)</h2>
-      <p>Telephone: 0141 354 8400<br>Monday to Friday, 8:30am to 5pm<br><a href="#">Find out about call charges</a></p>
+      <p>Telephone: 0300 790 6234<br>Monday to Friday, 8:30am to 5pm<br><a href="#">Find out about call charges</a></p>
     </div>
   </div>
 </details>`;

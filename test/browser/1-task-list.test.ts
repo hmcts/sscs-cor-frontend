@@ -107,7 +107,7 @@ describe('Task list page', () => {
   });
 
   it('signs out and prevents access to pages', async () => {
-    await taskListPage.signOut();
+    await page.goto(`${testUrl}${Paths.logout}`);
     loginPage.verifyPage();
     await taskListPage.visitPage();
     loginPage.verifyPage();
