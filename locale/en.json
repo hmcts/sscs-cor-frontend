@@ -627,7 +627,7 @@
     "title": "Contact us for help",
     "webChat": {
       "title": "Web chat",
-      "para1": "Get some help by chatting online to an agent.<br/><a href='#'>Start web chat (opens in a new window)</a>.<br/>(Monday to Friday, 9.00am to 5.00pm)"
+      "para1": "Get some help by chatting online to an agent.<br/><a href='#'>Start web chat (opens in a new window)</a>.<br/>(Monday to Friday, 8.30am to 5.00pm)"
     },
     "sendMessage": {
       "title": "Send us a message",
@@ -642,7 +642,7 @@
       },
       "scotland": {
         "title": "Benefit appeals helpline (Scotland)",
-        "para1": "Telephone: 0141 354 8400<br/>Monday to Friday, 8:30am to 5pm<br/><a href='#'>Find out about call charges</a>"
+        "para1": "Telephone: 0300 790 6234<br/>Monday to Friday, 8:30am to 5pm<br/><a href='#'>Find out about call charges</a>"
       }
     }
   },
@@ -1115,7 +1115,7 @@
       "representative": {
         "title": "Registering a representative",
         "para1": "You can register someone as your representative by phoning the tribunal:",
-        "para2": "England and Wales: 0300 123 1142 </br> Scotland: 0141 354 8400",
+        "para2": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234",
         "para3": "Have your representative's name and address ready before you call. If you want them to receive updates on your appeal then you will also need to provide their email address and phone number."
       }
     },
@@ -1124,7 +1124,7 @@
       "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
       "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
       "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible, by calling the number below:",
-      "para3": "England and Wales: 0300 123 1142 </br> Scotland: 0141 354 8400"
+      "para3": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234"
     },
     "relatedLinks": {
       "title": "Related guidance",
