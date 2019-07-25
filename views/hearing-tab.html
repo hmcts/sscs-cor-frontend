@@ -53,31 +53,47 @@
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">{{ i18n.hearingTab.languageInterpreter }}</dt>
                             <dd class="govuk-summary-list__value">
-                                Not required
+                                {% if hearingArrangements.language_interpreter %}
+                                    {{ hearingArrangements.languages }} 
+                                {% else %}    
+                                    {{ i18n.hearingTab.notRequired }} 
+                                {% endif %}
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">{{ i18n.hearingTab.signInterpreter }}</dt>
                             <dd class="govuk-summary-list__value">
-                                British Sign Language
+                                {% if hearingArrangements.sign_language_interpreter %}
+                                    {{ hearingArrangements.sign_language_type }} 
+                                {% else %}    
+                                    {{ i18n.hearingTab.notRequired }} 
+                                {% endif %}
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">{{ i18n.hearingTab.hearingLoop }}</dt>
                             <dd class="govuk-summary-list__value">
-                                Not required
+                                {% if hearingArrangements.hearing_loop_required %}
+                                    {{ i18n.hearingTab.required }} 
+                                {% else %}    
+                                    {{ i18n.hearingTab.notRequired }} 
+                                {% endif %}
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">{{ i18n.hearingTab.disableAccess }}</dt>
                             <dd class="govuk-summary-list__value">
-                                Required
+                                {% if hearingArrangements.disabled_access_required %}
+                                    {{ i18n.hearingTab.required }} 
+                                {% else %}    
+                                    {{ i18n.hearingTab.notRequired }} 
+                                {% endif %}
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">{{ i18n.hearingTab.otherArrangements }}</dt>
                             <dd class="govuk-summary-list__value">
-                                Hearing room near to a toilet
+                                {{ hearingArrangements.other_arrangements }} 
                             </dd>
                         </div>
                     </dl>

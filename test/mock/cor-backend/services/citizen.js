@@ -133,6 +133,19 @@ const getApellantDetails = email => {
   };
 };
 
+const getHearingArrangements = email => {
+  return {
+    email,
+    disabled_access_required: true,
+    hearing_loop_required: true,
+    language_interpreter: true,
+    languages: 'English French',
+    other_arrangements: 'Hearing room near to a toilet',
+    sign_language_interpreter: true,
+    sign_language_type: 'BSL ASL'
+  };
+};
+
 module.exports = {
   path: '/citizen',
   method: 'GET',
@@ -150,7 +163,8 @@ module.exports = {
       decision: (params, query) => createDecision(query.email),
       final_decision: (params, query) => createFinalDecision(query.email),
       has_final_decision: (params, query) => hasFinalDecision(query.email),
-      appellant_details: (params, query) => getApellantDetails(query.email)
+      appellant_details: (params, query) => getApellantDetails(query.email),
+      hearing_arrangements: (params, query) => getHearingArrangements(query.email)
     }
   ]
 };

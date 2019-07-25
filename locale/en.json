@@ -857,7 +857,9 @@
       "info": "You have chosen not to attend your hearing.",
       "description": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
       "contactToAttend": "<a href='#'>Contact us</a> if you want to attend."
-    }
+    },
+    "required": "Required",
+    "notRequired": "Not required"
   },
   "historyTab": {
     "header": "History of your appeal"
