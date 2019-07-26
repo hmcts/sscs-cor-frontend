@@ -133,9 +133,8 @@ const getApellantDetails = email => {
   };
 };
 
-const getHearingArrangements = email => {
+const getHearingArrangements = () => {
   return {
-    email,
     disabled_access_required: true,
     hearing_loop_required: true,
     language_interpreter: true,
@@ -164,7 +163,7 @@ module.exports = {
       final_decision: (params, query) => createFinalDecision(query.email),
       has_final_decision: (params, query) => hasFinalDecision(query.email),
       appellant_details: (params, query) => getApellantDetails(query.email),
-      hearing_arrangements: (params, query) => getHearingArrangements(query.email)
+      hearing_arrangements: () => getHearingArrangements()
     }
   ]
 };
