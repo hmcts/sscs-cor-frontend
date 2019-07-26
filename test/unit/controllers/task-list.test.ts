@@ -23,7 +23,8 @@ describe('controllers/task-list', () => {
   const hearingDetails = {
     online_hearing_id: '1',
     case_reference: 'SC/123/456',
-    appellant_name: 'John Smith'
+    appellant_name: 'John Smith',
+    case_id: 123456
   };
 
   beforeEach(() => {

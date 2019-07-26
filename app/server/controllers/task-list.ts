@@ -67,8 +67,8 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (!isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies)) {
-        const hearingId = req.session.hearing.online_hearing_id;
-        const coversheet = await additionalEvidenceService.getCoversheet(hearingId, req);
+        const caseId = req.session.hearing.case_id;
+        const coversheet = await additionalEvidenceService.getCoversheet(caseId, req);
         res.header('content-type', 'application/pdf');
         res.send(new Buffer(coversheet, 'binary'));
       } else {
