@@ -68,12 +68,11 @@ async function createUser(ccdCase) {
 
   try {
     await rp.post(options);
+    console.log(`Created idam user for ${ccdCase.email} with password ${password}`);
+    return { email: ccdCase.email, password };
   } catch (error) {
-    logger.error('Error createUser', error);
+    logger.error('Error createUser', error.message);
   }
-
-  console.log(`Created idam user for ${ccdCase.email} with password ${password}`);
-  return { email: ccdCase.email, password };
 }
 
 async function deleteUser(sidamUser) {

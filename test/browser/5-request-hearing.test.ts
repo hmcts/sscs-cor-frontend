@@ -31,7 +31,7 @@ describe('Request a hearing', () => {
     tribunalViewPage = new TribunalViewPage(page);
     hearingConfirmPage = new HearingConfirmPage(page);
     hearingWhyPage = new HearingWhyPage(page);
-    caseReference = res.ccdCase.caseReference || mockDataHearing.case_reference;
+    caseReference = res.ccdCase.case_reference || mockDataHearing.case_reference;
   });
 
   afterEach(function () {
