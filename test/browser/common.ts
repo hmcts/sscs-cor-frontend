@@ -106,15 +106,14 @@ export async function login(page, force?) {
 
 async function startServices(options?) {
   const opts = options || {};
+  let sidamUser;
   if (opts.bootstrapData && !testingLocalhost) {
-    const bootstrapResult = await bootstrap();
-    ccdCase = bootstrapResult.ccdCase;
-    cohTestData = bootstrapResult.cohTestData;
-    sidamUsers.unshift(bootstrapResult.sidamUser);
+    ({ ccdCase, cohTestData, sidamUser } = await bootstrap());
+    sidamUsers.unshift(sidamUser);
   }
   if (opts.issueDecision) {
     const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
-    await createAndIssueDecision(hearingId, ccdCase && ccdCase.caseId);
+    await createAndIssueDecision(hearingId, ccdCase && ccdCase.id);
   }
   await startAppServer();
   const browser = await startBrowser();
@@ -133,7 +132,7 @@ async function startServices(options?) {
   if (opts.performLogin) {
     await login(page, opts.forceLogin);
   }
-  return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {}, browser };
+  return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {}, sidamUser, browser };
 }
 
 after(async() => {

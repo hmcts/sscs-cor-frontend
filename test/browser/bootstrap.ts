@@ -42,7 +42,7 @@ async function waitForDecisionIssued(hearingId, attemptNum) {
 
 async function bootstrapCoh(ccdCase) {
   try {
-    const hearingId = await coh.createOnlineHearing(ccdCase.caseId);
+    const hearingId = await coh.createOnlineHearing(ccdCase.id);
     const questionList = await coh.createQuestions(hearingId);
     const questionIdList = questionList.map(q => q.question_id);
     const questionId = questionIdList[0];

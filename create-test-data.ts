@@ -13,7 +13,7 @@ async function runBootstrap() {
   // reinstate assignment of `sidamUser` once we are able to use a stable deployment of SIDAM in AAT
   const { ccdCase, cohTestData } = await bootstrap();
   if (process.env.ISSUE_DECISION) {
-    await createAndIssueDecision(cohTestData.hearingId, ccdCase.caseId);
+    await createAndIssueDecision(cohTestData.hearingId, ccdCase.id);
   }
 
   console.log('\n' + bold(_.pad(' CCD case ', 60, '-')) + '\n');

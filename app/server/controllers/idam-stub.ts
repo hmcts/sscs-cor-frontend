@@ -20,8 +20,8 @@ function generateRandomNumber() {
 function getLogin(req: Request, res: Response) {
   res.append('Content-Type', 'text/html');
   // use the redirect url in request for the final redirect
-  const redirectUri = req.query.redirect_uri;
-  res.render('login.html', { redirectUri });
+  const { redirect_uri, state } = req.query;
+  res.render('login.html', { redirect_uri, state });
 }
 
 async function postLogin(req: Request, res: Response) {
@@ -29,7 +29,7 @@ async function postLogin(req: Request, res: Response) {
   logger.info('postLogin generating code', code);
   redis.set(`idamStub.code.${code}`, req.body.username, 'ex', 60);
   logger.info('postLogin adding username to redis under code', req.body.username, await redis.get(`idamStub.code.${code}`));
-  res.redirect(`${req.body.redirect_uri}?code=${code}`);
+  res.redirect(`${req.body.redirect_uri}?code=${code}&state=${req.body.state}`);
 }
 
 async function getToken(req: Request, res: Response) {

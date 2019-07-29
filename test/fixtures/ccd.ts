@@ -22,10 +22,9 @@ async function createCase() {
     logger.error('Error at CCD createCase:', error.error);
   }
 
-  const caseId = body.id;
-  const caseReference = body.case_reference;
-  console.log(`Created CCD case for ${email} with ID ${caseId} and reference ${caseReference}`);
-  return { email, caseId, caseReference };
+  const { id, case_reference, appellant_tya } = body;
+  console.log(`Created CCD case for ${email} with ID ${id} and reference ${case_reference} and appellant_tya ${appellant_tya}`);
+  return { email, id, case_reference };
 }
 
 export { createCase };
