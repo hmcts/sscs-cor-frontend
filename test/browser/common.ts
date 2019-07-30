@@ -10,6 +10,7 @@ const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 const dysonSetupCoh = require('test/mock/coh/dysonSetup');
 const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
+const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
 
 const { Logger } = require('@hmcts/nodejs-logging');
@@ -61,6 +62,7 @@ function startAppServer(): Promise<void> {
     dysonSetupCoh();
     dysonSetupIdam();
     dysonSetupS2s();
+    dysonSetupTribunals();
     server = createServer(app).listen(port, error => {
       if (error) {
         console.log(`Unable to start server on port ${port} because of ${error.message}`);

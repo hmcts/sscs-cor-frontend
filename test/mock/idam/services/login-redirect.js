@@ -5,7 +5,7 @@ module.exports = {
   method: 'POST',
   render: (req, res) => {
     cache.put('email', req.body.username);
-    res.redirect(`${req.body.redirect_uri}?code=123`);
+    res.redirect(`${req.body.redirect_uri}?code=123&state=${req.body.state}`);
   },
   cache: false
 };
