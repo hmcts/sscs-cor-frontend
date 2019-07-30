@@ -2,7 +2,7 @@
   "appeal": {
     "caseReference": "SC285/18/10020",
     "appealNumber": "gghCoPUjOP",
-    "status": "HEARING",
+    "status": "DORMANT",
     "benefitType": "esa",
     "hearingType" : "oral",
     "name": "Miss AN Test",
@@ -10,7 +10,7 @@
     "latestEvents": [
       {
         "date": "2018-07-08T13:38:26.443Z",
-        "type": "HEARING",
+        "type": "DORMANT",
         "contentKey": "status.dormant",
         "decisionLetterReceiveByDate": "2018-06-19T13:38:26.443Z"
       }
