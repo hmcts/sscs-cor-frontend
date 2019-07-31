@@ -824,7 +824,13 @@
   },
   "yourDetails": {
     "header": "Your details",
-    "contact": "If any of your details are incorrect then phone: 0300 123 1142"
+    "contact": "If any of your details are incorrect then phone: 0300 123 1142",
+    "nameLabel": "Name",
+    "addressLabel": "Address",
+    "emailLabel": "Email address",
+    "phoneLabel": "Contact phone number",
+    "mobileLabel": "Text message updates"
+
   },
   "statusTab": {
     "header": "Status of your appeal"

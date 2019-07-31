@@ -1,6 +1,18 @@
 {% from "inset-text/macro.njk" import govukInsetText %}
+{% from "back-link/macro.njk" import govukBackLink %}
 {% extends "layout.html" %}
 {% set pageHeader = i18n.taskList.header %}
+
+{% block beforeContent %}
+    {{super()}}
+    {{ govukBackLink({
+        href: "#",
+        text: "Back",
+        attributes : { onclick: "history.go(-1); return false;" }
+        }) 
+    }}
+{% endblock%}
+
 {% block corContent %}
 
 <div class="govuk-grid-row">
@@ -9,30 +21,34 @@
         <table class="govuk-table">
             <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top --width-50" scope="row">Address</th>
+                    <th class="govuk-table__header --vertical-align-top" scope="row">{{i18n.yourDetails.nameLabel}}</th>
+                    <td class="govuk-table__cell">{{ details.appellant_name }}</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header --vertical-align-top --width-50" scope="row">{{i18n.yourDetails.addressLabel}}</th>
                     <td class="govuk-table__cell">
                         <address aria-label='{{ i18n.guidance.sendingEvidence.screenReaderPostalAddress }}'>
-                            {{ details.address_details.line1 }}<br/>
-                            {% if details.address_details.line1 %}
-                                {{ details.address_details.line2 }}<br/>
+                            {{ details.appellant_details.address_details.line1 }}<br/>
+                            {% if details.appellant_details.address_details.line1 %}
+                                {{ details.appellant_details.address_details.line2 }}<br/>
                             {% endif %}
-                            {{ details.address_details.town }}<br/>
-                            {{ details.address_details.county }}<br/>
-                            {{ details.address_details.postcode }}<br/>
+                            {{ details.appellant_details.address_details.town }}<br/>
+                            {{ details.appellant_details.address_details.county }}<br/>
+                            {{ details.appellant_details.address_details.postcode }}<br/>
                         </address>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top" scope="row">Email address</th>
-                    <td class="govuk-table__cell">{{ details.email }}</td>
+                    <th class="govuk-table__header --vertical-align-top" scope="row">{{i18n.yourDetails.emailLabel}}</th>
+                    <td class="govuk-table__cell">{{ details.appellant_details.email }}</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top" scope="row">Contact phone number</th>
-                    <td class="govuk-table__cell">07972 438178</td>
+                    <th class="govuk-table__header --vertical-align-top" scope="row">{{i18n.yourDetails.phoneLabel}}</th>
+                    <td class="govuk-table__cell">{{details.appellant_details.phone}}</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top" scope="row">Text message updates</th>
-                    <td class="govuk-table__cell">07972 438178</td>
+                    <th class="govuk-table__header --vertical-align-top" scope="row">{{i18n.yourDetails.mobileLabel}}</th>
+                    <td class="govuk-table__cell">{{details.appellant_details.mobile}}</td>
                 </tr>
             </tbody>
         </table>
