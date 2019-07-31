@@ -14,10 +14,10 @@ export class BasePage {
     this.pagePath = '/';
   }
 
-  async visitPage() {
+  async visitPage(query = '') {
     try {
-      console.log(`goto [${testUrl}${this.pagePath}]`);
-      await this.page.goto(`${testUrl}${this.pagePath}`);
+      console.log(`goto [${testUrl}${this.pagePath}${query}]`);
+      await this.page.goto(`${testUrl}${this.pagePath}${query}`);
       await this.page.waitForSelector('body');
     } catch (error) {
       const filename = this.getFileName();
