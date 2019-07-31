@@ -852,11 +852,11 @@
     "disableAccess": "Disable access",
     "otherArrangements": "Any other arrangements",
     "tribunalLookLike": "Find out what a tribunal hearing is like if you attend",
-    "contactIfChanges": "<a href=''>Contact us</a> to let us know about any changes or if you cannot attend.",
+    "contactIfChanges": "Let us know about any changes or if you cannot attend. </br> England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234",
     "notAttending": {
       "info": "You have chosen not to attend your hearing.",
       "description": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
-      "contactToAttend": "<a href='#'>Contact us</a> if you want to attend."
+      "contactToAttend": "Contact us if you want to attend. </br> England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234"
     },
     "required": "Required",
     "notRequired": "Not required"
