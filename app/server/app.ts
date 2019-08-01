@@ -13,6 +13,7 @@ const { fileTypes } = require('./utils/mimeTypeWhitelist');
 import * as screenReaderUtils from './utils/screenReaderUtils';
 import { configureHelmet, configureHeaders, configureNunjucks } from './app-configurations';
 import watch from './watch';
+import * as config from 'config';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -37,6 +38,18 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.locals.i18n = locale;
   app.locals.fileTypeWhiteList = fileTypes;
   app.locals.screenReaderUtils = screenReaderUtils;
+  app.locals.webChat = config.get('services.webChat');
+  app.locals.webFormUrl = config.get('services.webForm.url');
+  app.locals.allowContactUs = config.get('featureFlags.allowContactUs.enabled') === 'true';
+  app.locals.contactUsWebFormEnabled = config.get('featureFlags.allowContactUs.webFormEnabled') === 'true';
+  app.locals.contactUsTelephoneEnabled = config.get('featureFlags.allowContactUs.telephoneEnabled') === 'true';
+  app.locals.webChatEnabled = config.get('featureFlags.allowContactUs.webChatEnabled') === 'true';
+  // Get Base url
+  // Get Base url
+  app.use((req, res, next) => {
+    app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
+    next();
+  });
 
   if (!isDevelopment) {
     app.set('trust proxy', 1);
@@ -60,7 +73,6 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(routes);
   app.use(errors.pageNotFoundHandler);
   app.use(errors.coreErrorHandler);
-
   return app;
 }
 

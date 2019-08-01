@@ -15,28 +15,45 @@
           <details class="govuk-details contact-us">
             <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">
-                {{ i18n.myaContactUs.title }}
+                {{ i18n.contactUs.title }}
               </span>
             </summary>
 
-            <div class="govuk-details__text">
-              <div class="mya-contact__option">
-                <h2 class="govuk-heading-m">{{ i18n.myaContactUs.webChat.title }}</h2>
-                <p>{{ i18n.myaContactUs.webChat.para1 | eval | safe }}</p>
-              </div>
-              <div class="mya-contact__option">
-                <h2 class="govuk-heading-m">{{ i18n.myaContactUs.sendMessage.title }}</h2>
-                <p>{{ i18n.myaContactUs.sendMessage.para1 | eval | safe }}</p>
-              </div>
-              <div class="mya-contact__option">
-                <h2 class="govuk-heading-m">{{ i18n.myaContactUs.telephone.title }}</h2>
-                <p>{{ i18n.myaContactUs.telephone.description }}</p>
-                <h2 class="govuk-heading-s">{{ i18n.myaContactUs.telephone.england.title }}</h2>
-                <p>{{ i18n.myaContactUs.telephone.england.para1 | eval | safe }}</p>
-                <h2 class="govuk-heading-s">{{ i18n.myaContactUs.telephone.scotland.title }}</h2>
-                <p>{{ i18n.myaContactUs.telephone.scotland.para1 | eval | safe }}</p>
-              </div>  
+            {% if webChatEnabled %}
+                <div class="govuk-details__text">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{i18n.contactUs.webchat.title}}</h2>
+                <p class="govuk-body govuk-!-margin-bottom-0">{{i18n.contactUs.webchat.desc}}</p>
+                <div id="ctsc-web-chat">Loading</div>
+                </div>
+            {% endif %}
+            {% if contactUsWebFormEnabled %}
+                <div class="govuk-details__text">
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{i18n.contactUs.webform.title}}</h2>
+                    <p class="govuk-body govuk-!-margin-bottom-0">{{i18n.contactUs.webform.desc}}</p>
+                    <p class="govuk-body">
+                        <a class="govuk-link" href="{{webFormUrl}}" target="_blank">{{i18n.contactUs.webform.link}}</a>
+                    </p>
+                </div>
+            {% endif %}
+            {% if contactUsTelephoneEnabled %}
+              <div class="govuk-details__text">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{i18n.contactUs.telephone.title}}</h2>
+                <p class="govuk-body govuk-!-margin-bottom-2">{{i18n.contactUs.telephone.desc}}</p>
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{i18n.contactUs.telephone.England.desc}}</h3>
+                <p class="govuk-body govuk-!-margin-bottom-0">{{i18n.contactUs.telephone.England.phone}}</p>
+                <p class="govuk-body govuk-!-margin-bottom-2">{{i18n.contactUs.telephone.England.availability}}</p>
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                    <a class="govuk-link" href="https://www.gov.uk/call-charges" target="_blank">{{i18n.contactUs.telephone.England.charges}}</a>
+                </p>
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{i18n.contactUs.telephone.Scotland.desc}}</h3>
+                <p class="govuk-body govuk-!-margin-bottom-0">{{i18n.contactUs.telephone.Scotland.phone}}</p>
+                <p class="govuk-body govuk-!-margin-bottom-2">{{i18n.contactUs.telephone.Scotland.availability}}</p>
+                <p class="govuk-body">
+                    <a class="govuk-link" href="https://www.gov.uk/call-charges" target="_blank">{{i18n.contactUs.telephone.Scotland.charges}}</a>
+                </p>
             </div>
+            {% endif %}
+
           </details>
         </div>
       </div>

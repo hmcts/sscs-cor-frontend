@@ -61,6 +61,22 @@
   "featureFlags": {
     "testFeature": "false",
     "manageYourAppeal": "false",
-    "additionalEvidence": "false"
+    "additionalEvidence": "false",
+    "allowContactUs": {
+      "enabled": "true",
+      "telephoneEnabled": "true",
+      "webFormEnabled": "false",
+      "webChatEnabled": "false"
+    }
+  },
+  "services": {
+    "webForm" : {
+      "url": "https://ctsc-web-forms-ui-aat.service.core-compute-aat.internal/"
+    },
+    "webChat": {
+      "uuid": "script_2564970475c5c433ab52c08.45062085",
+      "tenant": "aG1jdHNzdGFnaW5nMDE",
+      "channel": "SSCS"
+    } 
   }
 }
