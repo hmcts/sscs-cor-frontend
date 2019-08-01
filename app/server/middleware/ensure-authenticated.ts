@@ -28,35 +28,43 @@ function setLocals(req, res, next) {
   res.locals.featureFlags = {};
   res.locals.featureFlags[Feature.MANAGE_YOUR_APPEAL] = isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies);
   res.locals.featureFlags[Feature.ADDITIONAL_EVIDENCE_FEATURE] = isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies);
+
+  // Setting up Tabs to show on MYA;
+  if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
+    res.locals.tabs = setTabNavigationItems(req.session.appeal);
+  }
   next();
 }
 
-function setTabNavigationItems(req, res, next) {
-  // TODO: req.session contains appeal or hearing, show/hide tabs accordingly
-  const tabs = {
-    'status': {
+function setTabNavigationItems(appeal) {
+  const { hearingType } = appeal;
+  const tabs = [
+    {
+      'id': 'status',
       'title': 'Status',
       'url': '/status'
     },
-    'questions': {
+    {
+      'id': 'questions',
       'title': 'Provide Evidence',
       'url': '/task-list'
     },
-    'hearing': {
+    {
+      'id': 'hearing',
       'title': 'Hearing',
       'url': '/hearing'
     },
-    'history': {
+    {
+      'id': 'history',
       'title': 'History',
       'url': '/history'
     }
-  };
-
-  Object.assign(res.locals, { tabs });
-  next();
+  ];
+  const tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== 'Hearing') : tabs;
+  return tabsToShow;
 }
 
-const ensureAuthenticated = [checkAccessToken, setLocals, setTabNavigationItems];
+const ensureAuthenticated = [checkAccessToken, setLocals];
 
 export {
   checkAccessToken,
