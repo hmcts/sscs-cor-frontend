@@ -1,8 +1,8 @@
 {% macro navigationTabs(active) %}
     <nav class="navigation-tabs">
         <ul class="navigation-tabs__list">
-            {% for key, tab in tabs %}
-                <li class="{{ 'selected' if key == active }}">
+            {% for tab in tabs %}
+                <li class="{{ 'selected' if tab.id == active }}">
                     <a href="{{ tab.url }}">{{ tab.title }}</a>
                 </li>
             {% endfor %}

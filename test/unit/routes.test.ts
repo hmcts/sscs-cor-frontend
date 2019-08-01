@@ -68,6 +68,9 @@ describe('Routes', () => {
             case_reference: 'SC/112/233',
             online_hearing_id: '2-completed'
           };
+          req.session.appeal = {
+            hearingType: 'cor'
+          };
           req.session.questions = [
             {
               question_id: '001',
@@ -149,6 +152,9 @@ describe('Routes', () => {
             final_decision: { reason: 'final decision reason' },
             has_final_decision: true
           };
+          req.session.appeal = {
+            hearingType: 'cor'
+          };
           next();
         });
         mockApp.use(app);
@@ -183,6 +189,9 @@ describe('Routes', () => {
           };
           req.session.accessToken = 'mock uid';
           req.session.hearing = hearingDetails,
+          req.session.appeal = {
+            hearingType: 'cor'
+          };
           next();
         });
         mockApp.use(app);

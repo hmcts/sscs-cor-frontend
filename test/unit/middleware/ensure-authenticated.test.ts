@@ -19,7 +19,8 @@ describe('middleware/ensure-authenticated', () => {
         id: '123',
         hearing: hearingDetails,
         destroy: sinon.stub().yields()
-      }
+      },
+      cookie: {}
     };
     res = {
       redirect: sinon.spy(),
@@ -55,7 +56,19 @@ describe('middleware/ensure-authenticated', () => {
     it('sets hearing data on the locals', () => {
       setLocals(req, res, next);
       expect(res.locals).to.have.property('hearing');
+      expect(res.locals).to.not.have.property('tabs');
       expect(res.locals.hearing).to.deep.equal(hearingDetails);
+    });
+    it('also sets tabs data on the locals', () => {
+      req.cookies = {
+        manageYourAppeal: 'true'
+      };
+      req.session['appeal'] = {
+        hearingType: 'cor'
+      };
+
+      setLocals(req, res, next);
+      expect(res.locals).to.have.property('tabs');
     });
     it('sets showSignOut on the locals', () => {
       setLocals(req, res, next);
@@ -67,7 +80,7 @@ describe('middleware/ensure-authenticated', () => {
     it('is an array of middleware functions', () => {
       expect(ensureAuthenticated).to.be.an('array');
       /* eslint-disable-next-line no-magic-numbers */
-      expect(ensureAuthenticated).to.have.lengthOf(3);
+      expect(ensureAuthenticated).to.have.lengthOf(2);
     });
   });
 });
