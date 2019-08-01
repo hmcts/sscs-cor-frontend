@@ -90,14 +90,13 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@hmcts/ctsc-web-chat@^0.2.4":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.2.8.tgz#4c8b4a3ec7a058fb2fba8c5c0929501bc9cb307a"
-  integrity sha512-yVOu3XQAfkW67rVI1BvYBCSbTmmEpYOER8Oi2uQXxWS2qKnCyHZPKL5efBG0KP3vR1ycKlR2evy040sJv/DCuw==
+"@hmcts/ctsc-web-chat@0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.2.4.tgz#7a67a19c9e296dc85fa779ba36fedfdb93cac9e9"
+  integrity sha512-pzRPus7zun5VGCFuJ+Ix/n25MNfgYYzHT+CIMLVRfsdyJLeYcIkOtWfYFEhGnChFI11hbrBQf/B8TiP2kULd+A==
   dependencies:
-    "@hmcts/nodejs-logging" "^3.0.0"
-    govuk-frontend "^2.13.0"
-    node-sass "^4.12.0"
+    govuk-frontend "^2.12.0"
+    node-sass "^4.6.1"
 
 "@hmcts/eslint-config@^1.4.0":
   version "1.4.0"
@@ -3310,7 +3309,7 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-govuk-frontend@^2.13.0, govuk-frontend@^2.4.1:
+govuk-frontend@^2.12.0, govuk-frontend@^2.4.1:
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-2.13.0.tgz#0273f7c92070abd6450c73a006ebb3ddc793463a"
   integrity sha512-6XDtTt5plSrPQvPgLFN4LCtb9ULuqoXCgkHy5c7XE/70/sVm47RPbLR11tYGPcmV8cOApBhW0wL8y8ryspHfpw==
@@ -5083,7 +5082,7 @@ node-pre-gyp@^0.12.0:
     semver "^5.3.0"
     tar "^4"
 
-node-sass@4.12.0, node-sass@^4.12.0:
+node-sass@4.12.0, node-sass@^4.6.1:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.12.0.tgz#0914f531932380114a30cc5fa4fa63233a25f017"
   integrity sha512-A1Iv4oN+Iel6EPv77/HddXErL2a+gZ4uBeZUy+a8O35CFYTXhgA8MgLCWBtwpGZdCvTvQ9d+bQxX/QC36GDPpQ==
