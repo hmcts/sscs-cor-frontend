@@ -617,32 +617,45 @@
     "titleText": "There are errors on the page",
     "descriptionText": "Please fix the errors before you continue"
   },
-  "contactUs": {
+  "contactUsCor": {
     "title": "Contact us",
     "emailText": "You can request support by emailing",
     "includeRefNum": "Please include your appeal reference number.",
     "getBackIn": "We’ll get back to you within 2 days."
   },
-  "myaContactUs": {
+  "contactUs": {
     "title": "Contact us for help",
-    "webChat": {
+    "webform": {
+      "title" : "Send us a message",
+      "desc" : "You’ll get a response by email within 2 working days.",
+      "link" : "Send message (opens in a new window)"
+    },
+    "webchat": {
       "title": "Web chat",
-      "para1": "Get some help by chatting online to an agent.<br/><a href='#'>Start web chat (opens in a new window)</a>.<br/>(Monday to Friday, 8.30am to 5.00pm)"
+      "desc": "Get some help by messaging an agent online.",
+      "link": "Start web chat (opens in a new window)",
+      "textChatDown": "The web chat service is temporarily unavailable, please try again later.",
+      "textChatWithAnAgent": "Start web chat (opens in a new window)",
+      "textNoAgentsAvailable": "No agents are available, please try again later.",
+      "textAllAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.",
+      "textChatClosed" : "The web chat is now closed. Come back Monday to Friday 8:30am to 5pm. Or contact us using one of the ways below.",
+      "textChatAlreadyOpen": "A web chat window is already open.",
+      "textAdditional": "Monday to Friday, 8.30am to 5pm"
     },
-    "sendMessage": {
-      "title": "Send us a message",
-      "para1": "You’ll get a response by email within 2 working days. <br/><a href='#'>Send message (opens in a new window)</a>"
-    },
-    "telephone": {
+    "telephone" : {
       "title": "Telephone",
-      "description": "Talk to one of our agents now over the phone.",
-      "england": {
-        "title": "Benefit appeals helpline (England and Wales)",
-        "para1": "Telephone: 0300 123 1142<br/>Monday to Friday, 8:30am to 5pm<br/><a href='#'>Find out about call charges</a>"
+      "desc": "Talk to one of our agents now over the phone.",
+      "England": {
+        "desc" : "Benefit appeals helpline (England and Wales)",
+        "phone": "Telephone: 0300 123 1142",
+        "availability": "Monday to Friday, 8:30am to 5pm",
+        "charges": "Find out about call charges"
       },
-      "scotland": {
-        "title": "Benefit appeals helpline (Scotland)",
-        "para1": "Telephone: 0300 790 6234<br/>Monday to Friday, 8:30am to 5pm<br/><a href='#'>Find out about call charges</a>"
+      "Scotland" : {
+        "desc": "Benefit appeals helpline (Scotland)",
+        "phone": "Telephone: 0300 790 6234",
+        "availability": "Monday to Friday, 8:30am to 5pm",
+        "charges": "Find out about call charges"
       }
     }
   },

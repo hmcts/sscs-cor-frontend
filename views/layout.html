@@ -41,7 +41,7 @@
         {% include "session-inactivity-modal.html" %}
     {% endif %}
 
-    {% if featureFlags.manageYourAppeal %}
+    {% if featureFlags.manageYourAppeal and allowContactUs %}
         {{ contactUs() }} 
     {% else %}
         {% include "includes/contact-us.html" %}
@@ -53,4 +53,38 @@
     <script src="/reload/reload.js"></script> 
     {% endif %}
     <script src="/public/js/main.js"></script>
+     <script src="/public/js/hmcts-webchat.js"></script>
+
+    {% if featureFlags.manageYourAppeal and allowContactUs %}
+        <script>
+      /*
+        * webchat_init() has been developed by CTSC and is defined in hmcts-webchat.js
+        * uuid, tenant, channel and other parameters can be passed into it as below to configure
+        * and customise the web-chat experience,
+        * busHandlerURL: is another jQuery javascript that further customises the web-chat journey
+        *
+        * NOTE: URLs must be https and not behind a VPN for 8x8 to work with web-chat
+        */
+        webchat_init(
+        {
+          uuid: '{{webChat.uuid}}',
+          tenant: '{{webChat.tenant}}',
+          channel: '{{webChat.channel}}',
+          buttonContainerId: 'ctsc-web-chat',
+          textChatDown: '{{i18n.contactUs.webchat.textChatDown}}',
+          textChatWithAnAgent: '{{i18n.contactUs.webchat.textChatWithAnAgent}}',
+          textNoAgentsAvailable: '{{i18n.contactUs.webchat.textNoAgentsAvailable}}',
+          textAllAgentsBusy: '{{i18n.contactUs.webchat.textAllAgentsBusy}}',
+          textChatClosed : '{{i18n.contactUs.webchat.textChatClosed}}',
+          textChatAlreadyOpen: '{{i18n.contactUs.webchat.textChatAlreadyOpen}}',
+          textAdditional: '{{i18n.contactUs.webchat.textAdditional}}',
+          stylesheetURL: '{{baseUrl}}/public/css/hmcts-webchat.css', 
+          busHandlerURL: '{{baseUrl}}/public/js/hmcts-webchat-busHandler.js', 
+          btnNoAgents: '/{{webChat.tenant}}/button_7732814745cac6f4603c4d1.53357933/img/logo',
+          btnAgentsBusy: '/{{webChat.tenant}}/button_2042157415cc19c95669039.65793052/img/logo',
+          btnServiceClosed: '/{{webChat.tenant}}/button_20199488815cc1a89e0861d5.73103009/img/logo'
+        }
+      );
+    </script>
+    {% endif %}
 {% endblock %}
