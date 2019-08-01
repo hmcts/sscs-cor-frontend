@@ -69,6 +69,18 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
   };
 }
 
+function getHearingsByName(hearings) {
+  const hearingsByName = {};
+  hearings.forEach(hearing => {
+    const appellantName = hearing.appellant_name;
+    if (!hearingsByName[appellantName]) {
+      hearingsByName[appellantName] = [];
+    }
+    hearingsByName[appellantName].push(hearing);
+  });
+  return hearingsByName;
+}
+
 function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   idamService: IdamService,
@@ -107,17 +119,22 @@ function getIdamCallback(
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
-        if (body.length === 0) {
+        const hearings = req.query.caseId ?
+          body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
+
+        if (hearings.length === 0) {
           return res.redirect(Paths.assignCase);
-        } else if (body.length === 1) {
-          req.session.hearing = body[0];
+        } else if (hearings.length === 1) {
+          req.session.hearing = hearings[0];
           const { appeal } = await trackYourApealService.getAppeal(req.session.hearing.case_id, req);
           req.session.appeal = appeal;
 
           logger.info(`Logging in ${email}`);
           return res.redirect(Paths.status);
         } else {
-          return res.redirect(Paths.selectCase);
+          const hearingsByName = getHearingsByName(hearings);
+
+          return res.render('select-case.html', { hearingsByName });
         }
       } else {
         const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;

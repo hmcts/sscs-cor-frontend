@@ -273,8 +273,76 @@ describe('controllers/login', () => {
         expect(hearingServiceStub.getOnlineHearingsForCitizen).to.have.been.calledOnce.calledWith('someEmail@example.com', 'tya-number', req);
       });
 
-      it('redirects to assign case page', () => {
-        expect(res.redirect).to.have.been.calledWith(Paths.selectCase);
+      it('loads select case page', () => {
+        expect(res.render).to.have.been.calledWith('select-case.html', {
+          hearingsByName: {
+            'John Smith': [{
+              appellant_name: 'John Smith',
+              case_id: 12345,
+              case_reference: 'SC/123/456',
+              online_hearing_id: '1'
+            },
+            {
+              appellant_name: 'John Smith',
+              case_id: 12345,
+              case_reference: 'SC/123/456',
+              online_hearing_id: '1'
+            }]
+          }});
+      });
+    });
+
+    describe('selects a case by case id with MYA enabled', () => {
+      let hearingServiceStub;
+      let trackYourAppealService;
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode', 'state': 'tya-number', caseId: '11111' };
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        const redirectToIdam = sinon.stub();
+        const idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: [
+            {
+              case_id: 11111,
+              online_hearing_id: '1',
+              case_reference: 'SC/111/456',
+              appellant_name: 'John Smith'
+            }, {
+              case_id: 22222,
+              online_hearing_id: '2',
+              case_reference: 'SC/222/456',
+              appellant_name: 'John Smith'
+            }]
+          })
+        } as HearingService;
+
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : {} })
+        };
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
+      });
+
+      it('calls the online hearing service', () => {
+        expect(hearingServiceStub.getOnlineHearingsForCitizen).to.have.been.calledOnce.calledWith('someEmail@example.com', 'tya-number', req);
+      });
+
+      it('sets the hearing', () => {
+        expect(req.session.hearing).to.be.eql({
+          case_id: 11111,
+          online_hearing_id: '1',
+          case_reference: 'SC/111/456',
+          appellant_name: 'John Smith'
+        });
+      });
+
+      it('redirects to task list page', () => {
+        expect(res.redirect).to.have.been.calledWith(Paths.status);
       });
     });
 

@@ -858,11 +858,11 @@
     "disableAccess": "Disable access",
     "otherArrangements": "Any other arrangements",
     "tribunalLookLike": "Find out what a tribunal hearing is like if you attend",
-    "contactIfChanges": "<a href=''>Contact us</a> to let us know about any changes or if you cannot attend.",
+    "contactIfChanges": "Let us know about any changes or if you cannot attend: </br> England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234",
     "notAttending": {
       "info": "You have chosen not to attend your hearing.",
       "description": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
-      "contactToAttend": "<a href='#'>Contact us</a> if you want to attend."
+      "contactToAttend": "Contact us if you want to attend: </br> England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234"
     },
     "required": "Required",
     "notRequired": "Not required"
@@ -1082,11 +1082,11 @@
       },
       "arriveTitle": "When you arrive",
       "arriveDesc": {
-        "para1": "You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href='support-hearing-expenses'>Read about claiming expenses for your hearing.</a>" 
+        "para1": "You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href='support-hearing-expenses'>Read about claiming expenses for your hearing.</a>"
       },
       "hearingRoomTitle": "The hearing room",
       "hearingRoomDesc": {
-        "para1": "The tribunal clerk will take you into the hearing room. The tribunal panel will be sat behind a table. You’ll be invited to sit opposite them. If you have someone to support you or to give evidence, they’ll sit next to you." 
+        "para1": "The tribunal clerk will take you into the hearing room. The tribunal panel will be sat behind a table. You’ll be invited to sit opposite them. If you have someone to support you or to give evidence, they’ll sit next to you."
       },
       "peopleInTheRoomTitle": "The people at your hearing",
       "peopleInTheRoomDesc": {
@@ -1142,5 +1142,15 @@
       "supportWithdrawAppeal": "Withdrawing your appeal",
       "supportRepresentatives": "Representatives"
     }
+  },
+  "selectCase": {
+    "title": "Select Case",
+    "heading": "Your benefit appeals",
+    "appealReference": "Appeal reference",
+    "benefit": "Benefit",
+    "dateSubmitted": "Date submitted",
+    "mrnDate": "MRN date",
+    "action": "Action",
+    "view": "View"
   }
 }
