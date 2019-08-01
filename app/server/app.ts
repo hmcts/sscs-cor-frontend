@@ -40,18 +40,6 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.locals.fileTypeWhiteList = fileTypes;
   app.locals.screenReaderUtils = screenReaderUtils;
 
-  // Get Base url and contact us configuration
-  app.use((req, res, next) => {
-    app.locals.webChat = config.get('services.webChat');
-    app.locals.webFormUrl = config.get('services.webForm.url');
-    app.locals.allowContactUs = isFeatureEnabled(Feature.ALLOW_CONTACT_US, req.cookies);
-    app.locals.contactUsWebFormEnabled = isFeatureEnabled(Feature.CONTACT_US_WEB_FORM_ENABLED, req.cookies);
-    app.locals.contactUsTelephoneEnabled = isFeatureEnabled(Feature.CONTACT_US_TELEPHONE_ENABLED, req.cookies);
-    app.locals.webChatEnabled = isFeatureEnabled(Feature.CONTACT_US_WEBCHAT_ENABLED, req.cookies);
-    app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
-    next();
-  });
-
   if (!isDevelopment) {
     app.set('trust proxy', 1);
   } else {
@@ -65,6 +53,17 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     extended: true
   }));
   app.use(cookieParser());
+  // Get Base url and contact us configuration
+  app.use((req, res, next) => {
+    app.locals.webChat = config.get('services.webChat');
+    app.locals.webFormUrl = config.get('services.webForm.url');
+    app.locals.allowContactUs = isFeatureEnabled(Feature.ALLOW_CONTACT_US, req.cookies);
+    app.locals.contactUsWebFormEnabled = isFeatureEnabled(Feature.CONTACT_US_WEB_FORM_ENABLED, req.cookies);
+    app.locals.contactUsTelephoneEnabled = isFeatureEnabled(Feature.CONTACT_US_TELEPHONE_ENABLED, req.cookies);
+    app.locals.webChatEnabled = isFeatureEnabled(Feature.CONTACT_US_WEBCHAT_ENABLED, req.cookies);
+    app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
+    next();
+  });
   app.use('/public', express.static(`${__dirname}/../../public`));
   app.use(Express.accessLogger());
   app.use(sessionHandler);
