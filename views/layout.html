@@ -53,10 +53,11 @@
     <script src="/reload/reload.js"></script> 
     {% endif %}
     <script src="/public/js/main.js"></script>
-     <script src="/public/js/hmcts-webchat.js"></script>
 
-    {% if featureFlags.manageYourAppeal and allowContactUs %}
-        <script>
+
+    {% if featureFlags.manageYourAppeal and webChatEnabled %}
+    <script src="/public/js/hmcts-webchat.js"></script>
+    <script>
       /*
         * webchat_init() has been developed by CTSC and is defined in hmcts-webchat.js
         * uuid, tenant, channel and other parameters can be passed into it as below to configure

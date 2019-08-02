@@ -26,7 +26,8 @@ function configureHelmet(app) {
         '\'unsafe-inline\'',
         'www.google-analytics.com',
         'www.googletagmanager.com',
-        'tagmanager.google.com'
+        'tagmanager.google.com',
+        'vcc-eu4.8x8.com'
       ],
       styleSrc: [
         '\'self\'',
@@ -37,7 +38,8 @@ function configureHelmet(app) {
       mediaSrc: ['\'self\''],
       frameSrc: [
         '\'self\'',
-        'www.googletagmanager.com'
+        'www.googletagmanager.com',
+        'vcc-eu4.8x8.com'
       ],
       frameAncestors: [
         '\'self\'',
@@ -48,7 +50,8 @@ function configureHelmet(app) {
         '\'self\' data:',
         'www.google-analytics.com',
         'www.googletagmanager.com',
-        'tagmanager.google.com'
+        'tagmanager.google.com',
+        'vcc-eu4.8x8.com'
       ]
     }
   }));
