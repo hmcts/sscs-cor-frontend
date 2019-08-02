@@ -43,7 +43,7 @@
               } if fileUploadError
             ]
         }) }}
-      {% endif %}  
+      {% endif %}
 
       {% if action === 'options' %}
 
@@ -51,7 +51,7 @@
 
       {% elseif action === 'post' %}
 
-          {% include "additional-evidence/evidence-post.html" %}
+          {% include "includes/post-evidence.html" %}
 
       {% elseif action === 'upload' %}
 

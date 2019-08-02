@@ -75,6 +75,7 @@ describe('controllers/question', () => {
     it('should call render with the template and question header and no evidences', async() => {
       await getQuestion(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
+        postBulkScan: false,
         question: {
           questionId,
           questionOrdinal: '1',
@@ -102,6 +103,7 @@ describe('controllers/question', () => {
       ];
       await getQuestion(questionService)(req, res, next);
       expect(res.render).to.have.been.calledWith('question/index.html', {
+        postBulkScan: false,
         question: {
           questionId,
           questionOrdinal: '1',
