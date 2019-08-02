@@ -30,7 +30,7 @@ function setLocals(req, res, next) {
   res.locals.featureFlags[Feature.ADDITIONAL_EVIDENCE_FEATURE] = isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies);
 
   // Setting up Tabs to show on MYA;
-  if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
+  if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) && req.session.appeal) {
     res.locals.tabs = setTabNavigationItems(req.session.appeal);
   }
   next();

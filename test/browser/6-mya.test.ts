@@ -16,7 +16,6 @@ describe('Manage your appeal app @mya', () => {
   let sidamUser;
   before(async () => {
     ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true }));
-    console.log('ccdCase', JSON.stringify(ccdCase));
     const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
     loginPage = new LoginPage(page);
     taskListPage = new TaskListPage(page);
