@@ -59,7 +59,7 @@ describe('Extend deadline', () => {
   it('displays contact for help', async () => {
     const contactHelpLink = 'summary.govuk-details__summary span';
     const contactHelpLinkText = await extendDeadlinePage.getElementText(contactHelpLink);
-    expect(contactHelpLinkText.trim()).to.equal(i18n.contactUs.title);
+    expect(contactHelpLinkText.trim()).to.equal(i18n.contactUsCor.title);
   });
 
   it('displays an error message in the summary when you try to continue without selecting an option', async () => {
