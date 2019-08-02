@@ -1,0 +1,8 @@
+#ctsc-web-chat {
+    p {
+      margin-bottom:0;
+    }
+    a {
+      @extend .govuk-link;
+    }
+}
