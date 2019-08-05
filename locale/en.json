@@ -1029,6 +1029,14 @@
           "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
         ]
       }
+    },
+    "SYA_APPEAL_CREATED": {
+      "heading": "Appeal created TBC",
+      "content": {
+        "cor": [
+          "Content TBC"
+        ]
+      }
     }
   },
   "benefitTypes": {
