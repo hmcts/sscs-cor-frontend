@@ -12,7 +12,10 @@ describe('controllers/history', () => {
     sandbox = sinon.sandbox.create();
     req = {
       session: {
-        appeal: {}
+        appeal: {
+          latestEvents: [],
+          historicalEvents: []
+        }
       },
       cookies: {}
     } as any;
@@ -49,7 +52,7 @@ describe('controllers/history', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
     });
 
-    it('should render history page when mya feature enabled ', async() => {
+    it('should render history page when mya feature enabled', async() => {
       req.cookies.manageYourAppeal = 'true';
       history.getHistory(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('history.html');
