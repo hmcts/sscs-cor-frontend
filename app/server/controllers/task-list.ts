@@ -53,7 +53,7 @@ function getTaskList(questionService: QuestionService) {
 function getEvidencePost(req: Request, res: Response, next: NextFunction) {
   try {
     if (!isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies)) {
-      res.render('post-evidence.html');
+      res.render('post-evidence.html', { postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies) });
     } else {
       res.render('errors/404.html');
     }
