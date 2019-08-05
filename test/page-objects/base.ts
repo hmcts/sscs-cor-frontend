@@ -144,6 +144,7 @@ export class BasePage {
   async signOut() {
     const [ cookies ] = await this.page.cookies();
     let signOutSelector = '.govuk-header__link--signout';
+    console.log('cookies', cookies, 'signOutSelector', signOutSelector);
     if (
       (cookies.name === 'manageYourAppeal' &&
       cookies.value === 'true') || myaFeature === 'true'
