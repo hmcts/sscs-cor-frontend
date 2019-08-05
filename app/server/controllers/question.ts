@@ -14,6 +14,7 @@ const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 import * as rp from 'request-promise';
 import { OK, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import { handleFileUploadErrors as handleFileUploadErrorsMiddleware } from '../middleware/file-upload-validation';
+import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
 const evidenceUploadEnabled = config.get('evidenceUpload.questionPage.enabled') === 'true';
 const evidenceUploadOverrideAllowed = config.get('evidenceUpload.questionPage.overrideAllowed') === 'true';
@@ -61,7 +62,8 @@ function getQuestion(questionService: QuestionService) {
       req.session.question = question;
       res.render('question/index.html', {
         question,
-        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
+        showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
+        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies)
       });
     } catch (error) {
       AppInsights.trackException(error);

@@ -67,7 +67,8 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
 
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
-      action: 'options'
+      action: 'options',
+      postBulkScan: false
     });
   });
 
@@ -103,7 +104,8 @@ describe('controllers/additional-evidence.js', () => {
     req.params.action = 'statement';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
-      action: 'statement'
+      action: 'statement',
+      postBulkScan: false
     });
   });
 
@@ -111,7 +113,8 @@ describe('controllers/additional-evidence.js', () => {
     req.params.action = 'post';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
-      action: 'post'
+      action: 'post',
+      postBulkScan: false
     });
   });
 
@@ -119,7 +122,8 @@ describe('controllers/additional-evidence.js', () => {
     req.params.action = 'no-valid-argument';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
-      action: 'options'
+      action: 'options',
+      postBulkScan: false
     });
   });
 

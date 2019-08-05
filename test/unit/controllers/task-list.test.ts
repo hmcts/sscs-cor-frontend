@@ -11,7 +11,7 @@ const moment = require('moment');
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
-import { Feature } from 'app/server/utils/featureEnabled';
+import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
 
 describe('controllers/task-list', () => {
   let req;
@@ -77,7 +77,7 @@ describe('controllers/task-list', () => {
   describe('getEvidencePost', () => {
     it('should render post-evidence.html page', () => {
       getEvidencePost(req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith('post-evidence.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('post-evidence.html', { postBulkScan: false });
     });
 
     it('should render 404.html page if additional evidence enabled', () => {

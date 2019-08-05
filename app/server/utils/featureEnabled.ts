@@ -7,7 +7,8 @@ enum Feature {
   ALLOW_CONTACT_US = 'allowContactUs.enabled',
   CONTACT_US_WEB_FORM_ENABLED = 'allowContactUs.webFormEnabled',
   CONTACT_US_TELEPHONE_ENABLED = 'allowContactUs.telephoneEnabled',
-  CONTACT_US_WEBCHAT_ENABLED= 'allowContactUs.webChatEnabled'
+  CONTACT_US_WEBCHAT_ENABLED= 'allowContactUs.webChatEnabled',
+  POST_BULK_SCAN = 'postBulkScan'
 }
 
 function isFeatureEnabled(feature: Feature, force?: {}): boolean {

@@ -7,6 +7,8 @@ import { answerValidation, uploadDescriptionValidation } from '../utils/fieldVal
 import * as Paths from '../paths';
 import { AdditionalEvidenceService, EvidenceDescriptor } from '../services/additional-evidence';
 import { handleFileUploadErrors } from '../middleware/file-upload-validation';
+import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+
 const i18n = require('../../../locale/en');
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
@@ -68,7 +70,10 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
           }
         );
       }
-      return res.render('additional-evidence/index.html', { action });
+      return res.render('additional-evidence/index.html', {
+        action,
+        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies)
+      });
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
