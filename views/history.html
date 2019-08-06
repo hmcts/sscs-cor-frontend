@@ -18,33 +18,26 @@
             <div class="task-list">
                 <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.historyTab.header }}</h2>
                 <dl class="govuk-summary-list history-list">
-                    {% if appeal.historicalEvents %}
-                        {% for event in appeal.historicalEvents %}
-                            <div class="govuk-summary-list__row">
-                                <dd class="govuk-summary-list__value">
-                                    <details class="govuk-details">
-                                        <summary class="govuk-details__summary">
-                                            <span class="govuk-details__summary-text">
-                                                {{ i18n.appealEvents[event.type].heading | eval }}
-                                            </span>
-                                        </summary>
-                                        <div class="govuk-details__text">
-                                            {{ i18n.appealEvents[event.type].content[appeal.hearingType] | eval }}
-                                        </div>
-                                    </details>
-                                </dd>
-                                <dd class="govuk-summary-list__actions">
-                                    {{ event.date | dateFilter("DD MMMM YYYY") }}
-                                </dd>
-                            </div>
-                        {% endfor %}
-                    {% else %}
+                    {% for event in events %}
                         <div class="govuk-summary-list__row">
                             <dd class="govuk-summary-list__value">
-                            no historical events
-                        </dd>
+                                <details class="govuk-details">
+                                    <summary class="govuk-details__summary">
+                                        <span class="govuk-details__summary-text">
+                                            {{ i18n.appealEvents[event.type].heading | eval }}
+                                        </span>
+                                    </summary>
+                                    <div class="govuk-details__text">
+                                        {{ i18n.appealEvents[event.type].content[appeal.hearingType] | eval }}
+                                    </div>
+                                </details>
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                {{ event.date | dateFilter("DD MMMM YYYY") }}
+                            </dd>
                         </div>
-                    {% endif %}
+                    {% endfor %}
+                    
                 </dl>
             </div>
         </div>
