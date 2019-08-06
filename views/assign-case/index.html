@@ -4,21 +4,24 @@
 {% extends "layout.html" %}
 
 {% block corContent %}
+  <h1 class="govuk-heading-l">{{ i18n.assignCase.title }}</h1>
+
   {% if error %}
     {{ govukErrorSummary({
-        titleText: "Case not found",
-        descriptionText: "Error adding case to user",
+        titleText: i18n.errorSummary.titleText,
+        descriptionText: i18n.errorSummary.descriptionText,
         errorList: [{
-          text: "Case not found for given postcode",
+          text: error,
           href: "#Postcode"
         }]
       })
     }}
   {% endif %}
+
   <form id="answer-form" action="/assign-case" method="post">
     {{ govukInput({
         label: {
-          text: "Postcode"
+          text: i18n.assignCase.message
         },
         id: "postcode",
         name: "postcode",
@@ -26,6 +29,6 @@
       })
     }}
 
-    <input id="assign-case" name="assign-case" type="submit" class="govuk-button secondary-button">
+    <input id="assign-case" name="assign-case" type="submit" value="{{ i18n.general.continue }}" class="govuk-button">
   </form>
 {% endblock %}
