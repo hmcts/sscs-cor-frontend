@@ -6,23 +6,37 @@ import * as rp from 'request-promise';
 import { OK } from 'http-status-codes';
 import { TrackYourApealService } from '../services/tyaService';
 
+const i18n = require('../../../locale/en.json');
+const postcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))[0-9][A-Za-z]{2})$/;
+
 const logger = Logger.getLogger('login.js');
 
 function getIndex(req: Request, res: Response) {
-  if (req.query.error) {
-    return res.render('assign-case/index.html', { error: req.query.error });
-  }
   return res.render('assign-case/index.html', {});
 }
 
 function postIndex(hearingService: HearingService, trackYourAppealService: TrackYourApealService) {
   return async (req: Request, res: Response) => {
+    if (!req.body.postcode || !req.body.postcode.trim()) {
+      return res.render('assign-case/index.html', {
+        error: i18n.assignCase.errors.noPostcode
+      });
+    } else {
+      if (!req.body.postcode.replace(/ /g,'').match(postcodeRegex)) {
+        return res.render('assign-case/index.html', {
+          error: i18n.assignCase.errors.invalidPostcode
+        });
+      }
+    }
+
     const { statusCode, body }: rp.Response = await hearingService.assignOnlineHearingsToCitizen(
       req.session.idamEmail, req.session.tya, req.body.postcode, req
     );
 
     if (statusCode !== OK) {
-      return res.redirect(Paths.assignCase + '?error=true');
+      return res.render('assign-case/index.html', {
+        error: i18n.assignCase.errors.postcodeDoesNotMatch
+      });
     }
 
     req.session.hearing = body;

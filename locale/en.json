@@ -1173,5 +1173,14 @@
     "mrnDate": "MRN date",
     "action": "Action",
     "view": "View"
+  },
+  "assignCase":{
+    "title": "Enter your postcode",
+    "message": "This is so we can check it's your appeal",
+    "errors": {
+      "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
+      "invalidPostcode": "The postcode you have entered is invalid. Please check it and try again.",
+      "postcodeDoesNotMatch": "The postcode you have entered does not match our records. Enter the postcode of the person who is named on the appeal."
+    }
   }
 }
