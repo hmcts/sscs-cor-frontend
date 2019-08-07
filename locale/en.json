@@ -545,7 +545,7 @@
     "para3": "If they request a hearing, you will be asked if you want to attend.",
     "para4": "You will get an email telling you whether they have accepted the view by {{ nextCorrespondenceDate }}.",
     "exitService": "Exit service",
-    "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_ExitSurvey/?pageurl="
+    "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_2/?pageurl="
   },
   "tribunalDecision": {
     "header": "The tribunal’s decision on your appeal",
@@ -577,7 +577,7 @@
       "para1": "You'll receive an email with the details of your hearing by {{ responseDate }}.",
       "para2": "If you require a hearing room with disabled access or any other support then please email the tribunal at ",
       "para3": "Include your appeal reference number on any emails to the tribunal:",
-      "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_ExitSurvey/?pageurl="
+      "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_4/?pageurl="
     }
   },
   "postEvidence": {
