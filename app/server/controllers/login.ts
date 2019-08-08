@@ -119,8 +119,16 @@ function getIdamCallback(
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
-        const hearings = req.query.caseId ?
-          body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
+        let hearings = [];
+        if (req.query.caseId) {
+          hearings = body.filter(hearing => hearing.case_id + '' === req.query.caseId);
+          // tslint:disable-next-line
+          console.log('after selecting case hearings are:', hearings);
+        } else {
+          hearings = body;
+        }
+        // const hearings = req.query.caseId ?
+        //   body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
 
         if (hearings.length === 0) {
           return res.redirect(Paths.assignCase);
@@ -133,6 +141,8 @@ function getIdamCallback(
           return res.redirect(Paths.status);
         } else {
           const hearingsByName = getHearingsByName(hearings);
+          // tslint:disable-next-line
+          console.log('assign-case hearingsByName', hearingsByName);
 
           return res.render('select-case.html', { hearingsByName });
         }
