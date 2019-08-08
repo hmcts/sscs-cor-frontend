@@ -1,1 +1,21 @@
-{}
+{
+  "evidenceUpload": {
+    "questionPage": {
+      "enabled": "true",
+      "overrideAllowed": "false"
+    },
+    "maxFileSizeInMb": 10
+  },
+  "featureFlags": {
+    "testFeature": "false",
+    "manageYourAppeal": "true",
+    "additionalEvidence": "true",
+    "allowContactUs": {
+      "enabled": "true",
+      "telephoneEnabled": "true",
+      "webFormEnabled": "true",
+      "webChatEnabled": "true"
+    },
+    "postBulkScan": "true"
+  }
+}
