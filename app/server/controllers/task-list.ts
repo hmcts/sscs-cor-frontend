@@ -23,7 +23,7 @@ function getTaskList(questionService: QuestionService) {
     try {
       let deadlineDetails = null;
       let hearingType = 'cor';
-      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL)) {
+      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         hearingType = req.session.appeal.hearingType;
       }
       if (hearingType === 'cor') {
