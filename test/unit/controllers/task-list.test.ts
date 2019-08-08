@@ -58,12 +58,6 @@ describe('controllers/task-list', () => {
       expect(res.send).to.have.been.calledOnce.calledWith(new Buffer('file', 'binary'));
     });
 
-    it('should render 404.html page if additional evidence feature enabled', async () => {
-      req.cookies[`${Feature.ADDITIONAL_EVIDENCE_FEATURE}`] = 'true';
-      await getCoversheet(additionalEvidenceService)(req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
-    });
-
     it('should track Exception with AppInsights and call next(error)', async () => {
       additionalEvidenceService = {
         getCoversheet: sandbox.stub().rejects(error)
@@ -78,12 +72,6 @@ describe('controllers/task-list', () => {
     it('should render post-evidence.html page', () => {
       getEvidencePost(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith('post-evidence.html', { postBulkScan: false });
-    });
-
-    it('should render 404.html page if additional evidence enabled', () => {
-      req.cookies[`${Feature.ADDITIONAL_EVIDENCE_FEATURE}`] = 'true';
-      getEvidencePost(req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
     });
   });
 
