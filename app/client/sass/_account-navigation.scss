@@ -2,17 +2,19 @@
     display: flex;
     justify-content: space-between;
     &__home {
-        display: flex;
-        flex-basis: 65%;
-
-        :first-child {
-            margin-right: 0.125rem;
-        }
-        :last-child {
-            margin-left: 0.125rem;
-        }
-        img {
-            height: 1rem;
+        a {
+            display: flex;
+            flex-basis: 65%;
+    
+            :first-child {
+                margin-right: 0.125rem;
+            }
+            :last-child {
+                margin-left: 0.125rem;
+            }
+            img {
+                height: 1rem;
+            }
         }
     }
 

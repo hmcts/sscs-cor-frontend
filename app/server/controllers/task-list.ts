@@ -18,12 +18,12 @@ function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
 const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
 
 function getTaskList(questionService: QuestionService) {
-  return async(req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const hearing = req.session.hearing;
     try {
       let deadlineDetails = null;
       let hearingType = 'cor';
-      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL)) {
+      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         hearingType = req.session.appeal.hearingType;
       }
       if (hearingType === 'cor') {
@@ -52,11 +52,7 @@ function getTaskList(questionService: QuestionService) {
 
 function getEvidencePost(req: Request, res: Response, next: NextFunction) {
   try {
-    if (!isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies)) {
-      res.render('post-evidence.html', { postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies) });
-    } else {
-      res.render('errors/404.html');
-    }
+    res.render('post-evidence.html', { postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies) });
   } catch (error) {
     AppInsights.trackException(error);
     next(error);
@@ -66,14 +62,10 @@ function getEvidencePost(req: Request, res: Response, next: NextFunction) {
 function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (!isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies)) {
-        const caseId = req.session.hearing.case_id;
-        const coversheet = await additionalEvidenceService.getCoversheet(caseId, req);
-        res.header('content-type', 'application/pdf');
-        res.send(new Buffer(coversheet, 'binary'));
-      } else {
-        res.render('errors/404.html');
-      }
+      const caseId = req.session.hearing.case_id;
+      const coversheet = await additionalEvidenceService.getCoversheet(caseId, req);
+      res.header('content-type', 'application/pdf');
+      res.send(new Buffer(coversheet, 'binary'));
     } catch (error) {
       AppInsights.trackException(error);
       next(error);

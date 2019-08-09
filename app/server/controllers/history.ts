@@ -4,7 +4,10 @@ import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
 function getHistory(req: Request, res: Response) {
   if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
-  return res.render('history.html', { appeal: req.session.appeal });
+  const { latestEvents, historicalEvents } = req.session.appeal;
+  const events = latestEvents.concat(Array.isArray(historicalEvents) ? historicalEvents : []);
+
+  return res.render('history.html', { events, appeal: req.session.appeal });
 }
 
 function setupHistoryController(deps: any) {
