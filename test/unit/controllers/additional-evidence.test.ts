@@ -31,7 +31,8 @@ describe('controllers/additional-evidence.js', () => {
         serviceToken: serviceToken,
         hearing: {
           online_hearing_id: '',
-          case_reference: 'mockedCaseRef'
+          case_reference: 'mockedCaseRef',
+          case_id: '1234567890'
         },
         additional_evidence: {}
       },
@@ -76,10 +77,12 @@ describe('controllers/additional-evidence.js', () => {
     const description: string = 'this is a description for the files to be upload';
     req.params.action = 'upload';
     req.session.hearing.online_hearing_id = 'hearingId';
+    const caseId = '1234567890';
+    req.session.hearing.case_id = caseId;
     req.session.additional_evidence.description = description;
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
 
-    expect(additionalEvidenceService.getEvidences).to.have.been.calledOnce.calledWith('hearingId');
+    expect(additionalEvidenceService.getEvidences).to.have.been.calledOnce.calledWith(caseId);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'upload',
       description,
@@ -93,9 +96,11 @@ describe('controllers/additional-evidence.js', () => {
     };
     req.params.action = 'upload';
     req.session.hearing.online_hearing_id = 'hearingId';
+    const caseId = '1234567890';
+    req.session.hearing.case_id = caseId;
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
 
-    expect(additionalEvidenceService.getEvidences).to.have.been.calledOnce.calledWith('hearingId');
+    expect(additionalEvidenceService.getEvidences).to.have.been.calledOnce.calledWith(caseId);
     expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
     expect(next).to.have.been.calledOnce.calledWith(error);
   });
@@ -149,8 +154,10 @@ describe('controllers/additional-evidence.js', () => {
     it('should save statement and redirect to confirmation page', async() => {
       req.body['question-field'] = 'My amazing statement';
       req.session.hearing.online_hearing_id = 'hearingId';
+      const caseId = '1234567890';
+      req.session.hearing.case_id = caseId;
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
-      expect(additionalEvidenceService.saveStatement).to.have.been.calledOnce.calledWith('hearingId', req.body['question-field']);
+      expect(additionalEvidenceService.saveStatement).to.have.been.calledOnce.calledWith(caseId, req.body['question-field']);
       expect(res.redirect).to.have.been.calledWith(`${Paths.additionalEvidence}/confirm`);
     });
 
@@ -182,7 +189,7 @@ describe('controllers/additional-evidence.js', () => {
       };
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
-      expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.online_hearing_id, req.file);
+      expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, req.file);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledOnce.calledWith(error);
     });
@@ -191,7 +198,7 @@ describe('controllers/additional-evidence.js', () => {
       req.file = { name: 'myfile.txt' };
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
-      expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.online_hearing_id, req.file);
+      expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, req.file);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.additionalEvidence}/upload`);
     });
 
@@ -200,7 +207,7 @@ describe('controllers/additional-evidence.js', () => {
       const fileId: string = 'fileId1';
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
-      expect(additionalEvidenceService.removeEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.online_hearing_id, fileId);
+      expect(additionalEvidenceService.removeEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, fileId);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.additionalEvidence}/upload`);
     });
 
@@ -212,7 +219,7 @@ describe('controllers/additional-evidence.js', () => {
       };
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
-      expect(additionalEvidenceService.removeEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.online_hearing_id, fileId);
+      expect(additionalEvidenceService.removeEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, fileId);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledOnce.calledWith(error);
     });
@@ -232,7 +239,7 @@ describe('controllers/additional-evidence.js', () => {
 
     it('should submit evidences and description and redirect to confirmation page', async () => {
       req.body.buttonSubmit = 'there';
-      const hearingId = req.session.hearing.online_hearing_id;
+      const caseId = req.session.hearing.case_id;
       const evidence: EvidenceDescriptor = {
         'created_date': "2018-10-24'T'12:11:21Z",
         'file_name': 'some_file_name.txt',
@@ -247,7 +254,7 @@ describe('controllers/additional-evidence.js', () => {
 
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
-      expect(additionalEvidenceService.submitEvidences).to.have.been.calledOnce.calledWith(hearingId, description, req);
+      expect(additionalEvidenceService.submitEvidences).to.have.been.calledOnce.calledWith(caseId, description, req);
       expect(req.session.additional_evidence.description).to.equal('');
     });
 
