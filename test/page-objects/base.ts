@@ -3,6 +3,7 @@ const config = require('config');
 
 const testUrl = config.get('testUrl');
 const navigationTimeout = config.get('navigationTimeout');
+const myaFeature = config.get('featureFlags.manageYourAppeal');
 export class BasePage {
 
   public page: any;
@@ -141,9 +142,22 @@ export class BasePage {
   }
 
   async signOut() {
+    const cookies = await this.page.cookies();
+    const myaFeature = cookies.reduce((acc, cookie) => {
+      if (cookie.name === 'manageYourAppeal' && cookie.value === 'true') {
+        return true;
+      }
+      return acc;
+    }, false);
+    let signOutSelector = '.govuk-header__link--signout';
+    if (
+      (cookies.name === 'manageYourAppeal' &&
+      cookies.value === 'true') || myaFeature
+    ) signOutSelector = '.account-navigation__links .sign-out';
+
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('.account-navigation__links .sign-out')
+      this.clickElement(signOutSelector)
     ]);
   }
 

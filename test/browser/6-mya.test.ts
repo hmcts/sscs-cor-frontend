@@ -43,4 +43,10 @@ describe('Manage your appeal app @mya', () => {
 
     statusPage.verifyPage();
   });
+  it('signs out and prevents access to pages', async () => {
+    await statusPage.signOut();
+    loginPage.verifyPage();
+    await statusPage.visitPage();
+    loginPage.verifyPage();
+  });
 });
