@@ -63,10 +63,12 @@ describe('Manage your appeal app @mya using COR case', () => {
       expect(await statusPage.getElementText('.task-list h2')).to.equal(i18n.statusTab.header);
     });
 
-    it('should display active stage in status bar for Oral case in hearing booked status', async() => {
+    it('should display stages in status bar for cor case', async() => {
       statusPage.verifyPage();
-      const activeStages = await statusPage.getElementsText('.stage--active');
-      expect(activeStages[activeStages.length - 1]).to.equal(corAppealStages[0].title);
+      const statusBar = await statusPage.getElementText('.status-bar');
+      corAppealStages.filter(stage => stage.title).forEach(stage => {
+        expect(statusBar).contain(stage.title);
+      });
     });
 
     it('should display panel with latest update', async() => {

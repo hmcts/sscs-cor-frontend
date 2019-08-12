@@ -134,6 +134,18 @@ const getApellantDetails = email => {
   };
 };
 
+const getHearingArrangements = () => {
+  return {
+    disabled_access_required: true,
+    hearing_loop_required: true,
+    language_interpreter: true,
+    languages: 'English French',
+    other_arrangements: 'Hearing room near to a toilet',
+    sign_language_interpreter: true,
+    sign_language_type: 'BSL ASL'
+  };
+};
+
 module.exports = {
   emailHearingIdMap,
   emailToCaseIdMap,
@@ -141,5 +153,6 @@ module.exports = {
   createFinalDecision,
   hasFinalDecision,
   createDecision,
-  getApellantDetails
+  getApellantDetails,
+  getHearingArrangements
 };
