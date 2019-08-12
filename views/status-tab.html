@@ -26,7 +26,7 @@
             {% else %}
                 {% set latestUpdate = i18n.appealEvents[appeal.status]['content'][appeal.hearingType] %}
             {% endif %}
-            {{ panel('Latest update', latestUpdate) }}
+            {{ panel(i18n.statusTab.panelHeader, latestUpdate) }}
         </div>
     </div>
 </div>

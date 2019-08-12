@@ -1,6 +1,7 @@
 const { Logger } = require('@hmcts/nodejs-logging');
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+const i18n = require('../../../locale/en');
 
 const logger = Logger.getLogger('ensure-authenticated.js');
 
@@ -41,22 +42,22 @@ function setTabNavigationItems(appeal) {
   const tabs = [
     {
       'id': 'status',
-      'title': 'Status',
+      'title': i18n.statusTab.tabHeader,
       'url': '/status'
     },
     {
       'id': 'questions',
-      'title': 'Provide Evidence',
+      'title': i18n.provideEvidenceTab.tabHeader,
       'url': '/task-list'
     },
     {
       'id': 'hearing',
-      'title': 'Hearing',
+      'title': i18n.hearingTab.tabHeader,
       'url': '/hearing'
     },
     {
       'id': 'history',
-      'title': 'History',
+      'title': i18n.historyTab.tabHeader,
       'url': '/history'
     }
   ];

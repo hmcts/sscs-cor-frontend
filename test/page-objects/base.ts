@@ -68,6 +68,16 @@ export class BasePage {
     }
   }
 
+  async openDetails(selector) {
+    try {
+      const element = await this.page.$eval(selector, el => el.setAttribute('open', 'true'));
+    } catch (error) {
+      const filename = `failed-openDetails-${this.getFileName()}`;
+      console.log(`Exception catched in openDetails, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`${filename}`);
+    }
+  }
+
   async getElementText(selector) {
     try {
       const element = await this.page.$eval(selector, el => el.innerText);
@@ -76,6 +86,17 @@ export class BasePage {
       const filename = this.getFileName();
       console.log(`Exception catched in getElementText, taking screenshot ${filename}.png. Error is: ${error}`);
       await this.screenshot(`failed-getElementText-${filename}`);
+    }
+  }
+
+  async getElementsText(selector) {
+    try {
+      const elements = await this.page.$$eval(selector, nodes => nodes.map(n => n.innerText));
+      return elements;
+    } catch (error) {
+      const filename = `failed-getElementsText-${this.getFileName()}`;
+      console.log(`Exception catched in getElementsText, taking screenshot ${filename}.png. Error is: ${error}`);
+      await this.screenshot(`${filename}`);
     }
   }
 
