@@ -58,7 +58,7 @@ const paperAppealStages = [
 
 const corAppealStages = [
   {
-    status: 'APPEAL_RECEIVED',
+    status: 'SYA_APPEAL_CREATED',
     title: 'Stages',
     latestUpdateText: 'text',
     showOnBar: true
