@@ -10,6 +10,7 @@
   },
   "featureFlags": {
     "additionalEvidence": "true",
-    "manageYourAppeal": "true"
+    "manageYourAppeal": "true",
+    "postBulkScan": "true"
   }
 }
