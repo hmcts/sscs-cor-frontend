@@ -5,7 +5,7 @@ import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
-import { oralAppealStages } from 'app/server/data/appealStages';
+import { oralAppealStages, corAppealStages } from 'app/server/data/appealStages';
 const i18n = require('locale/en');
 
 describe('Manage your appeal app @mya using COR case', () => {
@@ -26,7 +26,7 @@ describe('Manage your appeal app @mya using COR case', () => {
     await taskListPage.setCookie('manageYourAppeal', 'true');
 
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(sidamUser.email || 'oral.hearingBooked@example.com', sidamUser.password || '');
+    await loginPage.login(sidamUser.email || '', sidamUser.password || '');
   });
 
   after(async () => {
@@ -66,7 +66,7 @@ describe('Manage your appeal app @mya using COR case', () => {
     it('should display active stage in status bar for Oral case in hearing booked status', async() => {
       statusPage.verifyPage();
       const activeStages = await statusPage.getElementsText('.stage--active');
-      expect(activeStages[activeStages.length - 1]).to.equal(oralAppealStages[4].title);
+      expect(activeStages[activeStages.length - 1]).to.equal(corAppealStages[0].title);
     });
 
     it('should display panel with latest update', async() => {
