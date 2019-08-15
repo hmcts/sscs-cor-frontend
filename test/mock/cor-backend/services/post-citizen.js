@@ -1,6 +1,11 @@
+const { emailHearingIdMap, emailToCaseIdMap } = require('../utils');
+
 module.exports = {
   path: '/citizen/:tya',
   method: 'POST',
   cache: false,
-  template: []
+  template: {
+    online_hearing_id: (params, query, body) => emailHearingIdMap[body.email],
+    case_id: (params, query, body) => emailToCaseIdMap[body.email]
+  }
 };

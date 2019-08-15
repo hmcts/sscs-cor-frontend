@@ -846,9 +846,12 @@
 
   },
   "statusTab": {
-    "header": "Status of your appeal"
+    "tabHeader": "Status",
+    "header": "Status of your appeal",
+    "panelHeader": "Latest update"
   },
   "provideEvidenceTab": {
+    "tabHeader": "Provide Evidence",
     "header": "Provide evidence to the tribunal",
     "corCase": {
       "header": "Information requested by the tribunal",
@@ -860,6 +863,7 @@
     }
   },
   "hearingTab": {
+    "tabHeader": "Hearing",
     "header": "The hearing for your appeal",
     "noHearingDate": "You will receive an email when your hearing has been booked.",
     "notAttendingDescription": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
@@ -881,6 +885,7 @@
     "notRequired": "Not required"
   },
   "historyTab": {
+    "tabHeader": "History",
     "header": "History of your appeal"
   },
   "appealEvents": {
@@ -1056,6 +1061,7 @@
     }
   },
   "helpGuides": {
+    "header": "Help and support",
     "evidence": {
       "title": "Providing evidence to support your appeal",
       "entry": "Evidence is any information that supports your side of the appeal, such as a letter, written statement or medical report. It can help the tribunal understand the facts of your appeal. You do not have to send in evidence but it can help your appeal.",
@@ -1130,7 +1136,8 @@
         "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits."
       }
     },
-    "representitves":{
+    "representatives":{
+      "linkHeader": "Representatives",
       "title": "Representatives",
       "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
       "what": "A representative can:",
@@ -1149,7 +1156,8 @@
       }
     },
     "withdrawAppeal":{
-      "title": " Withdrawing your appeal",
+      "linkHeader": "Withdrawing an appeal",
+      "title": "Withdrawing your appeal",
       "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
       "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
       "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible, by calling the number below:",
