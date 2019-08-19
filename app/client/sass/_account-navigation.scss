@@ -16,6 +16,12 @@
             img {
                 height: 1rem;
             }
+
+            &.--not-active {
+                pointer-events: none;
+                text-decoration: none;
+                color: #0b0c0c;
+            }
         }
     }
 

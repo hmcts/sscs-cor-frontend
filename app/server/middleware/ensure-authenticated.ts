@@ -25,6 +25,8 @@ function setLocals(req, res, next) {
     res.locals.showSignOut = true;
   }
 
+  res.locals.inDashboard = ['/status', '/task-list', '/history'].includes(req.originalUrl);
+
   // Retrieve feature Flags and adding them as local variables so views can easily access to them
   res.locals.featureFlags = {};
   res.locals.featureFlags[Feature.MANAGE_YOUR_APPEAL] = isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies);
