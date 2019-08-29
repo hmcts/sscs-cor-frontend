@@ -1,8 +1,4 @@
-tags:
-  - idam-pr
 nodejs:
-  image: ${IMAGE_NAME}
-  ingressHost: ${SERVICE_FQDN}
   applicationPort: 3000
   memoryRequests: 256Mi
   cpuRequests: 0.2
@@ -11,13 +7,9 @@ nodejs:
   environment:
     SESSION_SECRET:
     HTTP_PROTOCOL: http
-    S2S_SECRET: ${S2S_SECRET}
     IDAM_ENABLE_STUB: false
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
 
-  # Don't modify below here
-  image: ${IMAGE_NAME}
-  ingressHost: ${SERVICE_FQDN}
 redis:
   cluster:
     enabled: false
@@ -26,7 +18,3 @@ redis:
   master:
     persistence:
       enabled: false
-idam-pr:
-  redirect_uris:
-    SSCS COR:
-    - https://${SERVICE_FQDN}/sign-in # this is the application callback URL where IDAM will send back the authentication code. SERVICE_FQDN is injected by Jenkins.
