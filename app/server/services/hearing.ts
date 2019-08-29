@@ -1,5 +1,7 @@
 import { Request } from 'express';
+import { Logger } from '@hmcts/nodejs-logging';
 import { RequestPromise } from './request-wrapper';
+const logger = Logger.getLogger('login.js');
 
 interface OnlineHearingDecision {
   start_date: string;
@@ -46,6 +48,7 @@ export class HearingService {
 
   async getOnlineHearingsForCitizen(email: string, tya: string, req: Request) {
     const path = tya ? `/${tya}` : '';
+    logger.info(`getOnlineHearingsForCitizen path: ${path} email: ${email} uri: ${this.apiUrl}/citizen${path}`);
     return RequestPromise.request({
       method: 'GET',
       uri: `${this.apiUrl}/citizen${path}`,

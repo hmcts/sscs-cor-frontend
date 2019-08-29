@@ -112,17 +112,21 @@ function getIdamCallback(
         req.session.serviceToken = await generateToken();
         req.session.tya = req.query.state;
       }
+      logger.info('about getUserDetails with token:', req.session.accessToken);
       const { email }: UserDetails = await idamService.getUserDetails(req.session.accessToken);
+      logger.info('getuserDetails email:', email);
       req.session.idamEmail = email;
 
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
+        logger.info('getOnlineHearingsForCitizen statusCode:', statusCode);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
         const hearings = req.query.caseId ?
           body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
 
         if (hearings.length === 0) {
+          logger.info(`Assigning case`);
           return res.redirect(Paths.assignCase);
         } else if (hearings.length === 1) {
           req.session.hearing = hearings[0];
@@ -132,13 +136,15 @@ function getIdamCallback(
           logger.info(`Logging in ${email}`);
           return res.redirect(Paths.status);
         } else {
+          logger.info(`Get all hearings by Name`);
           const hearingsByName = getHearingsByName(hearings);
-
           return res.render('select-case.html', { hearingsByName });
         }
       } else {
+        logger.info(`MYA not active`);
         const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req);
+        logger.info(`getOnlineHearing ${statusCode}`);
         if (statusCode !== OK) return renderErrorPage(emailToSearchFor, statusCode, idamService, req, res);
 
         req.session.hearing = body;
@@ -147,6 +153,7 @@ function getIdamCallback(
         return res.redirect(Paths.taskList);
       }
     } catch (error) {
+      logger.info(`error occured ${error}`);
       AppInsights.trackException(error);
       return next(error);
     }
@@ -168,6 +175,10 @@ function renderErrorPage(email: string, statusCode: number, idamService: IdamSer
     logger.info(`Found a non cor appeal for ${email}`);
     options['errorHeader'] = i18n.login.failed.cannotUseService.header;
     options['errorBody'] = i18n.login.failed.cannotUseService.body;
+  } else {
+    logger.info(`Found another error ${statusCode}`);
+    options['errorHeader'] = 'error Header';
+    options['errorBody'] = 'error Body';
   }
   return res.render('load-case-error.html', { ...options });
 }
