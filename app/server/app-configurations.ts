@@ -7,6 +7,7 @@ import express = require('express');
 const locale = require('../../locale/en.json');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
+import * as AppInsights from './app-insights';
 
 function configureHelmet(app) {
 
@@ -89,10 +90,10 @@ function configureNunjucks(app: express.Application) {
       }
       return nunjucks.renderString(text, this.ctx);
     } catch (error) {
+      AppInsights.trackException(`Error rendering text eval: ${JSON.stringify(error)} : ${text}`);
       logger.error(`Error rendering text eval: ${JSON.stringify(error)} : ${text}`);
-      return 'Error redering text';
+      return 'Error rendering text';
     }
-
   });
 
   nunEnv.addFilter('isArray', function(input) {
