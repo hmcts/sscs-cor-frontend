@@ -19,5 +19,4 @@ nodejs:
     NODE_ENV: preview
     HTTP_PROTOCOL: http
     S2S_SECRET: ${S2S_SECRET}
-    SSCS COR: https://${SERVICE_FQDN}/sign-in
   
