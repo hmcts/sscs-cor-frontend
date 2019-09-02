@@ -1,0 +1,20 @@
+nodejs:
+  applicationPort: 3000
+  memoryRequests: 256Mi
+  cpuRequests: 0.2
+  memoryLimits: 512Mi
+  cpuLimits: 1
+  environment:
+    SESSION_SECRET:
+    HTTP_PROTOCOL: http
+    IDAM_ENABLE_STUB: false
+    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
+
+redis:
+  cluster:
+    enabled: false
+    slaveCount: 0
+  usePassword: false
+  master:
+    persistence:
+      enabled: false
