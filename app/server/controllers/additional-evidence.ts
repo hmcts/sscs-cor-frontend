@@ -41,8 +41,8 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
       const validationMessage = answerValidation(statementText, req);
 
       if (!validationMessage) {
-        const hearingId = req.session.hearing.online_hearing_id;
-        await additionalEvidenceService.saveStatement(hearingId, statementText, req);
+        const caseId = req.session.hearing.case_id;
+        await additionalEvidenceService.saveStatement(caseId, statementText, req);
         res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else {
         res.render('additional-evidence/index.html', { action : 'statement', error: validationMessage });
@@ -60,8 +60,8 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
       const action: string = (!allowedActions.includes(req.params.action) || !req.params.action) ? 'options' : req.params.action;
       if (action === 'upload') {
         const { description } = req.session.additional_evidence || '';
-        const hearingId = req.session.hearing.online_hearing_id;
-        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(hearingId, req);
+        const caseId = req.session.hearing.case_id;
+        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
         return res.render('additional-evidence/index.html',
           {
             action,
@@ -84,20 +84,20 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
 function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const hearingId = req.session.hearing.online_hearing_id;
+      const caseId = req.session.hearing.case_id;
       const description = req.body['additional-evidence-description'] || '';
       req.session.additional_evidence = { description };
       if (req.file) {
-        await additionalEvidenceService.uploadEvidence(hearingId, req.file, req);
+        await additionalEvidenceService.uploadEvidence(caseId, req.file, req);
         return res.redirect(`${Paths.additionalEvidence}/upload`);
       } else if (req.body.delete) {
         const fileId = Object.keys(req.body.delete)[0];
-        await additionalEvidenceService.removeEvidence(hearingId, fileId, req);
+        await additionalEvidenceService.removeEvidence(caseId, fileId, req);
         return res.redirect(`${Paths.additionalEvidence}/upload`);
       } else if (req.body.buttonSubmit) {
         const evidenceDescription = req.session.additional_evidence.description;
         const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
-        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(hearingId, req);
+        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
         const evidencesValidationMsg = evidences.length ? false : i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded;
 
         if (descriptionValidationMsg || evidencesValidationMsg) {
@@ -111,11 +111,11 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
             }
           );
         }
-        await additionalEvidenceService.submitEvidences(hearingId, evidenceDescription, req);
+        await additionalEvidenceService.submitEvidences(caseId, evidenceDescription, req);
         req.session.additional_evidence.description = '';
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else if (res.locals.multerError) {
-        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(hearingId, req);
+        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
 
         return res.render('additional-evidence/index.html',
           {
