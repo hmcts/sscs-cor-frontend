@@ -37,6 +37,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
+    enableSlackNotifications('#sscs-tech')
     after('checkout') {sh 'yarn cache clean'}
     after('build') {sh 'yarn build'}
     enableDockerBuild()

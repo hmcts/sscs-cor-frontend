@@ -1,4 +1,12 @@
+tags:
+  - idam-pr
+idam-pr:
+  redirect_uris:
+    SSCS COR:
+    - https://${SERVICE_FQDN}/sign-in # this is the application callback URL where IDAM will send back the authentication code. SERVICE_FQDN is injected by Jenkins.
 nodejs:
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
   environment:
     SSCS_API_URL: "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
     IDAM_URL: "https://idam-web-public.aat.platform.hmcts.net"
@@ -10,3 +18,5 @@ nodejs:
     SESSION_SECRET:
     NODE_ENV: preview
     HTTP_PROTOCOL: http
+    S2S_SECRET: ${S2S_SECRET}
+  

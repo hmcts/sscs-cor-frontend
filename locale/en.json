@@ -583,8 +583,8 @@
   "postEvidence": {
     "header": "Posting evidence to the tribunal",
     "info": "Post evidence to the address below.",
-    "postalAddress": "SSCS<br/>HMCTS SSCS Tribunal<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF",
-    "screenReaderPostalAddress": "SSCS HMCTS SSCS Tribunal PO Box 12626 Harlow CM20 9QF",
+    "postalAddress": "HMCTS SSCS<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF",
+    "screenReaderPostalAddress": "HMCTS SSCS PO Box 12626 Harlow CM20 9QF",
     "para1": "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href='/coversheet'>download a new cover sheet here</a>, if you need one.",
     "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
     "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
@@ -1089,7 +1089,7 @@
       "sendingEvidenceDesc": {
         "para1": "Post your evidence to the address below, as soon as possible. This is so the tribunal have time to read it before they make a decision.",
         "para2": "Make sure you include the ‘document cover sheet’. This helps us match your evidence with your appeal. You received this cover sheet in the first letter that was sent to you about your appeal.",
-        "para3": "SSCS<br> HMCTS SSCS Tribunal<br>PO Box 12626<br>Harlow<br>CM20 9QF"
+        "para3": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
       }
     },
     "claimExpenses": {

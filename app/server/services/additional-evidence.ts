@@ -14,20 +14,20 @@ export class AdditionalEvidenceService {
     this.apiUrl = apiUrl;
   }
 
-  async saveStatement(onlineHearingId: string, statementText: string, req: Request) {
+  async saveStatement(identifier: string, statementText: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
-      uri: `${this.apiUrl}/continuous-online-hearings/${onlineHearingId}/statement`,
+      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/statement`,
       body: {
         body: statementText
       }
     }, req);
   }
 
-  async uploadEvidence(hearingId: string, file: Express.Multer.File, req: Request): Promise<EvidenceDescriptor> {
+  async uploadEvidence(identifier: string, file: Express.Multer.File, req: Request): Promise<EvidenceDescriptor> {
     return RequestPromise.request({
       method: 'PUT',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
+      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence`,
       simple: false,
       resolveWithFullResponse: true,
       formData: {
@@ -42,20 +42,20 @@ export class AdditionalEvidenceService {
     }, req);
   }
 
-  async removeEvidence(hearingId: string, evidenceId: string, req: Request) {
+  async removeEvidence(identifier: string, evidenceId: string, req: Request) {
     return RequestPromise.request({
       method: 'DELETE',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence/${evidenceId}`,
+      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence/${evidenceId}`,
       headers: {
         'Content-Length': '0'
       }
     }, req);
   }
 
-  async getEvidences(hearingId: string, req: Request): Promise<EvidenceDescriptor[]> {
+  async getEvidences(identifier: string, req: Request): Promise<EvidenceDescriptor[]> {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence`
+      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence`
     }, req);
   }
 
@@ -70,10 +70,10 @@ export class AdditionalEvidenceService {
     }, req);
   }
 
-  async submitEvidences(hearingId: string, description: string, req: Request) {
+  async submitEvidences(identifier: string, description: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/evidence`,
+      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence`,
       body: {
         body: description
       },
