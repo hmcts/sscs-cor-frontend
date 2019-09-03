@@ -108,6 +108,13 @@ function configureNunjucks(app: express.Application) {
   nunEnv.addFilter('panel', benefitType => {
     return nunjucks.renderString(locale.benefitTypes[benefitType].panel, this.ctx);
   });
+
+  nunEnv.addFilter('dateForDecisionReceived', utcDateTimeStr => {
+    const howManyDaysAfterHearing = 5;
+    return moment(utcDateTimeStr)
+      .add(howManyDaysAfterHearing, 'days')
+      .format('DD MMMM YYYY');
+  });
 }
 
 export { configureHelmet, configureHeaders, configureNunjucks };
