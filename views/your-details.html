@@ -5,12 +5,6 @@
 
 {% block beforeContent %}
     {{super()}}
-    {{ govukBackLink({
-        href: "#",
-        text: "Back",
-        attributes : { onclick: "history.go(-1); return false;" }
-        }) 
-    }}
 {% endblock%}
 
 {% block corContent %}
