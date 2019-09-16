@@ -75,7 +75,7 @@ module "sscs-cor-frontend" {
 }
 
 module "redis-cache" {
-  source      = "git@github.com:contino/moj-module-redis?ref=master"
+  source      = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product     = "${var.product}-redis"
   location    = "${var.location}"
   env         = "${var.env}"
