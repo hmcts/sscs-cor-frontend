@@ -39,7 +39,7 @@ data "azurerm_key_vault_secret" "sscs-s2s-secret" {
 }
 
 module "sscs-cor-frontend" {
-  source               = "git@github.com:contino/moj-module-webapp?ref=master"
+  source               = "git@github.com:hmcts/cnp-module-webapp?ref=master"
   product              = "${var.product}-${var.component}"
   location             = "${var.location}"
   env                  = "${var.env}"
