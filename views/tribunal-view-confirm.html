@@ -46,6 +46,7 @@
           }) 
         }}
         <p>{{ i18n.tribunalViewConfirm.acceptHelp | eval | date }}</p>
+        {% include "includes/csrf-hidden-input.html" %}
         <div id="submit-button">
           {{
             govukButton({

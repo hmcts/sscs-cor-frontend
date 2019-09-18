@@ -8,7 +8,7 @@
     <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceUpload.header }}</h1>
     <p>{{ i18n.additionalEvidence.evidenceUpload.description.para1 }}</p>
     <p>{{ i18n.additionalEvidence.evidenceUpload.description.para2  | eval | safe }}.</p>
-    <form class="--padding-top-m" id="additional-evidence-form" name="additional-evidence-form" action="/additional-evidence/upload" method="POST" enctype="multipart/form-data">
+    <form class="--padding-top-m" id="additional-evidence-form" name="additional-evidence-form" action="/additional-evidence/upload?_csrf={{csrfToken}}" method="POST" enctype="multipart/form-data">
         {{ govukTextarea({
             id: "additional-evidence-description",
             name: "additional-evidence-description",
@@ -45,7 +45,6 @@
         {{ spinner(i18n.question.evidenceUpload.fileUploading) }}
 
         {{ evidenceList(evidences) }}
-
         <div id="submit-buttons">
             <input id="submit-evidences" type="submit" name="buttonSubmit" value="Submit evidence to the tribunal" class="govuk-button">
         </div>
