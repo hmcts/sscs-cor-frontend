@@ -1,9 +1,8 @@
 const csurf = require('csurf');
-const csrfBlackList = ['/', '/sign-in', '/sign-out', '/register', '/idam-stub/login', '/login', '/idam-stub/oauth2/token'];
 
 function csrfToken(req, res, next) {
-  const csrfMiddleware = csurf({ cookie: true });
-  if (!csrfBlackList.includes(req.path)) {
+  const csrfMiddleware = csurf({ cookie: false });
+  if (req.session.idamEmail) {
     csrfMiddleware(req, res, next);
   } else {
     next();
@@ -11,7 +10,7 @@ function csrfToken(req, res, next) {
 }
 
 function csrfTokenEmbed(req, res, next) {
-  if (!csrfBlackList.includes(req.path)) {
+  if (req.session.idamEmail) {
     res.locals.csrfToken = req.csrfToken();
   }
   next();
