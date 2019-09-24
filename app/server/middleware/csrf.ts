@@ -1,9 +1,8 @@
 const csurf = require('csurf');
-import * as Paths from '../paths';
 
 function csrfToken(req, res, next) {
-  const csrfMiddleware = csurf({ cookie: false });
-  if (CheckIfPathDefined(req.path)) {
+  const csrfMiddleware = csurf();
+  if (req.session.accessToken) {
     csrfMiddleware(req, res, next);
   } else {
     next();
@@ -11,19 +10,11 @@ function csrfToken(req, res, next) {
 }
 
 function csrfTokenEmbed(req, res, next) {
-  if (CheckIfPathDefined(req.path)) {
+  if (req.session.accessToken) {
     res.locals.csrfToken = req.csrfToken();
   }
   next();
-}
 
-function CheckIfPathDefined(current) {
-  for (const path in Paths) {
-    if (current.includes(Paths[path])) {
-      return true;
-    }
-  }
-  return false;
 }
 
 export {
