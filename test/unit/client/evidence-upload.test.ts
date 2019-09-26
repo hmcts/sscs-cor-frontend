@@ -1,7 +1,7 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 
-const html = `<form id="answer-form" action="/question/1" method="post">
+const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="post">
     <input type="text" id="question-field" name="question-field"/>
 </form>
 <div id="evidence-upload">
@@ -165,7 +165,7 @@ describe('evidence-upload', () => {
       evidenceUpload.uploadFile();
       expect(document.forms.length).to.equal(2);
       const form = document.forms['js-upload-form'];
-      expect(form.action).to.equal('/question/1#evidence-upload');
+      expect(form.action).to.equal('/question/1?_csrf=12323#evidence-upload');
       expect(form.method).to.equal('post');
       expect(form.enctype).to.equal('multipart/form-data');
     });

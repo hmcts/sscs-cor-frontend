@@ -3,7 +3,7 @@
 {% from "components/spinner.html" import spinner %}
 {% from "components/evidence-list.html" import evidenceList with context %}
 
-<form id="answer-form" action="/question/{{ question.questionOrdinal }}" method="post">
+<form id="answer-form" action="/question/{{ question.questionOrdinal }}?_csrf={{csrfToken}}" method="post">
   <div>
     {{ govukTextarea({
         id: 'question-field',
@@ -91,7 +91,6 @@
     </details>
 
   {% endif %}
-
   <div id="submit-buttons">
     <input id="submit-answer" type="submit" name="submit" value="Submit answer to the tribunal" class="govuk-button button-padding">
     <input id="save-answer" type="submit" name="save" value="Save for later" class="govuk-button secondary-button">
