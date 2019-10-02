@@ -38,7 +38,7 @@ export class BasePage {
   }
 
   verifyPage() {
-    expect(this.page.url()).to.equal(`${testUrl}${this.pagePath}`);
+    expect(this.page.url()).to.contain(`${testUrl}${this.pagePath}`);
   }
 
   getCurrentUrl() {

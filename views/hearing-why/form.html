@@ -11,6 +11,7 @@
       }) }}
     </div>
   </div>
+  {% include "includes/csrf-hidden-input.html" %}
   <div id="submit-button">
     {{ govukButton({
       text: i18n.general.continue

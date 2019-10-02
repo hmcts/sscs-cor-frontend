@@ -19,6 +19,7 @@
   {% endif %}
 
   <form id="answer-form" action="/assign-case" method="post">
+    {% include "includes/csrf-hidden-input.html" %}
     {{ govukInput({
         label: {
           text: i18n.assignCase.message

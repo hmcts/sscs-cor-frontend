@@ -25,8 +25,7 @@
 
     <h1 class="govuk-heading-l">{{ i18n.questionUploadEvidence.header }}</h1>
 
-    <form action="/question/{{ questionOrdinal }}/upload-evidence" method="post" enctype="multipart/form-data">
-
+    <form action="/question/{{ questionOrdinal }}/upload-evidence?_csrf={{csrfToken}}" method="post" enctype="multipart/form-data">
       {{ govukFileUpload({
         id: "file-upload-1",
         name: "file-upload-1",
@@ -42,7 +41,6 @@
       }) }}
 
       <p>{{ i18n.questionUploadEvidence.sizeWarning }}</p>
-
       <div id="submit-button">
         {{ govukButton({
           text: i18n.general.continue
