@@ -143,8 +143,5 @@
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
     "webdriverio": "^4.14.0"
-  },
-  "resolutions": {
-    "lodash": "4.17.12"
   }
 }
