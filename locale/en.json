@@ -2,9 +2,9 @@
   "pageTitle": "Continuous Online Resolution",
   "contactEmail": "pipappeals@justice.gov.uk",
   "phaseBanner": {
-    "new": "This is a new service – ",
-    "report": "Report a problem",
-    "improve": "and help improve it for others."
+    "new": "This is a new service – your ",
+    "report": "feedback",
+    "improve": "will help us improve it."
   },
   "guidance": {
     "sendingEvidence": {
