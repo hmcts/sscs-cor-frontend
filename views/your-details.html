@@ -33,17 +33,35 @@
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top" scope="row">{{i18n.yourDetails.emailLabel}}</th>
-                    <td class="govuk-table__cell">{{ details.appellant_details.email }}</td>
-                </tr>
-                <tr class="govuk-table__row">
                     <th class="govuk-table__header --vertical-align-top" scope="row">{{i18n.yourDetails.phoneLabel}}</th>
-                    <td class="govuk-table__cell">{{details.appellant_details.phone}}</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top" scope="row">{{i18n.yourDetails.mobileLabel}}</th>
                     <td class="govuk-table__cell">{{details.appellant_details.mobile}}</td>
                 </tr>
+                {% for type, value in subscriptions %}
+                    {% set hideBottomBorder %}
+                        {% if not loop.last %}hide-bottom-border{% endif %}
+                    {% endset %}
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
+                            {{ type }} {{i18n.yourDetails.emailLabel}}
+                        </th>
+                        <td class="govuk-table__cell {{ hideBottomBorder }}">
+                            {{ value.email }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for type, value in subscriptions %}
+                    {% set hideBottomBorder %}
+                        {% if not loop.last %}hide-bottom-border{% endif %}
+                    {% endset %}
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
+                            {{ type }} {{i18n.yourDetails.mobileLabel}}
+                        </th>
+                        <td class="govuk-table__cell {{ hideBottomBorder }}">
+                            {{ value.mobile }}
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
         {{ govukInsetText({
