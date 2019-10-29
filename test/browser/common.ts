@@ -2,6 +2,7 @@ import * as puppeteer from 'puppeteer';
 const { createServer } = require('http');
 const { createSession } = require('app/server/middleware/session');
 const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
+import { AssignCasePage } from 'test/page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 const { setup } = require('app/server/app');
@@ -12,6 +13,7 @@ const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
+import { URL } from 'url';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('commong.js');
@@ -75,7 +77,7 @@ function startAppServer(): Promise<void> {
   return Promise.resolve();
 }
 
-export async function login(page, force?) {
+export async function login(page, force?, assignCase?) {
   const sidamUser = sidamUsers[0];
   const email = (sidamUser && sidamUser.email) || (ccdCase && ccdCase.email) || 'someone@example.com';
   const password = sidamUser && sidamUser.password || 'somePassword';
@@ -103,6 +105,16 @@ export async function login(page, force?) {
       maxRetries--;
     }
   }
+
+  if (assignCase === undefined || assignCase) {
+    console.log('Assigning case');
+    if (new URL(page.url()).pathname.includes('assign-case')) {
+      const assignCasePage = new AssignCasePage(page);
+      await assignCasePage.fillPostcode('TN32 6PL');
+      await assignCasePage.submit();
+    }
+  }
+
   console.log(`Login function finished. On ${page.url()}`);
 }
 
@@ -132,7 +144,7 @@ async function startServices(options?) {
     width: 1100
   });
   if (opts.performLogin) {
-    await login(page, opts.forceLogin);
+    await login(page, opts.forceLogin, opts.assignCase);
   }
   return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {}, sidamUser, browser };
 }
