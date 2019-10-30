@@ -125,6 +125,7 @@ describe('controllers/login', () => {
     describe('on success', () => {
       let hearingServiceStub;
       beforeEach(async () => {
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
         req.query = { 'code': 'someCode', 'state': 'tya-number' };
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
@@ -153,6 +154,7 @@ describe('controllers/login', () => {
       const accessToken = 'someAccessToken';
       let hearingServiceStub;
       beforeEach(async () => {
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
         req.query = {
           'code': 'someCode',
           'caseId': 'someCaseId'
@@ -353,6 +355,7 @@ describe('controllers/login', () => {
       let redirectToIdam;
 
       beforeEach(async () => {
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
         req.query = { 'code': 'someCode' };
         redirectToIdam = sinon.stub();
         let accessToken = 'someAccessToken';
@@ -410,6 +413,7 @@ describe('controllers/login', () => {
     const error = new Error('getOnlineHearingService error');
 
     beforeEach(async () => {
+      req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
       req.query = { 'code': 'someCode' };
       const redirectToIdam = sinon.stub();
       let accessToken = 'someAccessToken';

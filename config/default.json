@@ -60,7 +60,7 @@
   "navigationTimeout" : 140000,
   "featureFlags": {
     "testFeature": "false",
-    "manageYourAppeal": "false",
+    "manageYourAppeal": "true",
     "additionalEvidence": "false",
     "allowContactUs": {
       "enabled": "true",

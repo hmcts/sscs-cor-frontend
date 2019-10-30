@@ -2,18 +2,20 @@ const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/cor-backend/services/hearing').template;
+import { AssignCasePage } from '../page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 const i18n = require('locale/en');
 
-describe('Login page', () => {
+describe.skip('Login page', () => {
   let page;
   let loginPage;
   let taskListPage;
   let decisionPage;
   let tribunalViewPage;
+  let assignCasePage;
 
   before(async() => {
     const res = await startServices();
@@ -22,6 +24,7 @@ describe('Login page', () => {
     taskListPage = new TaskListPage(page);
     decisionPage = new DecisionPage(page);
     tribunalViewPage = new TribunalViewPage(page);
+    assignCasePage = new AssignCasePage(page);
   });
 
   after(async() => {

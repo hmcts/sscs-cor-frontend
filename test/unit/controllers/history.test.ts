@@ -47,11 +47,6 @@ describe('controllers/history', () => {
   });
 
   describe('getHistory', () => {
-    it('should render 404 page when mya feature not enabled', async() => {
-      history.getHistory(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
-    });
-
     it('should render history page when mya feature enabled', async() => {
       req.cookies.manageYourAppeal = 'true';
       history.getHistory(req, res);

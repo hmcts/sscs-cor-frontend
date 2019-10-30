@@ -4,6 +4,7 @@ const { createSession } = require('app/server/middleware/session');
 const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
+import { StatusPage } from '../page-objects/status';
 import { TaskListPage } from 'test/page-objects/task-list';
 const { setup } = require('app/server/app');
 const config = require('config');
@@ -81,6 +82,7 @@ export async function login(page, force?, assignCase?) {
   const sidamUser = sidamUsers[0];
   const email = (sidamUser && sidamUser.email) || (ccdCase && ccdCase.email) || 'someone@example.com';
   const password = sidamUser && sidamUser.password || 'somePassword';
+  const tya = ccdCase ? ccdCase.appellant_tya : 'someTya';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
   console.log('in login');
@@ -90,11 +92,11 @@ export async function login(page, force?, assignCase?) {
   console.log('visited task list page');
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
   const signInFailed = () => page.url().indexOf(`${testUrl}/sign-in`) >= 0;
-  console.log(`is on idam page [${isOnIdamPage}]`);
-  console.log(`sign in failed [${signInFailed}]`);
+  console.log(`is on idam page [${isOnIdamPage()}]`);
+  console.log(`sign in failed [${signInFailed()}]`);
   console.log(`force [${force}]`);
   if (isOnIdamPage() || force) {
-    await loginPage.visitPage();
+    await loginPage.visitPage(`?tya=${tya}`);
     await loginPage.login(email, password);
     let maxRetries = 10;
     while ((isOnIdamPage() || signInFailed()) && maxRetries > 0) {
@@ -112,6 +114,9 @@ export async function login(page, force?, assignCase?) {
       const assignCasePage = new AssignCasePage(page);
       await assignCasePage.fillPostcode('TN32 6PL');
       await assignCasePage.submit();
+
+      const statusPage = new StatusPage(page);
+      await statusPage.provideEvidence();
     }
   }
 
