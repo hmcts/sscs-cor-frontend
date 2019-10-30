@@ -1,3 +1,5 @@
+import { StatusPage } from '../page-objects/status';
+
 const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
@@ -9,9 +11,10 @@ import { DecisionPage } from 'test/page-objects/decision';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 const i18n = require('locale/en');
 
-describe.skip('Login page', () => {
+describe('Login page', () => {
   let page;
   let loginPage;
+  let statusPage;
   let taskListPage;
   let decisionPage;
   let tribunalViewPage;
@@ -21,6 +24,7 @@ describe.skip('Login page', () => {
     const res = await startServices();
     page = res.page;
     loginPage = new LoginPage(page);
+    statusPage = new StatusPage(page);
     taskListPage = new TaskListPage(page);
     decisionPage = new DecisionPage(page);
     tribunalViewPage = new TribunalViewPage(page);
@@ -33,7 +37,7 @@ describe.skip('Login page', () => {
     }
   });
 
-  it('handles online hearing not found', async() => {
+  it.skip('handles online hearing not found', async() => {
     await loginPage.visitPage();
     await loginPage.login('not.found@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
@@ -69,6 +73,7 @@ describe.skip('Login page', () => {
   });
 
   it('displays the deadline text and date', async() => {
+    await statusPage.provideEvidence();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
     /* eslint-disable-next-line no-magic-numbers */
     const expectedDeadlineDate = moment.utc().add(7, 'days').endOf('day').format('D MMMM YYYY');
@@ -80,6 +85,7 @@ describe.skip('Login page', () => {
     await loginPage.visitPage();
     await loginPage.login('expired@example.com', 'examplePassword');
     await loginPage.screenshot('expired-login');
+    await statusPage.provideEvidence();
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
 
@@ -92,12 +98,13 @@ describe.skip('Login page', () => {
     await loginPage.visitPage();
     await loginPage.login('completed@example.com', 'examplePassword');
     await loginPage.screenshot('completed-login');
+    await statusPage.provideEvidence();
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
     expect(deadlineStatus).to.contain(i18n.taskList.deadline.completed);
   });
 
-  it('displays the tribunal view page', async() => {
+  it.skip('displays the tribunal view page', async() => {
     await loginPage.visitPage();
     await loginPage.login('view.issued@example.com', 'examplePassword');
     await loginPage.screenshot('tribunal-view-issued-login');
@@ -106,7 +113,7 @@ describe.skip('Login page', () => {
     expect(await tribunalViewPage.getElementText('#decision-text')).to.equal('The final decision is this.');
   });
 
-  it('displays the decision page with appeal upheld', async() => {
+  it.skip('displays the decision page with appeal upheld', async() => {
     await loginPage.visitPage();
     await loginPage.login('appeal.upheld@example.com', 'examplePassword');
     await loginPage.screenshot('decision-appeal-upheld-login');
@@ -115,7 +122,7 @@ describe.skip('Login page', () => {
     expect(await decisionPage.getElementText('#decision-text')).to.equal('final decision reason');
   });
 
-  it('does not allow access to task list when decision is issued', async() => {
+  it.skip('does not allow access to task list when decision is issued', async() => {
     await taskListPage.visitPage();
     await loginPage.screenshot('decision-issued-task-list-navigate');
     decisionPage.verifyPage();
