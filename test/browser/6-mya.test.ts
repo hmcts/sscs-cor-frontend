@@ -26,7 +26,7 @@ describe('Manage your appeal app @mya using COR case', () => {
     await taskListPage.setCookie('manageYourAppeal', 'true');
 
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(sidamUser.email || '', sidamUser.password || '');
+    await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
 
   after(async () => {
@@ -61,14 +61,6 @@ describe('Manage your appeal app @mya using COR case', () => {
     it('should display status bar', async() => {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(i18n.statusTab.header);
-    });
-
-    it('should display stages in status bar for cor case', async() => {
-      statusPage.verifyPage();
-      const statusBar = await statusPage.getElementText('.status-bar');
-      corAppealStages.filter(stage => stage.title).forEach(stage => {
-        expect(statusBar).contain(stage.title);
-      });
     });
 
     it('should display panel with latest update', async() => {

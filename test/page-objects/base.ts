@@ -163,16 +163,9 @@ export class BasePage {
   }
 
   async signOut() {
-    const cookies = await this.page.cookies();
-    const myaFeature = cookies.reduce((acc, cookie) => {
-      if (cookie.name === 'manageYourAppeal' && cookie.value === 'true') {
-        return true;
-      }
-      return acc;
-    }, false);
     let signOutSelector = '.govuk-header__link--signout';
-
-    if ((cookies.name === 'manageYourAppeal' && cookies.value === 'true') || myaFeature || myaFeatureConfig === 'true') {
+    let signOutElement = await this.getElement(signOutSelector);
+    if (!signOutElement) {
       signOutSelector = '.account-navigation__links .sign-out';
     }
 

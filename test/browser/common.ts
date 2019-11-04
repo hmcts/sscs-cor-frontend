@@ -116,7 +116,6 @@ export async function login(page, force?, assignCase?) {
       await assignCasePage.submit();
 
       const statusPage = new StatusPage(page);
-      await statusPage.provideEvidence();
     }
   }
 

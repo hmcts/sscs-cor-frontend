@@ -21,12 +21,12 @@ module.exports = {
   template: {
     appellant_name: 'Adam Jenkins',
     case_reference: 'SC/112/233',
-    case_id: (params, query) => emailToCaseIdMap[query.email],
-    online_hearing_id: (params, query) => emailHearingIdMap[query.email],
-    decision: (params, query) => createDecision(query.email),
-    final_decision: (params, query) => createFinalDecision(query.email),
-    has_final_decision: (params, query) => hasFinalDecision(query.email),
-    appellant_details: (params, query) => getApellantDetails(query.email),
+    case_id: (params, query, body) => emailToCaseIdMap[body.email],
+    online_hearing_id: (params, query, body) => emailHearingIdMap[body.email],
+    decision: (params, query, body) => createDecision(body.email),
+    final_decision: (params, query, body) => createFinalDecision(body.email),
+    has_final_decision: (params, query, body) => hasFinalDecision(body.email),
+    appellant_details: (params, query, body) => getApellantDetails(body.email),
     hearing_arrangements: () => getHearingArrangements()
   }
 };

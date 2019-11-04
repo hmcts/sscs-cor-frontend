@@ -29,11 +29,11 @@ function setLocals(req, res, next) {
 
   // Retrieve feature Flags and adding them as local variables so views can easily access to them
   res.locals.featureFlags = {};
-  res.locals.featureFlags[Feature.MANAGE_YOUR_APPEAL] = isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies);
+  res.locals.featureFlags[Feature.MANAGE_YOUR_APPEAL] = isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) && req.session.appeal && req.session.appeal.hearingType !== 'cor';
   res.locals.featureFlags[Feature.ADDITIONAL_EVIDENCE_FEATURE] = isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies);
 
   // Setting up Tabs to show on MYA;
-  if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) && req.session.appeal) {
+  if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) && req.session.appeal && req.session.appeal.hearingType !== 'cor') {
     res.locals.tabs = setTabNavigationItems(req.session.appeal);
   }
   next();

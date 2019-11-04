@@ -73,7 +73,6 @@ describe('Login page', () => {
   });
 
   it('displays the deadline text and date', async() => {
-    await statusPage.provideEvidence();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
     /* eslint-disable-next-line no-magic-numbers */
     const expectedDeadlineDate = moment.utc().add(7, 'days').endOf('day').format('D MMMM YYYY');
@@ -85,7 +84,6 @@ describe('Login page', () => {
     await loginPage.visitPage();
     await loginPage.login('expired@example.com', 'examplePassword');
     await loginPage.screenshot('expired-login');
-    await statusPage.provideEvidence();
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
 
@@ -98,7 +96,6 @@ describe('Login page', () => {
     await loginPage.visitPage();
     await loginPage.login('completed@example.com', 'examplePassword');
     await loginPage.screenshot('completed-login');
-    await statusPage.provideEvidence();
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
     expect(deadlineStatus).to.contain(i18n.taskList.deadline.completed);
