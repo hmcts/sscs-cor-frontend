@@ -8,7 +8,7 @@ import { StatusPage } from 'test/page-objects/status';
 import { oralAppealStages, corAppealStages } from 'app/server/data/appealStages';
 const i18n = require('locale/en');
 
-describe('Manage your appeal app @mya using COR case', () => {
+describe('Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -17,7 +17,7 @@ describe('Manage your appeal app @mya using COR case', () => {
   let statusPage: StatusPage;
   let sidamUser;
   before(async () => {
-    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true }));
+    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
     const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
     loginPage = new LoginPage(page);
     taskListPage = new TaskListPage(page);

@@ -5,12 +5,12 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('ccd.ts');
 const timeout = require('config').get('apiCallTimeout');
 
-async function createCase() {
+async function createCase(hearingType) {
   const randomNumber = parseInt(Math.random() * 10000000 + '', 10);
   const email = `test${randomNumber}@hmcts.net`;
   const options = {
     url: `${backendApiUrl}/case`,
-    qs: { email },
+    qs: { email, hearingType },
     json: true,
     timeout
   };

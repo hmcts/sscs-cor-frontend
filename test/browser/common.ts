@@ -126,7 +126,7 @@ async function startServices(options?) {
   const opts = options || {};
   let sidamUser;
   if (opts.bootstrapData && !testingLocalhost) {
-    ({ ccdCase, cohTestData, sidamUser } = await bootstrap());
+    ({ ccdCase, cohTestData, sidamUser } = await bootstrap(opts.hearingType));
     sidamUsers.unshift(sidamUser);
   }
   if (opts.issueDecision) {
