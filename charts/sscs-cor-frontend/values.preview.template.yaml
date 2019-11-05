@@ -19,4 +19,4 @@ nodejs:
     NODE_ENV: preview
     HTTP_PROTOCOL: http
     S2S_SECRET: ${S2S_SECRET}
-  
+    MYA_FEATURE_FLAG: true
