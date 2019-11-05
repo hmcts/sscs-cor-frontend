@@ -37,7 +37,7 @@ describe('Login page', () => {
     }
   });
 
-  it.skip('handles online hearing not found', async() => {
+  it('handles online hearing not found', async() => {
     await loginPage.visitPage();
     await loginPage.login('not.found@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
@@ -101,7 +101,7 @@ describe('Login page', () => {
     expect(deadlineStatus).to.contain(i18n.taskList.deadline.completed);
   });
 
-  it.skip('displays the tribunal view page', async() => {
+  it('displays the tribunal view page', async() => {
     await loginPage.visitPage();
     await loginPage.login('view.issued@example.com', 'examplePassword');
     await loginPage.screenshot('tribunal-view-issued-login');
@@ -110,7 +110,7 @@ describe('Login page', () => {
     expect(await tribunalViewPage.getElementText('#decision-text')).to.equal('The final decision is this.');
   });
 
-  it.skip('displays the decision page with appeal upheld', async() => {
+  it('displays the decision page with appeal upheld', async() => {
     await loginPage.visitPage();
     await loginPage.login('appeal.upheld@example.com', 'examplePassword');
     await loginPage.screenshot('decision-appeal-upheld-login');
@@ -119,7 +119,7 @@ describe('Login page', () => {
     expect(await decisionPage.getElementText('#decision-text')).to.equal('final decision reason');
   });
 
-  it.skip('does not allow access to task list when decision is issued', async() => {
+  it('does not allow access to task list when decision is issued', async() => {
     await taskListPage.visitPage();
     await loginPage.screenshot('decision-issued-task-list-navigate');
     decisionPage.verifyPage();
