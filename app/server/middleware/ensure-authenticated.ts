@@ -41,6 +41,7 @@ function setLocals(req, res, next) {
 
 function setTabNavigationItems(appeal) {
   const { hearingType } = appeal;
+  const { createdInGapsFrom } = appeal;
   const tabs = [
     {
       'id': 'status',
@@ -63,7 +64,9 @@ function setTabNavigationItems(appeal) {
       'url': '/history'
     }
   ];
-  const tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== 'Hearing') : tabs;
+  let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== 'Hearing') : tabs;
+
+  tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== 'Provide Evidence') : tabs;
   return tabsToShow;
 }
 
