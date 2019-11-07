@@ -18,6 +18,9 @@ describe('middleware/ensure-authenticated', () => {
         accessToken: 'xxxxxxxxxxxxx',
         id: '123',
         hearing: hearingDetails,
+        appeal: {
+          hearingType: 'oral'
+        },
         destroy: sinon.stub().yields()
       },
       cookie: {}
@@ -54,6 +57,7 @@ describe('middleware/ensure-authenticated', () => {
 
   describe('#setLocals', () => {
     it('sets hearing data on the locals', () => {
+      req.session.appeal = undefined;
       setLocals(req, res, next);
       expect(res.locals).to.have.property('hearing');
       expect(res.locals).to.not.have.property('tabs');
@@ -64,11 +68,22 @@ describe('middleware/ensure-authenticated', () => {
         manageYourAppeal: 'true'
       };
       req.session['appeal'] = {
-        hearingType: 'cor'
+        hearingType: 'oral'
       };
 
       setLocals(req, res, next);
       expect(res.locals).to.have.property('tabs');
+    });
+    it('does not set tabs on the locals if cor appeal', () => {
+      req.cookies = {
+        manageYourAppeal: 'true'
+      };
+      req.session['appeal'] = {
+        hearingType: 'cor'
+      };
+
+      setLocals(req, res, next);
+      expect(res.locals).to.not.have.property('tabs');
     });
     it('sets showSignOut on the locals', () => {
       setLocals(req, res, next);

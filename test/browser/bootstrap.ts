@@ -60,9 +60,9 @@ async function bootstrapCoh(ccdCase) {
   }
 }
 
-async function bootstrapCcdCase() {
+async function bootstrapCcdCase(hearingType) {
   try {
-    const ccdCase = await ccd.createCase();
+    const ccdCase = await ccd.createCase(hearingType);
     return ccdCase;
   } catch (error) {
     console.log('Error bootstrapping CCD with test case', error);
@@ -80,9 +80,9 @@ async function bootstrapSidamUser(ccdCase) {
   }
 }
 
-export async function bootstrap() {
+export async function bootstrap(hearingType = 'cor') {
   try {
-    const ccdCase = await bootstrapCcdCase();
+    const ccdCase = await bootstrapCcdCase(hearingType);
     const sidamUser = await bootstrapSidamUser(ccdCase);
     const cohTestData = await bootstrapCoh(ccdCase);
     return { ccdCase, cohTestData, sidamUser };

@@ -5,7 +5,8 @@ module.exports = {
   method: 'POST',
   render: (req, res) => {
     cache.put('email', req.body.username);
-    res.redirect(`${req.body.redirect_uri}?code=123&state=${req.body.state}`);
+    const stateParam = req.body.state ? `&state=${req.body.state}` : '';
+    res.redirect(`${req.body.redirect_uri}?code=123${stateParam}`);
   },
   cache: false
 };
