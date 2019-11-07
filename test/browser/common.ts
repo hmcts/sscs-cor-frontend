@@ -2,7 +2,9 @@ import * as puppeteer from 'puppeteer';
 const { createServer } = require('http');
 const { createSession } = require('app/server/middleware/session');
 const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
+import { AssignCasePage } from 'test/page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
+import { StatusPage } from '../page-objects/status';
 import { TaskListPage } from 'test/page-objects/task-list';
 const { setup } = require('app/server/app');
 const config = require('config');
@@ -12,6 +14,7 @@ const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
+import { URL } from 'url';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('commong.js');
@@ -75,10 +78,11 @@ function startAppServer(): Promise<void> {
   return Promise.resolve();
 }
 
-export async function login(page, force?) {
+export async function login(page, force?, assignCase?) {
   const sidamUser = sidamUsers[0];
   const email = (sidamUser && sidamUser.email) || (ccdCase && ccdCase.email) || 'someone@example.com';
   const password = sidamUser && sidamUser.password || 'somePassword';
+  const tya = ccdCase ? ccdCase.appellant_tya : 'someTya';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
   console.log('in login');
@@ -88,11 +92,11 @@ export async function login(page, force?) {
   console.log('visited task list page');
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
   const signInFailed = () => page.url().indexOf(`${testUrl}/sign-in`) >= 0;
-  console.log(`is on idam page [${isOnIdamPage}]`);
-  console.log(`sign in failed [${signInFailed}]`);
+  console.log(`is on idam page [${isOnIdamPage()}]`);
+  console.log(`sign in failed [${signInFailed()}]`);
   console.log(`force [${force}]`);
   if (isOnIdamPage() || force) {
-    await loginPage.visitPage();
+    await loginPage.visitPage(`?tya=${tya}`);
     await loginPage.login(email, password);
     let maxRetries = 10;
     while ((isOnIdamPage() || signInFailed()) && maxRetries > 0) {
@@ -103,6 +107,18 @@ export async function login(page, force?) {
       maxRetries--;
     }
   }
+
+  if (assignCase === undefined || assignCase) {
+    console.log('Assigning case');
+    if (new URL(page.url()).pathname.includes('assign-case')) {
+      const assignCasePage = new AssignCasePage(page);
+      await assignCasePage.fillPostcode('TN32 6PL');
+      await assignCasePage.submit();
+
+      const statusPage = new StatusPage(page);
+    }
+  }
+
   console.log(`Login function finished. On ${page.url()}`);
 }
 
@@ -110,7 +126,7 @@ async function startServices(options?) {
   const opts = options || {};
   let sidamUser;
   if (opts.bootstrapData && !testingLocalhost) {
-    ({ ccdCase, cohTestData, sidamUser } = await bootstrap());
+    ({ ccdCase, cohTestData, sidamUser } = await bootstrap(opts.hearingType));
     sidamUsers.unshift(sidamUser);
   }
   if (opts.issueDecision) {
@@ -132,7 +148,7 @@ async function startServices(options?) {
     width: 1100
   });
   if (opts.performLogin) {
-    await login(page, opts.forceLogin);
+    await login(page, opts.forceLogin, opts.assignCase);
   }
   return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {}, sidamUser, browser };
 }

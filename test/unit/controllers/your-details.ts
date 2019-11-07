@@ -47,11 +47,6 @@ describe('controllers/your-details', () => {
   });
 
   describe('getYourDetails', () => {
-    it('should render 404 page when mya feature not enabled', async() => {
-      yourDetails.getYourDetails(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
-    });
-
     it('should render your details page when mya feature enabled', async() => {
       req.cookies.manageYourAppeal = 'true';
       yourDetails.getYourDetails(req, res);
