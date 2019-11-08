@@ -7,4 +7,4 @@ tribunals_api_url = "http://sscs-tribunals-api-aat.service.core-compute-aat.inte
 idam_enable_stub = "false"
 evidence_upload_question_page_enabled = "false"
 evidence_upload_question_page_override_allowed = "true"
-mya_feature_flag = "false"
+mya_feature_flag = "true"
