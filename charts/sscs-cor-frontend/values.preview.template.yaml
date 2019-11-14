@@ -8,7 +8,7 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    SSCS_API_URL: "http://sscs-cor-backend-aat.service.core-compute-aat.internal"
+    SSCS_API_URL: "http://sscs-tribunals-api-pr-813-java"
     IDAM_URL: "https://idam-web-public.aat.platform.hmcts.net"
     IDAM_API_URL: "https://idam-api.aat.platform.hmcts.net"
     TRIBUNALS_API_URL: "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
