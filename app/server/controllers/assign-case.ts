@@ -47,7 +47,11 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
 
     req.session.appeal = appeal;
 
-    return res.redirect(Paths.status);
+    if (req.session.appeal.hearingType === 'cor') {
+      return res.redirect(Paths.taskList);
+    } else {
+      return res.redirect(Paths.status);
+    }
   };
 }
 

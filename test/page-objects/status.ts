@@ -6,4 +6,11 @@ export class StatusPage extends BasePage {
     super(page);
     this.pagePath = status;
   }
+
+  async provideEvidence() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      this.clickElement('#tab-questions')
+    ]);
+  }
 }

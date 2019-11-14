@@ -131,7 +131,11 @@ function getIdamCallback(
           req.session.subscriptions = subscriptions;
 
           logger.info(`Logging in ${email}`);
-          return res.redirect(Paths.status);
+          if (req.session.appeal.hearingType === 'cor') {
+            return res.redirect(Paths.taskList);
+          } else {
+            return res.redirect(Paths.status);
+          }
         } else {
           const hearingsByName = getHearingsByName(hearings);
 

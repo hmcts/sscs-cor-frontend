@@ -13,8 +13,8 @@ enum Feature {
 
 function isFeatureEnabled(feature: Feature, force?: {}): boolean {
   if (!config.has(`featureFlags.${feature}`)) return false;
-  if (force && force[`${feature}`] === 'true') {
-    return true;
+  if (force && (force[`${feature}`] === 'true' || force[`${feature}`] === 'false')) {
+    return force[`${feature}`] === 'true';
   } else {
     const enabled = config.get(`featureFlags.${feature}`) === 'true';
     return enabled;

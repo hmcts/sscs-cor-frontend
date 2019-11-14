@@ -10,3 +10,4 @@ nodejs:
     SESSION_SECRET:
     NODE_ENV: preview
     HTTP_PROTOCOL: http
+    MYA_FEATURE_FLAG: "true"

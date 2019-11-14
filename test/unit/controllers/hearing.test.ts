@@ -45,11 +45,6 @@ describe('controllers/hearing', () => {
   });
 
   describe('getStatus', () => {
-    it('should render 404 page when mya feature not enabled', async() => {
-      hearing.getHearing(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
-    });
-
     it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async() => {
       req.cookies.manageYourAppeal = 'true';
       req.session.appeal = oralHearing.appeal;

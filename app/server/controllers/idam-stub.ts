@@ -29,7 +29,8 @@ async function postLogin(req: Request, res: Response) {
   logger.info('postLogin generating code', code);
   redis.set(`idamStub.code.${code}`, req.body.username, 'ex', 60);
   logger.info('postLogin adding username to redis under code', req.body.username, await redis.get(`idamStub.code.${code}`));
-  res.redirect(`${req.body.redirect_uri}?code=${code}&state=${req.body.state}`);
+  const stateParam = req.body.state ? `&state=${req.body.state}` : '';
+  res.redirect(`${req.body.redirect_uri}?code=${code}${stateParam}`);
 }
 
 async function getToken(req: Request, res: Response) {

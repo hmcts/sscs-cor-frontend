@@ -8,7 +8,7 @@ import { StatusPage } from 'test/page-objects/status';
 import { oralAppealStages, corAppealStages } from 'app/server/data/appealStages';
 const i18n = require('locale/en');
 
-describe('Manage your appeal app @mya using COR case', () => {
+describe('Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -17,7 +17,7 @@ describe('Manage your appeal app @mya using COR case', () => {
   let statusPage: StatusPage;
   let sidamUser;
   before(async () => {
-    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true }));
+    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
     const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
     loginPage = new LoginPage(page);
     taskListPage = new TaskListPage(page);
@@ -26,7 +26,7 @@ describe('Manage your appeal app @mya using COR case', () => {
     await taskListPage.setCookie('manageYourAppeal', 'true');
 
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(sidamUser.email || '', sidamUser.password || '');
+    await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
 
   after(async () => {
@@ -61,14 +61,6 @@ describe('Manage your appeal app @mya using COR case', () => {
     it('should display status bar', async() => {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(i18n.statusTab.header);
-    });
-
-    it('should display stages in status bar for cor case', async() => {
-      statusPage.verifyPage();
-      const statusBar = await statusPage.getElementText('.status-bar');
-      corAppealStages.filter(stage => stage.title).forEach(stage => {
-        expect(statusBar).contain(stage.title);
-      });
     });
 
     it('should display panel with latest update', async() => {
