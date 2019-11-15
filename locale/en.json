@@ -840,11 +840,15 @@
     "contact": "If any of your details are incorrect, contact us below.",
     "nameLabel": "Name",
     "addressLabel": "Address",
-    "emailLabel": "email address",
     "phoneLabel": "Contact phone number",
+    "emailLabel": "email address for updates",
     "mobileLabel": "text message updates",
     "contactPhoneLabel": "Contact mobile"
-
+  },
+  "contact": {
+    "phone": "Appellant contact phone number",
+    "mobile": "Appellant contact mobile number",
+    "email": "Appellant contact email address"
   },
   "statusTab": {
     "tabHeader": "Status",
