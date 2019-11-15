@@ -62,6 +62,19 @@
                         </td>
                     </tr>
                 {% endfor %}
+                {% for type, value in appeal.contact %}
+                    {% set hideBottomBorder %}
+                        {% if not loop.last %}hide-bottom-border{% endif %}
+                    {% endset %}
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
+                            {{ type }} {{i18n.yourDetails.contactPhoneLabel}}
+                        </th>
+                        <td class="govuk-table__cell {{ hideBottomBorder }}">
+                            {{ value.phone }}
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
         {{ govukInsetText({

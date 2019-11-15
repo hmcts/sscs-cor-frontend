@@ -53,7 +53,8 @@ describe('controllers/your-details', () => {
     it('should render your details page when mya feature enabled', async() => {
       req.cookies.manageYourAppeal = 'true';
       yourDetails.getYourDetails(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('your-details.html', { details: req.session.hearing, subscriptions: req.session.subscriptions });
+      expect(res.render).to.have.been.calledOnce.calledWith('your-details.html', { details: req.session.hearing,
+        subscriptions: req.session.subscriptions, appeal: req.session.appeal });
     });
   });
 });

@@ -842,7 +842,8 @@
     "addressLabel": "Address",
     "emailLabel": "email address",
     "phoneLabel": "Contact phone number",
-    "mobileLabel": "text message updates"
+    "mobileLabel": "text message updates",
+    "contactPhoneLabel": "Contact mobile"
 
   },
   "statusTab": {
