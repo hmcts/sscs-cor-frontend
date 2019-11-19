@@ -1,1194 +1,1199 @@
 {
-    "pageTitle": "Continuous Online Resolution",
-    "contactEmail": "pipappeals@justice.gov.uk",
-    "phaseBanner": {
-        "new": "This is a new service – your ",
-        "report": "feedback",
-        "improve": "will help us improve it. (opens in new window)"
+  "pageTitle": "Continuous Online Resolution",
+  "contactEmail": "pipappeals@justice.gov.uk",
+  "phaseBanner": {
+    "new": "This is a new service – your ",
+    "report": "feedback",
+    "improve": "will help us improve it. (opens in new window)"
+  },
+  "guidance": {
+    "sendingEvidence": {
+      "byEmailHeader": "Send by email",
+      "byPostHeader": "Send by post",
+      "postalAddress": "HMCTS<br/>Copthall House<br/>9 The Pavement<br/>Grove Road<br/>Sutton<br/>SM1 1DA",
+      "screenReaderPostalAddress": "HMCTS Copthall House 9 The Pavement Grove Road Sutton SM1 1DA"
+    }
+  },
+  "login": {
+    "header": "Login",
+    "emailAddress": {
+      "error": {
+        "empty": "Enter your email address",
+        "format": "Enter a valid email address",
+        "error404": "Online hearing could not be found",
+        "error422": "Multiple online hearings found"
+      }
     },
-    "guidance": {
-        "sendingEvidence": {
-            "byEmailHeader": "Send by email",
-            "byPostHeader": "Send by post",
-            "postalAddress": "HMCTS<br/>Copthall House<br/>9 The Pavement<br/>Grove Road<br/>Sutton<br/>SM1 1DA",
-            "screenReaderPostalAddress": "HMCTS Copthall House 9 The Pavement Grove Road Sutton SM1 1DA"
+    "failed": {
+      "emailNotFound": {
+        "header": "There is no benefit appeal associated with this email address",
+        "body": "<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>"
+      },
+      "technicalError": {
+        "header": "There is a technical problem with your account",
+        "body": "<p>There is a technical problem with the account you are using to access your benefit appeal.</p><p>Please email <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> and we will resolve it for you. Include your appeal reference number and name.</p><p>We apologise for any inconvenience.</p>"
+      },
+      "cannotUseService": {
+        "header": "You cannot access this service",
+        "body": "<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>"
+      }
+    }
+  },
+  "taskList": {
+    "header": "Your PIP benefit appeal",
+    "noQuestions": "You have no questions from the tribunal",
+    "deadline": {
+      "pending": "You need to respond by ",
+      "completed": "You have answered all the questions and submmitted them to the tribunal.",
+      "expired": "Deadline to respond expired on "
+    },
+    "answerState": {
+      "unanswered": "Not answered",
+      "draft": "Draft",
+      "completed": "Completed"
+    },
+    "sendingEvidence": {
+      "header": "Providing additional evidence",
+      "intro": "If you have any additional information that is relevant to your appeal, you can",
+      "anchorText": "post it to the tribunal",
+      "summary": "How to send additional evidence",
+      "details": {
+        "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
+        "closingPara1": "If you are posting it in, send the tribunal an email briefly describing what you are posting and when you think it will arrive. Use the email address above.",
+        "closingPara2": "Try to send it as soon as possible to avoid delaying your appeal."
+      }
+    }
+  },
+  "question": {
+    "textareaField": {
+      "label": "Please enter your answer here",
+      "placeholder": "You can write as much as you want",
+      "error": {
+        "empty": "You have not entered any information. Enter some information before submitting.",
+        "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+      },
+      "errorOnSave": {
+        "empty": "You have not entered any information. Enter some information before saving."
+      }
+    },
+    "evidenceUpload": {
+      "checkbox": "I want to provide evidence to support my answer",
+      "header": "Provide evidence to support your answer",
+      "info": "You can upload evidence to support your answer such as letters, photos and documents. If you are taking a picture of a letter, place it on a flat surface and take the picture from above.",
+      "addFileButton": "Add file",
+      "fileUploading": "File uploading",
+      "postEvidence": {
+        "summary": "You can also post evidence to the tribunal",
+        "details": {
+          "para1": "You can post evidence to the address below.",
+          "para2": "Make sure it’s clearly marked with your appeal reference number:",
+          "closingPara1": "Try to post it as soon as possible to avoid delaying your appeal.",
+          "closingPara2": "Tell the tribunal in your answer if you plan on posting evidence. Briefly describe what you are posting and say when you think it will arrive."
         }
+      },
+      "fileList": {
+        "uploadedFiles": "Uploaded files",
+        "noFilesUploaded": "No files uploaded"
+      }
     },
-    "login": {
-        "header": "Login",
-        "emailAddress": {
-            "error": {
-                "empty": "Enter your email address",
-                "format": "Enter a valid email address",
-                "error404": "Online hearing could not be found",
-                "error422": "Multiple online hearings found"
-            }
-        },
-        "failed": {
-            "emailNotFound": {
-                "header": "There is no benefit appeal associated with this email address",
-                "body": "<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>"
-            },
-            "technicalError": {
-                "header": "There is a technical problem with your account",
-                "body": "<p>There is a technical problem with the account you are using to access your benefit appeal.</p><p>Please email <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> and we will resolve it for you. Include your appeal reference number and name.</p><p>We apologise for any inconvenience.</p>"
-            },
-            "cannotUseService": {
-                "header": "You cannot access this service",
-                "body": "<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>"
-            }
-        }
+    "sendingEvidence": {
+      "summary": "Sending evidence to support your answer",
+      "details": {
+        "para1": "If you have any evidence to support your answer, you can either email it or send it by post.",
+        "para2": "Make sure it’s clearly marked with your appeal reference number:",
+        "closingPara1": "Useful evidence helps prove what you have said in your answer such as a letter from a doctor or someone who knows you well. You do not have to send in evidence if you don’t have any.",
+        "closingPara2": "If you are posting it in, send the tribunal an email briefly describing what you are posting and when you think it will arrive. Use the email address above."
+      }
     },
-    "taskList": {
-        "header": "Your PIP benefit appeal",
-        "noQuestions": "You have no questions from the tribunal",
-        "deadline": {
-            "pending": "You need to respond by ",
-            "completed": "You have answered all the questions and submmitted them to the tribunal.",
-            "expired": "Deadline to respond expired on "
-        },
-        "answerState": {
-            "unanswered": "Not answered",
-            "draft": "Draft",
-            "completed": "Completed"
-        },
-        "sendingEvidence": {
-            "header": "Providing additional evidence",
-            "intro": "If you have any additional information that is relevant to your appeal, you can",
-            "anchorText": "post it to the tribunal",
-            "summary": "How to send additional evidence",
-            "details": {
-                "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
-                "closingPara1": "If you are posting it in, send the tribunal an email briefly describing what you are posting and when you think it will arrive. Use the email address above.",
-                "closingPara2": "Try to send it as soon as possible to avoid delaying your appeal."
-            }
-        }
+    "completedAnswer": {
+      "header": "Your answer",
+      "submittedText": "Submitted"
+    }
+  },
+  "questionUploadEvidence": {
+    "header": "Upload your evidence",
+    "backToQuestionText": "Back to question",
+    "label": "Choose file",
+    "sizeWarning": "Larger files may take a few minutes to upload",
+    "error": {
+      "fileCannotBeUploaded": "File cannot be uploaded",
+      "empty": "You have not selected a file.",
+      "tooLarge": "The file you have uploaded is too big. Please upload a file under",
+      "invalidFileType": "The type of file you have uploaded is not acceptable. Please convert it to a common file format and try again."
+    }
+  },
+  "submitQuestion": {
+    "title": "You will not be able to change your answer after you submit it.",
+    "backToQuestionText": "Back to question"
+  },
+  "questionsCompleted": {
+    "header": "You have answered the tribunal’s questions",
+    "para1": "You’ve provided the information the tribunal have asked for. They’ll review what you’ve sent and consider it as part of your appeal.",
+    "para2Start": "You’ll get another email by",
+    "para2End": "which will explain how the tribunal want to proceed with your appeal.",
+    "exitService": "Exit service"
+  },
+  "extendDeadline": {
+    "header": "Extending the deadline will delay your appeal",
+    "hint": "You can have another week to answer the questions but your appeal will take longer.",
+    "subheader": "Do you still want to extend the deadline?",
+    "no": {
+      "header": "You have not extended the deadline",
+      "para1": "You still have until {{ deadline }} to answer the questions."
     },
-    "question": {
-        "textareaField": {
-            "label": "Please enter your answer here",
-            "placeholder": "You can write as much as you want",
-            "error": {
-                "empty": "You have not entered any information. Enter some information before submitting.",
-                "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
-            },
-            "errorOnSave": {
-                "empty": "You have not entered any information. Enter some information before saving."
-            }
-        },
-        "evidenceUpload": {
-            "checkbox": "I want to provide evidence to support my answer",
-            "header": "Provide evidence to support your answer",
-            "info": "You can upload evidence to support your answer such as letters, photos and documents. If you are taking a picture of a letter, place it on a flat surface and take the picture from above.",
-            "addFileButton": "Add file",
-            "fileUploading": "File uploading",
-            "postEvidence": {
-                "summary": "You can also post evidence to the tribunal",
-                "details": {
-                    "para1": "You can post evidence to the address below.",
-                    "para2": "Make sure it’s clearly marked with your appeal reference number:",
-                    "closingPara1": "Try to post it as soon as possible to avoid delaying your appeal.",
-                    "closingPara2": "Tell the tribunal in your answer if you plan on posting evidence. Briefly describe what you are posting and say when you think it will arrive."
-                }
-            },
-            "fileList": {
-                "uploadedFiles": "Uploaded files",
-                "noFilesUploaded": "No files uploaded"
-            }
-        },
-        "sendingEvidence": {
-            "summary": "Sending evidence to support your answer",
-            "details": {
-                "para1": "If you have any evidence to support your answer, you can either email it or send it by post.",
-                "para2": "Make sure it’s clearly marked with your appeal reference number:",
-                "closingPara1": "Useful evidence helps prove what you have said in your answer such as a letter from a doctor or someone who knows you well. You do not have to send in evidence if you don’t have any.",
-                "closingPara2": "If you are posting it in, send the tribunal an email briefly describing what you are posting and when you think it will arrive. Use the email address above."
-            }
-        },
-        "completedAnswer": {
-            "header": "Your answer",
-            "submittedText": "Submitted"
-        }
+    "yes": {
+      "header": "You have another week to answer the questions ",
+      "para1": "You now have until {{ deadline }} to answer the questions."
     },
-    "questionUploadEvidence": {
-        "header": "Upload your evidence",
-        "backToQuestionText": "Back to question",
-        "label": "Choose file",
-        "sizeWarning": "Larger files may take a few minutes to upload",
-        "error": {
-            "fileCannotBeUploaded": "File cannot be uploaded",
-            "empty": "You have not selected a file.",
-            "tooLarge": "The file you have uploaded is too big. Please upload a file under",
-            "invalidFileType": "The type of file you have uploaded is not acceptable. Please convert it to a common file format and try again."
-        }
-    },
-    "submitQuestion": {
-        "title": "You will not be able to change your answer after you submit it.",
-        "backToQuestionText": "Back to question"
-    },
-    "questionsCompleted": {
-        "header": "You have answered the tribunal’s questions",
-        "para1": "You’ve provided the information the tribunal have asked for. They’ll review what you’ve sent and consider it as part of your appeal.",
-        "para2Start": "You’ll get another email by",
-        "para2End": "which will explain how the tribunal want to proceed with your appeal.",
-        "exitService": "Exit service"
-    },
-    "extendDeadline": {
-        "header": "Extending the deadline will delay your appeal",
-        "hint": "You can have another week to answer the questions but your appeal will take longer.",
-        "subheader": "Do you still want to extend the deadline?",
-        "no": {
-            "header": "You have not extended the deadline",
-            "para1": "You still have until {{ deadline }} to answer the questions."
-        },
-        "yes": {
-            "header": "You have another week to answer the questions ",
-            "para1": "You now have until {{ deadline }} to answer the questions."
-        },
-        "contactTribunal": {
-            "header": "You need to provide reasons",
-            "para1": "You need to contact the tribunal and explain why you need more time.",
-            "para2": "Send an email explaining why you need more time and the date you can respond by to:",
-            "para3": "Your reasons will be reviewed by a judge.",
-            "para4": "You will then receive another email telling you whether you have been granted additional time and how the tribunal wish to proceed."
-        },
-        "error": {
-            "text": "You need to say whether you want to extend the deadline before continuing"
-        }
-    },
-    "tribunalView": {
-        "header": "Read the tribunal's view on your appeal",
-        "decision": {
-            "viewEntitledTo": "You are entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
-            "viewEntitledToIndefinite": "You are entitled to PIP at the rate below from {{ startDate }}.",
-            "dailyLiving": "Daily living",
-            "mobility": "Mobility",
-            "rate": {
-                "noAward": "No award",
-                "enhancedRate": "Enhanced rate",
-                "standardRate": "Standard rate"
-            },
-            "dwp": {
-                "Same": "This is the same as DWP initially awarded you.",
-                "Higher": "This is more than DWP initially awarded you.",
-                "Lower": "This is less than DWP initially awarded you."
-            },
-            "confirmAccept": "Confirm whether you accept this view at the bottom of the page, after reading the tribunal's reason below."
-        },
-        "reasonsHeader": "The reason for the tribunal’s view",
-        "activitiesSummary": "PIP activities and descriptors the tribunal consider apply to your appeal",
-        "dailyLivingActivitiesHeader": "Daily living activities and descriptors",
-        "dailyLivingActivitiesHeaderEmpty": "The tribunal's view is that no daily living activities apply to your appeal",
-        "mobilityActivitiesHeader": "Mobility activities and descriptors",
-        "mobilityActivitiesHeaderEmpty": "The tribunal's view is that no mobility activities apply to your appeal",
-        "activitiesTable": {
-            "headerActivity": "Activity",
-            "headerDescriptor": "Descriptor",
-            "headerPoints": "Points"
-        },
-        "activities": {
-            "dailyLiving": {
-                "preparingFood": {
-                    "name": "Preparing food",
-                    "scores": {
-                        "0": {
-                            "text": "Can prepare and cook a simple meal unaided",
-                            "score": 0
-                        },
-                        "4": {
-                            "text": "Needs supervision or assistance to either prepare or cook a simple meal",
-                            "score": 4
-                        },
-                        "8": {
-                            "text": "Cannot prepare and cook food",
-                            "score": 8
-                        },
-                        "2.0": {
-                            "text": "Needs to use an aid or appliance to be able to either prepare or cook a simple meal",
-                            "score": 2
-                        },
-                        "2.1": {
-                            "text": "Cannot cook a simple meal using a conventional cooker but is able to do so using a microwave",
-                            "score": 2
-                        },
-                        "2.2": {
-                            "text": "Needs prompting to be able to either prepare or cook a simple meal",
-                            "score": 2
-                        }
-                    }
-                },
-                "takingNutrition": {
-                    "name": "Taking nutrition",
-                    "scores": {
-                        "0": {
-                            "text": "Can take nutrition unaided",
-                            "score": 0
-                        },
-                        "4": {
-                            "text": "Needs prompting to be able to take nutrition",
-                            "score": 4
-                        },
-                        "6": {
-                            "text": "Needs assistance to be able to manage a therapeutic source to take nutrition",
-                            "score": 6
-                        },
-                        "8": {
-                            "text": "Cannot convey food and drink to their mouth and needs another person to do so",
-                            "score": 8
-                        },
-                        "2.0": {
-                            "text": "Needs either:<ul><li>to use an aid or appliance to be able to take nutrition</li><li>supervision to be able to take nutrition</li><li>assistance to be able to cut up food</li></ul>",
-                            "score": 2
-                        },
-                        "2.1": {
-                            "text": "Needs a therapeutic source to be able to take nutrition",
-                            "score": 2
-                        }
-                    }
-                },
-                "managingTherapy": {
-                    "name": "Managing therapy or monitoring a health condition",
-                    "scores": {
-                        "0": {
-                            "text": "Either:<ul><li>does not receive medication or therapy or need to monitor a health condition</li><li>or can manage medication or therapy or monitor a health condition unaided</li></ul>",
-                            "score": 0
-                        },
-                        "1": {
-                            "text": "Needs either:<ul><li>to use an aid or appliance to be able to manage medication</li><li>supervision, prompting or assistance to be able to manage medication or monitor a health condition</li><li>supervision, prompting or assistance to be able to monitor a health condition</li></ul>",
-                            "score": 1
-                        },
-                        "2": {
-                            "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes no more than 3.5 hours a week",
-                            "score": 2
-                        },
-                        "4": {
-                            "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 3.5 but no more than 7 hours a week",
-                            "score": 4
-                        },
-                        "6": {
-                            "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 7 but no more than 14 hours a week",
-                            "score": 6
-                        },
-                        "8": {
-                            "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 14 hours a week",
-                            "score": 8
-                        }
-                    }
-                },
-                "washingBathing": {
-                    "name": "Washing and bathing",
-                    "scores": {
-                        "0": {
-                            "text": "Can wash and bathe unaided",
-                            "score": 0
-                        },
-                        "3": {
-                            "text": "Needs assistance to be able to get in or out of a bath or shower",
-                            "score": 3
-                        },
-                        "4": {
-                            "text": "Needs assistance to be able to wash their body between the shoulders and waist",
-                            "score": 4
-                        },
-                        "8": {
-                            "text": "Cannot wash and bathe at all and needs another person to wash their entire body",
-                            "score": 8
-                        },
-                        "2.0": {
-                            "text": "Needs to use an aid or appliance to be able to wash or bathe",
-                            "score": 2
-                        },
-                        "2.1": {
-                            "text": "Needs supervision or prompting to be able to wash or bathe",
-                            "score": 2
-                        },
-                        "2.2": {
-                            "text": "Needs assistance to be able to wash either their hair or body below the waist",
-                            "score": 2
-                        }
-                    }
-                },
-                "managingToilet": {
-                    "name": "Managing toilet needs or incontinence",
-                    "scores": {
-                        "0": {
-                            "text": "Can manage toilet needs or incontinence unaided",
-                            "score": 0
-                        },
-                        "4": {
-                            "text": "Needs assistance to be able to manage toilet needs",
-                            "score": 4
-                        },
-                        "6": {
-                            "text": "Needs assistance to be able to manage incontinence of either bladder and bowel",
-                            "score": 6
-                        },
-                        "8": {
-                            "text": "Needs assistance to be able to manage incontinence of both bladder and bowel",
-                            "score": 8
-                        },
-                        "2.0": {
-                            "text": "Needs to use an aid or appliance to be able to manage toilet needs or incontinence",
-                            "score": 2
-                        },
-                        "2.1": {
-                            "text": "Needs supervision or prompting to be able to manage toilet needs",
-                            "score": 2
-                        }
-                    }
-                },
-                "dressingUndressing": {
-                    "name": "Dressing and undressing",
-                    "scores": {
-                        "0": {
-                            "text": "Can dress and undress unaided",
-                            "score": 0
-                        },
-                        "4": {
-                            "text": "Needs assistance to be able to dress or undress their upper body",
-                            "score": 4
-                        },
-                        "8": {
-                            "text": "Cannot dress or undress at all",
-                            "score": 8
-                        },
-                        "2.0": {
-                            "text": "Needs to use an aid or appliance to be able to dress or undress",
-                            "score": 2
-                        },
-                        "2.1": {
-                            "text": "Needs either:<ul><li>prompting to be able to dress, undress or determine appropriate circumstances for remaining clothed</li><li>prompting or assistance to be able to select appropriate clothing</li></ul>",
-                            "score": 2
-                        },
-                        "2.2": {
-                            "text": "Needs assistance to be able to dress or undress their lower body",
-                            "score": 2
-                        }
-                    }
-                },
-                "communicatingVerbally": {
-                    "name": "Communicating verbally",
-                    "scores": {
-                        "0": {
-                            "text": "Can express and understand verbal information unaided",
-                            "score": 0
-                        },
-                        "2": {
-                            "text": "Needs to use an aid or appliance to be able to speak or hear",
-                            "score": 2
-                        },
-                        "4": {
-                            "text": "Needs communication support to be able to express or understand complex verbal information",
-                            "score": 4
-                        },
-                        "8": {
-                            "text": "Needs communication support to be able to express or understand basic verbal information",
-                            "score": 8
-                        },
-                        "12": {
-                            "text": "Cannot express or understand verbal information at all even with communication support",
-                            "score": 12
-                        }
-                    }
-                },
-                "readingAndUnderstanding": {
-                    "name": "Reading and understanding signs, symbols and words",
-                    "scores": {
-                        "0": {
-                            "text": "Can read and understand basic and complex written information either unaided or using spectacles or contact lenses",
-                            "score": 0
-                        },
-                        "4": {
-                            "text": "Needs prompting to be able to read or understand basic written information",
-                            "score": 4
-                        },
-                        "8": {
-                            "text": "Cannot read or understand signs, symbols or words at all",
-                            "score": 8
-                        },
-                        "2.0": {
-                            "text": "Needs to use an aid or appliance, other than spectacles or contact lenses, to be able to read or understand either basic or complex written information",
-                            "score": 2
-                        },
-                        "2.1": {
-                            "text": "Needs prompting to be able to read or understand complex written information",
-                            "score": 2
-                        }
-                    }
-                },
-                "engagingWithOtherPeople": {
-                    "name": "Engaging with other people face to face",
-                    "scores": {
-                        "0": {
-                            "text": "Can engage with other people unaided",
-                            "score": 0
-                        },
-                        "2": {
-                            "text": "Needs prompting to be able to engage with other people",
-                            "score": 2
-                        },
-                        "4": {
-                            "text": "Needs social support to be able to engage with other people",
-                            "score": 4
-                        },
-                        "8": {
-                            "text": "Cannot engage with other people due to such engagement causing either:<ul><li>overwhelming psychological distress to the claimant</li><li>the claimant to exhibit behaviour which would result in a substantial risk of harm to the claimant or another person</li></ul>",
-                            "score": 8
-                        }
-                    }
-                },
-                "makingBudgetingDecisions": {
-                    "name": "Making budgeting decisions",
-                    "scores": {
-                        "0": {
-                            "text": "Can manage complex budgeting decisions unaided",
-                            "score": 0
-                        },
-                        "4": {
-                            "text": "Needs prompting or assistance to be able to make simple budgeting decisions",
-                            "score": 4
-                        },
-                        "6": {
-                            "text": "Cannot make any budgeting decisions at all",
-                            "score": 6
-                        },
-                        "2": {
-                            "text": "Needs prompting or assistance to be able to make complex budgeting decisions",
-                            "score": 2
-                        }
-                    }
-                }
-            },
-            "mobility": {
-                "planningFollowingJourneys": {
-                    "name": "Planning and following journeys",
-                    "scores": {
-                        "0": {
-                            "text": "Can plan and follow the route of a journey unaided",
-                            "score": 0
-                        },
-                        "4": {
-                            "text": "Needs prompting to be able to undertake any journey to avoid overwhelming psychological distress to the claimant",
-                            "score": 4
-                        },
-                        "8": {
-                            "text": "Cannot plan the route of a journey",
-                            "score": 8
-                        },
-                        "12": {
-                            "text": "Cannot follow the route of an unfamiliar journey without another person, assistance dog or orientation aid",
-                            "score": 12
-                        },
-                        "10.0": {
-                            "text": "Cannot undertake any journey because it would cause overwhelming psychological distress to the claimant",
-                            "score": 10
-                        },
-                        "10.1": {
-                            "text": "Cannot follow the route of a familiar journey without another person, an assistance dog or an orientation aid",
-                            "score": 10
-                        }
-                    }
-                },
-                "movingAround": {
-                    "name": "Moving around",
-                    "scores": {
-                        "0": {
-                            "text": "Can stand and then move more than 200 metres, either aided or unaided",
-                            "score": 0
-                        },
-                        "4": {
-                            "text": "Can stand and then move more than 50 metres but no more than 200 metres, either aided or unaided",
-                            "score": 4
-                        },
-                        "8": {
-                            "text": "Can stand and then move unaided more than 20 metres but no more than 50 metres",
-                            "score": 8
-                        },
-                        "10": {
-                            "text": "Can stand and then move using an aid or appliance more than 20 metres but no more than 50 metres",
-                            "score": 10
-                        },
-                        "12.0": {
-                            "text": "Can stand and then move more than 1 metre but no more than 20 metres, either aided or unaided",
-                            "score": 12
-                        },
-                        "12.1": {
-                            "text": "Cannot, either aided or unaided:<ul><li>stand</li><li>move more than 1 metre</li></ul>",
-                            "score": 12
-                        }
-                    }
-                }
-            }
-        },
-        "whatNextPara": "You can either accept this view or if you want to provide further evidence to the tribunal then you can request a hearing. You can ask a friend, family member or support worker for help in making this decision.",
-        "acceptHeader": "Do you accept this view?",
-        "acceptYes": "I accept the tribunal’s view",
-        "acceptNo": "I want a hearing",
-        "acceptRespondBy": "Please respond by {{ respondBy }}.",
-        "submitResponse": "Submit response",
-        "error": {
-            "emptyOnDecisionPick": "You must accept the tribunal's view or request a hearing.",
-            "emptyOnConfirm": "You need to say whether you want to accept the view or want to go back."
-        }
-    },
-    "tribunalViewConfirm": {
-        "header": "Are you sure you want to accept the view?",
-        "headerText": "You will not be able to change your mind.",
-        "acceptYes": "Yes, I want to accept the view",
-        "acceptNo": "No, I want to go back",
-        "acceptHelp": "If you need help deciding then you could talk to your representative or a friend or family member who know about your condition."
-    },
-    "tribunalViewAccepted": {
-        "header": "You have accepted the tribunal’s view",
-        "para1": "This view has also been communicated to DWP.",
-        "para2": "If they accept, the decision will be issued and your appeal will be closed.",
-        "para3": "If they request a hearing, you will be asked if you want to attend.",
-        "para4": "You will get an email telling you whether they have accepted the view by {{ nextCorrespondenceDate }}.",
-        "exitService": "Exit service",
-        "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_2/?pageurl="
-    },
-    "tribunalDecision": {
-        "header": "The tribunal’s decision on your appeal",
-        "outcome": {
-            "decision_accepted": "Your appeal has been successful",
-            "decision_rejected": "Your appeal has not been successful"
-        },
-        "reasonsHeader": "A decision has been made on your PIP benefit appeal",
-        "postInfo": "<p>A 'Decision Notice' has been emailed to you and posted to your registered address.<p/> <p>Please note that we cannot give you your decision over the phone. This is to protect your personal information.</p>"
-    },
-    "hearingConfirm": {
-        "header": "A new tribunal panel will decide your appeal",
-        "para": "A new tribunal panel will make a decision on your appeal. This may be different from the view already given.",
-        "legend": "Do you still want a hearing?",
-        "error": {
-            "title": "There are errors on this page",
-            "text": "You need to say whether you still want a hearing"
-        }
-    },
-    "hearingWhy": {
-        "header": "Explain why you want a hearing",
-        "info": "Your reasons do not affect your right to a hearing.",
-        "error": {
-            "empty": "You have not entered any information so you cannot submit your request for a hearing. Enter some information before saving.",
-            "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
-        },
-        "booking": {
-            "header": "A hearing needs to be booked for your appeal",
-            "para1": "You'll receive an email with the details of your hearing by {{ responseDate }}.",
-            "para2": "If you require a hearing room with disabled access or any other support then please email the tribunal at ",
-            "para3": "Include your appeal reference number on any emails to the tribunal:",
-            "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_4/?pageurl="
-        }
-    },
-    "postEvidence": {
-        "header": "Posting evidence to the tribunal",
-        "info": "Post evidence to the address below.",
-        "postalAddress": "HMCTS SSCS<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF",
-        "screenReaderPostalAddress": "HMCTS SSCS PO Box 12626 Harlow CM20 9QF",
-        "para1": "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href='/coversheet'>download a new cover sheet here</a>, if you need one.",
-        "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
-        "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
+    "contactTribunal": {
+      "header": "You need to provide reasons",
+      "para1": "You need to contact the tribunal and explain why you need more time.",
+      "para2": "Send an email explaining why you need more time and the date you can respond by to:",
+      "para3": "Your reasons will be reviewed by a judge.",
+      "para4": "You will then receive another email telling you whether you have been granted additional time and how the tribunal wish to proceed."
     },
     "error": {
-        "error404": {
-            "header": "Sorry, this page could not be found"
-        },
-        "error500": {
-            "header": "Sorry, we're experiencing technical difficulties",
-            "content": "Please try again."
-        }
+      "text": "You need to say whether you want to extend the deadline before continuing"
+    }
+  },
+  "tribunalView": {
+    "header": "Read the tribunal's view on your appeal",
+    "decision": {
+      "viewEntitledTo": "You are entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
+      "viewEntitledToIndefinite": "You are entitled to PIP at the rate below from {{ startDate }}.",
+      "dailyLiving": "Daily living",
+      "mobility": "Mobility",
+      "rate": {
+        "noAward": "No award",
+        "enhancedRate": "Enhanced rate",
+        "standardRate": "Standard rate"
+      },
+      "dwp": {
+        "Same": "This is the same as DWP initially awarded you.",
+        "Higher": "This is more than DWP initially awarded you.",
+        "Lower": "This is less than DWP initially awarded you."
+      },
+      "confirmAccept": "Confirm whether you accept this view at the bottom of the page, after reading the tribunal's reason below."
     },
-    "general": {
-        "yes": "Yes",
-        "no": "No",
-        "continue": "Continue",
-        "backToQuestions": "Back to questions",
-        "back": "Back",
-        "exitService": "Exit Service",
-        "logo": "HMCTS Logo",
-        "signOut": "Sign out",
-        "delete": "Delete",
-        "serviceTitle": "Appeal a benefit decision",
-        "govUK": "GOV.UK",
-        "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
-        "tbc": "To be confirmed"
+    "reasonsHeader": "The reason for the tribunal’s view",
+    "activitiesSummary": "PIP activities and descriptors the tribunal consider apply to your appeal",
+    "dailyLivingActivitiesHeader": "Daily living activities and descriptors",
+    "dailyLivingActivitiesHeaderEmpty": "The tribunal's view is that no daily living activities apply to your appeal",
+    "mobilityActivitiesHeader": "Mobility activities and descriptors",
+    "mobilityActivitiesHeaderEmpty": "The tribunal's view is that no mobility activities apply to your appeal",
+    "activitiesTable": {
+      "headerActivity": "Activity",
+      "headerDescriptor": "Descriptor",
+      "headerPoints": "Points"
     },
-    "errorSummary": {
-        "titleText": "There are errors on the page",
-        "descriptionText": "Please fix the errors before you continue"
-    },
-    "contactUsCor": {
-        "title": "Contact us",
-        "emailText": "You can request support by emailing",
-        "includeRefNum": "Please include your appeal reference number.",
-        "getBackIn": "We’ll get back to you within 2 days."
-    },
-    "contactUs": {
-        "title": "Contact us for help",
-        "webform": {
-            "title": "Send us a message",
-            "desc": "You’ll get a response by email within 2 working days.",
-            "link": "Send message (opens in a new window)"
-        },
-        "webchat": {
-            "title": "Web chat",
-            "desc": "Get some help by messaging an agent online.",
-            "link": "Start web chat (opens in a new window)",
-            "textChatDown": "The web chat service is temporarily unavailable, please try again later.",
-            "textChatWithAnAgent": "Start web chat (opens in a new window)",
-            "textNoAgentsAvailable": "No agents are available, please try again later.",
-            "textAllAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.",
-            "textChatClosed": "The web chat is now closed. Come back Monday to Friday 8:30am to 5pm. Or contact us using one of the ways below.",
-            "textChatAlreadyOpen": "A web chat window is already open.",
-            "textAdditional": "Monday to Friday, 8.30am to 5pm"
-        },
-        "telephone": {
-            "title": "Telephone",
-            "desc": "Talk to one of our agents now over the phone.",
-            "England": {
-                "desc": "Benefit appeals helpline (England and Wales)",
-                "phone": "Telephone: 0300 123 1142",
-                "availability": "Monday to Friday, 8:30am to 5pm",
-                "charges": "Find out about call charges"
+    "activities": {
+      "dailyLiving": {
+        "preparingFood": {
+          "name": "Preparing food",
+          "scores": {
+            "0": {
+              "text": "Can prepare and cook a simple meal unaided",
+              "score": 0
             },
-            "Scotland": {
-                "desc": "Benefit appeals helpline (Scotland)",
-                "phone": "Telephone: 0300 790 6234",
-                "availability": "Monday to Friday, 8:30am to 5pm",
-                "charges": "Find out about call charges"
-            }
-        }
-    },
-    "cookieBanner": {
-        "message": "HMCTS uses cookies to make the site simpler. ",
-        "link": "Find out more about cookies"
-    },
-    "cookiePrivacy": {
-        "titleHead": "Cookie Policy - Appeal a benefit decision - GOV.UK",
-        "footer": {
-            "cookies": "Cookies"
-        },
-        "cookies": {
-            "title": "Cookies",
-            "description": "A cookie is a small piece of data that’s stored on your computer, tablet, or phone when you visit a website. Most websites need cookies to work properly."
-        },
-        "usedInService": {
-            "title": "How cookies are used in this service",
-            "uses": "This service uses them to:",
-            "usesList": [
-                "measure how you use the service so it can be improved",
-                "remember the notifications you’ve seen so that you’re not shown them again",
-                "temporarily store the answers you give"
-            ],
-            "more": "Find out more about ",
-            "manage": "how to manage cookies."
-        },
-        "howAreTheyUsed": {
-            "title": "Cookies used to measure website usage",
-            "description": "We use Google Analytics software to collect information about how you use this service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements, for example improving site search.",
-            "info": "Google Analytics stores information about:",
-            "infoList": [
-                "the pages you visit",
-                "how long you spend on each page",
-                "how you got to the service",
-                "what you click on while you’re visiting the service"
-            ],
-            "googleShare": "We allow Google to use or share this data. Find out more about how they use this information in the ",
-            "googlePrivacyPolicy": "Google privacy policy.",
-            "optOut": {
-                "youCan": "You can ",
-                "google": "opt out of Google Analytics ",
-                "access": "if you do not want Google to have access to your information."
+            "4": {
+              "text": "Needs supervision or assistance to either prepare or cook a simple meal",
+              "score": 4
             },
-            "googleCookies": "Google Analytics sets the following cookies:",
-            "cookieTable": {
-                "columnNames": [
-                    "Cookie name",
-                    "What this cookie is for",
-                    "Expires after"
-                ],
-                "items": [{
-                    "name": "_ga",
-                    "purpose": "This helps us count how many people visit the service by tracking if you’ve visited before",
-                    "expires": "2 years"
-                }, {
-                    "name": "_gid",
-                    "purpose": "Identifies you to the service",
-                    "expires": "24 hours"
-                }]
+            "8": {
+              "text": "Cannot prepare and cook food",
+              "score": 8
+            },
+            "2.0": {
+              "text": "Needs to use an aid or appliance to be able to either prepare or cook a simple meal",
+              "score": 2
+            },
+            "2.1": {
+              "text": "Cannot cook a simple meal using a conventional cooker but is able to do so using a microwave",
+              "score": 2
+            },
+            "2.2": {
+              "text": "Needs prompting to be able to either prepare or cook a simple meal",
+              "score": 2
             }
+          }
         },
-        "introMessage": {
-            "title": "Cookies used to turn our introductory message off",
-            "description": "You may see a welcome message when you first visit the service. We’ll store a cookie so that your computer knows not to show this message again.",
-            "cookieTable": {
-                "columnNames": [
-                    "Cookie name",
-                    "What this cookie is for",
-                    "Expires after"
-                ],
-                "items": [{
-                    "name": "seen_cookie_message",
-                    "purpose": "Saves a message to let us know that you’ve seen our cookie message",
-                    "expires": "1 month"
-                }]
+        "takingNutrition": {
+          "name": "Taking nutrition",
+          "scores": {
+            "0": {
+              "text": "Can take nutrition unaided",
+              "score": 0
+            },
+            "4": {
+              "text": "Needs prompting to be able to take nutrition",
+              "score": 4
+            },
+            "6": {
+              "text": "Needs assistance to be able to manage a therapeutic source to take nutrition",
+              "score": 6
+            },
+            "8": {
+              "text": "Cannot convey food and drink to their mouth and needs another person to do so",
+              "score": 8
+            },
+            "2.0": {
+              "text": "Needs either:<ul><li>to use an aid or appliance to be able to take nutrition</li><li>supervision to be able to take nutrition</li><li>assistance to be able to cut up food</li></ul>",
+              "score": 2
+            },
+            "2.1": {
+              "text": "Needs a therapeutic source to be able to take nutrition",
+              "score": 2
             }
+          }
         },
-        "sessionCookie": {
-            "title": "Cookies used to store the answers you’ve given during your visit (known as a ‘session’)",
-            "description": "Session cookies are stored on your computer as you browse a website, and let the website know what you’ve seen and done so far. These are temporary cookies and are automatically deleted after you leave the website.",
-            "cookieTable": {
-                "columnNames": [
-                    "Cookie name",
-                    "What this cookie is for",
-                    "Expires after"
-                ],
-                "items": [{
-                    "name": "connect.sid",
-                    "purpose": "Keeps track of your answers",
-                    "expires": "When you close your browser"
-                }, {
-                    "name": "ARRAffinity",
-                    "purpose": "To know which internal IP a request should be routed to. ",
-                    "expires": "When you close your browser"
-                }]
+        "managingTherapy": {
+          "name": "Managing therapy or monitoring a health condition",
+          "scores": {
+            "0": {
+              "text": "Either:<ul><li>does not receive medication or therapy or need to monitor a health condition</li><li>or can manage medication or therapy or monitor a health condition unaided</li></ul>",
+              "score": 0
+            },
+            "1": {
+              "text": "Needs either:<ul><li>to use an aid or appliance to be able to manage medication</li><li>supervision, prompting or assistance to be able to manage medication or monitor a health condition</li><li>supervision, prompting or assistance to be able to monitor a health condition</li></ul>",
+              "score": 1
+            },
+            "2": {
+              "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes no more than 3.5 hours a week",
+              "score": 2
+            },
+            "4": {
+              "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 3.5 but no more than 7 hours a week",
+              "score": 4
+            },
+            "6": {
+              "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 7 but no more than 14 hours a week",
+              "score": 6
+            },
+            "8": {
+              "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 14 hours a week",
+              "score": 8
             }
+          }
+        },
+        "washingBathing": {
+          "name": "Washing and bathing",
+          "scores": {
+            "0": {
+              "text": "Can wash and bathe unaided",
+              "score": 0
+            },
+            "3": {
+              "text": "Needs assistance to be able to get in or out of a bath or shower",
+              "score": 3
+            },
+            "4": {
+              "text": "Needs assistance to be able to wash their body between the shoulders and waist",
+              "score": 4
+            },
+            "8": {
+              "text": "Cannot wash and bathe at all and needs another person to wash their entire body",
+              "score": 8
+            },
+            "2.0": {
+              "text": "Needs to use an aid or appliance to be able to wash or bathe",
+              "score": 2
+            },
+            "2.1": {
+              "text": "Needs supervision or prompting to be able to wash or bathe",
+              "score": 2
+            },
+            "2.2": {
+              "text": "Needs assistance to be able to wash either their hair or body below the waist",
+              "score": 2
+            }
+          }
+        },
+        "managingToilet": {
+          "name": "Managing toilet needs or incontinence",
+          "scores": {
+            "0": {
+              "text": "Can manage toilet needs or incontinence unaided",
+              "score": 0
+            },
+            "4": {
+              "text": "Needs assistance to be able to manage toilet needs",
+              "score": 4
+            },
+            "6": {
+              "text": "Needs assistance to be able to manage incontinence of either bladder and bowel",
+              "score": 6
+            },
+            "8": {
+              "text": "Needs assistance to be able to manage incontinence of both bladder and bowel",
+              "score": 8
+            },
+            "2.0": {
+              "text": "Needs to use an aid or appliance to be able to manage toilet needs or incontinence",
+              "score": 2
+            },
+            "2.1": {
+              "text": "Needs supervision or prompting to be able to manage toilet needs",
+              "score": 2
+            }
+          }
+        },
+        "dressingUndressing": {
+          "name": "Dressing and undressing",
+          "scores": {
+            "0": {
+              "text": "Can dress and undress unaided",
+              "score": 0
+            },
+            "4": {
+              "text": "Needs assistance to be able to dress or undress their upper body",
+              "score": 4
+            },
+            "8": {
+              "text": "Cannot dress or undress at all",
+              "score": 8
+            },
+            "2.0": {
+              "text": "Needs to use an aid or appliance to be able to dress or undress",
+              "score": 2
+            },
+            "2.1": {
+              "text": "Needs either:<ul><li>prompting to be able to dress, undress or determine appropriate circumstances for remaining clothed</li><li>prompting or assistance to be able to select appropriate clothing</li></ul>",
+              "score": 2
+            },
+            "2.2": {
+              "text": "Needs assistance to be able to dress or undress their lower body",
+              "score": 2
+            }
+          }
+        },
+        "communicatingVerbally": {
+          "name": "Communicating verbally",
+          "scores": {
+            "0": {
+              "text": "Can express and understand verbal information unaided",
+              "score": 0
+            },
+            "2": {
+              "text": "Needs to use an aid or appliance to be able to speak or hear",
+              "score": 2
+            },
+            "4": {
+              "text": "Needs communication support to be able to express or understand complex verbal information",
+              "score": 4
+            },
+            "8": {
+              "text": "Needs communication support to be able to express or understand basic verbal information",
+              "score": 8
+            },
+            "12": {
+              "text": "Cannot express or understand verbal information at all even with communication support",
+              "score": 12
+            }
+          }
+        },
+        "readingAndUnderstanding": {
+          "name": "Reading and understanding signs, symbols and words",
+          "scores": {
+            "0": {
+              "text": "Can read and understand basic and complex written information either unaided or using spectacles or contact lenses",
+              "score": 0
+            },
+            "4": {
+              "text": "Needs prompting to be able to read or understand basic written information",
+              "score": 4
+            },
+            "8": {
+              "text": "Cannot read or understand signs, symbols or words at all",
+              "score": 8
+            },
+            "2.0": {
+              "text": "Needs to use an aid or appliance, other than spectacles or contact lenses, to be able to read or understand either basic or complex written information",
+              "score": 2
+            },
+            "2.1": {
+              "text": "Needs prompting to be able to read or understand complex written information",
+              "score": 2
+            }
+          }
+        },
+        "engagingWithOtherPeople": {
+          "name": "Engaging with other people face to face",
+          "scores": {
+            "0": {
+              "text": "Can engage with other people unaided",
+              "score": 0
+            },
+            "2": {
+              "text": "Needs prompting to be able to engage with other people",
+              "score": 2
+            },
+            "4": {
+              "text": "Needs social support to be able to engage with other people",
+              "score": 4
+            },
+            "8": {
+              "text": "Cannot engage with other people due to such engagement causing either:<ul><li>overwhelming psychological distress to the claimant</li><li>the claimant to exhibit behaviour which would result in a substantial risk of harm to the claimant or another person</li></ul>",
+              "score": 8
+            }
+          }
+        },
+        "makingBudgetingDecisions": {
+          "name": "Making budgeting decisions",
+          "scores": {
+            "0": {
+              "text": "Can manage complex budgeting decisions unaided",
+              "score": 0
+            },
+            "4": {
+              "text": "Needs prompting or assistance to be able to make simple budgeting decisions",
+              "score": 4
+            },
+            "6": {
+              "text": "Cannot make any budgeting decisions at all",
+              "score": 6
+            },
+            "2": {
+              "text": "Needs prompting or assistance to be able to make complex budgeting decisions",
+              "score": 2
+            }
+          }
         }
+      },
+      "mobility": {
+        "planningFollowingJourneys": {
+          "name": "Planning and following journeys",
+          "scores": {
+            "0": {
+              "text": "Can plan and follow the route of a journey unaided",
+              "score": 0
+            },
+            "4": {
+              "text": "Needs prompting to be able to undertake any journey to avoid overwhelming psychological distress to the claimant",
+              "score": 4
+            },
+            "8": {
+              "text": "Cannot plan the route of a journey",
+              "score": 8
+            },
+            "12": {
+              "text": "Cannot follow the route of an unfamiliar journey without another person, assistance dog or orientation aid",
+              "score": 12
+            },
+            "10.0": {
+              "text": "Cannot undertake any journey because it would cause overwhelming psychological distress to the claimant",
+              "score": 10
+            },
+            "10.1": {
+              "text": "Cannot follow the route of a familiar journey without another person, an assistance dog or an orientation aid",
+              "score": 10
+            }
+          }
+        },
+        "movingAround": {
+          "name": "Moving around",
+          "scores": {
+            "0": {
+              "text": "Can stand and then move more than 200 metres, either aided or unaided",
+              "score": 0
+            },
+            "4": {
+              "text": "Can stand and then move more than 50 metres but no more than 200 metres, either aided or unaided",
+              "score": 4
+            },
+            "8": {
+              "text": "Can stand and then move unaided more than 20 metres but no more than 50 metres",
+              "score": 8
+            },
+            "10": {
+              "text": "Can stand and then move using an aid or appliance more than 20 metres but no more than 50 metres",
+              "score": 10
+            },
+            "12.0": {
+              "text": "Can stand and then move more than 1 metre but no more than 20 metres, either aided or unaided",
+              "score": 12
+            },
+            "12.1": {
+              "text": "Cannot, either aided or unaided:<ul><li>stand</li><li>move more than 1 metre</li></ul>",
+              "score": 12
+            }
+          }
+        }
+      }
     },
-    "cookieTimeOut": {
-        "modal": {
-            "title": "Do you want more time to continue?",
-            "body": ["Your session will expire in", "minutes and you will be signed out."],
-            "info": "You will lose any unsaved information you have entered.",
-            "extend": "Stay signed in ",
-            "cancel": "Sign out"
+    "whatNextPara": "You can either accept this view or if you want to provide further evidence to the tribunal then you can request a hearing. You can ask a friend, family member or support worker for help in making this decision.",
+    "acceptHeader": "Do you accept this view?",
+    "acceptYes": "I accept the tribunal’s view",
+    "acceptNo": "I want a hearing",
+    "acceptRespondBy": "Please respond by {{ respondBy }}.",
+    "submitResponse": "Submit response",
+    "error": {
+      "emptyOnDecisionPick": "You must accept the tribunal's view or request a hearing.",
+      "emptyOnConfirm": "You need to say whether you want to accept the view or want to go back."
+    }
+  },
+  "tribunalViewConfirm": {
+    "header": "Are you sure you want to accept the view?",
+    "headerText": "You will not be able to change your mind.",
+    "acceptYes": "Yes, I want to accept the view",
+    "acceptNo": "No, I want to go back",
+    "acceptHelp": "If you need help deciding then you could talk to your representative or a friend or family member who know about your condition."
+  },
+  "tribunalViewAccepted": {
+    "header": "You have accepted the tribunal’s view",
+    "para1": "This view has also been communicated to DWP.",
+    "para2": "If they accept, the decision will be issued and your appeal will be closed.",
+    "para3": "If they request a hearing, you will be asked if you want to attend.",
+    "para4": "You will get an email telling you whether they have accepted the view by {{ nextCorrespondenceDate }}.",
+    "exitService": "Exit service",
+    "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_2/?pageurl="
+  },
+  "tribunalDecision": {
+    "header": "The tribunal’s decision on your appeal",
+    "outcome": {
+      "decision_accepted": "Your appeal has been successful",
+      "decision_rejected": "Your appeal has not been successful"
+    },
+    "reasonsHeader": "A decision has been made on your PIP benefit appeal",
+    "postInfo": "<p>A 'Decision Notice' has been emailed to you and posted to your registered address.<p/> <p>Please note that we cannot give you your decision over the phone. This is to protect your personal information.</p>"
+  },
+  "hearingConfirm": {
+    "header": "A new tribunal panel will decide your appeal",
+    "para": "A new tribunal panel will make a decision on your appeal. This may be different from the view already given.",
+    "legend": "Do you still want a hearing?",
+    "error": {
+      "title": "There are errors on this page",
+      "text": "You need to say whether you still want a hearing"
+    }
+  },
+  "hearingWhy": {
+    "header": "Explain why you want a hearing",
+    "info": "Your reasons do not affect your right to a hearing.",
+    "error": {
+      "empty": "You have not entered any information so you cannot submit your request for a hearing. Enter some information before saving.",
+      "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+    },
+    "booking": {
+      "header": "A hearing needs to be booked for your appeal",
+      "para1": "You'll receive an email with the details of your hearing by {{ responseDate }}.",
+      "para2": "If you require a hearing room with disabled access or any other support then please email the tribunal at ",
+      "para3": "Include your appeal reference number on any emails to the tribunal:",
+      "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_4/?pageurl="
+    }
+  },
+  "postEvidence": {
+    "header": "Posting evidence to the tribunal",
+    "info": "Post evidence to the address below.",
+    "postalAddress": "HMCTS SSCS<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF",
+    "screenReaderPostalAddress": "HMCTS SSCS PO Box 12626 Harlow CM20 9QF",
+    "para1": "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href='/coversheet'>download a new cover sheet here</a>, if you need one.",
+    "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
+    "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
+  },
+  "error": {
+    "error404": {
+      "header": "Sorry, this page could not be found"
+    },
+    "error500": {
+      "header": "Sorry, we're experiencing technical difficulties",
+      "content": "Please try again."
+    }
+  },
+  "general": {
+    "yes": "Yes",
+    "no": "No",
+    "continue": "Continue",
+    "backToQuestions": "Back to questions",
+    "back": "Back",
+    "exitService": "Exit Service",
+    "logo": "HMCTS Logo",
+    "signOut": "Sign out",
+    "delete": "Delete",
+    "serviceTitle": "Appeal a benefit decision",
+    "govUK": "GOV.UK",
+    "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
+    "tbc": "To be confirmed"
+  },
+  "errorSummary": {
+    "titleText": "There are errors on the page",
+    "descriptionText": "Please fix the errors before you continue"
+  },
+  "contactUsCor": {
+    "title": "Contact us",
+    "emailText": "You can request support by emailing",
+    "includeRefNum": "Please include your appeal reference number.",
+    "getBackIn": "We’ll get back to you within 2 days."
+  },
+  "contactUs": {
+    "title": "Contact us for help",
+    "webform": {
+      "title": "Send us a message",
+      "desc": "You’ll get a response by email within 2 working days.",
+      "link": "Send message (opens in a new window)"
+    },
+    "webchat": {
+      "title": "Web chat",
+      "desc": "Get some help by messaging an agent online.",
+      "link": "Start web chat (opens in a new window)",
+      "textChatDown": "The web chat service is temporarily unavailable, please try again later.",
+      "textChatWithAnAgent": "Start web chat (opens in a new window)",
+      "textNoAgentsAvailable": "No agents are available, please try again later.",
+      "textAllAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.",
+      "textChatClosed": "The web chat is now closed. Come back Monday to Friday 8:30am to 5pm. Or contact us using one of the ways below.",
+      "textChatAlreadyOpen": "A web chat window is already open.",
+      "textAdditional": "Monday to Friday, 8.30am to 5pm"
+    },
+    "telephone": {
+      "title": "Telephone",
+      "desc": "Talk to one of our agents now over the phone.",
+      "England": {
+        "desc": "Benefit appeals helpline (England and Wales)",
+        "phone": "Telephone: 0300 123 1142",
+        "availability": "Monday to Friday, 8:30am to 5pm",
+        "charges": "Find out about call charges"
+      },
+      "Scotland": {
+        "desc": "Benefit appeals helpline (Scotland)",
+        "phone": "Telephone: 0300 790 6234",
+        "availability": "Monday to Friday, 8:30am to 5pm",
+        "charges": "Find out about call charges"
+      }
+    }
+  },
+  "cookieBanner": {
+    "message": "HMCTS uses cookies to make the site simpler. ",
+    "link": "Find out more about cookies"
+  },
+  "cookiePrivacy": {
+    "titleHead": "Cookie Policy - Appeal a benefit decision - GOV.UK",
+    "footer": {
+      "cookies": "Cookies"
+    },
+    "cookies": {
+      "title": "Cookies",
+      "description": "A cookie is a small piece of data that’s stored on your computer, tablet, or phone when you visit a website. Most websites need cookies to work properly."
+    },
+    "usedInService": {
+      "title": "How cookies are used in this service",
+      "uses": "This service uses them to:",
+      "usesList": [
+        "measure how you use the service so it can be improved",
+        "remember the notifications you’ve seen so that you’re not shown them again",
+        "temporarily store the answers you give"
+      ],
+      "more": "Find out more about ",
+      "manage": "how to manage cookies."
+    },
+    "howAreTheyUsed": {
+      "title": "Cookies used to measure website usage",
+      "description": "We use Google Analytics software to collect information about how you use this service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements, for example improving site search.",
+      "info": "Google Analytics stores information about:",
+      "infoList": [
+        "the pages you visit",
+        "how long you spend on each page",
+        "how you got to the service",
+        "what you click on while you’re visiting the service"
+      ],
+      "googleShare": "We allow Google to use or share this data. Find out more about how they use this information in the ",
+      "googlePrivacyPolicy": "Google privacy policy.",
+      "optOut": {
+        "youCan": "You can ",
+        "google": "opt out of Google Analytics ",
+        "access": "if you do not want Google to have access to your information."
+      },
+      "googleCookies": "Google Analytics sets the following cookies:",
+      "cookieTable": {
+        "columnNames": [
+          "Cookie name",
+          "What this cookie is for",
+          "Expires after"
+        ],
+        "items": [{
+          "name": "_ga",
+          "purpose": "This helps us count how many people visit the service by tracking if you’ve visited before",
+          "expires": "2 years"
+        }, {
+          "name": "_gid",
+          "purpose": "Identifies you to the service",
+          "expires": "24 hours"
+        }]
+      }
+    },
+    "introMessage": {
+      "title": "Cookies used to turn our introductory message off",
+      "description": "You may see a welcome message when you first visit the service. We’ll store a cookie so that your computer knows not to show this message again.",
+      "cookieTable": {
+        "columnNames": [
+          "Cookie name",
+          "What this cookie is for",
+          "Expires after"
+        ],
+        "items": [{
+          "name": "seen_cookie_message",
+          "purpose": "Saves a message to let us know that you’ve seen our cookie message",
+          "expires": "1 month"
+        }]
+      }
+    },
+    "sessionCookie": {
+      "title": "Cookies used to store the answers you’ve given during your visit (known as a ‘session’)",
+      "description": "Session cookies are stored on your computer as you browse a website, and let the website know what you’ve seen and done so far. These are temporary cookies and are automatically deleted after you leave the website.",
+      "cookieTable": {
+        "columnNames": [
+          "Cookie name",
+          "What this cookie is for",
+          "Expires after"
+        ],
+        "items": [{
+          "name": "connect.sid",
+          "purpose": "Keeps track of your answers",
+          "expires": "When you close your browser"
+        }, {
+          "name": "ARRAffinity",
+          "purpose": "To know which internal IP a request should be routed to. ",
+          "expires": "When you close your browser"
+        }]
+      }
+    }
+  },
+  "cookieTimeOut": {
+    "modal": {
+      "title": "Do you want more time to continue?",
+      "body": ["Your session will expire in", "minutes and you will be signed out."],
+      "info": "You will lose any unsaved information you have entered.",
+      "extend": "Stay signed in ",
+      "cancel": "Sign out"
+    }
+  },
+  "additionalEvidence": {
+    "evidenceOptions": {
+      "header": "How do you want to provide additional evidence?"
+    },
+    "evidenceStatement": {
+      "header": "Write your statement",
+      "description": "A useful statement describes how your condition affects your life, including the activities you can and can’t do.",
+      "placeholder": "You can write as much as you want",
+      "label": "Additional statement filed",
+      "button": "Submit your statement to the tribunal"
+    },
+    "evidenceUpload": {
+      "header": "Upload additional evidence",
+      "description": {
+        "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
+        "para2": "Useful evidence describes or shows how your condition affects your life. <a href='/about-evidence'><br/>Read more about what evidence the tribunal finds useful</a>"
+      },
+      "error": {
+        "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
+        "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading."
+      }
+    },
+    "evidencePost": {
+      "header": "Posting evidence to the tribunal",
+      "subtitle": "Post your evidence to the address below as soon as possible. This is so the tribunal have time to read it before they make a decision on your appeal.",
+      "description": {
+        "para1": "Write your appeal reference number on any evidence you send in:",
+        "para2": "Send an email to <a href='mailto:pipappeals@justice.gov.uk'>pipappeals@justice.gov.uk</a> briefly describing what you are sending and when you think it will arrive."
+      }
+    },
+    "evidenceConfirm": {
+      "header": "You have submitted additional evidence",
+      "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
+      "link": "Return to Your PIP benefit appeal"
+    },
+    "about": {
+      "header": "Providing evidence to support your appeal",
+      "leadParagraph": "Evidence is any information that supports your appeal, such as a letter, written statement or medical report. It all helps the tribunal understand the facts of your appeal.",
+      "intro": {
+        "para1": "You should provide evidence as soon as you can, if you have any. This is so the tribunal have time to consider it before making a decision on your benefit appeal.",
+        "para2": "You can provide evidence online or by post. Find out more about how to provide it at the bottom of this page."
+      },
+      "types": {
+        "medical": {
+          "header": "Medical evidence",
+          "para1": "This type of evidence helps the tribunal understand your condition from the perspective of a medical professional. For example, letters you have from your hospital consultant, doctor, physiotherapist or social worker. A useful letter explains how your condition affects your life at the time of the decision by DWP. Appointment letters are not useful.",
+          "para2": "If you don’t have any letters and you think one will help your appeal, you could ask the medical professional who has been treating your condition to write one. Please be aware they may charge you for this and they can take a long time to organise. The tribunal can’t pay for these."
+        },
+        "statement": {
+          "header": "Written statement",
+          "para1": "Someone who lives with you or knows you well could write a statement. A useful statement describes how your condition affects your life and includes the types of activities you can and can’t do. It should be their own view.",
+          "para2": "It can written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you."
+        },
+        "photographic": {
+          "header": "Photographic evidence",
+          "para1": "A useful photo will show how your condition affects your life, for example you could take a picture of any aids you use to help you move. Don’t send in photos of your body."
+        },
+        "oral": {
+          "header": "Oral evidence",
+          "para1": "What you or anyone else says at a hearing (if you have one) is called ‘oral evidence’. The tribunal will use what is said to help them make a decision on your appeal.",
+          "para2": "If you have a hearing then you could invite someone who knows you well to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day."
         }
+      },
+      "howto": {
+        "header": "How to provide evidence to the tribunal",
+        "para1": "You can provide evidence to the tribunal by:",
+        "options": "<ul><li>writing a message online</li><li>uploading files, documents or photos</li><li>sending it by post</li></ul>",
+        "cta": "<a href='/additional-evidence'>Provide evidence to the tribunal</a>"
+      }
+    }
+  },
+  "yourDetails": {
+    "header": "Your details",
+    "contact": "If any of your details are incorrect, contact us below.",
+    "nameLabel": "Name",
+    "addressLabel": "Address",
+    "phoneLabel": "Contact phone number",
+    "emailLabel": "email address for updates",
+    "mobileLabel": "text message updates",
+    "contactPhoneLabel": "Contact mobile"
+  },
+  "contact": {
+    "phone": "Appellant contact phone number",
+    "mobile": "Appellant contact mobile number",
+    "email": "Appellant contact email address"
+  },
+  "statusTab": {
+    "tabHeader": "Status",
+    "header": "Status of your appeal",
+    "panelHeader": "Latest update"
+  },
+  "provideEvidenceTab": {
+    "tabHeader": "Provide Evidence",
+    "header": "Provide evidence to the tribunal",
+    "corCase": {
+      "header": "Information requested by the tribunal",
+      "noQuestions": "The tribunal have not requested any information from you. You will receive an email if they do."
     },
     "additionalEvidence": {
-        "evidenceOptions": {
-            "header": "How do you want to provide additional evidence?"
-        },
-        "evidenceStatement": {
-            "header": "Write your statement",
-            "description": "A useful statement describes how your condition affects your life, including the activities you can and can’t do.",
-            "placeholder": "You can write as much as you want",
-            "label": "Additional statement filed",
-            "button": "Submit your statement to the tribunal"
-        },
-        "evidenceUpload": {
-            "header": "Upload additional evidence",
-            "description": {
-                "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
-                "para2": "Useful evidence describes or shows how your condition affects your life. <a href='/about-evidence'><br/>Read more about what evidence the tribunal finds useful</a>"
-            },
-            "error": {
-                "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
-                "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading."
-            }
-        },
-        "evidencePost": {
-            "header": "Posting evidence to the tribunal",
-            "subtitle": "Post your evidence to the address below as soon as possible. This is so the tribunal have time to read it before they make a decision on your appeal.",
-            "description": {
-                "para1": "Write your appeal reference number on any evidence you send in:",
-                "para2": "Send an email to <a href='mailto:pipappeals@justice.gov.uk'>pipappeals@justice.gov.uk</a> briefly describing what you are sending and when you think it will arrive."
-            }
-        },
-        "evidenceConfirm": {
-            "header": "You have submitted additional evidence",
-            "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
-            "link": "Return to Your PIP benefit appeal"
-        },
-        "about": {
-            "header": "Providing evidence to support your appeal",
-            "leadParagraph": "Evidence is any information that supports your appeal, such as a letter, written statement or medical report. It all helps the tribunal understand the facts of your appeal.",
-            "intro": {
-                "para1": "You should provide evidence as soon as you can, if you have any. This is so the tribunal have time to consider it before making a decision on your benefit appeal.",
-                "para2": "You can provide evidence online or by post. Find out more about how to provide it at the bottom of this page."
-            },
-            "types": {
-                "medical": {
-                    "header": "Medical evidence",
-                    "para1": "This type of evidence helps the tribunal understand your condition from the perspective of a medical professional. For example, letters you have from your hospital consultant, doctor, physiotherapist or social worker. A useful letter explains how your condition affects your life at the time of the decision by DWP. Appointment letters are not useful.",
-                    "para2": "If you don’t have any letters and you think one will help your appeal, you could ask the medical professional who has been treating your condition to write one. Please be aware they may charge you for this and they can take a long time to organise. The tribunal can’t pay for these."
-                },
-                "statement": {
-                    "header": "Written statement",
-                    "para1": "Someone who lives with you or knows you well could write a statement. A useful statement describes how your condition affects your life and includes the types of activities you can and can’t do. It should be their own view.",
-                    "para2": "It can written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you."
-                },
-                "photographic": {
-                    "header": "Photographic evidence",
-                    "para1": "A useful photo will show how your condition affects your life, for example you could take a picture of any aids you use to help you move. Don’t send in photos of your body."
-                },
-                "oral": {
-                    "header": "Oral evidence",
-                    "para1": "What you or anyone else says at a hearing (if you have one) is called ‘oral evidence’. The tribunal will use what is said to help them make a decision on your appeal.",
-                    "para2": "If you have a hearing then you could invite someone who knows you well to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day."
-                }
-            },
-            "howto": {
-                "header": "How to provide evidence to the tribunal",
-                "para1": "You can provide evidence to the tribunal by:",
-                "options": "<ul><li>writing a message online</li><li>uploading files, documents or photos</li><li>sending it by post</li></ul>",
-                "cta": "<a href='/additional-evidence'>Provide evidence to the tribunal</a>"
-            }
-        }
-    },
-    "yourDetails": {
-        "header": "Your details",
-        "contact": "If any of your details are incorrect, contact us below.",
-        "nameLabel": "Name",
-        "addressLabel": "Address",
-        "emailLabel": "Email address",
-        "phoneLabel": "Contact phone number",
-        "mobileLabel": "Text message updates"
-
-    },
-    "statusTab": {
-        "tabHeader": "Status",
-        "header": "Status of your appeal",
-        "panelHeader": "Latest update"
-    },
-    "provideEvidenceTab": {
-        "tabHeader": "Provide Evidence",
-        "header": "Provide evidence to the tribunal",
-        "corCase": {
-            "header": "Information requested by the tribunal",
-            "noQuestions": "The tribunal have not requested any information from you. You will receive an email if they do."
-        },
-        "additionalEvidence": {
-            "header": "Send evidence to the tribunal",
-            "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit it here</a>."
-        }
-    },
-    "hearingTab": {
-        "tabHeader": "Hearing",
-        "header": "The hearing for your appeal",
-        "noHearingDate": "You will receive an email when your hearing has been booked.",
-        "notAttendingDescription": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
-        "toBeConfirmed": "To be confirmed",
-        "mapsAndDirections": "Maps and directions",
-        "languageInterpreter": "Language interpreter",
-        "signInterpreter": "Sign interpreter",
-        "hearingLoop": "Hearing loop",
-        "disableAccess": "Disable access",
-        "otherArrangements": "Any other arrangements",
-        "tribunalLookLike": "Find out what a tribunal hearing is like if you attend",
-        "contactIfChanges": "If you need to make any changes or you cannot attend, contact us below.",
-        "notAttending": {
-            "info": "You have chosen not to attend your hearing.",
-            "description": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
-            "contactToAttend": "If you need to make any changes or you cannot attend, contact us below."
-        },
-        "required": "Required",
-        "notRequired": "Not required"
-    },
-    "historyTab": {
-        "tabHeader": "History",
-        "header": "History of your appeal"
-    },
-    "appealEvents": {
-        "ADJOURNED": {
-            "heading": "Hearing didn't take place",
-            "content": {
-                "oral": [
-                    "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
-                    "You will receive another email or text message when your new hearing has been booked."
-                ],
-                "paper": [
-                    "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
-                    "You will receive another email or text message when your new hearing has been booked."
-                ]
-            }
-        },
-        "APPEAL_RECEIVED": {
-            "heading": "Appeal Received",
-            "content": {
-                "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
-                "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
-            }
-        },
-        "CLOSED": {
-            "heading": "Appeal closed",
-            "content": {
-                "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
-                "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
-            }
-        },
-        "DORMANT": {
-            "heading": "Hearing took place",
-            "content": {
-                "oral": [
-                    "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
-                    "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
-                ],
-                "paper": [
-                    "The tribunal have reviewed all the information you and {{appeal.benefitType | agencyAcronym}} have provided and have reached a decision on your {{appeal.benefitType}} appeal.",
-                    "The decision notice has been posted to you. This has the tribunal's decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
-                    "Please note we cannot give you your decision over the phone. This is to protect your personal information."
-                ]
-            }
-        },
-        "DWP_RESPOND": {
-            "heading": "{{appeal.benefitType | agencyAcronym}} response",
-            "content": {
-                "oral": [
-                    "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitAcronym}} benefit appeal. They should have sent you a copy of their response in the post.",
-                    "You do not need to do anything. You will receive another email or text message update when your hearing has been booked. Unfortunately we cannot say how long this will be but it may be several months."
-                ],
-                "paper": [
-                    "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitAcronym}} appeal. They should have sent you a copy in the post. Read their response and send your comments to the tribunal, if you have any.",
-                    "A tribunal panel made up of {{appeal.benefitType|panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
-                ]
-            }
-        },
-        "DWP_RESPOND_OVERDUE": {
-            "heading": "{{appeal.benefitType | agencyAcronym}} response overdue",
-            "content": {
-                "oral": [
-                    "{{appeal.benefitType | agencyAcronym}} were due to respond to your appeal but they have not yet done so. You do not have to do anything. We’ve contacted them again to ask them to respond. We’ll let you know when they do."
-                ],
-                "paper": [
-                    "{{appeal.benefitType | agencyAcronym}} were due to respond to your appeal but they have not yet done so. You do not have to do anything. We’ve contacted them again to ask them to respond. We’ll let you know when they do."
-                ]
-            }
-        },
-        "EVIDENCE_RECEIVED": {
-            "heading": "Evidence received",
-            "content": {
-                "oral": ["The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."],
-                "paper": ["The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."]
-            }
-        },
-        "HEARING": {
-            "heading": "Hearing took place",
-            "content": {
-                "oral": [
-                    "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
-                    "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
-                ],
-                "paper": [
-                    "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
-                    "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
-                ]
-            }
-        },
-        "HEARING_BOOKED": {
-            "heading": "Hearing booked",
-            "content": {
-                "oral": ["A hearing has been booked for your appeal."],
-                "paper": ["A hearing has been booked for your appeal."]
-            }
-        },
-        "LAPSED_REVISED": {
-            "heading": "Change of decision",
-            "content": {
-                "oral": [
-                    "{{appeal.benefitType | agencyAcronym}} have told us they changed their decision on your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal. If you don’t agree with their new decision you can start a new appeal.",
-                    "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
-                ],
-                "paper": [
-                    "{{appeal.benefitType | agencyAcronym}} has told us they changed their decision about your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal.",
-                    "If you don’t agree with their new decision you can start a new appeal: <a href=\"https://www.gov.uk/appeal-benefit-decision\">https://www.gov.uk/appeal-benefit-decision</a>",
-                    "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
-                ]
-            }
-        },
-        "NEW_HEARING_BOOKED": {
-            "heading": "New hearing booked",
-            "content": {
-                "oral": ["A new hearing has been booked for your appeal."],
-                "paper": ["A new hearing has been booked for your appeal."]
-            }
-        },
-        "PAST_HEARING_BOOKED": {
-            "heading": "Still booking a hearing",
-            "content": {
-                "oral": ["We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."],
-                "paper": ["We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."]
-            }
-        },
-        "POSTPONED": {
-            "heading": "Hearing postponed",
-            "content": {
-                "oral": [
-                    "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
-                    "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
-                ],
-                "paper": [
-                    "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
-                    "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
-                ]
-            }
-        },
-        "WITHDRAWN": {
-            "heading": "Appeal withdrawn",
-            "content": {
-                "oral": [
-                    "You told us you wanted to withdraw your appeal so we’ve closed it.",
-                    "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
-                ],
-                "paper": [
-                    "You told us you wanted to withdraw your appeal so we’ve closed it.",
-                    "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
-                ]
-            }
-        },
-        "SYA_APPEAL_CREATED": {
-            "heading": "Appeal created TBC",
-            "content": {
-                "cor": [
-                    "Content TBC"
-                ]
-            }
-        }
-    },
-    "benefitTypes": {
-        "esa": {
-            "acronym": "ESA",
-            "fullDescription": "Employment and Support Allowance (ESA)",
-            "agency": "Department for Work and Pensions",
-            "agencyAcronym": "DWP",
-            "panel": "a judge and a doctor"
-        },
-        "pip": {
-            "acronym": "PIP",
-            "fullDescription": "Personal Independence Payment (PIP)",
-            "agency": "Department for Work and Pensions",
-            "agencyAcronym": "DWP",
-            "panel": "a judge, doctor and disability expert"
-        }
-    },
-    "helpGuides": {
-        "header": "Help and support",
-        "evidence": {
-            "title": "Providing evidence to support your appeal",
-            "entry": "Evidence is any information that supports your side of the appeal, such as a letter, written statement or medical report. It can help the tribunal understand the facts of your appeal. You do not have to send in evidence but it can help your appeal.",
-            "para1": "You should send any evidence to the tribunal as soon as you can. This is so the tribunal have time to consider it before making a decision on your appeal.",
-            "medicalEvidenceTitle": "Medical evidence",
-            "medicalEvidenceDesc": {
-                "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. It should also be focussed on the time that DWP made their decision about your entitlement to the benefit. Letters which just show you had an appointment are not useful.",
-                "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
-            },
-            "writtenStatementTitle": "Written statement",
-            "writtenStatementDesc": {
-                "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. It should also be focussed on the time that the DWP made their decision about your entitlement to benefits. ",
-                "para2": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
-            },
-            "photographsTitle": "Photographs",
-            "photographsDesc": {
-                "para1": "Sometimes a photo can be useful to help the tribunal panel see how your medical condition affects your life. For example, you could take a picture of any modifications in your home or aids you use to help you move. Do not send in any photos of your body. "
-            },
-            "whatYouSayTitle": "What you say at the hearing",
-            "whatYouSayDesc": {
-                "para1": "What you say at the hearing can be the most useful form of evidence. The tribunal will listen to what you say to help them make a decision on your appeal.",
-                "para2": "If you have a carer or someone who supports you at home, you could ask them to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day. "
-            },
-            "sendingEvidenceTitle": "Sending evidence to the tribunal",
-            "sendingEvidenceDesc": {
-                "para1": "Post your evidence to the address below, as soon as possible. This is so the tribunal have time to read it before they make a decision.",
-                "para2": "Make sure you include the ‘document cover sheet’. This helps us match your evidence with your appeal. You received this cover sheet in the first letter that was sent to you about your appeal.",
-                "para3": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
-            }
-        },
-        "claimExpenses": {
-            "title": "Claiming expenses to attend your hearing",
-            "entry": "You may be able to claim back some of the money you spend on attending your hearing.",
-            "para1": "You should use public transport where possible. Keep your travel tickets and bring them with you to your hearing. You’ll be given a claim form to fill out by the tribunal clerk.",
-            "para2": "If you have a health condition or disability which means you can’t get yourself to the hearing then you might be able to claim for a taxi. You’ll need to get authorisation first by phoning 0300 123 1142."
-        },
-        "hearing": {
-            "title": "What to expect at your appeal hearing",
-            "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the Department of Work and Pensions (DWP).",
-            "imageText": "A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.",
-            "beforeHearingTitle": "Before your hearing",
-            "beforeHearingDesc": {
-                "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
-                "para2": "You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. "
-            },
-            "arriveTitle": "When you arrive",
-            "arriveDesc": {
-                "para1": "You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href='support-hearing-expenses'>Read about claiming expenses for your hearing.</a>"
-            },
-            "hearingRoomTitle": "The hearing room",
-            "hearingRoomDesc": {
-                "para1": "The tribunal clerk will take you into the hearing room. The tribunal panel will be sat behind a table. You’ll be invited to sit opposite them. If you have someone to support you or to give evidence, they’ll sit next to you."
-            },
-            "peopleInTheRoomTitle": "The people at your hearing",
-            "peopleInTheRoomDesc": {
-                "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP.",
-                "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people."
-            },
-            "duringHearingTitle": "During your hearing",
-            "duringHearingDesc": {
-                "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour.",
-                "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
-            },
-            "gettingDecisionTitle": "Getting a decision",
-            "gettingDecisionDesc": {
-                "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.",
-                "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level.",
-                "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
-            },
-            "dwpTitle": "Department for Work and Pensions (DWP)",
-            "dwpDesc": {
-                "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits."
-            }
-        },
-        "representatives": {
-            "linkHeader": "Representatives",
-            "title": "Representatives",
-            "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
-            "what": "A representative can:",
-            "whatList": {
-                "item1": "give you advice in relation to your appeal",
-                "item2": "help you submit your appeal or prepare evidence",
-                "item3": "act on your behalf during the appeal (they should ask your permission first)"
-            },
-            "para1": "Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. ",
-            "para2": "You can get a representative at your local advice centre, law centre or <a href='https://www.citizensadvice.org.uk/'>Citizens Advice</a> You will need to register them with the tribunal.",
-            "representative": {
-                "title": "Registering a representative",
-                "para1": "You can register someone as your representative by phoning the tribunal:",
-                "para2": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234",
-                "para3": "Have your representative's name and address ready before you call. If you want them to receive updates on your appeal then you will also need to provide their email address and phone number."
-            }
-        },
-        "withdrawAppeal": {
-            "linkHeader": "Withdrawing an appeal",
-            "title": "Withdrawing your appeal",
-            "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
-            "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
-            "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible, by calling the number below:",
-            "para3": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234"
-        },
-        "relatedLinks": {
-            "title": "Related guidance",
-            "supportEvidence": "Providing evidence to support your appeal",
-            "supportHearing": "What to expect at your hearing",
-            "supportHearingExpenses": "Claiming hearing expenses",
-            "supportWithdrawAppeal": "Withdrawing your appeal",
-            "supportRepresentatives": "Representatives"
-        }
-    },
-    "selectCase": {
-        "title": "Select Case",
-        "heading": "Your benefit appeals",
-        "appealReference": "Appeal reference",
-        "benefit": "Benefit",
-        "dateSubmitted": "Date submitted",
-        "mrnDate": "MRN date",
-        "action": "Action",
-        "view": "View"
-    },
-    "assignCase": {
-        "title": "Enter your postcode",
-        "message": "This is so we can check it's your appeal",
-        "errors": {
-            "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
-            "invalidPostcode": "The postcode you have entered is invalid. Please check it and try again.",
-            "postcodeDoesNotMatch": "The postcode you have entered does not match our records. Enter the postcode of the person who is named on the appeal."
-        }
+      "header": "Send evidence to the tribunal",
+      "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit it here</a>."
     }
+  },
+  "hearingTab": {
+    "tabHeader": "Hearing",
+    "header": "The hearing for your appeal",
+    "noHearingDate": "You will receive an email when your hearing has been booked.",
+    "notAttendingDescription": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
+    "toBeConfirmed": "To be confirmed",
+    "mapsAndDirections": "Maps and directions",
+    "languageInterpreter": "Language interpreter",
+    "signInterpreter": "Sign interpreter",
+    "hearingLoop": "Hearing loop",
+    "disableAccess": "Disable access",
+    "otherArrangements": "Any other arrangements",
+    "tribunalLookLike": "Find out what a tribunal hearing is like if you attend",
+    "contactIfChanges": "If you need to make any changes or you cannot attend, contact us below.",
+    "notAttending": {
+      "info": "You have chosen not to attend your hearing.",
+      "description": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
+      "contactToAttend": "If you need to make any changes or you cannot attend, contact us below."
+    },
+    "required": "Required",
+    "notRequired": "Not required"
+  },
+  "historyTab": {
+    "tabHeader": "History",
+    "header": "History of your appeal"
+  },
+  "appealEvents": {
+    "ADJOURNED": {
+      "heading": "Hearing didn't take place",
+      "content": {
+        "oral": [
+          "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
+          "You will receive another email or text message when your new hearing has been booked."
+        ],
+        "paper": [
+          "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
+          "You will receive another email or text message when your new hearing has been booked."
+        ]
+      }
+    },
+    "APPEAL_RECEIVED": {
+      "heading": "Appeal Received",
+      "content": {
+        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
+        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+      }
+    },
+    "CLOSED": {
+      "heading": "Appeal closed",
+      "content": {
+        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
+        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+      }
+    },
+    "DORMANT": {
+      "heading": "Hearing took place",
+      "content": {
+        "oral": [
+          "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+          "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+        ],
+        "paper": [
+          "The tribunal have reviewed all the information you and {{appeal.benefitType | agencyAcronym}} have provided and have reached a decision on your {{appeal.benefitType}} appeal.",
+          "The decision notice has been posted to you. This has the tribunal's decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
+          "Please note we cannot give you your decision over the phone. This is to protect your personal information."
+        ]
+      }
+    },
+    "DWP_RESPOND": {
+      "heading": "{{appeal.benefitType | agencyAcronym}} response",
+      "content": {
+        "oral": [
+          "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitAcronym}} benefit appeal. They should have sent you a copy of their response in the post.",
+          "You do not need to do anything. You will receive another email or text message update when your hearing has been booked. Unfortunately we cannot say how long this will be but it may be several months."
+        ],
+        "paper": [
+          "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitAcronym}} appeal. They should have sent you a copy in the post. Read their response and send your comments to the tribunal, if you have any.",
+          "A tribunal panel made up of {{appeal.benefitType|panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
+        ]
+      }
+    },
+    "DWP_RESPOND_OVERDUE": {
+      "heading": "{{appeal.benefitType | agencyAcronym}} response overdue",
+      "content": {
+        "oral": [
+          "{{appeal.benefitType | agencyAcronym}} were due to respond to your appeal but they have not yet done so. You do not have to do anything. We’ve contacted them again to ask them to respond. We’ll let you know when they do."
+        ],
+        "paper": [
+          "{{appeal.benefitType | agencyAcronym}} were due to respond to your appeal but they have not yet done so. You do not have to do anything. We’ve contacted them again to ask them to respond. We’ll let you know when they do."
+        ]
+      }
+    },
+    "EVIDENCE_RECEIVED": {
+      "heading": "Evidence received",
+      "content": {
+        "oral": ["The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."],
+        "paper": ["The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."]
+      }
+    },
+    "HEARING": {
+      "heading": "Hearing took place",
+      "content": {
+        "oral": [
+          "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+          "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+        ],
+        "paper": [
+          "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+          "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+        ]
+      }
+    },
+    "HEARING_BOOKED": {
+      "heading": "Hearing booked",
+      "content": {
+        "oral": ["A hearing has been booked for your appeal."],
+        "paper": ["A hearing has been booked for your appeal."]
+      }
+    },
+    "LAPSED_REVISED": {
+      "heading": "Change of decision",
+      "content": {
+        "oral": [
+          "{{appeal.benefitType | agencyAcronym}} have told us they changed their decision on your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal. If you don’t agree with their new decision you can start a new appeal.",
+          "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+        ],
+        "paper": [
+          "{{appeal.benefitType | agencyAcronym}} has told us they changed their decision about your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal.",
+          "If you don’t agree with their new decision you can start a new appeal: <a href=\"https://www.gov.uk/appeal-benefit-decision\">https://www.gov.uk/appeal-benefit-decision</a>",
+          "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+        ]
+      }
+    },
+    "NEW_HEARING_BOOKED": {
+      "heading": "New hearing booked",
+      "content": {
+        "oral": ["A new hearing has been booked for your appeal."],
+        "paper": ["A new hearing has been booked for your appeal."]
+      }
+    },
+    "PAST_HEARING_BOOKED": {
+      "heading": "Still booking a hearing",
+      "content": {
+        "oral": ["We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."],
+        "paper": ["We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."]
+      }
+    },
+    "POSTPONED": {
+      "heading": "Hearing postponed",
+      "content": {
+        "oral": [
+          "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
+          "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
+        ],
+        "paper": [
+          "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
+          "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
+        ]
+      }
+    },
+    "WITHDRAWN": {
+      "heading": "Appeal withdrawn",
+      "content": {
+        "oral": [
+          "You told us you wanted to withdraw your appeal so we’ve closed it.",
+          "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+        ],
+        "paper": [
+          "You told us you wanted to withdraw your appeal so we’ve closed it.",
+          "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+        ]
+      }
+    },
+    "SYA_APPEAL_CREATED": {
+      "heading": "Appeal created TBC",
+      "content": {
+        "cor": [
+          "Content TBC"
+        ]
+      }
+    }
+  },
+  "benefitTypes": {
+    "esa": {
+      "acronym": "ESA",
+      "fullDescription": "Employment and Support Allowance (ESA)",
+      "agency": "Department for Work and Pensions",
+      "agencyAcronym": "DWP",
+      "panel": "a judge and a doctor"
+    },
+    "pip": {
+      "acronym": "PIP",
+      "fullDescription": "Personal Independence Payment (PIP)",
+      "agency": "Department for Work and Pensions",
+      "agencyAcronym": "DWP",
+      "panel": "a judge, doctor and disability expert"
+    }
+  },
+  "helpGuides": {
+    "header": "Help and support",
+    "evidence": {
+      "title": "Providing evidence to support your appeal",
+      "entry": "Evidence is any information that supports your side of the appeal, such as a letter, written statement or medical report. It can help the tribunal understand the facts of your appeal. You do not have to send in evidence but it can help your appeal.",
+      "para1": "You should send any evidence to the tribunal as soon as you can. This is so the tribunal have time to consider it before making a decision on your appeal.",
+      "medicalEvidenceTitle": "Medical evidence",
+      "medicalEvidenceDesc": {
+        "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. It should also be focussed on the time that DWP made their decision about your entitlement to the benefit. Letters which just show you had an appointment are not useful.",
+        "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
+      },
+      "writtenStatementTitle": "Written statement",
+      "writtenStatementDesc": {
+        "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. It should also be focussed on the time that the DWP made their decision about your entitlement to benefits. ",
+        "para2": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
+      },
+      "photographsTitle": "Photographs",
+      "photographsDesc": {
+        "para1": "Sometimes a photo can be useful to help the tribunal panel see how your medical condition affects your life. For example, you could take a picture of any modifications in your home or aids you use to help you move. Do not send in any photos of your body. "
+      },
+      "whatYouSayTitle": "What you say at the hearing",
+      "whatYouSayDesc": {
+        "para1": "What you say at the hearing can be the most useful form of evidence. The tribunal will listen to what you say to help them make a decision on your appeal.",
+        "para2": "If you have a carer or someone who supports you at home, you could ask them to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day. "
+      },
+      "sendingEvidenceTitle": "Sending evidence to the tribunal",
+      "sendingEvidenceDesc": {
+        "para1": "Post your evidence to the address below, as soon as possible. This is so the tribunal have time to read it before they make a decision.",
+        "para2": "Make sure you include the ‘document cover sheet’. This helps us match your evidence with your appeal. You received this cover sheet in the first letter that was sent to you about your appeal.",
+        "para3": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
+      }
+    },
+    "claimExpenses": {
+      "title": "Claiming expenses to attend your hearing",
+      "entry": "You may be able to claim back some of the money you spend on attending your hearing.",
+      "para1": "You should use public transport where possible. Keep your travel tickets and bring them with you to your hearing. You’ll be given a claim form to fill out by the tribunal clerk.",
+      "para2": "If you have a health condition or disability which means you can’t get yourself to the hearing then you might be able to claim for a taxi. You’ll need to get authorisation first by phoning 0300 123 1142."
+    },
+    "hearing": {
+      "title": "What to expect at your appeal hearing",
+      "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the Department of Work and Pensions (DWP).",
+      "imageText": "A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.",
+      "beforeHearingTitle": "Before your hearing",
+      "beforeHearingDesc": {
+        "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
+        "para2": "You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. "
+      },
+      "arriveTitle": "When you arrive",
+      "arriveDesc": {
+        "para1": "You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href='support-hearing-expenses'>Read about claiming expenses for your hearing.</a>"
+      },
+      "hearingRoomTitle": "The hearing room",
+      "hearingRoomDesc": {
+        "para1": "The tribunal clerk will take you into the hearing room. The tribunal panel will be sat behind a table. You’ll be invited to sit opposite them. If you have someone to support you or to give evidence, they’ll sit next to you."
+      },
+      "peopleInTheRoomTitle": "The people at your hearing",
+      "peopleInTheRoomDesc": {
+        "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP.",
+        "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people."
+      },
+      "duringHearingTitle": "During your hearing",
+      "duringHearingDesc": {
+        "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour.",
+        "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
+      },
+      "gettingDecisionTitle": "Getting a decision",
+      "gettingDecisionDesc": {
+        "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.",
+        "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level.",
+        "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
+      },
+      "dwpTitle": "Department for Work and Pensions (DWP)",
+      "dwpDesc": {
+        "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits."
+      }
+    },
+    "representatives": {
+      "linkHeader": "Representatives",
+      "title": "Representatives",
+      "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
+      "what": "A representative can:",
+      "whatList": {
+        "item1": "give you advice in relation to your appeal",
+        "item2": "help you submit your appeal or prepare evidence",
+        "item3": "act on your behalf during the appeal (they should ask your permission first)"
+      },
+      "para1": "Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. ",
+      "para2": "You can get a representative at your local advice centre, law centre or <a href='https://www.citizensadvice.org.uk/'>Citizens Advice</a> You will need to register them with the tribunal.",
+      "representative": {
+        "title": "Registering a representative",
+        "para1": "You can register someone as your representative by phoning the tribunal:",
+        "para2": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234",
+        "para3": "Have your representative's name and address ready before you call. If you want them to receive updates on your appeal then you will also need to provide their email address and phone number."
+      }
+    },
+    "withdrawAppeal": {
+      "linkHeader": "Withdrawing an appeal",
+      "title": "Withdrawing your appeal",
+      "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
+      "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
+      "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible, by calling the number below:",
+      "para3": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234"
+    },
+    "relatedLinks": {
+      "title": "Related guidance",
+      "supportEvidence": "Providing evidence to support your appeal",
+      "supportHearing": "What to expect at your hearing",
+      "supportHearingExpenses": "Claiming hearing expenses",
+      "supportWithdrawAppeal": "Withdrawing your appeal",
+      "supportRepresentatives": "Representatives"
+    }
+  },
+  "selectCase": {
+    "title": "Select Case",
+    "heading": "Your benefit appeals",
+    "appealReference": "Appeal reference",
+    "benefit": "Benefit",
+    "dateSubmitted": "Date submitted",
+    "mrnDate": "MRN date",
+    "action": "Action",
+    "view": "View"
+  },
+  "assignCase": {
+    "title": "Enter your postcode",
+    "message": "This is so we can check it's your appeal",
+    "errors": {
+      "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
+      "invalidPostcode": "The postcode you have entered is invalid. Please check it and try again.",
+      "postcodeDoesNotMatch": "The postcode you have entered does not match our records. Enter the postcode of the person who is named on the appeal."
+    }
+  }
 }

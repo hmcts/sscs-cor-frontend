@@ -126,8 +126,9 @@ function getIdamCallback(
           return res.redirect(Paths.assignCase);
         } else if (hearings.length === 1) {
           req.session.hearing = hearings[0];
-          const { appeal } = await trackYourApealService.getAppeal(req.session.hearing.case_id, req);
+          const { appeal, subscriptions } = await trackYourApealService.getAppeal(req.session.hearing.case_id, req);
           req.session.appeal = appeal;
+          req.session.subscriptions = subscriptions;
 
           logger.info(`Logging in ${email}`);
           if (req.session.appeal.hearingType === 'cor') {
