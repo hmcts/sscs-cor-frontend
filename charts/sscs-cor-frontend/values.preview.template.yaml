@@ -20,4 +20,3 @@ nodejs:
     HTTP_PROTOCOL: http
     S2S_SECRET: ${S2S_SECRET}
     MYA_FEATURE_FLAG: "true"
-    RESTART: "."
