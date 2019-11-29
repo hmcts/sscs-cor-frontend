@@ -910,8 +910,8 @@
     "APPEAL_RECEIVED": {
       "heading": "Appeal Received",
       "content": {
-        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
-        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
+        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
       }
     },
     "CLOSED": {
