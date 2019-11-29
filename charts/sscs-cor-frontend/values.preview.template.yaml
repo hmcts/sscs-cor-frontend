@@ -1,9 +1,3 @@
-tags:
-  - idam-pr
-idam-pr:
-  redirect_uris:
-    SSCS COR:
-    - https://${SERVICE_FQDN}/sign-in # this is the application callback URL where IDAM will send back the authentication code. SERVICE_FQDN is injected by Jenkins.
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
