@@ -117,6 +117,33 @@ HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=htt
 
 Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
 
+### Running app locally via terminal
+Open a terminal, go to the sscs-cor-frontend directory. Set env vars in a terminal
+
+```
+export SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal
+export HTTP_PROXY=http://proxyout.reform.hmcts.net:8080
+export COH_URL=http://coh-cor-aat.service.core-compute-aat.internal
+export S2S_SECRET=44*****
+export S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+export IDAM_API_URL=http://idam-api.aat.platform.hmcts.net
+export IDAM_URL=http://idam-web-public.aat.platform.hmcts.net
+export HTTP_PROTOCOL=http
+export TRIBUNALS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal
+export IDAM_CLIENT_SECRET=K6******
+export NODE_ENV=preview
+export MYA_FEATURE_FLAG=true
+export EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED=true
+export EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED=false
+export ADDITIONAL_EVIDENCE_FEATURE_FLAG=true
+```
+then do 
+```
+yarn build
+yarn start
+```
+and go to http://localhost:3000
+
 ### Creating test data in AAT
 
 You can easily create a benefit appeal in CCD with online panel and associate it with an online hearing. The hearing will have three questions and the question round will be issued.
