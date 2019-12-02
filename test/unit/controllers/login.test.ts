@@ -31,7 +31,7 @@ describe('controllers/login', () => {
       body: {
         'email-address': 'test@example.com'
       },
-      protocol: 'http',
+      protocol: 'https',
       hostname: 'localhost',
       query: { redirectUrl : '', tya: 'tya-number' },
       cookies: {}
@@ -89,23 +89,23 @@ describe('controllers/login', () => {
     it('builds correct url', () => {
 
       const idamServiceStub = {
-        getRedirectUrl: sinon.stub().withArgs('http', 'localhost').returns('http://redirect_url')
+        getRedirectUrl: sinon.stub().withArgs('https', 'localhost').returns('https://redirect_url')
       } as IdamService;
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
-      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs_cor&response_type=code&state=tya-number');
+      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=https%3A%2F%2Fredirect_url&client_id=sscs_cor&response_type=code&state=tya-number');
     });
 
     it('builds correct sign in url', () => {
 
       const idamServiceStub = {
-        getRedirectUrl: sinon.stub().withArgs('http', 'localhost').returns('http://redirect_url')
+        getRedirectUrl: sinon.stub().withArgs('https', 'localhost').returns('https://redirect_url')
       } as IdamService;
       req.query = { redirectUrl : '', state: 'state-value' };
 
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
-      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs_cor&response_type=code&state=state-value');
+      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=https%3A%2F%2Fredirect_url&client_id=sscs_cor&response_type=code&state=state-value');
     });
   });
 
@@ -129,7 +129,7 @@ describe('controllers/login', () => {
         req.query = { 'code': 'someCode', 'state': 'tya-number' };
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getToken: sinon.stub().withArgs('someCode', 'https', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
         hearingServiceStub = {
@@ -161,7 +161,7 @@ describe('controllers/login', () => {
         };
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getToken: sinon.stub().withArgs('someCode', 'https', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
         hearingServiceStub = {
@@ -189,7 +189,7 @@ describe('controllers/login', () => {
         req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getToken: sinon.stub().withArgs('someCode', 'https', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
         hearingServiceStub = {
@@ -222,7 +222,7 @@ describe('controllers/login', () => {
         req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getToken: sinon.stub().withArgs('someCode', 'https', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
         hearingServiceStub = {
@@ -255,7 +255,7 @@ describe('controllers/login', () => {
         req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getToken: sinon.stub().withArgs('someCode', 'https', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
         hearingServiceStub = {
@@ -302,7 +302,7 @@ describe('controllers/login', () => {
         req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getToken: sinon.stub().withArgs('someCode', 'https', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
         } as IdamService;
         hearingServiceStub = {
@@ -361,7 +361,7 @@ describe('controllers/login', () => {
         let accessToken = 'someAccessToken';
 
         idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getToken: sinon.stub().withArgs('someCode', 'https', 'localhost').resolves({ 'access_token': accessToken }),
           getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' }),
           getRegisterUrl: sinon.stub().withArgs('http', 'localhost').returns(registerUrl)
         } as IdamService;
@@ -418,7 +418,7 @@ describe('controllers/login', () => {
       const redirectToIdam = sinon.stub();
       let accessToken = 'someAccessToken';
       const idamServiceStub = {
-        getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+        getToken: sinon.stub().withArgs('someCode', 'https', 'localhost').resolves({ 'access_token': accessToken }),
         getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
       } as IdamService;
       const hearingServiceStub = {
