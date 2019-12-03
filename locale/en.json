@@ -475,17 +475,17 @@
               "text": "Cannot plan the route of a journey",
               "score": 8
             },
-            "12": {
-              "text": "Cannot follow the route of an unfamiliar journey without another person, assistance dog or orientation aid",
-              "score": 12
-            },
             "10.0": {
-              "text": "Cannot undertake any journey because it would cause overwhelming psychological distress to the claimant",
+              "text": "Cannot follow the route of an unfamiliar journey without another person, assistance dog or orientation aid",
               "score": 10
             },
             "10.1": {
-              "text": "Cannot follow the route of a familiar journey without another person, an assistance dog or an orientation aid",
+              "text": "Cannot undertake any journey because it would cause overwhelming psychological distress to the claimant",
               "score": 10
+            },
+            "12": {
+              "text": "Cannot follow the route of a familiar journey without another person, an assistance dog or an orientation aid",
+              "score": 12
             }
           }
         },
