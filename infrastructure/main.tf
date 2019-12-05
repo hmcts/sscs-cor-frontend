@@ -38,6 +38,11 @@ data "azurerm_key_vault_secret" "sscs-s2s-secret" {
   vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
 }
 
+data "azurerm_key_vault_secret" "appinsights_instrumentation_key" {
+  name      = "AppInsightsInstrumentationKey"
+  vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
+}
+
 module "sscs-cor-frontend" {
   source               = "git@github.com:hmcts/cnp-module-webapp?ref=master"
   product              = "${var.product}-${var.component}"
@@ -71,6 +76,7 @@ module "sscs-cor-frontend" {
     ADDITIONAL_EVIDENCE_FEATURE_FLAG               = "${var.additional_evidence_feature_flag}"
     FORCE_CHANGE                                   = "true"
     TRIBUNALS_API_URL                              = "${var.tribunals_api_url}"
+    APPINSIGHTS_INSTRUMENTATIONKEY = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
   }
 }
 
