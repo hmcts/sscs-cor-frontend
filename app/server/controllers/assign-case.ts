@@ -39,8 +39,8 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
       });
     }
 
+    body.case_reference = (body.case_reference) ? body.case_reference : body.case_id.toString();
     req.session.hearing = body;
-
     logger.info(`Assigned ${req.session.tya} to ${req.session.idamEmail}`);
 
     const { appeal } = await trackYourAppealService.getAppeal(req.session.hearing.case_id, req);
