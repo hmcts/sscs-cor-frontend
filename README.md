@@ -144,6 +144,9 @@ yarn start
 ```
 and go to http://localhost:3000
 
+In order to log in as a citizen and be able to see your appeal you might need to use the link below:
+http://localhost:3000/sign-in?tya=[subscriptionCode]
+
 ### Creating test data in AAT
 
 You can easily create a benefit appeal in CCD with online panel and associate it with an online hearing. The hearing will have three questions and the question round will be issued.
