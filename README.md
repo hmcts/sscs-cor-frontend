@@ -153,7 +153,7 @@ Since this script directly accesses services such as CCD and COH, which are prot
 This can be done locally by using a yarn command with a required environment variable 
 
 ```bash
-S2S_SECRET=XXXXXXXXXXXXX yarn test:create-data-aat
+S2S_SECRET=44******* IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=Bb******** IDAM_OAUTH2_CLIENT_SECRET=3\******** yarn test:create-data-aat
 ```
 
 The command will output something like this:
