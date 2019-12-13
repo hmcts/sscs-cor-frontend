@@ -121,7 +121,7 @@ Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
 Open a terminal, go to the sscs-cor-frontend directory. Set env vars in a terminal
 
 ```
-export SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal
+export SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal //this has to be 'http' always
 export HTTP_PROXY=http://proxyout.reform.hmcts.net:8080
 export COH_URL=http://coh-cor-aat.service.core-compute-aat.internal
 export S2S_SECRET=44*****
