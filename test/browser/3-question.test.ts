@@ -205,7 +205,7 @@ describe('Question page', () => {
         const count: number = await questionPage.countEvidence();
         const firstListItem: string = await questionPage.getEvidenceListText(0);
         expect(count).to.equal(1);
-        expect(firstListItem.trim()).to.equal('evidence.txt');
+        expect(firstListItem.trim()).to.equal('evidence.pdf');
       });
 
       it('Invalid answer text, do not shows question as draft status', async () => {
@@ -317,7 +317,7 @@ describe('Question page', () => {
         const count: number = await questionPage.countEvidence();
         const firstListItem: string = await questionPage.getEvidenceListText(0);
         expect(count).to.equal(1);
-        expect(firstListItem.trim()).to.equal('evidence.txt');
+        expect(firstListItem.trim()).to.equal('evidence.pdf');
       });
 
       it('Invalid answer text, do not shows question as draft status', async () => {
