@@ -26,8 +26,7 @@ describe('services/tyaService', () => {
     const appealId = 'appealNumber';
     const expectedRequestOptions = {
       method: 'GET',
-      uri: `${tribunalsApiUrl}/appeals?mya=true&caseId=${appealId}`,
-      qs: { caseId: appealId }
+      uri: `${tribunalsApiUrl}/appeals?mya=true&caseId=${appealId}`
     };
     await trackYourAppealService.getAppeal(appealId, req);
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
