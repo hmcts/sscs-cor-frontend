@@ -15,7 +15,7 @@ locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
   localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
-  ApiUrl      = "${var.env == "preview" ? "http://ssscs-cor-backend-pr-526.service.core-compute-preview.internal" : local.localApiUrl}"
+  ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-pr-526.service.core-compute-preview.internal" : local.localApiUrl}"
 
   local_env = "${(var.env == "preview") ? "aat" : (var.env == "spreview") ? "saat" : var.env}"
   azureVaultName = "sscs-${local.local_env}"
