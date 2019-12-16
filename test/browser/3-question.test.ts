@@ -196,7 +196,7 @@ describe('Question page', () => {
       });
 
       it('takes the user back to the question after submitting evidence', async () => {
-        await uploadEvidencePage.selectFile('evidence.txt');
+        await uploadEvidencePage.selectFile('evidence.pdf');
         await uploadEvidencePage.submit();
         questionPage.verifyPage();
       });
@@ -205,7 +205,7 @@ describe('Question page', () => {
         const count: number = await questionPage.countEvidence();
         const firstListItem: string = await questionPage.getEvidenceListText(0);
         expect(count).to.equal(1);
-        expect(firstListItem.trim()).to.equal('evidence.txt');
+        expect(firstListItem.trim()).to.equal('evidence.pdf');
       });
 
       it('Invalid answer text, do not shows question as draft status', async () => {
@@ -308,7 +308,7 @@ describe('Question page', () => {
       it('submits the page when a file is selected', async () => {
         await Promise.all([
           page.waitForNavigation(),
-          questionPage.selectFile('evidence.txt')
+          questionPage.selectFile('evidence.pdf')
         ]);
         questionPage.verifyPage();
       });
@@ -317,7 +317,7 @@ describe('Question page', () => {
         const count: number = await questionPage.countEvidence();
         const firstListItem: string = await questionPage.getEvidenceListText(0);
         expect(count).to.equal(1);
-        expect(firstListItem.trim()).to.equal('evidence.txt');
+        expect(firstListItem.trim()).to.equal('evidence.pdf');
       });
 
       it('Invalid answer text, do not shows question as draft status', async () => {
