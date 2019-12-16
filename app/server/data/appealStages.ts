@@ -31,7 +31,7 @@ const oralAppealStages = [
   },
   {
     status: 'DORMANT',
-    title: 'Hearing',
+    title: 'Last case state',
     latestUpdateText: 'text',
     showOnBar: true
   }
@@ -50,7 +50,7 @@ const paperAppealStages = [
     showOnBar: true
   }, {
     status: 'DORMANT',
-    title: 'Decision',
+    title: 'Last case state',
     latestUpdateText: 'text',
     showOnBar: true
   }
