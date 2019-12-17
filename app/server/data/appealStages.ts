@@ -34,6 +34,12 @@ const oralAppealStages = [
     title: 'Last case state',
     latestUpdateText: 'text',
     showOnBar: true
+  },
+  {
+    status: 'CLOSED',
+    title: 'Closed',
+    latestUpdateText: 'text',
+    showOnBar: true
   }
 ];
 
@@ -51,6 +57,12 @@ const paperAppealStages = [
   }, {
     status: 'DORMANT',
     title: 'Last case state',
+    latestUpdateText: 'text',
+    showOnBar: true
+  },
+  {
+    status: 'CLOSED',
+    title: 'Closed',
     latestUpdateText: 'text',
     showOnBar: true
   }
