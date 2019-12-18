@@ -56,6 +56,7 @@ module "sscs-cor-frontend" {
   common_tags          = "${var.common_tags}"
   asp_rg               = "${var.product}-${var.component}-${var.env}"
   asp_name             = "${var.product}-${var.component}-${var.env}"
+  appinsights_instrumentation_key = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
 
   app_settings = {
     SSCS_API_URL                                   = "${local.ApiUrl}"
