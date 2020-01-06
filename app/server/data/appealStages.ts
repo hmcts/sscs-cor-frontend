@@ -6,6 +6,12 @@ const oralAppealStages = [
     showOnBar: true
   },
   {
+    status: 'WITH DWP',
+    title: 'Appeal',
+    latestUpdateText: 'text',
+    showOnBar: false
+  },
+  {
     status: 'DWP_RESPOND',
     title: 'DWP response',
     latestUpdateText: 'text',
