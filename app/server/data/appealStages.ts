@@ -6,7 +6,7 @@ const oralAppealStages = [
     showOnBar: true
   },
   {
-    status: 'WITH DWP',
+    status: 'WITH_DWP',
     title: 'Appeal',
     latestUpdateText: 'text',
     showOnBar: false
@@ -55,7 +55,14 @@ const paperAppealStages = [
     title: 'Appeal',
     latestUpdateText: 'text',
     showOnBar: true
-  }, {
+  },
+  {
+    status: 'WITH_DWP',
+    title: 'Appeal',
+    latestUpdateText: 'text',
+    showOnBar: false
+  },
+  {
     status: 'DWP_RESPOND',
     title: 'DWP response',
     latestUpdateText: 'text',
@@ -98,8 +105,18 @@ const corAppealStages = [
   }
 ];
 
+const closedAppealStages = [
+  {
+    status: 'CLOSED',
+    title: 'Closed',
+    latestUpdateText: 'text',
+    showOnBar: true
+  }
+];
+
 export {
   corAppealStages,
   oralAppealStages,
-  paperAppealStages
+  paperAppealStages,
+  closedAppealStages
 };
