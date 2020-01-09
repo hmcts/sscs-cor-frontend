@@ -82,7 +82,7 @@ describe('Task list page', () => {
 
   it('displays Providing additional evidence link', async () => {
     const evidenceUploadLink = await taskListPage.getElementText('#evidence-options-link');
-    expect(evidenceUploadLink).to.equal('submit it here');
+    expect(evidenceUploadLink).to.equal('i18n.taskList.sendingEvidence.anchorText');
   });
 
   it('displays the deadline details as pending', async () => {
