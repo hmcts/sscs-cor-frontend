@@ -11,3 +11,4 @@ nodejs:
     NODE_ENV: preview
     HTTP_PROTOCOL: http
     MYA_FEATURE_FLAG: "true"
+    ADDITIONAL_EVIDENCE_FEATURE: "true"
