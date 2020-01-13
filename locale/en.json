@@ -55,7 +55,7 @@
     "sendingEvidence": {
       "header": "Providing additional evidence",
       "intro": "If you have any additional information that is relevant to your appeal, you can",
-      "anchorText": "post it to the tribunal",
+      "anchorText": "submit it here",
       "summary": "How to send additional evidence",
       "details": {
         "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
@@ -907,18 +907,25 @@
         ]
       }
     },
+    "WITH_DWP": {
+      "heading": "Appeal Received",
+      "content": {
+        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
+        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+      }
+    },
     "APPEAL_RECEIVED": {
       "heading": "Appeal Received",
       "content": {
-        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
-        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+        "oral": [""],
+        "paper": [""]
       }
     },
     "CLOSED": {
       "heading": "Appeal closed",
       "content": {
-        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
-        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+        "oral": [""],
+        "paper": [""]
       }
     },
     "DORMANT": {

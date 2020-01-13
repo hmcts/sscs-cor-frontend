@@ -11,8 +11,7 @@ export class TrackYourApealService {
   async getAppeal(caseId: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.tribunalApiUrl}/appeals`,
-      qs: { caseId }
+      uri: `${this.tribunalApiUrl}/appeals?mya=true&caseId=${caseId}`
     }, req);
   }
 

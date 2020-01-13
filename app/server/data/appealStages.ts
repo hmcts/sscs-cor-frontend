@@ -6,6 +6,12 @@ const oralAppealStages = [
     showOnBar: true
   },
   {
+    status: 'WITH_DWP',
+    title: 'Appeal',
+    latestUpdateText: 'text',
+    showOnBar: false
+  },
+  {
     status: 'DWP_RESPOND',
     title: 'DWP response',
     latestUpdateText: 'text',
@@ -34,6 +40,12 @@ const oralAppealStages = [
     title: 'Hearing',
     latestUpdateText: 'text',
     showOnBar: true
+  },
+  {
+    status: 'CLOSED',
+    title: 'Closed',
+    latestUpdateText: 'text',
+    showOnBar: true
   }
 ];
 
@@ -43,14 +55,27 @@ const paperAppealStages = [
     title: 'Appeal',
     latestUpdateText: 'text',
     showOnBar: true
-  }, {
+  },
+  {
+    status: 'WITH_DWP',
+    title: 'Appeal',
+    latestUpdateText: 'text',
+    showOnBar: false
+  },
+  {
     status: 'DWP_RESPOND',
     title: 'DWP response',
     latestUpdateText: 'text',
     showOnBar: true
   }, {
     status: 'DORMANT',
-    title: 'Decision',
+    title: 'Hearing',
+    latestUpdateText: 'text',
+    showOnBar: true
+  },
+  {
+    status: 'CLOSED',
+    title: 'Closed',
     latestUpdateText: 'text',
     showOnBar: true
   }
@@ -80,8 +105,18 @@ const corAppealStages = [
   }
 ];
 
+const closedAppealStages = [
+  {
+    status: 'CLOSED',
+    title: 'Closed',
+    latestUpdateText: 'text',
+    showOnBar: true
+  }
+];
+
 export {
   corAppealStages,
   oralAppealStages,
-  paperAppealStages
+  paperAppealStages,
+  closedAppealStages
 };
