@@ -1162,9 +1162,8 @@
       "para2": "You can get a representative at your local advice centre, law centre or <a href='https://www.citizensadvice.org.uk/'>Citizens Advice</a> You will need to register them with the tribunal.",
       "representative": {
         "title": "Registering a representative",
-        "para1": "You can register someone as your representative by phoning the tribunal:",
-        "para2": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234",
-        "para3": "Have your representative's name and address ready before you call. If you want them to receive updates on your appeal then you will also need to provide their email address and phone number."
+        "para1": "We need your written authority to register someone as your representative. You can provide this information via any of the options in the <a href='/task-list'><b>Provide Evidence</b></a> tab.",
+        "para2": "Please include your representative's name, address and contact details (phone or email). If you provide their email address and mobile phone number, they will also get regular updates."
       }
     },
     "withdrawAppeal": {
