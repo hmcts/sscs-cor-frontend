@@ -28,6 +28,7 @@
     "test:integration": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/integration/**/*.ts --exit",
     "test:functional": "yarn test:browser -g '@smoke|@pa11y' --invert",
     "test:smoke": "yarn test:browser -g @smoke",
+    "test:audit": "./bin/run-yarn-audit.sh -f yarn-audit-known-issues",
     "test:create-s2s-headers": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json node --require tsconfig-paths/register --require ts-node/register create-s2s-header.ts",
     "test:create-data": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json node --require tsconfig-paths/register --require ts-node/register create-test-data.ts",
     "test:create-data-aat": "cross-env HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-cor-backend-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net yarn test:create-data",
