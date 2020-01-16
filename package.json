@@ -52,7 +52,7 @@
     }
   },
   "dependencies": {
-    "@hmcts/ctsc-web-chat": "^0.2.8",
+    "@hmcts/ctsc-web-chat": "^0.2.4",
     "@hmcts/nodejs-healthcheck": "^1.4.6",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@types/express-serve-static-core": "4.16.8",
