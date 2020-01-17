@@ -7,6 +7,11 @@
                     <a href="/support-evidence">{{i18n.helpGuides.relatedLinks.supportEvidence}}</a>
                 </li>
             {% endif %}
+            {% if req and req.url !== '/support-representatives' %}
+                <li>
+                    <a href="/support-representatives">{{i18n.helpGuides.relatedLinks.supportRepresentatives}}</a>
+                </li>
+            {% endif %}
             {% if req and req.url !== '/support-hearing' %}
                 <li>
                     <a href="/support-hearing">{{i18n.helpGuides.relatedLinks.supportHearing}}</a>
@@ -20,11 +25,6 @@
             {% if req and req.url !== '/support-withdraw-appeal' %}
                 <li>
                     <a href="/support-withdraw-appeal">{{i18n.helpGuides.relatedLinks.supportWithdrawAppeal}}</a>
-                </li>
-            {% endif %}
-            {% if req and req.url !== '/support-representatives' %}
-                <li>
-                    <a href="/support-representatives">{{i18n.helpGuides.relatedLinks.supportRepresentatives}}</a>
                 </li>
             {% endif %}
         </ul>
