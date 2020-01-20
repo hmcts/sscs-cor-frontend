@@ -48,11 +48,16 @@ describe('controllers/history', () => {
   });
 
   describe.only('getHistory', () => {
+    let isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
     it('should render history page when history tab feature is true', () => {
-      let isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
       isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object).returns(true);
       history.getHistory(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('history.html');
+    });
+    it('should NOT render history page when history tab feature is false', () => {
+      isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object).returns(false);
+      history.getHistory(req, res);
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
     });
   });
 });
