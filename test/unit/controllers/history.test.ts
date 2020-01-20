@@ -2,6 +2,7 @@ const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 import * as history from 'app/server/controllers/history';
 import * as Paths from 'app/server/paths';
+import * as FeatureEnabled from 'app/server/utils/featureEnabled';
 
 describe('controllers/history', () => {
   let req: any;
@@ -46,10 +47,12 @@ describe('controllers/history', () => {
     });
   });
 
-  describe('getHistory', () => {
-    it('should not render history page when history tab feature is false', async() => {
+  describe.only('getHistory', () => {
+    it('should render history page when history tab feature is true', () => {
+      let isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
+      isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object).returns(true);
       history.getHistory(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('history.html');
     });
   });
 });
