@@ -68,7 +68,8 @@
       "webFormEnabled": "false",
       "webChatEnabled": "false"
     },
-    "postBulkScan": "false"
+    "postBulkScan": "false",
+    "historyTab": "false"
   },
   "services": {
     "webForm" : {
