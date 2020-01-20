@@ -47,10 +47,9 @@ describe('controllers/history', () => {
   });
 
   describe('getHistory', () => {
-    it('should render history page when mya feature enabled', async() => {
-      req.cookies.manageYourAppeal = 'true';
+    it('should not render history page when history tab feature is false', async() => {
       history.getHistory(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('history.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
     });
   });
 });
