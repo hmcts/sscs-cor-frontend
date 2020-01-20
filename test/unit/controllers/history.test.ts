@@ -47,17 +47,18 @@ describe('controllers/history', () => {
     });
   });
 
-  describe.only('getHistory', () => {
+  describe('getHistory', () => {
+    const scenarios = [
+      { historyTabFeature: true, expected: 'history.html' },
+      { historyTabFeature: false, expected: 'errors/404.html' }
+    ];
     let isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
-    it('should render history page when history tab feature is true', () => {
-      isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object).returns(true);
-      history.getHistory(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('history.html');
-    });
-    it('should NOT render history page when history tab feature is false', () => {
-      isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object).returns(false);
-      history.getHistory(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
+    scenarios.forEach((scenario) => {
+      it('should render ' + scenario.expected + ' view when history tab feature is ' + scenario.historyTabFeature, () => {
+        isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object).returns(scenario.historyTabFeature);
+        history.getHistory(req, res);
+        expect(res.render).to.have.been.calledOnce.calledWith(scenario.expected);
+      });
     });
   });
 });
