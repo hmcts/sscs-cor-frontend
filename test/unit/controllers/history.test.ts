@@ -37,10 +37,6 @@ describe('controllers/history', () => {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    afterEach(() => {
-      sandbox.restore();
-    });
-
     it('should call Router', () => {
       history.setupHistoryController({});
       expect(getStub).to.have.been.calledWith(Paths.history);
@@ -48,11 +44,16 @@ describe('controllers/history', () => {
   });
 
   describe('getHistory', () => {
+    let isFeatureEnabledStub;
+    beforeEach(() => {
+      isFeatureEnabledStub = sandbox.stub(FeatureEnabled, 'isFeatureEnabled');
+    });
+
     const scenarios = [
       { historyTabFeature: true, expected: 'history.html' },
       { historyTabFeature: false, expected: 'errors/404.html' }
     ];
-    let isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
+    
     scenarios.forEach((scenario) => {
       it('should render ' + scenario.expected + ' view when history tab feature is ' + scenario.historyTabFeature, () => {
         isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object).returns(scenario.historyTabFeature);
