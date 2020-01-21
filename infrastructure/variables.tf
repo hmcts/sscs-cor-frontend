@@ -15,7 +15,7 @@ variable "env" {
   type = "string"
 }
 
-variable "infrastructure_env" {
+variable "node_environment" {
   default     = "dev"
   description = "Infrastructure environment to point to"
 }

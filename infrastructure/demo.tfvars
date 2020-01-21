@@ -1,4 +1,3 @@
-infrastructure_env = "preprod"
 node_environment = "preprod"
 additional_hostname = "sscs-cor.demo.platform.hmcts.net"
 idam_url = "https://idam-web-public.demo.platform.hmcts.net"

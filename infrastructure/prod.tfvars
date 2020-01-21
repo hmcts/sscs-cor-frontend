@@ -1,4 +1,3 @@
-infrastructure_env = "prod"
 node_environment = "prod"
 idam_url = "https://hmcts-access.service.gov.uk"
 idam_api_url = "https://idam-api.platform.hmcts.net"
