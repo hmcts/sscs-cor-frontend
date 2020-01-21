@@ -1,5 +1,5 @@
 provider "azurerm" {
-    version = "1.19.0"
+  version = "1.19.0"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "rg" {
 
   tags = "${merge(var.common_tags,
     map("lastUpdated", "${timestamp()}")
-    )}"
+  )}"
 }
 
 locals {
@@ -17,7 +17,7 @@ locals {
   localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
   ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
 
-  local_env = "${(var.env == "preview") ? "aat" : (var.env == "spreview") ? "saat" : var.env}"
+  local_env      = "${(var.env == "preview") ? "aat" : (var.env == "spreview") ? "saat" : var.env}"
   azureVaultName = "sscs-${local.local_env}"
 
   s2sUrl = "http://rpe-service-auth-provider-${local.local_env}.service.${local.aseName}.internal"
@@ -34,7 +34,7 @@ data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret" {
 }
 
 data "azurerm_key_vault_secret" "sscs-s2s-secret" {
-  name = "sscs-s2s-secret"
+  name      = "sscs-s2s-secret"
   vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
 }
 
@@ -44,18 +44,18 @@ data "azurerm_key_vault_secret" "appinsights_instrumentation_key" {
 }
 
 module "sscs-cor-frontend" {
-  source               = "git@github.com:hmcts/cnp-module-webapp?ref=master"
-  product              = "${var.product}-${var.component}"
-  location             = "${var.location}"
-  env                  = "${var.env}"
-  ilbIp                = "${var.ilbIp}"
-  is_frontend          = "${var.env != "preview" ? 1: 0}"
-  subscription         = "${var.subscription}"
-  additional_host_name = "${var.env != "preview" ? var.additional_hostname : "null"}"
-  https_only           = "${var.https_only_flag}"
-  common_tags          = "${var.common_tags}"
-  asp_rg               = "${var.product}-${var.component}-${var.env}"
-  asp_name             = "${var.product}-${var.component}-${var.env}"
+  source                          = "git@github.com:hmcts/cnp-module-webapp?ref=master"
+  product                         = "${var.product}-${var.component}"
+  location                        = "${var.location}"
+  env                             = "${var.env}"
+  ilbIp                           = "${var.ilbIp}"
+  is_frontend                     = "${var.env != "preview" ? 1 : 0}"
+  subscription                    = "${var.subscription}"
+  additional_host_name            = "${var.env != "preview" ? var.additional_hostname : "null"}"
+  https_only                      = "${var.https_only_flag}"
+  common_tags                     = "${var.common_tags}"
+  asp_rg                          = "${var.product}-${var.component}-${var.env}"
+  asp_name                        = "${var.product}-${var.component}-${var.env}"
   appinsights_instrumentation_key = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
 
   app_settings = {
@@ -77,7 +77,7 @@ module "sscs-cor-frontend" {
     ADDITIONAL_EVIDENCE_FEATURE_FLAG               = "${var.additional_evidence_feature_flag}"
     FORCE_CHANGE                                   = "true"
     TRIBUNALS_API_URL                              = "${var.tribunals_api_url}"
-    APPINSIGHTS_INSTRUMENTATIONKEY = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
+    APPINSIGHTS_INSTRUMENTATIONKEY                 = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
   }
 }
 
