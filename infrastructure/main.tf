@@ -30,17 +30,17 @@ data "azurerm_key_vault" "sscs_key_vault" {
 
 data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret" {
   name      = "sscs-cor-idam-client-secret"
-  vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "sscs-s2s-secret" {
   name      = "sscs-s2s-secret"
-  vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "appinsights_instrumentation_key" {
   name      = "AppInsightsInstrumentationKey"
-  vault_uri = "${data.azurerm_key_vault.sscs_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
 }
 
 module "sscs-cor-frontend" {
