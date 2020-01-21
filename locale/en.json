@@ -10,8 +10,8 @@
     "sendingEvidence": {
       "byEmailHeader": "Send by email",
       "byPostHeader": "Send by post",
-      "postalAddress": "HMCTS<br/>Copthall House<br/>9 The Pavement<br/>Grove Road<br/>Sutton<br/>SM1 1DA",
-      "screenReaderPostalAddress": "HMCTS Copthall House 9 The Pavement Grove Road Sutton SM1 1DA"
+      "postalAddress": "<p>HMCTS SSCS<br/>PO BOX 12626<br/>Harlow<br/>CM20 9QF</p>",
+      "screenReaderPostalAddress": "HMCTS SSCS PO BOX 12626 Harlow CM20 9QF"
     }
   },
   "login": {
@@ -790,8 +790,7 @@
       "header": "Posting evidence to the tribunal",
       "subtitle": "Post your evidence to the address below as soon as possible. This is so the tribunal have time to read it before they make a decision on your appeal.",
       "description": {
-        "para1": "Write your appeal reference number on any evidence you send in:",
-        "para2": "Send an email to <a href='mailto:pipappeals@justice.gov.uk'>pipappeals@justice.gov.uk</a> briefly describing what you are sending and when you think it will arrive."
+        "para1": "Write your appeal reference number on any evidence you send in."
       }
     },
     "evidenceConfirm": {
