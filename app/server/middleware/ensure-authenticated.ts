@@ -67,6 +67,7 @@ function setTabNavigationItems(appeal) {
   let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== 'Hearing') : tabs;
 
   tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== 'Provide Evidence') : tabs;
+  tabsToShow = tabsToShow.filter(tab => tab.id !== 'history');
   return tabsToShow;
 }
 
