@@ -20,7 +20,7 @@ export class AdditionalEvidenceService {
       uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/statement`,
       body: {
         body: statementText,
-        appealNumber: 'wqiuvokQlD'
+        tya: 'wqiuvokQlD'
       }
     }, req);
   }

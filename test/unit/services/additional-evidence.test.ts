@@ -36,7 +36,7 @@ describe('services/additional-evidence', () => {
     const expectedRequestOptions = {
       body: {
         body: 'text',
-        appealNumber: 'wqiuvokQlD'
+        tya: 'wqiuvokQlD'
       },
       method: 'POST',
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/statement`
