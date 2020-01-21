@@ -53,7 +53,6 @@ describe('controllers/history', () => {
       { historyTabFeature: true, expected: 'history.html' },
       { historyTabFeature: false, expected: 'errors/404.html' }
     ];
-    
     scenarios.forEach((scenario) => {
       it('should render ' + scenario.expected + ' view when history tab feature is ' + scenario.historyTabFeature, () => {
         isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object).returns(scenario.historyTabFeature);
