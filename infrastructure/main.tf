@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "1.19.0"
+  version = "1.41.0"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -12,15 +12,14 @@ resource "azurerm_resource_group" "rg" {
 }
 
 locals {
-  aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+  aseName = "core-compute-${var.env}"
 
   localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
   ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
 
-  local_env      = "${(var.env == "preview") ? "aat" : (var.env == "spreview") ? "saat" : var.env}"
-  azureVaultName = "sscs-${local.local_env}"
+  azureVaultName = "sscs-${var.env}"
 
-  s2sUrl = "http://rpe-service-auth-provider-${local.local_env}.service.${local.aseName}.internal"
+  s2sUrl = "http://rpe-service-auth-provider-${var.env}.service.${local.aseName}.internal"
 }
 
 data "azurerm_key_vault" "sscs_key_vault" {
@@ -29,17 +28,17 @@ data "azurerm_key_vault" "sscs_key_vault" {
 }
 
 data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret" {
-  name      = "sscs-cor-idam-client-secret"
+  name         = "sscs-cor-idam-client-secret"
   key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "sscs-s2s-secret" {
-  name      = "sscs-s2s-secret"
+  name         = "sscs-s2s-secret"
   key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "appinsights_instrumentation_key" {
-  name      = "AppInsightsInstrumentationKey"
+  name         = "AppInsightsInstrumentationKey"
   key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
 }
 
@@ -49,9 +48,9 @@ module "sscs-cor-frontend" {
   location                        = "${var.location}"
   env                             = "${var.env}"
   ilbIp                           = "${var.ilbIp}"
-  is_frontend                     = "${var.env != "preview" ? 1 : 0}"
+  is_frontend                     = "1"
   subscription                    = "${var.subscription}"
-  additional_host_name            = "${var.env != "preview" ? var.additional_hostname : "null"}"
+  additional_host_name            = "${var.additional_hostname}"
   https_only                      = "${var.https_only_flag}"
   common_tags                     = "${var.common_tags}"
   asp_rg                          = "${var.product}-${var.component}-${var.env}"
@@ -75,17 +74,35 @@ module "sscs-cor-frontend" {
     S2S_SECRET                                     = "${data.azurerm_key_vault_secret.sscs-s2s-secret.value}"
     MYA_FEATURE_FLAG                               = "${var.mya_feature_flag}"
     ADDITIONAL_EVIDENCE_FEATURE_FLAG               = "${var.additional_evidence_feature_flag}"
-    FORCE_CHANGE                                   = "true"
     TRIBUNALS_API_URL                              = "${var.tribunals_api_url}"
     APPINSIGHTS_INSTRUMENTATIONKEY                 = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
   }
 }
 
+data "azurerm_subnet" "core_infra_redis_subnet" {
+  name                 = "core-infra-subnet-1-${var.env}"
+  virtual_network_name = "core-infra-vnet-${var.env}"
+  resource_group_name  = "core-infra-${var.env}"
+}
+
 module "redis-cache" {
-  source      = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product     = "${var.product}-redis"
-  location    = "${var.location}"
-  env         = "${var.env}"
-  subnetid    = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
+  source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  product  = "${var.product}-redis"
+  location = "${var.location}"
+  env      = "${var.env}"
+
+  subnetid    = "${data.azurerm_subnet.core_infra_redis_subnet.id}"
   common_tags = "${var.common_tags}"
+}
+
+resource "azurerm_key_vault_secret" "redis_access_key" {
+  name         = "${var.product}-redis-access-key"
+  value        = "${module.redis-cache.access_key}"
+  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
+}
+
+resource "azurerm_key_vault_secret" "redis_connection_string" {
+  name         = "${var.product}-redis-connection-string"
+  value        = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
+  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
 }
