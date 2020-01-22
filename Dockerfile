@@ -1,18 +1,9 @@
 # ---- Base image ----
-FROM hmctspublic.azurecr.io/base/node/stretch-slim-lts-8:8-stretch-slim AS base
-COPY package.json yarn.lock ./
-RUN yarn install \
-    --ignore-scripts \
-    --production
+FROM hmctspublic.azurecr.io/base/node:12-alpine as base
 
-# ---- Build image ----
-FROM base as build
-RUN yarn install \
-    && node node_modules/node-sass/scripts/install.js
-COPY . .
-RUN yarn build \
-    && rm -rf node_modules
+COPY --chown=hmcts:hmcts . .
 
-FROM base as runtime
-COPY --from=build $WORKDIR .
+RUN yarn install && yarn build && node node_modules/node-sass/scripts/install.js && rm -r node_modules/ && yarn install --production && rm -r ~/.cache/yarn
+
+USER hmcts
 EXPOSE 3000
