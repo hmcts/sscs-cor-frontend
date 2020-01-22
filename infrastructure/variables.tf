@@ -1,30 +1,25 @@
 variable "product" {
-  type    = "string"
 }
 
 variable "component" {
-  type   = "string"
 }
 
 variable "location" {
-  type    = "string"
   default = "UK South"
 }
 
 variable "env" {
-  type = "string"
 }
 
-variable "infrastructure_env" {
+variable "node_environment" {
   default     = "dev"
   description = "Infrastructure environment to point to"
 }
 
 variable "subscription" {
-  type = "string"
 }
 
-variable "ilbIp"{}
+variable "ilbIp" {}
 
 variable "additional_hostname" {
   default = "sscs-cor.sandbox.platform.hmcts.net"
@@ -53,30 +48,29 @@ variable "tribunals_api_url" {
 
 variable "idam_enable_stub" {
   description = "Mount idam stub routes on the app or not"
-  default = "false"
+  default     = "false"
 }
 
 variable "evidence_upload_question_page_enabled" {
-  description = "Feature switch for evidence upload per question",
-  default = "false"
+  description = "Feature switch for evidence upload per question"
+  default     = "false"
 }
 
 variable "mya_feature_flag" {
   description = "Feature switch for enabling Manage your appeal application"
-  default = "false"
+  default     = "false"
 }
 
 variable "additional_evidence_feature_flag" {
   description = "Feature switch for enabling additional evidence upload per case"
-  default = "false"
+  default     = "false"
 }
 
 variable "evidence_upload_question_page_override_allowed" {
-  description = "Feature switch for enabling evidence upload per question to be enabled using a cookie",
-  default = "false"
+  description = "Feature switch for enabling evidence upload per question to be enabled using a cookie"
+  default     = "false"
 }
 
 variable "https_only_flag" {
-  type = "string"
   default = "true"
 }
