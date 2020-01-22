@@ -13,7 +13,8 @@ describe('services/additional-evidence', () => {
   const additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
   req.session = {
     accessToken : 'someUserToken',
-    serviceToken : 'someServiceToken'
+    serviceToken : 'someServiceToken',
+    tya: 'wqiuvokQlD'
   };
   const hearingId: string = 'hearingId';
   const evidenceId: string = 'evidenceId';
