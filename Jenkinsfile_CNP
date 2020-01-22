@@ -16,15 +16,14 @@ def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
 def httpProxy =  "http://proxyout.reform.hmcts.net:8080"
 
-
-
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 withPipeline("nodejs", product, component) {
-    after('checkout') {sh 'yarn cache clean'}
-    after('build') {sh 'yarn build'}
+    after('checkout') {yarnBuilder.yarn('cache clean')}
+    after('build') {yarnBuilder.yarn('build')}
     enableDockerBuild()
     installCharts()
-    before('securitychecks') { sh 'yarn test:audit' }
+    before('securitychecks') { yarnBuilder.yarn('test:audit') }
 
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
