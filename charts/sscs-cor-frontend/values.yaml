@@ -1,4 +1,5 @@
 nodejs:
+  image: hmctspublic.azurecr.io/sscs/tribunals-cor-frontend:latest
   applicationPort: 3000
   memoryRequests: 256Mi
   cpuRequests: 0.2
@@ -19,7 +20,14 @@ nodejs:
     S2S_SECRET: ${S2S_SECRET}
     MYA_FEATURE_FLAG: "false"
     ADDITIONAL_EVIDENCE_FEATURE: "false"
-
+  keyVaults:
+    sscs:
+      secrets:
+        - sscs-cor-idam-client-secret
+        - sscs-s2s-secret
+        - sscs-cor-redis-access-key
+        - sscs-cor-redis-connection-string
+        - AppInsightsInstrumentationKey
 redis:
   enabled: false
   cluster:
