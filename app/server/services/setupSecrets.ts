@@ -1,7 +1,10 @@
-const config = require('@hmcts/properties-volume').addTo(require('config'));
-const { get, set } = require('lodash');
+import * as config from 'config';
+import * as propertiesVolume from '@hmcts/properties-volume';
+import { get, set } from 'lodash';
 
-const setSecret = (secretPath, configPath) => {
+propertiesVolume.addTo(config);
+
+const setSecret = (secretPath: string, configPath: string) => {
   // Only overwrite the value if the secretPath is defined
   if (config.has(secretPath)) {
     set(config, configPath, get(config, secretPath));
@@ -18,4 +21,6 @@ const setupSecrets = () => {
   }
 };
 
-module.exports = setupSecrets;
+export {
+  setupSecrets
+};
