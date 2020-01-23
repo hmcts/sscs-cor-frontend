@@ -2,25 +2,13 @@
 
 !package.json
 !yarn.lock
-
-!components/**
+!app/**
 !config/**
-!keys/**
-!middleware/**
-!mocks/**
-!policy-pages/**
-!assets/**
-!services/**
-!steps/**
-!utils/**
+!locale/**
+!public/**
 !views/**
-!webpack/**
 
-!app.js
-!appConfigurations.js
-!content.en.json
-!logger.js
-!paths.js
+!nodemon.js
+!tsconfig.json
+!tslint.json
 !server.js
-!steps.js
-!urls.js
