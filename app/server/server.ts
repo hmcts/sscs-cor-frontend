@@ -1,6 +1,6 @@
 import * as config from 'config';
 import * as propertiesVolume from '@hmcts/properties-volume';
-import setupKeyVaultSecrets from './services/setupSecrets';
+import { setupKeyVaultSecrets } from './services/setupSecrets';
 
 propertiesVolume.addTo(config);
 

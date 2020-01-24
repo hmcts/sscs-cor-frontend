@@ -24,9 +24,9 @@ describe(modulePath, () => {
       };
 
       // Update config with secret setup
-      const setupSecrets = proxyquire(modulePath,
+      const { setupKeyVaultSecrets } = proxyquire(modulePath,
         { config: mockConfig });
-      setupSecrets.setupKeyVaultSecrets();
+      setupKeyVaultSecrets();
 
       expect(mockConfig.session.redis.url)
         .to.equal(mockConfig.secrets.sscs['sscs-cor-redis-connection-string']);
@@ -40,9 +40,9 @@ describe(modulePath, () => {
 
     it('should not set config values when secrets path is not set', () => {
       // Update config with secret setup
-      const setupSecrets = proxyquire(modulePath,
+      const { setupKeyVaultSecrets } = proxyquire(modulePath,
         { config: mockConfig });
-      setupSecrets.setupKeyVaultSecrets();
+      setupKeyVaultSecrets();
 
       expect(mockConfig.session.redis.url)
         .to.equal(config.session.redis.url);
@@ -56,9 +56,9 @@ describe(modulePath, () => {
       mockConfig.secrets = { sscs: { 'sscs-cor-redis-connection-string': 'sessionValue' } };
 
       // Update config with secret setup
-      const setupSecrets = proxyquire(modulePath,
+      const { setupKeyVaultSecrets } = proxyquire(modulePath,
         { config: mockConfig });
-      setupSecrets.setupKeyVaultSecrets();
+      setupKeyVaultSecrets();
 
       expect(mockConfig.session.redis.url)
         .to.equal(mockConfig.secrets.sscs['sscs-cor-redis-connection-string']);
