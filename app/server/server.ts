@@ -1,5 +1,5 @@
 const config = require('@hmcts/properties-volume').addTo(require('config'));
-const setupSecrets = require('services/setupSecrets');
+const setupSecrets = require('./services/setupSecrets');
 
 // Setup secrets before loading the app
 setupSecrets.setupKeyVaultSecrets();
