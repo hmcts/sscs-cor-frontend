@@ -12,12 +12,9 @@ nodejs:
     IDAM_URL: "https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net"
     IDAM_API_URL: "https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net"
     TRIBUNALS_API_URL: "http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
-    IDAM_CLIENT_SECRET: ${IDAM_CLIENT_SECRET}
     S2S_URL: "http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
-    REDIS_URL: redis://${SERVICE_NAME}-redis-master
     NODE_ENV: prod
     HTTP_PROTOCOL: http
-    S2S_SECRET: ${S2S_SECRET}
     MYA_FEATURE_FLAG: "false"
     ADDITIONAL_EVIDENCE_FEATURE: "false"
   keyVaults:

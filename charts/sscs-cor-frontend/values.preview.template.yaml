@@ -2,11 +2,9 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    IDAM_CLIENT_SECRET: ${IDAM_CLIENT_SECRET}
     REDIS_URL: redis://${SERVICE_NAME}-redis-master
     SESSION_SECRET:
     NODE_ENV: preview
-    S2S_SECRET: ${S2S_SECRET}
     MYA_FEATURE_FLAG: "true"
     ADDITIONAL_EVIDENCE_FEATURE: "true"
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "true"
