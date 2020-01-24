@@ -1,12 +1,12 @@
-.git
-.github
-kubernetes
-jenkinsfile*
-README.md
+*
 
-node_modules
-npm-debug.log
-dist
-public
-infrastructure
-package-lock.json
+!package.json
+!yarn.lock
+!app/**
+!config/**
+!locale/**
+!public/**
+!views/**
+
+!tsconfig.json
+!server.js

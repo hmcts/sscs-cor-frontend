@@ -35,14 +35,15 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
 withPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
-    enableSlackNotifications('#sscs-tech')
-    after('checkout') {sh 'yarn cache clean'}
-    after('build') {sh 'yarn build'}
+    after('checkout') {yarnBuilder.yarn('cache clean')}
+    after('build') {yarnBuilder.yarn('build')}
     enableDockerBuild()
     installCharts()
-    before('securitychecks') { sh 'yarn test:audit' }
+    before('securitychecks') { yarnBuilder.yarn('test:audit') }
 
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
