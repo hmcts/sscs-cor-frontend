@@ -36,3 +36,5 @@ redis:
   master:
     persistence:
       enabled: false
+idam-pr:
+  enabled: false
