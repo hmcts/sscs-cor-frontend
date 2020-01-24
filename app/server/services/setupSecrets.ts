@@ -4,14 +4,14 @@ import { get, set } from 'lodash';
 
 propertiesVolume.addTo(config);
 
-function setSecret (secretPath: string, configPath: string) {
+function setSecret (secretPath: string, configPath: string): void {
   // Only overwrite the value if the secretPath is defined
   if (config.has(secretPath)) {
     set(config, configPath, get(config, secretPath));
   }
 }
 
-export function setupKeyVaultSecrets () {
+export function setupKeyVaultSecrets (): void {
   if (config.has('secrets.sscs')) {
     setSecret('secrets.sscs.sscs-cor-redis-connection-string', 'session.redis.url');
     setSecret('secrets.sscs.sscs-cor-redis-access-key', 'session.redis.secret');

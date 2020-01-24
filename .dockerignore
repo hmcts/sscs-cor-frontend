@@ -8,7 +8,5 @@
 !public/**
 !views/**
 
-!nodemon.js
 !tsconfig.json
-!tslint.json
 !server.js
