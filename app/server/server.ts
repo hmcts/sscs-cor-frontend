@@ -2,7 +2,7 @@ const config = require('@hmcts/properties-volume').addTo(require('config'));
 const setupSecrets = require('services/setupSecrets');
 
 // Setup secrets before loading the app
-setupSecrets();
+setupSecrets.setupKeyVaultSecrets();
 
 const { Logger } = require('@hmcts/nodejs-logging');
 import * as session from 'express-session';
