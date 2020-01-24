@@ -59,7 +59,7 @@ module "sscs-cor-frontend" {
 
   app_settings = {
     SSCS_API_URL                                   = "${local.ApiUrl}"
-    WEBSITE_NODE_DEFAULT_VERSION                   = "8.11.1"
+    WEBSITE_NODE_DEFAULT_VERSION                   = "12.13.0"
     NODE_ENV                                       = "${var.node_environment}"
     REDIS_URL                                      = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
     SESSION_SECRET                                 = "${module.redis-cache.access_key}"
