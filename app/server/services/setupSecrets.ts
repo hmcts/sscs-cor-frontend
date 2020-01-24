@@ -11,7 +11,7 @@ function setSecret (secretPath: string, configPath: string) {
   }
 }
 
-export function setupKeyVaultSecrets ()  {
+export function setupKeyVaultSecrets () {
   if (config.has('secrets.sscs')) {
     setSecret('secrets.sscs.sscs-cor-redis-connection-string', 'session.redis.url');
     setSecret('secrets.sscs.sscs-cor-redis-access-key', 'session.redis.secret');

@@ -5,7 +5,7 @@ const proxyquire = require('proxyquire');
 
 const modulePath = 'app/server/services/setupSecrets';
 
-let mockConfig : any = {};
+let mockConfig: any = {};
 
 describe(modulePath, () => {
   describe('#setup', () => {
