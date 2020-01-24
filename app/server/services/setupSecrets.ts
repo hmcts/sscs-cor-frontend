@@ -1,5 +1,4 @@
 import * as config from 'config';
-import * as propertiesVolume from '@hmcts/properties-volume';
 import { get, set } from 'lodash';
 
 function setSecret (secretPath: string, configPath: string): void {
