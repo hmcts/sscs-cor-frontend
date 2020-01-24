@@ -5,6 +5,7 @@ nodejs:
   cpuRequests: 0.2
   memoryLimits: 512Mi
   cpuLimits: 1
+  aadIdentityName: sscs
   environment:
     IDAM_ENABLE_STUB: false
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "false"
@@ -16,7 +17,8 @@ nodejs:
     NODE_ENV: prod
     HTTP_PROTOCOL: http
     MYA_FEATURE_FLAG: "false"
-    ADDITIONAL_EVIDENCE_FEATURE: "false"
+    ADDITIONAL_EVIDENCE_FEATURE_FLAG: "false"
+    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED : "false"
   keyVaults:
     sscs:
       secrets:
