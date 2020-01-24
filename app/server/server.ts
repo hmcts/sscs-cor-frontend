@@ -1,5 +1,8 @@
-const config = require('@hmcts/properties-volume').addTo(require('config'));
+import * as config from 'config';
+import * as propertiesVolume from '@hmcts/properties-volume';
 import setupKeyVaultSecrets from './services/setupSecrets';
+
+propertiesVolume.addTo(config);
 
 // Setup secrets before loading the app
 setupKeyVaultSecrets();
