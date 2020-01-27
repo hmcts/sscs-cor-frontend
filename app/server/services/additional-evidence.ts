@@ -23,7 +23,7 @@ export class AdditionalEvidenceService {
       }
     }, req);
   }
-  
+
   async uploadEvidence(identifier: string, file: Express.Multer.File, req: Request): Promise<EvidenceDescriptor> {
     return RequestPromise.request({
       method: 'PUT',
