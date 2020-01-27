@@ -1,16 +1,34 @@
 nodejs:
+  image: hmctspublic.azurecr.io/sscs/tribunals-cor-frontend:latest
   applicationPort: 3000
   memoryRequests: 256Mi
   cpuRequests: 0.2
   memoryLimits: 512Mi
   cpuLimits: 1
+  aadIdentityName: sscs
   environment:
-    SESSION_SECRET:
-    HTTP_PROTOCOL: http
     IDAM_ENABLE_STUB: false
-    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: true
-
+    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "false"
+    SSCS_API_URL: "http://sscs-cor-backend-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
+    IDAM_URL: "https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net"
+    IDAM_API_URL: "https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net"
+    TRIBUNALS_API_URL: "http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
+    S2S_URL: "http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
+    NODE_ENV: prod
+    HTTP_PROTOCOL: http
+    MYA_FEATURE_FLAG: "false"
+    ADDITIONAL_EVIDENCE_FEATURE_FLAG: "false"
+    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED : "false"
+  keyVaults:
+    sscs:
+      secrets:
+        - sscs-cor-idam-client-secret
+        - sscs-s2s-secret
+        - sscs-cor-redis-access-key
+        - sscs-cor-redis-connection-string
+        - AppInsightsInstrumentationKey
 redis:
+  enabled: false
   cluster:
     enabled: false
     slaveCount: 0
@@ -18,3 +36,5 @@ redis:
   master:
     persistence:
       enabled: false
+idam-pr:
+  enabled: false
