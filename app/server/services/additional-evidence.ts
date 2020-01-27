@@ -23,7 +23,7 @@ export class AdditionalEvidenceService {
       }
     }, req);
   }
-
+  
   async uploadEvidence(identifier: string, file: Express.Multer.File, req: Request): Promise<EvidenceDescriptor> {
     return RequestPromise.request({
       method: 'PUT',
@@ -75,7 +75,8 @@ export class AdditionalEvidenceService {
       method: 'POST',
       uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence`,
       body: {
-        body: description
+        body: description,
+        idamEmail: req.session.idamEmail
       },
       headers: {
         'Content-Length': '0'
