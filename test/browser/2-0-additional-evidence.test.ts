@@ -96,26 +96,26 @@ describe('Additional Evidence', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('uploads a file and shows file list', async () => {
-    additionalEvidencePage.verifyPage();
-    await additionalEvidencePage.selectUploadOption();
-    await additionalEvidencePage.submit();
+  // it('uploads a file and shows file list', async () => {
+  //   additionalEvidencePage.verifyPage();
+  //   await additionalEvidencePage.selectUploadOption();
+  //   await additionalEvidencePage.submit();
 
-    additionalEvidenceUploadPage.verifyPage();
-    await page.waitFor(4000);
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
+  //   additionalEvidenceUploadPage.verifyPage();
+  //   await page.waitFor(4000);
+  //   expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
 
-    await additionalEvidenceUploadPage.selectFile('evidence.txt');
-    await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
+  //   await additionalEvidenceUploadPage.selectFile('evidence.txt');
+  //   await additionalEvidenceUploadPage.submit();
+  //   expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
 
-    await additionalEvidenceUploadPage.addDescription('The evidence description');
-    await additionalEvidenceUploadPage.submit();
-    additionalEvidenceConfirmationPage.verifyPage();
+  //   await additionalEvidenceUploadPage.addDescription('The evidence description');
+  //   await additionalEvidenceUploadPage.submit();
+  //   additionalEvidenceConfirmationPage.verifyPage();
 
-    await additionalEvidenceConfirmationPage.returnToAppealPage();
-    taskListPage.verifyPage();
-  });
+  //   await additionalEvidenceConfirmationPage.returnToAppealPage();
+  //   taskListPage.verifyPage();
+  // });
 
   it('shows additional evidence post page', async () => {
     additionalEvidencePage.verifyPage();
