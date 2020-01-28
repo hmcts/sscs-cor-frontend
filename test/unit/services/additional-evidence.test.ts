@@ -14,7 +14,8 @@ describe('services/additional-evidence', () => {
   req.session = {
     accessToken : 'someUserToken',
     serviceToken : 'someServiceToken',
-    tya: 'wqiuvokQlD'
+    tya: 'wqiuvokQlD',
+    idamEmail: 'appellant@email.com'
   };
   const hearingId: string = 'hearingId';
   const evidenceId: string = 'evidenceId';
@@ -108,7 +109,8 @@ describe('services/additional-evidence', () => {
     const expectedRequestOptions = {
       method: 'POST',
       body: {
-        body: description
+        body: description,
+        idamEmail: 'appellant@email.com'
       },
       headers: { 'Content-Length': '0' },
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
