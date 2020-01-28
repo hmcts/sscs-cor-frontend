@@ -15,7 +15,7 @@ locals {
   aseName = "core-compute-${var.env}"
 
   localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
-  ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
+  ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-pr-561.service.core-compute-preview.internal" : local.localApiUrl}"
 
   azureVaultName = "sscs-${var.env}"
 

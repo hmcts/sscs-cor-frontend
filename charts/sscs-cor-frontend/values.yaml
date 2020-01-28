@@ -9,7 +9,7 @@ nodejs:
   environment:
     IDAM_ENABLE_STUB: false
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "false"
-    SSCS_API_URL: "http://sscs-cor-backend-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
+    SSCS_API_URL: "http://sscs-cor-backend-pr-561.service.core-compute-preview.internal"
     IDAM_URL: "https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net"
     IDAM_API_URL: "https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net"
     TRIBUNALS_API_URL: "http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
