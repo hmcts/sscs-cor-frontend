@@ -67,9 +67,9 @@ describe('Login page', () => {
 
   it('displays the appellant name and case reference', async() => {
     const appellantName = await taskListPage.getElementText('#appellant-name');
-    const caseReference = await taskListPage.getElementText('#case-reference');
+    const caseId = await taskListPage.getElementText('#case-id');
     expect(appellantName).to.equal(mockData.appellant_name);
-    expect(caseReference).to.equal(mockData.case_id);
+    expect(caseId).to.equal(mockData.case_id);
   });
 
   it('displays the deadline text and date', async() => {
