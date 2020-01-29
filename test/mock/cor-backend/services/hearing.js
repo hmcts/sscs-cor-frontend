@@ -1,7 +1,6 @@
 const { OK } = require('http-status-codes');
 const {
   emailHearingIdMap,
-  emailToCaseIdMap,
   emailToResCodeMap,
   createFinalDecision,
   hasFinalDecision,
@@ -19,7 +18,7 @@ module.exports = {
   template: {
     appellant_name: 'Adam Jenkins',
     case_reference: 'SC/112/233',
-    case_id: (params, query) => emailToCaseIdMap[query.email],
+    case_id: '123456789',
     online_hearing_id: (params, query) => emailHearingIdMap[query.email] || '1-pending',
     decision: (params, query) => createDecision(query.email),
     final_decision: (params, query) => createFinalDecision(query.email),
