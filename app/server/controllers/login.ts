@@ -121,11 +121,6 @@ function getIdamCallback(
 
         const hearings = req.query.caseId ?
           body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
-
-        hearings.forEach(value => {
-          value.case_reference = (value.case_reference) ? value.case_reference : value.case_id.toString();
-        });
-
         if (hearings.length === 0) {
           return res.redirect(Paths.assignCase);
         } else if (hearings.length === 1) {
