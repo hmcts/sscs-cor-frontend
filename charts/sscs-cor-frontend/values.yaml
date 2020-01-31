@@ -5,6 +5,7 @@ nodejs:
   cpuRequests: 0.2
   memoryLimits: 512Mi
   cpuLimits: 1
+  aadIdentityName: sscs
   environment:
     IDAM_ENABLE_STUB: false
     SSCS_API_URL: "http://sscs-cor-backend-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
@@ -15,7 +16,7 @@ nodejs:
     NODE_ENV: prod
     HTTP_PROTOCOL: http
     MYA_FEATURE_FLAG: "false"
-    ADDITIONAL_EVIDENCE_FEATURE_FLAG : "false"
+    ADDITIONAL_EVIDENCE_FEATURE_FLAG: "false"
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "false"
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED : "false"
   keyVaults:
