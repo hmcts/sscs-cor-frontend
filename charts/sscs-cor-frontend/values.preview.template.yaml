@@ -8,7 +8,6 @@ nodejs:
     MYA_FEATURE_FLAG: "true"
     ADDITIONAL_EVIDENCE_FEATURE: "true"
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "true"
-    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED : "false"
   keyVaults:
     sscs:
       secrets:
