@@ -78,9 +78,6 @@ export class AdditionalEvidenceService {
       body: {
         body: description,
         idamEmail: req.session.idamEmail
-      },
-      headers: {
-        'Content-Length': '0'
       }
     }, req);
   }
