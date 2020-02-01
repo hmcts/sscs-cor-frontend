@@ -112,7 +112,7 @@ describe('Additional Evidence', () => {
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();
     await page.waitFor(4000);
-    additionalEvidenceConfirmationPage.verifyPage();
+    expect(additionalEvidenceConfirmationPage.getCurrentUrl()).to.equal(`${testUrl}/additional-evidence/confirm`);
 
     await additionalEvidenceConfirmationPage.returnToAppealPage();
     taskListPage.verifyPage();

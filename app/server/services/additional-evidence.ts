@@ -78,6 +78,9 @@ export class AdditionalEvidenceService {
       body: {
         body: description,
         idamEmail: req.session.idamEmail
+      },
+      headers: {
+        'Content-type': 'applcation/json'
       }
     }, req);
   }

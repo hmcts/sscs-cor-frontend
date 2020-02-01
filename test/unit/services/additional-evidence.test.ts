@@ -112,6 +112,9 @@ describe('services/additional-evidence', () => {
         body: description,
         idamEmail: 'appellant@email.com'
       },
+      headers: {
+        'Content-type': 'applcation/json'
+      },
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
     };
 
