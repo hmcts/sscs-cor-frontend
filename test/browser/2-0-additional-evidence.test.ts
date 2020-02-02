@@ -96,7 +96,7 @@ describe('Additional Evidence', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('uploads a file and shows file list', async () => {
+  it.only('uploads a file and shows file list', async () => {
     additionalEvidencePage.verifyPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -112,8 +112,15 @@ describe('Additional Evidence', () => {
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();
     await page.waitFor(4000);
-    expect(additionalEvidenceConfirmationPage.getCurrentUrl()).to.equal(`${testUrl}/additional-evidence/confirm`);
-
+    let attemps = 5;
+    while (!page.url().includes('confirm') && attemps > 0) {
+      additionalEvidenceUploadPage.verifyPage();
+      await additionalEvidenceUploadPage.clickElement('#buttonBack');
+      await additionalEvidenceUploadPage.submit();
+      await page.waitFor(4000);
+      attemps--;
+    }
+    additionalEvidenceConfirmationPage.verifyPage();
     await additionalEvidenceConfirmationPage.returnToAppealPage();
     taskListPage.verifyPage();
   });
