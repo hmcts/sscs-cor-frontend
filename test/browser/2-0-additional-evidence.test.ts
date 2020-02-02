@@ -112,13 +112,14 @@ describe('Additional Evidence', () => {
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();
     await page.waitFor(4000);
-    let attemps = 5;
-    while (!page.url().includes('confirm') && attemps > 0) {
+    let attempts = 1;
+    while (!page.url().includes('confirm') && attempts <= 5) {
+      console.log(`attempt (${attempts}) to submit evidence...`);
       additionalEvidenceUploadPage.verifyPage();
       await additionalEvidenceUploadPage.clickElement('#buttonBack');
       await additionalEvidenceUploadPage.submit();
       await page.waitFor(4000);
-      attemps--;
+      attempts++;
     }
     additionalEvidenceConfirmationPage.verifyPage();
     await additionalEvidenceConfirmationPage.returnToAppealPage();
