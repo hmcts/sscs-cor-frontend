@@ -96,7 +96,7 @@ describe('Additional Evidence', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it.only('uploads a file and shows file list', async () => {
+  it('uploads a file and shows file list', async () => {
     additionalEvidencePage.verifyPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
