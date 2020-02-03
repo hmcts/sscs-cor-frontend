@@ -76,10 +76,11 @@ export class AdditionalEvidenceService {
       method: 'POST',
       uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence`,
       body: {
-        body: description
+        body: description,
+        idamEmail: req.session.idamEmail
       },
       headers: {
-        'Content-Length': '0'
+        'Content-type': 'applcation/json'
       }
     }, req);
   }
