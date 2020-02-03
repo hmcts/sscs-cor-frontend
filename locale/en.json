@@ -1193,8 +1193,8 @@
     "view": "View"
   },
   "assignCase": {
-    "title": "Enter your postcode",
-    "message": "This is so we can check it's your appeal",
+    "title": "Enter the postcode for the appeal",
+    "message": "This is the postcode used when the appeal was registered",
     "errors": {
       "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
       "invalidPostcode": "The postcode you have entered is invalid. Please check it and try again.",
