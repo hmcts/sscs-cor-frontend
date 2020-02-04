@@ -17,7 +17,7 @@
             items: [
                 {
                     value: "statement",
-                    text: "Write a statement online"
+                    text: "Provide your information online"
                 },
                 {
                     value: "upload",
@@ -28,15 +28,15 @@
                     text: "Send by post"
                 }
             ]
-            }) 
+            })
         }}
         {% include "includes/csrf-hidden-input.html" %}
         <div id="submit-buttons">
-            {{ 
+            {{
                 govukButton({
                     name: "continue",
                     text: "Continue"
-                }) 
+                })
             }}
         </div>
     </form>
