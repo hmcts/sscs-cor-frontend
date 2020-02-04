@@ -119,7 +119,7 @@
     "domready": "^1.0.8",
     "dyson": "^3.0.1",
     "eslint": "^4.19.1",
-    "husky": "4.2.1",
+    "husky": "^1.3.1",
     "jsdom": "^11.12.0",
     "jsdom-global": "^3.0.2",
     "memory-cache": "^0.2.0",
