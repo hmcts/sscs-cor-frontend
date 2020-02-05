@@ -835,8 +835,8 @@
     }
   },
   "yourDetails": {
-    "header": "Your details",
-    "contact": "If any of your details are incorrect, contact us below.",
+    "header": "Appeal details",
+    "contact": "If any of the details are incorrect, contact us below.",
     "nameLabel": "Name",
     "addressLabel": "Address",
     "phoneLabel": "Contact phone number",
