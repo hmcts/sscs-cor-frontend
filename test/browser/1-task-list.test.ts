@@ -63,9 +63,9 @@ describe('Task list page', () => {
     }
   });
 
-  /*it('is on the /task-list path', async () => {
-    await taskListPage.verifyPage();
-  });*/
+  it('is on the /task-list path', async () => {
+    taskListPage.verifyPage();
+  });
 
   /* PA11Y */
   it('checks /task-list passes @pa11y', async () => {
