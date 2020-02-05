@@ -145,6 +145,6 @@
     "typescript": "^3.0.0",
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
-    "webdriverio": "^5.18.6"
+    "webdriverio": "^4.14.0"
   }
 }
