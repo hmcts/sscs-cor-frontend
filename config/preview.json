@@ -7,7 +7,8 @@
     },
     "featureFlags": {
       "additionalEvidence": "false",
-      "manageYourAppeal": "false"
+      "manageYourAppeal": "false",
+      "postBulkScan": "false"
     }
   }
   
