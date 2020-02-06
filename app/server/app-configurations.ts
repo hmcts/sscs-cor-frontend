@@ -31,6 +31,7 @@ function configureHelmet(app) {
       ],
       styleSrc: [
         '\'self\'',
+        '\'unsafe-inline\'',
         'tagmanager.google.com',
         'fonts.googleapis.com/'
       ],
