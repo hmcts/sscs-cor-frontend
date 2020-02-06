@@ -835,8 +835,8 @@
     }
   },
   "yourDetails": {
-    "header": "Your details",
-    "contact": "If any of your details are incorrect, contact us below.",
+    "header": "Appeal details",
+    "contact": "If any of the details are incorrect, contact us below.",
     "nameLabel": "Name",
     "addressLabel": "Address",
     "phoneLabel": "Contact phone number",
@@ -923,8 +923,8 @@
     "CLOSED": {
       "heading": "Appeal closed",
       "content": {
-        "oral": [""],
-        "paper": [""]
+        "oral": ["The latest update on your appeal should have been sent to you. If you have any other questions, please contact us."],
+        "paper": ["The latest update on your appeal should have been sent to you. If you have any other questions, please contact us."]
       }
     },
     "DORMANT": {
