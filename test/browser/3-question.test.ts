@@ -113,7 +113,7 @@ describe('Question page', () => {
   describe('evidence upload per question disabled', () => {
     it('displays guidance for submitting evidence with case reference', async () => {
       const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
-      const displayedCaseRef = await taskListPage.getElementText('#answer-case-reference');
+      const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
       expect(summaryText.trim()).to.equal(i18n.question.sendingEvidence.summary);
       expect(displayedCaseRef).to.equal(caseReference);
     });
@@ -153,7 +153,7 @@ describe('Question page', () => {
 
       it('also displays guidance posting evidence with reference', async () => {
         const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
-        const displayedCaseRef = await questionPage.getElementText('#answer-case-reference');
+        const displayedCaseRef = await questionPage.getElementText('#evidence-case-reference');
         expect(summaryText).to.contain(i18n.question.evidenceUpload.postEvidence.summary);
         expect(displayedCaseRef).to.equal(caseReference);
       });
