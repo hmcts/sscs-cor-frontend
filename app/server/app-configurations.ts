@@ -90,7 +90,7 @@ function configureNunjucks(app: express.Application) {
       return nunjucks.renderString(text, this.ctx);
     } catch (error) {
       logger.error(`Error rendering text eval: ${JSON.stringify(error)} : ${text}`);
-      return 'Error redering text';
+      return 'Error rendering text';
     }
 
   });
@@ -114,6 +114,18 @@ function configureNunjucks(app: express.Application) {
     return moment(utcDateTimeStr)
       .add(howManyDaysAfterHearing, 'days')
       .format('DD MMMM YYYY');
+  });
+
+  nunEnv.addFilter('evalStatus', function (text) {
+    try {
+      if (Array.isArray(text)) {
+        text = text.join(' ');
+      }
+      return nunjucks.renderString(text, this.ctx);
+    } catch (error) {
+      logger.error(`Error rendering latest update text`);
+      return 'We are unable to provide a status update at present. Please contact us on the number below if you have any queries.';
+    }
   });
 }
 
