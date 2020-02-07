@@ -14,8 +14,8 @@ resource "azurerm_resource_group" "rg" {
 locals {
   aseName = "core-compute-${var.env}"
 
-  localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
-  ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
+  localApiUrl = "http://sscs-cor-backend-pr-569.service.core-compute-preview.internal"
+  ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-pr-569.service.core-compute-preview.internal" : local.localApiUrl}"
 
   azureVaultName = "sscs-${var.env}"
 
