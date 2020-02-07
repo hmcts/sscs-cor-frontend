@@ -66,7 +66,7 @@ export class AdditionalEvidenceService {
       encoding: 'binary',
       uri: `${this.apiUrl}/continuous-online-hearings/${caseId}/evidence/coversheet`,
       headers: {
-        'Content-type': 'applcation/pdf'
+        'Content-type': 'application/pdf'
       }
     }, req);
   }
@@ -80,7 +80,7 @@ export class AdditionalEvidenceService {
         idamEmail: req.session.idamEmail
       },
       headers: {
-        'Content-type': 'applcation/json'
+        'Content-type': 'application/json'
       }
     }, req);
   }
