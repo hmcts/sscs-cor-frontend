@@ -96,7 +96,7 @@ describe('services/additional-evidence', () => {
       encoding: 'binary',
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
-        'Content-type': 'applcation/pdf'
+        'Content-type': 'application/pdf'
       }
     };
 
@@ -113,7 +113,7 @@ describe('services/additional-evidence', () => {
         idamEmail: 'appellant@email.com'
       },
       headers: {
-        'Content-type': 'applcation/json'
+        'Content-type': 'application/json'
       },
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
     };
