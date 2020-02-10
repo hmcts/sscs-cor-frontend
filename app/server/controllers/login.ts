@@ -120,8 +120,6 @@ function getIdamCallback(
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
-
-        AppInsights.trace(`Logged in successfully and retrieved case info......................................${email}`, logPath);
         const hearings = req.query.caseId ?
           body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
 
