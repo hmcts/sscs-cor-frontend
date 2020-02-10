@@ -66,7 +66,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
       idamUrl.searchParams.append('state', req.query.state);
     }
 
-    logger.log(`Redirecting to [${idamUrl.href}]`);
+    AppInsights.trace(`Redirecting to [${idamUrl.href}]`, logPath);
     return res.redirect(idamUrl.href);
   };
 }
@@ -106,9 +106,9 @@ function getIdamCallback(
 
     try {
       if (!req.session.accessToken) {
-        logger.info('getting token');
+        AppInsights.trace('getting token', logPath);
         const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-        logger.info('getting user details');
+        AppInsights.trace('getting user details', logPath);
 
         req.session.accessToken = tokenResponse.access_token;
         req.session.serviceToken = await generateToken();
@@ -135,7 +135,7 @@ function getIdamCallback(
           req.session.appeal = appeal;
           req.session.subscriptions = subscriptions;
 
-          logger.info(`Logging in ${email}`);
+          AppInsights.trace(`Logging in ${email}`, logPath);
           if (req.session.appeal.hearingType === 'cor') {
             return res.redirect(Paths.taskList);
           } else {
