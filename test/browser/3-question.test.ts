@@ -112,6 +112,7 @@ describe('Question page', () => {
 
   describe('evidence upload per question disabled', () => {
     it('displays guidance for submitting evidence with case reference', async () => {
+      await questionPage.setCookie('postBulkScan', 'false');
       const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
       const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
       expect(summaryText.trim()).to.equal(i18n.question.sendingEvidence.summary);

@@ -31,6 +31,6 @@ describe('app-configuration', () => {
     const app = express();
     appConfigs.configureNunjucks(app);
 
-    expect(nunjucks.configure([]).addFilter).to.have.been.callCount(8);
+    expect(nunjucks.configure([]).addFilter).to.have.been.callCount(9);
   });
 });
