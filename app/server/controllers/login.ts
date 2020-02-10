@@ -19,6 +19,8 @@ const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
 const idamClientId: string = config.get('idam.client.id');
 
+const logPath = 'login.ts';
+
 function redirectToLogin(req: Request, res: Response) {
   return res.redirect(Paths.login);
 }
@@ -119,6 +121,7 @@ function getIdamCallback(
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
+        AppInsights.trace(`Logged in successfully and retrieved case info......................................${email}`, logPath);
         const hearings = req.query.caseId ?
           body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
 

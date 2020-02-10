@@ -18,3 +18,13 @@ export const trackException = exception => {
   console.log(exception);
   applicationInsights.defaultClient.trackException({ exception });
 };
+
+export const trace = (messageInfo, label, severity = 1,properties = {}, postToAppInsights = true) => {
+  // tslint:disable-next-line: no-console
+  const msg = this.msgBuilder(messageInfo, label);
+  applicationInsights.defaultClient.trackTrace({
+    message: msg,
+    severity,
+    properties
+  });
+};
