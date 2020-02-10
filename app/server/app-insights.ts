@@ -28,3 +28,21 @@ export const trace = (messageInfo, label, severity = 1,properties = {}, postToAp
     properties
   });
 };
+
+export const msgBuilder = (messageInfo, label) => {
+  let msg = '';
+  let msgText = '';
+
+  if (Array.isArray(messageInfo)) {
+    msgText = messageInfo.join(' ');
+  } else {
+    msgText = messageInfo;
+  }
+
+  if (label) {
+    msg = `[${label}] - ${msgText}`;
+  } else {
+    msg = msgText;
+  }
+  return msg;
+};
