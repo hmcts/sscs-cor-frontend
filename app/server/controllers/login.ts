@@ -19,8 +19,6 @@ const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
 const idamClientId: string = config.get('idam.client.id');
 
-const logPath = 'login.ts';
-
 function redirectToLogin(req: Request, res: Response) {
   return res.redirect(Paths.login);
 }
@@ -66,7 +64,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
       idamUrl.searchParams.append('state', req.query.state);
     }
 
-    AppInsights.trace(`Redirecting to [${idamUrl.href}]`, logPath);
+    logger.log(`Redirecting to [${idamUrl.href}]`);
     return res.redirect(idamUrl.href);
   };
 }
@@ -106,9 +104,9 @@ function getIdamCallback(
 
     try {
       if (!req.session.accessToken) {
-        AppInsights.trace('getting token', logPath);
+        logger.info('getting token');
         const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-        AppInsights.trace('getting user details', logPath);
+        logger.info('getting user details');
 
         req.session.accessToken = tokenResponse.access_token;
         req.session.serviceToken = await generateToken();
@@ -120,6 +118,7 @@ function getIdamCallback(
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
+
         const hearings = req.query.caseId ?
           body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
 
@@ -135,7 +134,7 @@ function getIdamCallback(
           req.session.appeal = appeal;
           req.session.subscriptions = subscriptions;
 
-          AppInsights.trace(`Logging in ${email}`, logPath);
+          logger.info(`Logging in ${email}`);
           if (req.session.appeal.hearingType === 'cor') {
             return res.redirect(Paths.taskList);
           } else {
