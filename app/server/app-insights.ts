@@ -13,8 +13,8 @@ export const enable = () => {
   applicationInsights.start();
 };
 
-export const trace = trace => {
+export const trackException = exception => {
   // tslint:disable-next-line: no-console
-  console.log(trace);
-  applicationInsights.defaultClient.trackTrace({ trace });
+  console.log(exception);
+  applicationInsights.defaultClient.trackException({ exception });
 };
