@@ -12,10 +12,10 @@ function getHearing(req: Request, res: Response) {
   });
 
   let hearingArrangements = {};
-  if (hearingInfo) {
+
+  if (req.session.hearing && req.session.hearing.hearing_arrangements) {
     hearingArrangements = req.session.hearing.hearing_arrangements;
   }
-
   return res.render('hearing-tab.html', { hearingInfo, attending, hearingArrangements });
 }
 

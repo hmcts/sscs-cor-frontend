@@ -96,7 +96,7 @@ describe('Manage your appeal app @mya', () => {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(385);
+      expect(heightOpen).to.equal(480);
     });
   });
 
