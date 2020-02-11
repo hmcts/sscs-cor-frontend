@@ -2,7 +2,7 @@
   "evidenceUpload": {
     "questionPage": {
       "enabled": "false",
-      "overrideAllowed": "false"
+      "overrideAllowed": "true"
     }
   },
   "idam": {
