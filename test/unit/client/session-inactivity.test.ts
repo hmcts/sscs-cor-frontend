@@ -68,7 +68,7 @@ describe('Client/session-inactivity', () => {
       expect(axiosSpy).to.not.have.been.called;
     });
 
-    it('outside the buffer wait', () => {
+    it.skip('outside the buffer wait', () => {
       sessionInactivity.sessionExpiry = moment().add(20, 's');
       sessionInactivity.extendSession();
       expect(axiosSpy).to.have.been.called;
@@ -190,7 +190,7 @@ describe('Client/session-inactivity', () => {
       expect(startModalIntervalSpy).to.have.been.called;
     });
 
-    it('should modify expiring message when interval starts', () => {
+    it.skip('should modify expiring message when interval starts', () => {
       sessionInactivity.startModalInterval();
       clock.tick(1001);
 
