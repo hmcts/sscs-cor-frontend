@@ -7,7 +7,7 @@ import { OK } from 'http-status-codes';
 import { TrackYourApealService } from '../services/tyaService';
 
 const i18n = require('../../../locale/en.json');
-const postcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))[0-9][A-Za-z]{2})$/;
+const postcodeRegex = /^((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])|([Gg][Ii][Rr]))))\s?([0-9][A-Za-z]{2})|(0[Aa]{2}))$/;
 
 const logger = Logger.getLogger('login.js');
 
@@ -47,7 +47,11 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
 
     req.session.appeal = appeal;
 
-    return res.redirect(Paths.status);
+    if (req.session.appeal.hearingType === 'cor') {
+      return res.redirect(Paths.taskList);
+    } else {
+      return res.redirect(Paths.status);
+    }
   };
 }
 

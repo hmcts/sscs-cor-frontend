@@ -83,6 +83,7 @@ describe('controllers/task-list', () => {
     const expectedDeadline = deadline.format();
 
     beforeEach(() => {
+      req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
       questionService = {};
       questions = [
         {

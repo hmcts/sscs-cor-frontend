@@ -19,6 +19,8 @@ const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
 const idamClientId: string = config.get('idam.client.id');
 
+const logPath = 'login.ts';
+
 function redirectToLogin(req: Request, res: Response) {
   return res.redirect(Paths.login);
 }
@@ -118,19 +120,27 @@ function getIdamCallback(
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
-
         const hearings = req.query.caseId ?
           body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
+
+        hearings.forEach(value => {
+          value.case_reference = (value.case_reference) ? value.case_reference : value.case_id.toString();
+        });
 
         if (hearings.length === 0) {
           return res.redirect(Paths.assignCase);
         } else if (hearings.length === 1) {
           req.session.hearing = hearings[0];
-          const { appeal } = await trackYourApealService.getAppeal(req.session.hearing.case_id, req);
+          const { appeal, subscriptions } = await trackYourApealService.getAppeal(req.session.hearing.case_id, req);
           req.session.appeal = appeal;
+          req.session.subscriptions = subscriptions;
 
           logger.info(`Logging in ${email}`);
-          return res.redirect(Paths.status);
+          if (req.session.appeal.hearingType === 'cor') {
+            return res.redirect(Paths.taskList);
+          } else {
+            return res.redirect(Paths.status);
+          }
         } else {
           const hearingsByName = getHearingsByName(hearings);
 

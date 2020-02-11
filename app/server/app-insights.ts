@@ -3,7 +3,9 @@ const config = require('config');
 
 export const enable = () => {
   const iKey = config.get('appInsights.instrumentationKey');
-  applicationInsights.setup(iKey).setAutoCollectConsole(true, true);
+  applicationInsights.setup(iKey).setAutoCollectConsole(true, true)
+    .setDistributedTracingMode(applicationInsights.DistributedTracingModes.AI_AND_W3C)
+    .setSendLiveMetrics(true);
   applicationInsights
     .defaultClient
     .context
@@ -15,4 +17,32 @@ export const trackException = exception => {
   // tslint:disable-next-line: no-console
   console.log(exception);
   applicationInsights.defaultClient.trackException({ exception });
+};
+
+export const trace = (messageInfo, label, severity = 1,properties = {}, postToAppInsights = true) => {
+  // tslint:disable-next-line: no-console
+  const msg = this.msgBuilder(messageInfo, label);
+  applicationInsights.defaultClient.trackTrace({
+    message: msg,
+    severity,
+    properties
+  });
+};
+
+export const msgBuilder = (messageInfo, label) => {
+  let msg = '';
+  let msgText = '';
+
+  if (Array.isArray(messageInfo)) {
+    msgText = messageInfo.join(' ');
+  } else {
+    msgText = messageInfo;
+  }
+
+  if (label) {
+    msg = `[${label}] - ${msgText}`;
+  } else {
+    msg = msgText;
+  }
+  return msg;
 };

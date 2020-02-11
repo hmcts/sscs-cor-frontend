@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import { IAppealStage, getActiveStages } from '../utils/appealStages';
-import { oralAppealStages, paperAppealStages, corAppealStages } from '../data/appealStages';
+import { oralAppealStages, paperAppealStages, corAppealStages, closedAppealStages } from '../data/appealStages';
 
 function getStatus(req: Request, res: Response) {
   if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
@@ -18,6 +18,8 @@ function getStatus(req: Request, res: Response) {
     } else if (hearingType === 'cor') {
       stages = getActiveStages(status, corAppealStages);
     }
+  } else {
+    stages = getActiveStages(status, closedAppealStages);
   }
   return res.render('status-tab.html', { stages, appeal });
 }

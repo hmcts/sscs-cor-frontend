@@ -8,13 +8,14 @@ enum Feature {
   CONTACT_US_WEB_FORM_ENABLED = 'allowContactUs.webFormEnabled',
   CONTACT_US_TELEPHONE_ENABLED = 'allowContactUs.telephoneEnabled',
   CONTACT_US_WEBCHAT_ENABLED= 'allowContactUs.webChatEnabled',
-  POST_BULK_SCAN = 'postBulkScan'
+  POST_BULK_SCAN = 'postBulkScan',
+  HISTORY_TAB = 'historyTab'
 }
 
 function isFeatureEnabled(feature: Feature, force?: {}): boolean {
   if (!config.has(`featureFlags.${feature}`)) return false;
-  if (force && force[`${feature}`] === 'true') {
-    return true;
+  if (force && (force[`${feature}`] === 'true' || force[`${feature}`] === 'false')) {
+    return force[`${feature}`] === 'true';
   } else {
     const enabled = config.get(`featureFlags.${feature}`) === 'true';
     return enabled;

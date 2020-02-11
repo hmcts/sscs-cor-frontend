@@ -13,7 +13,9 @@ describe('services/additional-evidence', () => {
   const additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
   req.session = {
     accessToken : 'someUserToken',
-    serviceToken : 'someServiceToken'
+    serviceToken : 'someServiceToken',
+    tya: 'wqiuvokQlD',
+    idamEmail: 'appellant@email.com'
   };
   const hearingId: string = 'hearingId';
   const evidenceId: string = 'evidenceId';
@@ -35,7 +37,8 @@ describe('services/additional-evidence', () => {
   it('should save Statement', async () => {
     const expectedRequestOptions = {
       body: {
-        body: 'text'
+        body: 'text',
+        tya: 'wqiuvokQlD'
       },
       method: 'POST',
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/statement`
@@ -93,7 +96,7 @@ describe('services/additional-evidence', () => {
       encoding: 'binary',
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
-        'Content-type': 'applcation/pdf'
+        'Content-type': 'application/pdf'
       }
     };
 
@@ -106,9 +109,12 @@ describe('services/additional-evidence', () => {
     const expectedRequestOptions = {
       method: 'POST',
       body: {
-        body: description
+        body: description,
+        idamEmail: 'appellant@email.com'
       },
-      headers: { 'Content-Length': '0' },
+      headers: {
+        'Content-type': 'application/json'
+      },
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
     };
 

@@ -1,7 +1,10 @@
+import { StatusPage } from '../page-objects/status';
+
 const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
 const mockData = require('test/mock/cor-backend/services/hearing').template;
+import { AssignCasePage } from '../page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
@@ -11,17 +14,21 @@ const i18n = require('locale/en');
 describe('Login page', () => {
   let page;
   let loginPage;
+  let statusPage;
   let taskListPage;
   let decisionPage;
   let tribunalViewPage;
+  let assignCasePage;
 
   before(async() => {
     const res = await startServices();
     page = res.page;
     loginPage = new LoginPage(page);
+    statusPage = new StatusPage(page);
     taskListPage = new TaskListPage(page);
     decisionPage = new DecisionPage(page);
     tribunalViewPage = new TribunalViewPage(page);
+    assignCasePage = new AssignCasePage(page);
   });
 
   after(async() => {

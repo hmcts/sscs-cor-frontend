@@ -2,16 +2,16 @@
   "pageTitle": "Continuous Online Resolution",
   "contactEmail": "pipappeals@justice.gov.uk",
   "phaseBanner": {
-    "new": "This is a new service – ",
-    "report": "Report a problem",
-    "improve": "and help improve it for others."
+    "new": "This is a new service – your ",
+    "report": "feedback",
+    "improve": "will help us improve it. (opens in new window)"
   },
   "guidance": {
     "sendingEvidence": {
       "byEmailHeader": "Send by email",
       "byPostHeader": "Send by post",
-      "postalAddress": "HMCTS<br/>Copthall House<br/>9 The Pavement<br/>Grove Road<br/>Sutton<br/>SM1 1DA",
-      "screenReaderPostalAddress": "HMCTS Copthall House 9 The Pavement Grove Road Sutton SM1 1DA"
+      "postalAddress": "<p>HMCTS SSCS<br/>PO BOX 12626<br/>Harlow<br/>CM20 9QF</p>",
+      "screenReaderPostalAddress": "HMCTS SSCS PO BOX 12626 Harlow CM20 9QF"
     }
   },
   "login": {
@@ -55,7 +55,7 @@
     "sendingEvidence": {
       "header": "Providing additional evidence",
       "intro": "If you have any additional information that is relevant to your appeal, you can",
-      "anchorText": "post it to the tribunal",
+      "anchorText": "submit it here",
       "summary": "How to send additional evidence",
       "details": {
         "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
@@ -72,8 +72,8 @@
         "empty": "You have not entered any information. Enter some information before submitting.",
         "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
       },
-      "errorOnSave" :{
-         "empty": "You have not entered any information. Enter some information before saving."
+      "errorOnSave": {
+        "empty": "You have not entered any information. Enter some information before saving."
       }
     },
     "evidenceUpload": {
@@ -186,7 +186,7 @@
       "headerDescriptor": "Descriptor",
       "headerPoints": "Points"
     },
-    "activities":  {
+    "activities": {
       "dailyLiving": {
         "preparingFood": {
           "name": "Preparing food",
@@ -610,8 +610,8 @@
     "delete": "Delete",
     "serviceTitle": "Appeal a benefit decision",
     "govUK": "GOV.UK",
-    "exitLink" : "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
-    "tbc" : "To be confirmed"
+    "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
+    "tbc": "To be confirmed"
   },
   "errorSummary": {
     "titleText": "There are errors on the page",
@@ -626,9 +626,9 @@
   "contactUs": {
     "title": "Contact us for help",
     "webform": {
-      "title" : "Send us a message",
-      "desc" : "You’ll get a response by email within 2 working days.",
-      "link" : "Send message (opens in a new window)"
+      "title": "Send us a message",
+      "desc": "You’ll get a response by email within 2 working days.",
+      "link": "Send message (opens in a new window)"
     },
     "webchat": {
       "title": "Web chat",
@@ -638,20 +638,20 @@
       "textChatWithAnAgent": "Start web chat (opens in a new window)",
       "textNoAgentsAvailable": "No agents are available, please try again later.",
       "textAllAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.",
-      "textChatClosed" : "The web chat is now closed. Come back Monday to Friday 8:30am to 5pm. Or contact us using one of the ways below.",
+      "textChatClosed": "The web chat is now closed. Come back Monday to Friday 8:30am to 5pm. Or contact us using one of the ways below.",
       "textChatAlreadyOpen": "A web chat window is already open.",
       "textAdditional": "Monday to Friday, 8.30am to 5pm"
     },
-    "telephone" : {
+    "telephone": {
       "title": "Telephone",
       "desc": "Talk to one of our agents now over the phone.",
       "England": {
-        "desc" : "Benefit appeals helpline (England and Wales)",
+        "desc": "Benefit appeals helpline (England and Wales)",
         "phone": "Telephone: 0300 123 1142",
         "availability": "Monday to Friday, 8:30am to 5pm",
         "charges": "Find out about call charges"
       },
-      "Scotland" : {
+      "Scotland": {
         "desc": "Benefit appeals helpline (Scotland)",
         "phone": "Telephone: 0300 790 6234",
         "availability": "Monday to Friday, 8:30am to 5pm",
@@ -659,11 +659,11 @@
       }
     }
   },
-  "cookieBanner" : {
-    "message" : "HMCTS uses cookies to make the site simpler. ",
-    "link" : "Find out more about cookies"
+  "cookieBanner": {
+    "message": "HMCTS uses cookies to make the site simpler. ",
+    "link": "Find out more about cookies"
   },
-  "cookiePrivacy" : {
+  "cookiePrivacy": {
     "titleHead": "Cookie Policy - Appeal a benefit decision - GOV.UK",
     "footer": {
       "cookies": "Cookies"
@@ -764,18 +764,18 @@
       "cancel": "Sign out"
     }
   },
-  "additionalEvidence" : {
-    "evidenceOptions" : {
-      "header": "How do you want to provide additional evidence?"
+  "additionalEvidence": {
+    "evidenceOptions": {
+      "header": "How do you want to provide additional information?"
     },
-    "evidenceStatement" : {
-      "header": "Write your statement",
-      "description": "A useful statement describes how your condition affects your life, including the activities you can and can’t do.",
+    "evidenceStatement": {
+      "header": "Provide your information online",
+      "description": "What do you want to tell the tribunal? This might be further evidence or a request to, for example, add a representative",
       "placeholder": "You can write as much as you want",
       "label": "Additional statement filed",
       "button": "Submit your statement to the tribunal"
     },
-    "evidenceUpload" : {
+    "evidenceUpload": {
       "header": "Upload additional evidence",
       "description": {
         "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
@@ -786,64 +786,68 @@
         "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading."
       }
     },
-    "evidencePost" : {
-       "header" : "Posting evidence to the tribunal",
-       "subtitle": "Post your evidence to the address below as soon as possible. This is so the tribunal have time to read it before they make a decision on your appeal.",
-       "description" : {
-         "para1" : "Write your appeal reference number on any evidence you send in:",
-         "para2": "Send an email to <a href='mailto:pipappeals@justice.gov.uk'>pipappeals@justice.gov.uk</a> briefly describing what you are sending and when you think it will arrive."
-       }
+    "evidencePost": {
+      "header": "Posting evidence to the tribunal",
+      "subtitle": "Post your evidence to the address below as soon as possible. This is so the tribunal have time to read it before they make a decision on your appeal.",
+      "description": {
+        "para1": "Write your appeal reference number on any evidence you send in."
+      }
     },
     "evidenceConfirm": {
-      "header" : "You have submitted additional evidence",
+      "header": "You have submitted additional evidence",
       "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
       "link": "Return to Your PIP benefit appeal"
     },
     "about": {
-        "header": "Providing evidence to support your appeal",
-        "leadParagraph": "Evidence is any information that supports your appeal, such as a letter, written statement or medical report. It all helps the tribunal understand the facts of your appeal.",
-        "intro": {
-          "para1": "You should provide evidence as soon as you can, if you have any. This is so the tribunal have time to consider it before making a decision on your benefit appeal.",
-          "para2": "You can provide evidence online or by post. Find out more about how to provide it at the bottom of this page."
+      "header": "Providing evidence to support your appeal",
+      "leadParagraph": "Evidence is any information that supports your appeal, such as a letter, written statement or medical report. It all helps the tribunal understand the facts of your appeal.",
+      "intro": {
+        "para1": "You should provide evidence as soon as you can, if you have any. This is so the tribunal have time to consider it before making a decision on your benefit appeal.",
+        "para2": "You can provide evidence online or by post. Find out more about how to provide it at the bottom of this page."
+      },
+      "types": {
+        "medical": {
+          "header": "Medical evidence",
+          "para1": "This type of evidence helps the tribunal understand your condition from the perspective of a medical professional. For example, letters you have from your hospital consultant, doctor, physiotherapist or social worker. A useful letter explains how your condition affects your life at the time of the decision by DWP. Appointment letters are not useful.",
+          "para2": "If you don’t have any letters and you think one will help your appeal, you could ask the medical professional who has been treating your condition to write one. Please be aware they may charge you for this and they can take a long time to organise. The tribunal can’t pay for these."
         },
-        "types": {
-            "medical": {
-              "header": "Medical evidence",
-              "para1": "This type of evidence helps the tribunal understand your condition from the perspective of a medical professional. For example, letters you have from your hospital consultant, doctor, physiotherapist or social worker. A useful letter explains how your condition affects your life at the time of the decision by DWP. Appointment letters are not useful.",
-              "para2": "If you don’t have any letters and you think one will help your appeal, you could ask the medical professional who has been treating your condition to write one. Please be aware they may charge you for this and they can take a long time to organise. The tribunal can’t pay for these."
-            },
-            "statement": {
-              "header": "Written statement",
-              "para1": "Someone who lives with you or knows you well could write a statement. A useful statement describes how your condition affects your life and includes the types of activities you can and can’t do. It should be their own view.",
-              "para2": "It can written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you."
-            },
-            "photographic": {
-              "header": "Photographic evidence",
-              "para1": "A useful photo will show how your condition affects your life, for example you could take a picture of any aids you use to help you move. Don’t send in photos of your body."
-            },
-            "oral": {
-              "header": "Oral evidence",
-              "para1": "What you or anyone else says at a hearing (if you have one) is called ‘oral evidence’. The tribunal will use what is said to help them make a decision on your appeal.",
-              "para2": "If you have a hearing then you could invite someone who knows you well to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day."
-            }
+        "statement": {
+          "header": "Written statement",
+          "para1": "Someone who lives with you or knows you well could write a statement. A useful statement describes how your condition affects your life and includes the types of activities you can and can’t do. It should be their own view.",
+          "para2": "It can written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you."
         },
-        "howto": {
-          "header": "How to provide evidence to the tribunal",
-          "para1": "You can provide evidence to the tribunal by:",
-          "options": "<ul><li>writing a message online</li><li>uploading files, documents or photos</li><li>sending it by post</li></ul>",
-          "cta": "<a href='/additional-evidence'>Provide evidence to the tribunal</a>"
+        "photographic": {
+          "header": "Photographic evidence",
+          "para1": "A useful photo will show how your condition affects your life, for example you could take a picture of any aids you use to help you move. Don’t send in photos of your body."
+        },
+        "oral": {
+          "header": "Oral evidence",
+          "para1": "What you or anyone else says at a hearing (if you have one) is called ‘oral evidence’. The tribunal will use what is said to help them make a decision on your appeal.",
+          "para2": "If you have a hearing then you could invite someone who knows you well to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day."
         }
+      },
+      "howto": {
+        "header": "How to provide evidence to the tribunal",
+        "para1": "You can provide evidence to the tribunal by:",
+        "options": "<ul><li>writing a message online</li><li>uploading files, documents or photos</li><li>sending it by post</li></ul>",
+        "cta": "<a href='/additional-evidence'>Provide evidence to the tribunal</a>"
+      }
     }
   },
   "yourDetails": {
-    "header": "Your details",
-    "contact": "If any of your details are incorrect, contact us below.",
+    "header": "Appeal details",
+    "contact": "If any of the details are incorrect, contact us below.",
     "nameLabel": "Name",
     "addressLabel": "Address",
-    "emailLabel": "Email address",
     "phoneLabel": "Contact phone number",
-    "mobileLabel": "Text message updates"
-
+    "emailLabel": "email address for updates",
+    "mobileLabel": "text message updates",
+    "contactPhoneLabel": "Contact mobile"
+  },
+  "contact": {
+    "phone": "Appellant contact phone number",
+    "mobile": "Appellant contact mobile number",
+    "email": "Appellant contact email address"
   },
   "statusTab": {
     "tabHeader": "Status",
@@ -902,18 +906,25 @@
         ]
       }
     },
+    "WITH_DWP": {
+      "heading": "Appeal Received",
+      "content": {
+        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
+        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+      }
+    },
     "APPEAL_RECEIVED": {
       "heading": "Appeal Received",
       "content": {
-        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
-        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].date|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+        "oral": ["We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal"],
+        "paper": ["We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal"]
       }
     },
     "CLOSED": {
       "heading": "Appeal closed",
       "content": {
-        "oral": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."],
-        "paper": ["We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents.dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."]
+        "oral": ["The latest update on your appeal should have been sent to you. If you have any other questions, please contact us."],
+        "paper": ["The latest update on your appeal should have been sent to you. If you have any other questions, please contact us."]
       }
     },
     "DORMANT": {
@@ -1104,7 +1115,7 @@
       "imageText": "A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.",
       "beforeHearingTitle": "Before your hearing",
       "beforeHearingDesc": {
-        "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing." ,
+        "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
         "para2": "You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. "
       },
       "arriveTitle": "When you arrive",
@@ -1117,18 +1128,18 @@
       },
       "peopleInTheRoomTitle": "The people at your hearing",
       "peopleInTheRoomDesc": {
-        "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP." ,
+        "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP.",
         "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people."
       },
       "duringHearingTitle": "During your hearing",
       "duringHearingDesc": {
-        "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour." ,
+        "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour.",
         "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
       },
       "gettingDecisionTitle": "Getting a decision",
       "gettingDecisionDesc": {
-        "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision." ,
-        "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level." ,
+        "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.",
+        "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level.",
         "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
       },
       "dwpTitle": "Department for Work and Pensions (DWP)",
@@ -1136,7 +1147,7 @@
         "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits."
       }
     },
-    "representatives":{
+    "representatives": {
       "linkHeader": "Representatives",
       "title": "Representatives",
       "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
@@ -1150,18 +1161,17 @@
       "para2": "You can get a representative at your local advice centre, law centre or <a href='https://www.citizensadvice.org.uk/'>Citizens Advice</a> You will need to register them with the tribunal.",
       "representative": {
         "title": "Registering a representative",
-        "para1": "You can register someone as your representative by phoning the tribunal:",
-        "para2": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234",
-        "para3": "Have your representative's name and address ready before you call. If you want them to receive updates on your appeal then you will also need to provide their email address and phone number."
+        "para1": "We need your written authority to register someone as your representative. You can provide this information via any of the options in the <a href='/task-list'><b>Provide Evidence</b></a> tab.",
+        "para2": "Please include your representative's name, address and contact details (phone or email). If you provide their email address and mobile phone number, they will also get regular updates."
       }
     },
-    "withdrawAppeal":{
+    "withdrawAppeal": {
       "linkHeader": "Withdrawing an appeal",
       "title": "Withdrawing your appeal",
       "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
       "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
-      "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible, by calling the number below:",
-      "para3": "England and Wales: 0300 123 1142 </br> Scotland: 0300 790 6234"
+      "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible.",
+      "para3": "You can provide this information via any of the options in the <a href='/additional-evidence'><b>Provide Evidence</b></a> tab . Or contact us on the number below."
     },
     "relatedLinks": {
       "title": "Related guidance",
@@ -1182,13 +1192,13 @@
     "action": "Action",
     "view": "View"
   },
-  "assignCase":{
-    "title": "Enter your postcode",
-    "message": "This is so we can check it's your appeal",
+  "assignCase": {
+    "title": "Enter the postcode for the appeal",
+    "message": "This is the postcode used when the appeal was registered",
     "errors": {
       "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
-      "invalidPostcode": "The postcode you have entered is invalid. Please check it and try again.",
-      "postcodeDoesNotMatch": "The postcode you have entered does not match our records. Enter the postcode of the person who is named on the appeal."
+      "invalidPostcode": "The details you have provided don't match, please contact us",
+      "postcodeDoesNotMatch": "The details you have provided don't match, please contact us"
     }
   }
 }
