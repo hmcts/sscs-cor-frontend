@@ -18,31 +18,3 @@ export const trackException = exception => {
   console.log(exception);
   applicationInsights.defaultClient.trackException({ exception });
 };
-
-export const trace = (messageInfo, label, severity = 1,properties = {}, postToAppInsights = true) => {
-  // tslint:disable-next-line: no-console
-  const msg = this.msgBuilder(messageInfo, label);
-  applicationInsights.defaultClient.trackTrace({
-    message: msg,
-    severity,
-    properties
-  });
-};
-
-export const msgBuilder = (messageInfo, label) => {
-  let msg = '';
-  let msgText = '';
-
-  if (Array.isArray(messageInfo)) {
-    msgText = messageInfo.join(' ');
-  } else {
-    msgText = messageInfo;
-  }
-
-  if (label) {
-    msg = `[${label}] - ${msgText}`;
-  } else {
-    msg = msgText;
-  }
-  return msg;
-};
