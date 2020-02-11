@@ -3,7 +3,7 @@ import axios from 'axios';
 const i18n = require('../../../locale/en');
 
 export class SessionInactivity {
-  public sessionExtendBuffer: number = 2 * 60 * 1000;
+  public sessionExtendBuffer: number = 5000;
   public sessionExpiry: moment.Moment = null;
   public lastReset: moment.Moment = null;
   public answerFormEl: HTMLElement = null;
