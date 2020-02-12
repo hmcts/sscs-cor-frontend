@@ -7,7 +7,6 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 
 describe('services/additional-evidence', () => {
   let rpStub: sinon.SinonStub;
-  let sandbox: sinon.SinonSandbox = sinon.sandbox.create();
   const req: any = {};
   const apiUrl = config.get('api.url');
   const additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
@@ -27,11 +26,11 @@ describe('services/additional-evidence', () => {
   };
 
   beforeEach(() => {
-    rpStub = sandbox.stub(RequestPromise, 'request');
+    rpStub = sinon.stub(RequestPromise, 'request');
   });
 
   afterEach(() => {
-    sandbox.restore();
+    rpStub.restore();
   });
 
   it('should save Statement', async () => {

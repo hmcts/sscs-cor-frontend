@@ -1,8 +1,8 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 
-enum UserLogTypes {
-  USER_LOGGED_TIMESTAMP
+export enum UserLogTypes {
+  USER_LOGIN_TIMESTAMP
 }
 
 export class UserLoggerService {
@@ -12,13 +12,13 @@ export class UserLoggerService {
     this.corApi = url;
   }
 
-  async log(req: Request, logType: UserLogTypes) {
+  async log(req: Request, userLogType: UserLogTypes) {
     return RequestPromise.request({
       method: 'PUT',
       uri: `${this.corApi}/cases/${req.session.caseId}/log`,
       body: {
         userEmail: req.session.idamEmail,
-        logType: logType
+        userLogType: userLogType
       }
     }, req);
   }

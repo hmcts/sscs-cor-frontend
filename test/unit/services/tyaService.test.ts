@@ -4,7 +4,6 @@ import { TrackYourApealService } from 'app/server/services/tyaService';
 import { RequestPromise } from 'app/server/services/request-wrapper';
 
 describe('services/tyaService', () => {
-  let sandbox: sinon.SinonSandbox = sinon.sandbox.create();
   let rpStub: sinon.SinonStub;
   const tribunalsApiUrl: string = config.get('tribunals.api-url');
   const trackYourAppealService = new TrackYourApealService(tribunalsApiUrl);
@@ -15,11 +14,11 @@ describe('services/tyaService', () => {
   };
 
   beforeEach(() => {
-    rpStub = sandbox.stub(RequestPromise, 'request');
+    rpStub = sinon.stub(RequestPromise, 'request');
   });
 
   afterEach(() => {
-    sandbox.restore();
+    rpStub.restore();
   });
 
   it('should getAppeal', async () => {

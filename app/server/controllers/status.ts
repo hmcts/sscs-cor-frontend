@@ -3,11 +3,11 @@ import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import { IAppealStage, getActiveStages } from '../utils/appealStages';
 import { oralAppealStages, paperAppealStages, corAppealStages, closedAppealStages } from '../data/appealStages';
-import { UserLoggerService } from '../services/userLoggerService';
+import { UserLoggerService, UserLogTypes } from '../services/userLoggerService';
 
 function getStatus(userLoggerService: UserLoggerService) {
-  return (req: Request, res: Response) => {
-    // userLoggerService.log(req, USER_LOGGED_TIMESTAMP);
+  return async (req: Request, res: Response) => {
+    await userLoggerService.log(req, UserLogTypes.USER_LOGIN_TIMESTAMP);
     let stages: IAppealStage[] = [];
     const { appeal } = req.session;
     const noProgressBarStages = ['CLOSED', 'LAPSED_REVISED', 'WITHDRAWN'];

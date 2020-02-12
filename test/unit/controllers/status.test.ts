@@ -3,7 +3,7 @@ const { expect, sinon } = require('test/chai-sinon');
 import * as status from 'app/server/controllers/status';
 import * as Paths from 'app/server/paths';
 import * as appealStagesUtils from 'app/server/utils/appealStages';
-import { UserLoggerService } from 'app/server/services/userLoggerService';
+import { UserLoggerService, UserLogTypes } from 'app/server/services/userLoggerService';
 const oralAppealReceived = require('../../mock/tribunals/data/oral/appealReceived');
 const paperAppealReceived = require('../../mock/tribunals/data/paper/appealReceived');
 
@@ -51,20 +51,22 @@ describe('controllers/status', () => {
     let userLoggerService;
     let getActiveStagesStub;
     beforeEach(() => {
-      userLoggerService = {} as UserLoggerService;
+      userLoggerService = {
+        log: sinon.stub().withArgs(req, UserLogTypes.USER_LOGIN_TIMESTAMP).resolves({})
+      } as UserLoggerService;
       getActiveStagesStub = sandbox.stub(appealStagesUtils, 'getActiveStages').returns([]);
     });
 
     it('should render status page for oral (APPEAL_RECEIVED))', async() => {
       req.session = oralAppealReceived;
-      status.getStatus(userLoggerService)(req, res);
+      await status.getStatus(userLoggerService)(req, res);
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(oralAppealReceived.appeal.status);
       expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', { stages: [], appeal: oralAppealReceived.appeal });
     });
 
     it('should render status page for paper (APPEAL_RECEIVED)', async() => {
       req.session = paperAppealReceived;
-      status.getStatus(userLoggerService)(req, res);
+      await status.getStatus(userLoggerService)(req, res);
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(paperAppealReceived.appeal.status);
       expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', { stages: [], appeal: paperAppealReceived.appeal });
     });
