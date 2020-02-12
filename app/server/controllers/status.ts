@@ -5,7 +5,7 @@ import { IAppealStage, getActiveStages } from '../utils/appealStages';
 import { oralAppealStages, paperAppealStages, corAppealStages, closedAppealStages } from '../data/appealStages';
 
 function getStatus(req: Request, res: Response) {
-  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
+  // log user logged-in timestamp
   let stages: IAppealStage[] = [];
   const { appeal } = req.session;
   const noProgressBarStages = ['CLOSED', 'LAPSED_REVISED', 'WITHDRAWN'];
