@@ -36,14 +36,17 @@ variable "secure_session" {
 
 variable "idam_url" {
   description = "url to redirect to for login via idam"
+  default    = "https://idam-web-public.demo.platform.hmcts.net"
 }
 
 variable "idam_api_url" {
   description = "url for idam api"
+  default    = "https://idam-api.demo.platform.hmcts.net"
 }
 
 variable "tribunals_api_url" {
   description = "URL for Tribunals api"
+  default  = "http://sscs-tribunals-api-demo.service.core-compute-demo.internal"
 }
 
 variable "idam_enable_stub" {
