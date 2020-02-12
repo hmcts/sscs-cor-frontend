@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 
 enum UserLogTypes {
-  LoggedInTimestamp
+  USER_LOGGED_TIMESTAMP
 }
 
 export class UserLoggerService {

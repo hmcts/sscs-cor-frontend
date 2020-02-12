@@ -35,6 +35,7 @@ import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
+import { UserLoggerService } from './services/userLoggerService';
 
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
@@ -50,7 +51,7 @@ const hearingService: HearingService = new HearingService(apiUrl);
 const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
-// todo: add here my new timestamLogService
+const userLoggerService: UserLoggerService = new UserLoggerService(apiUrl);
 
 const prereqMiddleware = [ensureAuthenticated, checkDecision];
 
@@ -65,7 +66,7 @@ const tribunalViewController = setupTribunalViewController({ prereqMiddleware: e
 const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
 const hearingConfirmController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
 const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
-const loginController = setupLoginController({ hearingService, idamService, trackYourApealService: trackYourAppealService });
+const loginController = setupLoginController({ hearingService, idamService, trackYourAppealService });
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
 const supportEvidenceController = supportControllers.setupSupportEvidenceController({ setLocals });
@@ -75,10 +76,10 @@ const supportRepresentativesController = supportControllers.setupSupportRepresen
 const supportWithdrawAppealController = supportControllers.setupSupportWithdrawAppealController({ setLocals });
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
 const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
-const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
+const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated, userLoggerService });
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
-const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService });
+const assignCaseController = setupAssignCaseController({ hearingService, trackYourAppealService });
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
 
 router.use((req, res, next) => {
