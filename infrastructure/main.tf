@@ -73,6 +73,7 @@ module "sscs-cor-frontend" {
     S2S_URL                                        = "${local.s2sUrl}"
     S2S_SECRET                                     = "${data.azurerm_key_vault_secret.sscs-s2s-secret.value}"
     MYA_FEATURE_FLAG                               = "${var.mya_feature_flag}"
+    POST_BULK_SCAN                                 = "${var.post_bulk_scan}"
     ADDITIONAL_EVIDENCE_FEATURE_FLAG               = "${var.additional_evidence_feature_flag}"
     TRIBUNALS_API_URL                              = "${var.tribunals_api_url}"
     APPINSIGHTS_INSTRUMENTATIONKEY                 = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
