@@ -66,6 +66,11 @@ variable "additional_evidence_feature_flag" {
   default     = "false"
 }
 
+variable "post_bulk_scan" {
+  description = "Feature switch for enabling bulk scan cover sheet"
+  default     = "false"
+}
+
 variable "evidence_upload_question_page_override_allowed" {
   description = "Feature switch for enabling evidence upload per question to be enabled using a cookie"
   default     = "false"

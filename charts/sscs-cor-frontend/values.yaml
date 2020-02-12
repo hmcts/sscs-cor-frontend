@@ -8,7 +8,6 @@ nodejs:
   aadIdentityName: sscs
   environment:
     IDAM_ENABLE_STUB: false
-    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "false"
     SSCS_API_URL: "http://sscs-cor-backend-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
     IDAM_URL: "https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net"
     IDAM_API_URL: "https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net"
@@ -18,7 +17,9 @@ nodejs:
     HTTP_PROTOCOL: http
     MYA_FEATURE_FLAG: "false"
     ADDITIONAL_EVIDENCE_FEATURE_FLAG: "false"
-    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED : "false"
+    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: "false"
+    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "false"
+    POST_BULK_SCAN: "false"
   keyVaults:
     sscs:
       secrets:

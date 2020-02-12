@@ -14,7 +14,8 @@ describe('services/additional-evidence', () => {
   req.session = {
     accessToken : 'someUserToken',
     serviceToken : 'someServiceToken',
-    tya: 'wqiuvokQlD'
+    tya: 'wqiuvokQlD',
+    idamEmail: 'appellant@email.com'
   };
   const hearingId: string = 'hearingId';
   const evidenceId: string = 'evidenceId';
@@ -95,7 +96,7 @@ describe('services/additional-evidence', () => {
       encoding: 'binary',
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
-        'Content-type': 'applcation/pdf'
+        'Content-type': 'application/pdf'
       }
     };
 
@@ -108,9 +109,12 @@ describe('services/additional-evidence', () => {
     const expectedRequestOptions = {
       method: 'POST',
       body: {
-        body: description
+        body: description,
+        idamEmail: 'appellant@email.com'
       },
-      headers: { 'Content-Length': '0' },
+      headers: {
+        'Content-type': 'application/json'
+      },
       uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
     };
 

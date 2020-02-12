@@ -648,13 +648,18 @@
       "England": {
         "desc": "Benefit appeals helpline (England and Wales)",
         "phone": "Telephone: 0300 123 1142",
-        "availability": "Monday to Friday, 8:30am to 5pm",
+        "availability": "Monday to Friday, 8:00am to 8:00pm",
+        "saturdayAvailability": "Saturday, 8:00am to 2:00pm",
+        "emailText": "Email:",
+        "emailAddress": "Contactsscs@justice.gov.uk",
         "charges": "Find out about call charges"
       },
       "Scotland": {
         "desc": "Benefit appeals helpline (Scotland)",
         "phone": "Telephone: 0300 790 6234",
-        "availability": "Monday to Friday, 8:30am to 5pm",
+        "availability": "Monday to Friday, 8:30am to 5:00pm",
+        "emailText": "Email:",
+        "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
         "charges": "Find out about call charges"
       }
     }
@@ -766,11 +771,11 @@
   },
   "additionalEvidence": {
     "evidenceOptions": {
-      "header": "How do you want to provide additional evidence?"
+      "header": "How do you want to provide additional information?"
     },
     "evidenceStatement": {
-      "header": "Write your statement",
-      "description": "A useful statement describes how your condition affects your life, including the activities you can and can’t do.",
+      "header": "Provide your information online",
+      "description": "What do you want to tell the tribunal? This might be further evidence or a request to, for example, add a representative",
       "placeholder": "You can write as much as you want",
       "label": "Additional statement filed",
       "button": "Submit your statement to the tribunal"
@@ -835,8 +840,8 @@
     }
   },
   "yourDetails": {
-    "header": "Your details",
-    "contact": "If any of your details are incorrect, contact us below.",
+    "header": "Appeal details",
+    "contact": "If any of the details are incorrect, contact us below.",
     "nameLabel": "Name",
     "addressLabel": "Address",
     "phoneLabel": "Contact phone number",
@@ -923,8 +928,8 @@
     "CLOSED": {
       "heading": "Appeal closed",
       "content": {
-        "oral": [""],
-        "paper": [""]
+        "oral": ["The latest update on your appeal should have been sent to you. If you have any other questions, please contact us."],
+        "paper": ["The latest update on your appeal should have been sent to you. If you have any other questions, please contact us."]
       }
     },
     "DORMANT": {
@@ -1193,12 +1198,12 @@
     "view": "View"
   },
   "assignCase": {
-    "title": "Enter your postcode",
-    "message": "This is so we can check it's your appeal",
+    "title": "Enter the postcode for the appeal",
+    "message": "This is the postcode used when the appeal was registered",
     "errors": {
       "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
-      "invalidPostcode": "The postcode you have entered is invalid. Please check it and try again.",
-      "postcodeDoesNotMatch": "The postcode you have entered does not match our records. Enter the postcode of the person who is named on the appeal."
+      "invalidPostcode": "The details you have provided don't match, please contact us",
+      "postcodeDoesNotMatch": "The details you have provided don't match, please contact us"
     }
   }
 }
