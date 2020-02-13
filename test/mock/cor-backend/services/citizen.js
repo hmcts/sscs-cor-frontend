@@ -21,7 +21,7 @@ module.exports = {
   template: [
     {
       appellant_name: 'Adam Jenkins',
-      case_reference: 'SC/112/233',
+      case_reference: '112233',
       case_id: (params, query) => emailToCaseIdMap[query.email],
       online_hearing_id: (params, query) => emailHearingIdMap[query.email],
       decision: (params, query) => createDecision(query.email),

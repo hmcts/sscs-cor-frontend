@@ -123,7 +123,10 @@ function getIdamCallback(
           body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
 
         hearings.forEach(value => {
-          value.case_reference = (value.case_reference) ? value.case_reference : value.case_id.toString();
+          value.case_reference = value.case_id ? value.case_id.toString() : '';
+          if (value.case_reference === '') {
+            throw new Error('Case ID cannot be empty');
+          }
         });
 
         if (hearings.length === 0) {

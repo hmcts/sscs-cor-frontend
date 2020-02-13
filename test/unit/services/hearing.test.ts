@@ -23,7 +23,7 @@ describe('services/hearing', () => {
   describe('#getOnlineHearing', () => {
     const apiResponseBody = {
       appellant_name: 'Adam Jenkins',
-      case_reference: 'SC/112/233',
+      case_reference: '112233',
       online_hearing_id: 'abc-123-def-456'
     };
 
@@ -109,7 +109,7 @@ describe('services/hearing', () => {
     const tya = 'someTyaNumber';
     const apiResponseBody = [{
       appellant_name: 'Adam Jenkins',
-      case_reference: 'SC/112/233',
+      case_reference: '112233',
       online_hearing_id: 'abc-123-def-456'
     }];
 
@@ -160,7 +160,7 @@ describe('services/hearing', () => {
     const postcode = 'somePostcode';
     const apiResponseBody = {
       appellant_name: 'Adam Jenkins',
-      case_reference: 'SC/112/233',
+      case_reference: '112233',
       online_hearing_id: 'abc-123-def-456'
     };
 

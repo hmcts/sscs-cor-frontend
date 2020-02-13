@@ -12,7 +12,7 @@ describe('controllers/submit-question', () => {
   const res: any = {};
   const hearingDetails = {
     online_hearing_id: '1',
-    case_reference: 'SC/123/456',
+    case_reference: '12345',
     appellant_name: 'John Smith'
   };
   const questions = answerState => [

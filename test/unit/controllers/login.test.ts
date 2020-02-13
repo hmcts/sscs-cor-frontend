@@ -18,7 +18,7 @@ describe('controllers/login', () => {
   const hearingDetails = {
     case_id: 12345,
     online_hearing_id: '1',
-    case_reference: 'SC/123/456',
+    case_reference: '12345',
     appellant_name: 'John Smith'
   };
 
@@ -281,13 +281,13 @@ describe('controllers/login', () => {
             'John Smith': [{
               appellant_name: 'John Smith',
               case_id: 12345,
-              case_reference: 'SC/123/456',
+              case_reference: '12345',
               online_hearing_id: '1'
             },
             {
               appellant_name: 'John Smith',
               case_id: 12345,
-              case_reference: 'SC/123/456',
+              case_reference: '12345',
               online_hearing_id: '1'
             }]
           }});
@@ -310,12 +310,12 @@ describe('controllers/login', () => {
             {
               case_id: 11111,
               online_hearing_id: '1',
-              case_reference: 'SC/111/456',
+              case_reference: '11111',
               appellant_name: 'John Smith'
             }, {
               case_id: 22222,
               online_hearing_id: '2',
-              case_reference: 'SC/222/456',
+              case_reference: '22222',
               appellant_name: 'John Smith'
             }]
           })
@@ -338,7 +338,7 @@ describe('controllers/login', () => {
         expect(req.session.hearing).to.be.eql({
           case_id: 11111,
           online_hearing_id: '1',
-          case_reference: 'SC/111/456',
+          case_reference: '11111',
           appellant_name: 'John Smith'
         });
       });

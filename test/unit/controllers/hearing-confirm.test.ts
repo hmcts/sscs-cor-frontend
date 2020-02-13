@@ -15,7 +15,7 @@ describe('controllers/hearing-confirm', () => {
   beforeEach(() => {
     hearingDetails = {
       online_hearing_id: '1',
-      case_reference: 'SC/123/456',
+      case_reference: '12345',
       appellant_name: 'John Smith',
       decision: {
         start_date: '2019-01-01',
