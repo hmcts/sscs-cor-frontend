@@ -3,7 +3,7 @@ import axios from 'axios';
 const i18n = require('../../../locale/en');
 
 export class SessionInactivity {
-  public sessionExtendBuffer: number = 2 * 60 * 1000;
+  public sessionExtendBuffer: number = 10000;
   public sessionExpiry: moment.Moment = null;
   public lastReset: moment.Moment = null;
   public answerFormEl: HTMLElement = null;
@@ -34,23 +34,9 @@ export class SessionInactivity {
   }
 
   extendSession(): void {
-    if (this.lastReset === null || moment().diff(moment(this.sessionExpiry).subtract(this.sessionExtendBuffer, 'milliseconds')) > 0) {
-      axios.get('/session-extension').then((response: any): void => {
-        if (response['data'].expireInSeconds) {
-          this.sessionExpiry = moment().add(response['data'].expireInSeconds, 'milliseconds');
-          this.lastReset = moment();
-
-          this.closeModal();
-          this.restartCounters();
-        } else { // It means logged out
-          this.removeListeners();
-          this.stopCounters();
-        }
-      }).catch(() => {
-        this.removeListeners();
-        this.stopCounters();
-      });
-    }
+    this.lastReset = moment();
+    this.closeModal();
+    this.restartCounters();
   }
 
   restartCounters(): void {
@@ -59,8 +45,8 @@ export class SessionInactivity {
   }
 
   startCounters(): void {
-    this.startCountdown(this.sessionExpiry.diff(moment(), 'ms') - this.sessionExtendBuffer);
-    this.startSessionTimeOut(this.sessionExpiry.diff(moment(), 'ms'));
+    this.startCountdown(10000);
+    this.startSessionTimeOut(21000);
   }
 
   stopCounters(): void {
