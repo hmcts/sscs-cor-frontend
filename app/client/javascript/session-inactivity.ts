@@ -1,11 +1,8 @@
 import * as moment from 'moment';
-import axios from 'axios';
 const i18n = require('../../../locale/en');
 
 export class SessionInactivity {
   public sessionExtendBuffer: number = 10000;
-  public sessionExpiry: moment.Moment = null;
-  public lastReset: moment.Moment = null;
   public answerFormEl: HTMLElement = null;
   public modal: HTMLElement = null;
   public extend: HTMLElement = null;
@@ -15,7 +12,6 @@ export class SessionInactivity {
   public CANCEL_BUTTON: string = 'cancel';
   public MODAL: string = 'timeout-dialog';
   public keyStrokeEventListener: any;
-  public timeLeft: number = null;
 
   private timeOut: number;
   private modalInterval: number;
@@ -79,11 +75,15 @@ export class SessionInactivity {
   }
 
   openModal() {
-    this.modal.classList.add('modal--open');
+    if (this.modal) {
+      this.modal.classList.add('modal--open');
+    }
   }
 
   closeModal() {
-    this.modal.classList.remove('modal--open');
+    if (this.modal) {
+      this.modal.classList.remove('modal--open');
+    }
   }
 
   signOut() {
