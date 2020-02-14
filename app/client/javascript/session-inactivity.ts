@@ -34,7 +34,6 @@ export class SessionInactivity {
   }
 
   extendSession(): void {
-    this.lastReset = moment();
     this.closeModal();
     this.restartCounters();
   }
