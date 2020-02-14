@@ -41,7 +41,7 @@ export class SessionInactivity {
 
   startCounters(): void {
     this.startCountdown(10000);
-    this.startSessionTimeOut(21000);
+    this.startSessionTimeOut(20000);
   }
 
   stopCounters(): void {
