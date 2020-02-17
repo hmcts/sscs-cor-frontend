@@ -18,7 +18,7 @@
 
 {% block bodyStart %}
 <!-- Google Tag Manager (noscript) -->
-{% if environment === 'prod' %}
+{% if environment === 'prod' or environment === 'production' %}
 <!-- Live analytics -->
 <noscript><iframe
     src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM&gtm_auth=s9D_6Cs9pP0A0pPraIxTSA&gtm_preview=env-2&gtm_cookies_win=x"
