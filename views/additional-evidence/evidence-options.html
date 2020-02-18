@@ -2,14 +2,13 @@
 {% from "radios/macro.njk" import govukRadios %}
 
 <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceOptions.header }}</h1>
     <form action="/additional-evidence", method="post">
         {{ govukRadios({
             idPrefix: "additional-evidence-option",
             name: "additional-evidence-option",
             fieldset: {
                 legend: {
-                text: i18n.additionalEvidence.evidenceOptions.title,
+                text: i18n.additionalEvidence.evidenceOptions.header,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--xl"
                 }
