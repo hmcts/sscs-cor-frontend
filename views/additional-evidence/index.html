@@ -14,7 +14,11 @@
 {% endif %}
 
 {% block pageTitle %}
-  {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+  {% if pageTitleError %}
+    {{ i18n.errorSummary.errorPageTitle }} {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+  {% else %}
+    {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+  {% endif %}
 {% endblock %}
 
 {% block beforeContent %}
