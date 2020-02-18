@@ -42,12 +42,10 @@ describe('controllers/login', () => {
     };
     next = sinon.stub();
     sinon.stub(AppInsights, 'trackException');
-    sinon.stub(AppInsights, 'trace');
   });
 
   afterEach(() => {
     (AppInsights.trackException as sinon.SinonStub).restore();
-    (AppInsights.trace as sinon.SinonStub).restore();
   });
 
   describe('#redirectToLogin', () => {

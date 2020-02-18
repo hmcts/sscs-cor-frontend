@@ -36,14 +36,17 @@ variable "secure_session" {
 
 variable "idam_url" {
   description = "url to redirect to for login via idam"
+  default    = "https://idam-web-public.aat.platform.hmcts.net"
 }
 
 variable "idam_api_url" {
   description = "url for idam api"
+  default    = "https://idam-api.aat.platform.hmcts.net"
 }
 
 variable "tribunals_api_url" {
   description = "URL for Tribunals api"
+  default  = "http://sscs-tribunals-api-aat.service.core-compute-demo.internal"
 }
 
 variable "idam_enable_stub" {
@@ -63,6 +66,11 @@ variable "mya_feature_flag" {
 
 variable "additional_evidence_feature_flag" {
   description = "Feature switch for enabling additional evidence upload per case"
+  default     = "false"
+}
+
+variable "post_bulk_scan" {
+  description = "Feature switch for enabling bulk scan cover sheet"
   default     = "false"
 }
 

@@ -78,6 +78,7 @@ function configureNunjucks(app: express.Application) {
     express: app,
     noCache:  true
   });
+  nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
     const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;

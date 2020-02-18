@@ -6,4 +6,6 @@ tribunals_api_url                              = "http://sscs-tribunals-api-demo
 idam_enable_stub                               = "false"
 evidence_upload_question_page_enabled          = "false"
 evidence_upload_question_page_override_allowed = "true"
-mya_feature_flag                               = "false"
+mya_feature_flag                               = "true"
+additional_evidence_feature_flag               = "true"
+post_bulk_scan                                 = "true"
