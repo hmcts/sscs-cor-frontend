@@ -15,7 +15,7 @@
 
 {% block pageTitle %}
   {% if pageTitleError %}
-    {{ i18n.errorSummary.errorPageTitle }} {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ i18n.errorSummary.errorPageTitle }} - {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
   {% else %}
     {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
   {% endif %}
