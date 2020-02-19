@@ -87,9 +87,7 @@ function getIdamCallback(
   hearingService: HearingService,
   trackYourApealService: TrackYourApealService) {
   return async (req: Request, res: Response, next: NextFunction) => {
-
     const code: string = req.query.code;
-
     if (!code) {
       const sessionId: string = req.session.id;
       return req.session.destroy(error => {
@@ -101,7 +99,6 @@ function getIdamCallback(
         return redirectToIdam(req, res);
       });
     }
-
     try {
       if (!req.session.accessToken) {
         logger.info('getting token');
@@ -114,7 +111,6 @@ function getIdamCallback(
       }
       const { email }: UserDetails = await idamService.getUserDetails(req.session.accessToken);
       req.session.idamEmail = email;
-
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);

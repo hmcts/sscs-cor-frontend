@@ -1,4 +1,5 @@
 import { IdamService } from 'app/server/services/idam';
+import * as Service2Service from 'app/server/services/s2s';
 const { expect, sinon } = require('test/chai-sinon');
 import { getLogout, getIdamCallback, setupLoginController, redirectToLogin, redirectToIdam } from 'app/server/controllers/login.ts';
 import * as AppInsights from 'app/server/app-insights';
@@ -147,6 +148,35 @@ describe('controllers/login', () => {
 
       it('redirects to task list page', () => {
         expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+      });
+    });
+
+    describe('throw exception because no caseId', () => {
+      it('throw error', async() => {
+        sinon.stub(Service2Service, 'generateToken').returns(3);
+        const accessToken = 'someAccessToken';
+        let hearingServiceStub;
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        req.query = {
+          'code': 'someCode'
+        };
+        const redirectToIdam = sinon.stub();
+        const idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        const hearingDetails = [{
+          online_hearing_id: '1',
+          appellant_name: 'John Smith'
+        }];
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: hearingDetails })
+        } as HearingService;
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
+        const error = new Error('Case ID cannot be empty');
+        expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+        expect(next).to.have.been.calledWith(sinon.match.has('message', error.message));
       });
     });
 
