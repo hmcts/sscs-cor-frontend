@@ -41,8 +41,6 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
 
     req.session.hearing = body;
 
-    req.session.hearing.case_reference = req.session.hearing.case_id ? req.session.hearing.case_id.toString() : '';
-
     logger.info(`Assigned ${req.session.tya} to ${req.session.idamEmail}`);
 
     const { appeal } = await trackYourAppealService.getAppeal(req.session.hearing.case_id, req);
@@ -52,6 +50,7 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
     if (req.session.appeal.hearingType === 'cor') {
       return res.redirect(Paths.taskList);
     } else {
+      req.session.hearing.case_reference = req.session.hearing.case_id ? req.session.hearing.case_id.toString() : '';
       return res.redirect(Paths.status);
     }
   };
