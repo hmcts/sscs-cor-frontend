@@ -43,9 +43,11 @@ withPipeline("nodejs", product, component) {
     after('build') {yarnBuilder.yarn('build')}
     installCharts()
     enableAksStagingDeployment()
-    disableLegacyDeployment()
+    if ("perftest" == env.BRANCH_NAME) {
+      echo 'no ASE deployment on perftest branch'
+      disableLegacyDeployment()
+    }    
     before('securitychecks') { yarnBuilder.yarn('test:audit') }
-
     before("functionalTest:preview") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
