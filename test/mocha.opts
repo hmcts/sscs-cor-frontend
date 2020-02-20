@@ -3,3 +3,5 @@
 --require tsconfig-paths/register
 --timeout=180000
 --bail
+--colors
+--full-trace

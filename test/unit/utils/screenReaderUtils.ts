@@ -3,7 +3,7 @@ import { spellNumbersOut } from '../../../app/server/utils/screenReaderUtils';
 
 describe('#screenReaderUtils', () => {
   it('should spell out a case reference', () => {
-    expect(spellNumbersOut('SC/123/133')).to.equal('S C. 1 2 3. 1 3 3');
+    expect(spellNumbersOut('5123769133')).to.equal('5 1 2 3 7 6 9 1 3 3');
   });
 
   it('should spell out a long number', () => {
