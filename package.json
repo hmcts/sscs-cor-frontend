@@ -143,6 +143,7 @@
     "tslint-config-standard": "^8.0.1",
     "tslint-no-unused-expression-chai": "^0.1.4",
     "typescript": "^3.0.0",
+    "uglify-js": "^3.8.0",
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
     "webdriverio": "^5.10.4"
