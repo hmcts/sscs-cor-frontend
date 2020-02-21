@@ -50,7 +50,7 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
   <div class="govuk-details__text" id="details-content-00f525bb-889a-4507-af48-0eee2be4e967" aria-hidden="true">
     <p>You can post evidence to the address below.</p>
     <p>Make sure it’s clearly marked with your appeal reference number:<br>
-      <strong id="evidence-case-reference">SC/112/233</strong>
+      <strong id="evidence-case-reference">112233</strong>
     </p>
     <p>HMCTS SSCS<br/>PO BOX 12626<br/>Harlow<br/>CM20 9QF</p>
     <p>Try to post it as soon as possible to avoid delaying your appeal.</p>
