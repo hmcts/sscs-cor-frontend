@@ -134,6 +134,7 @@ describe('controllers/additional-evidence.js', () => {
 
   describe('#postAdditionalEvidence', () => {
     it('should render the send by post additional evidence page', () => {
+      req.body['additional-evidence-option'] = 'post';
       postAdditionalEvidence(req, res);
       expect(res.redirect).to.have.been.calledWith(`${Paths.additionalEvidence}/${req.body['additional-evidence-option']}`);
     });
