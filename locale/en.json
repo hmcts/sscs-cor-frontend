@@ -614,7 +614,7 @@
     "tbc": "To be confirmed"
   },
   "errorSummary": {
-    "titleText": "There are errors on the page",
+    "titleText": "There is a problem with the information you entered",
     "descriptionText": "Please fix the errors before you continue",
     "errorPageTitle": "Error"
   },
