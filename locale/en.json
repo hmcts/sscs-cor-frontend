@@ -615,7 +615,8 @@
   },
   "errorSummary": {
     "titleText": "There are errors on the page",
-    "descriptionText": "Please fix the errors before you continue"
+    "descriptionText": "Please fix the errors before you continue",
+    "errorPageTitle": "Error"
   },
   "contactUsCor": {
     "title": "Contact us",
@@ -771,7 +772,10 @@
   },
   "additionalEvidence": {
     "evidenceOptions": {
-      "header": "How do you want to provide additional information?"
+      "header": "How do you want to provide additional information?",
+      "error": {
+        "noButtonSelected": "Select how you would like to provide additional information"
+      }
     },
     "evidenceStatement": {
       "header": "Provide your information online",

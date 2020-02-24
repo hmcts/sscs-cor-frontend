@@ -30,7 +30,13 @@ function getAboutEvidence(req: Request, res: Response) {
 
 function postAdditionalEvidence (req: Request, res: Response) {
   const action = req.body['additional-evidence-option'];
-  return res.redirect(`${Paths.additionalEvidence}/${action}`);
+
+  if (action) {
+    return res.redirect(`${Paths.additionalEvidence}/${action}`);
+  } else {
+    const errorMessage = i18n.additionalEvidence.evidenceOptions.error.noButtonSelected;
+    res.render('additional-evidence/index.html', { action: 'options', pageTitleError: true, error: errorMessage });
+  }
 }
 
 function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceService) {
