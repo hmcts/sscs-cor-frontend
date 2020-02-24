@@ -1,4 +1,5 @@
 import { IdamService } from 'app/server/services/idam';
+import * as Service2Service from 'app/server/services/s2s';
 const { expect, sinon } = require('test/chai-sinon');
 import { getLogout, getIdamCallback, setupLoginController, redirectToLogin, redirectToIdam } from 'app/server/controllers/login.ts';
 import * as AppInsights from 'app/server/app-insights';
@@ -18,7 +19,7 @@ describe('controllers/login', () => {
   const hearingDetails = {
     case_id: 12345,
     online_hearing_id: '1',
-    case_reference: 'SC/123/456',
+    case_reference: '12345',
     appellant_name: 'John Smith'
   };
 
@@ -147,6 +148,35 @@ describe('controllers/login', () => {
 
       it('redirects to task list page', () => {
         expect(res.redirect).to.have.been.calledWith(Paths.taskList);
+      });
+    });
+
+    describe('throw exception because no caseId', () => {
+      it('throw error', async() => {
+        sinon.stub(Service2Service, 'generateToken').returns(3);
+        const accessToken = 'someAccessToken';
+        let hearingServiceStub;
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        req.query = {
+          'code': 'someCode'
+        };
+        const redirectToIdam = sinon.stub();
+        const idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        const hearingDetails = [{
+          online_hearing_id: '1',
+          appellant_name: 'John Smith'
+        }];
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: hearingDetails })
+        } as HearingService;
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
+        const error = new Error('Case ID cannot be empty');
+        expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+        expect(next).to.have.been.calledWith(sinon.match.has('message', error.message));
       });
     });
 
@@ -281,13 +311,13 @@ describe('controllers/login', () => {
             'John Smith': [{
               appellant_name: 'John Smith',
               case_id: 12345,
-              case_reference: 'SC/123/456',
+              case_reference: '12345',
               online_hearing_id: '1'
             },
             {
               appellant_name: 'John Smith',
               case_id: 12345,
-              case_reference: 'SC/123/456',
+              case_reference: '12345',
               online_hearing_id: '1'
             }]
           }});
@@ -310,12 +340,12 @@ describe('controllers/login', () => {
             {
               case_id: 11111,
               online_hearing_id: '1',
-              case_reference: 'SC/111/456',
+              case_reference: '11111',
               appellant_name: 'John Smith'
             }, {
               case_id: 22222,
               online_hearing_id: '2',
-              case_reference: 'SC/222/456',
+              case_reference: '22222',
               appellant_name: 'John Smith'
             }]
           })
@@ -338,7 +368,7 @@ describe('controllers/login', () => {
         expect(req.session.hearing).to.be.eql({
           case_id: 11111,
           online_hearing_id: '1',
-          case_reference: 'SC/111/456',
+          case_reference: '11111',
           appellant_name: 'John Smith'
         });
       });

@@ -14,7 +14,7 @@ describe('middleware/check-decision', () => {
         id: '123',
         hearing: {
           online_hearing_id: '1',
-          case_reference: 'SC/123/456',
+          case_reference: '12345',
           appellant_name: 'John Smith',
           decision: {
             decision_award: 'appeal-upheld',
