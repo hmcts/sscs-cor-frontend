@@ -73,7 +73,7 @@ export class EvidenceUpload {
   }
 
   setFileUploadState(): void {
-    document.getElementById(this.FILE_UPLOAD_ID).style.display = 'none';
+    document.getElementById(this.FILE_UPLOAD_ID).className = 'file-display-none';
     const fileUploadLabel: HTMLElement = document.querySelector(this.FILE_UPLOAD_LABEL_SELECTOR);
     fileUploadLabel.style.display = '';
     fileUploadLabel.className = 'govuk-button secondary-button';

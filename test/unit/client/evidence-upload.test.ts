@@ -85,7 +85,7 @@ describe('evidence-upload', () => {
     it('sets file upload state', () => {
       const fileUpload: HTMLElement = document.getElementById(evidenceUpload.FILE_UPLOAD_ID);
       const fileUploadLabel: HTMLElement = body.querySelector(evidenceUpload.FILE_UPLOAD_LABEL_SELECTOR);
-      expect(fileUpload.style.display).to.equal('none');
+      expect(fileUpload.className).to.equal('file-display-none');
       expect(fileUploadLabel.style.display).to.equal('');
       expect(fileUploadLabel.className).to.equal('govuk-button secondary-button');
     });
