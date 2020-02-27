@@ -1,7 +1,7 @@
 {% macro statusBar(stages) %}
     <div class="status-bar">
     {% for stage in stages %}
-        <div class="status-bar__stage {{ 'stage--active' if stage.active }} {{ '--leg' if not loop.first }}">
+        <div class="status-bar__stage {{ 'stage--active' if stage.active }} {{ 'leg' if not loop.first }}">
             <div class="status-bar__ring"></div>
             <p class="govuk-heading-s">{{ stage.title }}</p>
         </div>

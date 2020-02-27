@@ -43,10 +43,12 @@ describe('controllers/login', () => {
     };
     next = sinon.stub();
     sinon.stub(AppInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackTrace');
   });
 
   afterEach(() => {
     (AppInsights.trackException as sinon.SinonStub).restore();
+    (AppInsights.trackTrace as sinon.SinonStub).restore();
   });
 
   describe('#redirectToLogin', () => {
@@ -206,6 +208,10 @@ describe('controllers/login', () => {
         expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com+someCaseId', req);
       });
 
+      it('logs AppInsights trace log', () => {
+        expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[12345] - User logged in successfully as someEmail@example.com`);
+      });
+
       it('redirects to task list page', () => {
         expect(res.redirect).to.have.been.calledWith(Paths.taskList);
       });
@@ -237,6 +243,10 @@ describe('controllers/login', () => {
 
       it('calls the online hearing service', () => {
         expect(hearingServiceStub.getOnlineHearingsForCitizen).to.have.been.calledOnce.calledWith('someEmail@example.com', 'tya-number', req);
+      });
+
+      it('logs AppInsights trace log', () => {
+        expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[12345] - User logged in successfully as someEmail@example.com`);
       });
 
       it('redirects to task list page', () => {
