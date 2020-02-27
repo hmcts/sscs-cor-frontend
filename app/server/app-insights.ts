@@ -14,5 +14,13 @@ export const enable = () => {
 };
 
 export const trackException = exception => {
-  applicationInsights.defaultClient.trackException({ exception });
+  if (applicationInsights.defaultClient) {
+    applicationInsights.defaultClient.trackException({ exception });
+  }
+};
+
+export const trackTrace = message => {
+  if (applicationInsights.defaultClient) {
+    applicationInsights.defaultClient.trackTrace({ message });
+  }
 };
