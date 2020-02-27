@@ -179,7 +179,7 @@ describe('Client/session-inactivity', () => {
       expect(startModalIntervalSpy).to.have.been.called;
     });
 
-    it.skip('should modify expiring message when interval starts', () => {
+    it('should modify expiring message when interval starts', () => {
       sessionInactivity.startModalInterval();
       clock.tick(1001);
 

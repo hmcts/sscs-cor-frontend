@@ -2,7 +2,7 @@ import * as moment from 'moment';
 const i18n = require('../../../locale/en');
 
 export class SessionInactivity {
-  public sessionExtendBuffer: number = 10000;
+  public sessionExtendBuffer: number = 120000; // 2 mins in ms
   public answerFormEl: HTMLElement = null;
   public modal: HTMLElement = null;
   public extend: HTMLElement = null;
@@ -40,8 +40,8 @@ export class SessionInactivity {
   }
 
   startCounters(): void {
-    this.startCountdown(10000);
-    this.startSessionTimeOut(20000);
+    this.startCountdown(1080000); // 18 mins in ms
+    this.startSessionTimeOut(1200000); // 20 mins in ms
   }
 
   stopCounters(): void {
