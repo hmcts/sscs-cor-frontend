@@ -53,6 +53,7 @@ describe('controllers/additional-evidence.js', () => {
     };
     next = sandbox.stub();
     sandbox.stub(AppInsights, 'trackException');
+    sandbox.stub(AppInsights, 'trackTrace');
   });
 
   afterEach(() => {
@@ -159,6 +160,7 @@ describe('controllers/additional-evidence.js', () => {
       req.session.hearing.case_id = caseId;
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
       expect(additionalEvidenceService.saveStatement).to.have.been.calledOnce.calledWith(caseId, req.body['question-field']);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[${caseId}] - User has provided a statement`);
       expect(res.redirect).to.have.been.calledWith(`${Paths.additionalEvidence}/confirm`);
     });
 
@@ -257,6 +259,7 @@ describe('controllers/additional-evidence.js', () => {
 
       expect(additionalEvidenceService.submitEvidences).to.have.been.calledOnce.calledWith(caseId, description, req);
       expect(req.session.additional_evidence.description).to.equal('');
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[${caseId}] - User has uploaded a total of 1 file(s)`);
     });
 
     it('should show errors when file size is bigger than certain limit', async () => {
