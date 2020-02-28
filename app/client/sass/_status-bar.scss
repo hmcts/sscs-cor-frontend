@@ -16,7 +16,7 @@
                 width: 100%;    
             }
         }
-        h4 {
+        p {
             margin: 0;
             margin-left: .5rem;
             line-height: 2.75rem;
@@ -46,7 +46,7 @@
     }
 }
 
-.--leg {
+.leg {
     position: relative;
     > .status-bar__ring {
         position: relative;
@@ -80,7 +80,7 @@
         background-position: center;
     }
 
-    h4 {
+    p {
         font-weight: 700;
     }
 }
