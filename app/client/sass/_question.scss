@@ -48,6 +48,14 @@ table#files-uploaded {
   #file-upload-1-error {
     margin-top: 15px;
   }
+  .file-display-none {
+    z-index: -1;
+    position: relative;
+    width: 116px;
+    height: 40px;
+    top: -36px;
+  }
+
 }
 
 #upload-spinner{
