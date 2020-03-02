@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as config from 'config';
 const multer = require('multer');
-import * as _ from 'lodash';
 import * as AppInsights from '../app-insights';
 import { answerValidation, uploadDescriptionValidation } from '../utils/fieldValidation';
 import * as Paths from '../paths';
@@ -49,6 +48,7 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
       if (!validationMessage) {
         const caseId = req.session.hearing.case_id;
         await additionalEvidenceService.saveStatement(caseId, statementText, req);
+        AppInsights.trackTrace(`[${caseId}] - User has provided a statement`);
         res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else {
         res.render('additional-evidence/index.html', { action : 'statement', error: validationMessage });
@@ -119,6 +119,7 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         }
         await additionalEvidenceService.submitEvidences(caseId, evidenceDescription, req);
         req.session.additional_evidence.description = '';
+        AppInsights.trackTrace(`[${caseId}] - User has uploaded a total of ${evidences.length} file(s)`);
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else if (res.locals.multerError) {
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);

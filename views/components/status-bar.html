@@ -2,8 +2,8 @@
     <div class="status-bar">
     {% for stage in stages %}
         <div class="status-bar__stage {{ 'stage--active' if stage.active }} {{ 'leg' if not loop.first }}">
-            <div class="status-bar__ring"></div>
-            <h4 class="govuk-heading-s">{{ stage.title }}</h4>
+            <div class="status-bar__ring" aria-label="{{ 'Received:' if stage.active else 'Awaiting:' }} {{ stage.title }} "></div>
+            <p class="govuk-heading-s">{{ stage.title }}</p>
         </div>
     {% endfor %}
     </div>
