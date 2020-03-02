@@ -134,6 +134,7 @@ function getIdamCallback(
           req.session.subscriptions = subscriptions;
 
           logger.info(`Logging in ${email}`);
+          AppInsights.trackTrace(`[${req.session.hearing && req.session.hearing.case_id}] - User logged in successfully as ${email}`);
           if (req.session.appeal.hearingType === 'cor') {
             return res.redirect(Paths.taskList);
           } else {
@@ -152,6 +153,7 @@ function getIdamCallback(
         req.session.hearing = body;
 
         logger.info(`Logging in ${emailToSearchFor}`);
+        AppInsights.trackTrace(`[${req.session.hearing && req.session.hearing.case_id}] - User logged in successfully as ${email}`);
         return res.redirect(Paths.taskList);
       }
     } catch (error) {

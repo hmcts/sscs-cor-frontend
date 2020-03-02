@@ -145,6 +145,15 @@ address {
   display: inline-block;
 }
 
+.file-display-none {
+  z-index: -1;
+  position: relative;
+  width: 116px;
+  height: 43px;
+  top: -48px;
+  margin-bottom: -40px;
+}
+
 .display--none {
   display: none;
 }
