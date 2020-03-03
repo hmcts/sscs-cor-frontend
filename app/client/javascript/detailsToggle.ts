@@ -3,7 +3,7 @@ export class DetailsTabIndexToggle {
   init(): void {
     this.detailsSelectors = Array.from(document.querySelectorAll('details.govuk-details'));
     this.detailsSelectors.forEach(selector => {
-      selector.removeAttribute('role');
+      selector.removeAttribute('role'); // remove role='group' attribute for DAC report
 
       const detailsText = selector.querySelectorAll('.govuk-details__text a');
       if (selector.open) detailsText.forEach(child => child.removeAttribute('tabindex'));
