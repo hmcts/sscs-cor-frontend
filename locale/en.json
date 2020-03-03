@@ -55,7 +55,7 @@
     "sendingEvidence": {
       "header": "Providing additional evidence",
       "intro": "If you have any additional information that is relevant to your appeal, you can",
-      "anchorText": "submit it here",
+      "anchorText": "submit your evidence",
       "summary": "How to send additional evidence",
       "details": {
         "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
@@ -609,6 +609,7 @@
     "signOut": "Sign out",
     "delete": "Delete",
     "serviceTitle": "Appeal a benefit decision",
+    "sessionExpiryWarning": "Your session will expire and you will be signed out after 20 minutes of inactivity",
     "govUK": "GOV.UK",
     "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
     "tbc": "To be confirmed"
@@ -872,7 +873,7 @@
     },
     "additionalEvidence": {
       "header": "Send evidence to the tribunal",
-      "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit it here</a>."
+      "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit your evidence</a> here."
     }
   },
   "hearingTab": {
