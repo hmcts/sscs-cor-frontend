@@ -617,7 +617,7 @@
   "errorSummary": {
     "titleText": "There is a problem",
     "descriptionText": "Please fix the errors before you continue",
-    "errorPageTitle": "Error"
+    "errorPageTitle": "Error:"
   },
   "contactUsCor": {
     "title": "Contact us",

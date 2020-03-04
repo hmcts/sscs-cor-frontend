@@ -51,7 +51,7 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
         AppInsights.trackTrace(`[${caseId}] - User has provided a statement`);
         res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else {
-        res.render('additional-evidence/index.html', { action : 'statement', error: validationMessage });
+        res.render('additional-evidence/index.html', { action : 'statement', pageTitleError: true, error: validationMessage });
       }
     } catch (error) {
       AppInsights.trackException(error);
