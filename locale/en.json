@@ -3,8 +3,8 @@
   "contactEmail": "pipappeals@justice.gov.uk",
   "phaseBanner": {
     "new": "This is a new service – your ",
-    "report": "feedback",
-    "improve": "will help us improve it. (opens in new window)"
+    "report": "feedback (opens in new window)",
+    "improve": "will help us improve it."
   },
   "guidance": {
     "sendingEvidence": {
