@@ -41,7 +41,7 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
         <input id="add-file" name="add-file" type="submit" value="Add file" class="govuk-button secondary-button evidence-upload-nojs" style="display: none;">
     </div>
     <div id="upload-spinner"></div>
-    <details id="sending-evidence-guide" class="govuk-details" role="group">
+    <details id="sending-evidence-guide" class="govuk-details">
   <summary class="govuk-details__summary" role="button" aria-controls="details-content-00f525bb-889a-4507-af48-0eee2be4e967" aria-expanded="false">
     <span class="govuk-details__summary-text">
       You can also post evidence to the tribunal
@@ -50,7 +50,7 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
   <div class="govuk-details__text" id="details-content-00f525bb-889a-4507-af48-0eee2be4e967" aria-hidden="true">
     <p>You can post evidence to the address below.</p>
     <p>Make sure it’s clearly marked with your appeal reference number:<br>
-      <strong id="evidence-case-reference">SC/112/233</strong>
+      <strong id="evidence-case-reference">112233</strong>
     </p>
     <p>HMCTS SSCS<br/>PO BOX 12626<br/>Harlow<br/>CM20 9QF</p>
     <p>Try to post it as soon as possible to avoid delaying your appeal.</p>
@@ -85,7 +85,7 @@ describe('evidence-upload', () => {
     it('sets file upload state', () => {
       const fileUpload: HTMLElement = document.getElementById(evidenceUpload.FILE_UPLOAD_ID);
       const fileUploadLabel: HTMLElement = body.querySelector(evidenceUpload.FILE_UPLOAD_LABEL_SELECTOR);
-      expect(fileUpload.style.display).to.equal('none');
+      expect(fileUpload.className).to.equal('file-display-none');
       expect(fileUploadLabel.style.display).to.equal('');
       expect(fileUploadLabel.className).to.equal('govuk-button secondary-button');
     });

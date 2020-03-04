@@ -22,9 +22,9 @@ describe('controllers/task-list', () => {
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   const hearingDetails = {
     online_hearing_id: '1',
-    case_reference: 'SC/123/456',
+    case_reference: '12345',
     appellant_name: 'John Smith',
-    case_id: 123456
+    case_id: 12345
   };
 
   beforeEach(() => {

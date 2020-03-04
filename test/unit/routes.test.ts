@@ -65,7 +65,7 @@ describe('Routes', () => {
           req.session.accessToken = 'mock uid';
           req.session.hearing = {
             appellant_name: 'Adam Jenkins',
-            case_reference: 'SC/112/233',
+            case_reference: '112233',
             online_hearing_id: '2-completed'
           };
           req.session.appeal = {
@@ -141,7 +141,7 @@ describe('Routes', () => {
           req.session.accessToken = 'mock uid';
           req.session.hearing = {
             appellant_name: 'Adam Jenkins',
-            case_reference: 'SC/112/233',
+            case_reference: '112233',
             online_hearing_id: '2-completed',
             decision: {
               appellant_reply: 'decision_accepted',
@@ -178,7 +178,7 @@ describe('Routes', () => {
         mockApp.all('*', function(req, res, next) {
           hearingDetails = {
             online_hearing_id: '1',
-            case_reference: 'SC/123/456',
+            case_reference: '12345',
             appellant_name: 'John Smith',
             decision: {
               start_date: '2018-10-17',
