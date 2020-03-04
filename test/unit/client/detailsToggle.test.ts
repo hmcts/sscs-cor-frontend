@@ -2,7 +2,7 @@ import { expect, sinon } from 'test/chai-sinon';
 import { DetailsTabIndexToggle } from 'app/client/javascript/detailsToggle';
 
 const html = `
-<details class="govuk-details contact-us" role="group">
+<details class="govuk-details contact-us">
   <summary class="govuk-details__summary" role="button" aria-controls="details-content-6830cb99-7579-4aa3-a7bc-6e2e11e6f6e1" aria-expanded="false">
     <span class="govuk-details__summary-text">
       Contact us for help
