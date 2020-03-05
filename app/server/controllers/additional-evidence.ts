@@ -110,6 +110,7 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
           return res.render('additional-evidence/index.html',
             {
               action: 'upload',
+              pageTitleError: true,
               evidences: evidences ? evidences.reverse() : [],
               description,
               error: descriptionValidationMsg,
@@ -127,6 +128,7 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         return res.render('additional-evidence/index.html',
           {
             action: 'upload',
+            pageTitleError: true,
             evidences: evidences ? evidences.reverse() : [],
             description,
             fileUploadError: res.locals.multerError

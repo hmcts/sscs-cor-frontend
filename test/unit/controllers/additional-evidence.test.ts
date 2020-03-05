@@ -234,6 +234,7 @@ describe('controllers/additional-evidence.js', () => {
 
       expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
         action: 'upload',
+        pageTitleError: true,
         evidences: [],
         description: '',
         error: i18n.additionalEvidence.evidenceUpload.error.emptyDescription,
@@ -270,6 +271,7 @@ describe('controllers/additional-evidence.js', () => {
 
       expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
         action: 'upload',
+        pageTitleError: true,
         evidences: [],
         description: '',
         fileUploadError: fileSizeErrorMsg
