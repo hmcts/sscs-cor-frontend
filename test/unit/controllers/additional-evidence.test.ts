@@ -170,6 +170,7 @@ describe('controllers/additional-evidence.js', () => {
       expect(additionalEvidenceService.saveStatement).not.to.have.been.called;
       expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
         action: 'statement',
+        pageTitleError: true,
         error: i18n.question.textareaField.errorOnSave.empty
       });
     });
@@ -233,6 +234,7 @@ describe('controllers/additional-evidence.js', () => {
 
       expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
         action: 'upload',
+        pageTitleError: true,
         evidences: [],
         description: '',
         error: i18n.additionalEvidence.evidenceUpload.error.emptyDescription,
@@ -269,6 +271,7 @@ describe('controllers/additional-evidence.js', () => {
 
       expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
         action: 'upload',
+        pageTitleError: true,
         evidences: [],
         description: '',
         fileUploadError: fileSizeErrorMsg
