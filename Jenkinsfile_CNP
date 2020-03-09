@@ -43,7 +43,7 @@ withPipeline("nodejs", product, component) {
     after('build') {yarnBuilder.yarn('build')}
     installCharts()
     enableAksStagingDeployment()
-    // disableLegacyDeploymentOnAAT()
+    disableLegacyDeployment()
     before('securitychecks') { yarnBuilder.yarn('test:audit') }
 
     before("functionalTest:preview") {
