@@ -45,7 +45,7 @@
                             {{ type }} {{i18n.yourDetails.emailLabel}}
                         </th>
                         <td class="govuk-table__cell {{ hideBottomBorder }}">
-                            {{ value.email }}
+                            {{ value.email if value.email else i18n.yourDetails.notProvided }}
                         </td>
                     </tr>
                 {% endfor %}
@@ -58,7 +58,7 @@
                             {{ type }} {{i18n.yourDetails.mobileLabel}}
                         </th>
                         <td class="govuk-table__cell {{ hideBottomBorder }}">
-                            {{ value.mobile }}
+                            {{ value.mobile if value.mobile else i18n.yourDetails.notProvided }}
                         </td>
                     </tr>
                 {% endfor %}
@@ -68,7 +68,7 @@
                           {{ type }} {{i18n.contact.phone}}
                       </th>
                       <td class="govuk-table__cell {{ hideBottomBorder }}">
-                          {{ contact.phone }}
+                          {{ contact.phone if contact.phone else i18n.yourDetails.notProvided}} 
                       </td>
                   </tr>
                 {% endif %}
@@ -78,7 +78,7 @@
                           {{ type }} {{i18n.contact.mobile}}
                       </th>
                       <td class="govuk-table__cell {{ hideBottomBorder }}">
-                          {{ contact.mobile }}
+                          {{ contact.mobile if contact.mobile else i18n.yourDetails.notProvided }}
                       </td>
                   </tr>
                 {% endif %}
@@ -88,7 +88,7 @@
                           {{ type }} {{i18n.contact.email}}
                       </th>
                       <td class="govuk-table__cell {{ hideBottomBorder }}">
-                          {{ contact.email }}
+                          {{ contact.email if contact.email else i18n.yourDetails.notProvided }}
                       </td>
                   </tr>
                 {% endif %}
