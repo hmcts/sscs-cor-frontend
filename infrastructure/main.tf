@@ -2,82 +2,13 @@ provider "azurerm" {
   version = "1.41.0"
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "${var.product}-${var.component}-${var.env}"
-  location = "${var.location}"
-
-  tags = "${merge(var.common_tags,
-    map("lastUpdated", "${timestamp()}")
-  )}"
-}
-
 locals {
-  aseName = "core-compute-${var.env}"
-
-  localApiUrl = "http://sscs-cor-backend-${var.env}.service.${local.aseName}.internal"
-  ApiUrl      = "${var.env == "preview" ? "http://sscs-cor-backend-aat.service.core-compute-aat.internal" : local.localApiUrl}"
-
   azureVaultName = "sscs-${var.env}"
-
-  s2sUrl = "http://rpe-service-auth-provider-${var.env}.service.${local.aseName}.internal"
 }
 
 data "azurerm_key_vault" "sscs_key_vault" {
   name                = "${local.azureVaultName}"
   resource_group_name = "${local.azureVaultName}"
-}
-
-data "azurerm_key_vault_secret" "sscs-cor-idam-client-secret" {
-  name         = "sscs-cor-idam-client-secret"
-  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
-}
-
-data "azurerm_key_vault_secret" "sscs-s2s-secret" {
-  name         = "sscs-s2s-secret"
-  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
-}
-
-data "azurerm_key_vault_secret" "appinsights_instrumentation_key" {
-  name         = "AppInsightsInstrumentationKey"
-  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
-}
-
-module "sscs-cor-frontend" {
-  source                          = "git@github.com:hmcts/cnp-module-webapp?ref=master"
-  product                         = "${var.product}-${var.component}"
-  location                        = "${var.location}"
-  env                             = "${var.env}"
-  ilbIp                           = "${var.ilbIp}"
-  is_frontend                     = "1"
-  subscription                    = "${var.subscription}"
-  additional_host_name            = "${var.additional_hostname}"
-  https_only                      = "${var.https_only_flag}"
-  common_tags                     = "${var.common_tags}"
-  asp_rg                          = "${var.product}-${var.component}-${var.env}"
-  asp_name                        = "${var.product}-${var.component}-${var.env}"
-  appinsights_instrumentation_key = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
-
-  app_settings = {
-    SSCS_API_URL                                   = "${local.ApiUrl}"
-    WEBSITE_NODE_DEFAULT_VERSION                   = "12.13.0"
-    NODE_ENV                                       = "${var.node_environment}"
-    REDIS_URL                                      = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
-    SESSION_SECRET                                 = "${module.redis-cache.access_key}"
-    SECURE_SESSION                                 = "${var.secure_session}"
-    IDAM_URL                                       = "${var.idam_url}"
-    IDAM_API_URL                                   = "${var.idam_api_url}"
-    IDAM_ENABLE_STUB                               = "${var.idam_enable_stub}"
-    IDAM_CLIENT_SECRET                             = "${data.azurerm_key_vault_secret.sscs-cor-idam-client-secret.value}"
-    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED          = "${var.evidence_upload_question_page_enabled}"
-    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED = "${var.evidence_upload_question_page_override_allowed}"
-    S2S_URL                                        = "${local.s2sUrl}"
-    S2S_SECRET                                     = "${data.azurerm_key_vault_secret.sscs-s2s-secret.value}"
-    MYA_FEATURE_FLAG                               = "${var.mya_feature_flag}"
-    POST_BULK_SCAN                                 = "${var.post_bulk_scan}"
-    ADDITIONAL_EVIDENCE_FEATURE_FLAG               = "${var.additional_evidence_feature_flag}"
-    TRIBUNALS_API_URL                              = "${var.tribunals_api_url}"
-    APPINSIGHTS_INSTRUMENTATIONKEY                 = "${data.azurerm_key_vault_secret.appinsights_instrumentation_key.value}"
-  }
 }
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
