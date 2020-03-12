@@ -5,16 +5,10 @@ import * as appConfigs from '../../app/server/app-configurations';
 
 describe('app-configuration', () => {
   let sandbox: sinon.SinonSandbox;
+  let configNunjucks: object;
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
-  it('configureNunjucks', () => {
-    sandbox.stub(nunjucks, 'configure').returns({
+    configNunjucks = {
       addFilter: sandbox.stub(),
       options: { autoescape: true },
       render: sandbox.stub(),
@@ -27,7 +21,15 @@ describe('app-configuration', () => {
       addGlobal: sandbox.stub(),
       getTemplate: sandbox.stub(),
       express: sandbox.stub()
-    } as nunjucks.Environment);
+    };
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('configureNunjucks', () => {
+    sandbox.stub(nunjucks, 'configure').returns(configNunjucks as nunjucks.Environment);
     const app = express();
     appConfigs.configureNunjucks(app);
 
