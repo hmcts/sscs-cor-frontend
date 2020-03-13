@@ -14,7 +14,7 @@ describe('app-configuration', () => {
   });
 
   it('configureNunjucks', () => {
-    sandbox.stub(nunjucks, 'configure').returns({
+    let configNunjucks: object = {
       addFilter: sandbox.stub(),
       options: { autoescape: true },
       render: sandbox.stub(),
@@ -27,7 +27,8 @@ describe('app-configuration', () => {
       addGlobal: sandbox.stub(),
       getTemplate: sandbox.stub(),
       express: sandbox.stub()
-    } as nunjucks.Environment);
+    };
+    sandbox.stub(nunjucks, 'configure').returns(configNunjucks as nunjucks.Environment);
     const app = express();
     appConfigs.configureNunjucks(app);
 
