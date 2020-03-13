@@ -120,13 +120,6 @@ describe('Client/session-inactivity', () => {
       expect(classes).to.not.contain('modal--open');
     });
 
-    it('should redirect to /sign-out', () => {
-      const stub = sinon.stub(window.location, 'assign');
-
-      sessionInactivity.signOut();
-
-      expect(stub).to.be.calledWith('/sign-out');
-    });
   });
 
   describe('Counters', () => {
