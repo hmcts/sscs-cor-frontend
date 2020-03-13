@@ -1,5 +1,6 @@
 nodejs:
   image: ${IMAGE_NAME}
+  ingressClass: traefik-no-proxy
   ingressHost: ${SERVICE_FQDN}
   environment:
     REDIS_URL: redis://${SERVICE_NAME}-redis-master
