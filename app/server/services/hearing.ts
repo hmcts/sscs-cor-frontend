@@ -79,4 +79,13 @@ export class HearingService {
       body: { reply, reason: reason ? reason : '' }
     }, req);
   }
+
+  async logUserLoggedInTimeWithCase(hearingId: string, req: Request) {
+    return RequestPromise.request({
+      method: 'PUT',
+      uri: `${this.apiUrl}/citizen/cases/${hearingId}/log`,
+      resolveWithFullResponse: true,
+      simple: false
+    }, req);
+  }
 }
