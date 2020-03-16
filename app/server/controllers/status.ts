@@ -6,15 +6,16 @@ import { IAppealStage, getActiveStages } from '../utils/appealStages';
 import { oralAppealStages, paperAppealStages, corAppealStages, closedAppealStages } from '../data/appealStages';
 import { HearingService } from '../services/hearing';
 import * as rp from 'request-promise';
+
 const logger = Logger.getLogger('login.js');
 
 function getStatus(hearingService: HearingService) {
   return async (req: Request, res: Response) => {
     if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
     let stages: IAppealStage[] = [];
-    const {appeal} = req.session;
+    const { appeal } = req.session;
     const noProgressBarStages = ['CLOSED', 'LAPSED_REVISED', 'WITHDRAWN'];
-    const {hearingType, status} = appeal;
+    const { hearingType, status } = appeal;
     if (!noProgressBarStages.includes(status)) {
       if (hearingType === 'oral') {
         stages = getActiveStages(status, oralAppealStages);
@@ -28,9 +29,9 @@ function getStatus(hearingService: HearingService) {
     }
     if (appeal && appeal.caseId) {
       logger.info('Logging time for case id ' + appeal.caseId);
-      const {statusCode}: rp.Response = await hearingService.logUserLoggedInTimeWithCase(appeal.caseId, req);
+      const { statusCode }: rp.Response = await hearingService.logUserLoggedInTimeWithCase(appeal.caseId, req);
     }
-    return res.render('status-tab.html', {stages, appeal});
+    return res.render('status-tab.html', { stages, appeal });
   };
 }
 
