@@ -1,3 +1,5 @@
+import { HearingService } from '../../../app/server/services/hearing';
+
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 import * as status from 'app/server/controllers/status';
@@ -48,19 +50,27 @@ describe('controllers/status', () => {
 
   describe('getStatus', () => {
     it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async() => {
+      let hearingServiceStub;
       req.cookies.manageYourAppeal = 'true';
       req.session = oralAppealReceived;
       const getActiveStagesStub = sandbox.stub(appealStagesUtils, 'getActiveStages').returns([]);
-      status.getStatus(req, res);
+      hearingServiceStub = {
+        logUserLoggedInTimeWithCase: sinon.stub().resolves({ statusCode: 200 })
+      } as HearingService;
+      status.getStatus(hearingServiceStub);
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(oralAppealReceived.appeal.status);
       expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', { stages: [], appeal: oralAppealReceived.appeal });
     });
 
     it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async() => {
+      let hearingServiceStub;
       req.cookies.manageYourAppeal = 'true';
       req.session = paperAppealReceived;
       const getActiveStagesStub = sandbox.stub(appealStagesUtils, 'getActiveStages').returns([]);
-      status.getStatus(req, res);
+      hearingServiceStub = {
+        logUserLoggedInTimeWithCase: sinon.stub().resolves({ statusCode: 200 })
+      } as HearingService;
+      status.getStatus(hearingServiceStub);
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(paperAppealReceived.appeal.status);
       expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', { stages: [], appeal: paperAppealReceived.appeal });
     });
