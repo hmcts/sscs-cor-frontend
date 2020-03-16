@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+{{ i18n.notifications.email.addressChangeConfirmed.tab }}
+{% endblock %}
+
+{% block content %}
+
+<main id="content" class="email-change-confirmed" role="main">
+
+    {% include "includes/phase_banner_beta.html" %}
+
+    <div class="grid-row">
+
+        <div class="column-full">
+
+            <div class="govuk-box-highlight">
+                <h1 class="bold-small">{{ i18n.notifications.email.addressChangeConfirmed.title }}</h1>
+                <br>
+                <p class="bold-large">{{ data.email }}</p>
+            </div>
+
+            <p>{{ i18n.notifications.email.addressChangeConfirmed.content }}</p>
+
+            <a href="/manage-email-notifications/{{ mactoken }}/change">{{ i18n.notifications.email.addressChangeConfirmed.link }}</a>
+
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

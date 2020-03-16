@@ -1,0 +1,64 @@
+{% from "components/formElements.html" import radioButton %}
+{% extends "layout.html" %}
+
+{% block page_title %}
+{{ i18n.notifications.email.manage.tab }}
+{% endblock %}
+
+{% block content %}
+
+<main id="content" class="manage-email-notifications" role="main">
+
+    {% include "includes/phase_banner_beta.html" %}
+
+    <div class="grid-row">
+
+        <div class="column-two-thirds">
+
+            {% include "errors/summary.html" %}
+
+            <h1 class="heading-large">{{ i18n.notifications.email.manage.title }}</h1>
+
+            <form action="/manage-email-notifications/{{ mactoken }}" method="post">
+
+                <div class="form-group {{'form-group-error' if fields.error}}">
+
+                    <fieldset>
+
+                        <legend>
+                            <span class="visually-hidden">{{ i18n.notifications.email.manage.visuallyHidden }}</span>
+                            {% if fields.error %}
+                            <span class="error-message">{{ fields.noSelection.errorMessage | safe }}</span>
+                            {% endif %}
+                        </legend>
+
+                        {{ radioButton(
+                            label='Change your email address',
+                            name='type',
+                            field=fields.type,
+                            value=types.CHANGE_EMAIL
+                        )}}
+
+                        {{ radioButton(
+                            label='Stop receiving emails',
+                            name='type',
+                            field=fields.type,
+                            value=types.STOP_EMAIL
+                        )}}
+
+                    </fieldset>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="button" value="{{ i18n.notifications.email.manage.continue }}">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

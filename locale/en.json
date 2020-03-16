@@ -614,6 +614,70 @@
     "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
     "tbc": "To be confirmed"
   },
+  "notifications": {
+    "register": {
+      "title": "Register for notifications",
+      "content": "Receive reminders and notifications to keep you updated on the progress of your appeal",
+      "question": "How would you like to receive notifications?",
+      "options": [
+        "Email",
+        "Text Message",
+        "Both"
+      ],
+      "continue": "Continue",
+      "cancel": "Cancel"
+    },
+    "email": {
+      "manage": {
+        "tab": "Manage email notifications",
+        "title": "What do you want to do?",
+        "visuallyHidden": "What do you want to do?",
+        "continue": "Continue"
+      },
+      "stop": {
+        "tab": "Stop receiving email updates",
+        "title": "You’ll stop receiving email updates and reminders about your {{benefitType|acronym}} benefit appeal.",
+        "confirm": "Confirm",
+        "link": "Cancel"
+      },
+      "stopConfirmation": {
+        "tab": "Email notifications stopped",
+        "title": "You’ve stopped email notifications",
+        "content": "You won’t receive any more emails about your {{benefitType|acronym}} benefit appeal.",
+        "exitFeedbackSurveyPreLink": "Please provide some",
+        "exitFeedbackSurveyLink": "feedback to help us improve this service.",
+        "linkPre": "You can still",
+        "linkPost": "track your benefit appeal online"
+      },
+      "addressChange": {
+        "tab": "Your new email address",
+        "tabError": "Errors on page",
+        "title": "Your new email address",
+        "visuallyHidden": "What do you want to do?",
+        "continue": "Continue",
+        "cancel": "Cancel",
+        "errors": {
+          "title": "There are errors on the page."
+        }
+      },
+      "addressChangeConfirmed": {
+        "tab": "Email address change confirmation",
+        "title": "Emails about your {{benefitType|acronym}} benefit appeal will now be sent to",
+        "content": "We’ve sent a confirmation email to that address. Check it in a few minutes.",
+        "link": "Change your email address"
+      },
+      "errors": {
+        "selectAnOptionHeading": "Please select an option",
+        "selectAnOptionField": "You have not selected an option. Select an option.",
+        "emptyStringHeading": "New email address not entered",
+        "emptyStringEmailField": "You have not entered your email address. Enter your email address.",
+        "notValidHeading": "New email address is invalid",
+        "notValidField": "The email address you’ve entered is invalid. Check it and enter it again.",
+        "noMatchHeading": "Email addresses do not match",
+        "noMatchField": "Your email addresses don’t match. Check and enter them again."
+      }
+    }
+  },
   "errorSummary": {
     "titleText": "There is a problem",
     "descriptionText": "Please fix the errors before you continue",
