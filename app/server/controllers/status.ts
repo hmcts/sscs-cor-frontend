@@ -5,7 +5,6 @@ import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import { IAppealStage, getActiveStages } from '../utils/appealStages';
 import { oralAppealStages, paperAppealStages, corAppealStages, closedAppealStages } from '../data/appealStages';
 import { HearingService } from '../services/hearing';
-import * as rp from 'request-promise';
 
 const logger = Logger.getLogger('login.js');
 
@@ -29,7 +28,7 @@ function getStatus(hearingService: HearingService) {
     }
     if (appeal && appeal.caseId) {
       logger.info('Logging time for case id ' + appeal.caseId);
-      const { statusCode }: rp.Response = await hearingService.logUserLoggedInTimeWithCase(appeal.caseId, req);
+      await hearingService.logUserLoggedInTimeWithCase(appeal.caseId, req);
     }
     return res.render('status-tab.html', { stages, appeal });
   };

@@ -84,8 +84,7 @@ export class HearingService {
     return RequestPromise.request({
       method: 'PUT',
       uri: `${this.apiUrl}/citizen/cases/${hearingId}/log`,
-      resolveWithFullResponse: true,
-      simple: false
+      body: {}
     }, req);
   }
 }
