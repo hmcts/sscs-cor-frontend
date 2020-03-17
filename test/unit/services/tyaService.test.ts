@@ -31,4 +31,29 @@ describe('services/tyaService', () => {
     await trackYourAppealService.getAppeal(appealId, req);
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
+
+  it('should changeEmailAddress', async () => {
+    const appealId = 'appealNumber';
+    const subscriptionId = 'subscriptionId';
+    const email = 'email';
+    const expectedRequestOptions = {
+      method: 'POST',
+      uri: `${tribunalsApiUrl}/appeals/${appealId}/subscriptions/${subscriptionId}`,
+      body: { subscription: { email: email } }
+    };
+    await trackYourAppealService.changeEmailAddress(appealId, email, subscriptionId, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
+
+  it('should stopReceivingEmails', async () => {
+    const appealId = 'appealNumber';
+    const subscriptionId = 'subscriptionId';
+    const expectedRequestOptions = {
+      method: 'DELETE',
+      uri: `${tribunalsApiUrl}/appeals/${appealId}/subscriptions/${subscriptionId}`
+    };
+    await trackYourAppealService.stopReceivingEmails(appealId, subscriptionId, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
+
 });

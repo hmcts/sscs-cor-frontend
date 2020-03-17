@@ -21,4 +21,20 @@ export class TrackYourApealService {
       uri: `${this.tribunalApiUrl}/appeals/${appealNumber}/surname/${surname}`
     }, req);
   }
+
+  async changeEmailAddress(caseId: string, email: string, subscriptionId: string, req: Request) {
+    return RequestPromise.request({
+      method: 'POST',
+      uri: `${this.tribunalApiUrl}/appeals/${caseId}/subscriptions/${subscriptionId}`,
+      body: { subscription: { email: email } }
+    }, req);
+  }
+
+  async stopReceivingEmails(caseId: string, subscriptionId: string, req: Request) {
+    return RequestPromise.request({
+      method: 'DELETE',
+      uri: `${this.tribunalApiUrl}/appeals/${caseId}/subscriptions/${subscriptionId}`
+    }, req);
+  }
+
 }
