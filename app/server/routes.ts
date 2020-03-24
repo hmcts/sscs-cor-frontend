@@ -1,4 +1,12 @@
 const express = require('express');
+const {
+  changeEmailAddress,
+  stopReceivingEmails
+} = require('./services/appealService');
+const { validateToken } = require('./services/tokenService');
+const { notificationRedirect } = require('./controllers/notificationRedirect');
+const { emailNotifications } = require('./controllers/content');
+const { validateEmail } = require('./controllers/validateEmail');
 import * as Paths from './paths';
 import * as config from 'config';
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
@@ -118,6 +126,30 @@ router.get('/', redirectToLogin);
 router.get('/robots.txt', (req, res) => {
   res.type('text/plain');
   res.send('User-agent: *\nDisallow: /');
+});
+
+router.get('/manage-email-notifications/:mactoken', validateToken, (req, res, next) => {
+  res.render('manage-emails', { mactoken: req.params.mactoken });
+});
+
+router.post('/manage-email-notifications/:mactoken', validateToken, notificationRedirect, (req, res, next) => {
+  // redirect
+});
+
+router.get('/manage-email-notifications/:mactoken/stop', validateToken, emailNotifications, (req, res) => {
+  res.render('emails-stop', { mactoken: req.params.mactoken });
+});
+
+router.get('/manage-email-notifications/:mactoken/stopconfirm', validateToken, stopReceivingEmails, emailNotifications, (req, res, next) => {
+  res.render('emails-stop-confirmed', { data: { appealNumber: res.locals.token.appealId }, mactoken: req.params.mactoken });
+});
+
+router.get('/manage-email-notifications/:mactoken/change', validateToken, (req, res) => {
+  res.render('email-address-change', { mactoken: req.params.mactoken });
+});
+
+router.post('/manage-email-notifications/:mactoken/change', validateToken, validateEmail, changeEmailAddress, emailNotifications, (req, res, next) => {
+  res.render('email-address-change-confirmed', { data: { email: req.body.email }, mactoken: req.params.mactoken });
 });
 
 export { router };

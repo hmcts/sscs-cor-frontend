@@ -71,6 +71,7 @@ function configureNunjucks(app: express.Application) {
 
   const nunEnv = nunjucks.configure([
     'views',
+    'views/notifications',
     'node_modules/govuk-frontend/',
     'node_modules/govuk-frontend/components/'
   ], {
