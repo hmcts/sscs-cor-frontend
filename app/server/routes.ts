@@ -133,7 +133,7 @@ router.get('/manage-email-notifications/:mactoken', validateToken, (req, res, ne
 });
 
 router.post('/manage-email-notifications/:mactoken', validateToken, notificationRedirect, (req, res, next) => {
-  // redirect
+  // reload page
 });
 
 router.get('/manage-email-notifications/:mactoken/stop', validateToken, emailNotifications, (req, res) => {

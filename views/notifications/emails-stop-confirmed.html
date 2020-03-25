@@ -1,18 +1,13 @@
 {% extends "layout.html" %}
-
-{% block page_title %}
-{{ i18n.notifications.email.stopConfirmation.tab }}
-{% endblock %}
+{% set pageHeader = i18n.notifications.email.stopConfirmation.tab %}
 
 {% block content %}
 
 <main id="content" class="confirm-emails-stop" role="main">
 
-    {% include "includes/phase_banner_beta.html" %}
-
-    <div class="grid-row">
-        <div class="column-two-thirds">
-            <h1 class="heading-large">{{ i18n.notifications.email.stopConfirmation.title }}</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ i18n.notifications.email.stopConfirmation.title }}</h1>
             <p>{{ i18n.notifications.email.stopConfirmation.content }}</p>
             <p>{{ i18n.notifications.email.stopConfirmation.exitFeedbackSurveyPreLink }}
                 <a href='{{urls.exitFeedbackSurvey}}'>{{ i18n.notifications.email.stopConfirmation.exitFeedbackSurveyLink }}</a>

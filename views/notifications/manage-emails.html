@@ -1,55 +1,53 @@
-{% from "components/formElements.html" import radioButton %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
-
-{% block page_title %}
-{{ i18n.notifications.email.manage.tab }}
-{% endblock %}
+{% set pageHeader = i18n.notifications.email.manage.tab %}
 
 {% block content %}
 
 <main id="content" class="manage-email-notifications" role="main">
 
-    <div class="grid-row">
+    <div class="govuk-grid-row">
 
-        <div class="column-two-thirds">
+        <div class="govuk-grid-column-two-thirds">
 
             {% include "errors/summary.html" %}
 
-            <h1 class="heading-large">{{ i18n.notifications.email.manage.title }}</h1>
+            <h1 class="govuk-heading-l">{{ i18n.notifications.email.manage.title }}</h1>
 
             <form action="/manage-email-notifications/{{ mactoken }}" method="post">
 
-                <div class="form-group {{'form-group-error' if fields.error}}">
 
-                    <fieldset>
+                        {{ govukRadios({
+                        classes: "govuk-radios",
+                        idPrefix: "type",
+                        name: "type",
+                        items: [
+                        {
+                        value: 'changeEmail',
+                        text: 'Change your email address'
+                        },
+                        {
+                        value: 'stopEmail',
+                        text: 'Stop receiving emails'
+                        }
+                        ],
+                        errorMessage: {
+                        text: error
+                        } if error
+                        })
+                        }}
 
-                        <legend>
-                            <span class="visually-hidden">{{ i18n.notifications.email.manage.visuallyHidden }}</span>
-                            {% if fields.error %}
-                            <span class="error-message">{{ fields.noSelection.errorMessage | safe }}</span>
-                            {% endif %}
-                        </legend>
-
-                        {{ radioButton(
-                            label='Change your email address',
-                            name='type',
-                            field=fields.type,
-                            value=types.CHANGE_EMAIL
-                        )}}
-
-                        {{ radioButton(
-                            label='Stop receiving emails',
-                            name='type',
-                            field=fields.type,
-                            value=types.STOP_EMAIL
-                        )}}
-
-                    </fieldset>
-
-                </div>
 
                 <div class="form-group">
-                    <input type="submit" class="button" value="{{ i18n.notifications.email.manage.continue }}">
+                    <div id="submit-button">
+                        {{
+                        govukButton({
+                        text: i18n.notifications.email.manage.continue
+                        })
+                        }}
+                    </div>
                 </div>
 
             </form>

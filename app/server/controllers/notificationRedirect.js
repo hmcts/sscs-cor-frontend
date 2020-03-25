@@ -1,5 +1,6 @@
 const types = require('../../core/notifications/types');
 const HttpStatus = require('http-status-codes');
+const i18n = require('../../../locale/en.json');
 
 const notificationRedirect = (req, res, next) => {
   switch (req.body.type) {
@@ -16,8 +17,8 @@ const notificationRedirect = (req, res, next) => {
       fields: {
         error: true,
         noSelection: {
-          errorHeading: res.locals.i18n.notifications.email.errors.selectAnOptionHeading,
-          errorMessage: res.locals.i18n.notifications.email.errors.selectAnOptionField
+          errorHeading: i18n.notifications.email.errors.selectAnOptionHeading,
+          errorMessage: i18n.notifications.email.errors.selectAnOptionField
         }
       }
     });

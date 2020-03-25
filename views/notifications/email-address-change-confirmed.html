@@ -1,18 +1,13 @@
 {% extends "layout.html" %}
-
-{% block page_title %}
-{{ i18n.notifications.email.addressChangeConfirmed.tab }}
-{% endblock %}
+{% set pageHeader = i18n.notifications.email.addressChangeConfirmed.tab %}
 
 {% block content %}
 
 <main id="content" class="email-change-confirmed" role="main">
 
-    {% include "includes/phase_banner_beta.html" %}
+    <div class="govuk-grid-row">
 
-    <div class="grid-row">
-
-        <div class="column-full">
+        <div class="govuk-grid-column-full">
 
             <div class="govuk-box-highlight">
                 <h1 class="bold-small">{{ i18n.notifications.email.addressChangeConfirmed.title }}</h1>

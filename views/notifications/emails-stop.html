@@ -1,23 +1,27 @@
+{% from "button/macro.njk" import govukButton %}
 {% extends "layout.html" %}
-
-{% block page_title %}
-{{ i18n.notifications.email.stop.tab }}
-{% endblock %}
+{% set pageHeader = i18n.notifications.email.stop.tab %}
 
 {% block content %}
 
 <main id="content" class="confirm-emails-stop" role="main">
 
-    {% include "includes/phase_banner_beta.html" %}
-
-    <div class="grid-row">
-        <div class="column-two-thirds">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
 
             <form action="/manage-email-notifications/{{ mactoken }}/stopconfirm" method="get">
 
-                <h1 class="heading-large">{{ i18n.notifications.email.stop.title }}</h1>
+                <h1 class="govuk-heading-l">{{ i18n.notifications.email.stop.title }}</h1>
 
-                <input type="submit" class="button" value="{{ i18n.notifications.email.stop.confirm }}">
+                <div class="form-group">
+                    <div id="submit-button">
+                        {{
+                        govukButton({
+                        text: i18n.notifications.email.stop.confirm
+                        })
+                        }}
+                    </div>
+                </div>
 
             </form>
 
