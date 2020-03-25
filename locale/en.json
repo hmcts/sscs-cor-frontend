@@ -1234,14 +1234,14 @@
       },
       "stop": {
         "tab": "Stop receiving email updates",
-        "title": "You’ll stop receiving email updates and reminders about your {{benefitType|benefitAcronym}} benefit appeal.",
+        "title": "You’ll stop receiving email updates and reminders about your {{benefitType|acronym}} benefit appeal.",
         "confirm": "Confirm",
         "link": "Cancel"
       },
       "stopConfirmation": {
         "tab": "Email notifications stopped",
         "title": "You’ve stopped email notifications",
-        "content": "You won’t receive any more emails about your {{benefitType|benefitAcronym}} benefit appeal.",
+        "content": "You won’t receive any more emails about your {{benefitType|acronym}} benefit appeal.",
         "exitFeedbackSurveyPreLink": "Please provide some",
         "exitFeedbackSurveyLink": "feedback to help us improve this service.",
         "linkPre": "You can still",
@@ -1260,7 +1260,7 @@
       },
       "addressChangeConfirmed": {
         "tab": "Email address change confirmation",
-        "title": "Emails about your {{benefitType|benefitAcronym}} benefit appeal will now be sent to",
+        "title": "Emails about your {{benefitType|acronym}} benefit appeal will now be sent to",
         "content": "We’ve sent a confirmation email to that address. Check it in a few minutes.",
         "link": "Change your email address"
       },

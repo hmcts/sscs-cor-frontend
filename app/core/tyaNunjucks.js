@@ -1,3 +1,6 @@
+const { getContentAsString } = require('../core/contentLookup');
+const { lowerCase } = require('lodash');
+
 const space = 2;
 const tyaNunjucks = {
 
@@ -17,9 +20,31 @@ const tyaNunjucks = {
 };
 
 const filters = {
+
   json: obj => {
     JSON.stringify(obj, null, space);
+  },
+
+  acronym: benefitType => {
+    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
+  },
+
+  fullDescription: benefitType => {
+    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.fullDescription`);
+  },
+
+  agency: benefitType => {
+    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.agency`);
+  },
+
+  agencyAcronym: benefitType => {
+    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.agencyAcronym`);
+  },
+
+  panel: benefitType => {
+    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.panel`);
   }
+
 };
 
 const renderContent = (content, placeholder) => {

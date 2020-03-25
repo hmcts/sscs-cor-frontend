@@ -1,9 +1,12 @@
 const helmet = require('helmet');
 import { CONST } from '../constants';
 import nunjucks = require('nunjucks');
+const { tyaNunjucks } = require('../core/tyaNunjucks');
 const dateFilter = require('nunjucks-date-filter');
 import * as moment from 'moment';
 import express = require('express');
+const { getContentAsString } = require('../core/contentLookup');
+const { lowerCase } = require('lodash');
 const locale = require('../../locale/en.json');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
@@ -105,6 +108,9 @@ function configureNunjucks(app: express.Application) {
   nunEnv.addFilter('agencyAcronym', benefitType => {
     return nunjucks.renderString(locale.benefitTypes[benefitType].agencyAcronym, this.ctx);
   });
+  nunEnv.addFilter('acronym', benefitType => {
+    return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
+  });
   nunEnv.addFilter('benefitAcronym', benefitType => {
     return nunjucks.renderString(locale.benefitTypes[benefitType].acronym, this.ctx);
   });
@@ -130,6 +136,8 @@ function configureNunjucks(app: express.Application) {
       return 'We are unable to provide a status update at present. Please contact us on the number below if you have any queries.';
     }
   });
+
+  tyaNunjucks.env = nunEnv;
 }
 
 export { configureHelmet, configureHeaders, configureNunjucks };
