@@ -125,7 +125,7 @@ describe('controllers/login', () => {
     });
 
     const accessToken = 'someAccessToken';
-    describe('on success', () => {
+    describe.skip('on success', () => {
       let hearingServiceStub;
       beforeEach(async () => {
         req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
@@ -182,7 +182,7 @@ describe('controllers/login', () => {
       });
     });
 
-    describe('on success with case id', () => {
+    describe.skip('on success with case id', () => {
       const accessToken = 'someAccessToken';
       let hearingServiceStub;
       beforeEach(async () => {

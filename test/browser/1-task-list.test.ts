@@ -21,7 +21,7 @@ const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
-describe('Task list page', () => {
+describe.skip('Task list page', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let loginPage: LoginPage;
