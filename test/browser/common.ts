@@ -1,7 +1,7 @@
 import * as puppeteer from 'puppeteer';
 const { createServer } = require('http');
 const { createSession } = require('app/server/middleware/session');
-const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
+const { bootstrap } = require('test/browser/bootstrap');
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
 import { StatusPage } from '../page-objects/status';
@@ -128,10 +128,6 @@ async function startServices(options?) {
   if (opts.bootstrapData && !testingLocalhost) {
     ({ ccdCase, cohTestData, sidamUser } = await bootstrap(opts.hearingType));
     sidamUsers.unshift(sidamUser);
-  }
-  if (opts.issueDecision) {
-    const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
-    await createAndIssueDecision(hearingId, ccdCase && ccdCase.id);
   }
   await startAppServer();
   const browser = await startBrowser();
