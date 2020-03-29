@@ -59,7 +59,7 @@ describe('Routes', () => {
       }));
     });
 
-    describe('Questions Routes', () => {
+    describe.skip('Questions Routes', () => {
       before(() => {
         mockApp.all('*', function(req, res, next) {
           req.session.accessToken = 'mock uid';

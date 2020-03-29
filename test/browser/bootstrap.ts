@@ -80,11 +80,22 @@ async function bootstrapSidamUser(ccdCase) {
   }
 }
 
-export async function bootstrap(hearingType = 'oral') {
+export async function bootstrap(hearingType = 'cor') {
   try {
     const ccdCase = await bootstrapCcdCase(hearingType);
     const sidamUser = await bootstrapSidamUser(ccdCase);
-    return { ccdCase, sidamUser };
+    const cohTestData = await bootstrapCoh(ccdCase);
+    return { ccdCase, cohTestData, sidamUser };
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export async function createAndIssueDecision(hearingId, caseId) {
+  try {
+    await coh.createDecision(hearingId, caseId);
+    await coh.issueDecision(hearingId, caseId);
+    await waitForDecisionIssued(hearingId, 1);
   } catch (error) {
     return Promise.reject(error);
   }

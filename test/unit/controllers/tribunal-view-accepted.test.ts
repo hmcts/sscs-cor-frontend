@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 
-describe('controllers/tribunal-view-accepted', () => {
+describe.skip('controllers/tribunal-view-accepted', () => {
   let req: any;
   let res: any;
 

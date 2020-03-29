@@ -73,7 +73,7 @@ describe('controllers/login', () => {
 
   });
 
-  describe('#getLogout with redirectUrl Parameter', () => {
+  describe.skip('#getLogout with redirectUrl Parameter', () => {
     it('destroys the session and redirects to custom url with redirectUrl parameter.', async () => {
       req.session.accessToken = 'accessToken';
       req.query.redirectUrl = Paths.taskList;
