@@ -24,7 +24,7 @@ const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
-describe('Question page', () => {
+describe.skip('Question page', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let questionPage: QuestionPage;
@@ -110,7 +110,7 @@ describe('Question page', () => {
       .to.containIgnoreSpaces(i18n.question.textareaField.error.empty);
   });
 
-  describe('evidence upload per question disabled', () => {
+  describe.skip('evidence upload per question disabled', () => {
     it('displays guidance for submitting evidence with case reference', async () => {
       await questionPage.setCookie('postBulkScan', 'false');
       const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
@@ -120,7 +120,7 @@ describe('Question page', () => {
     });
   });
 
-  describe('with evidence upload per question enabled', () => {
+  describe.skip('with evidence upload per question enabled', () => {
     before(async () => {
       await questionPage.setCookie('evidenceUploadOverride', 'true');
       await questionPage.visitPage();
@@ -131,7 +131,7 @@ describe('Question page', () => {
       await questionPage.visitPage();
     });
 
-    describe('with javascript OFF', () => {
+    describe.skip('with javascript OFF', () => {
       before(async () => {
         await page.setJavaScriptEnabled(false);
         await questionPage.visitPage();
@@ -281,7 +281,7 @@ describe('Question page', () => {
       });
     });
 
-    describe('with javascript ON', () => {
+    describe.skip('with javascript ON', () => {
       before(async () => {
         await questionPage.visitPage();
       });
@@ -401,7 +401,7 @@ describe('Question page', () => {
     });
   });
 
-  describe('saving an answer', () => {
+  describe.skip('saving an answer', () => {
     before('save a answer', async () => {
       await questionPage.saveAnswer('A valid answer');
     });
@@ -424,7 +424,7 @@ describe('Question page', () => {
     });
   });
 
-  describe('submitting an answer', () => {
+  describe.skip('submitting an answer', () => {
     before('selects the question', async () => {
       await taskListPage.visitPage();
       await taskListPage.clickQuestion(firstQuestionId);
@@ -459,7 +459,7 @@ describe('Question page', () => {
     });
   });
 
-  describe('view a submitted answer', () => {
+  describe.skip('view a submitted answer', () => {
     before(async () => {
       await taskListPage.clickQuestion(firstQuestionId);
     });
@@ -483,7 +483,7 @@ describe('Question page', () => {
     });
   });
 
-  describe('submitting all answers', () => {
+  describe.skip('submitting all answers', () => {
     async function answerQuestion(questionId) {
       await taskListPage.clickQuestion(questionId);
       await questionPage.submitAnswer('A valid answer');
