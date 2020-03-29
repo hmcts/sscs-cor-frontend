@@ -29,7 +29,7 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
         });
       }
     }
-    AppInsights.trackTrace(`assign-case: Finding case to assign id [${req.session.hearing.case_id}] for tya [${req.session.tya}] email [${req.session.idamEmail}] postcode [${req.body.postcode}]`);
+    AppInsights.trackTrace(`assign-case: Finding case to assign for tya [${req.session.tya}] email [${req.session.idamEmail}] postcode [${req.body.postcode}]`);
     const { statusCode, body }: rp.Response = await hearingService.assignOnlineHearingsToCitizen(
       req.session.idamEmail, req.session.tya, req.body.postcode, req
     );
