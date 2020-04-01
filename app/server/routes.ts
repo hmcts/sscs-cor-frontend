@@ -1,14 +1,14 @@
 const express = require('express');
+import * as Paths from './paths';
+import * as config from 'config';
 const {
   changeEmailAddress,
   stopReceivingEmails
 } = require('./services/appealService');
-const { validateToken } = require('./services/tokenService');
-const { notificationRedirect } = require('./controllers/notificationRedirect');
-const { emailNotifications } = require('./controllers/content');
-const { validateEmail } = require('./controllers/validateEmail');
-import * as Paths from './paths';
-import * as config from 'config';
+const { validateToken } = require('../server/services/tokenService');
+const { notificationRedirect } = require('../server/controllers/notificationRedirect');
+const { emailNotifications } = require('../server/controllers/content');
+const { validateEmail } = require('../server/controllers/validateEmail');
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
