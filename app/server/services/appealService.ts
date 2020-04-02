@@ -2,7 +2,7 @@ const { get } = require('lodash');
 const apiUrl = require('config').get('tribunals.api-url');
 const HttpStatus = require('http-status-codes');
 const request = require('superagent');
-const { Logger } = require('@hmcts/nodejs-logging');
+import { Logger } from '@hmcts/nodejs-logging';
 
 const logger = Logger.getLogger('AppealService.js');
 

@@ -2,6 +2,7 @@ const { setErrorFields } = require('../../core/fieldErrors');
 const i18n = require('../../../locale/en.json');
 const HttpStatus = require('http-status-codes');
 const Joi = require('joi');
+import { Logger } from '@hmcts/nodejs-logging';
 
 const validateFields = (email, confirmEmail, errors) => {
   const schema = Joi.string().email({ minDomainAtoms: 2 })
@@ -32,14 +33,14 @@ const validateFields = (email, confirmEmail, errors) => {
     return fields;
   }
 
-  if (email !== confirmEmail) {
+  /*if (email !== confirmEmail) {
     fields.error = true;
     fields.email.error = true;
     fields.email.errorHeading = errors.noMatchHeading;
     fields.email.errorMessage = errors.noMatchField;
     fields.confirmEmail.error = true;
     fields.confirmEmail.errorMessage = errors.noMatchField;
-  }
+  }*/
 
   return fields;
 };

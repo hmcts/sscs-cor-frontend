@@ -1,10 +1,7 @@
 const express = require('express');
 import * as Paths from './paths';
 import * as config from 'config';
-const {
-  changeEmailAddress,
-  stopReceivingEmails
-} = require('../server/services/appealService');
+const { changeEmailAddress, stopReceivingEmails } = require('../server/services/appealService');
 const { validateToken } = require('../server/services/tokenService');
 const { notificationRedirect } = require('../server/controllers/notificationRedirect');
 const { emailNotifications } = require('../server/controllers/content');

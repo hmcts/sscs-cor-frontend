@@ -1,7 +1,7 @@
 const tribunalApiUrl = require('config').get('tribunals.api-url');
 const request = require('superagent');
 const HttpStatus = require('http-status-codes');
-const { Logger } = require('@hmcts/nodejs-logging');
+import { Logger } from '@hmcts/nodejs-logging';
 
 const logger = Logger.getLogger('TokenService.js');
 

@@ -1,5 +1,6 @@
 const { renderContent } = require('../../core/tyaNunjucks');
 const i18n = require('../../../locale/en.json');
+import { Logger } from '@hmcts/nodejs-logging';
 
 const emailNotifications = (req, res, next) => {
   const token = res.locals.token;
