@@ -4,11 +4,11 @@ import * as config from 'config';
 const {
   changeEmailAddress,
   stopReceivingEmails
-} = require('app/server/services/appealService');
-const { validateToken } = require('app/server/services/tokenService');
-const { notificationRedirect } = require('app/server/controllers/notificationRedirect');
-const { emailNotifications } = require('app/server/controllers/content');
-const { validateEmail } = require('app/server/controllers/validateEmail');
+} = require('./services/appealService');
+const { validateToken } = require('./services/tokenService');
+const { notificationRedirect } = require('./controllers/notificationRedirect');
+const { emailNotifications } = require('./controllers/content');
+const { validateEmail } = require('./controllers/validateEmail');
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
