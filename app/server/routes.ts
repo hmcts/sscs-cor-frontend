@@ -1,14 +1,6 @@
 const express = require('express');
 import * as Paths from './paths';
 import * as config from 'config';
-const {
-  changeEmailAddress,
-  stopReceivingEmails
-} = require('./services/appealService');
-const { validateToken } = require('./services/tokenService');
-const { notificationRedirect } = require('./controllers/notificationRedirect');
-const { emailNotifications } = require('./controllers/content');
-const { validateEmail } = require('./controllers/validateEmail');
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
@@ -44,6 +36,14 @@ import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
 
+const {
+  changeEmailAddress,
+  stopReceivingEmails
+} = require('./services/appealService');
+const { validateToken } = require('./services/tokenService');
+const { notificationRedirect } = require('./controllers/notificationRedirect');
+const { emailNotifications } = require('./controllers/content');
+const { validateEmail } = require('./controllers/validateEmail');
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
 const tribunalsApiUrl: string = config.get('tribunals.api-url');
