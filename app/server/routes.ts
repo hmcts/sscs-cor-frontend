@@ -4,7 +4,7 @@ import * as config from 'config';
 const {
   changeEmailAddress,
   stopReceivingEmails
-} = require('./services/appealService');
+} = require('../server/services/appealService');
 const { validateToken } = require('../server/services/tokenService');
 const { notificationRedirect } = require('../server/controllers/notificationRedirect');
 const { emailNotifications } = require('../server/controllers/content');
