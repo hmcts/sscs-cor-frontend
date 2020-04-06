@@ -32,7 +32,7 @@ describe.skip('Task list page', () => {
   let caseReference;
   let deadlineExpiryDateFormatted;
 
-  before('start services and bootstrap data in CCD/COH', async () => {
+  /*before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ bootstrapData: true, performLogin: true });
     page = res.page;
     pa11yOpts.browser = res.browser;
@@ -68,7 +68,7 @@ describe.skip('Task list page', () => {
     taskListPage.verifyPage();
   });
 
-  /* PA11Y */
+  /!* PA11Y *!/
   it('checks /task-list passes @pa11y', async () => {
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/task-list.png`;
@@ -112,7 +112,7 @@ describe.skip('Task list page', () => {
     loginPage.verifyPage();
     await taskListPage.visitPage();
     loginPage.verifyPage();
-  });
+  });*/
 });
 
 export { };

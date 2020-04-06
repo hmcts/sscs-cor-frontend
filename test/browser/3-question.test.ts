@@ -38,7 +38,7 @@ describe.skip('Question page', () => {
   let questionBody: string;
   let caseReference: string;
 
-  before('start services and bootstrap data in CCD/COH', async () => {
+  /*before('start services and bootstrap data in CCD/COH', async () => {
     const res = await startServices({ performLogin: true });
     page = res.page;
     questionIdList = res.cohTestData.questionIdList || sampleQuestionIdList;
@@ -77,7 +77,7 @@ describe.skip('Question page', () => {
     questionPage.verifyPage();
   });
 
-  /* PA11Y */
+  /!* PA11Y *!/
   it('checks /question passes @pa11y', async () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question.png`;
     const result = await pa11y(pa11yOpts);
@@ -159,7 +159,7 @@ describe.skip('Question page', () => {
         expect(displayedCaseRef).to.equal(caseReference);
       });
 
-      /* PA11Y */
+      /!* PA11Y *!/
       it('checks /question with evidence upload per question enabled @pa11y', async () => {
         await page.setJavaScriptEnabled(true);
         pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-evidence-enabled.png`;
@@ -179,7 +179,7 @@ describe.skip('Question page', () => {
         expect(await uploadEvidencePage.getHeading()).to.equal(i18n.questionUploadEvidence.header);
       });
 
-      /* PA11Y */
+      /!* PA11Y *!/
       it('checks /upload-evidence passes @pa11y', async () => {
         await page.setJavaScriptEnabled(true);
         await uploadEvidencePage.visitPage();
@@ -297,7 +297,7 @@ describe.skip('Question page', () => {
         await page.waitForSelector('#evidence-upload-reveal-container', { visible: true, timeout: 1000 });
       });
 
-      /* PA11Y */
+      /!* PA11Y *!/
       it('checks /question with evidence upload per question enabled @pa11y', async () => {
         await questionPage.clickElement('#provide-evidence-1');
         pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-evidence-enabled-js.png`;
@@ -415,7 +415,7 @@ describe.skip('Question page', () => {
       expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
     });
 
-    /* PA11Y */
+    /!* PA11Y *!/
     it('checks question status passes @pa11y', async () => {
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-list-draft.png`;
       pa11yOpts.page = taskListPage.page;
@@ -435,7 +435,7 @@ describe.skip('Question page', () => {
       expect(savedAnswer).to.equal('A valid answer');
     });
 
-    /* PA11Y */
+    /!* PA11Y *!/
     it('checks draft answer passes @pa11y', async () => {
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/question-draft-answer.png`;
       pa11yOpts.page = questionPage.page;
@@ -511,7 +511,7 @@ describe.skip('Question page', () => {
       const contactDate = await questionsCompletedPage.getElementText('#next-contact-date');
       expect(contactDate).to.equal(expectedDate);
     });
-  });
+  });*/
 });
 
 export { };
