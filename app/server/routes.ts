@@ -43,12 +43,12 @@ const appPort: string = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
 const httpProxy: string = config.get('httpProxy');
-const { validateToken } = require('./services/tokenService');
 const { notificationRedirect } = require('./controllers/notificationRedirect');
 const {
   changeEmailAddress,
-  stopReceivingEmails
-} = require('./services/appealService');
+  stopReceivingEmails,
+  validateToken
+} = require('./services');
 const { emailNotifications } = require('./controllers/content');
 const { validateEmail } = require('./controllers/validateEmail');
 
