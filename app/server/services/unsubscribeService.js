@@ -3,7 +3,7 @@ const HttpStatus = require('http-status-codes');
 const request = require('superagent');
 const { Logger } = require('@hmcts/nodejs-logging');
 
-const logger = Logger.getLogger('AppealService.js');
+const logger = Logger.getLogger('UnsubscribeService.js');
 
 const changeEmailAddress = (req, res, next) => {
   const token = res.locals.token;

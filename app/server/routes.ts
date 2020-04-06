@@ -48,7 +48,7 @@ const { notificationRedirect } = require('./controllers/notificationRedirect');
 const {
   changeEmailAddress,
   stopReceivingEmails
-} = require('./services/appealService');
+} = require('./services/unsubscribeService');
 const { emailNotifications } = require('./controllers/content');
 const { validateEmail } = require('./controllers/validateEmail');
 
