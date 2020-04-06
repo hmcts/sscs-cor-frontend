@@ -36,6 +36,13 @@ import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
 
+const apiUrl: string = config.get('api.url');
+const idamApiUrl: string = config.get('idam.api-url');
+const tribunalsApiUrl: string = config.get('tribunals.api-url');
+const appPort: string = config.get('node.port');
+const appUser: string = config.get('idam.client.id');
+const appSecret: string = config.get('idam.client.secret');
+const httpProxy: string = config.get('httpProxy');
 const {
   changeEmailAddress,
   stopReceivingEmails
@@ -44,13 +51,6 @@ const { validateToken } = require('./services/tokenService');
 const { notificationRedirect } = require('./controllers/notificationRedirect');
 const { emailNotifications } = require('./controllers/content');
 const { validateEmail } = require('./controllers/validateEmail');
-const apiUrl: string = config.get('api.url');
-const idamApiUrl: string = config.get('idam.api-url');
-const tribunalsApiUrl: string = config.get('tribunals.api-url');
-const appPort: string = config.get('node.port');
-const appUser: string = config.get('idam.client.id');
-const appSecret: string = config.get('idam.client.secret');
-const httpProxy: string = config.get('httpProxy');
 
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret);
