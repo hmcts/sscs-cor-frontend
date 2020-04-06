@@ -2,7 +2,6 @@ import { Page } from 'puppeteer';
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
 import { LoginPage } from 'test/page-objects/login';
-import { TaskListPage } from 'test/page-objects/task-list';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 const i18n = require('locale/en');
@@ -11,7 +10,6 @@ describe('Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
-  let taskListPage: TaskListPage;
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
   let sidamUser;
@@ -19,11 +17,9 @@ describe('Manage your appeal app @mya', () => {
     ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
     const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
     loginPage = new LoginPage(page);
-    taskListPage = new TaskListPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
-    await taskListPage.setCookie('manageYourAppeal', 'true');
-
+    await loginPage.setCookie('manageYourAppeal', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
