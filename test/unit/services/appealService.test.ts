@@ -1,13 +1,13 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import * as appInsights from 'app/server/app-insights';
 const {
   changeEmailAddress,
   stopReceivingEmails
-} = require('../services/appealService');
+} = require('app/server/services/appealService');
 const { expect, sinon } = require('test/chai-sinon');
 const HttpStatus = require('http-status-codes');
 const apiURL = require('config').get('tribunals.api-url');
-const appInsights = require('app-insights');
 const nock = require('nock');
 
 describe('appealService.js', () => {
@@ -53,9 +53,6 @@ describe('appealService.js', () => {
     beforeEach(() => {
       sinon.spy(appInsights, 'trackException');
     });
-    afterEach(() => {
-      appInsights.trackException.restore();
-    });
     it('should call next() with the error', () => {
       const error = { value: HttpStatus.INTERNAL_SERVER_ERROR, reason: 'server error' };
       nock(apiURL)
@@ -86,9 +83,6 @@ describe('appealService.js', () => {
   describe('stopReceivingEmails() - DELETE 500', () => {
     beforeEach(() => {
       sinon.spy(appInsights, 'trackException');
-    });
-    afterEach(() => {
-      appInsights.trackException.restore();
     });
     it('should call next() passing an error containing a 500', () => {
       const error = { value: HttpStatus.INTERNAL_SERVER_ERROR, reason: 'server error' };
