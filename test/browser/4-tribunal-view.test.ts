@@ -14,7 +14,7 @@ const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
-describe('Tribunal view page', () => {
+describe.skip('Tribunal view page', () => {
   let page: Page;
   let tribunalViewPage: TribunalViewPage;
   let tribunalViewAcceptedPage: TribunalViewAcceptedPage;
@@ -81,7 +81,7 @@ describe('Tribunal view page', () => {
     expect(await tribunalViewPage.getElementText('#accept-view-error')).to.containIgnoreSpaces(i18n.tribunalView.error.emptyOnDecisionPick);
   });
 
-  describe('accepting the tribunal\'s view shows the accepts page', () => {
+  describe.skip('accepting the tribunal\'s view shows the accepts page', () => {
     it('is on the /tribunal-view path', async () => {
       tribunalViewPage.verifyPage();
     });

@@ -13,7 +13,7 @@ import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
 
-describe('controllers/task-list', () => {
+describe.skip('controllers/task-list', () => {
   let req;
   let res;
   let next;

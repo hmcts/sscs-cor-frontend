@@ -17,7 +17,7 @@ const pa11y = require('pa11y');
 let pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
-describe('Request a hearing', () => {
+describe.skip('Request a hearing', () => {
   let page: Page;
   let tribunalViewPage: TribunalViewPage;
   let hearingConfirmPage: HearingConfirmPage;
