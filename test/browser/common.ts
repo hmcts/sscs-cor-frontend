@@ -1,7 +1,7 @@
 import * as puppeteer from 'puppeteer';
 const { createServer } = require('http');
 const { createSession } = require('app/server/middleware/session');
-const { bootstrap, createAndIssueDecision } = require('test/browser/bootstrap');
+const { bootstrap } = require('test/browser/bootstrap');
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
 import { StatusPage } from '../page-objects/status';
@@ -9,7 +9,6 @@ import { TaskListPage } from 'test/page-objects/task-list';
 const { setup } = require('app/server/app');
 const config = require('config');
 const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
-const dysonSetupCoh = require('test/mock/coh/dysonSetup');
 const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
@@ -28,7 +27,6 @@ const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 
 let browser;
 let server;
-let cohTestData;
 let ccdCase;
 let sidamUsers = [];
 let loginPage;
@@ -62,7 +60,6 @@ function startAppServer(): Promise<void> {
   if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
     dysonSetupCorBackend();
-    dysonSetupCoh();
     dysonSetupIdam();
     dysonSetupS2s();
     dysonSetupTribunals();
@@ -126,12 +123,8 @@ async function startServices(options?) {
   const opts = options || {};
   let sidamUser;
   if (opts.bootstrapData && !testingLocalhost) {
-    ({ ccdCase, cohTestData, sidamUser } = await bootstrap(opts.hearingType));
+    ({ ccdCase, sidamUser } = await bootstrap(opts.hearingType));
     sidamUsers.unshift(sidamUser);
-  }
-  if (opts.issueDecision) {
-    const hearingId = (cohTestData && cohTestData.hearingId) || '4-view-issued';
-    await createAndIssueDecision(hearingId, ccdCase && ccdCase.id);
   }
   await startAppServer();
   const browser = await startBrowser();
@@ -150,7 +143,7 @@ async function startServices(options?) {
   if (opts.performLogin) {
     await login(page, opts.forceLogin, opts.assignCase);
   }
-  return { page, ccdCase: ccdCase || {}, cohTestData: cohTestData || {}, sidamUser, browser };
+  return { page, ccdCase: ccdCase || {}, sidamUser, browser };
 }
 
 after(async() => {

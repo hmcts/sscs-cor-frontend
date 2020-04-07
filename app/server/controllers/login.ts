@@ -142,7 +142,7 @@ function getIdamCallback(
           }
         } else {
           const hearingsByName = getHearingsByName(hearings);
-
+          AppInsights.trackTrace(`[Cases count ${hearings.length}] - User logged in successfully as ${email}`);
           return res.render('select-case.html', { hearingsByName });
         }
       } else {
