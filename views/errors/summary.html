@@ -1,0 +1,21 @@
+{% if fields.error %}
+<div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+
+    <ul class="error-summary-list">
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">{{ i18n.common.errorHeading }}</h1>
+        {% if fields.noSelection.errorHeading %}
+        <li><a href="#email">{{ fields.noSelection.errorHeading }}</a></li>
+        {% endif %}
+        {% if fields.email.errorHeading %}
+        <li><a href="#email">{{ fields.email.errorHeading }}</a></li>
+        {% endif %}
+        {% if fields.confirmEmail.errorHeading %}
+        <li><a href="#confirmEmail">{{ fields.confirmEmail.errorHeading }}</a></li>
+        {% endif %}
+        {% if fields.surname.errorHeading %}
+        <li><a href="#surname">{{ fields.surname.errorHeading }}</a></li>
+        {% endif %}
+    </ul>
+
+</div>
+{% endif %}

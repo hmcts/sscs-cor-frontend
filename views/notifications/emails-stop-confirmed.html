@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% set pageHeader = i18n.notifications.email.stopConfirmation.tab %}
+
+{% block content %}
+
+<main id="content" class="confirm-emails-stop" role="main">
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ i18n.notifications.email.stopConfirmation.title }}</h1>
+            <p>{{ i18n.notifications.email.stopConfirmation.content }}</p>
+            <p>{{ i18n.notifications.email.stopConfirmation.exitFeedbackSurveyPreLink }}
+                <a href='{{urls.exitFeedbackSurvey}}'>{{ i18n.notifications.email.stopConfirmation.exitFeedbackSurveyLink }}</a>
+            </p>
+            <p>{{ i18n.notifications.email.stopConfirmation.linkPre }}
+                <a href='/trackyourappeal/{{data.appealNumber}}'>{{ i18n.notifications.email.stopConfirmation.linkPost }}</a>
+            </p>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

@@ -37,6 +37,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   }
   configureHeaders(app);
 
+  app.set('view engine', 'html');
   app.locals.i18n = locale;
   app.locals.fileTypeWhiteList = fileTypes;
   app.locals.screenReaderUtils = screenReaderUtils;
