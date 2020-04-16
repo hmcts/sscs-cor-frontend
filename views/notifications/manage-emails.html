@@ -1,0 +1,60 @@
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+{% from "components/error-summary/macro.njk" import govukErrorSummary %}
+{% extends "layout.html" %}
+{% set pageHeader = i18n.notifications.email.manage.tab %}
+
+{% block content %}
+
+<main id="content" class="manage-email-notifications" role="main">
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            {% include "errors/summary.html" %}
+
+            <h1 class="govuk-heading-l">{{ i18n.notifications.email.manage.title }}</h1>
+
+            <form action="/manage-email-notifications/{{ mactoken }}" method="post">
+
+
+                        {{ govukRadios({
+                        classes: "govuk-radios",
+                        idPrefix: "type",
+                        name: "type",
+                        items: [
+                        {
+                        value: 'changeEmail',
+                        text: 'Change your email address'
+                        },
+                        {
+                        value: 'stopEmail',
+                        text: 'Stop receiving emails'
+                        }
+                        ],
+                        errorMessage: {
+                        text: error
+                        } if error
+                        })
+                        }}
+
+
+                <div class="form-group">
+                    <div id="submit-button">
+                        {{
+                        govukButton({
+                        text: i18n.notifications.email.manage.continue
+                        })
+                        }}
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

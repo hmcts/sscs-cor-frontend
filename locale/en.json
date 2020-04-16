@@ -1,10 +1,10 @@
 {
-  "pageTitle": "Continuous Online Resolution",
+  "pageTitle": "Manage your appeal",
   "contactEmail": "pipappeals@justice.gov.uk",
   "phaseBanner": {
     "new": "This is a new service – your ",
-    "report": "feedback",
-    "improve": "will help us improve it. (opens in new window)"
+    "report": "feedback (opens in new window)",
+    "improve": "will help us improve it."
   },
   "guidance": {
     "sendingEvidence": {
@@ -55,7 +55,7 @@
     "sendingEvidence": {
       "header": "Providing additional evidence",
       "intro": "If you have any additional information that is relevant to your appeal, you can",
-      "anchorText": "submit it here",
+      "anchorText": "submit your evidence",
       "summary": "How to send additional evidence",
       "details": {
         "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
@@ -609,6 +609,7 @@
     "signOut": "Sign out",
     "delete": "Delete",
     "serviceTitle": "Appeal a benefit decision",
+    "sessionExpiryWarning": "Your session will expire and you will be signed out after 20 minutes of inactivity",
     "govUK": "GOV.UK",
     "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
     "tbc": "To be confirmed"
@@ -616,7 +617,7 @@
   "errorSummary": {
     "titleText": "There is a problem",
     "descriptionText": "Please fix the errors before you continue",
-    "errorPageTitle": "Error"
+    "errorPageTitle": "Error:"
   },
   "contactUsCor": {
     "title": "Contact us",
@@ -851,7 +852,8 @@
     "phoneLabel": "Contact phone number",
     "emailLabel": "email address for updates",
     "mobileLabel": "text message updates",
-    "contactPhoneLabel": "Contact mobile"
+    "contactPhoneLabel": "Contact mobile",
+    "notProvided": "Not provided"
   },
   "contact": {
     "phone": "Appellant contact phone number",
@@ -872,7 +874,7 @@
     },
     "additionalEvidence": {
       "header": "Send evidence to the tribunal",
-      "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit it here</a>."
+      "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit your evidence</a> here."
     }
   },
   "hearingTab": {
@@ -1208,6 +1210,70 @@
       "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
       "invalidPostcode": "The details you have provided don't match, please contact us",
       "postcodeDoesNotMatch": "The details you have provided don't match, please contact us"
+    }
+  },
+  "notifications": {
+    "register": {
+      "title": "Register for notifications",
+      "content": "Receive reminders and notifications to keep you updated on the progress of your appeal",
+      "question": "How would you like to receive notifications?",
+      "options": [
+        "Email",
+        "Text Message",
+        "Both"
+      ],
+      "continue": "Continue",
+      "cancel": "Cancel"
+    },
+    "email": {
+      "manage": {
+        "tab": "Manage email notifications",
+        "title": "What do you want to do?",
+        "visuallyHidden": "What do you want to do?",
+        "continue": "Continue"
+      },
+      "stop": {
+        "tab": "Stop receiving email updates",
+        "title": "You’ll stop receiving email updates and reminders about your {{benefitType|acronym}} benefit appeal.",
+        "confirm": "Confirm",
+        "link": "Cancel"
+      },
+      "stopConfirmation": {
+        "tab": "Email notifications stopped",
+        "title": "You’ve stopped email notifications",
+        "content": "You won’t receive any more emails about your {{benefitType|acronym}} benefit appeal.",
+        "exitFeedbackSurveyPreLink": "Please provide some",
+        "exitFeedbackSurveyLink": "feedback to help us improve this service.",
+        "linkPre": "You can still",
+        "linkPost": "track your benefit appeal online"
+      },
+      "addressChange": {
+        "tab": "Your new email address",
+        "tabError": "Errors on page",
+        "title": "Your new email address",
+        "visuallyHidden": "What do you want to do?",
+        "continue": "Continue",
+        "cancel": "Cancel",
+        "errors": {
+          "title": "There are errors on the page."
+        }
+      },
+      "addressChangeConfirmed": {
+        "tab": "Email address change confirmation",
+        "title": "Emails about your {{benefitType|acronym}} benefit appeal will now be sent to",
+        "content": "We’ve sent a confirmation email to that address. Check it in a few minutes.",
+        "link": "Change your email address"
+      },
+      "errors": {
+        "selectAnOptionHeading": "Please select an option",
+        "selectAnOptionField": "You have not selected an option. Select an option.",
+        "emptyStringHeading": "New email address not entered",
+        "emptyStringEmailField": "You have not entered your email address. Enter your email address.",
+        "notValidHeading": "New email address is invalid",
+        "notValidField": "The email address you’ve entered is invalid. Check it and enter it again.",
+        "noMatchHeading": "Email addresses do not match",
+        "noMatchField": "Your email addresses don’t match. Check and enter them again."
+      }
     }
   }
 }

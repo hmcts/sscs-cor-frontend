@@ -14,7 +14,7 @@ describe('app-configuration', () => {
   });
 
   it('configureNunjucks', () => {
-    sandbox.stub(nunjucks, 'configure').returns({
+    let configNunjucks: object = {
       addFilter: sandbox.stub(),
       options: { autoescape: true },
       render: sandbox.stub(),
@@ -26,11 +26,13 @@ describe('app-configuration', () => {
       hasExtension: sandbox.stub(),
       addGlobal: sandbox.stub(),
       getTemplate: sandbox.stub(),
-      express: sandbox.stub()
-    } as nunjucks.Environment);
+      express: sandbox.stub(),
+      tyaNunjucks: sandbox.stub()
+    };
+    sandbox.stub(nunjucks, 'configure').returns(configNunjucks as nunjucks.Environment);
     const app = express();
     appConfigs.configureNunjucks(app);
 
-    expect(nunjucks.configure([]).addFilter).to.have.been.callCount(9);
+    expect(nunjucks.configure([]).addFilter).to.have.been.callCount(10);
   });
 });

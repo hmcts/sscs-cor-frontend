@@ -15,7 +15,7 @@ const i18n = require('locale/en');
 
 const testUrl = config.get('testUrl');
 
-describe('Additional Evidence', () => {
+describe.skip('Additional Evidence', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
@@ -96,7 +96,7 @@ describe('Additional Evidence', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it.skip('uploads a file and shows file list', async () => {
+  it('uploads a file and shows file list', async () => {
     additionalEvidencePage.verifyPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
