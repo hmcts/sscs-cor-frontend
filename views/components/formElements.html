@@ -1,0 +1,97 @@
+{% macro textField(label, hint, field, name) %}
+<div class="form-group {{ 'form-group-error' if field.error }}">
+    <label class="form-label" for="{{ name }}">{{ label | safe }}</label>
+
+    {% if hint %}
+    <span class="form-hint">{{ hint | safe }}</span>
+    {% endif %}
+
+    {{ errorsFor(field) }}
+    <input class="form-control" id="{{ name }}" name="{{ name }}" type="text" value="{{ field.value }}">
+</div>
+{% endmacro %}
+
+{% macro textArea(label, hint, field, name) %}
+<div class="form-group {{ 'form-group-error' if field.error }}">
+    <label class="form-label" for="{{ name }}">{{ label | safe }}</label>
+
+    {% if hint %}
+    <span class="form-hint">{{ hint | safe }}</span>
+    {% endif %}
+
+    {{ errorsFor(field) }}
+    <textarea class="form-control" id="{{ name }}" rows="7" name="{{ name }}" type="text">{{ field.value }}</textarea>
+</div>
+{% endmacro %}
+
+{% macro radioButton(label, name, field, value, dataTarget) %}
+<div class="multiple-choice" data-target="{{ dataTarget }}">
+    <input id="{{ name }}_{{ value }}" type="radio" name="{{ name }}" value="{{ value }}" {{ 'checked="checked" ' if field.value == value }}}>
+    <label for="{{ name }}_{{ value }}">{{ label }}</label>
+</div>
+{% endmacro %}
+
+{% macro checkBox(label, field, name, id) %}
+<div class="multiple-choice">
+    <input id="{{ id }}" name="{{name}}" type="checkbox" value="{{field.value}}">
+    <label for="{{ id }}">{{label | safe}}</label>
+</div>
+{% endmacro %}
+
+{% macro date(dayField, dayName = 'day', monthField, monthName = 'month',yearField, yearName = 'year',dateField,label = '',hint = '', legend = '',hiddenLegend  = '', id, additionalErrors = [], index = 1) %}
+
+{% set hasError = dateField.error or dayField.error or monthField.error or yearField.error %}
+
+{% for i in range(0, additionalErrors.length) -%}
+{% set hasError = hasError or additionalErrors[i].error %}
+{%- endfor %}
+
+<fieldset class="form-group form-date {{ 'error' if hasError }}" id="{{ id }}">
+    {% if legend %}
+    <legend class="form-label-bold">{{ legend | safe }}</legend>
+    {% endif %}
+
+    {% if hiddenLegend %}
+    <legend class="visually-hidden">{{ hiddenLegend | safe }}</legend>
+    {% endif %}
+
+    {% if label %}
+    <span class="form-label">{{ label | safe }}</span>
+    {% endif %}
+
+    {% if hint %}
+    <span class="form-hint">{{ hint | safe }}</span>
+    {% endif %}
+
+    {{ errorsFor(dateField) }}
+    {{ errorsFor(dayField) }}
+    {{ errorsFor(monthField) }}
+    {{ errorsFor(yearField) }}
+
+    {% for i in range(0, additionalErrors.length) -%}
+    {{ errorsFor(additionalErrors[i]) }}
+    {%- endfor %}
+
+    <div class="form-group form-group-day">
+        <label for="day{{index}}">Day</label>
+        <input class="form-control {{ 'form-control-error' if dayField.error }}" id="day{{index}}" type="number" pattern="[0-9]*" min="1" max="31"
+               name="{{ dayName }}" value="{{ dayField.value }}">
+    </div>
+    <div class="form-group form-group-month">
+        <label for="month{{index}}">Month</label>
+        <input class="form-control {{ 'form-control-error' if monthField.error }}" id="month{{index}}" type="number" pattern="[0-9]*" min="1" max="12"
+               name="{{ monthName }}" value="{{ monthField.value }}">
+    </div>
+    <div class="form-group form-group-year">
+        <label for="year{{index}}">Year</label>
+        <input class="form-control {{ 'form-control-error' if yearField.error }}" id="year{{index}}" type="number" pattern="[0-9]*" min="1"
+               name="{{ yearName }}" value="{{ yearField.value }}">
+    </div>
+</fieldset>
+{% endmacro %}
+
+{% macro errorsFor(field) -%}
+{% if field.error %}
+    <span class="error-message">{{ field.errorMessage | safe }}</span>
+{% endif %}
+{%- endmacro %}

@@ -5,6 +5,7 @@ import * as Paths from '../paths';
 import * as rp from 'request-promise';
 import { OK } from 'http-status-codes';
 import { TrackYourApealService } from '../services/tyaService';
+import * as AppInsights from '../app-insights';
 
 const i18n = require('../../../locale/en.json');
 const postcodeRegex = /^((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])|([Gg][Ii][Rr]))))\s?([0-9][A-Za-z]{2})|(0[Aa]{2}))$/;
@@ -28,7 +29,7 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
         });
       }
     }
-
+    AppInsights.trackTrace(`assign-case: Finding case to assign for tya [${req.session.tya}] email [${req.session.idamEmail}] postcode [${req.body.postcode}]`);
     const { statusCode, body }: rp.Response = await hearingService.assignOnlineHearingsToCitizen(
       req.session.idamEmail, req.session.tya, req.body.postcode, req
     );

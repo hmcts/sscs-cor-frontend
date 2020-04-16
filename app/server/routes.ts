@@ -43,6 +43,14 @@ const appPort: string = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
 const httpProxy: string = config.get('httpProxy');
+const { validateToken } = require('./services/tokenService');
+const { notificationRedirect } = require('./controllers/notificationRedirect');
+const {
+  changeEmailAddress,
+  stopReceivingEmails
+} = require('./services/unsubscribeService');
+const { emailNotifications } = require('./controllers/content');
+const { validateEmail } = require('./controllers/validateEmail');
 
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret);
@@ -118,6 +126,30 @@ router.get('/', redirectToLogin);
 router.get('/robots.txt', (req, res) => {
   res.type('text/plain');
   res.send('User-agent: *\nDisallow: /');
+});
+
+router.get('/manage-email-notifications/:mactoken', validateToken, (req, res, next) => {
+  res.render('manage-emails', { mactoken: req.params.mactoken });
+});
+
+router.post('/manage-email-notifications/:mactoken', validateToken, notificationRedirect, (req, res, next) => {
+  // reload page
+});
+
+router.get('/manage-email-notifications/:mactoken/stop', validateToken, emailNotifications, (req, res) => {
+  res.render('emails-stop', { mactoken: req.params.mactoken });
+});
+
+router.get('/manage-email-notifications/:mactoken/stopconfirm', validateToken, stopReceivingEmails, emailNotifications, (req, res, next) => {
+  res.render('emails-stop-confirmed', { data: { appealNumber: res.locals.token.appealId }, mactoken: req.params.mactoken });
+});
+
+router.get('/manage-email-notifications/:mactoken/change', validateToken, (req, res) => {
+  res.render('email-address-change', { mactoken: req.params.mactoken });
+});
+
+router.post('/manage-email-notifications/:mactoken/change', validateToken, validateEmail, changeEmailAddress, emailNotifications, (req, res, next) => {
+  res.render('email-address-change-confirmed', { data: { email: req.body.email }, mactoken: req.params.mactoken });
 });
 
 export { router };
