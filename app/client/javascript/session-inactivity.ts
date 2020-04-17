@@ -3,7 +3,7 @@ import axios from 'axios';
 const i18n = require('../../../locale/en');
 
 export class SessionInactivity {
-  public sessionExtendBuffer: number = 2 * 60 * 1000;
+  public sessionExtendBuffer: number = 120000;
   public sessionExpiry: moment.Moment = null;
   public lastReset: moment.Moment = null;
   public answerFormEl: HTMLElement = null;
@@ -94,11 +94,15 @@ export class SessionInactivity {
   }
 
   openModal() {
-    this.modal.classList.add('modal--open');
+    if (this.modal) {
+      this.modal.classList.add('modal--open');
+    }
   }
 
   closeModal() {
-    this.modal.classList.remove('modal--open');
+    if (this.modal) {
+      this.modal.classList.remove('modal--open');
+    }
   }
 
   signOut() {
