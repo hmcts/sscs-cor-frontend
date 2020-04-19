@@ -3,7 +3,7 @@ import axios from 'axios';
 const i18n = require('../../../locale/en');
 
 export class SessionInactivity {
-  public sessionExtendBuffer: number = 120000;
+  public sessionExtendBuffer: number = 2 * 60 * 10000;
   public sessionExpiry: moment.Moment = null;
   public lastReset: moment.Moment = null;
   public answerFormEl: HTMLElement = null;
@@ -30,7 +30,6 @@ export class SessionInactivity {
     this.cancel = document.getElementById(this.CANCEL_BUTTON);
 
     this.addListeners();
-    this.extendSession();
   }
 
   extendSession(): void {
