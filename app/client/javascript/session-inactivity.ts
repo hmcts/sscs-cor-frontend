@@ -29,7 +29,7 @@ export class SessionInactivity {
     this.extend = document.getElementById(this.EXTEND_BUTTON);
     this.cancel = document.getElementById(this.CANCEL_BUTTON);
 
-    // this.addListeners();
+    this.addListeners();
     this.extendSession();
   }
 
@@ -43,11 +43,11 @@ export class SessionInactivity {
           this.closeModal();
           this.restartCounters();
         } else { // It means logged out
-          // this.removeListeners();
+          this.removeListeners();
           this.stopCounters();
         }
       }).catch(() => {
-        // this.removeListeners();
+        this.removeListeners();
         this.stopCounters();
       });
     }
@@ -120,20 +120,20 @@ export class SessionInactivity {
   }
 
   bindModalButtonListeners() {
-    if (this.extend) this.extend.addEventListener('click', this.keyStrokeEventListener);
-    if (this.cancel) this.cancel.addEventListener('click', this.signOut);
+    if (this.modal && this.extend) this.extend.addEventListener('click', this.keyStrokeEventListener);
+    if (this.modal && this.cancel) this.cancel.addEventListener('click', this.signOut);
   }
 
   removeModalButtonListeners() {
-    if (this.extend) this.extend.removeEventListener('click', this.keyStrokeEventListener);
-    if (this.cancel) this.cancel.removeEventListener('click', this.closeModal);
+    if (this.modal && this.extend) this.extend.removeEventListener('click', this.keyStrokeEventListener);
+    if (this.modal && this.cancel) this.cancel.removeEventListener('click', this.closeModal);
   }
 
   bindKeyStrokeListener(): void {
-    if (this.answerFormEl) this.answerFormEl.addEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormEl) this.answerFormEl.addEventListener('keydown', this.keyStrokeEventListener);
   }
 
   removeKeyStrokeListener(): void {
-    if (this.answerFormEl) this.answerFormEl.removeEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormEl) this.answerFormEl.removeEventListener('keydown', this.keyStrokeEventListener);
   }
 }
