@@ -45,7 +45,7 @@ describe('Client/session-inactivity', () => {
       expect(sessionInactivity.cancel).to.equal(cancelButton);
 
       // expect(addListernersMock).to.have.been.called;
-      expect(extendSessionMock).to.have.been.called;
+      // expect(extendSessionMock).to.have.been.called;
     });
   });
 
