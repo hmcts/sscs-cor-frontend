@@ -30,6 +30,7 @@ export class SessionInactivity {
     this.cancel = document.getElementById(this.CANCEL_BUTTON);
 
     this.addListeners();
+    this.extendSession();
   }
 
   extendSession(): void {
