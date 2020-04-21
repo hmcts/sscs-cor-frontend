@@ -66,7 +66,7 @@ On Jenkins, when viewing a build, the screenshots are available as Build Artifac
 
 The same browser test suite is used for running locally and when running against the `preview` and `AAT` environments via the `yarn test:functional` script.
 
-##### Local environments
+##### Local environments 
 
 Points to note when running the tests against your local environment:
 
