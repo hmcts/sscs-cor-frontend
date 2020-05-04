@@ -94,11 +94,15 @@ export class SessionInactivity {
   }
 
   openModal() {
-    this.modal.classList.add('modal--open');
+    if (this.modal) {
+      this.modal.classList.add('modal--open');
+    }
   }
 
   closeModal() {
-    this.modal.classList.remove('modal--open');
+    if (this.modal) {
+      this.modal.classList.remove('modal--open');
+    }
   }
 
   signOut() {
@@ -116,20 +120,20 @@ export class SessionInactivity {
   }
 
   bindModalButtonListeners() {
-    if (this.extend) this.extend.addEventListener('click', this.keyStrokeEventListener);
-    if (this.cancel) this.cancel.addEventListener('click', this.signOut);
+    if (this.modal && this.extend) this.extend.addEventListener('click', this.keyStrokeEventListener);
+    if (this.modal && this.cancel) this.cancel.addEventListener('click', this.signOut);
   }
 
   removeModalButtonListeners() {
-    if (this.extend) this.extend.removeEventListener('click', this.keyStrokeEventListener);
-    if (this.cancel) this.cancel.removeEventListener('click', this.closeModal);
+    if (this.modal && this.extend) this.extend.removeEventListener('click', this.keyStrokeEventListener);
+    if (this.modal && this.cancel) this.cancel.removeEventListener('click', this.closeModal);
   }
 
   bindKeyStrokeListener(): void {
-    if (this.answerFormEl) this.answerFormEl.addEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormEl) this.answerFormEl.addEventListener('keydown', this.keyStrokeEventListener);
   }
 
   removeKeyStrokeListener(): void {
-    if (this.answerFormEl) this.answerFormEl.removeEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormEl) this.answerFormEl.removeEventListener('keydown', this.keyStrokeEventListener);
   }
 }
