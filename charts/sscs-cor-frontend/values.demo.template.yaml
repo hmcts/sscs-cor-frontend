@@ -1,0 +1,18 @@
+nodejs:
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
+  environment:
+    NODE_ENV: preprod
+    MYA_FEATURE_FLAG: "true"
+    ADDITIONAL_EVIDENCE_FEATURE_FLAG: "true"
+    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: "false"
+    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "true"
+  keyVaults:
+    sscs:
+      secrets:
+        - sscs-cor-idam-client-secret
+        - sscs-s2s-secret
+redis:
+  enabled: true
+idam-pr:
+  enabled: true
