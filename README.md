@@ -263,6 +263,7 @@ It's possible to override a setting and temporarily enable a feature for testing
 |--------------------------|-----------------------------------------------|--------------------------------------------------|-------------------------------|
 | Question evidence upload | `evidenceUpload.questionPage.overrideAllowed` | `EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED` | `evidenceUploadOverride=true` |
 
+
 ### SIDAM
 
 We had previously integrated with SIDAM for user registration and sign-in. This included making use of the testing features, such as creating test accounts to allow sign-in to COR.
@@ -270,12 +271,15 @@ At the time of writing SIDAM is not available to use on AAT and therefore we wer
 To do this we added a stub to the running service, enabled via the config option "idam.enableStub", and configured the service to use that instead of the usual SIDAM URLs for the API and web interfaces.
 The SIDAM stub makes use of redis to track the username associated with code/token throughout the sign-in process.
 
+
 This means that 2 SIDAM stubs currently exist, as follows:
+
 
 _Dyson SIDAM stub_
 * found under `test/mock/idam`
 * uses `memory-cache` module to keep track of username associated with code/token
 * used when running functional tests locally and on the pipeline "Test" stage (note: not "Functional Test")
+
 
 _Application mounted SIDAM stub_
 * found at `app/server/controller/idam-stub.ts`
