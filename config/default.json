@@ -4,7 +4,7 @@
   },
   "testUrl": "http://localhost:3000",
   "api": {
-    "url": "http://localhost:8090"
+    "url": "http://localhost:8080/api"
   },
   "appInsights": {
     "instrumentationKey": "iKey",
@@ -26,13 +26,13 @@
     "url": "http://localhost:3000/idam-stub",
     "api-url": "http://localhost:3000/idam-stub",
     "client": {
-      "id": "sscs_cor",
+      "id": "sscs",
       "secret": "a_secret"
     },
     "enableStub": "false"
   },
   "tribunals": {
-    "api-url": "http://localhost:8083"
+    "api-url": "http://localhost:8080"
   },
   "httpProxy": false,
   "evidenceUpload": {

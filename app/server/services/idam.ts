@@ -26,7 +26,7 @@ export class IdamService {
       method: 'POST',
       uri: `${this.apiUrl}/oauth2/token`,
       auth: {
-        user: 'sscs_cor',
+        user: 'sscs',
         pass: this.appSecret
       },
       form: {
@@ -42,7 +42,7 @@ export class IdamService {
       method: 'DELETE',
       uri: `${this.apiUrl}/session/${token}`,
       auth: {
-        user: 'sscs-cor',
+        user: 'sscs',
         pass: this.appSecret
       }
     });

@@ -99,7 +99,7 @@ describe('services/idam', () => {
         nock(apiUrl)
           .post(path)
           .basicAuth({
-            user: 'sscs_cor',
+            user: 'sscs',
             pass: appSecret
           })
           .reply(OK, apiResponse);
@@ -108,7 +108,7 @@ describe('services/idam', () => {
       it('makes correct post request', async () => {
         await idamService.getToken(code, protocol, host);
         expect(requestSpy).to.have.been.calledOnce.calledWith({
-          auth: { pass: 'a_secret', user: 'sscs_cor' },
+          auth: { pass: 'a_secret', user: 'sscs' },
           form: {
             code: 'someCode',
             grant_type: 'authorization_code',

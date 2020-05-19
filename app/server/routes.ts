@@ -36,7 +36,7 @@ import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
 
-const apiUrl: string = config.get('tribunals.api-url') + '/api';
+const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
 const tribunalsApiUrl: string = config.get('tribunals.api-url');
 const appPort: string = config.get('node.port');
