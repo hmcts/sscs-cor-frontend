@@ -44,15 +44,15 @@
   },
   "s2s": {
     "microservice": "sscs",
-    "secret": "s2s_secret",
-    "url": "http://localhost:10000",
+    "secret": "AAAAAAAAAAAAAAAC",
+    "url": "http://localhost:4502",
     "oauth2": {
-      "url": "http://localhost:10000",
-      "user": "some_user",
-      "password": "some_password",
+      "url": "http://localhost:5000",
+      "user": "system.update@hmcts.net",
+      "password": "Pa55word11",
       "redirectUrl": "https://evidence-sharing-preprod.sscs.reform.hmcts.net",
       "client": {
-        "secret": "some_secret"
+        "secret": "QM5RQQ53LZFOSIXJ"
       }
     }
   },
