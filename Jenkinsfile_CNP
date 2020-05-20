@@ -41,7 +41,6 @@ withPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
     after('checkout') {yarnBuilder.yarn('cache clean')}
     after('build') {yarnBuilder.yarn('build')}
-    installCharts()
     enableAksStagingDeployment()
     disableLegacyDeployment()
     before('securitychecks') { yarnBuilder.yarn('test:audit') }

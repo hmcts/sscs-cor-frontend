@@ -59,7 +59,8 @@ describe('controllers/login', () => {
   });
 
   describe('#getLogout', () => {
-    it('destroys the session and redirects to login', async () => {
+
+    it('destroys the session and redirects to login when access token is present', async () => {
       req.session.accessToken = 'accessToken';
       const idamServiceStub = {
         deleteToken: sinon.stub().withArgs(req.session.accessToken).resolves({})
@@ -67,6 +68,18 @@ describe('controllers/login', () => {
 
       await getLogout(idamServiceStub)(req, res);
       expect(idamServiceStub.deleteToken).to.have.been.calledOnce.calledWith(req.session.accessToken);
+      expect(req.session.destroy).to.have.been.calledOnce.calledWith();
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
+    });
+
+    it('does NOT destroy the session but redirects to login when access token is NOT present', async () => {
+      const idamServiceStub = {
+        deleteToken: sinon.stub().withArgs(req.session.accessToken).resolves({})
+      } as IdamService;
+
+      await getLogout(idamServiceStub)(req, res);
+
+      expect(idamServiceStub.deleteToken).to.have.been.callCount(0);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
     });

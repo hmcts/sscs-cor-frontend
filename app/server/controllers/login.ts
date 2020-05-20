@@ -25,13 +25,17 @@ function redirectToLogin(req: Request, res: Response) {
 
 function getLogout(idamService: IdamService) {
   return async (req: Request, res: Response) => {
-    try {
-      await idamService.deleteToken(req.session.accessToken);
-    } catch (error) {
-      AppInsights.trackException(error);
+
+    if (req.session.accessToken) {
+      try {
+        await idamService.deleteToken(req.session.accessToken);
+      } catch (error) {
+        AppInsights.trackException(error);
+      }
     }
 
     const sessionId: string = req.session.id;
+
     req.session.destroy(error => {
       if (error) {
         logger.error(`Error destroying session ${sessionId}`);
@@ -48,6 +52,7 @@ function getLogout(idamService: IdamService) {
 }
 
 function redirectToIdam(idamPath: string, idamService: IdamService) {
+
   return (req: Request, res: Response) => {
     const idamUrl: URL = new URL(idamUrlString);
     idamUrl.pathname = idamUrl.pathname !== '/' ? idamUrl.pathname + idamPath : idamPath;
@@ -86,6 +91,7 @@ function getIdamCallback(
   idamService: IdamService,
   hearingService: HearingService,
   trackYourApealService: TrackYourApealService) {
+
   return async (req: Request, res: Response, next: NextFunction) => {
     const code: string = req.query.code;
     if (!code) {
@@ -99,6 +105,7 @@ function getIdamCallback(
         return redirectToIdam(req, res);
       });
     }
+
     try {
       if (!req.session.accessToken) {
         logger.info('getting token');
@@ -109,9 +116,12 @@ function getIdamCallback(
         req.session.serviceToken = await generateToken();
         req.session.tya = req.query.state;
       }
+
       const { email }: UserDetails = await idamService.getUserDetails(req.session.accessToken);
       req.session.idamEmail = email;
+
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
+
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
