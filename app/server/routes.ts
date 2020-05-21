@@ -152,4 +152,8 @@ router.post('/manage-email-notifications/:mactoken/change', validateToken, valid
   res.render('email-address-change-confirmed', { data: { email: req.body.email }, mactoken: req.params.mactoken });
 });
 
+router.get('/validate-surname/:tya/trackyourappeal', loginController, (req, res, next) => {
+  res.render('redirect-mya', { state: req.params.tya });
+});
+
 export { router };

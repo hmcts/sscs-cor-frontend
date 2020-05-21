@@ -1212,6 +1212,13 @@
       "postcodeDoesNotMatch": "The details you have provided don't match, please contact us"
     }
   },
+  "redirectMya": {
+    "tab": "Track Your Appeal service",
+    "title": "Track Your Appeal service",
+    "para1": "We have enhanced the Track Your Appeal service so that you're now able to Manage Your Appeal online. To ensure your data is kept secure, you  will need to create an account to access this service.",
+    "para2": "If you created an account when you submitted your appeal, please follow this link <a href='/sign-in'>login</a> & enter the same login details to manage your appeal.",
+    "para3": "If you did not create an account, please create one by following this link <a href='/register'>register</a>. This will enable you to manage your appeal going forward."
+  },
   "notifications": {
     "register": {
       "title": "Register for notifications",
