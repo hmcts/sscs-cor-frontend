@@ -109,6 +109,14 @@ describe('Routes', () => {
     });
   });
 
+  describe('/validate-surname/tya/trackyourappeal', () => {
+    it('should respond with a HTTP 200 when performing a GET', done => {
+      request(app)
+      .get('/validate-surname/67sC1UvHy3/trackyourappeal')
+      .expect(HttpStatus.OK, done);
+    });
+  });
+
   describe.skip('/manage-email-notifications/mactoken/change', () => {
     const url = '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=/change';
 
