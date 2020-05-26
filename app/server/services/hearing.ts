@@ -37,7 +37,7 @@ export class HearingService {
   async getOnlineHearing(email: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/continuous-online-hearings`,
+      uri: `${this.apiUrl}/api/continuous-online-hearings`,
       qs: { email },
       resolveWithFullResponse: true,
       simple: false
@@ -48,7 +48,7 @@ export class HearingService {
     const path = tya ? `/${tya}` : '';
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/citizen${path}`,
+      uri: `${this.apiUrl}/api/citizen${path}`,
       qs: { email },
       resolveWithFullResponse: true,
       simple: false
@@ -58,7 +58,7 @@ export class HearingService {
   async assignOnlineHearingsToCitizen(email: string, tya: string, postcode: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
-      uri: `${this.apiUrl}/citizen/${tya}`,
+      uri: `${this.apiUrl}/api/citizen/${tya}`,
       body: { email, postcode },
       resolveWithFullResponse: true,
       simple: false
@@ -68,14 +68,14 @@ export class HearingService {
   async extendDeadline(hearingId: string, req: Request) {
     return RequestPromise.request({
       method: 'PATCH',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}`
     }, req);
   }
 
   async recordTribunalViewResponse(hearingId: string, reply: string, req: Request, reason?: string) {
     return RequestPromise.request({
       method: 'PATCH',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/tribunal-view`,
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/tribunal-view`,
       body: { reply, reason: reason ? reason : '' }
     }, req);
   }

@@ -41,7 +41,7 @@ describe('services/additional-evidence', () => {
         tya: 'wqiuvokQlD'
       },
       method: 'POST',
-      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/statement`
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/statement`
     };
 
     await additionalEvidenceService.saveStatement(hearingId, 'text', req);
@@ -62,7 +62,7 @@ describe('services/additional-evidence', () => {
       simple: false,
       resolveWithFullResponse: true,
       method: 'PUT',
-      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence`
     };
 
     await additionalEvidenceService.uploadEvidence(hearingId, file as Express.Multer.File, req);
@@ -73,7 +73,7 @@ describe('services/additional-evidence', () => {
     const expectedRequestOptions = {
       method: 'DELETE',
       headers: { 'Content-Length': '0' },
-      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/${evidenceId}`
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence/${evidenceId}`
     };
 
     await additionalEvidenceService.removeEvidence(hearingId, evidenceId, req);
@@ -83,7 +83,7 @@ describe('services/additional-evidence', () => {
   it('should getEvidences', async () => {
     const expectedRequestOptions = {
       method: 'GET',
-      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence`
     };
 
     await additionalEvidenceService.getEvidences(hearingId, req);
@@ -94,7 +94,7 @@ describe('services/additional-evidence', () => {
     const expectedRequestOptions = {
       method: 'GET',
       encoding: 'binary',
-      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence/coversheet`,
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
         'Content-type': 'application/pdf'
       }
@@ -115,7 +115,7 @@ describe('services/additional-evidence', () => {
       headers: {
         'Content-type': 'application/json'
       },
-      uri: `${apiUrl}/continuous-online-hearings/${hearingId}/evidence`
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence`
     };
 
     await additionalEvidenceService.submitEvidences(hearingId, description, req);
