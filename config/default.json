@@ -4,7 +4,7 @@
   },
   "testUrl": "http://localhost:3000",
   "api": {
-    "url": "http://localhost:8080/api"
+    "url": "http://localhost:8080"
   },
   "appInsights": {
     "instrumentationKey": "iKey",
@@ -44,15 +44,15 @@
   },
   "s2s": {
     "microservice": "sscs",
-    "secret": "AAAAAAAAAAAAAAAC",
-    "url": "http://localhost:4502",
+    "secret": "s2s_secret",
+    "url": "http://localhost:10000",
     "oauth2": {
-      "url": "http://localhost:5000",
-      "user": "system.update@hmcts.net",
-      "password": "Pa55word11",
+      "url": "http://localhost:10000",
+      "user": "some_user",
+      "password": "some_password",
       "redirectUrl": "https://evidence-sharing-preprod.sscs.reform.hmcts.net",
       "client": {
-        "secret": "QM5RQQ53LZFOSIXJ"
+        "secret": "some_secret"
       }
     }
   },
