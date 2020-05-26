@@ -1,7 +1,7 @@
 const { emailHearingIdMap, emailToCaseIdMap } = require('../utils');
 
 module.exports = {
-  path: '/citizen/:tya',
+  path: '/api/citizen/:tya',
   method: 'POST',
   cache: false,
   template: {

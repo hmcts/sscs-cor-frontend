@@ -53,7 +53,7 @@ function getQuestions(onlineHearingId) {
 }
 
 module.exports = {
-  path: '/continuous-online-hearings/:onlineHearingId',
+  path: '/api/continuous-online-hearings/:onlineHearingId',
   method: 'GET',
   cache: false,
   template: {

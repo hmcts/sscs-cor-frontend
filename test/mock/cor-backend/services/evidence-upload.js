@@ -14,7 +14,7 @@ function cacheEvidence(questionId, file) {
 
 /* eslint-disable max-len */
 module.exports = {
-  path: '/continuous-online-hearings/:onlineHearingId/questions/:questionId/evidence',
+  path: '/api/continuous-online-hearings/:onlineHearingId/questions/:questionId/evidence',
   method: 'POST',
   status: async(req, res, next) => {
     const uploadedFile = req.files[0];

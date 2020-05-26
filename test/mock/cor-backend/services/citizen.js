@@ -11,7 +11,7 @@ const {
 } = require('../utils');
 
 module.exports = {
-  path: '/citizen',
+  path: '/api/citizen',
   method: 'GET',
   cache: false,
   status: (req, res, next) => {

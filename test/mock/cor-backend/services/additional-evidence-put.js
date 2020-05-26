@@ -12,7 +12,7 @@ function cacheEvidence(hearingId, file) {
 }
 
 module.exports = {
-  path: '/continuous-online-hearings/:onlineHearingId/evidence',
+  path: '/api/continuous-online-hearings/:onlineHearingId/evidence',
   method: 'PUT',
   status: async(req, res, next) => {
     const uploadedFile = req.files[0];

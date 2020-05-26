@@ -2,7 +2,7 @@ const { NO_CONTENT } = require('http-status-codes');
 const cache = require('memory-cache');
 
 module.exports = {
-  path: '/continuous-online-hearings/:onlineHearingId/evidence/:fileId',
+  path: '/api/continuous-online-hearings/:onlineHearingId/evidence/:fileId',
   method: 'DELETE',
   cache: false,
   status: (req, res, next) => {

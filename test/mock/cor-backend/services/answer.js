@@ -7,7 +7,7 @@ function cacheAnswerState(questionId, answerText) {
 }
 
 module.exports = {
-  path: '/continuous-online-hearings/:hearingId/questions/:questionId',
+  path: '/api/continuous-online-hearings/:hearingId/questions/:questionId',
   method: 'PUT',
   cache: false,
   status: (req, res, next) => {

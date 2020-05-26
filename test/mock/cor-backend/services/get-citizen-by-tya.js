@@ -1,5 +1,5 @@
 module.exports = {
-  path: '/citizen/:tya',
+  path: '/api/citizen/:tya',
   method: 'GET',
   cache: false,
   template: []
