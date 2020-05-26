@@ -18,7 +18,7 @@ describe(modulePath, () => {
         sscs: {
           'sscs-cor-redis-connection-string': 'sessionValue',
           'sscs-cor-redis-access-key': 'redisValue',
-          'sscs-cor-idam-client-secret': 'idamValue',
+          'idam-sscs-oauth2-client-secret': 'idamValue',
           'sscs-s2s-secret': 'osPlacesValue'
         }
       };
@@ -33,7 +33,7 @@ describe(modulePath, () => {
       expect(mockConfig.session.redis.secret)
         .to.equal(mockConfig.secrets.sscs['sscs-cor-redis-access-key']);
       expect(mockConfig.idam.client.secret)
-        .to.equal(mockConfig.secrets.sscs['sscs-cor-idam-client-secret']);
+        .to.equal(mockConfig.secrets.sscs['idam-sscs-oauth2-client-secret']);
       expect(mockConfig.s2s.secret)
         .to.equal(mockConfig.secrets.sscs['sscs-s2s-secret']);
     });
