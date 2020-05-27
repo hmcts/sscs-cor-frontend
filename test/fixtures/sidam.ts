@@ -12,7 +12,7 @@ async function manageRedirectUri(operation) {
   const redirectUri = `${testUrl}/sign-in`;
   if (redirectUri.startsWith('https://pr-')) {
     const options = {
-      url: `${sidamApiUrl}/testing-support/services/sscs`,
+      url: `${sidamApiUrl}/testing-support/services/sscs-cor`,
       json: true,
       body: [{
         operation: operation,
