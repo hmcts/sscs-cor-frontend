@@ -6,7 +6,7 @@ import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 const i18n = require('locale/en');
 
-describe.skip('Manage your appeal app @mya', () => {
+describe('Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
