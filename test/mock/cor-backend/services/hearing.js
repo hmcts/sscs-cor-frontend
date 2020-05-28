@@ -9,7 +9,7 @@ const {
 } = require('../utils');
 
 module.exports = {
-  path: '/continuous-online-hearings',
+  path: '/api/continuous-online-hearings',
   method: 'GET',
   cache: false,
   status: (req, res, next) => {

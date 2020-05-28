@@ -23,7 +23,7 @@ function getCachedEvidence(questionId) {
 
 /* eslint-disable no-magic-numbers */
 module.exports = {
-  path: '/continuous-online-hearings/:onlineHearingId/questions/:questionId',
+  path: '/api/continuous-online-hearings/:onlineHearingId/questions/:questionId',
   method: 'GET',
   cache: false,
   template: {

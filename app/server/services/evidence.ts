@@ -12,7 +12,7 @@ export class EvidenceService {
       method: 'POST',
       simple: false,
       resolveWithFullResponse: true,
-      url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`,
+      url: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`,
       formData: {
         file: {
           value: file.buffer,
@@ -29,7 +29,7 @@ export class EvidenceService {
     return RequestPromise.request({
       method: 'DELETE',
       headers: { 'Content-Length': '0' },
-      url: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/${fileId}`
+      url: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/${fileId}`
     }, req);
   }
 }

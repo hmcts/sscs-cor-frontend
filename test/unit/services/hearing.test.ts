@@ -9,7 +9,7 @@ const apiUrl = config.get('api.url');
 
 describe('services/hearing', () => {
   const email = 'test@example.com';
-  const path = '/continuous-online-hearings';
+  const path = '/api/continuous-online-hearings';
   let hearingService;
   const req: any = {};
   before(() => {
@@ -121,7 +121,7 @@ describe('services/hearing', () => {
           Authorization: `Bearer ${userToken}`,
           ServiceAuthorization: `Bearer ${serviceToken}`
         })
-          .get('/citizen/' + tya)
+          .get('/api/citizen/' + tya)
           .query({ email })
           .reply(OK, apiResponseBody);
       });
@@ -144,7 +144,7 @@ describe('services/hearing', () => {
           Authorization: `Bearer ${req.session.accessToken}`,
           ServiceAuthorization: `Bearer ${req.session.serviceToken}`
         })
-          .get('/citizen/' + tya)
+          .get('/api/citizen/' + tya)
           .query({ email })
           .replyWithError(error);
       });
@@ -172,7 +172,7 @@ describe('services/hearing', () => {
           Authorization: `Bearer ${userToken}`,
           ServiceAuthorization: `Bearer ${serviceToken}`
         })
-          .post('/citizen/' + tya, { email, postcode })
+          .post('/api/citizen/' + tya, { email, postcode })
           .reply(OK, apiResponseBody);
       });
 
@@ -194,7 +194,7 @@ describe('services/hearing', () => {
           Authorization: `Bearer ${req.session.accessToken}`,
           ServiceAuthorization: `Bearer ${req.session.serviceToken}`
         })
-          .post('/citizen/' + tya, { email, postcode })
+          .post('/api/citizen/' + tya, { email, postcode })
           .replyWithError(error);
       });
 
@@ -206,7 +206,7 @@ describe('services/hearing', () => {
 
   describe('#extendDeadline', () => {
     const hearingId = '121';
-    const path = `/continuous-online-hearings/${hearingId}`;
+    const path = `/api/continuous-online-hearings/${hearingId}`;
     const apiResponse = {
       deadline_expiry_date: moment.utc().add(14, 'day').format()
     };
@@ -252,7 +252,7 @@ describe('services/hearing', () => {
 
   describe('#recordTribunalViewResponse', () => {
     const hearingId = '121';
-    const path = `/continuous-online-hearings/${hearingId}/tribunal-view`;
+    const path = `/api/continuous-online-hearings/${hearingId}/tribunal-view`;
 
     describe('on success', () => {
       beforeEach(() => {
