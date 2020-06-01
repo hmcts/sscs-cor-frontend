@@ -11,7 +11,7 @@ import { DecisionPage } from 'test/page-objects/decision';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 const i18n = require('locale/en');
 
-describe('Login page', () => {
+describe.skip('Login page', () => {
   let page;
   let loginPage;
   let statusPage;

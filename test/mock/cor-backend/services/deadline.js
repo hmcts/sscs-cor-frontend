@@ -2,7 +2,7 @@ const moment = require('moment');
 const cache = require('memory-cache');
 
 module.exports = {
-  path: '/continuous-online-hearings/:hearingId',
+  path: '/api/continuous-online-hearings/:hearingId',
   method: 'PATCH',
   cache: false,
   template: {

@@ -17,7 +17,7 @@ export class AdditionalEvidenceService {
   async saveStatement(identifier: string, statementText: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
-      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/statement`,
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/statement`,
       body: {
         body: statementText,
         tya: req.session.tya
@@ -28,7 +28,7 @@ export class AdditionalEvidenceService {
   async uploadEvidence(identifier: string, file: Express.Multer.File, req: Request): Promise<EvidenceDescriptor> {
     return RequestPromise.request({
       method: 'PUT',
-      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence`,
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
       simple: false,
       resolveWithFullResponse: true,
       formData: {
@@ -46,7 +46,7 @@ export class AdditionalEvidenceService {
   async removeEvidence(identifier: string, evidenceId: string, req: Request) {
     return RequestPromise.request({
       method: 'DELETE',
-      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence/${evidenceId}`,
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence/${evidenceId}`,
       headers: {
         'Content-Length': '0'
       }
@@ -56,7 +56,7 @@ export class AdditionalEvidenceService {
   async getEvidences(identifier: string, req: Request): Promise<EvidenceDescriptor[]> {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence`
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`
     }, req);
   }
 
@@ -64,7 +64,7 @@ export class AdditionalEvidenceService {
     return RequestPromise.request({
       method: 'GET',
       encoding: 'binary',
-      uri: `${this.apiUrl}/continuous-online-hearings/${caseId}/evidence/coversheet`,
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${caseId}/evidence/coversheet`,
       headers: {
         'Content-type': 'application/pdf'
       }
@@ -74,7 +74,7 @@ export class AdditionalEvidenceService {
   async submitEvidences(identifier: string, description: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
-      uri: `${this.apiUrl}/continuous-online-hearings/${identifier}/evidence`,
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
       body: {
         body: description,
         idamEmail: req.session.idamEmail

@@ -6,7 +6,7 @@ function getCachedEvidence(hearingId) {
 }
 
 module.exports = {
-  path: '/continuous-online-hearings/:onlineHearingId/evidence',
+  path: '/api/continuous-online-hearings/:onlineHearingId/evidence',
   method: 'GET',
   cache: false,
   template: params => getCachedEvidence(params.onlineHearingId)

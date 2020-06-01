@@ -24,14 +24,14 @@ export class QuestionService {
   async getAllQuestions(hearingId: string, req: Request): Promise<QuestionRound> {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}`
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}`
     }, req);
   }
 
   async getQuestion(hearingId: string, questionId: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/questions/${questionId}`
     }, req);
   }
 
@@ -69,6 +69,6 @@ export class QuestionService {
   }
 
   buildAnswerUrl(hearingId, questionId) {
-    return `${this.apiUrl}/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+    return `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/questions/${questionId}`;
   }
 }

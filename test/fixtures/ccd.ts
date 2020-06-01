@@ -9,7 +9,7 @@ async function createCase(hearingType) {
   const randomNumber = parseInt(Math.random() * 10000000 + '', 10);
   const email = `test${randomNumber}@hmcts.net`;
   const options = {
-    url: `${backendApiUrl}/case`,
+    url: `${backendApiUrl}/api/case`,
     qs: { email, hearingType },
     json: true,
     timeout

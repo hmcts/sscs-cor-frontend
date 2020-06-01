@@ -5,7 +5,7 @@ function deleteEvidences(hearingId) {
 }
 
 module.exports = {
-  path: '/continuous-online-hearings/:onlineHearingId/evidence',
+  path: '/api/continuous-online-hearings/:onlineHearingId/evidence',
   method: 'POST',
   status: (req, res, next) => {
     deleteEvidences(req.params.onlineHearingId);

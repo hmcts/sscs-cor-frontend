@@ -15,7 +15,7 @@ describe('services/question', () => {
     questionService = new QuestionService(apiUrl);
   });
   describe('#getAllQuestions', () => {
-    const path = `/continuous-online-hearings/${hearingId}`;
+    const path = `/api/continuous-online-hearings/${hearingId}`;
 
     const apiResponse = {
       deadline_extension_count: 0,
@@ -97,7 +97,7 @@ describe('services/question', () => {
   });
 
   describe('#getQuestion', () => {
-    const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+    const path = `/api/continuous-online-hearings/${hearingId}/questions/${questionId}`;
 
     const apiResponse = {
       question_id: questionId,
@@ -139,7 +139,7 @@ describe('services/question', () => {
     /* tslint:disable-next-line variable-name */
     const answer_state = 'draft';
     const answer = 'My answer';
-    const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+    const path = `/api/continuous-online-hearings/${hearingId}/questions/${questionId}`;
 
     const apiResponse = {
       answer_id: '001'
@@ -180,7 +180,7 @@ describe('services/question', () => {
 
   describe('#submitAnswer', () => {
     const answer = 'My answer';
-    const path = `/continuous-online-hearings/${hearingId}/questions/${questionId}`;
+    const path = `/api/continuous-online-hearings/${hearingId}/questions/${questionId}`;
 
     const apiResponse = {
       answer_id: '001'

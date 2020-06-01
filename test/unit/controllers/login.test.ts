@@ -109,7 +109,7 @@ describe('controllers/login', () => {
       } as IdamService;
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
-      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs_cor&response_type=code&state=tya-number');
+      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&state=tya-number');
     });
 
     it('builds correct sign in url', () => {
@@ -121,7 +121,7 @@ describe('controllers/login', () => {
 
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
-      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs_cor&response_type=code&state=state-value');
+      expect(res.redirect).to.have.been.calledOnce.calledWith(idamUrl + '/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&state=state-value');
     });
   });
 

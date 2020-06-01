@@ -12,7 +12,7 @@ export function setupKeyVaultSecrets (): void {
   if (config.has('secrets.sscs')) {
     setSecret('secrets.sscs.sscs-cor-redis-connection-string', 'session.redis.url');
     setSecret('secrets.sscs.sscs-cor-redis-access-key', 'session.redis.secret');
-    setSecret('secrets.sscs.sscs-cor-idam-client-secret', 'idam.client.secret');
+    setSecret('secrets.sscs.idam-sscs-oauth2-client-secret', 'idam.client.secret');
     setSecret('secrets.sscs.sscs-s2s-secret', 's2s.secret');
     setSecret('secrets.sscs.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
   }

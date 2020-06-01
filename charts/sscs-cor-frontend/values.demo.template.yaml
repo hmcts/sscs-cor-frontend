@@ -11,6 +11,7 @@ nodejs:
     sscs:
       secrets:
         - sscs-cor-idam-client-secret
+        - idam-sscs-oauth2-client-secret
         - sscs-s2s-secret
 redis:
   enabled: true

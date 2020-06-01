@@ -56,7 +56,7 @@ describe('services/evidence', () => {
         method: 'POST',
         resolveWithFullResponse: true,
         simple: false,
-        url: `http://sscs-cor-backend.net/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`
+        url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`
       };
 
       expect(rpStub).to.have.been.calledOnce.calledWith(sinon.match(expectedOptions, req));
@@ -101,7 +101,7 @@ describe('services/evidence', () => {
       const expectedOptions = {
         method: 'DELETE',
         headers: { 'Content-Length': '0' },
-        url: `http://sscs-cor-backend.net/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`
+        url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`
       };
 
       expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
