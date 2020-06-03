@@ -1080,6 +1080,13 @@
       "agency": "Department for Work and Pensions",
       "agencyAcronym": "DWP",
       "panel": "a judge, doctor and disability expert"
+    },
+    "uc": {
+      "acronym": "UC",
+      "fullDescription": "Universal Credit (UC)",
+      "agency": "Department for Work and Pensions",
+      "agencyAcronym": "DWP",
+      "panel": "a judge, doctor and disability expert"
     }
   },
   "helpGuides": {
