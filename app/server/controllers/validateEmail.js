@@ -1,5 +1,5 @@
 const { setErrorFields } = require('../../core/fieldErrors');
-const i18n = require('../../../locale/en.json');
+const i18n = require('../../../locale/content');
 const HttpStatus = require('http-status-codes');
 const Joi = require('joi');
 
@@ -47,7 +47,7 @@ const validateFields = (email, confirmEmail, errors) => {
 const validateEmail = (req, res, next) => {
   const email = req.body.email.trim();
   const confirmEmail = req.body.confirmEmail.trim();
-  const errors = i18n.notifications.email.errors;
+  const errors = i18n.en.notifications.email.errors;
   const fields = validateFields(email, confirmEmail, errors);
   if (fields.error) {
     res.status(HttpStatus.BAD_REQUEST);

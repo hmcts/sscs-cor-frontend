@@ -3,7 +3,7 @@ import * as session from 'express-session';
 import express = require('express');
 import { setup } from '../../app/server/app';
 import { expect } from 'test/chai-sinon';
-const i18n = require('locale/en.json');
+const i18n = require('locale/content');
 const { createSession } = require('../../app/server/middleware/session');
 const HttpStatus = require('http-status-codes');
 const tribunalApiUrl = require('config').get('tribunals.api-url');
@@ -222,7 +222,7 @@ describe('Routes', () => {
         const response = await request(mockApp)
           .get('/extend-deadline');
         expect(response.status).to.be.equal(200);
-        expect(response.text).to.contain(i18n.extendDeadline.header);
+        expect(response.text).to.contain(i18n.en.extendDeadline.header);
       });
       it('GET /decision should redirect to sign-in as user is not allowed', async () => {
         const response = await request(mockApp)

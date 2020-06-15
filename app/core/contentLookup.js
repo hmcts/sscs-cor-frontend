@@ -1,11 +1,11 @@
 const { Logger } = require('@hmcts/nodejs-logging');
 const { get } = require('lodash');
-const locale = require('../../locale/en');
+const i18n = require('../../locale/content');
 
 const logger = Logger.getLogger('contentLookup.js');
 
 const getContentFromFile = key => {
-  const content = get(locale, key);
+  const content = get(i18n.en, key);
   if (!content) {
     throw new ReferenceError(`Unknown key: ${key}`);
   }

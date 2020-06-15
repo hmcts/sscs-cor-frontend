@@ -5,7 +5,7 @@ import * as Paths from 'app/server/paths';
 const { expect, sinon } = require('test/chai-sinon');
 import * as AppInsights from 'app/server/app-insights';
 import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
-const i18n = require('locale/en');
+const i18n = require('locale/content');
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
@@ -171,7 +171,7 @@ describe('controllers/additional-evidence.js', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
         action: 'statement',
         pageTitleError: true,
-        error: i18n.question.textareaField.errorOnSave.empty
+        error: i18n.en.question.textareaField.errorOnSave.empty
       });
     });
 
@@ -237,8 +237,8 @@ describe('controllers/additional-evidence.js', () => {
         pageTitleError: true,
         evidences: [],
         description: '',
-        error: i18n.additionalEvidence.evidenceUpload.error.emptyDescription,
-        fileUploadError: i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded
+        error: i18n.en.additionalEvidence.evidenceUpload.error.emptyDescription,
+        fileUploadError: i18n.en.additionalEvidence.evidenceUpload.error.noFilesUploaded
       });
     });
 
@@ -265,7 +265,7 @@ describe('controllers/additional-evidence.js', () => {
     });
 
     it('should show errors when file size is bigger than certain limit', async () => {
-      const fileSizeErrorMsg = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
+      const fileSizeErrorMsg = `${i18n.en.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
       res.locals.multerError = fileSizeErrorMsg;
       await postFileUpload(additionalEvidenceService)(req, res, next);
 

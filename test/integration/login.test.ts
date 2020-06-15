@@ -9,7 +9,7 @@ import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
-const i18n = require('locale/en');
+const i18n = require('locale/content');
 
 describe.skip('Login page', () => {
   let page;
@@ -41,28 +41,28 @@ describe.skip('Login page', () => {
     await loginPage.visitPage();
     await loginPage.login('not.found@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
-    expect(errorSummary).contain(i18n.login.failed.emailNotFound.header);
+    expect(errorSummary).contain(i18n.en.login.failed.emailNotFound.header);
   });
 
   it('handles multiple online hearings found', async() => {
     await loginPage.visitPage();
     await loginPage.login('multiple@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
-    expect(errorSummary).contain(i18n.login.failed.technicalError.header);
+    expect(errorSummary).contain(i18n.en.login.failed.technicalError.header);
   });
 
   it('handles non cor hearing found', async() => {
     await loginPage.visitPage();
     await loginPage.login('not.cor@example.com', 'examplePassword');
     const errorSummary = await loginPage.getElementText('.govuk-heading-l');
-    expect(errorSummary).contain(i18n.login.failed.cannotUseService.header);
+    expect(errorSummary).contain(i18n.en.login.failed.cannotUseService.header);
   });
 
   it('logs in successfully and shows the task list', async() => {
     await loginPage.visitPage();
     await loginPage.login('test@example.com', 'examplePassword');
     await loginPage.screenshot('successful-login');
-    expect(await taskListPage.getHeading()).to.equal(i18n.taskList.header);
+    expect(await taskListPage.getHeading()).to.equal(i18n.en.taskList.header);
   });
 
   it('displays the appellant name and case reference', async() => {
@@ -76,7 +76,7 @@ describe.skip('Login page', () => {
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
     /* eslint-disable-next-line no-magic-numbers */
     const expectedDeadlineDate = moment.utc().add(7, 'days').endOf('day').format('D MMMM YYYY');
-    expect(deadlineStatus).to.contain(i18n.taskList.deadline.pending);
+    expect(deadlineStatus).to.contain(i18n.en.taskList.deadline.pending);
     expect(deadlineStatus).to.contain(expectedDeadlineDate);
   });
 
@@ -88,7 +88,7 @@ describe.skip('Login page', () => {
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
 
     const expectedDeadlineDate = moment.utc().subtract(1, 'day').endOf('day').format('D MMMM YYYY');
-    expect(deadlineStatus).to.contain(i18n.taskList.deadline.expired);
+    expect(deadlineStatus).to.contain(i18n.en.taskList.deadline.expired);
     expect(deadlineStatus).to.contain(expectedDeadlineDate);
   });
 
@@ -98,7 +98,7 @@ describe.skip('Login page', () => {
     await loginPage.screenshot('completed-login');
     taskListPage.verifyPage();
     const deadlineStatus = await taskListPage.getElementText('#deadline-status');
-    expect(deadlineStatus).to.contain(i18n.taskList.deadline.completed);
+    expect(deadlineStatus).to.contain(i18n.en.taskList.deadline.completed);
   });
 
   it('displays the tribunal view page', async() => {
@@ -106,7 +106,7 @@ describe.skip('Login page', () => {
     await loginPage.login('view.issued@example.com', 'examplePassword');
     await loginPage.screenshot('tribunal-view-issued-login');
     tribunalViewPage.verifyPage();
-    expect(await tribunalViewPage.getHeading()).to.equal(i18n.tribunalView.header);
+    expect(await tribunalViewPage.getHeading()).to.equal(i18n.en.tribunalView.header);
     expect(await tribunalViewPage.getElementText('#decision-text')).to.equal('The final decision is this.');
   });
 
@@ -115,7 +115,7 @@ describe.skip('Login page', () => {
     await loginPage.login('appeal.upheld@example.com', 'examplePassword');
     await loginPage.screenshot('decision-appeal-upheld-login');
     decisionPage.verifyPage();
-    expect(await decisionPage.getHeading()).to.equal(i18n.tribunalDecision.header);
+    expect(await decisionPage.getHeading()).to.equal(i18n.en.tribunalDecision.header);
     expect(await decisionPage.getElementText('#decision-text')).to.equal('final decision reason');
   });
 

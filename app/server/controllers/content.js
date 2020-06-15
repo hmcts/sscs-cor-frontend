@@ -1,11 +1,11 @@
 const { renderContent } = require('../../core/tyaNunjucks');
-const i18n = require('../../../locale/en.json');
+const i18n = require('../../../locale/content');
 
 const emailNotifications = (req, res, next) => {
   const token = res.locals.token;
   const placeholder = { benefitType: token.benefitType };
-  const notificationsContent = i18n.notifications;
-  i18n.notifications = renderContent(notificationsContent, placeholder);
+  const notificationsContent = i18n.en.notifications;
+  i18n.en.notifications = renderContent(notificationsContent, placeholder);
 
   next();
 };

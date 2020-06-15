@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import express = require('express');
 const { getContentAsString } = require('../core/contentLookup');
 const { lowerCase } = require('lodash');
-const locale = require('../../locale/en.json');
+const i18n = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
 
@@ -106,16 +106,16 @@ function configureNunjucks(app: express.Application) {
   });
   nunEnv.addFilter('dateFilter', dateFilter);
   nunEnv.addFilter('agencyAcronym', benefitType => {
-    return nunjucks.renderString(locale.benefitTypes[benefitType].agencyAcronym, this.ctx);
+    return nunjucks.renderString(i18n.en.benefitTypes[benefitType].agencyAcronym, this.ctx);
   });
   nunEnv.addFilter('acronym', benefitType => {
     return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
   });
   nunEnv.addFilter('benefitAcronym', benefitType => {
-    return nunjucks.renderString(locale.benefitTypes[benefitType].acronym, this.ctx);
+    return nunjucks.renderString(i18n.en.benefitTypes[benefitType].acronym, this.ctx);
   });
   nunEnv.addFilter('panel', benefitType => {
-    return nunjucks.renderString(locale.benefitTypes[benefitType].panel, this.ctx);
+    return nunjucks.renderString(i18n.en.benefitTypes[benefitType].panel, this.ctx);
   });
 
   nunEnv.addFilter('dateForDecisionReceived', utcDateTimeStr => {

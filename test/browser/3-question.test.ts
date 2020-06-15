@@ -11,7 +11,7 @@ import { QuestionPage } from 'test/page-objects/question';
 import { SubmitQuestionPage } from 'test/page-objects/submit-question';
 import { QuestionsCompletedPage } from 'test/page-objects/questions-completed';
 import { UploadEvidencePage } from 'test/page-objects/upload-evidence';
-const i18n = require('locale/en');
+const i18n = require('locale/content');
 import * as Paths from 'app/server/paths';
 const config = require('config');
 
@@ -105,9 +105,9 @@ describe.skip('Question page', () => {
     await questionPage.visitPage();
     await questionPage.submitAnswer('');
     expect(await questionPage.getElementText('.govuk-error-summary'))
-      .contain(i18n.question.textareaField.error.empty);
+      .contain(i18n.en.question.textareaField.error.empty);
     expect(await questionPage.getElementText('#question-field-error'))
-      .to.containIgnoreSpaces(i18n.question.textareaField.error.empty);
+      .to.containIgnoreSpaces(i18n.en.question.textareaField.error.empty);
   });
 
   describe.skip('evidence upload per question disabled', () => {
@@ -115,7 +115,7 @@ describe.skip('Question page', () => {
       await questionPage.setCookie('postBulkScan', 'false');
       const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
       const displayedCaseRef = await taskListPage.getElementText('#evidence-case-reference');
-      expect(summaryText.trim()).to.equal(i18n.question.sendingEvidence.summary);
+      expect(summaryText.trim()).to.equal(i18n.en.question.sendingEvidence.summary);
       expect(displayedCaseRef).to.equal(caseReference);
     });
   });
@@ -143,8 +143,8 @@ describe.skip('Question page', () => {
       it('display evidence upload section', async () => {
         const headerText = await questionPage.getElementText('#evidence-upload h2');
         const addFile = await questionPage.getElementValue('#add-file');
-        expect(headerText).to.equal(i18n.question.evidenceUpload.header);
-        expect(addFile).to.equal(i18n.question.evidenceUpload.addFileButton);
+        expect(headerText).to.equal(i18n.en.question.evidenceUpload.header);
+        expect(addFile).to.equal(i18n.en.question.evidenceUpload.addFileButton);
       });
 
       it('displays empty list of uploaded files', async () => {
@@ -155,7 +155,7 @@ describe.skip('Question page', () => {
       it('also displays guidance posting evidence with reference', async () => {
         const summaryText = await questionPage.getElementText('#sending-evidence-guide summary span');
         const displayedCaseRef = await questionPage.getElementText('#evidence-case-reference');
-        expect(summaryText).to.contain(i18n.question.evidenceUpload.postEvidence.summary);
+        expect(summaryText).to.contain(i18n.en.question.evidenceUpload.postEvidence.summary);
         expect(displayedCaseRef).to.equal(caseReference);
       });
 
@@ -176,7 +176,7 @@ describe.skip('Question page', () => {
         ]);
         await questionPage.screenshot('question-upload-evidence');
         uploadEvidencePage.verifyPage();
-        expect(await uploadEvidencePage.getHeading()).to.equal(i18n.questionUploadEvidence.header);
+        expect(await uploadEvidencePage.getHeading()).to.equal(i18n.en.questionUploadEvidence.header);
       });
 
       /!* PA11Y *!/
@@ -192,8 +192,8 @@ describe.skip('Question page', () => {
 
       it('validates that a file has been chosen', async () => {
         await uploadEvidencePage.submit();
-        expect(await uploadEvidencePage.getElementText('.govuk-error-summary')).contain(i18n.questionUploadEvidence.error.empty);
-        expect(await questionPage.getElementText('#file-upload-1-error')).to.containIgnoreSpaces(i18n.questionUploadEvidence.error.empty);
+        expect(await uploadEvidencePage.getElementText('.govuk-error-summary')).contain(i18n.en.questionUploadEvidence.error.empty);
+        expect(await questionPage.getElementText('#file-upload-1-error')).to.containIgnoreSpaces(i18n.en.questionUploadEvidence.error.empty);
       });
 
       it('takes the user back to the question after submitting evidence', async () => {
@@ -212,13 +212,13 @@ describe.skip('Question page', () => {
       it('Invalid answer text, do not shows question as draft status', async () => {
         await questionPage.saveAnswer('');
         const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-        expect(answerState).not.equal(i18n.taskList.answerState.draft.toUpperCase());
+        expect(answerState).not.equal(i18n.en.taskList.answerState.draft.toUpperCase());
       });
 
       it('shows question as draft status', async () => {
         await questionPage.saveAnswer('Valid Answer');
         const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-        expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
+        expect(answerState).to.equal(i18n.en.taskList.answerState.draft.toUpperCase());
       });
 
       it('tries to upload evidence file that is not an allowed type', async () => {
@@ -231,7 +231,7 @@ describe.skip('Question page', () => {
         await uploadEvidencePage.submit();
 
         expect(await uploadEvidencePage.getElementText('#file-upload-1-error'))
-          .contain(i18n.questionUploadEvidence.error.invalidFileType);
+          .contain(i18n.en.questionUploadEvidence.error.invalidFileType);
       });
 
       it('uploads a second evidence file and shows in upload list', async () => {
@@ -288,7 +288,7 @@ describe.skip('Question page', () => {
 
       it('displays evidence upload section toggle', async () => {
         const checkboxLabel = await questionPage.getElementText('[for=provide-evidence-1]');
-        expect(checkboxLabel.trim()).to.equal(i18n.question.evidenceUpload.checkbox);
+        expect(checkboxLabel.trim()).to.equal(i18n.en.question.evidenceUpload.checkbox);
       });
 
       it('checking the box reveals the upload section', async () => {
@@ -324,13 +324,13 @@ describe.skip('Question page', () => {
       it('Invalid answer text, do not shows question as draft status', async () => {
         await questionPage.saveAnswer('');
         const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-        expect(answerState).not.equal(i18n.taskList.answerState.draft.toUpperCase());
+        expect(answerState).not.equal(i18n.en.taskList.answerState.draft.toUpperCase());
       });
 
       it('shows question as draft status', async () => {
         await questionPage.saveAnswer('Valid Answer');
         const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-        expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
+        expect(answerState).to.equal(i18n.en.taskList.answerState.draft.toUpperCase());
       });
 
       it('tries to upload evidence file that is not an allowed type', async () => {
@@ -341,7 +341,7 @@ describe.skip('Question page', () => {
         ]);
 
         expect(await uploadEvidencePage.getElementText('#file-upload-1-error'))
-          .contain(i18n.questionUploadEvidence.error.invalidFileType);
+          .contain(i18n.en.questionUploadEvidence.error.invalidFileType);
       });
 
       it('uploads a second piece of evidence and show in uploaded list', async () => {
@@ -412,7 +412,7 @@ describe.skip('Question page', () => {
 
     it('displays question status as draft', async () => {
       const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-      expect(answerState).to.equal(i18n.taskList.answerState.draft.toUpperCase());
+      expect(answerState).to.equal(i18n.en.taskList.answerState.draft.toUpperCase());
     });
 
     /!* PA11Y *!/
@@ -455,7 +455,7 @@ describe.skip('Question page', () => {
 
     it('displays question status as completed', async () => {
       const answerState = await taskListPage.getElementText(`#question-${firstQuestionId} .answer-state`);
-      expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase());
+      expect(answerState).to.equal(i18n.en.taskList.answerState.completed.toUpperCase());
     });
   });
 
@@ -496,7 +496,7 @@ describe.skip('Question page', () => {
         const questionId = questionIdList.shift();
         await answerQuestion(questionId);
         const answerState = await taskListPage.getElementText(`#question-${questionId} .answer-state`);
-        expect(answerState).to.equal(i18n.taskList.answerState.completed.toUpperCase());
+        expect(answerState).to.equal(i18n.en.taskList.answerState.completed.toUpperCase());
       }
     });
 

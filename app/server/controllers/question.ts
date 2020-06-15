@@ -9,7 +9,7 @@ import { pageNotFoundHandler } from '../middleware/error-handler';
 const multer = require('multer');
 import { QuestionService } from '../services/question';
 import { EvidenceService } from '../services/evidence';
-const i18n = require('../../../locale/en.json');
+const i18n = require('../../../locale/content');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 import * as rp from 'request-promise';
 import { OK, UNPROCESSABLE_ENTITY } from 'http-status-codes';
@@ -155,7 +155,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     const hearingId = req.session.hearing.online_hearing_id;
 
     if (!req.file) {
-      const error = res.locals.multerError || i18n.questionUploadEvidence.error.empty;
+      const error = res.locals.multerError || i18n.en.questionUploadEvidence.error.empty;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
     try {
@@ -164,7 +164,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
         return res.redirect(`${Paths.question}/${questionOrdinal}`);
       }
       if (response.statusCode === UNPROCESSABLE_ENTITY) {
-        const error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
+        const error = i18n.en.questionUploadEvidence.error.fileCannotBeUploaded;
         if (isJsUpload) {
           const question = req.session.question;
           return res.render('question/index.html', {

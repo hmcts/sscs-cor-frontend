@@ -8,7 +8,7 @@ import { AdditionalEvidenceService, EvidenceDescriptor } from '../services/addit
 import { handleFileUploadErrors } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
-const i18n = require('../../../locale/en');
+const i18n = require('../../../locale/content');
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
@@ -33,7 +33,7 @@ function postAdditionalEvidence (req: Request, res: Response) {
   if (action) {
     return res.redirect(`${Paths.additionalEvidence}/${action}`);
   } else {
-    const errorMessage = i18n.additionalEvidence.evidenceOptions.error.noButtonSelected;
+    const errorMessage = i18n.en.additionalEvidence.evidenceOptions.error.noButtonSelected;
     res.render('additional-evidence/index.html', { action: 'options', pageTitleError: true, error: errorMessage });
   }
 }
@@ -104,7 +104,7 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         const evidenceDescription = req.session.additional_evidence.description;
         const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
-        const evidencesValidationMsg = evidences.length ? false : i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded;
+        const evidencesValidationMsg = evidences.length ? false : i18n.en.additionalEvidence.evidenceUpload.error.noFilesUploaded;
 
         if (descriptionValidationMsg || evidencesValidationMsg) {
           return res.render('additional-evidence/index.html',

@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 const { expect, sinon } = require('test/chai-sinon');
 import { handleFileUploadErrors } from 'app/server/middleware/file-upload-validation';
 import * as config from 'config';
-const i18n = require('../../../locale/en.json');
+const i18n = require('../../../locale/content');
 
 describe('#handleFileUploadErrors middleware', () => {
   let req: Request;
@@ -22,19 +22,19 @@ describe('#handleFileUploadErrors middleware', () => {
 
   it('should catch multer LIMIT_FILE_SIZE error', () => {
     handleFileUploadErrors(new multer.MulterError('LIMIT_FILE_SIZE'), req, res, next);
-    expect(res.locals.multerError).to.equal(`${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`);
+    expect(res.locals.multerError).to.equal(`${i18n.en.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`);
     expect(next).to.have.been.calledOnce.calledWith();
   });
 
   it('should catch multer LIMIT_FILE_TYPE error', () => {
     handleFileUploadErrors(new multer.MulterError('LIMIT_FILE_TYPE'), req, res, next);
-    expect(res.locals.multerError).to.equal(i18n.questionUploadEvidence.error.invalidFileType);
+    expect(res.locals.multerError).to.equal(i18n.en.questionUploadEvidence.error.invalidFileType);
     expect(next).to.have.been.calledOnce.calledWith();
   });
 
   it('should catch multer generic error', () => {
     handleFileUploadErrors(new multer.MulterError(), req, res, next);
-    expect(res.locals.multerError).to.equal(i18n.questionUploadEvidence.error.fileCannotBeUploaded);
+    expect(res.locals.multerError).to.equal(i18n.en.questionUploadEvidence.error.fileCannotBeUploaded);
     expect(next).to.have.been.calledOnce.calledWith();
   });
 

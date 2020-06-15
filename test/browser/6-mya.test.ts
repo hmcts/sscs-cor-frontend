@@ -4,7 +4,7 @@ import { startServices } from 'test/browser/common';
 import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
-const i18n = require('locale/en');
+const i18n = require('locale/content');
 
 describe.skip('Manage your appeal app @mya', () => {
   let ccdCase;
@@ -45,34 +45,34 @@ describe.skip('Manage your appeal app @mya', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be.null;
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(i18n.statusTab.tabHeader);
+      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(i18n.en.statusTab.tabHeader);
     });
 
     it('should display subheading', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.task-list h2')).to.equal(i18n.statusTab.header);
+      expect(await statusPage.getElementText('.task-list h2')).to.equal(i18n.en.statusTab.header);
     });
 
     it('should display status bar', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.task-list h2')).to.equal(i18n.statusTab.header);
+      expect(await statusPage.getElementText('.task-list h2')).to.equal(i18n.en.statusTab.header);
     });
 
     it('should display panel with latest update', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.panel')).contain(i18n.statusTab.panelHeader);
+      expect(await statusPage.getElementText('.panel')).contain(i18n.en.statusTab.panelHeader);
     });
 
     it('should display Help and Support links', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.mya-contact__content h2')).to.equal(i18n.helpGuides.header);
-      expect(await statusPage.getElementText('.mya-contact__content .govuk-list')).contain(i18n.helpGuides.representatives.linkHeader);
-      expect(await statusPage.getElementText('.mya-contact__content .govuk-list')).contain(i18n.helpGuides.withdrawAppeal.linkHeader);
+      expect(await statusPage.getElementText('.mya-contact__content h2')).to.equal(i18n.en.helpGuides.header);
+      expect(await statusPage.getElementText('.mya-contact__content .govuk-list')).contain(i18n.en.helpGuides.representatives.linkHeader);
+      expect(await statusPage.getElementText('.mya-contact__content .govuk-list')).contain(i18n.en.helpGuides.withdrawAppeal.linkHeader);
     });
 
     it('should display Contact us for help options and open details', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.govuk-details.contact-us')).to.equal(i18n.contactUs.title);
+      expect(await statusPage.getElementText('.govuk-details.contact-us')).to.equal(i18n.en.contactUs.title);
       const elementHandle = await page.$('.govuk-details.contact-us');
       const heightClosed = await page.evaluate(element => {
         const { height } = element.getBoundingClientRect();
