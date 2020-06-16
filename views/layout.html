@@ -31,11 +31,16 @@
 {% endblock %}
 
 {% block beforeContent %}
+    {% set phaseBarHtml = content[i18n.language].phaseBanner.new + '<a class="govuk-link" href="'+ content[i18n.language].general.exitLink + pageHeader + '" target="_blank">' + content[i18n.language].phaseBanner.report + '</a> ' + content[i18n.language].phaseBanner.improve %}
+    {% if ft_welsh %}
+        {% set phaseBarHtml = phaseBarHtml + content[i18n.language].phaseBanner.languageToggle %}
+    {% endif %}
+
     {{ govukPhaseBanner({
         tag: {
             text: "beta"
         },
-        html: content[i18n.language].phaseBanner.new + '<a class="govuk-link" href="'+ content[i18n.language].general.exitLink + pageHeader  +'" target="_blank">' + content[i18n.language].phaseBanner.report + '</a> ' + content[i18n.language].phaseBanner.improve + content[i18n.language].phaseBanner.languageToggle
+        html: phaseBarHtml
     }) }}
     {% if featureFlags.manageYourAppeal %}
         {% include "includes/account-navigation.html" %}

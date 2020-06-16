@@ -1,8 +1,10 @@
 'use strict';
 
-const logger = require('logger');
-const LaunchDarkly = require('core/components/launch-darkly');
-const config = require('config');
+import { Logger } from '@hmcts/nodejs-logging';
+const LaunchDarkly = require('../components/launch-darkly');
+const CONF = require('config');
+
+const logger = Logger.getLogger('featureToggle.js');
 
 class FeatureToggle {
   constructor() {
@@ -22,8 +24,8 @@ class FeatureToggle {
   }
 
   checkToggle(params) {
-    const featureToggleKey = config.featureToggles[params.featureToggleKey];
-    const ldUser = config.featureToggles.launchDarklyUser;
+    const featureToggleKey = CONF.featureToggles[params.featureToggleKey];
+    const ldUser = CONF.featureToggles.launchDarklyUser;
 
     let ldDefaultValue = false;
     if (params.launchDarkly.ftValue && params.launchDarkly.ftValue[params.featureToggleKey]) {
@@ -36,7 +38,7 @@ class FeatureToggle {
           return params.next();
         }
 
-        logger.trace(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
+        logger.info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
         return params.callbackFn({
           req: params.req,
           res: params.res,

@@ -7,7 +7,7 @@ function getTribunalViewAccepted(req: Request, res: Response) {
   if (appellantAccepted) {
     const appellantReplyDatetime: string = req.session.hearing.decision && req.session.hearing.decision.appellant_reply_datetime;
     const nextCorrespondenceDate = moment.utc(appellantReplyDatetime).add(14, 'days').format();
-    return res.render('tribunal-view-accepted.html', { nextCorrespondenceDate });
+    return res.render('tribunal-view-accepted.html', { nextCorrespondenceDate, ft_welsh: req.session.featureToggles.ft_welsh });
   }
   return res.redirect(Paths.taskList);
 }

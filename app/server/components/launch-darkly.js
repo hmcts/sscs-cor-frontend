@@ -1,13 +1,13 @@
 'use strict';
 
-const config = require('config');
+const CONF = require('config');
 const launchDarkly = require('launchdarkly-node-server-sdk');
 
 class LaunchDarkly {
   constructor() {
     this.ready = false;
-    const options = config.featureToggles.enabled ? { diagnosticOptOut: true } : { offline: true };
-    this.client = launchDarkly.init(config.featureToggles.launchDarklyKey, options);
+    const options = CONF.featureToggles.enabled ? { diagnosticOptOut: true } : { offline: true };
+    this.client = launchDarkly.init(CONF.featureToggles.launchDarklyKey, options);
     this.client.once('ready', () => {
       this.ready = true;
     });

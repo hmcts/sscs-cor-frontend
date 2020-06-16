@@ -64,7 +64,8 @@ function getQuestion(questionService: QuestionService) {
       res.render('question/index.html', {
         question,
         showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
-        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies)
+        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
+        ft_welsh: req.session.featureToggles.ft_welsh
       });
     } catch (error) {
       AppInsights.trackException(error);
@@ -96,7 +97,8 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
         };
         return res.render('question/index.html', {
           question,
-          showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies)
+          showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
+          ft_welsh: req.session.featureToggles.ft_welsh
         });
       }
 
@@ -118,7 +120,8 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
         return res.render('question/index.html', {
           question,
           showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
-          fileUploadError: res.locals.multerError
+          fileUploadError: res.locals.multerError,
+          ft_welsh: req.session.featureToggles.ft_welsh
         });
       } else {
         res.redirect(Paths.taskList);
@@ -142,7 +145,7 @@ export function checkEvidenceUploadFeature(enabled, overridable) {
 
 function getUploadEvidence(req: Request, res: Response, next: NextFunction) {
   const questionOrdinal: string = req.params.questionOrdinal;
-  res.render('question/upload-evidence.html', { questionOrdinal });
+  res.render('question/upload-evidence.html', { questionOrdinal, ft_welsh: req.session.featureToggles.ft_welsh });
 }
 
 function postUploadEvidence(questionService: QuestionService, evidenceService: EvidenceService, isJsUpload: boolean) {
@@ -157,7 +160,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
 
     if (!req.file) {
       const error = res.locals.multerError || content[i18next.language].questionUploadEvidence.error.empty;
-      return res.render('question/upload-evidence.html', { questionOrdinal, error });
+      return res.render('question/upload-evidence.html', { questionOrdinal, error, ft_welsh: req.session.featureToggles.ft_welsh });
     }
     try {
       const response: rp.Response = await evidenceService.upload(hearingId, currentQuestionId, req.file, req);
@@ -171,10 +174,11 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
           return res.render('question/index.html', {
             question,
             showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
-            fileUploadError: error
+            fileUploadError: error,
+            ft_welsh: req.session.featureToggles.ft_welsh
           });
         }
-        return res.render('question/upload-evidence.html', { questionOrdinal, error });
+        return res.render('question/upload-evidence.html', { questionOrdinal, error, ft_welsh: req.session.featureToggles.ft_welsh });
       }
       const errorMessage = `Cannot upload evidence ${JSON.stringify(response)}`;
       AppInsights.trackException(errorMessage);
