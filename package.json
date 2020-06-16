@@ -150,5 +150,9 @@
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
     "webdriverio": "^5.10.4"
+  },
+  "resolutions": {
+    "minimist": "^1.2.5",
+    "https-proxy-agent": ">=2.2.3"
   }
 }
