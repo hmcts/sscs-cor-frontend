@@ -6,7 +6,7 @@ import * as Paths from '../paths';
 import { URL } from 'url';
 import { generateToken } from '../services/s2s';
 const content = require('../../../locale/content');
-
+const i18next = require('i18next');
 const config = require('config');
 
 import * as rp from 'request-promise';
@@ -178,16 +178,16 @@ function renderErrorPage(email: string, statusCode: number, idamService: IdamSer
   if (statusCode === NOT_FOUND) {
     logger.info(`Cannot find any case for ${email}`);
     options['registerUrl'] = idamService.getRegisterUrl(req.protocol, req.hostname);
-    options['errorHeader'] = content.en.login.failed.emailNotFound.header;
-    options['errorBody'] = content.en.login.failed.emailNotFound.body;
+    options['errorHeader'] = content[i18next.language].login.failed.emailNotFound.header;
+    options['errorBody'] = content[i18next.language].login.failed.emailNotFound.body;
   } else if (statusCode === UNPROCESSABLE_ENTITY) {
     logger.info(`Found multiple appeals for ${email}`);
-    options['errorHeader'] = content.en.login.failed.technicalError.header;
-    options['errorBody'] = content.en.login.failed.technicalError.body;
+    options['errorHeader'] = content[i18next.language].login.failed.technicalError.header;
+    options['errorBody'] = content[i18next.language].login.failed.technicalError.body;
   } else if (statusCode === CONFLICT) {
     logger.info(`Found a non cor appeal for ${email}`);
-    options['errorHeader'] = content.en.login.failed.cannotUseService.header;
-    options['errorBody'] = content.en.login.failed.cannotUseService.body;
+    options['errorHeader'] = content[i18next.language].login.failed.cannotUseService.header;
+    options['errorBody'] = content[i18next.language].login.failed.cannotUseService.body;
   }
   return res.render('load-case-error.html', { ...options });
 }

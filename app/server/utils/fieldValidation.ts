@@ -1,3 +1,4 @@
+const i18next = require('i18next');
 const Joi = require('joi');
 const content = require('../../../locale/content');
 
@@ -11,8 +12,8 @@ function uploadDescriptionValidation(description) {
     .max(maxCharacters)
     .options({
       language: {
-        any: { empty: `!!${content.en.additionalEvidence.evidenceUpload.error.emptyDescription}` },
-        string: { max: `!!${content.en.hearingWhy.error.maxCharacters}` }
+        any: { empty: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.emptyDescription}` },
+        string: { max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}` }
       }
     });
   const result = schema.validate(description);
@@ -24,11 +25,11 @@ function uploadDescriptionValidation(description) {
 
 function answerValidation(answer, req?) {
 
-  let emptyErrorMsg = content.en.question.textareaField.errorOnSave.empty;
+  let emptyErrorMsg = content[i18next.language].question.textareaField.errorOnSave.empty;
 
   // On Submit
   if (req.body.submit) {
-    emptyErrorMsg = content.en.question.textareaField.error.empty;
+    emptyErrorMsg = content[i18next.language].question.textareaField.error.empty;
   }
 
   const schema = Joi.string()
@@ -38,7 +39,7 @@ function answerValidation(answer, req?) {
     .options({
       language: {
         any: { empty: `!!${emptyErrorMsg}` },
-        string: { max: `!!${content.en.question.textareaField.error.maxCharacters}` }
+        string: { max: `!!${content[i18next.language].question.textareaField.error.maxCharacters}` }
       }
     });
 
@@ -58,7 +59,7 @@ function hearingWhyValidation(answer) {
     .max(maxCharacters)
     .options({
       language: {
-        string: { max: `!!${content.en.hearingWhy.error.maxCharacters}` }
+        string: { max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}` }
       }
     });
 
@@ -78,8 +79,8 @@ function loginEmailAddressValidation(email) {
     .email({ minDomainAtoms: 2 })
     .options({
       language: {
-        any: { empty: `!!${content.en.login.emailAddress.error.empty}` },
-        string: { email: `!!${content.en.login.emailAddress.error.format}` }
+        any: { empty: `!!${content[i18next.language].login.emailAddress.error.empty}` },
+        string: { email: `!!${content[i18next.language].login.emailAddress.error.format}` }
       }
     });
   const result = schema.validate(email);
@@ -94,9 +95,9 @@ function tribunalViewAcceptedValidation(acceptView, isConfirm = false) {
   const allowedValues = ['yes', 'no'];
   if (!allowedValues.includes(acceptView)) {
     if (isConfirm) {
-      return content.en.tribunalView.error.emptyOnConfirm;
+      return content[i18next.language].tribunalView.error.emptyOnConfirm;
     } else {
-      return content.en.tribunalView.error.emptyOnDecisionPick;
+      return content[i18next.language].tribunalView.error.emptyOnDecisionPick;
     }
   }
   return false;
@@ -105,7 +106,7 @@ function tribunalViewAcceptedValidation(acceptView, isConfirm = false) {
 function newHearingAcceptedValidation(newHearing) {
   const allowedValues = ['yes', 'no'];
   if (!allowedValues.includes(newHearing)) {
-    return content.en.hearingConfirm.error.text;
+    return content[i18next.language].hearingConfirm.error.text;
   }
   return false;
 }

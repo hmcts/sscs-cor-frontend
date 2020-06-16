@@ -1,10 +1,24 @@
 {
   "en": {
+    "common": {
+      "yourBenefitAppeal": "Your benefit appeal",
+      "appealDetails": "Appeal details",
+      "signIn": "Sign in",
+      "signOut": "Sign out",
+      "appealReference": "Appeal reference",
+      "contactIfProblemContinues": "Contact us if the problem continues",
+      "received": "Received:",
+      "awaiting": "Awaiting:",
+      "hearingForYourAppeal": "The hearing for your appeal",
+      "date": "Date",
+      "time": "Time",
+      "location": "Location"
+    },
     "pageTitle": "Manage your appeal",
     "contactEmail": "pipappeals@justice.gov.uk",
     "phaseBanner": {
       "new": "This is a new service – your ",
-      "report": "feedback (opens in new window)",
+      "report": "feedback (opens in a new window)",
       "improve": "will help us improve it.",
       "languageToggle": "<a href=\"?lng=cy\" class=\"govuk-link language\">Cymraeg</a>"
     },
@@ -1294,11 +1308,25 @@
     }
   },
   "cy": {
+    "common": {
+      "yourBenefitAppeal": "[CY] Your benefit appeal",
+      "appealDetails": "[CY] Appeal details",
+      "signIn": "[CY] Sign in",
+      "signOut": "[CY] Sign out",
+      "appealReference": "[CY] Appeal reference",
+      "contactIfProblemContinues": "[CY] Contact us if the problem continues",
+      "received": "[CY] Received:",
+      "awaiting": "[CY] Awaiting:",
+      "hearingForYourAppeal": "[CY] The hearing for your appeal",
+      "date": "[CY] Date",
+      "time": "[CY] Time",
+      "location": "[CY] Location"
+    },
     "pageTitle": "[CY] Manage your appeal",
     "contactEmail": "[CY] pipappeals@justice.gov.uk",
     "phaseBanner": {
       "new": "[CY] This is a new service – your ",
-      "report": "[CY] feedback (opens in new window)",
+      "report": "[CY] feedback (opens in a new window)",
       "improve": "[CY] will help us improve it.",
       "languageToggle": "<a href=\"?lng=en\" class=\"govuk-link language\">English</a>"
     },

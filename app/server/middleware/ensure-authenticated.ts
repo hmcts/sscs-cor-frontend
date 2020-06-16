@@ -1,4 +1,5 @@
 const { Logger } = require('@hmcts/nodejs-logging');
+const i18next = require('i18next');
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 const content = require('../../../locale/content');
@@ -45,22 +46,22 @@ function setTabNavigationItems(appeal) {
   const tabs = [
     {
       'id': 'status',
-      'title': content.en.statusTab.tabHeader,
+      'title': content[i18next.language].statusTab.tabHeader,
       'url': '/status'
     },
     {
       'id': 'questions',
-      'title': content.en.provideEvidenceTab.tabHeader,
+      'title': content[i18next.language].provideEvidenceTab.tabHeader,
       'url': '/task-list'
     },
     {
       'id': 'hearing',
-      'title': content.en.hearingTab.tabHeader,
+      'title': content[i18next.language].hearingTab.tabHeader,
       'url': '/hearing'
     },
     {
       'id': 'history',
-      'title': content.en.historyTab.tabHeader,
+      'title': content[i18next.language].historyTab.tabHeader,
       'url': '/history'
     }
   ];
