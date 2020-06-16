@@ -1,10 +1,12 @@
 {% extends "template.njk" %}
+
 {% from "components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "components/mya-contact-us.html" import contactUs with context %}
+
 {% set assetPath = "/public/govuk-frontend" %}
 
 {% block pageTitle %}
-    {{ i18n.pageTitle }}
+    {{ content[i18n.language].pageTitle | safe }}
 {% endblock %}
 
 {% block head %}
@@ -17,19 +19,15 @@
 {% endblock %}
 
 {% block bodyStart %}
-<!-- Google Tag Manager (noscript) -->
-{% if environment === 'prod' or environment === 'production' %}
-<!-- Live analytics -->
-<noscript><iframe
-    src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM&gtm_auth=s9D_6Cs9pP0A0pPraIxTSA&gtm_preview=env-2&gtm_cookies_win=x"
-    height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
-{% else %}
-<!-- Dev analytics -->
-<noscript><iframe
-    src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM&gtm_auth=vVL1r5F0rqfg4e_0meyy0w&gtm_preview=env-31&gtm_cookies_win=x"
-    height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
-{% endif %}
-<!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    {% if environment === 'prod' or environment === 'production' %}
+        <!-- Live analytics -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM&gtm_auth=s9D_6Cs9pP0A0pPraIxTSA&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
+    {% else %}
+        <!-- Dev analytics -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM&gtm_auth=vVL1r5F0rqfg4e_0meyy0w&gtm_preview=env-31&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
+    {% endif %}
+    <!-- End Google Tag Manager (noscript) -->
 {% endblock %}
 
 {% block beforeContent %}
@@ -37,7 +35,7 @@
         tag: {
             text: "beta"
         },
-        html: i18n.phaseBanner.new +  '<a class="govuk-link" href="'+ i18n.general.exitLink + pageHeader  +'" target="_blank">' + i18n.phaseBanner.report + '</a> ' + i18n.phaseBanner.improve
+        html: content[i18n.language].phaseBanner.new + '<a class="govuk-link" href="'+ content[i18n.language].general.exitLink + pageHeader  +'" target="_blank">' + content[i18n.language].phaseBanner.report + '</a> ' + content[i18n.language].phaseBanner.improve + content[i18n.language].phaseBanner.languageToggle
     }) }}
     {% if featureFlags.manageYourAppeal %}
         {% include "includes/account-navigation.html" %}
@@ -51,7 +49,7 @@
     {% endif %}
 
     {% if featureFlags.manageYourAppeal and allowContactUs %}
-        {{ contactUs() }} 
+        {{ contactUs() }}
     {% else %}
         {% include "includes/contact-us.html" %}
     {% endif %}
@@ -59,42 +57,39 @@
 
 {% block bodyEnd %}
     {% if isDev %}
-    <script src="/reload/reload.js"></script> 
+        <script src="/reload/reload.js"></script>
     {% endif %}
     <script src="/public/js/main.js"></script>
 
-
     {% if featureFlags.manageYourAppeal and webChatEnabled %}
-    <script src="/public/js/hmcts-webchat.js"></script>
-    <script>
-      /*
-        * webchat_init() has been developed by CTSC and is defined in hmcts-webchat.js
-        * uuid, tenant, channel and other parameters can be passed into it as below to configure
-        * and customise the web-chat experience,
-        * busHandlerURL: is another jQuery javascript that further customises the web-chat journey
-        *
-        * NOTE: URLs must be https and not behind a VPN for 8x8 to work with web-chat
-        */
-        webchat_init(
-        {
-          uuid: '{{webChat.uuid}}',
-          tenant: '{{webChat.tenant}}',
-          channel: '{{webChat.channel}}',
-          buttonContainerId: 'ctsc-web-chat',
-          textChatDown: '{{i18n.contactUs.webchat.textChatDown}}',
-          textChatWithAnAgent: '{{i18n.contactUs.webchat.textChatWithAnAgent}}',
-          textNoAgentsAvailable: '{{i18n.contactUs.webchat.textNoAgentsAvailable}}',
-          textAllAgentsBusy: '{{i18n.contactUs.webchat.textAllAgentsBusy}}',
-          textChatClosed : '{{i18n.contactUs.webchat.textChatClosed}}',
-          textChatAlreadyOpen: '{{i18n.contactUs.webchat.textChatAlreadyOpen}}',
-          textAdditional: '{{i18n.contactUs.webchat.textAdditional}}',
-          stylesheetURL: '{{baseUrl}}/public/css/hmcts-webchat.css', 
-          busHandlerURL: '{{baseUrl}}/public/js/hmcts-webchat-busHandler.js', 
-          btnNoAgents: '/{{webChat.tenant}}/button_7732814745cac6f4603c4d1.53357933/img/logo',
-          btnAgentsBusy: '/{{webChat.tenant}}/button_2042157415cc19c95669039.65793052/img/logo',
-          btnServiceClosed: '/{{webChat.tenant}}/button_20199488815cc1a89e0861d5.73103009/img/logo'
-        }
-      );
-    </script>
+        <script src="/public/js/hmcts-webchat.js"></script>
+        <script>
+            /*
+              * webchat_init() has been developed by CTSC and is defined in hmcts-webchat.js
+              * uuid, tenant, channel and other parameters can be passed into it as below to configure
+              * and customise the web-chat experience,
+              * busHandlerURL: is another jQuery javascript that further customises the web-chat journey
+              *
+              * NOTE: URLs must be https and not behind a VPN for 8x8 to work with web-chat
+              */
+            webchat_init({
+              uuid: '{{ webChat.uuid }}',
+              tenant: '{{ webChat.tenant }}',
+              channel: '{{ webChat.channel }}',
+              buttonContainerId: 'ctsc-web-chat',
+              textChatDown: '{{ content[i18n.language].contactUs.webchat.textChatDown | safe }}',
+              textChatWithAnAgent: '{{ content[i18n.language].contactUs.webchat.textChatWithAnAgent | safe }}',
+              textNoAgentsAvailable: '{{ content[i18n.language].contactUs.webchat.textNoAgentsAvailable | safe }}',
+              textAllAgentsBusy: '{{ content[i18n.language].contactUs.webchat.textAllAgentsBusy | safe }}',
+              textChatClosed : '{{ content[i18n.language].contactUs.webchat.textChatClosed | safe }}',
+              textChatAlreadyOpen: '{{ content[i18n.language].contactUs.webchat.textChatAlreadyOpen | safe }}',
+              textAdditional: '{{ content[i18n.language].contactUs.webchat.textAdditional | safe }}',
+              stylesheetURL: '{{ baseUrl }}/public/css/hmcts-webchat.css',
+              busHandlerURL: '{{ baseUrl }}/public/js/hmcts-webchat-busHandler.js',
+              btnNoAgents: '/{{ webChat.tenant }}/button_7732814745cac6f4603c4d1.53357933/img/logo',
+              btnAgentsBusy: '/{{ webChat.tenant }}/button_2042157415cc19c95669039.65793052/img/logo',
+              btnServiceClosed: '/{{ webChat.tenant }}/button_20199488815cc1a89e0861d5.73103009/img/logo'
+            });
+        </script>
     {% endif %}
 {% endblock %}

@@ -7,12 +7,11 @@ import * as moment from 'moment';
 import express = require('express');
 const { getContentAsString } = require('../core/contentLookup');
 const { lowerCase } = require('lodash');
-const i18n = require('../../locale/content');
+const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
 
 function configureHelmet(app) {
-
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
@@ -71,7 +70,6 @@ function configureHeaders(app) {
 }
 
 function configureNunjucks(app: express.Application) {
-
   const nunEnv = nunjucks.configure([
     'views',
     'views/notifications',
@@ -100,31 +98,28 @@ function configureNunjucks(app: express.Application) {
     }
 
   });
-
   nunEnv.addFilter('isArray', function(input) {
     return Array.isArray(input);
   });
   nunEnv.addFilter('dateFilter', dateFilter);
   nunEnv.addFilter('agencyAcronym', benefitType => {
-    return nunjucks.renderString(i18n.en.benefitTypes[benefitType].agencyAcronym, this.ctx);
+    return nunjucks.renderString(content.en.benefitTypes[benefitType].agencyAcronym, this.ctx);
   });
   nunEnv.addFilter('acronym', benefitType => {
     return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
   });
   nunEnv.addFilter('benefitAcronym', benefitType => {
-    return nunjucks.renderString(i18n.en.benefitTypes[benefitType].acronym, this.ctx);
+    return nunjucks.renderString(content.en.benefitTypes[benefitType].acronym, this.ctx);
   });
   nunEnv.addFilter('panel', benefitType => {
-    return nunjucks.renderString(i18n.en.benefitTypes[benefitType].panel, this.ctx);
+    return nunjucks.renderString(content.en.benefitTypes[benefitType].panel, this.ctx);
   });
-
   nunEnv.addFilter('dateForDecisionReceived', utcDateTimeStr => {
     const howManyDaysAfterHearing = 5;
     return moment(utcDateTimeStr)
       .add(howManyDaysAfterHearing, 'days')
       .format('DD MMMM YYYY');
   });
-
   nunEnv.addFilter('evalStatus', function (text) {
     try {
       if (Array.isArray(text)) {

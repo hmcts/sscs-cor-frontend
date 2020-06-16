@@ -81,6 +81,7 @@
       "channel": "SSCS"
     }
   },
+  "languages": ["en", "cy"],
   "featureToggles": {
     "enabled": true,
     "launchDarklyKey": "SDK_KEY",

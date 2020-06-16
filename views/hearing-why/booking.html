@@ -1,17 +1,15 @@
 {% from "button/macro.njk" import govukButton %}
-<h1 class="govuk-heading-l">{{ i18n.hearingWhy.booking.header }}</h1>
-<p id="responseDate">{{ i18n.hearingWhy.booking.para1 | eval | date }}</p>
-<p>{{ i18n.hearingWhy.booking.para2 }} 
-  <a href="mailto:{{ i18n.contactEmail }}?subject={{ hearing.case_reference }}: Hearing">
-    {{ i18n.contactEmail }}
-  </a>
-</p>
-<p id="caseReference">{{ i18n.hearingWhy.booking.para3 }} {{ hearing.case_reference }}</p>
+
+<h1 class="govuk-heading-l">{{ content[i18n.language].hearingWhy.booking.header | safe }}</h1>
+<p id="responseDate">{{ content[i18n.language].hearingWhy.booking.para1 | eval | date }}</p>
 <p>
-  {{
-    govukButton({
-    text: i18n.general.continue,
-    href: '/sign-out/?redirectUrl=' + i18n.hearingWhy.booking.exitLink + pageHeader
-    })
-  }}
+    {{ content[i18n.language].hearingWhy.booking.para2 | safe }}
+    <a href="mailto:{{ content[i18n.language].contactEmail }}?subject={{ hearing.case_reference }}: Hearing">{{ content[i18n.language].contactEmail | safe }}</a>
+</p>
+<p id="caseReference">{{ content[i18n.language].hearingWhy.booking.para3 | safe }} {{ hearing.case_reference | safe }}</p>
+<p>
+    {{ govukButton({
+        text: content[i18n.language].general.continue,
+        href: '/sign-out/?redirectUrl=' + content[i18n.language].hearingWhy.booking.exitLink + pageHeader
+    }) }}
 </p>

@@ -2,73 +2,63 @@
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% if action === 'options' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceOptions.header %}
+  {% set pageHeader, pageTitle = content[i18n.language].additionalEvidence.evidenceOptions.header %}
 {% elseif action === 'post' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidencePost.header %}
+  {% set pageHeader, pageTitle = content[i18n.language].additionalEvidence.evidencePost.header %}
 {% elseif action === 'upload' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceUpload.header %}
+  {% set pageHeader, pageTitle = content[i18n.language].additionalEvidence.evidenceUpload.header %}
 {% elseif action === 'statement' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceStatement.header %}
+  {% set pageHeader, pageTitle = content[i18n.language].additionalEvidence.evidenceStatement.header %}
 {% elseif action === 'confirm' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceConfirm.header %}
+  {% set pageHeader, pageTitle = content[i18n.language].additionalEvidence.evidenceConfirm.header %}
 {% endif %}
 
 {% block pageTitle %}
   {% if pageTitleError %}
-    {{ i18n.errorSummary.errorPageTitle }} {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ content[i18n.language].errorSummary.errorPageTitle }} {{ pageTitle }} - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
   {% else %}
-    {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ pageTitle }} - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
   {% endif %}
 {% endblock %}
 
 {% block beforeContent %}
   {{ super() }}
   {% if action === 'options' %}
-  <a href="/task-list" class="govuk-back-link">{{ i18n.general.back }}</a>
-   {% elseif action !== 'confirm' %}
-  <a href="/additional-evidence" class="govuk-back-link">{{ i18n.general.back }}</a>
+    <a href="/task-list" class="govuk-back-link">{{ content[i18n.language].general.back }}</a>
+  {% elseif action !== 'confirm' %}
+    <a href="/additional-evidence" class="govuk-back-link">{{ content[i18n.language].general.back }}</a>
   {% endif %}
 {% endblock %}
 
 {% block corContent %}
-  <div class="govuk-grid-row">
-      {% if error or fileUploadError %}
-        {{ govukErrorSummary({
-            titleText: i18n.errorSummary.titleText,
-            descriptionText: i18n.errorSummary.descriptionText,
-            errorList: [
-              {
-                text: error,
-                href: "#question-field"
-              } if error,
-              {
-                text: fileUploadError,
-                href: "#file-field"
-              } if fileUploadError
-            ]
-        }) }}
-      {% endif %}
+    <div class="govuk-grid-row">
+        {% if error or fileUploadError %}
+            {{ govukErrorSummary({
+                titleText: content[i18n.language].errorSummary.titleText,
+                descriptionText: content[i18n.language].errorSummary.descriptionText,
+                errorList: [
+                  {
+                    text: error,
+                    href: "#question-field"
+                  } if error,
+                  {
+                    text: fileUploadError,
+                    href: "#file-field"
+                  } if fileUploadError
+                ]
+            }) }}
+        {% endif %}
 
-      {% if action === 'options' %}
-
-          {% include "additional-evidence/evidence-options.html" %}
-
-      {% elseif action === 'post' %}
-
-          {% include "includes/post-evidence.html" %}
-
-      {% elseif action === 'upload' %}
-
-          {% include "additional-evidence/evidence-upload.html" %}
-
-      {% elseif action === 'statement' %}
-
-          {% include "additional-evidence/evidence-statement.html" %}
-
-      {% elseif action === 'confirm' %}
-
-          {% include "additional-evidence/evidence-confirm.html" %}
-
-      {% endif %}
-  </div>
+        {% if action === 'options' %}
+            {% include "additional-evidence/evidence-options.html" %}
+        {% elseif action === 'post' %}
+            {% include "includes/post-evidence.html" %}
+        {% elseif action === 'upload' %}
+            {% include "additional-evidence/evidence-upload.html" %}
+        {% elseif action === 'statement' %}
+            {% include "additional-evidence/evidence-statement.html" %}
+        {% elseif action === 'confirm' %}
+            {% include "additional-evidence/evidence-confirm.html" %}
+        {% endif %}
+    </div>
 {% endblock %}

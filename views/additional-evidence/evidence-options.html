@@ -8,13 +8,13 @@
             name: "additional-evidence-option",
             fieldset: {
                 legend: {
-                text: i18n.additionalEvidence.evidenceOptions.header,
+                text: content[i18n.language].additionalEvidence.evidenceOptions.header,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--xl"
                 }
             },
             errorMessage: {
-                text: i18n.additionalEvidence.evidenceOptions.error.noButtonSelected
+                text: content[i18n.language].additionalEvidence.evidenceOptions.error.noButtonSelected
             } if error,
             items: [
                 {
@@ -30,16 +30,13 @@
                     text: "Send by post"
                 }
             ]
-            })
-        }}
+        }) }}
         {% include "includes/csrf-hidden-input.html" %}
         <div id="submit-buttons">
-            {{
-                govukButton({
+            {{ govukButton({
                     name: "continue",
                     text: "Continue"
-                })
-            }}
+            }) }}
         </div>
     </form>
 </div>

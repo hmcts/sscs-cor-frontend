@@ -15,6 +15,5 @@ function setupSessionController(deps: any): Router {
 }
 
 export {
-	setupSessionController,
-	extendSession
+  setupSessionController
 };

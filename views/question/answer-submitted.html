@@ -1,6 +1,8 @@
 <div id="completed-answer">
-  <p class="govuk-!-font-weight-bold">{{i18n.question.completedAnswer.header}}</p>
-  <p class="answer-value">{{question.answer.value}}</p>
-  <p class="answer-date">{{i18n.question.completedAnswer.submittedText}}:
-    {{question.answer.date | date}}</p>
+    <p class="govuk-!-font-weight-bold">{{ content[i18n.language].question.completedAnswer.header | safe }}</p>
+    <p class="answer-value">{{question.answer.value | safe }}</p>
+    <p class="answer-date">
+        {{ content[i18n.language].question.completedAnswer.submittedText | safe }}:
+        {{ question.answer.date | date }}
+    </p>
 </div>

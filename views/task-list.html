@@ -1,82 +1,83 @@
 {% extends "layout.html" %}
+
 {% from "components/navigation-tabs.html" import navigationTabs with context %}
-{% set pageHeader = i18n.taskList.header %}
+
+{% set pageHeader = content[i18n.language].taskList.header | safe %}
+
 {% block pageTitle %}
-    {{ i18n.taskList.header }} - {{ i18n.provideEvidenceTab.tabHeader }} - {{ i18n.general.govUK }}
+    {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].provideEvidenceTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK | safe }}
 {% endblock %}
+
 {% block corContent %}
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
-        {% include "includes/appellant-details.html" %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">{{ content[i18n.language].taskList.header | safe }}</h1>
+            {% include "includes/appellant-details.html" %}
+        </div>
     </div>
-</div>
 
-{% include "includes/divider.html" %}
+    {% include "includes/divider.html" %}
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        {% if featureFlags.manageYourAppeal %}
-            {{ navigationTabs('questions') }}
-        {% endif %}
-        <div class="task-list">
-            <h2 class="govuk-heading-m --margin-bottom-m">{{ i18n.provideEvidenceTab.header }}</h2>
-            {% if hearingType == 'cor' %}
-                <h2 class="govuk-heading-s --margin-bottom-s">{{ i18n.provideEvidenceTab.corCase.header }}</h2>
-                {% if questions.length != 0 %}
-                    <p>
-                        <span id="deadline-status">
-                            {{- i18n.taskList.deadline[deadlineExpiryDate.status]  }}
-                            {%- if deadlineExpiryDate.expiryDate %}{{deadlineExpiryDate.expiryDate | date }}.{% endif %}
-                            {%- if deadlineExpiryDate.extendable %} <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>{%- endif %}
-                        </span>
-                    </p>
-                    <ul class="govuk-list questions-list">
-                        {% for question in questions %}
-                            {% set answerState = question.answer_state %}
-                            {% if answerState === 'submitted' %}
-                                {% set answerStateLabel = i18n.taskList.answerState.completed %}
-                            {% elif answerState === 'draft' %}
-                                {% set answerStateLabel = i18n.taskList.answerState.draft %}
-                            {% else %}
-                                {% set answerStateLabel = i18n.taskList.answerState.unanswered %}
-                            {% endif %}
-                            <li id="question-{{ question.question_id }}">
-                                <a class="govuk-link question-header-text" 
-                                    href="/question/{{ loop.index }}" 
-                                    title="{{ answerStateLabel }}, List {{ loop.index }} of {{ loop.length }}">{{ question.question_header_text }}</a>
-                                {% if answerState != 'unanswered' %}
-                                    <span class="answer-state {{ question.answer_state }}">
-                                        {{
-                                            i18n.taskList.answerState.completed
-                                            if answerState === 'submitted'
-                                            else i18n.taskList.answerState.draft
-                                        }}
-                                    </span>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% if featureFlags.manageYourAppeal %}
+                {{ navigationTabs('questions') }}
+            {% endif %}
+            <div class="task-list">
+                <h2 class="govuk-heading-m --margin-bottom-m">{{ content[i18n.language].provideEvidenceTab.header | safe }}</h2>
+                {% if hearingType == 'cor' %}
+                    <h2 class="govuk-heading-s --margin-bottom-s">{{ content[i18n.language].provideEvidenceTab.corCase.header | safe }}</h2>
+                    {% if questions.length != 0 %}
+                        <p>
+                            <span id="deadline-status">
+                                {{- content[i18n.language].taskList.deadline[deadlineExpiryDate.status] | safe }}
+                                {%- if deadlineExpiryDate.expiryDate %}{{deadlineExpiryDate.expiryDate | date }}.{% endif %}
+                                {%- if deadlineExpiryDate.extendable %} <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>{%- endif %}
+                            </span>
+                        </p>
+                        <ul class="govuk-list questions-list">
+                            {% for question in questions %}
+                                {% set answerState = question.answer_state %}
+                                {% if answerState === 'submitted' %}
+                                    {% set answerStateLabel = content[i18n.language].taskList.answerState.completed %}
+                                {% elif answerState === 'draft' %}
+                                    {% set answerStateLabel = content[i18n.language].taskList.answerState.draft %}
+                                {% else %}
+                                    {% set answerStateLabel = content[i18n.language].taskList.answerState.unanswered %}
                                 {% endif %}
+
+                                <li id="question-{{ question.question_id }}">
+                                    <a class="govuk-link question-header-text"
+                                        href="/question/{{ loop.index }}"
+                                        title="{{ answerStateLabel | safe }}, List {{ loop.index }} of {{ loop.length }}">{{ question.question_header_text | safe }}</a>
+                                    {% if answerState != 'unanswered' %}
+                                        <span class="answer-state {{ question.answer_state }}">
+                                            {{ (content[i18n.language].taskList.answerState.completed if answerState === 'submitted' else content[i18n.language].taskList.answerState.draft) | safe }}
+                                        </span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <ul class="govuk-list">
+                            <li>
+                                {{ content[i18n.language].provideEvidenceTab.corCase.noQuestions | safe }}
                             </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <ul class="govuk-list">
-                        <li>
-                            {{ i18n.provideEvidenceTab.corCase.noQuestions }}
-                        </li>
-                    </ul>
+                        </ul>
+                    {% endif %}
                 {% endif %}
+            </div>
+
+            {% if featureFlags.additionalEvidence %}
+                <h2 class="govuk-heading-s --margin-bottom-s">{{ content[i18n.language].provideEvidenceTab.additionalEvidence.header | safe }}</h2>
+                <p>{{ content[i18n.language].provideEvidenceTab.additionalEvidence.content | safe }}</p>
+            {% else %}
+                <h2 class="govuk-heading-s">{{ content[i18n.language].taskList.sendingEvidence.header | safe }}</h2>
+                <p>
+                    {{ content[i18n.language].taskList.sendingEvidence.intro | safe }}
+                    <a id="evidence-options-link" href="/post-evidence">{{ content[i18n.language].taskList.sendingEvidence.anchorText | safe }}</a>.
+                </p>
             {% endif %}
         </div>
-
-        {% if featureFlags.additionalEvidence %}
-            <h2 class="govuk-heading-s --margin-bottom-s">{{ i18n.provideEvidenceTab.additionalEvidence.header }}</h2>
-            <p>{{ i18n.provideEvidenceTab.additionalEvidence.content | safe }}</p>
-        {% else %}
-            <h2 class="govuk-heading-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
-            <p>
-                {{ i18n.taskList.sendingEvidence.intro }} 
-                <a id="evidence-options-link" href="/post-evidence">{{ i18n.taskList.sendingEvidence.anchorText }}</a>.
-            </p>
-        {% endif %}
     </div>
-</div>
 {% endblock %}

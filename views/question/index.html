@@ -1,53 +1,50 @@
 {% extends "layout.html" %}
+
 {% from "components/textarea/macro.njk" import govukTextarea %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
+
 {% set pageHeader = question.header  %}
+
 {% block pageTitle %}
-  {{ question.header }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ question.header | safe }} - {{ content[i18n.language].general.serviceTitle | safe }} - {{ content[i18n.language].general.govUK | safe }}
 {% endblock %}
+
 {% block beforeContent %}
-  {{ super() }}
-  <a href="/task-list" class="govuk-back-link">{{ i18n.general.backToQuestions }}</a>
+    {{ super() }}
+    <a href="/task-list" class="govuk-back-link">{{ content[i18n.language].general.backToQuestions | safe }}</a>
 {% endblock %}
 
 {% block corContent %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% if question.answer.error or fileUploadError %}
+                {{ govukErrorSummary({
+                    titleText: content[i18n.language].errorSummary.titleText,
+                    descriptionText: content[i18n.language].errorSummary.descriptionText,
+                    errorList: [
+                        {
+                            text: question.answer.error,
+                            href: "#question-field"
+                        } if question.answer.error,
+                        {
+                            text: fileUploadError,
+                            href: "#file-upload-1-error"
+                        } if fileUploadError
+                    ]
+                }) }}
+            {% endif %}
 
-      {% if question.answer.error or fileUploadError %}
-        {{ govukErrorSummary({
-            titleText: i18n.errorSummary.titleText,
-            descriptionText: i18n.errorSummary.descriptionText,
-            errorList: [
-              {
-                  text: question.answer.error,
-                  href: "#question-field"
-              } if question.answer.error,
-              {
-                text: fileUploadError,
-                href: "#file-upload-1-error"
-              } if fileUploadError
-            ]
-        }) }}
-      {% endif %}
+            <h1 class="govuk-heading-l question-header">{{ question.header | safe }}</h1>
+            <div class="govuk-body-m govuk-body" id="question-body">
+                {% set body = question.body %}
+                {{ body | safe }}
+            </div>
 
-      <h1 class="govuk-heading-l question-header">{{ question.header }}</h1>
-
-      <div class="govuk-body-m govuk-body" id="question-body">
-        {% set body = question.body %}
-        {{ body|safe }}
-      </div>
-
-      {% if question.answer_state !== 'submitted' %}
-
-        {% include "question/answer-form.html" %}
-
-      {% else %}
-
-        {% include "question/answer-submitted.html" %}
-
-      {% endif %}
-
+            {% if question.answer_state !== 'submitted' %}
+                {% include "question/answer-form.html" %}
+            {% else %}
+                {% include "question/answer-submitted.html" %}
+            {% endif %}
+        </div>
     </div>
-  </div>
 {% endblock %}

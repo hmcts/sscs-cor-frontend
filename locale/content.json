@@ -5,7 +5,8 @@
     "phaseBanner": {
       "new": "This is a new service – your ",
       "report": "feedback (opens in new window)",
-      "improve": "will help us improve it."
+      "improve": "will help us improve it.",
+      "languageToggle": "<a href=\"?lng=cy\" class=\"govuk-link language\">Cymraeg</a>"
     },
     "guidance": {
       "sendingEvidence": {
@@ -1298,7 +1299,8 @@
     "phaseBanner": {
       "new": "[CY] This is a new service – your ",
       "report": "[CY] feedback (opens in new window)",
-      "improve": "[CY] will help us improve it."
+      "improve": "[CY] will help us improve it.",
+      "languageToggle": "<a href=\"?lng=en\" class=\"govuk-link language\">English</a>"
     },
     "guidance": {
       "sendingEvidence": {
