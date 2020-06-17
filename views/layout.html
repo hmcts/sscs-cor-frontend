@@ -66,7 +66,7 @@
     {% endif %}
     <script src="/public/js/main.js"></script>
 
-    {% if featureFlags.manageYourAppeal and webChatEnabled %}
+    {% if featureFlags.manageYourAppeal and webChatEnabled and i18n.language == "en" %}
         <script src="/public/js/hmcts-webchat.js"></script>
         <script>
             /*
