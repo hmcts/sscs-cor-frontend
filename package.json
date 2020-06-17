@@ -153,7 +153,9 @@
     "webdriverio": "^5.10.4"
   },
   "resolutions": {
+    "acorn": ">=7.1.1",
     "minimist": "^1.2.5",
-    "https-proxy-agent": ">=2.2.3"
+    "https-proxy-agent": ">=2.2.3",
+    "yargs-parser": ">=18.1.2"
   }
 }
