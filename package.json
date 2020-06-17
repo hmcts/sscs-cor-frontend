@@ -38,7 +38,7 @@
     "test:coverage": "nyc report",
     "test:a11y": "yarn test:browser -g @pa11y",
     "test:all": "yarn test && yarn test:a11y && yarn test:coverage",
-    "sonar-scan": "sonar-scanner",
+    "sonar-scan": "sonar-scanner -Dsonar.exclusions=app/server/controllers/question.ts,app/server/controllers/hearing-why.ts",
     "tslint": "tslint -p ./tsconfig.json",
     "lint": "eslint . && yarn tslint",
     "transpile": "yarn tsc -p ./app/server/tsconfig.json"
