@@ -34,7 +34,10 @@ describe('controllers/additional-evidence.js', () => {
           case_reference: 'mockedCaseRef',
           case_id: '1234567890'
         },
-        additional_evidence: {}
+        additional_evidence: {},
+        featureToggles: {
+          ft_welsh: false
+        }
       },
       body: {},
       file: null,
@@ -70,7 +73,8 @@ describe('controllers/additional-evidence.js', () => {
 
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
-      postBulkScan: false
+      postBulkScan: false,
+      ft_welsh: false
     });
   });
 
@@ -87,7 +91,8 @@ describe('controllers/additional-evidence.js', () => {
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'upload',
       description,
-      evidences: []
+      evidences: [],
+      ft_welsh: false
     });
   });
 
@@ -111,7 +116,8 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'statement',
-      postBulkScan: false
+      postBulkScan: false,
+      ft_welsh: false
     });
   });
 
@@ -120,7 +126,8 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'post',
-      postBulkScan: false
+      postBulkScan: false,
+      ft_welsh: false
     });
   });
 
@@ -129,7 +136,8 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
-      postBulkScan: false
+      postBulkScan: false,
+      ft_welsh: false
     });
   });
 
@@ -171,7 +179,8 @@ describe('controllers/additional-evidence.js', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
         action: 'statement',
         pageTitleError: true,
-        error: i18n.en.question.textareaField.errorOnSave.empty
+        error: i18n.en.question.textareaField.errorOnSave.empty,
+        ft_welsh: false
       });
     });
 
@@ -185,7 +194,6 @@ describe('controllers/additional-evidence.js', () => {
   });
 
   describe('#postFileUpload', () => {
-
     it('should catch error and track Excepction with AppInsights', async () => {
       req.file = { name: 'myfile.txt' };
       additionalEvidenceService = {
@@ -238,7 +246,8 @@ describe('controllers/additional-evidence.js', () => {
         evidences: [],
         description: '',
         error: i18n.en.additionalEvidence.evidenceUpload.error.emptyDescription,
-        fileUploadError: i18n.en.additionalEvidence.evidenceUpload.error.noFilesUploaded
+        fileUploadError: i18n.en.additionalEvidence.evidenceUpload.error.noFilesUploaded,
+        ft_welsh: false
       });
     });
 
@@ -274,7 +283,8 @@ describe('controllers/additional-evidence.js', () => {
         pageTitleError: true,
         evidences: [],
         description: '',
-        fileUploadError: fileSizeErrorMsg
+        fileUploadError: fileSizeErrorMsg,
+        ft_welsh: false
       });
     });
 
@@ -282,6 +292,5 @@ describe('controllers/additional-evidence.js', () => {
       await postFileUpload(additionalEvidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
-
   });
 });

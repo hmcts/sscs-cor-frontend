@@ -30,7 +30,10 @@ describe('controllers/tribunal-view-confirm', () => {
     };
     req = {
       session: {
-        hearing: hearingDetails
+        hearing: hearingDetails,
+        featureToggles: {
+          ft_welsh: false
+        }
       },
       body: {
         'accept-view': 'yes'
@@ -47,7 +50,7 @@ describe('controllers/tribunal-view-confirm', () => {
   describe('getTribunalViewConfirm', () => {
     it('renders tribunal view confirm page with issued decision', async () => {
       getTribunalViewConfirm(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-confirm.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-confirm.html', { ft_welsh: false });
     });
 
     it('redirects to /sign-out if decision is not issued', async () => {
@@ -78,7 +81,8 @@ describe('controllers/tribunal-view-confirm', () => {
 
       it('renders the view with the error message', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-confirm.html', {
-          error: i18n.en.tribunalView.error.emptyOnConfirm
+          error: i18n.en.tribunalView.error.emptyOnConfirm,
+          ft_welsh: false
         });
       });
     });

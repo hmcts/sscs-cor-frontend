@@ -31,7 +31,10 @@ describe('controllers/tribunal-view', () => {
     };
     req = {
       session: {
-        hearing: hearingDetails
+        hearing: hearingDetails,
+        featureToggles: {
+          ft_welsh: false
+        }
       },
       body: {
         'accept-view': 'yes'
@@ -50,13 +53,24 @@ describe('controllers/tribunal-view', () => {
   describe('getTribunalView', () => {
     it('renders tribunal view page with issued decision', async () => {
       await getTribunalView(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy, startDate, endDate });
+      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', {
+        decision: hearingDetails.decision,
+        respondBy,
+        startDate,
+        endDate,
+        ft_welsh: false
+      });
     });
 
     it('renders tribunal view page with issued decision without end date', async () => {
       hearingDetails.decision.end_date = null;
       await getTribunalView(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', { decision: hearingDetails.decision, respondBy, startDate });
+      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', {
+        decision: hearingDetails.decision,
+        respondBy,
+        startDate,
+        ft_welsh: false
+      });
     });
 
     it('redirects to /sign-out if decision is not issued', async () => {
@@ -89,7 +103,8 @@ describe('controllers/tribunal-view', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', {
           decision: hearingDetails.decision,
           respondBy,
-          error: i18n.en.tribunalView.error.emptyOnDecisionPick
+          error: i18n.en.tribunalView.error.emptyOnDecisionPick,
+          ft_welsh: false
         });
       });
     });

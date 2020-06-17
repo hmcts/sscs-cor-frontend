@@ -25,7 +25,6 @@ function redirectToLogin(req: Request, res: Response) {
 
 function getLogout(idamService: IdamService) {
   return async (req: Request, res: Response) => {
-
     if (req.session.accessToken) {
       try {
         await idamService.deleteToken(req.session.accessToken);
@@ -52,7 +51,6 @@ function getLogout(idamService: IdamService) {
 }
 
 function redirectToIdam(idamPath: string, idamService: IdamService) {
-
   return (req: Request, res: Response) => {
     const idamUrl: URL = new URL(idamUrlString);
     idamUrl.pathname = idamUrl.pathname !== '/' ? idamUrl.pathname + idamPath : idamPath;
@@ -121,8 +119,8 @@ function getIdamCallback(
       req.session.idamEmail = email;
 
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
-
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
+
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
         const hearings = req.query.caseId ?

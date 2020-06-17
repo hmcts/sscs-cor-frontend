@@ -11,9 +11,7 @@ function getIndex(req: Request, res: Response) {
 }
 
 function extensionConfirmation(hearingService: HearingService) {
-
   return async (req: Request, res: Response, next: NextFunction) => {
-
     const hearingId: string = req.session.hearing.online_hearing_id;
     const extend: string = req.body['extend-deadline'];
 

@@ -27,7 +27,10 @@ describe('controllers/hearing-confirm', () => {
     };
     req = {
       session: {
-        hearing: hearingDetails
+        hearing: hearingDetails,
+        featureToggles: {
+          ft_welsh: false
+        }
       },
       body: {
         'new-hearing': 'yes'
@@ -68,12 +71,13 @@ describe('controllers/hearing-confirm', () => {
 
       it('renders the view with the error message', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('hearing-confirm/index.html', {
-          error: i18n.en.hearingConfirm.error.text
+          error: i18n.en.hearingConfirm.error.text,
+          ft_welsh: false
         });
       });
     });
-    describe('validation passed', () => {
 
+    describe('validation passed', () => {
       it('redirects to hearing reason why page if accepts is yes', () => {
         postIndex(req, res);
         expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingWhy);

@@ -34,7 +34,10 @@ describe('controllers/hearing-why', () => {
       session: {
         hearing: hearingDetails,
         accessToken: accessToken,
-        serviceToken: serviceToken
+        serviceToken: serviceToken,
+        featureToggles: {
+          ft_welsh: false
+        }
       },
       body: {
         'explain-why': 'My explanation of why I want a hearing'
@@ -52,7 +55,8 @@ describe('controllers/hearing-why', () => {
       getIndex(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', {
         submitted: false,
-        responseDate: undefined
+        responseDate: undefined,
+        ft_welsh: false
       });
     });
 
@@ -64,7 +68,8 @@ describe('controllers/hearing-why', () => {
       getIndex(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-why/index.html', {
         submitted: true,
-        responseDate
+        responseDate,
+        ft_welsh: false
       });
     });
 
