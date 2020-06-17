@@ -1,8 +1,8 @@
 <div class="govuk-phase-banner">
     <div class="govuk-phase-banner__content account-navigation">
         <div class="account-navigation__home">
-            <a href="/status" class="{{ '--not-active' if inDashboard }}">
-                <img src="/public/images/home.png" alt="Home Page">
+            <a href="/status" class="{{ "--not-active" if inDashboard }}">
+                <img src="/public/images/home.png" alt="{{ content[i18n.language].common.homePage | safe }}">
                 <span class="govuk-phase-banner__text">
                     {{ content[i18n.language].common.yourBenefitAppeal | safe }}
                 </span>

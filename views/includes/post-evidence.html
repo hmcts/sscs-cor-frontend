@@ -4,7 +4,7 @@
             <h1 class="govuk-heading-l">{{ content[i18n.language].postEvidence.header | safe }}</h1>
             <p>{{ content[i18n.language].postEvidence.info | safe }}</p>
 
-            <address class="--margin-bottom-m" aria-label="{{ content[i18n.language].postEvidence.screenReaderPostalAddress }}">
+            <address class="--margin-bottom-m" aria-label="{{ content[i18n.language].postEvidence.screenReaderPostalAddress | safe }}">
                 <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ content[i18n.language].postEvidence.postalAddress | safe }}</span>
             </address>
             <p>{{ content[i18n.language].postEvidence.para1 | eval | safe }}</p>

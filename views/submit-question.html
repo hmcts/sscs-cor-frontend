@@ -10,7 +10,7 @@
                 {% include "includes/csrf-hidden-input.html" %}
 
                 <div id="submit-buttons">
-                    <input id="submit-answer" type="submit" name="submit" value="Confirm" class="govuk-button button-padding">
+                    <input id="submit-answer" type="submit" name="submit" value="{{ content[i18n.language].common.confirm | safe }}" class="govuk-button button-padding">
                     <a class="govuk-button secondary-button" href="/question/{{ questionOrdinal }}">{{ content[i18n.language].submitQuestion.backToQuestionText | safe }}</a>
                 </div>
             </form>

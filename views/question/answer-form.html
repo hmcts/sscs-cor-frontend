@@ -6,33 +6,32 @@
 <form id="answer-form" action="/question/{{ question.questionOrdinal }}?_csrf={{csrfToken}}" method="post">
     <div>
         {{ govukTextarea({
-            id: 'question-field',
-            classes: 'auto-expand',
-            name: 'question-field',
+            id: "question-field",
+            classes: "auto-expand",
+            name: "question-field",
             value: question.answer.value,
             attributes: {
                 placeholder: content[i18n.language].question.textareaField.placeholder,
                 "aria-label": content[i18n.language].question.textareaField.label,
-                "autocomplete": "off"
+                autocomplete: "off"
             },
             rows: 6,
             errorMessage: {
                 text: question.answer.error
             } if question.answer.error
-          })
-        }}
+        }) }}
     </div>
 
     {% if showEvidenceUpload %}
         <div id="evidence-upload">
             {{ govukCheckboxes({
-              "idPrefix": "provide-evidence",
-              "name": "provide-evidence",
-              "classes": "evidence-upload-js",
-              "items": [{
-                "value": "yes",
-                "text": content[i18n.language].question.evidenceUpload.checkbox
-              }]
+                idPrefix: "provide-evidence",
+                name: "provide-evidence",
+                classes: "evidence-upload-js",
+                items: [{
+                    value: "yes",
+                    text: content[i18n.language].question.evidenceUpload.checkbox
+                }]
             }) }}
 
             <div id="evidence-upload-reveal-container" class="govuk-details__text --margin-bottom-m">
@@ -40,21 +39,21 @@
                 <p>{{ content[i18n.language].question.evidenceUpload.info | safe }}</p>
 
                 <div id="uploadFileButton">
-                  {{ govukFileUpload({
-                    id: "file-upload-1",
-                    name: "file-upload-1",
-                    classes: "evidence-upload-js",
-                    label: {
-                      text: content[i18n.language].questionUploadEvidence.label,
-                      classes: "evidence-upload-js"
-                    },
-                    attributes: {
-                      accept: fileTypeWhiteList
-                    },
-                    "errorMessage": {
-                      "text": fileUploadError
-                    } if fileUploadError
-                  }) }}
+                    {{ govukFileUpload({
+                        id: "file-upload-1",
+                        name: "file-upload-1",
+                        classes: "evidence-upload-js",
+                        label: {
+                            text: content[i18n.language].questionUploadEvidence.label,
+                            classes: "evidence-upload-js"
+                        },
+                        attributes: {
+                            accept: fileTypeWhiteList
+                        },
+                        errorMessage: {
+                            text: fileUploadError
+                        } if fileUploadError
+                    }) }}
                 </div>
 
                 {{ spinner(content[i18n.language].question.evidenceUpload.fileUploading) }}
@@ -84,7 +83,7 @@
     {% endif %}
 
     <div id="submit-buttons">
-        <input id="submit-answer" type="submit" name="submit" value="Submit answer to the tribunal" class="govuk-button button-padding">
-        <input id="save-answer" type="submit" name="save" value="Save for later" class="govuk-button secondary-button">
+        <input id="submit-answer" type="submit" name="submit" value="{{ content[i18n.language].common.submitAnswerToTribunal | safe }}" class="govuk-button button-padding">
+        <input id="save-answer" type="submit" name="save" value="{{ content[i18n.language].common.saveForLater | safe }}" class="govuk-button secondary-button">
     </div>
 </form>

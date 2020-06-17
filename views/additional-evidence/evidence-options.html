@@ -19,23 +19,23 @@
             items: [
                 {
                     value: "statement",
-                    text: "Provide your information online"
+                    text: content[i18n.language].common.provideInformationOnline
                 },
                 {
                     value: "upload",
-                    text: "Upload letters, documents or photos"
+                    text: content[i18n.language].common.uploadLettersDocumentPhotos
                 },
                 {
                     value: "post",
-                    text: "Send by post"
+                    text: content[i18n.language].common.sendByPost
                 }
             ]
         }) }}
         {% include "includes/csrf-hidden-input.html" %}
         <div id="submit-buttons">
             {{ govukButton({
-                    name: "continue",
-                    text: "Continue"
+                name: "continue",
+                text: content[i18n.language].general.continue
             }) }}
         </div>
     </form>

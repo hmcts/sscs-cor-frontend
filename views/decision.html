@@ -1,6 +1,8 @@
-{% from "inset-text/macro.njk" import govukInsetText %}
 {% extends "layout.html" %}
-{% set pageHeader = content[i18n.language].tribunalDecision.header %}
+
+{% from "inset-text/macro.njk" import govukInsetText %}
+
+{% set pageHeader = content[i18n.language].tribunalDecision.header | safe %}
 
 {% block corContent %}
     <div class="govuk-grid-row">

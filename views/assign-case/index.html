@@ -1,7 +1,7 @@
+{% extends "layout.html" %}
+
 {% from "input/macro.njk" import govukInput %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
-
-{% extends "layout.html" %}
 
 {% block corContent %}
     <h1 class="govuk-heading-l">{{ content[i18n.language].assignCase.title | safe }}</h1>

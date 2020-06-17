@@ -1,8 +1,8 @@
+{% extends "layout.html" %}
+
 {% from "radios/macro.njk" import govukRadios %}
 {% from "button/macro.njk" import govukButton %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
-
-{% extends "layout.html" %}
 
 {% set pageHeader = content[i18n.language].hearingConfirm.header | safe %}
 

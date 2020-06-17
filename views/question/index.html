@@ -3,7 +3,7 @@
 {% from "components/textarea/macro.njk" import govukTextarea %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
-{% set pageHeader = question.header  %}
+{% set pageHeader = question.header | safe %}
 
 {% block pageTitle %}
     {{ question.header | safe }} - {{ content[i18n.language].general.serviceTitle | safe }} - {{ content[i18n.language].general.govUK | safe }}
@@ -40,7 +40,7 @@
                 {{ body | safe }}
             </div>
 
-            {% if question.answer_state !== 'submitted' %}
+            {% if question.answer_state !== "submitted" %}
                 {% include "question/answer-form.html" %}
             {% else %}
                 {% include "question/answer-submitted.html" %}

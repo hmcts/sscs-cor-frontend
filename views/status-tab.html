@@ -25,16 +25,16 @@
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            {{ navigationTabs('status') }}
+            {{ navigationTabs("status") }}
             <div class="task-list">
                 <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].statusTab.header | safe }}</h2>
                 {% if stages | length %}
                     {{ statusBar(stages) }}
                 {% endif %}
-                {% if appeal.hearingType == 'cor' %}
+                {% if appeal.hearingType == "cor" %}
                     {% set latestUpdate = "TBC" %}
                 {% else %}
-                    {% set latestUpdate = content[i18n.language].appealEvents[appeal.status]['content'][appeal.hearingType] %}
+                    {% set latestUpdate = content[i18n.language].appealEvents[appeal.status]["content"][appeal.hearingType] %}
                 {% endif %}
                 {{ panel(content[i18n.language].statusTab.panelHeader, latestUpdate | evalStatus) }}
             </div>

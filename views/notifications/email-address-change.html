@@ -15,7 +15,7 @@
                 <form action="/manage-email-notifications/{{ mactoken }}/change" method="post">
                     {{ govukInput({
                         label: {
-                        text: "Enter your new email address"
+                            text: content[i18n.language].common.enterNewEmailAddress
                         },
                         id: "email",
                         name: "email",
@@ -26,13 +26,13 @@
                     }) }}
                     {{ govukInput({
                         label: {
-                            text: "Enter your new email address again"
+                            text: content[i18n.language].common.enterNewEmailAddressAgain
                         },
                         id: "confirmEmail",
                         name: "confirmEmail",
                         classes: "govuk-input--width-20",
                         attributes: {
-                        autocomplete: "off"
+                            autocomplete: "off"
                         }
                     }) }}
 

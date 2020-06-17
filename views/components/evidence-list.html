@@ -2,20 +2,20 @@
     <table class="govuk-table" id="files-uploaded">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th class="govuk-table__header" colspan="2">{{ content[i18n.language].question.evidenceUpload.fileList.uploadedFiles }}</th>
+                <th class="govuk-table__header" colspan="2">{{ content[i18n.language].question.evidenceUpload.fileList.uploadedFiles | safe }}</th>
             </tr>
         </thead>
         <tbody class="govuk-table__body">
             {% for evidence in evidences %}
                 <tr class="govuk-table__row evidence">
-                    <td class="govuk-table__cell">{{ evidence.file_name }}</td>
+                    <td class="govuk-table__cell">{{ evidence.file_name | safe }}</td>
                     <td class="govuk-table__cell">
-                        <input type="submit" name="delete[{{ evidence.id }}]" value="{{ content[i18n.language].general.delete }}" class="govuk-link">
+                        <input type="submit" name="delete[{{ evidence.id }}]" value="{{ content[i18n.language].general.delete | safe }}" class="govuk-link">
                     </td>
                 </tr>
             {% else %}
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">{{ content[i18n.language].question.evidenceUpload.fileList.noFilesUploaded }}</td>
+                    <td class="govuk-table__cell">{{ content[i18n.language].question.evidenceUpload.fileList.noFilesUploaded | safe }}</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
             {% endfor %}

@@ -9,25 +9,23 @@
                 {% if showSupport %}
                     <h2 class="govuk-heading-s govuk-!-margin-bottom-1">{{ content[i18n.language].helpGuides.header | safe }}</h2>
                     <ul class="govuk-list">
-                    <li><a href="/support-evidence">{{ content[i18n.language].helpGuides.relatedLinks.supportEvidence | safe }}</a></li>
-                    <li><a href="/support-representatives">{{ content[i18n.language].helpGuides.representatives.linkHeader | safe }}</a></li>
-                    <li><a href="/support-hearing">{{ content[i18n.language].helpGuides.relatedLinks.supportHearing | safe }}</a></li>
-                    <li><a href="/support-hearing-expenses">{{ content[i18n.language].helpGuides.relatedLinks.supportHearingExpenses | safe }}</a></li>
-                    <li><a href="/support-withdraw-appeal">{{ content[i18n.language].helpGuides.withdrawAppeal.linkHeader | safe }}</a></li>
+                        <li><a href="/support-evidence">{{ content[i18n.language].helpGuides.relatedLinks.supportEvidence | safe }}</a></li>
+                        <li><a href="/support-representatives">{{ content[i18n.language].helpGuides.representatives.linkHeader | safe }}</a></li>
+                        <li><a href="/support-hearing">{{ content[i18n.language].helpGuides.relatedLinks.supportHearing | safe }}</a></li>
+                        <li><a href="/support-hearing-expenses">{{ content[i18n.language].helpGuides.relatedLinks.supportHearingExpenses | safe }}</a></li>
+                        <li><a href="/support-withdraw-appeal">{{ content[i18n.language].helpGuides.withdrawAppeal.linkHeader | safe }}</a></li>
                     </ul>
                 {% endif %}
                 <details class="govuk-details contact-us">
                     <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">
-                        {{ content[i18n.language].contactUs.title | safe }}
-                        </span>
+                        <span class="govuk-details__summary-text">{{ content[i18n.language].contactUs.title | safe }}</span>
                     </summary>
 
                     {% if webChatEnabled and i18n.language == "en" %}
                         <div class="govuk-details__text">
                             <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.webchat.title | safe }}</h2>
                             <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.webchat.desc | safe }}</p>
-                            <div id="ctsc-web-chat">Loading</div>
+                            <div id="ctsc-web-chat">{{ content[i18n.language].common.loading | safe }}</div>
                         </div>
                     {% endif %}
                     {% if contactUsWebFormEnabled %}

@@ -20,7 +20,7 @@
 
 {% block bodyStart %}
     <!-- Google Tag Manager (noscript) -->
-    {% if environment === 'prod' or environment === 'production' %}
+    {% if environment === "prod" or environment === "production" %}
         <!-- Live analytics -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM&gtm_auth=s9D_6Cs9pP0A0pPraIxTSA&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
     {% else %}
@@ -31,7 +31,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {% set phaseBarHtml = content[i18n.language].phaseBanner.new + '<a class="govuk-link" href="'+ content[i18n.language].general.exitLink + pageHeader + '" target="_blank">' + content[i18n.language].phaseBanner.report + '</a> ' + content[i18n.language].phaseBanner.improve %}
+    {% set phaseBarHtml = content[i18n.language].phaseBanner.new + '<a class="govuk-link" href="'+ content[i18n.language].general.exitLink + pageHeader + '" target="_blank">' + content[i18n.language].phaseBanner.report + "</a> " + content[i18n.language].phaseBanner.improve %}
     {% if ft_welsh %}
         {% set phaseBarHtml = phaseBarHtml + content[i18n.language].phaseBanner.languageToggle %}
     {% endif %}

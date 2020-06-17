@@ -21,26 +21,26 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             {% if featureFlags.manageYourAppeal %}
-                {{ navigationTabs('questions') }}
+                {{ navigationTabs("questions") }}
             {% endif %}
             <div class="task-list">
                 <h2 class="govuk-heading-m --margin-bottom-m">{{ content[i18n.language].provideEvidenceTab.header | safe }}</h2>
-                {% if hearingType == 'cor' %}
+                {% if hearingType == "cor" %}
                     <h2 class="govuk-heading-s --margin-bottom-s">{{ content[i18n.language].provideEvidenceTab.corCase.header | safe }}</h2>
                     {% if questions.length != 0 %}
                         <p>
                             <span id="deadline-status">
                                 {{- content[i18n.language].taskList.deadline[deadlineExpiryDate.status] | safe }}
                                 {%- if deadlineExpiryDate.expiryDate %}{{deadlineExpiryDate.expiryDate | date }}.{% endif %}
-                                {%- if deadlineExpiryDate.extendable %} <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>{%- endif %}
+                                {%- if deadlineExpiryDate.extendable %} <a id="extend-deadline" class="govuk-link" href="/extend-deadline">{{ content[i18n.language].common.extendDeadline | safe }}</a>{%- endif %}
                             </span>
                         </p>
                         <ul class="govuk-list questions-list">
                             {% for question in questions %}
                                 {% set answerState = question.answer_state %}
-                                {% if answerState === 'submitted' %}
+                                {% if answerState === "submitted" %}
                                     {% set answerStateLabel = content[i18n.language].taskList.answerState.completed %}
-                                {% elif answerState === 'draft' %}
+                                {% elif answerState === "draft" %}
                                     {% set answerStateLabel = content[i18n.language].taskList.answerState.draft %}
                                 {% else %}
                                     {% set answerStateLabel = content[i18n.language].taskList.answerState.unanswered %}
@@ -50,9 +50,9 @@
                                     <a class="govuk-link question-header-text"
                                         href="/question/{{ loop.index }}"
                                         title="{{ answerStateLabel | safe }}, List {{ loop.index }} of {{ loop.length }}">{{ question.question_header_text | safe }}</a>
-                                    {% if answerState != 'unanswered' %}
+                                    {% if answerState != "unanswered" %}
                                         <span class="answer-state {{ question.answer_state }}">
-                                            {{ (content[i18n.language].taskList.answerState.completed if answerState === 'submitted' else content[i18n.language].taskList.answerState.draft) | safe }}
+                                            {{ (content[i18n.language].taskList.answerState.completed if answerState === "submitted" else content[i18n.language].taskList.answerState.draft) | safe }}
                                         </span>
                                     {% endif %}
                                 </li>

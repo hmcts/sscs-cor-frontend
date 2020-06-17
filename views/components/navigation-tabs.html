@@ -2,7 +2,7 @@
     <nav class="navigation-tabs">
         <ul class="navigation-tabs__list">
             {% for tab in tabs %}
-                <li class="{{ 'selected' if tab.id == active }}">
+                <li class="{{ "selected" if tab.id == active }}">
                     <a id="tab-{{ tab.id }}" href="{{ tab.url }}">{{ tab.title | safe }}</a>
                 </li>
             {% endfor %}

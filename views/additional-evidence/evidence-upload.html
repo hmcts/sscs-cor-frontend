@@ -46,7 +46,7 @@
 
         {{ evidenceList(evidences) }}
         <div id="submit-buttons">
-            <input id="submit-evidences" type="submit" name="buttonSubmit" value="Submit evidence to the tribunal" class="govuk-button">
+            <input id="submit-evidences" type="submit" name="buttonSubmit" value="{{ content[i18n.language].general.submitEvidenceToTribunal | safe }}" class="govuk-button">
         </div>
     </form>
 </div>

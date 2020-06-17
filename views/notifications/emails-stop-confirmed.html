@@ -10,11 +10,11 @@
                 <p>{{ content[i18n.language].notifications.email.stopConfirmation.content | safe }}</p>
                 <p>
                     {{ content[i18n.language].notifications.email.stopConfirmation.exitFeedbackSurveyPreLink | safe }}
-                    <a href='{{ urls.exitFeedbackSurvey }}'>{{ content[i18n.language].notifications.email.stopConfirmation.exitFeedbackSurveyLink | safe }}</a>
+                    <a href="{{ urls.exitFeedbackSurvey }}">{{ content[i18n.language].notifications.email.stopConfirmation.exitFeedbackSurveyLink | safe }}</a>
                 </p>
                 <p>
                     {{ content[i18n.language].notifications.email.stopConfirmation.linkPre | safe }}
-                    <a href='/trackyourappeal/{{data.appealNumber}}'>{{ content[i18n.language].notifications.email.stopConfirmation.linkPost | safe }}</a>
+                    <a href="/trackyourappeal/{{data.appealNumber}}">{{ content[i18n.language].notifications.email.stopConfirmation.linkPost | safe }}</a>
                 </p>
             </div>
         </div>
