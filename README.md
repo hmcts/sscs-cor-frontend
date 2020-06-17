@@ -4,6 +4,13 @@ This application is the public facing service for online hearings.
 
 It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/sscs-tribunals-case-api)
 
+## Config
+
+For development only config, rename the `config/dev_template.yaml` file to `config/dev.yaml`. Running the app with the node environment set to `dev` will ensure this file is used.
+This file is not version controlled so any config here will not be pushed to git.
+
+As an example, if you want to use LaunchDarkly locally, place the SDK Key in this file. You can keep the key there as this file is not version controlled.
+
 ## Running
 
 ##### Prereqs
