@@ -1,4 +1,7 @@
 {
+    "featureToggles": {
+        "ft_welsh": false
+    },
     "appeal": {
         "caseReference": "SC285/18/00002",
         "name": "Mrs. AN Test",
