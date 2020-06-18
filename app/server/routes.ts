@@ -1,11 +1,8 @@
 const express = require('express');
 import * as Paths from './paths';
 import * as config from 'config';
-<<<<<<< HEAD
 const CONF = require('config');
 const i18next = require('i18next');
-=======
->>>>>>> WLA-454-2-LaunchDarkly
 const FeatureToggle = require('./utils/featureToggle');
 
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
