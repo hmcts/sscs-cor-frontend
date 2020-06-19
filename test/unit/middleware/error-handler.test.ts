@@ -22,9 +22,16 @@ describe('middleware/error-handler', () => {
 
   describe('#pageNotFoundHandler', () => {
     it('gives 404 page', () => {
+      req.session = {
+        featureToggles: {
+          ft_welsh: false
+        }
+      };
       errorHandler.pageNotFoundHandler(req, res);
       expect(res.status).to.have.been.calledOnce.calledWith(NOT_FOUND);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html', {
+        ft_welsh: false
+      });
     });
   });
 
@@ -48,11 +55,21 @@ describe('middleware/error-handler', () => {
   });
 
   describe('#coreErrorHandler', () => {
+    beforeEach(() => {
+      req.session = {
+        featureToggles: {
+          ft_welsh: false
+        }
+      };
+    });
+
     it('gives 500 page', () => {
       const error = new Error('Some error');
       errorHandler.coreErrorHandler(error, req, res);
       expect(res.status).to.have.been.calledOnce.calledWith(INTERNAL_SERVER_ERROR);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/500.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/500.html', {
+        ft_welsh: false
+      });
     });
 
     it('sends error to app-insights', () => {

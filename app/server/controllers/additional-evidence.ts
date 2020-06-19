@@ -24,7 +24,9 @@ const allowedActions = [
 ];
 
 function getAboutEvidence(req: Request, res: Response) {
-  return res.render('additional-evidence/about-evidence.html');
+  return res.render('additional-evidence/about-evidence.html', {
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 }
 
 function postAdditionalEvidence (req: Request, res: Response) {
@@ -34,7 +36,12 @@ function postAdditionalEvidence (req: Request, res: Response) {
     return res.redirect(`${Paths.additionalEvidence}/${action}`);
   } else {
     const errorMessage = content.en.additionalEvidence.evidenceOptions.error.noButtonSelected;
-    res.render('additional-evidence/index.html', { action: 'options', pageTitleError: true, error: errorMessage });
+    res.render('additional-evidence/index.html', {
+      action: 'options',
+      pageTitleError: true,
+      error: errorMessage,
+      ft_welsh: req.session.featureToggles.ft_welsh
+    });
   }
 }
 
@@ -51,7 +58,12 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
         AppInsights.trackTrace(`[${caseId}] - User has provided a statement`);
         res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else {
-        res.render('additional-evidence/index.html', { action : 'statement', pageTitleError: true, error: validationMessage });
+        res.render('additional-evidence/index.html', {
+          action : 'statement',
+          pageTitleError: true,
+          error: validationMessage,
+          ft_welsh: req.session.featureToggles.ft_welsh
+        });
       }
     } catch (error) {
       AppInsights.trackException(error);
@@ -72,13 +84,15 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
           {
             action,
             evidences: evidences ? evidences.reverse() : [],
-            description
+            description,
+            ft_welsh: req.session.featureToggles.ft_welsh
           }
         );
       }
       return res.render('additional-evidence/index.html', {
         action,
-        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies)
+        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
+        ft_welsh: req.session.featureToggles.ft_welsh
       });
     } catch (error) {
       AppInsights.trackException(error);
@@ -114,7 +128,8 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
               evidences: evidences ? evidences.reverse() : [],
               description,
               error: descriptionValidationMsg,
-              fileUploadError: evidencesValidationMsg
+              fileUploadError: evidencesValidationMsg,
+              ft_welsh: req.session.featureToggles.ft_welsh
             }
           );
         }
@@ -131,7 +146,8 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
             pageTitleError: true,
             evidences: evidences ? evidences.reverse() : [],
             description,
-            fileUploadError: res.locals.multerError
+            fileUploadError: res.locals.multerError,
+            ft_welsh: req.session.featureToggles.ft_welsh
           }
         );
       } else {

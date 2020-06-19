@@ -120,6 +120,7 @@ function getIdamCallback(
 
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
+
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
         const hearings = req.query.caseId ?
@@ -150,7 +151,10 @@ function getIdamCallback(
         } else {
           const hearingsByName = getHearingsByName(hearings);
           AppInsights.trackTrace(`[Cases count ${hearings.length}] - User logged in successfully as ${email}`);
-          return res.render('select-case.html', { hearingsByName });
+          return res.render('select-case.html', {
+            hearingsByName,
+            ft_welsh: req.session.featureToggles.ft_welsh
+          });
         }
       } else {
         const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
@@ -186,7 +190,10 @@ function renderErrorPage(email: string, statusCode: number, idamService: IdamSer
     options['errorHeader'] = content.en.login.failed.cannotUseService.header;
     options['errorBody'] = content.en.login.failed.cannotUseService.body;
   }
-  return res.render('load-case-error.html', { ...options });
+  return res.render('load-case-error.html', {
+    ...options,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 }
 
 function setupLoginController(deps) {

@@ -19,7 +19,10 @@ function getIndex(req: Request, res: Response) {
     const appellantReplyDatetime: string = req.session.hearing.decision && req.session.hearing.decision.appellant_reply_datetime;
     responseDate = getResponseDate(appellantReplyDatetime);
   }
-  return res.render('hearing-why/index.html', { submitted: appellantRejected, responseDate });
+  return res.render('hearing-why/index.html', {
+    submitted: appellantRejected, responseDate,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 }
 
 function postIndex(hearingService) {
@@ -27,7 +30,10 @@ function postIndex(hearingService) {
     const explainWhy: string = req.body[ 'explain-why' ];
     const validationMessage = hearingWhyValidation(explainWhy);
 
-    if (validationMessage) return res.render('hearing-why/index.html', { error: validationMessage });
+    if (validationMessage) return res.render('hearing-why/index.html', {
+      error: validationMessage,
+      ft_welsh: req.session.featureToggles.ft_welsh
+    });
 
     try {
       const hearing: OnlineHearing = req.session.hearing;
@@ -40,7 +46,12 @@ function postIndex(hearingService) {
       );
       req.session.hearing.decision.appellant_reply = 'decision_rejected';
       req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
-      return res.render('hearing-why/index.html', { submitted: true, hearing: req.session.hearing, responseDate });
+      return res.render('hearing-why/index.html', {
+        submitted: true,
+        hearing: req.session.hearing,
+        responseDate,
+        ft_welsh: req.session.featureToggles.ft_welsh
+      });
     } catch (error) {
       AppInsights.trackException(error);
       next(error);

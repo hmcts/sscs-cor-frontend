@@ -142,7 +142,10 @@ router.get('/robots.txt', (req, res) => {
 });
 
 router.get('/manage-email-notifications/:mactoken', validateToken, (req, res, next) => {
-  res.render('manage-emails', { mactoken: req.params.mactoken });
+  res.render('manage-emails', {
+    mactoken: req.params.mactoken,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 });
 
 router.post('/manage-email-notifications/:mactoken', validateToken, notificationRedirect, (req, res, next) => {
@@ -150,23 +153,44 @@ router.post('/manage-email-notifications/:mactoken', validateToken, notification
 });
 
 router.get('/manage-email-notifications/:mactoken/stop', validateToken, emailNotifications, (req, res) => {
-  res.render('emails-stop', { mactoken: req.params.mactoken });
+  res.render('emails-stop', {
+    mactoken: req.params.mactoken,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 });
 
 router.get('/manage-email-notifications/:mactoken/stopconfirm', validateToken, stopReceivingEmails, emailNotifications, (req, res, next) => {
-  res.render('emails-stop-confirmed', { data: { appealNumber: res.locals.token.appealId }, mactoken: req.params.mactoken });
+  res.render('emails-stop-confirmed', {
+    data: {
+      appealNumber: res.locals.token.appealId
+    },
+    mactoken: req.params.mactoken,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 });
 
 router.get('/manage-email-notifications/:mactoken/change', validateToken, (req, res) => {
-  res.render('email-address-change', { mactoken: req.params.mactoken });
+  res.render('email-address-change', {
+    mactoken: req.params.mactoken,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 });
 
 router.post('/manage-email-notifications/:mactoken/change', validateToken, validateEmail, changeEmailAddress, emailNotifications, (req, res, next) => {
-  res.render('email-address-change-confirmed', { data: { email: req.body.email }, mactoken: req.params.mactoken });
+  res.render('email-address-change-confirmed', {
+    data: {
+      email: req.body.email
+    },
+    mactoken: req.params.mactoken,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 });
 
 router.get('/validate-surname/:tya/trackyourappeal', loginController, (req, res, next) => {
-  res.render('redirect-mya', { state: req.params.tya });
+  res.render('redirect-mya', {
+    state: req.params.tya,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 });
 
 export { router };
