@@ -185,7 +185,6 @@ describe('controllers/additional-evidence.js', () => {
   });
 
   describe('#postFileUpload', () => {
-
     it('should catch error and track Excepction with AppInsights', async () => {
       req.file = { name: 'myfile.txt' };
       additionalEvidenceService = {
@@ -282,6 +281,5 @@ describe('controllers/additional-evidence.js', () => {
       await postFileUpload(additionalEvidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
-
   });
 });

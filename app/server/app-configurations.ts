@@ -12,7 +12,6 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
 
 function configureHelmet(app) {
-
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
@@ -71,7 +70,6 @@ function configureHeaders(app) {
 }
 
 function configureNunjucks(app: express.Application) {
-
   const nunEnv = nunjucks.configure([
     'views',
     'views/notifications',
@@ -100,7 +98,6 @@ function configureNunjucks(app: express.Application) {
     }
 
   });
-
   nunEnv.addFilter('isArray', function(input) {
     return Array.isArray(input);
   });
@@ -117,14 +114,12 @@ function configureNunjucks(app: express.Application) {
   nunEnv.addFilter('panel', benefitType => {
     return nunjucks.renderString(content.en.benefitTypes[benefitType].panel, this.ctx);
   });
-
   nunEnv.addFilter('dateForDecisionReceived', utcDateTimeStr => {
     const howManyDaysAfterHearing = 5;
     return moment(utcDateTimeStr)
       .add(howManyDaysAfterHearing, 'days')
       .format('DD MMMM YYYY');
   });
-
   nunEnv.addFilter('evalStatus', function (text) {
     try {
       if (Array.isArray(text)) {

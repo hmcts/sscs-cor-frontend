@@ -72,8 +72,8 @@ describe('controllers/hearing-confirm', () => {
         });
       });
     });
-    describe('validation passed', () => {
 
+    describe('validation passed', () => {
       it('redirects to hearing reason why page if accepts is yes', () => {
         postIndex(req, res);
         expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.hearingWhy);

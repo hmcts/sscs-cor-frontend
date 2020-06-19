@@ -365,7 +365,8 @@ describe('controllers/login', () => {
               online_hearing_id: '1',
               case_reference: '11111',
               appellant_name: 'John Smith'
-            }, {
+            },
+            {
               case_id: 22222,
               online_hearing_id: '2',
               case_reference: '22222',
