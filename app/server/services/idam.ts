@@ -1,5 +1,7 @@
 import * as Paths from '../paths';
 import { RequestPromise } from './request-wrapper';
+const i18next = require('i18next');
+
 export interface TokenResponse {
   access_token: string;
 }
@@ -31,7 +33,8 @@ export class IdamService {
       form: {
         grant_type: 'authorization_code',
         code,
-        redirect_uri: redirectUri
+        redirect_uri: redirectUri,
+        ui_locales: i18next.language
       }
     });
   }
