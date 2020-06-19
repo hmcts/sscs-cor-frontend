@@ -21,10 +21,12 @@ function postIndex(req: Request, res: Response) {
   const newHearing: string = req.body['new-hearing'];
   const validationMessage = newHearingAcceptedValidation(newHearing);
 
-  if (validationMessage) return res.render('hearing-confirm/index.html', {
-    error: validationMessage,
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  if (validationMessage) {
+    return res.render('hearing-confirm/index.html', {
+      error: validationMessage,
+      ft_welsh: req.session.featureToggles.ft_welsh
+    });
+  }
 
   if (newHearing === 'no') return res.redirect(Paths.tribunalView);
 

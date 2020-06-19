@@ -15,10 +15,12 @@ function extensionConfirmation(hearingService: HearingService) {
     const hearingId: string = req.session.hearing.online_hearing_id;
     const extend: string = req.body['extend-deadline'];
 
-    if (!extend) return res.render('extend-deadline/index.html', {
-      error: true,
-      ft_welsh: req.session.featureToggles.ft_welsh
-    });
+    if (!extend) {
+      return res.render('extend-deadline/index.html', {
+        error: true,
+        ft_welsh: req.session.featureToggles.ft_welsh
+      });
+    }
 
     try {
       if (extend === 'yes') {

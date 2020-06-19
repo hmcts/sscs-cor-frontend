@@ -30,10 +30,12 @@ function postIndex(hearingService) {
     const explainWhy: string = req.body[ 'explain-why' ];
     const validationMessage = hearingWhyValidation(explainWhy);
 
-    if (validationMessage) return res.render('hearing-why/index.html', {
-      error: validationMessage,
-      ft_welsh: req.session.featureToggles.ft_welsh
-    });
+    if (validationMessage) {
+      return res.render('hearing-why/index.html', {
+        error: validationMessage,
+        ft_welsh: req.session.featureToggles.ft_welsh
+      });
+    }
 
     try {
       const hearing: OnlineHearing = req.session.hearing;
