@@ -1,31 +1,31 @@
 {% from "inset-text/macro.njk" import govukInsetText %}
 {% from "back-link/macro.njk" import govukBackLink %}
 {% extends "layout.html" %}
-{% set pageHeader = i18n.taskList.header %}
+{% set pageHeader = content.en.taskList.header %}
 
 {% block beforeContent %}
     {{super()}}
 {% endblock%}
 
 {% block pageTitle %}
-    {{ i18n.yourDetails.header }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ content.en.yourDetails.header }} - {{ content.en.general.serviceTitle }} - {{ content.en.general.govUK }}
 {% endblock %}
 
 {% block corContent %}
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ i18n.yourDetails.header }}</h1>
+        <h1 class="govuk-heading-xl">{{ content.en.yourDetails.header }}</h1>
         <table class="govuk-table">
             <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top" scope="row">{{i18n.yourDetails.nameLabel}}</th>
+                    <th class="govuk-table__header --vertical-align-top" scope="row">{{content.en.yourDetails.nameLabel}}</th>
                     <td class="govuk-table__cell">{{ details.appellant_name }}</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header --vertical-align-top --width-50" scope="row">{{i18n.yourDetails.addressLabel}}</th>
+                    <th class="govuk-table__header --vertical-align-top --width-50" scope="row">{{content.en.yourDetails.addressLabel}}</th>
                     <td class="govuk-table__cell">
-                        <address aria-label='{{ i18n.guidance.sendingEvidence.screenReaderPostalAddress }}'>
+                        <address aria-label='{{ content.en.guidance.sendingEvidence.screenReaderPostalAddress }}'>
                             {{ details.appellant_details.address_details.line1 }}<br/>
                             {% if details.appellant_details.address_details.line1 %}
                                 {{ details.appellant_details.address_details.line2 }}<br/>
@@ -42,10 +42,10 @@
                     {% endset %}
                     <tr class="govuk-table__row">
                         <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                            {{ type }} {{i18n.yourDetails.emailLabel}}
+                            {{ type }} {{content.en.yourDetails.emailLabel}}
                         </th>
                         <td class="govuk-table__cell {{ hideBottomBorder }}">
-                            {{ value.email if value.email else i18n.yourDetails.notProvided }}
+                            {{ value.email if value.email else content.en.yourDetails.notProvided }}
                         </td>
                     </tr>
                 {% endfor %}
@@ -55,47 +55,47 @@
                     {% endset %}
                     <tr class="govuk-table__row">
                         <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                            {{ type }} {{i18n.yourDetails.mobileLabel}}
+                            {{ type }} {{content.en.yourDetails.mobileLabel}}
                         </th>
                         <td class="govuk-table__cell {{ hideBottomBorder }}">
-                            {{ value.mobile if value.mobile else i18n.yourDetails.notProvided }}
+                            {{ value.mobile if value.mobile else content.en.yourDetails.notProvided }}
                         </td>
                     </tr>
                 {% endfor %}
                 {% if contact.phone %}
                   <tr class="govuk-table__row">
                       <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                          {{ type }} {{i18n.contact.phone}}
+                          {{ type }} {{content.en.contact.phone}}
                       </th>
                       <td class="govuk-table__cell {{ hideBottomBorder }}">
-                          {{ contact.phone if contact.phone else i18n.yourDetails.notProvided}} 
+                          {{ contact.phone if contact.phone else content.en.yourDetails.notProvided}}
                       </td>
                   </tr>
                 {% endif %}
                 {% if contact.mobile %}
                   <tr class="govuk-table__row">
                       <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                          {{ type }} {{i18n.contact.mobile}}
+                          {{ type }} {{content.en.contact.mobile}}
                       </th>
                       <td class="govuk-table__cell {{ hideBottomBorder }}">
-                          {{ contact.mobile if contact.mobile else i18n.yourDetails.notProvided }}
+                          {{ contact.mobile if contact.mobile else content.en.yourDetails.notProvided }}
                       </td>
                   </tr>
                 {% endif %}
                 {% if contact.email %}
                   <tr class="govuk-table__row">
                       <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                          {{ type }} {{i18n.contact.email}}
+                          {{ type }} {{content.en.contact.email}}
                       </th>
                       <td class="govuk-table__cell {{ hideBottomBorder }}">
-                          {{ contact.email if contact.email else i18n.yourDetails.notProvided }}
+                          {{ contact.email if contact.email else content.en.yourDetails.notProvided }}
                       </td>
                   </tr>
                 {% endif %}
             </tbody>
         </table>
         {{ govukInsetText({
-            html: i18n.yourDetails.contact | eval | safe,
+            html: content.en.yourDetails.contact | eval | safe,
             classes: 'govuk-!-margin-top-7 govuk-!-margin-bottom-7'
         }) }}
     </div>

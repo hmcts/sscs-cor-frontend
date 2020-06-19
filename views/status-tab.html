@@ -2,18 +2,18 @@
 {% from "components/navigation-tabs.html" import navigationTabs with context %}
 {% from "components/status-bar.html" import statusBar with context %}
 {% from "components/panel.html" import panel with context %}
-{% set pageHeader = i18n.taskList.header %}
+{% set pageHeader = content.en.taskList.header %}
 
 {% block pageTitle %}
-    {{ i18n.taskList.header }} - {{ i18n.statusTab.tabHeader }} - {{ i18n.general.govUK }}
+    {{ content.en.taskList.header }} - {{ content.en.statusTab.tabHeader }} - {{ content.en.general.govUK }}
 {% endblock %}
 
 {% block corContent %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
+        <h1 class="govuk-heading-xl">{{ content.en.taskList.header }}</h1>
         {% include "includes/appellant-details.html" %}
-        <p class="govuk-body-s">{{ i18n.general.sessionExpiryWarning }}</p>
+        <p class="govuk-body-s">{{ content.en.general.sessionExpiryWarning }}</p>
     </div>
 </div>
 
@@ -23,16 +23,16 @@
     <div class="govuk-grid-column-two-thirds">
         {{ navigationTabs('status') }}
         <div class="task-list">
-            <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.statusTab.header }}</h2>
+            <h2 class="govuk-heading-m --margin-bottom-s">{{ content.en.statusTab.header }}</h2>
             {% if stages | length %}
                 {{ statusBar(stages) }}
             {% endif %}
             {% if appeal.hearingType == 'cor' %}
                 {% set latestUpdate = "TBC" %}
             {% else %}
-                {% set latestUpdate = i18n.appealEvents[appeal.status]['content'][appeal.hearingType] %}
+                {% set latestUpdate = content.en.appealEvents[appeal.status]['content'][appeal.hearingType] %}
             {% endif %}
-            {{ panel(i18n.statusTab.panelHeader, latestUpdate | evalStatus) }}
+            {{ panel(content.en.statusTab.panelHeader, latestUpdate | evalStatus) }}
         </div>
     </div>
 </div>

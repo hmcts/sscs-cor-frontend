@@ -1,16 +1,16 @@
-<h2 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.byEmailHeader }}</h2>
-<p><a href="mailto:{{ i18n.contactEmail }}?subject=Evidence:%20{{ hearing.case_reference }}">{{ i18n.contactEmail }}</a></p>
-<h2 class="govuk-heading-s">{{ i18n.guidance.sendingEvidence.byPostHeader}}</h2>
+<h2 class="govuk-heading-s">{{ content.en.guidance.sendingEvidence.byEmailHeader }}</h2>
+<p><a href="mailto:{{ content.en.contactEmail }}?subject=Evidence:%20{{ hearing.case_reference }}">{{ content.en.contactEmail }}</a></p>
+<h2 class="govuk-heading-s">{{ content.en.guidance.sendingEvidence.byPostHeader}}</h2>
 {% if postBulkScan %}
-    <address class="--margin-bottom-m" aria-label="{{ i18n.postEvidence.screenReaderPostalAddress }}">
-        <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ i18n.postEvidence.postalAddress | safe }}</span>
+    <address class="--margin-bottom-m" aria-label="{{ content.en.postEvidence.screenReaderPostalAddress }}">
+        <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ content.en.postEvidence.postalAddress | safe }}</span>
     </address>
-    <p>{{ i18n.postEvidence.para1 | eval | safe }}</p>
+    <p>{{ content.en.postEvidence.para1 | eval | safe }}</p>
 {% else %}
-    <address aria-label="{{ i18n.guidance.sendingEvidence.screenReaderPostalAddress }}">
-        <span aria-hidden="true">{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</span>
+    <address aria-label="{{ content.en.guidance.sendingEvidence.screenReaderPostalAddress }}">
+        <span aria-hidden="true">{{ content.en.guidance.sendingEvidence.postalAddress | safe }}</span>
     </address>
-    <p>{{ i18n.question.sendingEvidence.details.closingPara1 }}</p>
+    <p>{{ content.en.question.sendingEvidence.details.closingPara1 }}</p>
 {% endif %}
-<p>{{ i18n.question.evidenceUpload.postEvidence.details.closingPara1 }}</p>
-<p>{{ i18n.question.evidenceUpload.postEvidence.details.closingPara2 }}</p>
+<p>{{ content.en.question.evidenceUpload.postEvidence.details.closingPara1 }}</p>
+<p>{{ content.en.question.evidenceUpload.postEvidence.details.closingPara2 }}</p>

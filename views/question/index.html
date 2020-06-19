@@ -3,11 +3,11 @@
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% set pageHeader = question.header  %}
 {% block pageTitle %}
-  {{ question.header }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+  {{ question.header }} - {{ content.en.general.serviceTitle }} - {{ content.en.general.govUK }}
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  <a href="/task-list" class="govuk-back-link">{{ i18n.general.backToQuestions }}</a>
+  <a href="/task-list" class="govuk-back-link">{{ content.en.general.backToQuestions }}</a>
 {% endblock %}
 
 {% block corContent %}
@@ -16,8 +16,8 @@
 
       {% if question.answer.error or fileUploadError %}
         {{ govukErrorSummary({
-            titleText: i18n.errorSummary.titleText,
-            descriptionText: i18n.errorSummary.descriptionText,
+            titleText: content.en.errorSummary.titleText,
+            descriptionText: content.en.errorSummary.descriptionText,
             errorList: [
               {
                   text: question.answer.error,

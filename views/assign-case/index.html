@@ -4,12 +4,12 @@
 {% extends "layout.html" %}
 
 {% block corContent %}
-  <h1 class="govuk-heading-l">{{ i18n.assignCase.title }}</h1>
+  <h1 class="govuk-heading-l">{{ content.en.assignCase.title }}</h1>
 
   {% if error %}
     {{ govukErrorSummary({
-        titleText: i18n.errorSummary.titleText,
-        descriptionText: i18n.errorSummary.descriptionText,
+        titleText: content.en.errorSummary.titleText,
+        descriptionText: content.en.errorSummary.descriptionText,
         errorList: [{
           text: error,
           href: "#Postcode"
@@ -22,7 +22,7 @@
     {% include "includes/csrf-hidden-input.html" %}
     {{ govukInput({
         label: {
-          text: i18n.assignCase.message
+          text: content.en.assignCase.message
         },
         id: "postcode",
         name: "postcode",
@@ -30,6 +30,6 @@
       })
     }}
 
-    <input id="assign-case" name="assign-case" type="submit" value="{{ i18n.general.continue }}" class="govuk-button">
+    <input id="assign-case" name="assign-case" type="submit" value="{{ content.en.general.continue }}" class="govuk-button">
   </form>
 {% endblock %}

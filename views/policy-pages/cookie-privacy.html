@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% from "back-link/macro.njk" import govukBackLink %}
-{% set pageHeader = i18n.cookiePrivacy.cookies.title  %}
+{% set pageHeader = content.en.cookiePrivacy.cookies.title  %}
 {% macro cookieTable(items, columnNames) %}
     <table class="govuk-table">
         <thead class="govuk-table__head">
@@ -28,7 +28,7 @@
         href: "#",
         text: "Back",
         attributes : { onclick: "history.go(-1); return false;" }
-        }) 
+        })
     }}
 {% endblock%}
 
@@ -36,44 +36,44 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">{{ i18n.cookiePrivacy.cookies.title }}</h1>
+        <h1 class="govuk-heading-l">{{ content.en.cookiePrivacy.cookies.title }}</h1>
 
-        <p>{{ i18n.cookiePrivacy.cookies.description }}</p>
+        <p>{{ content.en.cookiePrivacy.cookies.description }}</p>
 
-        <h2 class="govuk-heading-m">{{ i18n.cookiePrivacy.usedInService.title }}</h2>
-        <p>{{ i18n.cookiePrivacy.usedInService.uses }}</p>
+        <h2 class="govuk-heading-m">{{ content.en.cookiePrivacy.usedInService.title }}</h2>
+        <p>{{ content.en.cookiePrivacy.usedInService.uses }}</p>
         <ul class="govuk-list govuk-list--bullet">
-            {% for use in i18n.cookiePrivacy.usedInService.usesList %}
+            {% for use in content.en.cookiePrivacy.usedInService.usesList %}
             <li>{{ use }}</li>
             {% endfor %}
         </ul>
-        <p>{{ usedInService.more }}<a href="http://www.aboutcookies.org/">{{ i18n.cookiePrivacy.usedInService.manage }}</a></p>
+        <p>{{ usedInService.more }}<a href="http://www.aboutcookies.org/">{{ content.en.cookiePrivacy.usedInService.manage }}</a></p>
 
-        <h2 class="govuk-heading-m">{{ i18n.cookiePrivacy.howAreTheyUsed.title }}</h2>
-        <p>{{ i18n.cookiePrivacy.howAreTheyUsed.description }}</p>
-        <p>{{ i18n.cookiePrivacy.howAreTheyUsed.info }}</p>
+        <h2 class="govuk-heading-m">{{ content.en.cookiePrivacy.howAreTheyUsed.title }}</h2>
+        <p>{{ content.en.cookiePrivacy.howAreTheyUsed.description }}</p>
+        <p>{{ content.en.cookiePrivacy.howAreTheyUsed.info }}</p>
         <ul class="govuk-list govuk-list--bullet">
-            {% for info in i18n.cookiePrivacy.howAreTheyUsed.infoList %}
+            {% for info in content.en.cookiePrivacy.howAreTheyUsed.infoList %}
             <li>{{ info }}</li>
             {% endfor %}
         </ul>
-        <p>{{ i18n.cookiePrivacy.howAreTheyUsed.googleShare }}<a href="https://policies.google.com/privacy/partners?hl=en-GB&gl=uk">{{ i18n.cookiePrivacy.howAreTheyUsed.googlePrivacyPolicy }}</a></p>
+        <p>{{ content.en.cookiePrivacy.howAreTheyUsed.googleShare }}<a href="https://policies.google.com/privacy/partners?hl=en-GB&gl=uk">{{ content.en.cookiePrivacy.howAreTheyUsed.googlePrivacyPolicy }}</a></p>
         <p>
-            {{ i18n.cookiePrivacy.howAreTheyUsed.optOut.youCan }}
-            <a href="https://policies.google.com/privacy/partners?hl=en-GB&gl=uk">{{ i18n.cookiePrivacy.howAreTheyUsed.optOut.google }}</a>
-            {{ i18n.cookiePrivacy.howAreTheyUsed.optOut.access }}
+            {{ content.en.cookiePrivacy.howAreTheyUsed.optOut.youCan }}
+            <a href="https://policies.google.com/privacy/partners?hl=en-GB&gl=uk">{{ content.en.cookiePrivacy.howAreTheyUsed.optOut.google }}</a>
+            {{ content.en.cookiePrivacy.howAreTheyUsed.optOut.access }}
         </p>
 
-        <p>{{ i18n.cookiePrivacy.howAreTheyUsed.googleCookies }}</p>
-        {{ cookieTable( i18n.cookiePrivacy.howAreTheyUsed.cookieTable.items, i18n.cookiePrivacy.howAreTheyUsed.cookieTable.columnNames ) }}
+        <p>{{ content.en.cookiePrivacy.howAreTheyUsed.googleCookies }}</p>
+        {{ cookieTable( content.en.cookiePrivacy.howAreTheyUsed.cookieTable.items, content.en.cookiePrivacy.howAreTheyUsed.cookieTable.columnNames ) }}
 
         <h2 class="govuk-heading-m">{{ introMessage.title }}</h2>
-        <p>{{ i18n.cookiePrivacy.introMessage.description }}</p>
-        {{ cookieTable( i18n.cookiePrivacy.introMessage.cookieTable.items, i18n.cookiePrivacy.introMessage.cookieTable.columnNames ) }}
+        <p>{{ content.en.cookiePrivacy.introMessage.description }}</p>
+        {{ cookieTable( content.en.cookiePrivacy.introMessage.cookieTable.items, content.en.cookiePrivacy.introMessage.cookieTable.columnNames ) }}
 
-        <h2 class="govuk-heading-m">{{ i18n.cookiePrivacy.sessionCookie.title }}</h2>
-        <p>{{ i18n.cookiePrivacy.sessionCookie.description }}</p>
-        {{ cookieTable( i18n.cookiePrivacy.sessionCookie.cookieTable.items, i18n.cookiePrivacy.sessionCookie.cookieTable.columnNames ) }}
+        <h2 class="govuk-heading-m">{{ content.en.cookiePrivacy.sessionCookie.title }}</h2>
+        <p>{{ content.en.cookiePrivacy.sessionCookie.description }}</p>
+        {{ cookieTable( content.en.cookiePrivacy.sessionCookie.cookieTable.items, content.en.cookiePrivacy.sessionCookie.cookieTable.columnNames ) }}
     </div>
 </div>
 {% endblock %}

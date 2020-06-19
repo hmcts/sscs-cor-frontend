@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block pageTitle %}
-    {{ i18n.postEvidence.header }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ content.en.postEvidence.header }} - {{ content.en.general.serviceTitle }} - {{ content.en.general.govUK }}
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  <a href="/task-list" class="govuk-back-link">{{ i18n.general.back }}</a>
+  <a href="/task-list" class="govuk-back-link">{{ content.en.general.back }}</a>
 {% endblock %}
-{% set pageHeader = i18n.postEvidence.header %}
+{% set pageHeader = content.en.postEvidence.header %}
 {% block corContent %}
 
     {% include "includes/post-evidence.html" %}

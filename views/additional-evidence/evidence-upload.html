@@ -5,9 +5,9 @@
 {% from "components/evidence-list.html" import evidenceList with context %}
 
 <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l question-header">{{ i18n.additionalEvidence.evidenceUpload.header }}</h1>
-    <p>{{ i18n.additionalEvidence.evidenceUpload.description.para1 }}</p>
-    <p>{{ i18n.additionalEvidence.evidenceUpload.description.para2  | eval | safe }}.</p>
+    <h1 class="govuk-heading-l question-header">{{ content.en.additionalEvidence.evidenceUpload.header }}</h1>
+    <p>{{ content.en.additionalEvidence.evidenceUpload.description.para1 }}</p>
+    <p>{{ content.en.additionalEvidence.evidenceUpload.description.para2  | eval | safe }}.</p>
     <form class="--padding-top-m" id="additional-evidence-form" name="additional-evidence-form" action="/additional-evidence/upload?_csrf={{csrfToken}}" method="POST" enctype="multipart/form-data">
         {{ govukTextarea({
             id: "additional-evidence-description",
@@ -30,7 +30,7 @@
             name: "additional-evidence-file",
             classes: "file-display-none",
             label: {
-                text: i18n.questionUploadEvidence.label,
+                text: content.en.questionUploadEvidence.label,
                 classes: "govuk-button secondary-button element--inline-block",
                 id: "additional-evidence-file-label"
             },
@@ -42,7 +42,7 @@
             } if fileUploadError
         }) }}
 
-        {{ spinner(i18n.question.evidenceUpload.fileUploading) }}
+        {{ spinner(content.en.question.evidenceUpload.fileUploading) }}
 
         {{ evidenceList(evidences) }}
         <div id="submit-buttons">

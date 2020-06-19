@@ -6,7 +6,7 @@
 {% set assetPath = "/public/govuk-frontend" %}
 
 {% block pageTitle %}
-    {{ i18n.pageTitle }}
+    {{ content.en.pageTitle }}
 {% endblock %}
 
 {% block head %}
@@ -31,9 +31,9 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {% set phaseBarHtml = i18n.phaseBanner.new + '<a class="govuk-link" href="'+ i18n.general.exitLink + pageHeader + '" target="_blank">' + i18n.phaseBanner.report + "</a> " + i18n.phaseBanner.improve %}
+    {% set phaseBarHtml = content.en.phaseBanner.new + '<a class="govuk-link" href="'+ content.en.general.exitLink + pageHeader + '" target="_blank">' + content.en.phaseBanner.report + "</a> " + content.en.phaseBanner.improve %}
     {% if ft_welsh %}
-        {% set phaseBarHtml = phaseBarHtml + i18n.phaseBanner.languageToggle %}
+        {% set phaseBarHtml = phaseBarHtml + content.en.phaseBanner.languageToggle %}
     {% endif %}
 
     {{ govukPhaseBanner({
@@ -66,7 +66,7 @@
     {% endif %}
     <script src="/public/js/main.js"></script>
 
-    {% if featureFlags.manageYourAppeal and webChatEnabled and i18n.language == "en" %}
+    {% if featureFlags.manageYourAppeal and webChatEnabled and content.en.language == "en" %}
         <script src="/public/js/hmcts-webchat.js"></script>
         <script>
             /*
@@ -82,13 +82,13 @@
                 tenant: '{{ webChat.tenant }}',
                 channel: '{{ webChat.channel }}',
                 buttonContainerId: 'ctsc-web-chat',
-                textChatDown: '{{ content[i18n.language].contactUs.webchat.textChatDown | safe }}',
-                textChatWithAnAgent: '{{ content[i18n.language].contactUs.webchat.textChatWithAnAgent | safe }}',
-                textNoAgentsAvailable: '{{ content[i18n.language].contactUs.webchat.textNoAgentsAvailable | safe }}',
-                textAllAgentsBusy: '{{ content[i18n.language].contactUs.webchat.textAllAgentsBusy | safe }}',
-                textChatClosed : '{{ content[i18n.language].contactUs.webchat.textChatClosed | safe }}',
-                textChatAlreadyOpen: '{{ content[i18n.language].contactUs.webchat.textChatAlreadyOpen | safe }}',
-                textAdditional: '{{ content[i18n.language].contactUs.webchat.textAdditional | safe }}',
+                textChatDown: '{{ content[content.en.language].contactUs.webchat.textChatDown | safe }}',
+                textChatWithAnAgent: '{{ content[content.en.language].contactUs.webchat.textChatWithAnAgent | safe }}',
+                textNoAgentsAvailable: '{{ content[content.en.language].contactUs.webchat.textNoAgentsAvailable | safe }}',
+                textAllAgentsBusy: '{{ content[content.en.language].contactUs.webchat.textAllAgentsBusy | safe }}',
+                textChatClosed : '{{ content[content.en.language].contactUs.webchat.textChatClosed | safe }}',
+                textChatAlreadyOpen: '{{ content[content.en.language].contactUs.webchat.textChatAlreadyOpen | safe }}',
+                textAdditional: '{{ content[content.en.language].contactUs.webchat.textAdditional | safe }}',
                 stylesheetURL: '{{ baseUrl }}/public/css/hmcts-webchat.css',
                 busHandlerURL: '{{ baseUrl }}/public/js/hmcts-webchat-busHandler.js',
                 btnNoAgents: '/{{ webChat.tenant }}/button_7732814745cac6f4603c4d1.53357933/img/logo',

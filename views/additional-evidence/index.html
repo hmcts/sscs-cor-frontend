@@ -2,31 +2,31 @@
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% if action === 'options' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceOptions.header %}
+  {% set pageHeader, pageTitle = content.en.additionalEvidence.evidenceOptions.header %}
 {% elseif action === 'post' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidencePost.header %}
+  {% set pageHeader, pageTitle = content.en.additionalEvidence.evidencePost.header %}
 {% elseif action === 'upload' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceUpload.header %}
+  {% set pageHeader, pageTitle = content.en.additionalEvidence.evidenceUpload.header %}
 {% elseif action === 'statement' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceStatement.header %}
+  {% set pageHeader, pageTitle = content.en.additionalEvidence.evidenceStatement.header %}
 {% elseif action === 'confirm' %}
-  {% set pageHeader, pageTitle = i18n.additionalEvidence.evidenceConfirm.header %}
+  {% set pageHeader, pageTitle = content.en.additionalEvidence.evidenceConfirm.header %}
 {% endif %}
 
 {% block pageTitle %}
   {% if pageTitleError %}
-    {{ i18n.errorSummary.errorPageTitle }} {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ content.en.errorSummary.errorPageTitle }} {{ pageTitle }} - {{ content.en.general.serviceTitle }} - {{ content.en.general.govUK }}
   {% else %}
-    {{ pageTitle }} - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ pageTitle }} - {{ content.en.general.serviceTitle }} - {{ content.en.general.govUK }}
   {% endif %}
 {% endblock %}
 
 {% block beforeContent %}
   {{ super() }}
   {% if action === 'options' %}
-  <a href="/task-list" class="govuk-back-link">{{ i18n.general.back }}</a>
+  <a href="/task-list" class="govuk-back-link">{{ content.en.general.back }}</a>
    {% elseif action !== 'confirm' %}
-  <a href="/additional-evidence" class="govuk-back-link">{{ i18n.general.back }}</a>
+  <a href="/additional-evidence" class="govuk-back-link">{{ content.en.general.back }}</a>
   {% endif %}
 {% endblock %}
 
@@ -34,8 +34,8 @@
   <div class="govuk-grid-row">
       {% if error or fileUploadError %}
         {{ govukErrorSummary({
-            titleText: i18n.errorSummary.titleText,
-            descriptionText: i18n.errorSummary.descriptionText,
+            titleText: content.en.errorSummary.titleText,
+            descriptionText: content.en.errorSummary.descriptionText,
             errorList: [
               {
                 text: error,

@@ -11,8 +11,8 @@
         name: 'question-field',
         value: question.answer.value,
         attributes: {
-            placeholder: i18n.question.textareaField.placeholder,
-            "aria-label": i18n.question.textareaField.label,
+            placeholder: content.en.question.textareaField.placeholder,
+            "aria-label": content.en.question.textareaField.label,
             "autocomplete": "off"
         },
         rows: 6,
@@ -32,14 +32,14 @@
         "classes": "evidence-upload-js",
         "items": [{
           "value": "yes",
-          "text": i18n.question.evidenceUpload.checkbox
+          "text": content.en.question.evidenceUpload.checkbox
         }]
       }) }}
 
       <div id="evidence-upload-reveal-container" class="govuk-details__text --margin-bottom-m">
 
-        <h2 class="govuk-heading-m evidence-upload-nojs">{{ i18n.question.evidenceUpload.header }}</h2>
-        <p>{{ i18n.question.evidenceUpload.info }}</p>
+        <h2 class="govuk-heading-m evidence-upload-nojs">{{ content.en.question.evidenceUpload.header }}</h2>
+        <p>{{ content.en.question.evidenceUpload.info }}</p>
 
         <div id="uploadFileButton">
           {{ govukFileUpload({
@@ -47,7 +47,7 @@
             name: "file-upload-1",
             classes: "evidence-upload-js",
             label: {
-              text: i18n.questionUploadEvidence.label,
+              text: content.en.questionUploadEvidence.label,
               classes: "evidence-upload-js"
             },
             attributes: {
@@ -59,11 +59,11 @@
           }) }}
         </div>
 
-        {{ spinner(i18n.question.evidenceUpload.fileUploading) }}
+        {{ spinner(content.en.question.evidenceUpload.fileUploading) }}
 
         {{ evidenceList(question.evidences) }}
 
-        <input id="add-file" name="add-file" type="submit" value="{{ i18n.question.evidenceUpload.addFileButton }}" class="govuk-button secondary-button evidence-upload-nojs">
+        <input id="add-file" name="add-file" type="submit" value="{{ content.en.question.evidenceUpload.addFileButton }}" class="govuk-button secondary-button evidence-upload-nojs">
 
 
         {% include "question/sending-evidence.html" %}
@@ -77,12 +77,12 @@
     <details id="sending-evidence-guide" class="govuk-details">
       <summary class="govuk-details__summary">
         <span class="govuk-details__summary-text">
-          {{ i18n.question.sendingEvidence.summary }}
+          {{ content.en.question.sendingEvidence.summary }}
         </span>
       </summary>
       <div class="govuk-details__text">
-        <p>{{ i18n.question.sendingEvidence.details.para1 }}</p>
-        <p tabindex="0">{{ i18n.question.sendingEvidence.details.para2 }}<br>
+        <p>{{ content.en.question.sendingEvidence.details.para1 }}</p>
+        <p tabindex="0">{{ content.en.question.sendingEvidence.details.para2 }}<br>
           <strong id="evidence-case-reference" aria-label="{{ screenReaderUtils.spellNumbersOut(hearing.case_reference) }}">{{ hearing.case_reference }}</strong>
         </p>
 

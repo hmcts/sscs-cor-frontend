@@ -1,6 +1,6 @@
 {% from "button/macro.njk" import govukButton %}
 {% extends "layout.html" %}
-{% set pageHeader = i18n.notifications.email.stop.tab %}
+{% set pageHeader = content.en.notifications.email.stop.tab %}
 
 {% block content %}
 
@@ -11,13 +11,13 @@
 
             <form action="/manage-email-notifications/{{ mactoken }}/stopconfirm" method="get">
 
-                <h1 class="govuk-heading-l">{{ i18n.notifications.email.stop.title }}</h1>
+                <h1 class="govuk-heading-l">{{ content.en.notifications.email.stop.title }}</h1>
 
                 <div class="form-group">
                     <div id="submit-button">
                         {{
                         govukButton({
-                        text: i18n.notifications.email.stop.confirm
+                        text: content.en.notifications.email.stop.confirm
                         })
                         }}
                     </div>
@@ -25,7 +25,7 @@
 
             </form>
 
-            <a class="cancel" href="/manage-email-notifications/{{ mactoken }}">{{ i18n.notifications.email.stop.link }}</a>
+            <a class="cancel" href="/manage-email-notifications/{{ mactoken }}">{{ content.en.notifications.email.stop.link }}</a>
 
         </div>
     </div>

@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% from "components/navigation-tabs.html" import navigationTabs with context %}
-{% set pageHeader = i18n.taskList.header %}
+{% set pageHeader = content.en.taskList.header %}
 {% block pageTitle %}
-    {{ i18n.taskList.header }} - {{ i18n.provideEvidenceTab.tabHeader }} - {{ i18n.general.govUK }}
+    {{ content.en.taskList.header }} - {{ content.en.provideEvidenceTab.tabHeader }} - {{ content.en.general.govUK }}
 {% endblock %}
 {% block corContent %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
+        <h1 class="govuk-heading-xl">{{ content.en.taskList.header }}</h1>
         {% include "includes/appellant-details.html" %}
     </div>
 </div>
@@ -20,13 +20,13 @@
             {{ navigationTabs('questions') }}
         {% endif %}
         <div class="task-list">
-            <h2 class="govuk-heading-m --margin-bottom-m">{{ i18n.provideEvidenceTab.header }}</h2>
+            <h2 class="govuk-heading-m --margin-bottom-m">{{ content.en.provideEvidenceTab.header }}</h2>
             {% if hearingType == 'cor' %}
-                <h2 class="govuk-heading-s --margin-bottom-s">{{ i18n.provideEvidenceTab.corCase.header }}</h2>
+                <h2 class="govuk-heading-s --margin-bottom-s">{{ content.en.provideEvidenceTab.corCase.header }}</h2>
                 {% if questions.length != 0 %}
                     <p>
                         <span id="deadline-status">
-                            {{- i18n.taskList.deadline[deadlineExpiryDate.status]  }}
+                            {{- content.en.taskList.deadline[deadlineExpiryDate.status]  }}
                             {%- if deadlineExpiryDate.expiryDate %}{{deadlineExpiryDate.expiryDate | date }}.{% endif %}
                             {%- if deadlineExpiryDate.extendable %} <a id="extend-deadline" class="govuk-link" href="/extend-deadline">Extend the deadline</a>{%- endif %}
                         </span>
@@ -35,22 +35,22 @@
                         {% for question in questions %}
                             {% set answerState = question.answer_state %}
                             {% if answerState === 'submitted' %}
-                                {% set answerStateLabel = i18n.taskList.answerState.completed %}
+                                {% set answerStateLabel = content.en.taskList.answerState.completed %}
                             {% elif answerState === 'draft' %}
-                                {% set answerStateLabel = i18n.taskList.answerState.draft %}
+                                {% set answerStateLabel = content.en.taskList.answerState.draft %}
                             {% else %}
-                                {% set answerStateLabel = i18n.taskList.answerState.unanswered %}
+                                {% set answerStateLabel = content.en.taskList.answerState.unanswered %}
                             {% endif %}
                             <li id="question-{{ question.question_id }}">
-                                <a class="govuk-link question-header-text" 
-                                    href="/question/{{ loop.index }}" 
+                                <a class="govuk-link question-header-text"
+                                    href="/question/{{ loop.index }}"
                                     title="{{ answerStateLabel }}, List {{ loop.index }} of {{ loop.length }}">{{ question.question_header_text }}</a>
                                 {% if answerState != 'unanswered' %}
                                     <span class="answer-state {{ question.answer_state }}">
                                         {{
-                                            i18n.taskList.answerState.completed
+                                            content.en.taskList.answerState.completed
                                             if answerState === 'submitted'
-                                            else i18n.taskList.answerState.draft
+                                            else content.en.taskList.answerState.draft
                                         }}
                                     </span>
                                 {% endif %}
@@ -60,7 +60,7 @@
                 {% else %}
                     <ul class="govuk-list">
                         <li>
-                            {{ i18n.provideEvidenceTab.corCase.noQuestions }}
+                            {{ content.en.provideEvidenceTab.corCase.noQuestions }}
                         </li>
                     </ul>
                 {% endif %}
@@ -68,13 +68,13 @@
         </div>
 
         {% if featureFlags.additionalEvidence %}
-            <h2 class="govuk-heading-s --margin-bottom-s">{{ i18n.provideEvidenceTab.additionalEvidence.header }}</h2>
-            <p>{{ i18n.provideEvidenceTab.additionalEvidence.content | safe }}</p>
+            <h2 class="govuk-heading-s --margin-bottom-s">{{ content.en.provideEvidenceTab.additionalEvidence.header }}</h2>
+            <p>{{ content.en.provideEvidenceTab.additionalEvidence.content | safe }}</p>
         {% else %}
-            <h2 class="govuk-heading-s">{{ i18n.taskList.sendingEvidence.header }}</h2>
+            <h2 class="govuk-heading-s">{{ content.en.taskList.sendingEvidence.header }}</h2>
             <p>
-                {{ i18n.taskList.sendingEvidence.intro }} 
-                <a id="evidence-options-link" href="/post-evidence">{{ i18n.taskList.sendingEvidence.anchorText }}</a>.
+                {{ content.en.taskList.sendingEvidence.intro }}
+                <a id="evidence-options-link" href="/post-evidence">{{ content.en.taskList.sendingEvidence.anchorText }}</a>.
             </p>
         {% endif %}
     </div>
