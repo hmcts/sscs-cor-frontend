@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import axios from 'axios';
-const i18n = require('../../../locale/en');
+const content = require('../../../locale/content');
 
 export class SessionInactivity {
   public sessionExtendBuffer: number = 2 * 60 * 1000;
@@ -86,7 +86,7 @@ export class SessionInactivity {
       const minutes: number = moment.duration((this.sessionExtendBuffer - count)).minutes();
       const seconds: string = moment.duration((this.sessionExtendBuffer - count)).seconds().toLocaleString('en-GB', { minimumIntegerDigits: 2 });
       const expiringMessage: string =
-        `${i18n.cookieTimeOut.modal.body[0]} ${minutes}:${seconds} ${i18n.cookieTimeOut.modal.body[1]}`;
+        `${content.en.cookieTimeOut.modal.body[0]} ${minutes}:${seconds} ${content.en.cookieTimeOut.modal.body[1]}`;
 
       document.getElementById('expiring-in-message').innerHTML = expiringMessage;
       count += 1000;
