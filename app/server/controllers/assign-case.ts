@@ -14,7 +14,9 @@ const postcodeRegex = /^((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2
 const logger = Logger.getLogger('login.js');
 
 function getIndex(req: Request, res: Response) {
-  return res.render('assign-case/index.html', { ft_welsh: req.session.featureToggles.ft_welsh });
+  return res.render('assign-case/index.html', {
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 }
 
 function postIndex(hearingService: HearingService, trackYourAppealService: TrackYourApealService) {

@@ -50,7 +50,9 @@ describe('controllers/tribunal-view-confirm', () => {
   describe('getTribunalViewConfirm', () => {
     it('renders tribunal view confirm page with issued decision', async () => {
       getTribunalViewConfirm(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-confirm.html', { ft_welsh: false });
+      expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-confirm.html', {
+        ft_welsh: false
+      });
     });
 
     it('redirects to /sign-out if decision is not issued', async () => {

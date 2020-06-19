@@ -15,17 +15,24 @@ function extensionConfirmation(hearingService: HearingService) {
     const hearingId: string = req.session.hearing.online_hearing_id;
     const extend: string = req.body['extend-deadline'];
 
-    if (!extend) return res.render('extend-deadline/index.html', { error: true, ft_welsh: req.session.featureToggles.ft_welsh });
+    if (!extend) {
+      return res.render('extend-deadline/index.html', {
+        error: true,
+        ft_welsh: req.session.featureToggles.ft_welsh
+      });
+    }
 
     try {
-
       if (extend === 'yes') {
         const response = await hearingService.extendDeadline(hearingId, req);
         req.session.hearing.deadline = response.deadline_expiry_date;
       }
 
-      res.render('extend-deadline/index.html', { extend: extend, deadline: req.session.hearing.deadline, ft_welsh: req.session.featureToggles.ft_welsh });
-
+      res.render('extend-deadline/index.html', {
+        extend: extend,
+        deadline: req.session.hearing.deadline,
+        ft_welsh: req.session.featureToggles.ft_welsh
+      });
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);

@@ -15,7 +15,9 @@ class ErrorHandling {
     const status = ErrorHandling.getStatus(error);
     logger.error('Unhandled error', error);
     res.status(status);
-    res.render(status === HttpStatus.NOT_FOUND ? 'errors/404.html' : 'errors/500.html');
+    res.render(status === HttpStatus.NOT_FOUND ? 'errors/404.html' : 'errors/500.html', {
+      ft_welsh: req.session.featureToggles.ft_welsh
+    });
   }
 
   static getStatus(error) {

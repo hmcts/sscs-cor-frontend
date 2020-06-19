@@ -11,7 +11,12 @@ function getTribunalView(req: Request, res: Response) {
     const respondBy = moment.utc(hearing.decision.decision_state_datetime).add(7, 'day').format();
 
     const startDate = moment.utc(hearing.decision.start_date).format();
-    const model = { decision: hearing.decision, respondBy, startDate, ft_welsh: req.session.featureToggles.ft_welsh };
+    const model = {
+      decision: hearing.decision,
+      respondBy,
+      startDate,
+      ft_welsh: req.session.featureToggles.ft_welsh
+    };
     if (hearing.decision.end_date) {
       model['endDate'] = moment.utc(hearing.decision.end_date).format();
     }
@@ -27,7 +32,12 @@ function postTribunalView(hearingService) {
     const validationMessage = tribunalViewAcceptedValidation(acceptView);
     if (validationMessage) {
       const respondBy = moment.utc(hearing.decision.decision_state_datetime).add(7, 'day').format();
-      return res.render('tribunal-view.html', { decision: hearing.decision, respondBy, error: validationMessage, ft_welsh: req.session.featureToggles.ft_welsh });
+      return res.render('tribunal-view.html', {
+        decision: hearing.decision,
+        respondBy,
+        error: validationMessage,
+        ft_welsh: req.session.featureToggles.ft_welsh
+      });
     }
     if (acceptView === 'yes') {
       return res.redirect(Paths.tribunalViewConfirm);

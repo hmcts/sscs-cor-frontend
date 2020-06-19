@@ -25,7 +25,9 @@ describe('controllers/policies.js', () => {
   describe('getCookiePrivacy', () => {
     it('renders Cookie Policy page', async() => {
       await getCookiePrivacy(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('policy-pages/cookie-privacy.html', { ft_welsh: false });
+      expect(res.render).to.have.been.calledOnce.calledWith('policy-pages/cookie-privacy.html', {
+        ft_welsh: false
+      });
     });
   });
 

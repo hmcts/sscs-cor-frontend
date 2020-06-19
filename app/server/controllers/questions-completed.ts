@@ -5,7 +5,10 @@ import * as Paths from '../paths';
 function getQuestionsCompleted(req: Request, res: Response) {
   if (req.session.questionsCompletedThisSession) {
     const nextCorrespondenceDate = moment.utc().add(7, 'days').format();
-    return res.render('questions-completed.html', { nextCorrespondenceDate, ft_welsh: req.session.featureToggles.ft_welsh });
+    return res.render('questions-completed.html', {
+      nextCorrespondenceDate,
+      ft_welsh: req.session.featureToggles.ft_welsh
+    });
   }
   return res.redirect(Paths.taskList);
 }

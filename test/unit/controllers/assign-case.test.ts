@@ -30,7 +30,9 @@ describe('controllers/assign-case.js', () => {
       } as any;
 
       getIndex(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { ft_welsh: false });
+      expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', {
+        ft_welsh: false
+      });
     });
   });
 

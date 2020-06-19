@@ -145,7 +145,10 @@ export function checkEvidenceUploadFeature(enabled, overridable) {
 
 function getUploadEvidence(req: Request, res: Response, next: NextFunction) {
   const questionOrdinal: string = req.params.questionOrdinal;
-  res.render('question/upload-evidence.html', { questionOrdinal, ft_welsh: req.session.featureToggles.ft_welsh });
+  res.render('question/upload-evidence.html', {
+    questionOrdinal,
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 }
 
 function postUploadEvidence(questionService: QuestionService, evidenceService: EvidenceService, isJsUpload: boolean) {
@@ -159,8 +162,12 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     const hearingId = req.session.hearing.online_hearing_id;
 
     if (!req.file) {
-      const error = res.locals.multerError || content[i18next.language].questionUploadEvidence.error.empty;
-      return res.render('question/upload-evidence.html', { questionOrdinal, error, ft_welsh: req.session.featureToggles.ft_welsh });
+      const error = res.locals.multerError || content.en.questionUploadEvidence.error.empty;
+      return res.render('question/upload-evidence.html', {
+        questionOrdinal,
+        error,
+        ft_welsh: req.session.featureToggles.ft_welsh
+      });
     }
     try {
       const response: rp.Response = await evidenceService.upload(hearingId, currentQuestionId, req.file, req);
@@ -178,7 +185,11 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
             ft_welsh: req.session.featureToggles.ft_welsh
           });
         }
-        return res.render('question/upload-evidence.html', { questionOrdinal, error, ft_welsh: req.session.featureToggles.ft_welsh });
+        return res.render('question/upload-evidence.html', {
+          questionOrdinal,
+          error,
+          ft_welsh: req.session.featureToggles.ft_welsh
+        });
       }
       const errorMessage = `Cannot upload evidence ${JSON.stringify(response)}`;
       AppInsights.trackException(errorMessage);

@@ -25,7 +25,9 @@ const allowedActions = [
 ];
 
 function getAboutEvidence(req: Request, res: Response) {
-  return res.render('additional-evidence/about-evidence.html', { ft_welsh: req.session.featureToggles.ft_welsh });
+  return res.render('additional-evidence/about-evidence.html', {
+    ft_welsh: req.session.featureToggles.ft_welsh
+  });
 }
 
 function postAdditionalEvidence (req: Request, res: Response) {
@@ -35,7 +37,12 @@ function postAdditionalEvidence (req: Request, res: Response) {
     return res.redirect(`${Paths.additionalEvidence}/${action}`);
   } else {
     const errorMessage = content[i18next.language].additionalEvidence.evidenceOptions.error.noButtonSelected;
-    res.render('additional-evidence/index.html', { action: 'options', pageTitleError: true, error: errorMessage, ft_welsh: req.session.featureToggles.ft_welsh });
+    res.render('additional-evidence/index.html', {
+      action: 'options',
+      pageTitleError: true,
+      error: errorMessage,
+      ft_welsh: req.session.featureToggles.ft_welsh
+    });
   }
 }
 
@@ -52,7 +59,12 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
         AppInsights.trackTrace(`[${caseId}] - User has provided a statement`);
         res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else {
-        res.render('additional-evidence/index.html', { action : 'statement', pageTitleError: true, error: validationMessage, ft_welsh: req.session.featureToggles.ft_welsh });
+        res.render('additional-evidence/index.html', {
+          action : 'statement',
+          pageTitleError: true,
+          error: validationMessage,
+          ft_welsh: req.session.featureToggles.ft_welsh
+        });
       }
     } catch (error) {
       AppInsights.trackException(error);
