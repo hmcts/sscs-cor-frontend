@@ -2,7 +2,7 @@ import { OnlineHearing } from 'app/server/services/hearing';
 const { expect, sinon } = require('test/chai-sinon');
 import { getTribunalViewConfirm, postTribunalViewConfirm, setupTribunalViewConfirmController } from 'app/server/controllers/tribunal-view-confirm';
 const express = require('express');
-const i18n = require('locale/content');
+const content = require('locale/content');
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
 import { CONST } from 'app/constants';
@@ -81,7 +81,7 @@ describe('controllers/tribunal-view-confirm', () => {
 
       it('renders the view with the error message', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view-confirm.html', {
-          error: i18n.en.tribunalView.error.emptyOnConfirm,
+          error: content.en.tribunalView.error.emptyOnConfirm,
           ft_welsh: false
         });
       });

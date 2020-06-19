@@ -1,11 +1,11 @@
 const { expect } = require('test/chai-sinon');
 import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedValidation, newHearingAcceptedValidation, hearingWhyValidation, uploadDescriptionValidation } from 'app/server/utils/fieldValidation.ts';
-const i18n = require('locale/content');
+const content = require('locale/content');
 
 describe('utils/fieldValidation.js', () => {
   describe('answerValidation on submit', () => {
     it('returns the error message if answer is empty', () => {
-      expect(answerValidation('', { body : { submit : true } })).to.equal(i18n.en.question.textareaField.error.empty);
+      expect(answerValidation('', { body : { submit : true } })).to.equal(content.en.question.textareaField.error.empty);
     });
 
     it('returns false if answer is valid', () => {
@@ -15,7 +15,7 @@ describe('utils/fieldValidation.js', () => {
 
   describe('answerValidation on save', () => {
     it('returns the error message if answer is empty', () => {
-      expect(answerValidation('', { body : { submit : false } })).to.equal(i18n.en.question.textareaField.errorOnSave.empty);
+      expect(answerValidation('', { body : { submit : false } })).to.equal(content.en.question.textareaField.errorOnSave.empty);
     });
 
     it('returns false if answer is valid', () => {
@@ -36,17 +36,17 @@ describe('utils/fieldValidation.js', () => {
     });
 
     it('returns the error message if answer is not an email', () => {
-      expect(uploadDescriptionValidation('')).to.equal(i18n.en.additionalEvidence.evidenceUpload.error.emptyDescription);
+      expect(uploadDescriptionValidation('')).to.equal(content.en.additionalEvidence.evidenceUpload.error.emptyDescription);
     });
   });
 
   describe('loginEmailAddressValidation', () => {
     it('returns the error message if answer is empty', () => {
-      expect(loginEmailAddressValidation('')).to.equal(i18n.en.login.emailAddress.error.empty);
+      expect(loginEmailAddressValidation('')).to.equal(content.en.login.emailAddress.error.empty);
     });
 
     it('returns the error message if answer is not an email', () => {
-      expect(loginEmailAddressValidation('not.an.email')).to.equal(i18n.en.login.emailAddress.error.format);
+      expect(loginEmailAddressValidation('not.an.email')).to.equal(content.en.login.emailAddress.error.format);
     });
 
     it('returns false if answer is valid', () => {
@@ -64,19 +64,19 @@ describe('utils/fieldValidation.js', () => {
     });
 
     it('returns empty error message is answer is anything else', () => {
-      expect(tribunalViewAcceptedValidation('not valid')).to.equal(i18n.en.tribunalView.error.emptyOnDecisionPick);
+      expect(tribunalViewAcceptedValidation('not valid')).to.equal(content.en.tribunalView.error.emptyOnDecisionPick);
     });
 
     it('returns empty error message is answer is missing', () => {
-      expect(tribunalViewAcceptedValidation(undefined)).to.equal(i18n.en.tribunalView.error.emptyOnDecisionPick);
+      expect(tribunalViewAcceptedValidation(undefined)).to.equal(content.en.tribunalView.error.emptyOnDecisionPick);
     });
 
     it('returns empty error message is confirmation is anything else', () => {
-      expect(tribunalViewAcceptedValidation('not valid', true)).to.equal(i18n.en.tribunalView.error.emptyOnConfirm);
+      expect(tribunalViewAcceptedValidation('not valid', true)).to.equal(content.en.tribunalView.error.emptyOnConfirm);
     });
 
     it('returns empty error message is confirmation is missing', () => {
-      expect(tribunalViewAcceptedValidation(undefined, true)).to.equal(i18n.en.tribunalView.error.emptyOnConfirm);
+      expect(tribunalViewAcceptedValidation(undefined, true)).to.equal(content.en.tribunalView.error.emptyOnConfirm);
     });
   });
 
@@ -90,11 +90,11 @@ describe('utils/fieldValidation.js', () => {
     });
 
     it('returns empty error message is answer is anything else', () => {
-      expect(newHearingAcceptedValidation('not valid')).to.equal(i18n.en.hearingConfirm.error.text);
+      expect(newHearingAcceptedValidation('not valid')).to.equal(content.en.hearingConfirm.error.text);
     });
 
     it('returns empty error message is answer is missing', () => {
-      expect(newHearingAcceptedValidation(undefined)).to.equal(i18n.en.hearingConfirm.error.text);
+      expect(newHearingAcceptedValidation(undefined)).to.equal(content.en.hearingConfirm.error.text);
     });
   });
 });

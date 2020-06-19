@@ -2,7 +2,7 @@ import { OnlineHearing } from 'app/server/services/hearing';
 const { expect, sinon } = require('test/chai-sinon');
 import { getIndex, postIndex, setupHearingConfirmController } from 'app/server/controllers/hearing-confirm';
 import * as express from 'express';
-const i18n = require('locale/content');
+const content = require('locale/content');
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
 
@@ -71,7 +71,7 @@ describe('controllers/hearing-confirm', () => {
 
       it('renders the view with the error message', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('hearing-confirm/index.html', {
-          error: i18n.en.hearingConfirm.error.text,
+          error: content.en.hearingConfirm.error.text,
           ft_welsh: false
         });
       });

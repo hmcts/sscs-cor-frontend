@@ -5,7 +5,7 @@ const { expect } = require('test/chai-sinon');
 import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
-const i18n = require('locale/content');
+const content = require('locale/content');
 
 import { ExtendDeadlinePage } from 'test/page-objects/extend-deadline';
 const config = require('config');
@@ -59,15 +59,15 @@ describe.skip('Extend deadline', () => {
   it('displays contact for help', async () => {
     const contactHelpLink = 'summary.govuk-details__summary span';
     const contactHelpLinkText = await extendDeadlinePage.getElementText(contactHelpLink);
-    expect(contactHelpLinkText.trim()).to.equal(i18n.en.contactUsCor.title);
+    expect(contactHelpLinkText.trim()).to.equal(content.en.contactUsCor.title);
   });
 
   it('displays an error message in the summary when you try to continue without selecting an option', async () => {
     await extendDeadlinePage.submit();
     expect(await extendDeadlinePage.getElementText('.govuk-error-summary'))
-      .to.contain(i18n.en.errorSummary.titleText);
+      .to.contain(content.en.errorSummary.titleText);
     expect(await extendDeadlinePage.getElementText('.govuk-error-summary__list'))
-      .to.contain(i18n.en.extendDeadline.error.text);
+      .to.contain(content.en.extendDeadline.error.text);
   });
 
   describe('confirming no', () => {
@@ -122,7 +122,7 @@ describe.skip('Extend deadline', () => {
     it('shows the contact tribunal details if tyring for second extension', async () => {
       await extendDeadlinePage.screenshot('extend-deadline-contact-tribunal');
       const heading = await extendDeadlinePage.getElementText('.govuk-main-wrapper h1');
-      expect(heading).to.equal(i18n.en.extendDeadline.contactTribunal.header);
+      expect(heading).to.equal(content.en.extendDeadline.contactTribunal.header);
     });
 
     /* PA11Y */

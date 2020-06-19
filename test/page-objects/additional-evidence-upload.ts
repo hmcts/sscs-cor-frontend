@@ -2,7 +2,7 @@ import * as path from 'path';
 const { expect } = require('test/chai-sinon');
 import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
-const i18n = require('locale/content');
+const content = require('locale/content');
 
 export class AdditionalEvidenceUploadPage extends BasePage {
   constructor(page) {
@@ -12,7 +12,7 @@ export class AdditionalEvidenceUploadPage extends BasePage {
 
   async verifyPages() {
     const headerText = this.page.getHeading();
-    expect(headerText).to.equal(i18n.en.additionalEvidence.evidenceUpload.header);
+    expect(headerText).to.equal(content.en.additionalEvidence.evidenceUpload.header);
   }
 
   async selectFile(filename: string) {

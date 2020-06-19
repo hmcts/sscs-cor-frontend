@@ -7,7 +7,7 @@ import { startServices, login } from 'test/browser/common';
 import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 import { TribunalViewAcceptedPage } from 'test/page-objects/tribunal-view-accepted';
 import { TribunalViewConfirmPage } from 'test/page-objects/tribunal-view-confirm';
-const i18n = require('locale/content');
+const content = require('locale/content');
 const config = require('config');
 
 const pa11y = require('pa11y');
@@ -61,7 +61,7 @@ describe.skip('Tribunal view page', () => {
 
   it('shows reasons for the tribunal\'s view', async () => {
     const reasonHeader = await tribunalViewPage.getElementText('#decision-reason h2');
-    expect(reasonHeader).to.equal(i18n.en.tribunalView.reasonsHeader);
+    expect(reasonHeader).to.equal(content.en.tribunalView.reasonsHeader);
     const reasons = await tribunalViewPage.getElementText('#decision-text');
     expect(reasons).to.not.be.null;
   });
@@ -77,8 +77,8 @@ describe.skip('Tribunal view page', () => {
 
   it('validates that one option must be selected', async () => {
     await tribunalViewPage.submit();
-    expect(await tribunalViewPage.getElementText('.govuk-error-summary')).contain(i18n.en.tribunalView.error.emptyOnDecisionPick);
-    expect(await tribunalViewPage.getElementText('#accept-view-error')).to.containIgnoreSpaces(i18n.en.tribunalView.error.emptyOnDecisionPick);
+    expect(await tribunalViewPage.getElementText('.govuk-error-summary')).contain(content.en.tribunalView.error.emptyOnDecisionPick);
+    expect(await tribunalViewPage.getElementText('#accept-view-error')).to.containIgnoreSpaces(content.en.tribunalView.error.emptyOnDecisionPick);
   });
 
   describe.skip('accepting the tribunal\'s view shows the accepts page', () => {
@@ -99,7 +99,7 @@ describe.skip('Tribunal view page', () => {
       await tribunalViewPage.submit();
 
       tribunalViewConfirmPage.verifyPage();
-      expect(await tribunalViewConfirmPage.getHeading()).to.equal(i18n.en.tribunalViewConfirm.header);
+      expect(await tribunalViewConfirmPage.getHeading()).to.equal(content.en.tribunalViewConfirm.header);
     });
 
     it('confirms view and shows tribunal accepted', async () => {
@@ -107,14 +107,14 @@ describe.skip('Tribunal view page', () => {
       await tribunalViewConfirmPage.submit();
 
       tribunalViewAcceptedPage.verifyPage();
-      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.en.tribunalViewAccepted.header);
+      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(content.en.tribunalViewAccepted.header);
 
     });
 
     it('returns the user to the acceptance page if they sign-in later', async () => {
       await login(page);
       tribunalViewAcceptedPage.verifyPage();
-      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(i18n.en.tribunalViewAccepted.header);
+      expect(await tribunalViewAcceptedPage.getHeading()).to.equal(content.en.tribunalViewAccepted.header);
     });
   });
 

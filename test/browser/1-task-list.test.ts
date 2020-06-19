@@ -8,7 +8,7 @@ const mockDataHearing = require('test/mock/cor-backend/services/hearing').templa
 import { TaskListPage } from 'test/page-objects/task-list';
 import { LoginPage } from 'test/page-objects/login';
 import * as Paths from 'app/server/paths';
-const i18n = require('locale/content');
+const content = require('locale/content');
 const config = require('config');
 
 const testUrl = config.get('testUrl');
@@ -83,11 +83,11 @@ describe.skip('Task list page', () => {
 
   it('displays Providing additional evidence link', async () => {
     const evidenceUploadLink = await taskListPage.getElementText('#evidence-options-link');
-    expect(evidenceUploadLink).to.equal(i18n.en.taskList.sendingEvidence.anchorText);
+    expect(evidenceUploadLink).to.equal(content.en.taskList.sendingEvidence.anchorText);
   });
 
   it('displays the deadline details as pending', async () => {
-    expect(await taskListPage.getElementText('#deadline-status')).to.contain(i18n.en.taskList.deadline.pending);
+    expect(await taskListPage.getElementText('#deadline-status')).to.contain(content.en.taskList.deadline.pending);
     expect(await taskListPage.getElementText('#deadline-status')).to.contain(deadlineExpiryDateFormatted);
   });
 

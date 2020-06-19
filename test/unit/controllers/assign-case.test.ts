@@ -3,7 +3,7 @@ import { expect, sinon } from '../../chai-sinon';
 import { OK } from 'http-status-codes';
 import { HearingService } from '../../../app/server/services/hearing';
 import { TrackYourApealService } from '../../../app/server/services/tyaService';
-const i18n = require('locale/content');
+const content = require('locale/content');
 
 describe('controllers/assign-case.js', () => {
   let sandbox: sinon.SinonSandbox;
@@ -132,7 +132,7 @@ describe('controllers/assign-case.js', () => {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', {
-          error: i18n.en.assignCase.errors.noPostcode,
+          error: content.en.assignCase.errors.noPostcode,
           ft_welsh: false
         });
       });
@@ -160,7 +160,7 @@ describe('controllers/assign-case.js', () => {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', {
-          error: i18n.en.assignCase.errors.invalidPostcode,
+          error: content.en.assignCase.errors.invalidPostcode,
           ft_welsh: false
         });
       });

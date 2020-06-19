@@ -14,7 +14,7 @@ const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
-const i18n = require('locale/content');
+const content = require('locale/content');
 import * as moment from 'moment';
 const multer = require('multer');
 import * as config from 'config';
@@ -192,7 +192,7 @@ describe.skip('controllers/question', () => {
         question: {
           answer: {
             value: '',
-            error: i18n.en.question.textareaField.error.empty
+            error: content.en.question.textareaField.error.empty
           }
         },
         showEvidenceUpload: false
@@ -378,7 +378,7 @@ describe.skip('controllers/question', () => {
       await postUploadEvidence(questionService, evidenceService, false)(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith('question/upload-evidence.html', {
         questionOrdinal,
-        error: i18n.en.questionUploadEvidence.error.empty
+        error: content.en.questionUploadEvidence.error.empty
       });
     });
 
@@ -397,7 +397,7 @@ describe.skip('controllers/question', () => {
       await postUploadEvidence(questionService, evidenceService, false)(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
         'question/upload-evidence.html',
-        { questionOrdinal, error: i18n.en.questionUploadEvidence.error.fileCannotBeUploaded }
+        { questionOrdinal, error: content.en.questionUploadEvidence.error.fileCannotBeUploaded }
       );
     });
 
@@ -416,7 +416,7 @@ describe.skip('controllers/question', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('question/index.html', {
           question: {},
           showEvidenceUpload: false,
-          fileUploadError: i18n.en.questionUploadEvidence.error.fileCannotBeUploaded
+          fileUploadError: content.en.questionUploadEvidence.error.fileCannotBeUploaded
         });
       });
     });
