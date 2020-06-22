@@ -40,7 +40,7 @@
       "sendingEvidence": {
         "byEmailHeader": "Send by email",
         "byPostHeader": "Send by post",
-        "postalAddress": "<p>HMCTS SSCS<br/>PO BOX 12626<br/>Harlow<br/>CM20 9QF</p>",
+        "postalAddress": "<p>HMCTS SSCS<br>PO BOX 12626<br>Harlow<br>CM20 9QF</p>",
         "screenReaderPostalAddress": "HMCTS SSCS PO BOX 12626 Harlow CM20 9QF"
       }
     },
@@ -187,7 +187,7 @@
       }
     },
     "tribunalView": {
-      "header": "Read the tribunal's view on your appeal",
+      "header": "Read the tribunal’s view on your appeal",
       "decision": {
         "viewEntitledTo": "You are entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
         "viewEntitledToIndefinite": "You are entitled to PIP at the rate below from {{ startDate }}.",
@@ -203,14 +203,14 @@
           "Higher": "This is more than DWP initially awarded you.",
           "Lower": "This is less than DWP initially awarded you."
         },
-        "confirmAccept": "Confirm whether you accept this view at the bottom of the page, after reading the tribunal's reason below."
+        "confirmAccept": "Confirm whether you accept this view at the bottom of the page, after reading the tribunal’s reason below."
       },
       "reasonsHeader": "The reason for the tribunal’s view",
       "activitiesSummary": "PIP activities and descriptors the tribunal consider apply to your appeal",
       "dailyLivingActivitiesHeader": "Daily living activities and descriptors",
-      "dailyLivingActivitiesHeaderEmpty": "The tribunal's view is that no daily living activities apply to your appeal",
+      "dailyLivingActivitiesHeaderEmpty": "The tribunal’s view is that no daily living activities apply to your appeal",
       "mobilityActivitiesHeader": "Mobility activities and descriptors",
-      "mobilityActivitiesHeaderEmpty": "The tribunal's view is that no mobility activities apply to your appeal",
+      "mobilityActivitiesHeaderEmpty": "The tribunal’s view is that no mobility activities apply to your appeal",
       "activitiesTable": {
         "headerActivity": "Activity",
         "headerDescriptor": "Descriptor",
@@ -557,7 +557,7 @@
       "acceptRespondBy": "Please respond by {{ respondBy }}.",
       "submitResponse": "Submit response",
       "error": {
-        "emptyOnDecisionPick": "You must accept the tribunal's view or request a hearing.",
+        "emptyOnDecisionPick": "You must accept the tribunal’s view or request a hearing.",
         "emptyOnConfirm": "You need to say whether you want to accept the view or want to go back."
       }
     },
@@ -584,7 +584,7 @@
         "decision_rejected": "Your appeal has not been successful"
       },
       "reasonsHeader": "A decision has been made on your PIP benefit appeal",
-      "postInfo": "<p>A 'Decision Notice' has been emailed to you and posted to your registered address.<p/> <p>Please note that we cannot give you your decision over the phone. This is to protect your personal information.</p>"
+      "postInfo": "<p>A ‘Decision Notice’ has been emailed to you and posted to your registered address.<p/> <p>Please note that we cannot give you your decision over the phone. This is to protect your personal information.</p>"
     },
     "hearingConfirm": {
       "header": "A new tribunal panel will decide your appeal",
@@ -604,7 +604,7 @@
       },
       "booking": {
         "header": "A hearing needs to be booked for your appeal",
-        "para1": "You'll receive an email with the details of your hearing by {{ responseDate }}.",
+        "para1": "You’ll receive an email with the details of your hearing by {{ responseDate }}.",
         "para2": "If you require a hearing room with disabled access or any other support then please email the tribunal at ",
         "para3": "Include your appeal reference number on any emails to the tribunal:",
         "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_4/?pageurl="
@@ -613,18 +613,18 @@
     "postEvidence": {
       "header": "Posting evidence to the tribunal",
       "info": "Post evidence to the address below.",
-      "postalAddress": "HMCTS SSCS<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF",
+      "postalAddress": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF",
       "screenReaderPostalAddress": "HMCTS SSCS PO Box 12626 Harlow CM20 9QF",
-      "para1": "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href='/coversheet'>download a new cover sheet here</a>, if you need one.",
+      "para1": "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href=\"/coversheet\">download a new cover sheet here</a>, if you need one.",
       "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
-      "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
+      "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href=\"mailto:benefitappeals@hmcts.net\">benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
     },
     "error": {
       "error404": {
         "header": "Sorry, this page could not be found"
       },
       "error500": {
-        "header": "Sorry, we're experiencing technical difficulties",
+        "header": "Sorry, we’re experiencing technical difficulties",
         "content": "Please try again."
       }
     },
@@ -819,7 +819,7 @@
         "header": "Upload additional evidence",
         "description": {
           "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
-          "para2": "Useful evidence describes or shows how your condition affects your life. <a href='/about-evidence'><br/>Read more about what evidence the tribunal finds useful</a>"
+          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>"
         },
         "error": {
           "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
@@ -870,7 +870,7 @@
           "header": "How to provide evidence to the tribunal",
           "para1": "You can provide evidence to the tribunal by:",
           "options": "<ul><li>writing a message online</li><li>uploading files, documents or photos</li><li>sending it by post</li></ul>",
-          "cta": "<a href='/additional-evidence'>Provide evidence to the tribunal</a>"
+          "cta": "<a href=\"/additional-evidence\">Provide evidence to the tribunal</a>"
         }
       }
     },
@@ -904,7 +904,7 @@
       },
       "additionalEvidence": {
         "header": "Send evidence to the tribunal",
-        "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit your evidence</a> here."
+        "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id=\"evidence-options-link\" href=\"/additional-evidence\">submit your evidence</a> here."
       }
     },
     "hearingTab": {
@@ -935,7 +935,7 @@
     },
     "appealEvents": {
       "ADJOURNED": {
-        "heading": "Hearing didn't take place",
+        "heading": "Hearing didn’t take place",
         "content": {
           "oral": [
             "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
@@ -977,7 +977,7 @@
           ],
           "paper": [
             "The tribunal have reviewed all the information you and {{appeal.benefitType | agencyAcronym}} have provided and have reached a decision on your {{appeal.benefitType}} appeal.",
-            "The decision notice has been posted to you. This has the tribunal's decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
+            "The decision notice has been posted to you. This has the tribunal’s decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
             "Please note we cannot give you your decision over the phone. This is to protect your personal information."
           ]
         }
@@ -1066,11 +1066,11 @@
         "content": {
           "oral": [
             "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
-            "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
+            "You do not need to do anything. We’ll now book a new hearing for your appeal as soon as we can."
           ],
           "paper": [
             "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
-            "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
+            "You do not need to do anything. We’ll now book a new hearing for your appeal as soon as we can."
           ]
         }
       },
@@ -1168,7 +1168,7 @@
         },
         "arriveTitle": "When you arrive",
         "arriveDesc": {
-          "para1": "You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href='support-hearing-expenses'>Read about claiming expenses for your hearing.</a>"
+          "para1": "You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href=\"support-hearing-expenses\">Read about claiming expenses for your hearing.</a>"
         },
         "hearingRoomTitle": "The hearing room",
         "hearingRoomDesc": {
@@ -1206,11 +1206,11 @@
           "item3": "act on your behalf during the appeal (they should ask your permission first)"
         },
         "para1": "Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. ",
-        "para2": "You can get a representative at your local advice centre, law centre or <a href='https://www.citizensadvice.org.uk/'>Citizens Advice</a> You will need to register them with the tribunal.",
+        "para2": "You can get a representative at your local advice centre, law centre or <a href=\"https://www.citizensadvice.org.uk/\">Citizens Advice</a> You will need to register them with the tribunal.",
         "representative": {
           "title": "Registering a representative",
-          "para1": "We need your written authority to register someone as your representative. You can provide this information via any of the options in the <a href='/task-list'><b>Provide Evidence</b></a> tab.",
-          "para2": "Please include your representative's name, address and contact details (phone or email). If you provide their email address and mobile phone number, they will also get regular updates."
+          "para1": "We need your written authority to register someone as your representative. You can provide this information via any of the options in the <a href=\"/task-list\"><b>Provide Evidence</b></a> tab.",
+          "para2": "Please include your representative’s name, address and contact details (phone or email). If you provide their email address and mobile phone number, they will also get regular updates."
         }
       },
       "withdrawAppeal": {
@@ -1219,7 +1219,7 @@
         "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
         "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
         "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible.",
-        "para3": "You can provide this information via any of the options in the <a href='/additional-evidence'><b>Provide Evidence</b></a> tab . Or contact us on the number below."
+        "para3": "You can provide this information via any of the options in the <a href=\"/additional-evidence\"><b>Provide Evidence</b></a> tab . Or contact us on the number below."
       },
       "relatedLinks": {
         "title": "Related guidance",
@@ -1245,16 +1245,16 @@
       "message": "This is the postcode used when the appeal was registered",
       "errors": {
         "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
-        "invalidPostcode": "The details you have provided don't match, please contact us",
-        "postcodeDoesNotMatch": "The details you have provided don't match, please contact us"
+        "invalidPostcode": "The details you have provided don’t match, please contact us",
+        "postcodeDoesNotMatch": "The details you have provided don’t match, please contact us"
       }
     },
     "redirectMya": {
       "tab": "Track Your Appeal service",
       "title": "Track Your Appeal service",
-      "para1": "We have enhanced the Track Your Appeal service so that you're now able to Manage Your Appeal online. To ensure your data is kept secure, you  will need to create an account to access this service.",
-      "para2": "If you created an account when you submitted your appeal, please follow this link <a href='/sign-in'>login</a> & enter the same login details to manage your appeal.",
-      "para3": "If you did not create an account, please create one by following this link <a href='/register'>register</a>. This will enable you to manage your appeal going forward."
+      "para1": "We have enhanced the Track Your Appeal service so that you’re now able to Manage Your Appeal online. To ensure your data is kept secure, you  will need to create an account to access this service.",
+      "para2": "If you created an account when you submitted your appeal, please follow this link <a href=\"/sign-in\">login</a> & enter the same login details to manage your appeal.",
+      "para3": "If you did not create an account, please create one by following this link <a href=\"/register\">register</a>. This will enable you to manage your appeal going forward."
     },
     "notifications": {
       "register": {
@@ -1323,32 +1323,32 @@
   },
   "cy": {
     "common": {
-      "yourBenefitAppeal": "[CY] Your benefit appeal",
-      "appealDetails": "[CY] Appeal details",
-      "signIn": "[CY] Sign in",
-      "signOut": "[CY] Sign out",
-      "appealReference": "[CY] Appeal reference",
-      "contactIfProblemContinues": "[CY] Contact us if the problem continues",
-      "received": "[CY] Received:",
-      "awaiting": "[CY] Awaiting:",
-      "hearingForYourAppeal": "[CY] The hearing for your appeal",
-      "date": "[CY] Date",
-      "time": "[CY] Time",
-      "location": "[CY] Location",
-      "provideInformationOnline": "[CY] Provide your information online",
-      "uploadLettersDocumentPhotos": "[CY] Upload letters, documents or photos",
-      "sendByPost": "[CY] Send by post",
-      "submitEvidenceToTribunal": "[CY] Submit evidence to the tribunal",
-      "loading": "[CY] Loading",
-      "homePage": "[CY] Home Page",
-      "enterNewEmailAddress": "[CY] Enter your new email address",
-      "enterNewEmailAddressAgain": "[CY] Enter your new email address again",
-      "changeEmailAddress": "[CY] Change your email address",
-      "stopReceivingEmails": "[CY] Stop receiving emails",
-      "submitAnswerToTribunal": "[CY] Submit answer to the tribunal",
-      "saveForLater": "[CY] Save for later",
-      "confirm": "[CY] Confirm",
-      "extendDeadline": "[CY] Extend the deadline"
+      "yourBenefitAppeal": "Eich apêl am fudd-dal",
+      "appealDetails": "Manylion yr apêl",
+      "signIn": "Mewngofnodi",
+      "signOut": "Allgofnodi",
+      "appealReference": "Cyfeirnod yr apêl",
+      "contactIfProblemContinues": "Cysylltwch â ni os byddwch yn dal i gael anhawster",
+      "received": "Derbyniwyd:",
+      "awaiting": "Aros am:",
+      "hearingForYourAppeal": "Gwrandawiad eich apêl ",
+      "date": "Dyddiad",
+      "time": "Amser",
+      "location": "Lleoliad",
+      "provideInformationOnline": "Darparwch eich gwybodaeth ar-lein",
+      "uploadLettersDocumentPhotos": "Uwchlwythwch llythyrau, dogfennau neu luniau",
+      "sendByPost": "Anfon drwy’r post",
+      "submitEvidenceToTribunal": "Cyflwyno tystiolaeth i’r tribiwnlys",
+      "loading": "Yn llwytho",
+      "homePage": "Tudalen Gartref",
+      "enterNewEmailAddress": "Nodwch eich cyfeiriad e-bost newydd",
+      "enterNewEmailAddressAgain": "Nodwch eich cyfeiriad e-bost newydd eto",
+      "changeEmailAddress": "Newid eich cyfeiriad e-bost",
+      "stopReceivingEmails": "Rhoi stop ar gael negeseuon e-bost",
+      "submitAnswerToTribunal": "Cyflwyno ateb i’r tribiwnlys",
+      "saveForLater": "Arbed tan rhywbryd eto",
+      "confirm": "Cadarnhau",
+      "extendDeadline": "Ymestyn y terfyn amser"
     },
     "pageTitle": "[CY] Manage your appeal",
     "contactEmail": "[CY] pipappeals@justice.gov.uk",
@@ -1362,7 +1362,7 @@
       "sendingEvidence": {
         "byEmailHeader": "[CY] Send by email",
         "byPostHeader": "[CY] Send by post",
-        "postalAddress": "[CY] <p>HMCTS SSCS<br/>PO BOX 12626<br/>Harlow<br/>CM20 9QF</p>",
+        "postalAddress": "[CY] <p>HMCTS SSCS<br>PO BOX 12626<br>Harlow<br>CM20 9QF</p>",
         "screenReaderPostalAddress": "[CY] HMCTS SSCS PO BOX 12626 Harlow CM20 9QF"
       }
     },
@@ -1509,7 +1509,7 @@
       }
     },
     "tribunalView": {
-      "header": "[CY] Read the tribunal's view on your appeal",
+      "header": "[CY] Read the tribunal’s view on your appeal",
       "decision": {
         "viewEntitledTo": "[CY] You are entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
         "viewEntitledToIndefinite": "[CY] You are entitled to PIP at the rate below from {{ startDate }}.",
@@ -1525,14 +1525,14 @@
           "Higher": "[CY] This is more than DWP initially awarded you.",
           "Lower": "[CY] This is less than DWP initially awarded you."
         },
-        "confirmAccept": "[CY] Confirm whether you accept this view at the bottom of the page, after reading the tribunal's reason below."
+        "confirmAccept": "[CY] Confirm whether you accept this view at the bottom of the page, after reading the tribunal’s reason below."
       },
       "reasonsHeader": "[CY] The reason for the tribunal’s view",
       "activitiesSummary": "[CY] PIP activities and descriptors the tribunal consider apply to your appeal",
       "dailyLivingActivitiesHeader": "[CY] Daily living activities and descriptors",
-      "dailyLivingActivitiesHeaderEmpty": "[CY] The tribunal's view is that no daily living activities apply to your appeal",
+      "dailyLivingActivitiesHeaderEmpty": "[CY] The tribunal’s view is that no daily living activities apply to your appeal",
       "mobilityActivitiesHeader": "[CY] Mobility activities and descriptors",
-      "mobilityActivitiesHeaderEmpty": "[CY] The tribunal's view is that no mobility activities apply to your appeal",
+      "mobilityActivitiesHeaderEmpty": "[CY] The tribunal’s view is that no mobility activities apply to your appeal",
       "activitiesTable": {
         "headerActivity": "[CY] Activity",
         "headerDescriptor": "[CY] Descriptor",
@@ -1879,7 +1879,7 @@
       "acceptRespondBy": "[CY] Please respond by {{ respondBy }}.",
       "submitResponse": "[CY] Submit response",
       "error": {
-        "emptyOnDecisionPick": "[CY] You must accept the tribunal's view or request a hearing.",
+        "emptyOnDecisionPick": "[CY] You must accept the tribunal’s view or request a hearing.",
         "emptyOnConfirm": "[CY] You need to say whether you want to accept the view or want to go back."
       }
     },
@@ -1906,7 +1906,7 @@
         "decision_rejected": "[CY] Your appeal has not been successful"
       },
       "reasonsHeader": "[CY] A decision has been made on your PIP benefit appeal",
-      "postInfo": "[CY] <p>A 'Decision Notice' has been emailed to you and posted to your registered address.<p/> <p>Please note that we cannot give you your decision over the phone. This is to protect your personal information.</p>"
+      "postInfo": "[CY] <p>A ‘Decision Notice’ has been emailed to you and posted to your registered address.<p/> <p>Please note that we cannot give you your decision over the phone. This is to protect your personal information.</p>"
     },
     "hearingConfirm": {
       "header": "[CY] A new tribunal panel will decide your appeal",
@@ -1926,7 +1926,7 @@
       },
       "booking": {
         "header": "[CY] A hearing needs to be booked for your appeal",
-        "para1": "[CY] You'll receive an email with the details of your hearing by {{ responseDate }}.",
+        "para1": "[CY] You’ll receive an email with the details of your hearing by {{ responseDate }}.",
         "para2": "[CY] If you require a hearing room with disabled access or any other support then please email the tribunal at ",
         "para3": "[CY] Include your appeal reference number on any emails to the tribunal:",
         "exitLink": "[CY] https://www.smartsurvey.co.uk/s/COR_ExitSurvey_4/?pageurl="
@@ -1935,18 +1935,18 @@
     "postEvidence": {
       "header": "[CY] Posting evidence to the tribunal",
       "info": "[CY] Post evidence to the address below.",
-      "postalAddress": "[CY] HMCTS SSCS<br/>PO Box 12626<br/>Harlow<br/>CM20 9QF",
+      "postalAddress": "[CY] HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF",
       "screenReaderPostalAddress": "[CY] HMCTS SSCS PO Box 12626 Harlow CM20 9QF",
-      "para1": "[CY] You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href='/coversheet'>download a new cover sheet here</a>, if you need one.",
+      "para1": "[CY] You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href=\"/coversheet\">download a new cover sheet here</a>, if you need one.",
       "para2": "[CY] Try to post it as soon as possible to avoid delaying your appeal.",
-      "para3": "[CY] If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
+      "para3": "[CY] If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href=\"mailto:benefitappeals@hmcts.net\">benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
     },
     "error": {
       "error404": {
         "header": "[CY] Sorry, this page could not be found"
       },
       "error500": {
-        "header": "[CY] Sorry, we're experiencing technical difficulties",
+        "header": "[CY] Sorry, we’re experiencing technical difficulties",
         "content": "[CY] Please try again."
       }
     },
@@ -2141,7 +2141,7 @@
         "header": "[CY] Upload additional evidence",
         "description": {
           "para1": "[CY] You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
-          "para2": "[CY] Useful evidence describes or shows how your condition affects your life. <a href='/about-evidence'><br/>Read more about what evidence the tribunal finds useful</a>"
+          "para2": "[CY] Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>"
         },
         "error": {
           "emptyDescription": "[CY] You have not entered a description. Enter a brief description of the evidence you want to upload.",
@@ -2192,7 +2192,7 @@
           "header": "[CY] How to provide evidence to the tribunal",
           "para1": "[CY] You can provide evidence to the tribunal by:",
           "options": "[CY] <ul><li>writing a message online</li><li>uploading files, documents or photos</li><li>sending it by post</li></ul>",
-          "cta": "[CY] <a href='/additional-evidence'>Provide evidence to the tribunal</a>"
+          "cta": "[CY] <a href=\"/additional-evidence\">Provide evidence to the tribunal</a>"
         }
       }
     },
@@ -2226,7 +2226,7 @@
       },
       "additionalEvidence": {
         "header": "[CY] Send evidence to the tribunal",
-        "content": "[CY] If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id='evidence-options-link' href='/additional-evidence'>submit your evidence</a> here."
+        "content": "[CY] If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id=\"evidence-options-link\" href=\"/additional-evidence\">submit your evidence</a> here."
       }
     },
     "hearingTab": {
@@ -2257,7 +2257,7 @@
     },
     "appealEvents": {
       "ADJOURNED": {
-        "heading": "[CY] Hearing didn't take place",
+        "heading": "[CY] Hearing didn’t take place",
         "content": {
           "oral": [
             "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
@@ -2299,7 +2299,7 @@
           ],
           "paper": [
             "The tribunal have reviewed all the information you and {{appeal.benefitType | agencyAcronym}} have provided and have reached a decision on your {{appeal.benefitType}} appeal.",
-            "The decision notice has been posted to you. This has the tribunal's decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
+            "The decision notice has been posted to you. This has the tribunal’s decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
             "Please note we cannot give you your decision over the phone. This is to protect your personal information."
           ]
         }
@@ -2388,11 +2388,11 @@
         "content": {
           "oral": [
             "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
-            "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
+            "You do not need to do anything. We’ll now book a new hearing for your appeal as soon as we can."
           ],
           "paper": [
             "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
-            "You do not need to do anything. We'll now book a new hearing for your appeal as soon as we can."
+            "You do not need to do anything. We’ll now book a new hearing for your appeal as soon as we can."
           ]
         }
       },
@@ -2490,7 +2490,7 @@
         },
         "arriveTitle": "[CY] When you arrive",
         "arriveDesc": {
-          "para1": "[CY] You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href='support-hearing-expenses'>Read about claiming expenses for your hearing.</a>"
+          "para1": "[CY] You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href=\"support-hearing-expenses\">Read about claiming expenses for your hearing.</a>"
         },
         "hearingRoomTitle": "[CY] The hearing room",
         "hearingRoomDesc": {
@@ -2528,11 +2528,11 @@
           "item3": "[CY] act on your behalf during the appeal (they should ask your permission first)"
         },
         "para1": "[CY] Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. ",
-        "para2": "[CY] You can get a representative at your local advice centre, law centre or <a href='https://www.citizensadvice.org.uk/'>Citizens Advice</a> You will need to register them with the tribunal.",
+        "para2": "[CY] You can get a representative at your local advice centre, law centre or <a href=\"https://www.citizensadvice.org.uk/\">Citizens Advice</a> You will need to register them with the tribunal.",
         "representative": {
           "title": "[CY] Registering a representative",
-          "para1": "[CY] We need your written authority to register someone as your representative. You can provide this information via any of the options in the <a href='/task-list'><b>Provide Evidence</b></a> tab.",
-          "para2": "[CY] Please include your representative's name, address and contact details (phone or email). If you provide their email address and mobile phone number, they will also get regular updates."
+          "para1": "[CY] We need your written authority to register someone as your representative. You can provide this information via any of the options in the <a href=\"/task-list\"><b>Provide Evidence</b></a> tab.",
+          "para2": "[CY] Please include your representative’s name, address and contact details (phone or email). If you provide their email address and mobile phone number, they will also get regular updates."
         }
       },
       "withdrawAppeal": {
@@ -2541,7 +2541,7 @@
         "entry": "[CY] You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
         "para1": "[CY] You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
         "para2": "[CY] If you still want to withdraw your appeal then should let the tribunal know as soon as possible.",
-        "para3": "[CY] You can provide this information via any of the options in the <a href='/additional-evidence'><b>Provide Evidence</b></a> tab . Or contact us on the number below."
+        "para3": "[CY] You can provide this information via any of the options in the <a href=\"/additional-evidence\"><b>Provide Evidence</b></a> tab . Or contact us on the number below."
       },
       "relatedLinks": {
         "title": "[CY] Related guidance",
@@ -2567,16 +2567,16 @@
       "message": "[CY] This is the postcode used when the appeal was registered",
       "errors": {
         "noPostcode": "[CY] You have not entered a postcode. Enter your postcode before continuing.",
-        "invalidPostcode": "[CY] The details you have provided don't match, please contact us",
-        "postcodeDoesNotMatch": "[CY] The details you have provided don't match, please contact us"
+        "invalidPostcode": "[CY] The details you have provided don’t match, please contact us",
+        "postcodeDoesNotMatch": "[CY] The details you have provided don’t match, please contact us"
       }
     },
     "redirectMya": {
       "tab": "[CY] Track Your Appeal service",
       "title": "[CY] Track Your Appeal service",
-      "para1": "[CY] We have enhanced the Track Your Appeal service so that you're now able to Manage Your Appeal online. To ensure your data is kept secure, you  will need to create an account to access this service.",
-      "para2": "[CY] If you created an account when you submitted your appeal, please follow this link <a href='/sign-in'>login</a> & enter the same login details to manage your appeal.",
-      "para3": "[CY] If you did not create an account, please create one by following this link <a href='/register'>register</a>. This will enable you to manage your appeal going forward."
+      "para1": "[CY] We have enhanced the Track Your Appeal service so that you’re now able to Manage Your Appeal online. To ensure your data is kept secure, you  will need to create an account to access this service.",
+      "para2": "[CY] If you created an account when you submitted your appeal, please follow this link <a href=\"/sign-in\">login</a> & enter the same login details to manage your appeal.",
+      "para3": "[CY] If you did not create an account, please create one by following this link <a href=\"/register\">register</a>. This will enable you to manage your appeal going forward."
     },
     "notifications": {
       "register": {
