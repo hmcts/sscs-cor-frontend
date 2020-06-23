@@ -113,13 +113,19 @@ function getIdamCallback(
 
     try {
       if (!req.session.accessToken) {
-        logger.info('getting token');
-        const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-        logger.info('getting user details');
+        try {
+          logger.info('getting token');
+          const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
 
-        req.session.accessToken = tokenResponse.access_token;
-        req.session.serviceToken = await generateToken();
-        req.session.tya = req.query.state;
+          logger.info('getting user details');
+
+          req.session.accessToken = tokenResponse.access_token;
+          req.session.serviceToken = await generateToken();
+          req.session.tya = req.query.state;
+        } catch (error) {
+          AppInsights.trackException(new Error('Idam token verification failed for code ' + code + ' with error ' + error.message));
+          throw error;
+        }
       }
 
       const { email }: UserDetails = await idamService.getUserDetails(req.session.accessToken);
