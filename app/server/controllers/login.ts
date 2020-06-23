@@ -122,6 +122,7 @@ function getIdamCallback(
           req.session.accessToken = tokenResponse.access_token;
           req.session.serviceToken = await generateToken();
           req.session.tya = req.query.state;
+
         } catch (error) {
           const tokenError = new Error('Idam token verification failed for code ' + code + ' with error ' + error.message);
           AppInsights.trackException(tokenError);
