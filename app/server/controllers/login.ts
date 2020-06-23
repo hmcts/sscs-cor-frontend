@@ -39,8 +39,11 @@ function getLogout(idamService: IdamService) {
     req.session.destroy(error => {
       if (error) {
         logger.error(`Error destroying session ${sessionId}`);
+        AppInsights.trackException(error);
       }
       logger.info(`Session destroyed ${sessionId}`);
+      AppInsights.trackTrace(`Session destroyed ${sessionId}`);
+      AppInsights.trackEvent('MYA_USER_LOGOUT');
 
       if (req.query.redirectUrl) {
         return res.redirect(req.query.redirectUrl);
@@ -70,6 +73,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
     }
 
     logger.log(`Redirecting to [${idamUrl.href}]`);
+    AppInsights.trackEvent('MYA_REDIRECT_IDAM_LOGIN');
     return res.redirect(idamUrl.href);
   };
 }
@@ -99,6 +103,7 @@ function getIdamCallback(
       return req.session.destroy(error => {
         if (error) {
           logger.error(`Error destroying session ${sessionId}`);
+          AppInsights.trackException(error);
           throw error;
         }
         logger.info(`Session destroyed ${sessionId}`);
@@ -135,6 +140,8 @@ function getIdamCallback(
           }
         });
 
+        AppInsights.trackEvent('MYA_LOGIN_SUCCESS');
+
         if (hearings.length === 0) {
           return res.redirect(Paths.assignCase);
         } else if (hearings.length === 1) {
@@ -168,6 +175,7 @@ function getIdamCallback(
       }
     } catch (error) {
       AppInsights.trackException(error);
+      AppInsights.trackEvent('MYA_LOGIN_FAIL');
       return next(error);
     }
   };
