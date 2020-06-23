@@ -123,8 +123,10 @@ function getIdamCallback(
           req.session.serviceToken = await generateToken();
           req.session.tya = req.query.state;
         } catch (error) {
-          AppInsights.trackException(new Error('Idam token verification failed for code ' + code + ' with error ' + error.message));
-          throw error;
+          const tokenError = new Error('Idam token verification failed for code ' + code + ' with error ' + error.message);
+          AppInsights.trackException(tokenError);
+          AppInsights.trackEvent('MYA_IDAM_CODE_AUTH_ERROR');
+          throw tokenError;
         }
       }
 
