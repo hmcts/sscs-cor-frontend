@@ -1116,9 +1116,10 @@
       },
       "sendingEvidenceTitle": "Sending evidence to the tribunal",
       "sendingEvidenceDesc": {
-        "para1": "Post your evidence to the address below, as soon as possible. This is so the tribunal have time to read it before they make a decision.",
-        "para2": "Make sure you include the ‘document cover sheet’. This helps us match your evidence with your appeal. You received this cover sheet in the first letter that was sent to you about your appeal.",
-        "para3": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
+        "para1": "You can provide evidence using any of the options in the <a href='/additional-evidence'><b>Provide Evidence</b></a> tab, as soon as possible. This is so the tribunal have time to read it before they make a decision.",
+        "para2": "Or you can post your evidence to the address below.",
+        "para3": "Make sure you include the ‘document cover sheet’. This helps us match your evidence with your appeal. You received this cover sheet in the first letter that was sent to you about your appeal.",
+        "para4": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
       }
     },
     "claimExpenses": {
