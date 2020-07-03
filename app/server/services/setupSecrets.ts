@@ -15,6 +15,5 @@ export function setupKeyVaultSecrets (): void {
     setSecret('secrets.sscs.idam-sscs-oauth2-client-secret', 'idam.client.secret');
     setSecret('secrets.sscs.sscs-s2s-secret', 's2s.secret');
     setSecret('secrets.sscs.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-    setSecret('secrets.sscs.launchdarkly-key', 'featureToggles.launchDarklyKey');
   }
 }

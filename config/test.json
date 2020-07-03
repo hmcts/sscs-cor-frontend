@@ -32,8 +32,5 @@
     "outputDir": "./functional-output/crossbrowser/reports"
   },
   "apiCallTimeout" : 40000,
-  "navigationTimeout" : 140000,
-  "featureToggles": {
-    "enabled": false
-  }
+  "navigationTimeout" : 140000
 }

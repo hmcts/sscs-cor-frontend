@@ -9,35 +9,35 @@
 {% endblock %}
 
 {% block corContent %}
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
-        {% include "includes/appellant-details.html" %}
-        <p class="govuk-body-s">{{ i18n.general.sessionExpiryWarning }}</p>
-    </div>
-</div>
-
-{% include "includes/divider.html" %}
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        {{ navigationTabs('status') }}
-        <div class="task-list">
-            <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.statusTab.header }}</h2>
-            {% if stages | length %}
-                {{ statusBar(stages) }}
-            {% endif %}
-            {% if appeal.hearingType == 'cor' %}
-                {% set latestUpdate = "TBC" %}
-            {% else %}
-                {% set latestUpdate = i18n.appealEvents[appeal.status]['content'][appeal.hearingType] %}
-            {% endif %}
-            {{ panel(i18n.statusTab.panelHeader, latestUpdate | evalStatus) }}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
+            {% include "includes/appellant-details.html" %}
+            <p class="govuk-body-s">{{ i18n.general.sessionExpiryWarning }}</p>
         </div>
     </div>
-</div>
 
-{% if ft_welsh %}
-    <!-- FEATURE TOGGLE ON -->
-{% endif %}
+    {% include "includes/divider.html" %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {{ navigationTabs('status') }}
+            <div class="task-list">
+                <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.statusTab.header }}</h2>
+                {% if stages | length %}
+                    {{ statusBar(stages) }}
+                {% endif %}
+                {% if appeal.hearingType == 'cor' %}
+                    {% set latestUpdate = "TBC" %}
+                {% else %}
+                    {% set latestUpdate = i18n.appealEvents[appeal.status]['content'][appeal.hearingType] %}
+                {% endif %}
+                {{ panel(i18n.statusTab.panelHeader, latestUpdate | evalStatus) }}
+            </div>
+        </div>
+    </div>
+
+    {% if welshEnabled %}
+        <!-- FEATURE TOGGLE ON -->
+    {% endif %}
 {% endblock %}

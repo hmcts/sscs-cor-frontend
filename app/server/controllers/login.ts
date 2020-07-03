@@ -38,8 +38,11 @@ function getLogout(idamService: IdamService) {
     req.session.destroy(error => {
       if (error) {
         logger.error(`Error destroying session ${sessionId}`);
+        AppInsights.trackException(error);
       }
       logger.info(`Session destroyed ${sessionId}`);
+      AppInsights.trackTrace(`Session destroyed ${sessionId}`);
+      AppInsights.trackEvent('MYA_USER_LOGOUT');
 
       if (req.query.redirectUrl) {
         return res.redirect(req.query.redirectUrl);
@@ -68,6 +71,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
     }
 
     logger.log(`Redirecting to [${idamUrl.href}]`);
+    AppInsights.trackEvent('MYA_REDIRECT_IDAM_LOGIN');
     return res.redirect(idamUrl.href);
   };
 }
@@ -97,6 +101,7 @@ function getIdamCallback(
       return req.session.destroy(error => {
         if (error) {
           logger.error(`Error destroying session ${sessionId}`);
+          AppInsights.trackException(error);
           throw error;
         }
         logger.info(`Session destroyed ${sessionId}`);
@@ -106,13 +111,22 @@ function getIdamCallback(
 
     try {
       if (!req.session.accessToken) {
-        logger.info('getting token');
-        const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-        logger.info('getting user details');
+        try {
+          logger.info('getting token');
+          const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
 
-        req.session.accessToken = tokenResponse.access_token;
-        req.session.serviceToken = await generateToken();
-        req.session.tya = req.query.state;
+          logger.info('getting user details');
+
+          req.session.accessToken = tokenResponse.access_token;
+          req.session.serviceToken = await generateToken();
+          req.session.tya = req.query.state;
+
+        } catch (error) {
+          const tokenError = new Error('Idam token verification failed for code ' + code + ' with error ' + error.message);
+          AppInsights.trackException(tokenError);
+          AppInsights.trackEvent('MYA_IDAM_CODE_AUTH_ERROR');
+          throw tokenError;
+        }
       }
 
       const { email }: UserDetails = await idamService.getUserDetails(req.session.accessToken);
@@ -131,6 +145,8 @@ function getIdamCallback(
             throw new Error('Case ID cannot be empty');
           }
         });
+
+        AppInsights.trackEvent('MYA_LOGIN_SUCCESS');
 
         if (hearings.length === 0) {
           return res.redirect(Paths.assignCase);
@@ -165,6 +181,7 @@ function getIdamCallback(
       }
     } catch (error) {
       AppInsights.trackException(error);
+      AppInsights.trackEvent('MYA_LOGIN_FAIL');
       return next(error);
     }
   };
