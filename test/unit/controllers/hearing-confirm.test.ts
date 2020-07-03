@@ -27,10 +27,7 @@ describe('controllers/hearing-confirm', () => {
     };
     req = {
       session: {
-        hearing: hearingDetails,
-        featureToggles: {
-          ft_welsh: false
-        }
+        hearing: hearingDetails
       },
       body: {
         'new-hearing': 'yes'
@@ -71,8 +68,7 @@ describe('controllers/hearing-confirm', () => {
 
       it('renders the view with the error message', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('hearing-confirm/index.html', {
-          error: content.en.hearingConfirm.error.text,
-          ft_welsh: false
+          error: content.en.hearingConfirm.error.text
         });
       });
     });

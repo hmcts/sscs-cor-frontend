@@ -27,10 +27,7 @@ describe('controllers/login', () => {
     req = {
       session: {
         question: {},
-        destroy: sinon.stub().yields(),
-        featureToggles: {
-          ft_welsh: false
-        }
+        destroy: sinon.stub().yields()
       },
       body: {
         'email-address': 'test@example.com'
@@ -371,14 +368,14 @@ describe('controllers/login', () => {
               case_id: 12345,
               case_reference: '12345',
               online_hearing_id: '1'
-            }, {
+            },
+            {
               appellant_name: 'John Smith',
               case_id: 12345,
               case_reference: '12345',
               online_hearing_id: '1'
             }]
-          },
-          ft_welsh: false
+          }
         });
       });
     });
@@ -467,8 +464,7 @@ describe('controllers/login', () => {
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: '<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>',
           errorHeader: 'There is no benefit appeal associated with this email address',
-          registerUrl,
-          ft_welsh: false
+          registerUrl
         });
       });
 
@@ -481,8 +477,7 @@ describe('controllers/login', () => {
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: content.en.login.failed.technicalError.body,
-          errorHeader: content.en.login.failed.technicalError.header,
-          ft_welsh: false
+          errorHeader: content.en.login.failed.technicalError.header
         });
       });
 
@@ -495,8 +490,7 @@ describe('controllers/login', () => {
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: '<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>',
-          errorHeader: 'You cannot access this service',
-          ft_welsh: false
+          errorHeader: 'You cannot access this service'
         });
       });
     });

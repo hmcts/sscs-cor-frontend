@@ -16,9 +16,6 @@ describe('controllers/history', () => {
         appeal: {
           latestEvents: [],
           historicalEvents: []
-        },
-        featureToggles: {
-          ft_welsh: false
         }
       },
       cookies: {}

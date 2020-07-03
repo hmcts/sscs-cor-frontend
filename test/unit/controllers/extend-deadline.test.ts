@@ -19,9 +19,6 @@ describe('controllers/extend-deadline', () => {
         online_hearing_id: '1234',
         deadline: deadline,
         extensionCount: 0
-      },
-      featureToggles: {
-        ft_welsh: false
       }
     }
   };
@@ -42,8 +39,7 @@ describe('controllers/extend-deadline', () => {
     it('should call render with the template', async () => {
       getIndex(req, res);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
-        hearing: req.session.hearing,
-        ft_welsh: false
+        hearing: req.session.hearing
       });
     });
   });
@@ -64,8 +60,7 @@ describe('controllers/extend-deadline', () => {
       await extensionConfirmation(hearingService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         deadline: deadline,
-        extend: 'no',
-        ft_welsh: false
+        extend: 'no'
       });
     });
 
@@ -77,8 +72,7 @@ describe('controllers/extend-deadline', () => {
       await extensionConfirmation(hearingService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
         deadline: extendDeadline,
-        extend: 'yes',
-        ft_welsh: false
+        extend: 'yes'
       });
       expect(req.session.hearing.deadline).to.equal(extendDeadline);
     });
@@ -87,8 +81,7 @@ describe('controllers/extend-deadline', () => {
       req.body = {};
       await extensionConfirmation(hearingService)(req, res, next);
       expect(res.render).to.have.been.calledWith('extend-deadline/index.html', {
-        error: true,
-        ft_welsh: false
+        error: true
       });
     });
 
