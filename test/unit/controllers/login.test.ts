@@ -27,10 +27,7 @@ describe('controllers/login', () => {
     req = {
       session: {
         question: {},
-        destroy: sinon.stub().yields(),
-        featureToggles: {
-          ft_welsh: false
-        }
+        destroy: sinon.stub().yields()
       },
       body: {
         'email-address': 'test@example.com'
@@ -47,11 +44,13 @@ describe('controllers/login', () => {
     next = sinon.stub();
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackTrace');
+    sinon.stub(AppInsights, 'trackEvent');
   });
 
   afterEach(() => {
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackTrace as sinon.SinonStub).restore();
+    (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
   describe('#redirectToLogin', () => {
@@ -169,6 +168,31 @@ describe('controllers/login', () => {
       });
     });
 
+    describe('throw exception because idam 400', () => {
+      it('throw error', async() => {
+
+        const error400 = new Error('400 Not Authorised');
+
+        let hearingServiceStub;
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        req.query = {
+          'code': 'badCode'
+        };
+        const redirectToIdam = sinon.stub();
+        const idamServiceStub = {
+          getToken: sinon.stub().rejects(error400)
+        } as IdamService;
+
+        hearingServiceStub = {} as HearingService;
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
+
+        expect(AppInsights.trackEvent).to.have.been.called.calledWith('MYA_IDAM_CODE_AUTH_ERROR');
+        expect(AppInsights.trackEvent).to.have.been.called.calledWith('MYA_LOGIN_FAIL');
+
+      });
+    });
+
     describe('throw exception because no caseId', () => {
       it('throw error', async() => {
         sinon.stub(Service2Service, 'generateToken').returns(3);
@@ -194,6 +218,7 @@ describe('controllers/login', () => {
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
         const error = new Error('Case ID cannot be empty');
         expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+        expect(AppInsights.trackEvent).to.have.been.calledOnce.calledWith('MYA_LOGIN_FAIL');
         expect(next).to.have.been.calledWith(sinon.match.has('message', error.message));
       });
     });
@@ -263,6 +288,10 @@ describe('controllers/login', () => {
 
       it('logs AppInsights trace log', () => {
         expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[12345] - User logged in successfully as someEmail@example.com`);
+      });
+
+      it('publishes AppInsights event', () => {
+        expect(AppInsights.trackEvent).to.have.been.calledOnce.calledWith(`MYA_LOGIN_SUCCESS`);
       });
 
       it('redirects to task list page', () => {
@@ -339,14 +368,14 @@ describe('controllers/login', () => {
               case_id: 12345,
               case_reference: '12345',
               online_hearing_id: '1'
-            }, {
+            },
+            {
               appellant_name: 'John Smith',
               case_id: 12345,
               case_reference: '12345',
               online_hearing_id: '1'
             }]
-          },
-          ft_welsh: false
+          }
         });
       });
     });
@@ -435,8 +464,7 @@ describe('controllers/login', () => {
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: '<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>',
           errorHeader: 'There is no benefit appeal associated with this email address',
-          registerUrl,
-          ft_welsh: false
+          registerUrl
         });
       });
 
@@ -449,8 +477,7 @@ describe('controllers/login', () => {
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: content.en.login.failed.technicalError.body,
-          errorHeader: content.en.login.failed.technicalError.header,
-          ft_welsh: false
+          errorHeader: content.en.login.failed.technicalError.header
         });
       });
 
@@ -463,8 +490,7 @@ describe('controllers/login', () => {
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
           errorBody: '<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>',
-          errorHeader: 'You cannot access this service',
-          ft_welsh: false
+          errorHeader: 'You cannot access this service'
         });
       });
     });

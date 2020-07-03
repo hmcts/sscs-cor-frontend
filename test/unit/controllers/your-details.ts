@@ -18,9 +18,6 @@ describe('controllers/your-details', () => {
         },
         subscriptions: {
           appellant: {}
-        },
-        featureToggles: {
-          ft_welsh: false
         }
       },
       cookies: {}
@@ -57,12 +54,8 @@ describe('controllers/your-details', () => {
       req.cookies.manageYourAppeal = 'true';
       yourDetails.getYourDetails(req, res);
 
-      expect(res.render).to.have.been.calledOnce.calledWith('your-details.html', {
-        details: req.session.hearing,
-        subscriptions: req.session.subscriptions,
-        contact: req.session.appeal.contact,
-        ft_welsh: false
-      });
+      expect(res.render).to.have.been.calledOnce.calledWith('your-details.html', { details: req.session.hearing,
+        subscriptions: req.session.subscriptions, contact: req.session.appeal.contact });
     });
   });
 });

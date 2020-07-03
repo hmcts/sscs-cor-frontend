@@ -18,4 +18,3 @@ test/unit/**/*.js
 test/*.js
 test/chai-sinon.js
 .terraform/
-dev.yaml

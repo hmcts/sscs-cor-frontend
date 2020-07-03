@@ -14,23 +14,19 @@ const postcodeRegex = /^((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2
 const logger = Logger.getLogger('login.js');
 
 function getIndex(req: Request, res: Response) {
-  return res.render('assign-case/index.html', {
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  return res.render('assign-case/index.html', {});
 }
 
 function postIndex(hearingService: HearingService, trackYourAppealService: TrackYourApealService) {
   return async (req: Request, res: Response) => {
     if (!req.body.postcode || !req.body.postcode.trim()) {
       return res.render('assign-case/index.html', {
-        error: content[i18next.language].assignCase.errors.noPostcode,
-        ft_welsh: req.session.featureToggles.ft_welsh
+        error: content[i18next.language].assignCase.errors.noPostcode
       });
     } else {
       if (!req.body.postcode.replace(/ /g,'').match(postcodeRegex)) {
         return res.render('assign-case/index.html', {
-          error: content[i18next.language].assignCase.errors.invalidPostcode,
-          ft_welsh: req.session.featureToggles.ft_welsh
+          error: content[i18next.language].assignCase.errors.invalidPostcode
         });
       }
     }
@@ -41,8 +37,7 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
 
     if (statusCode !== OK) {
       return res.render('assign-case/index.html', {
-        error: content[i18next.language].assignCase.errors.postcodeDoesNotMatch,
-        ft_welsh: req.session.featureToggles.ft_welsh
+        error: content[i18next.language].assignCase.errors.postcodeDoesNotMatch
       });
     }
 

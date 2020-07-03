@@ -9,9 +9,7 @@ import { tribunalViewAcceptedValidation } from '../utils/fieldValidation';
 function getTribunalViewConfirm(req: Request, res: Response) {
   const hearing: OnlineHearing = req.session.hearing;
   if (hearing.decision && hearing.decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE) {
-    return res.render('tribunal-view-confirm.html', {
-      ft_welsh: req.session.featureToggles.ft_welsh
-    });
+    return res.render('tribunal-view-confirm.html');
   }
   return res.redirect(Paths.logout);
 }
@@ -22,10 +20,7 @@ function postTribunalViewConfirm(hearingService) {
     const acceptView = req.body['accept-view'];
     const validationMessage = tribunalViewAcceptedValidation(acceptView, true);
     if (validationMessage) {
-      return res.render('tribunal-view-confirm.html', {
-        error: validationMessage,
-        ft_welsh: req.session.featureToggles.ft_welsh
-      });
+      return res.render('tribunal-view-confirm.html', { error: validationMessage });
     }
     if (acceptView === 'yes') {
       try {

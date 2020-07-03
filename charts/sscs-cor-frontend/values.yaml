@@ -30,7 +30,6 @@ nodejs:
         - idam-sscs-oauth2-client-secret
         - sscs-s2s-secret
         - AppInsightsInstrumentationKey
-        - launchdarkly-key
 redis:
   enabled: false
   cluster:

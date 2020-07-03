@@ -13,10 +13,7 @@ describe('controllers/hearing', () => {
     sandbox = sinon.sandbox.create();
     req = {
       session: {
-        appeal: {},
-        featureToggles: {
-          ft_welsh: false
-        }
+        appeal: {}
       },
       cookies: {}
     } as any;
@@ -56,24 +53,14 @@ describe('controllers/hearing', () => {
       };
       req.session.hearing = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', {
-        attending: true,
-        hearingInfo: oralHearing.appeal.historicalEvents[0],
-        hearingArrangements,
-        ft_welsh: false
-      });
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: oralHearing.appeal.historicalEvents[0], hearingArrangements });
     });
 
     it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async() => {
       req.cookies.manageYourAppeal = 'true';
       req.session.appeal.hearingType = 'paper';
       hearing.getHearing(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', {
-        attending: false,
-        hearingArrangements: {},
-        hearingInfo: undefined,
-        ft_welsh: false
-      });
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: false, hearingArrangements: {}, hearingInfo: undefined });
     });
   });
 });

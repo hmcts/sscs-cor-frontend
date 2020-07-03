@@ -21,11 +21,7 @@ function getLogin(req: Request, res: Response) {
   res.append('Content-Type', 'text/html');
   // use the redirect url in request for the final redirect
   const { redirect_uri, state } = req.query;
-  res.render('login.html', {
-    redirect_uri,
-    state,
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  res.render('login.html', { redirect_uri, state });
 }
 
 async function postLogin(req: Request, res: Response) {

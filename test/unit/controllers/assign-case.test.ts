@@ -21,18 +21,11 @@ describe('controllers/assign-case.js', () => {
   describe('getIndex', () => {
     it('should render assign-case page', () => {
       req = {
-        session: {
-          featureToggles: {
-            ft_welsh: false
-          }
-        },
         query: {}
       } as any;
 
       getIndex(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', {
-        ft_welsh: false
-      });
+      expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', {});
     });
   });
 
@@ -117,13 +110,7 @@ describe('controllers/assign-case.js', () => {
 
       beforeEach(() => {
         req = {
-          session: {
-            idamEmail,
-            tya,
-            featureToggles: {
-              ft_welsh: false
-            }
-          },
+          session: { idamEmail, tya },
           body: { postcode }
         } as any;
 
@@ -133,10 +120,7 @@ describe('controllers/assign-case.js', () => {
       it('redirects to task-list', async () => {
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', {
-          error: content.en.assignCase.errors.noPostcode,
-          ft_welsh: false
-        });
+        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.noPostcode });
       });
     });
 
@@ -145,13 +129,7 @@ describe('controllers/assign-case.js', () => {
 
       beforeEach(() => {
         req = {
-          session: {
-            idamEmail,
-            tya,
-            featureToggles: {
-              ft_welsh: false
-            }
-          },
+          session: { idamEmail, tya },
           body: { postcode }
         } as any;
 
@@ -161,10 +139,7 @@ describe('controllers/assign-case.js', () => {
       it('redirects to task-list', async () => {
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', {
-          error: content.en.assignCase.errors.invalidPostcode,
-          ft_welsh: false
-        });
+        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.invalidPostcode });
       });
     });
   });

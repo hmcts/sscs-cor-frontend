@@ -12,10 +12,7 @@ function getSubmitQuestion(questionService: QuestionService) {
       return res.redirect(Paths.taskList);
     }
     const questionOrdinal: string = req.params.questionOrdinal;
-    res.render('submit-question.html', {
-      questionOrdinal,
-      ft_welsh: req.session.featureToggles.ft_welsh
-    });
+    res.render('submit-question.html', { questionOrdinal });
   };
 }
 

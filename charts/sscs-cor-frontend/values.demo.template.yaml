@@ -13,7 +13,6 @@ nodejs:
         - sscs-cor-idam-client-secret
         - idam-sscs-oauth2-client-secret
         - sscs-s2s-secret
-        - launchdarkly-key
 redis:
   enabled: true
 idam-pr:

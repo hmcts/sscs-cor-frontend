@@ -10,11 +10,7 @@ describe('controllers/policies.js', () => {
 
   beforeEach(() => {
     req = {
-      session: {
-        featureToggles: {
-          ft_welsh: false
-        }
-      }
+      session: {}
     } as any;
     res = {
       render: sinon.spy(),
@@ -25,9 +21,7 @@ describe('controllers/policies.js', () => {
   describe('getCookiePrivacy', () => {
     it('renders Cookie Policy page', async() => {
       await getCookiePrivacy(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('policy-pages/cookie-privacy.html', {
-        ft_welsh: false
-      });
+      expect(res.render).to.have.been.calledOnce.calledWith('policy-pages/cookie-privacy.html');
     });
   });
 

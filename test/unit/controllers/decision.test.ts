@@ -28,10 +28,7 @@ describe('controllers/decision.js', () => {
     };
     req = {
       session: {
-        hearing: hearingDetails,
-        featureToggles: {
-          ft_welsh: false
-        }
+        hearing: hearingDetails
       }
     } as any;
     res = {
@@ -45,8 +42,7 @@ describe('controllers/decision.js', () => {
       await getDecision(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('decision.html', {
         decision: hearingDetails.decision,
-        final_decision: hearingDetails.final_decision.reason,
-        ft_welsh: false
+        final_decision: hearingDetails.final_decision.reason
       });
     });
 

@@ -1,10 +1,6 @@
 const express = require('express');
 import * as Paths from './paths';
 import * as config from 'config';
-const CONF = require('config');
-const i18next = require('i18next');
-const FeatureToggle = require('./utils/featureToggle');
-
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
@@ -91,31 +87,12 @@ const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ens
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
 const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService });
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
-const featureToggle = new FeatureToggle();
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   res.header('Pragma', 'no-cache');
   res.header('Expires', 0);
   next();
-});
-
-router.use((req, res, next) => {
-  if (req.query && req.query.lng && CONF.languages.includes(req.query.lng)) {
-    i18next.changeLanguage(req.query.lng);
-  }
-
-  next();
-});
-
-router.use((req, res, next) => {
-  res.locals.launchDarkly = {};
-
-  next();
-});
-
-router.get('*', (req, res, next) => {
-  return featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_welsh', featureToggle.toggleFeature);
 });
 
 router.use(idamStubController);
@@ -152,10 +129,7 @@ router.get('/robots.txt', (req, res) => {
 });
 
 router.get('/manage-email-notifications/:mactoken', validateToken, (req, res, next) => {
-  res.render('manage-emails', {
-    mactoken: req.params.mactoken,
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  res.render('manage-emails', { mactoken: req.params.mactoken });
 });
 
 router.post('/manage-email-notifications/:mactoken', validateToken, notificationRedirect, (req, res, next) => {
@@ -163,44 +137,23 @@ router.post('/manage-email-notifications/:mactoken', validateToken, notification
 });
 
 router.get('/manage-email-notifications/:mactoken/stop', validateToken, emailNotifications, (req, res) => {
-  res.render('emails-stop', {
-    mactoken: req.params.mactoken,
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  res.render('emails-stop', { mactoken: req.params.mactoken });
 });
 
 router.get('/manage-email-notifications/:mactoken/stopconfirm', validateToken, stopReceivingEmails, emailNotifications, (req, res, next) => {
-  res.render('emails-stop-confirmed', {
-    data: {
-      appealNumber: res.locals.token.appealId
-    },
-    mactoken: req.params.mactoken,
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  res.render('emails-stop-confirmed', { data: { appealNumber: res.locals.token.appealId }, mactoken: req.params.mactoken });
 });
 
 router.get('/manage-email-notifications/:mactoken/change', validateToken, (req, res) => {
-  res.render('email-address-change', {
-    mactoken: req.params.mactoken,
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  res.render('email-address-change', { mactoken: req.params.mactoken });
 });
 
 router.post('/manage-email-notifications/:mactoken/change', validateToken, validateEmail, changeEmailAddress, emailNotifications, (req, res, next) => {
-  res.render('email-address-change-confirmed', {
-    data: {
-      email: req.body.email
-    },
-    mactoken: req.params.mactoken,
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  res.render('email-address-change-confirmed', { data: { email: req.body.email }, mactoken: req.params.mactoken });
 });
 
 router.get('/validate-surname/:tya/trackyourappeal', loginController, (req, res, next) => {
-  res.render('redirect-mya', {
-    state: req.params.tya,
-    ft_welsh: req.session.featureToggles.ft_welsh
-  });
+  res.render('redirect-mya', { state: req.params.tya });
 });
 
 export { router };

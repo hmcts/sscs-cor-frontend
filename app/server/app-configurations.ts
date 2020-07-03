@@ -10,6 +10,7 @@ const { lowerCase } = require('lodash');
 const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
+import * as config from 'config';
 const i18next = require('i18next');
 
 function configureHelmet(app) {
@@ -82,6 +83,8 @@ function configureNunjucks(app: express.Application) {
     noCache:  true
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
+  nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH || config.get(`featureFlags.welsh`));
+
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
     const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
@@ -97,7 +100,6 @@ function configureNunjucks(app: express.Application) {
       logger.error(`Error rendering text eval: ${JSON.stringify(error)} : ${text}`);
       return 'Error rendering text';
     }
-
   });
   nunEnv.addFilter('isArray', function(input) {
     return Array.isArray(input);
