@@ -34,10 +34,7 @@ describe('controllers/additional-evidence.js', () => {
           case_reference: 'mockedCaseRef',
           case_id: '1234567890'
         },
-        additional_evidence: {},
-        featureToggles: {
-          ft_welsh: false
-        }
+        additional_evidence: {}
       },
       body: {},
       file: null,
@@ -73,8 +70,7 @@ describe('controllers/additional-evidence.js', () => {
 
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
-      postBulkScan: false,
-      ft_welsh: false
+      postBulkScan: false
     });
   });
 
@@ -91,8 +87,7 @@ describe('controllers/additional-evidence.js', () => {
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'upload',
       description,
-      evidences: [],
-      ft_welsh: false
+      evidences: []
     });
   });
 
@@ -116,8 +111,7 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'statement',
-      postBulkScan: false,
-      ft_welsh: false
+      postBulkScan: false
     });
   });
 
@@ -126,8 +120,7 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'post',
-      postBulkScan: false,
-      ft_welsh: false
+      postBulkScan: false
     });
   });
 
@@ -136,8 +129,7 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
-      postBulkScan: false,
-      ft_welsh: false
+      postBulkScan: false
     });
   });
 
@@ -179,8 +171,7 @@ describe('controllers/additional-evidence.js', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
         action: 'statement',
         pageTitleError: true,
-        error: content.en.question.textareaField.errorOnSave.empty,
-        ft_welsh: false
+        error: content.en.question.textareaField.errorOnSave.empty
       });
     });
 
@@ -246,8 +237,7 @@ describe('controllers/additional-evidence.js', () => {
         evidences: [],
         description: '',
         error: content.en.additionalEvidence.evidenceUpload.error.emptyDescription,
-        fileUploadError: content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded,
-        ft_welsh: false
+        fileUploadError: content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded
       });
     });
 
@@ -283,8 +273,7 @@ describe('controllers/additional-evidence.js', () => {
         pageTitleError: true,
         evidences: [],
         description: '',
-        fileUploadError: fileSizeErrorMsg,
-        ft_welsh: false
+        fileUploadError: fileSizeErrorMsg
       });
     });
 

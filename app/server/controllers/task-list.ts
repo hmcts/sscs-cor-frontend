@@ -41,8 +41,7 @@ function getTaskList(questionService: QuestionService) {
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
         questions: req.session.questions || [],
-        hearingType,
-        ft_welsh: req.session.featureToggles.ft_welsh
+        hearingType
       });
     } catch (error) {
       AppInsights.trackException(error);
@@ -53,10 +52,7 @@ function getTaskList(questionService: QuestionService) {
 
 function getEvidencePost(req: Request, res: Response, next: NextFunction) {
   try {
-    res.render('post-evidence.html', {
-      postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
-      ft_welsh: req.session.featureToggles.ft_welsh
-    });
+    res.render('post-evidence.html', { postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies) });
   } catch (error) {
     AppInsights.trackException(error);
     next(error);
