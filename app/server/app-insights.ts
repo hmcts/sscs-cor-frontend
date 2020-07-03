@@ -19,6 +19,12 @@ export const trackException = exception => {
   }
 };
 
+export const trackEvent = name => {
+  if (applicationInsights.defaultClient) {
+    applicationInsights.defaultClient.trackEvent({ name });
+  }
+};
+
 export const trackTrace = message => {
   if (applicationInsights.defaultClient) {
     applicationInsights.defaultClient.trackTrace({ message });
