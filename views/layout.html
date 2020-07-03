@@ -32,7 +32,7 @@
 
 {% block beforeContent %}
     {% set phaseBarHtml = content.en.phaseBanner.new + '<a class="govuk-link" href="'+ content.en.general.exitLink + pageHeader + '" target="_blank">' + content.en.phaseBanner.report + "</a> " + content.en.phaseBanner.improve %}
-    {% if ft_welsh %}
+    {% if welshEnabled %}
         {% set phaseBarHtml = phaseBarHtml + content.en.phaseBanner.languageToggle %}
     {% endif %}
 
