@@ -71,7 +71,6 @@ function configureHeaders(app) {
 }
 
 function configureNunjucks(app: express.Application) {
-
   const nunEnv = nunjucks.configure([
     'views',
     'views/notifications',

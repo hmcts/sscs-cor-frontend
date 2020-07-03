@@ -1,8 +1,6 @@
 const express = require('express');
 import * as Paths from './paths';
 import * as config from 'config';
-const FeatureToggle = require('./utils/featureToggle');
-
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
@@ -89,23 +87,12 @@ const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ens
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
 const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService });
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
-const featureToggle = new FeatureToggle();
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   res.header('Pragma', 'no-cache');
   res.header('Expires', 0);
   next();
-});
-
-router.use((req, res, next) => {
-  res.locals.launchDarkly = {};
-
-  next();
-});
-
-router.get('*', (req, res, next) => {
-  return featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_welsh', featureToggle.toggleFeature);
 });
 
 router.use(idamStubController);

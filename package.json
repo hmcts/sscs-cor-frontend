@@ -8,7 +8,6 @@
   },
   "scripts": {
     "start": "node server.js",
-    "start:ld": "NODE_ENV=dev node server.js",
     "dev": "yarn build:dev && TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=development nodemon",
     "dev-docker": "concurrently \"yarn build:dev && TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=docker nodemon\" \"yarn mock-api\"",
     "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\"",
@@ -76,7 +75,6 @@
     "ioredis": "^4.2.0",
     "joi": "^13.5.2",
     "jquery": "^3.3.1",
-    "launchdarkly-node-server-sdk": "^5.13.1",
     "lodash": "^4.17.10",
     "moment": "^2.18.1",
     "multer": "^1.4.2",
