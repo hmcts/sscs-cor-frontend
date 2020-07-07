@@ -40,11 +40,13 @@
     }
   },
   "taskList": {
-    "header": "Your PIP benefit appeal",
+    "header": "Your benefit appeal",
+    "header1": "Your",
+    "header2": "benefit appeal",
     "noQuestions": "You have no questions from the tribunal",
     "deadline": {
       "pending": "You need to respond by ",
-      "completed": "You have answered all the questions and submmitted them to the tribunal.",
+      "completed": "You have answered all the questions and submitted them to the tribunal.",
       "expired": "Deadline to respond expired on "
     },
     "answerState": {
