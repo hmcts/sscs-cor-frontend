@@ -1,40 +1,73 @@
-import * as request from 'request-promise';
-import { OK, SERVICE_UNAVAILABLE } from 'http-status-codes';
+import { OK } from 'http-status-codes';
 import * as AppInsights from '../app-insights';
-const { Logger } = require('@hmcts/nodejs-logging');
+const ioRedis = require('ioredis');
+const os = require('os');
 const healthCheck = require('@hmcts/nodejs-healthcheck');
+const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
+const config = require('config');
 
-const logger = Logger.getLogger('health.js');
-const apiUrl: string = require('config').get('api.url');
+const client = ioRedis.createClient(
+        config.session.redis.url,
+        { enableOfflineQueue: false }
+);
 
-async function getApiHealth(): Promise<string> {
-  try {
-    const result: request.Response = await request.get({
-      uri: `${apiUrl}/health`,
-      resolveWithFullResponse: true
-    });
-    return result.statusCode === OK ? 'UP' : 'DOWN';
-  } catch (error) {
-    AppInsights.trackException(error.error);
-    logger.error('Error trying to check health of API', error.error);
-    return 'DOWN';
-  }
+client.on('error', error => {
+  AppInsights.trackTrace(`Health check failed on redis: ${error}`);
+});
+
+const healthOptions = message => {
+  return {
+    callback: (error, res) => { // eslint-disable-line id-blacklist
+      if (error) {
+        AppInsights.trackTrace(`health_check_error: ${message} and error: ${error}`);
+      }
+      return !error && res.status === OK ? outputs.up() : outputs.down(error);
+    },
+    timeout: config.health.timeout,
+    deadline: config.health.deadline
+  };
+};
+
+function getHealthConfigure() {
+  return healthCheck.configure({
+    checks: {
+      redis: healthCheck.raw(() => client.ping().then(_ => healthCheck.status(_ === 'PONG'))
+      .catch(error => {
+        AppInsights.trackTrace(`Health check failed on redis: ${error}`);
+        return outputs.down(error);
+      })),
+      'submit-your-appeal-api': healthCheck.web(`${config.api.url}/health`,
+              healthOptions('Health check failed on submit-your-appeal-api:')
+      )
+    },
+    buildInfo: {
+      name: 'Manage Your Appeal',
+      host: os.hostname(),
+      uptime: process.uptime()
+    }
+  });
 }
 
-export function livenessCheck(req, res): void {
-  res.json(healthCheck.up());
+function getReadinessConfigure() {
+  return healthCheck.configure({
+    readinessChecks: {
+      redis: healthCheck.raw(() => client.ping().then(_ => healthCheck.status(_ === 'PONG'))
+      .catch(error => {
+        AppInsights.trackTrace(`Readiness check failed on redis: ${error}`);
+        return outputs.down(error);
+      })),
+      'submit-your-appeal-api': healthCheck.web(`${config.api.url}/health/readiness`,
+              healthOptions('Readiness check failed on submit-your-appeal-api:')
+      )
+    },
+    buildInfo: {
+      name: 'Manage Your Appeal',
+      host: os.hostname(),
+      uptime: process.uptime()
+    }
+  });
 }
 
-export async function readinessCheck(req, res): Promise<void> {
-  const redisStatus = req.session ? 'UP' : 'DOWN';
-  const apiStatus = await getApiHealth();
-  let appStatus = healthCheck.up();
-  let statusCode = OK;
-  if (redisStatus === 'DOWN' || apiStatus === 'DOWN') {
-    appStatus = healthCheck.down();
-    statusCode = SERVICE_UNAVAILABLE;
-  }
-  const status = { ...appStatus, ...{ redisStatus, apiStatus } };
-  res.status(statusCode);
-  res.json(status);
-}
+export {
+  getHealthConfigure, getReadinessConfigure
+};

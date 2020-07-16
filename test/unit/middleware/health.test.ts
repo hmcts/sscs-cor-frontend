@@ -3,7 +3,7 @@ const nock = require('nock');
 const { OK, INTERNAL_SERVER_ERROR, SERVICE_UNAVAILABLE } = require('http-status-codes');
 import * as AppInsights from 'app/server/app-insights';
 const config = require('config');
-import { livenessCheck, readinessCheck } from 'app/server/middleware/health';
+import { getHealthConfigure, getReadinessConfigure } from 'app/server/middleware/health';
 
 const apiUrl = config.get('api.url');
 
@@ -11,7 +11,7 @@ describe('middleware/health', () => {
   let req;
   let res;
 
-  describe('#livenessCheck', () => {
+  describe('#getHealthConfigure', () => {
     beforeEach(() => {
       req = {
         session: {}
@@ -23,12 +23,12 @@ describe('middleware/health', () => {
     });
 
     it('returns JSON with health status UP', async() => {
-      livenessCheck(req, res);
+      getHealthConfigure();
       expect(res.json).to.have.been.calledOnce.calledWith({ status: 'UP' });
     });
   });
 
-  describe('#readinessCheck', () => {
+  describe('#getReadinessConfigure', () => {
     const apiPath = '/health';
     const apiResponse = {
       status: 'UP'
@@ -51,7 +51,7 @@ describe('middleware/health', () => {
 
     it('returns JSON with health status UP', async() => {
       nock(apiUrl).get(apiPath).reply(OK, apiResponse);
-      await readinessCheck(req, res);
+      await getReadinessConfigure();
       expect(res.status).to.have.been.calledOnce.calledWith(OK);
       expect(res.json).to.have.been.calledOnce.calledWith({
         status: 'UP',
@@ -63,7 +63,7 @@ describe('middleware/health', () => {
     it('returns JSON with health status DOWN, with redis down', async() => {
       nock(apiUrl).get(apiPath).reply(OK, apiResponse);
       delete req.session;
-      await readinessCheck(req, res);
+      await getReadinessConfigure();
       expect(res.status).to.have.been.calledOnce.calledWith(SERVICE_UNAVAILABLE);
       expect(res.json).to.have.been.calledOnce.calledWith({
         status: 'DOWN',
@@ -75,7 +75,7 @@ describe('middleware/health', () => {
     it('returns JSON with health status DOWN, with API down', async() => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       nock(apiUrl).get(apiPath).replyWithError(error);
-      await readinessCheck(req, res);
+      await getReadinessConfigure();
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(res.status).to.have.been.calledOnce.calledWith(SERVICE_UNAVAILABLE);
       expect(res.json).to.have.been.calledOnce.calledWith({
