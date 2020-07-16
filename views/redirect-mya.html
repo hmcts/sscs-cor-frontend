@@ -10,12 +10,10 @@
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">{{ i18n.redirectMya.title }}</h1>
             <p class="govuk-body">{{ i18n.redirectMya.para1 | safe }}</p>
-            <p class="govuk-body">{{ i18n.redirectMya.para2 | safe }}</p>
-            <p class="govuk-body">{{ i18n.redirectMya.para3 | safe }}</p>
+            <p class="govuk-body">{{ i18n.redirectMya.para2 | eval | safe }}</p>
+            <p class="govuk-body">{{ i18n.redirectMya.para3 | eval | safe }}</p>
         </div>
     </div>
-    <input type="hidden" name="state" value="{{ state }}"/>
-
 </main>
 
 {% endblock %}
