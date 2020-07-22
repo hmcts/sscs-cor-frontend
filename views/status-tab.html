@@ -2,20 +2,19 @@
 {% from "components/navigation-tabs.html" import navigationTabs with context %}
 {% from "components/status-bar.html" import statusBar with context %}
 {% from "components/panel.html" import panel with context %}
-{% set pageHeader = i18n.taskList.header %}
+{% set pageHeader = i18n.taskList.header1 + ' ' + i18n.benefitTypes[appeal.benefitType].acronym  + ' ' + i18n.taskList.header2 %}
 
 {% block pageTitle %}
-    {{ i18n.taskList.header }} - {{ i18n.statusTab.tabHeader }} - {{ i18n.general.govUK }}
+    {{ i18n.taskList.header1 }} {{ i18n.benefitTypes[appeal.benefitType].acronym }} {{ i18n.taskList.header2 }} - {{ i18n.statusTab.tabHeader }} - {{ i18n.general.govUK }}
 {% endblock %}
 
 {% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
+            <h1 class="govuk-heading-xl">{{ i18n.taskList.header1 }} {{ i18n.benefitTypes[appeal.benefitType].acronym }} {{ i18n.taskList.header2 }}</h1>
             {% include "includes/appellant-details.html" %}
             <p class="govuk-body-s">{{ i18n.general.sessionExpiryWarning }}</p>
         </div>
-    </div>
 
     {% include "includes/divider.html" %}
 
