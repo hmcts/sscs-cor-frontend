@@ -10,7 +10,7 @@ const { lowerCase } = require('lodash');
 const locale = require('../../locale/en.json');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
-import * as config from 'config';
+const config = require('config');
 
 function configureHelmet(app) {
   // by setting HTTP headers appropriately.
