@@ -4,20 +4,19 @@
 {% from "components/status-bar.html" import statusBar with context %}
 {% from "components/panel.html" import panel with context %}
 
-{% set pageHeader = content[i18n.language].taskList.header | safe %}
+{% set pageHeader = content[i18n.language].taskList.header1 + ' ' + content[i18n.language].benefitTypes[appeal.benefitType].acronym  + ' ' + content[i18n.language].taskList.header2 %}
 
 {% block pageTitle %}
-    {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].statusTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK | safe }}
+    {{ content[i18n.language].taskList.header1 }} {{ content[i18n.language].benefitTypes[appeal.benefitType].acronym }} {{ content[i18n.language].taskList.header2 }} - {{ content[i18n.language].statusTab.tabHeader }} - {{ content[i18n.language].general.govUK }}
 {% endblock %}
 
 {% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">{{ content[i18n.language].taskList.header | safe }}</h1>
+            <h1 class="govuk-heading-xl">{{ content[i18n.language]..taskList.header1 }} {{ content[i18n.language].benefitTypes[appeal.benefitType].acronym }} {{ content[i18n.language].taskList.header2 }}</h1>
             {% include "includes/appellant-details.html" %}
             <p class="govuk-body-s">{{ content[i18n.language].general.sessionExpiryWarning | safe }}</p>
         </div>
-    </div>
 
     {% include "includes/divider.html" %}
 

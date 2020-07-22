@@ -153,7 +153,7 @@ router.post('/manage-email-notifications/:mactoken/change', validateToken, valid
 });
 
 router.get('/validate-surname/:tya/trackyourappeal', loginController, (req, res, next) => {
-  res.render('redirect-mya', { state: req.params.tya });
+  res.render('redirect-mya', { tyaNumber: req.query.tya });
 });
 
 export { router };

@@ -10,7 +10,7 @@ const { lowerCase } = require('lodash');
 const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
-import * as config from 'config';
+const config = require('config');
 const i18next = require('i18next');
 
 function configureHelmet(app) {
@@ -83,7 +83,7 @@ function configureNunjucks(app: express.Application) {
     noCache:  true
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
-  nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH || config.get(`featureFlags.welsh`));
+  nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
 
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
