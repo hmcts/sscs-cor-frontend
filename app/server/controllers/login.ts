@@ -45,7 +45,7 @@ function getLogout(idamService: IdamService) {
       AppInsights.trackEvent('MYA_USER_LOGOUT');
 
       if (req.query.redirectUrl) {
-        return res.redirect(req.query.redirectUrl);
+        return res.redirect(req.query.redirectUrl as string);
       } else {
         return res.redirect(Paths.login);
       }
@@ -65,9 +65,9 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
     idamUrl.searchParams.append('response_type', 'code');
 
     if (req.query.tya) {
-      idamUrl.searchParams.append('state', req.query.tya);
+      idamUrl.searchParams.append('state', req.query.tya as string);
     } else if (req.query.state) {
-      idamUrl.searchParams.append('state', req.query.state);
+      idamUrl.searchParams.append('state', req.query.state as string);
     }
 
     logger.log(`Redirecting to [${idamUrl.href}]`);
@@ -95,7 +95,7 @@ function getIdamCallback(
   trackYourApealService: TrackYourApealService) {
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    const code: string = req.query.code;
+    const code: string = req.query.code as string;
     if (!code) {
       const sessionId: string = req.session.id;
       return req.session.destroy(error => {

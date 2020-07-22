@@ -8,14 +8,12 @@
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ content.en.redirectMya.title }}</h1>
+            <h1 class="govuk-heading-l">{{ content.en.redirectMya.title | safe }}</h1>
             <p class="govuk-body">{{ content.en.redirectMya.para1 | safe }}</p>
             <p class="govuk-body">{{ content.en.redirectMya.para2 | safe }}</p>
             <p class="govuk-body">{{ content.en.redirectMya.para3 | safe }}</p>
         </div>
     </div>
-    <input type="hidden" name="state" value="{{ state }}"/>
-
 </main>
 
 {% endblock %}
