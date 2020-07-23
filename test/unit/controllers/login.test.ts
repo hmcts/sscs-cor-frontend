@@ -8,7 +8,7 @@ import * as Paths from 'app/server/paths';
 import { HearingService } from 'app/server/services/hearing';
 import { Feature } from '../../../app/server/utils/featureEnabled';
 const config = require('config');
-const i18n = require('locale/en');
+const content = require('locale/content');
 
 const idamUrl = config.get('idam.url');
 
@@ -397,7 +397,8 @@ describe('controllers/login', () => {
               online_hearing_id: '1',
               case_reference: '11111',
               appellant_name: 'John Smith'
-            }, {
+            },
+            {
               case_id: 22222,
               online_hearing_id: '2',
               case_reference: '22222',
@@ -474,8 +475,8 @@ describe('controllers/login', () => {
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
-          errorBody: i18n.login.failed.technicalError.body,
-          errorHeader: i18n.login.failed.technicalError.header
+          errorBody: content.en.login.failed.technicalError.body,
+          errorHeader: content.en.login.failed.technicalError.header
         });
       });
 

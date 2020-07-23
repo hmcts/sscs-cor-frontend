@@ -45,7 +45,6 @@ describe('controllers/extend-deadline', () => {
   });
 
   describe('postExtension', () => {
-
     let questions;
     let hearingService;
 

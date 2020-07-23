@@ -1,6 +1,9 @@
 interface IAppealStage {
   status: string;
-  title?: string;
+  title?: {
+    en: string,
+    cy: string
+  };
   latestUpdateText?: string;
   active?: boolean;
   showOnBar: boolean;

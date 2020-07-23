@@ -11,7 +11,7 @@ import { AdditionalEvidenceStatementPage } from 'test/page-objects/additional-ev
 import { AdditionalEvidenceConfirmationPage } from 'test/page-objects/additional-evidence-confirmation';
 import { AdditionalEvidenceUploadPage } from 'test/page-objects/additional-evidence-upload';
 import { AdditionalEvidencePostPage } from 'test/page-objects/additional-evidence-post';
-const i18n = require('locale/en');
+const content = require('locale/content');
 
 const testUrl = config.get('testUrl');
 
@@ -53,7 +53,7 @@ describe.skip('Additional Evidence', () => {
     additionalEvidencePage.verifyPage();
 
     const header = await additionalEvidencePage.getElementText('h1');
-    expect(header).to.equal(i18n.additionalEvidence.evidenceOptions.header);
+    expect(header).to.equal(content.en.additionalEvidence.evidenceOptions.header);
     const options = await additionalEvidencePage.getElementsValues("input[name='additional-evidence-option']");
     options.forEach(option => {
       expect(allowedActions).to.contain(option);
@@ -81,8 +81,8 @@ describe.skip('Additional Evidence', () => {
 
     additionalEvidenceUploadPage.verifyPage();
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.emptyDescription);
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.emptyDescription);
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
   it('shows an error if no file to upload', async () => {
@@ -93,7 +93,7 @@ describe.skip('Additional Evidence', () => {
     additionalEvidenceUploadPage.verifyPage();
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
   it('uploads a file and shows file list', async () => {
@@ -103,11 +103,11 @@ describe.skip('Additional Evidence', () => {
 
     additionalEvidenceUploadPage.verifyPage();
     await page.waitFor(4000);
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
 
     await additionalEvidenceUploadPage.selectFile('evidence.txt');
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(i18n.additionalEvidence.evidenceUpload.header);
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
 
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();

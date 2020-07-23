@@ -5,7 +5,7 @@ import { NOT_FOUND, UNPROCESSABLE_ENTITY, CONFLICT, OK } from 'http-status-codes
 import * as Paths from '../paths';
 import { URL } from 'url';
 import { generateToken } from '../services/s2s';
-const i18n = require('../../../locale/en.json');
+const content = require('../../../locale/content');
 
 const config = require('config');
 
@@ -25,7 +25,6 @@ function redirectToLogin(req: Request, res: Response) {
 
 function getLogout(idamService: IdamService) {
   return async (req: Request, res: Response) => {
-
     if (req.session.accessToken) {
       try {
         await idamService.deleteToken(req.session.accessToken);
@@ -55,7 +54,6 @@ function getLogout(idamService: IdamService) {
 }
 
 function redirectToIdam(idamPath: string, idamService: IdamService) {
-
   return (req: Request, res: Response) => {
     const idamUrl: URL = new URL(idamUrlString);
     idamUrl.pathname = idamUrl.pathname !== '/' ? idamUrl.pathname + idamPath : idamPath;
@@ -135,7 +133,6 @@ function getIdamCallback(
       req.session.idamEmail = email;
 
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
-
         const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session.tya, req);
         if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
@@ -195,16 +192,16 @@ function renderErrorPage(email: string, statusCode: number, idamService: IdamSer
   if (statusCode === NOT_FOUND) {
     logger.info(`Cannot find any case for ${email}`);
     options['registerUrl'] = idamService.getRegisterUrl(req.protocol, req.hostname);
-    options['errorHeader'] = i18n.login.failed.emailNotFound.header;
-    options['errorBody'] = i18n.login.failed.emailNotFound.body;
+    options['errorHeader'] = content.en.login.failed.emailNotFound.header;
+    options['errorBody'] = content.en.login.failed.emailNotFound.body;
   } else if (statusCode === UNPROCESSABLE_ENTITY) {
     logger.info(`Found multiple appeals for ${email}`);
-    options['errorHeader'] = i18n.login.failed.technicalError.header;
-    options['errorBody'] = i18n.login.failed.technicalError.body;
+    options['errorHeader'] = content.en.login.failed.technicalError.header;
+    options['errorBody'] = content.en.login.failed.technicalError.body;
   } else if (statusCode === CONFLICT) {
     logger.info(`Found a non cor appeal for ${email}`);
-    options['errorHeader'] = i18n.login.failed.cannotUseService.header;
-    options['errorBody'] = i18n.login.failed.cannotUseService.body;
+    options['errorHeader'] = content.en.login.failed.cannotUseService.header;
+    options['errorBody'] = content.en.login.failed.cannotUseService.body;
   }
   return res.render('load-case-error.html', { ...options });
 }
