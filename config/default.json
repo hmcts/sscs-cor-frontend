@@ -69,7 +69,8 @@
       "webChatEnabled": "false"
     },
     "postBulkScan": "false",
-    "historyTab": "false"
+    "historyTab": "false",
+    "welsh": "false"
   },
   "services": {
     "webForm" : {
@@ -80,5 +81,6 @@
       "tenant": "aG1jdHNzdGFnaW5nMDE",
       "channel": "SSCS"
     }
-  }
+  },
+  "languages": ["en", "cy"]
 }

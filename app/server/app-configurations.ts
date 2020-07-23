@@ -10,9 +10,9 @@ const { lowerCase } = require('lodash');
 const locale = require('../../locale/en.json');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
+const config = require('config');
 
 function configureHelmet(app) {
-
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
@@ -71,7 +71,6 @@ function configureHeaders(app) {
 }
 
 function configureNunjucks(app: express.Application) {
-
   const nunEnv = nunjucks.configure([
     'views',
     'views/notifications',
@@ -83,6 +82,8 @@ function configureNunjucks(app: express.Application) {
     noCache:  true
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
+  nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
+
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
     const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
@@ -98,9 +99,7 @@ function configureNunjucks(app: express.Application) {
       logger.error(`Error rendering text eval: ${JSON.stringify(error)} : ${text}`);
       return 'Error rendering text';
     }
-
   });
-
   nunEnv.addFilter('isArray', function(input) {
     return Array.isArray(input);
   });
@@ -117,14 +116,12 @@ function configureNunjucks(app: express.Application) {
   nunEnv.addFilter('panel', benefitType => {
     return nunjucks.renderString(locale.benefitTypes[benefitType].panel, this.ctx);
   });
-
   nunEnv.addFilter('dateForDecisionReceived', utcDateTimeStr => {
     const howManyDaysAfterHearing = 5;
     return moment(utcDateTimeStr)
       .add(howManyDaysAfterHearing, 'days')
       .format('DD MMMM YYYY');
   });
-
   nunEnv.addFilter('evalStatus', function (text) {
     try {
       if (Array.isArray(text)) {
