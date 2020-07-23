@@ -65,9 +65,9 @@ function setTabNavigationItems(appeal) {
       'url': '/history'
     }
   ];
-  let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== 'Hearing') : tabs;
+  let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== content[i18next.language].hearingTab.tabHeader) : tabs;
 
-  tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== 'Provide Evidence') : tabs;
+  tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== content[i18next.language].provideEvidenceTab.tabHeader) : tabs;
   tabsToShow = tabsToShow.filter(tab => tab.id !== 'history');
   return tabsToShow;
 }

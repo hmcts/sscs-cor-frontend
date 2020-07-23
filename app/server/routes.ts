@@ -1,6 +1,10 @@
 const express = require('express');
+const i18next = require('i18next');
+const languages = require('config').languages;
+
 import * as Paths from './paths';
 import * as config from 'config';
+
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
@@ -92,6 +96,14 @@ router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   res.header('Pragma', 'no-cache');
   res.header('Expires', 0);
+  next();
+});
+
+router.use((req, res, next) => {
+  if (req.query && req.query.lng && languages.includes(req.query.lng)) {
+    i18next.changeLanguage(req.query.lng);
+  }
+
   next();
 });
 
