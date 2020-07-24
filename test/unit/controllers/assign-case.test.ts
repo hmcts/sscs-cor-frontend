@@ -3,7 +3,7 @@ import { expect, sinon } from '../../chai-sinon';
 import { OK } from 'http-status-codes';
 import { HearingService } from '../../../app/server/services/hearing';
 import { TrackYourApealService } from '../../../app/server/services/tyaService';
-const i18n = require('locale/en');
+const content = require('locale/content');
 
 describe('controllers/assign-case.js', () => {
   let sandbox: sinon.SinonSandbox;
@@ -120,7 +120,7 @@ describe('controllers/assign-case.js', () => {
       it('redirects to task-list', async () => {
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: i18n.assignCase.errors.noPostcode });
+        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.noPostcode });
       });
     });
 
@@ -139,7 +139,7 @@ describe('controllers/assign-case.js', () => {
       it('redirects to task-list', async () => {
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: i18n.assignCase.errors.invalidPostcode });
+        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.invalidPostcode });
       });
     });
   });

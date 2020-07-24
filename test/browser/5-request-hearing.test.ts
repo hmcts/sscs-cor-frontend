@@ -8,7 +8,7 @@ import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 import { HearingConfirmPage } from 'test/page-objects/hearing-confirm';
 import { HearingWhyPage } from 'test/page-objects/hearing-why';
 const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
-const i18n = require('locale/en');
+const content = require('locale/content');
 const config = require('config');
 
 const testUrl = config.get('testUrl');
@@ -78,9 +78,9 @@ describe.skip('Request a hearing', () => {
     it('validates that one option must be selected', async () => {
       await hearingConfirmPage.submit();
       await hearingConfirmPage.screenshot('hearing-confirm-validation');
-      expect(await hearingConfirmPage.getElementText('#error-summary-title')).contain(i18n.errorSummary.titleText);
-      expect(await hearingConfirmPage.getElementText('.govuk-error-summary__body')).contain(i18n.hearingConfirm.error.text);
-      expect(await hearingConfirmPage.getElementText('#new-hearing-error')).contain(i18n.hearingConfirm.error.text);
+      expect(await hearingConfirmPage.getElementText('#error-summary-title')).contain(content.en.errorSummary.titleText);
+      expect(await hearingConfirmPage.getElementText('.govuk-error-summary__body')).contain(content.en.hearingConfirm.error.text);
+      expect(await hearingConfirmPage.getElementText('#new-hearing-error')).contain(content.en.hearingConfirm.error.text);
     });
 
     describe('appellant chooses not to request a hearing', () => {
@@ -118,7 +118,7 @@ describe.skip('Request a hearing', () => {
         });
 
         it('shows the hearing booking details', async () => {
-          expect(await hearingWhyPage.getHeading()).equal(i18n.hearingWhy.booking.header);
+          expect(await hearingWhyPage.getHeading()).equal(content.en.hearingWhy.booking.header);
           const responseDate = await tribunalViewPage.getElementText('#responseDate');
           expect(responseDate).to.contain(`${moment.utc().add(6, 'week').format(CONST.DATE_FORMAT)}`);
           const caseReference = await tribunalViewPage.getElementText('#caseReference');
@@ -137,7 +137,7 @@ describe.skip('Request a hearing', () => {
         it('returns the user to the hearing booking page if they sign-in later', async () => {
           await login(page);
           hearingWhyPage.verifyPage();
-          expect(await hearingWhyPage.getHeading()).to.equal(i18n.hearingWhy.booking.header);
+          expect(await hearingWhyPage.getHeading()).to.equal(content.en.hearingWhy.booking.header);
         });
       });
     });

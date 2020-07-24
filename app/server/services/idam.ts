@@ -20,7 +20,6 @@ export class IdamService {
   }
 
   async getToken(code: string, protocol: string, host: string): Promise<TokenResponse> {
-
     const redirectUri: string = this.getRedirectUrl(protocol, host);
     return RequestPromise.request({
       method: 'POST',

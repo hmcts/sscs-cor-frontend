@@ -5,7 +5,7 @@ import express = require('express');
 import { router as routes } from './routes';
 const errors = require('./middleware/error-handler');
 import * as health from './middleware/health';
-const locale = require('../../locale/en.json');
+const content = require('../../locale/content');
 import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as cookieParser from 'cookie-parser';
@@ -38,7 +38,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   configureHeaders(app);
 
   app.set('view engine', 'html');
-  app.locals.i18n = locale;
+  app.locals.i18n = content.en;
   app.locals.fileTypeWhiteList = fileTypes;
   app.locals.screenReaderUtils = screenReaderUtils;
 
