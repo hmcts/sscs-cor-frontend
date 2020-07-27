@@ -26,7 +26,9 @@
       "submitAnswerToTribunal": "Submit answer to the tribunal",
       "saveForLater": "Save for later",
       "confirm": "Confirm",
-      "extendDeadline": "Extend the deadline"
+      "extendDeadline": "Extend the deadline",
+      "describeTheEvidence": "Describe the evidence",
+      "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why"
     },
     "pageTitle": "Manage your appeal",
     "contactEmail": "pipappeals@justice.gov.uk",
@@ -1390,13 +1392,15 @@
       "submitAnswerToTribunal": "Cyflwyno ateb i’r tribiwnlys",
       "saveForLater": "Arbed tan rhywbryd eto",
       "confirm": "Cadarnhau",
-      "extendDeadline": "Ymestyn y terfyn amser"
+      "extendDeadline": "Ymestyn y terfyn amser",
+      "describeTheEvidence": "[CY] Describe the evidence",
+      "breflyDescribeWhatAndWhy": "[CY] Briefly describe what you’re uploading and why"
     },
     "pageTitle": "Rheoli eich apêl",
     "contactEmail": "ymholiadaucymraeg@justice.gov.uk",
     "phaseBanner": {
-      "new": "Mae hwn yn wasanaeth newydd - bydd eich",
-      "report": "Bydd adborth (agor mewn ffenestr newydd)",
+      "new": "Mae hwn yn wasanaeth newydd - bydd eich ",
+      "report": "bydd adborth (agor mewn ffenestr newydd)",
       "improve": "yn ein helpu ni i'w wella.",
       "languageToggle": "<a href=\"?lng=en\" class=\"govuk-link language\">English</a>"
     },

@@ -14,11 +14,11 @@
             name: "additional-evidence-description",
             value: description,
             label: {
-              text: "Describe the evidence",
+              text: content[i18n.language].common.describeTheEvidence | safe,
               classes: "--font-weight-b --margin-none"
             },
             hint: {
-              text: "Briefly describe what you’re uploading and why"
+              text: content[i18n.language].common.breflyDescribeWhatAndWhy | safe
             },
             errorMessage: {
                 text: error
@@ -46,7 +46,7 @@
 
         {{ evidenceList(evidences) }}
         <div id="submit-buttons">
-            <input id="submit-evidences" type="submit" name="buttonSubmit" value="{{ content[i18n.language].general.submitEvidenceToTribunal | safe }}" class="govuk-button">
+            <input id="submit-evidences" type="submit" name="buttonSubmit" value="{{ content[i18n.language].common.submitEvidenceToTribunal | safe }}" class="govuk-button">
         </div>
     </form>
 </div>
