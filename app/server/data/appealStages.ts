@@ -3,7 +3,7 @@ const oralAppealStages = [
     status: 'APPEAL_RECEIVED',
     title: {
       en: 'Appeal',
-      cy: '[CY] Appeal'
+      cy: 'Apêl'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -12,7 +12,7 @@ const oralAppealStages = [
     status: 'WITH_DWP',
     title: {
       en: 'Appeal',
-      cy: '[CY] Appeal'
+      cy: 'Apêl'
     },
     latestUpdateText: 'text',
     showOnBar: false
@@ -21,7 +21,7 @@ const oralAppealStages = [
     status: 'DWP_RESPOND',
     title: {
       en: 'DWP response',
-      cy: '[CY] DWP response'
+      cy: 'Ymateb DWP'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -38,7 +38,7 @@ const oralAppealStages = [
     status: 'HEARING_BOOKED',
     title: {
       en: 'Hearing booked',
-      cy: '[CY] Hearing booked'
+      cy: 'Gwrandawiad wedi’i drefnu'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -51,7 +51,7 @@ const oralAppealStages = [
     status: 'DORMANT',
     title: {
       en: 'Hearing',
-      cy: '[CY] Hearing'
+      cy: 'Gwrandawiad'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -60,7 +60,7 @@ const oralAppealStages = [
     status: 'CLOSED',
     title: {
       en: 'Closed',
-      cy: '[CY] Closed'
+      cy: 'Wedi cau'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -72,7 +72,7 @@ const paperAppealStages = [
     status: 'APPEAL_RECEIVED',
     title: {
       en: 'Appeal',
-      cy: '[CY] Appeal'
+      cy: 'Apêl'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -81,7 +81,7 @@ const paperAppealStages = [
     status: 'WITH_DWP',
     title: {
       en: 'Appeal',
-      cy: '[CY] Appeal'
+      cy: 'Apêl'
     },
     latestUpdateText: 'text',
     showOnBar: false
@@ -90,7 +90,7 @@ const paperAppealStages = [
     status: 'DWP_RESPOND',
     title: {
       en: 'DWP response',
-      cy: '[CY] DWP response'
+      cy: 'Ymateb DWP'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -99,7 +99,7 @@ const paperAppealStages = [
     status: 'DORMANT',
     title: {
       en: 'Hearing',
-      cy: '[CY] Hearing'
+      cy: 'Gwrandawiad'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -108,7 +108,7 @@ const paperAppealStages = [
     status: 'CLOSED',
     title: {
       en: 'Closed',
-      cy: '[CY] Closed'
+      cy: 'Wedi cau'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -120,7 +120,7 @@ const corAppealStages = [
     status: 'SYA_APPEAL_CREATED',
     title: {
       en: 'Stages',
-      cy: '[CY] Stages'
+      cy: 'Camau'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -129,7 +129,7 @@ const corAppealStages = [
     status: 'DWP_RESPOND',
     title: {
       en: 'for COR appeal',
-      cy: '[CY] for COR appeal'
+      cy: 'at gyfer apêl Datrys Achosion Ar-lein'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -138,7 +138,7 @@ const corAppealStages = [
     status: 'HEARING',
     title: {
       en: 'still to',
-      cy: '[CY] still to'
+      cy: 'dal i’w'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -147,7 +147,7 @@ const corAppealStages = [
     status: 'HEARING 2',
     title: {
       en: 'define',
-      cy: '[CY] define'
+      cy: 'ddiffinio'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -159,7 +159,7 @@ const closedAppealStages = [
     status: 'CLOSED',
     title: {
       en: 'Closed',
-      cy: '[CY] Closed'
+      cy: 'Wedi cau'
     },
     latestUpdateText: 'text',
     showOnBar: true

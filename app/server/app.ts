@@ -10,7 +10,6 @@ import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as cookieParser from 'cookie-parser';
 const { fileTypes } = require('./utils/mimeTypeWhitelist');
-const CONF = require('config');
 const i18next = require('i18next');
 
 import * as screenReaderUtils from './utils/screenReaderUtils';
@@ -28,7 +27,7 @@ interface Options {
 
 function setup(sessionHandler: RequestHandler, options: Options) {
   i18next.init(content);
-  i18next.languages = CONF.languages;
+  i18next.languages = config.get('languages');
   i18next.changeLanguage('en');
 
   const opts = options || {};

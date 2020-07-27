@@ -1434,9 +1434,9 @@
       }
     },
     "taskList": {
-      "header": "[CY] Your benefit appeal",
-      "header1": "[CY] Your",
-      "header2": "[CY] benefit appeal",
+      "header": "Eich apêl am fudd-dal",
+      "header1": "Eich",
+      "header2": "apêl am fudd-dal",
       "noQuestions": "Nid oes gennych unrhyw gwestiynau gan y tribiwnlys",
       "deadline": {
         "pending": "Rhaid ichi ymateb erbyn",
@@ -2517,11 +2517,11 @@
         "panel": "barnwr, meddyg ac arbenigwr anabledd"
       },
       "uc": {
-        "acronym": "[CY] UC",
-        "fullDescription": "[CY] Universal Credit (UC)",
-        "agency": "[CY] Department for Work and Pensions",
-        "agencyAcronym": "[CY] DWP",
-        "panel": "[CY] a judge, doctor and disability expert"
+        "acronym": "UC",
+        "fullDescription": "Credyd Cynhwysol (UC)",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anableddau"
       }
     },
     "helpGuides": {
@@ -2551,10 +2551,10 @@
         },
         "sendingEvidenceTitle": " Anfon tystiolaeth i'r tribiwnlys",
         "sendingEvidenceDesc": {
-          "para1": "[CY] You can provide evidence using any of the options in the <a href='/additional-evidence'><b>Provide Evidence</b></a> tab, as soon as possible. This is so the tribunal have time to read it before they make a decision.",
-          "para2": "[CY] Or you can post your evidence to the address below.",
-          "para3": "[CY] Make sure you include the ‘document cover sheet’. This helps us match your evidence with your appeal. You received this cover sheet in the first letter that was sent to you about your appeal.",
-          "para4": "[CY] HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
+          "para1": "Gallwch ddarparu tystiolaeth trwy ddefnyddio unrhyw un o’r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a> a dylech wneud hynny cyn gynted â phosib er mwyn i’r tribiwnlys gael amser i’w darllen cyn gwneud penderfyniad.",
+          "para2": "Neu gallwch bostio’ch tystiolaeth i’r cyfeiriad a nodir isod.",
+          "para3": "Gwnewch yn siŵr eich bod yn cynnwys y ‘dalen flaen dogfen’ fel y gallwn baru’r dystiolaeth gyda’ch apêl. Cawsoch y daflen flaen hon gyda’r llythyr cyntaf a anfonwyd atoch ynghylch eich apêl.",
+          "para4": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
         }
       },
       "claimExpenses": {
