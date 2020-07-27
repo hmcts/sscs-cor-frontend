@@ -2332,10 +2332,10 @@
         "heading": "Apêl wedi cyrraedd",
         "content": {
           "oral": [
-            " Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+            " Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
           ],
           "paper": [
-            " Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+            " Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
           ]
         }
       },
@@ -2365,7 +2365,7 @@
         "heading": " Cynhaliwyd gwrandawiad",
         "content": {
           "oral": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ],
           "paper": [
@@ -2403,10 +2403,10 @@
         "heading": "Tystiolaeth wedi cyrraedd",
         "content": {
           "oral": [
-            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('DD MMMM YYYY')}}."
+            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}."
           ],
           "paper": [
-            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('DD MMMM YYYY')}}."
+            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}."
           ]
         }
       },
@@ -2414,11 +2414,11 @@
         "heading": " Gwrandawiad wedi’i gynnal",
         "content": {
           "oral": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ],
           "paper": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ]
         }

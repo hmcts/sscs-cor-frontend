@@ -36,7 +36,7 @@
                                 </details>
                             </dd>
                             <dd class="govuk-summary-list__actions">
-                                {{ event.date | dateFilter("DD MMMM YYYY") }}
+                                {{ event.date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}
                             </dd>
                         </div>
                     {% endfor %}
