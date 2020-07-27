@@ -2,7 +2,7 @@
     <table class="govuk-table" id="files-uploaded">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-            <th class="govuk-table__header" colspan="2">{{ i18n.question.evidenceUpload.fileList.uploadedFiles }}</th>
+            <th class="govuk-table__header" colspan="2">{{ content.en.question.evidenceUpload.fileList.uploadedFiles }}</th>
             </tr>
         </thead>
         <tbody class="govuk-table__body">
@@ -10,12 +10,12 @@
             <tr class="govuk-table__row evidence">
                 <td class="govuk-table__cell">{{ evidence.file_name }}</td>
                 <td class="govuk-table__cell">
-                    <input type="submit" name="delete[{{ evidence.id }}]" value="{{ i18n.general.delete }}" class="govuk-link">
+                    <input type="submit" name="delete[{{ evidence.id }}]" value="{{ content.en.general.delete }}" class="govuk-link">
                 </td>
             </tr>
             {% else %}
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell">{{ i18n.question.evidenceUpload.fileList.noFilesUploaded }}</td>
+                <td class="govuk-table__cell">{{ content.en.question.evidenceUpload.fileList.noFilesUploaded }}</td>
                 <td class="govuk-table__cell">&nbsp;</td>
             </tr>
             {% endfor %}

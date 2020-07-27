@@ -2,7 +2,7 @@
 {% from "button/macro.njk" import govukButton %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
-{% set pageHeader = i18n.notifications.email.manage.tab %}
+{% set pageHeader = content.en.notifications.email.manage.tab %}
 
 {% block content %}
 
@@ -14,7 +14,7 @@
 
             {% include "errors/summary.html" %}
 
-            <h1 class="govuk-heading-l">{{ i18n.notifications.email.manage.title }}</h1>
+            <h1 class="govuk-heading-l">{{ content.en.notifications.email.manage.title }}</h1>
 
             <form action="/manage-email-notifications/{{ mactoken }}" method="post">
 
@@ -44,7 +44,7 @@
                     <div id="submit-button">
                         {{
                         govukButton({
-                        text: i18n.notifications.email.manage.continue
+                        text: content.en.notifications.email.manage.continue
                         })
                         }}
                     </div>

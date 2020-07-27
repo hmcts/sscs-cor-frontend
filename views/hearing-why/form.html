@@ -1,11 +1,11 @@
 <form action="/hearing-why" method="post">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">{{ i18n.hearingWhy.header }}</h1>
+      <h1 class="govuk-heading-l">{{ content.en.hearingWhy.header }}</h1>
       {{ govukTextarea({
-        name: "explain-why",          
+        name: "explain-why",
         label: {
-          text: i18n.hearingWhy.info
+          text: content.en.hearingWhy.info
         },
         id: "explain-why"
       }) }}
@@ -14,7 +14,7 @@
   {% include "includes/csrf-hidden-input.html" %}
   <div id="submit-button">
     {{ govukButton({
-      text: i18n.general.continue
+      text: content.en.general.continue
     }) }}
   </div>
 </form>

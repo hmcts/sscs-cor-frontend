@@ -2,14 +2,14 @@
 {% from "button/macro.njk" import govukButton %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
-{% set pageHeader = i18n.tribunalViewConfirm.header %}
+{% set pageHeader = content.en.tribunalViewConfirm.header %}
 {% block corContent %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {% if error %}
         {{ govukErrorSummary({
-          titleText: i18n.errorSummary.titleText,
-          descriptionText: i18n.errorSummary.descriptionText,
+          titleText: content.en.errorSummary.titleText,
+          descriptionText: content.en.errorSummary.descriptionText,
           errorList: [{
             text: error,
             href: "#accept-view-1"
@@ -17,14 +17,14 @@
         }) }}
       {% endif %}
 
-      <h1 class="govuk-heading-l">{{ i18n.tribunalViewConfirm.header }}</h1>
-      <p>{{ i18n.tribunalViewConfirm.headerText | eval | date }}</p>
+      <h1 class="govuk-heading-l">{{ content.en.tribunalViewConfirm.header }}</h1>
+      <p>{{ content.en.tribunalViewConfirm.headerText | eval | date }}</p>
     </div>
   </div>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      
+
       <form action="/tribunal-view-confirm" method="post">
         {{ govukRadios({
             classes: "govuk-radios",
@@ -33,24 +33,24 @@
             items: [
               {
                 value: "yes",
-                text: i18n.tribunalViewConfirm.acceptYes
+                text: content.en.tribunalViewConfirm.acceptYes
               },
               {
                 value: "no",
-                text: i18n.tribunalViewConfirm.acceptNo
+                text: content.en.tribunalViewConfirm.acceptNo
               }
             ],
             errorMessage: {
               text: error
             } if error
-          }) 
+          })
         }}
-        <p>{{ i18n.tribunalViewConfirm.acceptHelp | eval | date }}</p>
+        <p>{{ content.en.tribunalViewConfirm.acceptHelp | eval | date }}</p>
         {% include "includes/csrf-hidden-input.html" %}
         <div id="submit-button">
           {{
             govukButton({
-            text: i18n.general.continue
+            text: content.en.general.continue
             })
           }}
         </div>

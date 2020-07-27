@@ -2,10 +2,10 @@
 {% from "button/macro.njk" import govukButton %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "layout.html" %}
-{% set pageHeader = i18n.hearingConfirm.header %}
+{% set pageHeader = content.en.hearingConfirm.header %}
 {% block beforeContent %}
   {{ super() }}
-  <a href="/tribunal-view" class="govuk-back-link">{{ i18n.general.back }}</a>
+  <a href="/tribunal-view" class="govuk-back-link">{{ content.en.general.back }}</a>
 {% endblock %}
 
 {% block corContent %}
@@ -14,18 +14,18 @@
 
       {% if error %}
         {{ govukErrorSummary({
-            titleText: i18n.errorSummary.titleText,
-            descriptionText: i18n.errorSummary.descriptionText,
+            titleText: content.en.errorSummary.titleText,
+            descriptionText: content.en.errorSummary.descriptionText,
             errorList: [{
                 text: error,
                 href: "#new-hearing-1"
             }]
-          }) 
+          })
         }}
       {% endif %}
-      
-      <h1 class="govuk-heading-l">{{ i18n.hearingConfirm.header }}</h1>
-      <p>{{ i18n.hearingConfirm.para }}</p>
+
+      <h1 class="govuk-heading-l">{{ content.en.hearingConfirm.header }}</h1>
+      <p>{{ content.en.hearingConfirm.para }}</p>
       <form action="/hearing-confirm" method="post">
         {{ govukRadios({
             classes: "govuk-radios--inline",
@@ -33,7 +33,7 @@
             name: "new-hearing",
             fieldset: {
               legend: {
-                text: i18n.hearingConfirm.legend,
+                text: content.en.hearingConfirm.legend,
                 isPageHeading: false,
                 classes: "govuk-fieldset__legend--m"
               }
@@ -41,22 +41,22 @@
             items: [
               {
                 value: "yes",
-                text: i18n.general.yes
+                text: content.en.general.yes
               },
               {
                 value: "no",
-                text: i18n.general.no
+                text: content.en.general.no
               }
             ],
             errorMessage: {
               text: error
             } if error
-          }) 
+          })
         }}
         {% include "includes/csrf-hidden-input.html" %}
         <div id="submit-button">
         {{ govukButton({
-          text: i18n.general.continue
+          text: content.en.general.continue
         }) }}
         </div>
       </form>
