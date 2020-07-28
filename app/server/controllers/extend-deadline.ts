@@ -17,14 +17,12 @@ function extensionConfirmation(hearingService: HearingService) {
     if (!extend) return res.render('extend-deadline/index.html', { error: true });
 
     try {
-
       if (extend === 'yes') {
         const response = await hearingService.extendDeadline(hearingId, req);
         req.session.hearing.deadline = response.deadline_expiry_date;
       }
 
       res.render('extend-deadline/index.html', { extend: extend, deadline: req.session.hearing.deadline });
-
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);

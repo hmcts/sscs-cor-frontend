@@ -1,27 +1,27 @@
 {% if postBulkScan %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">{{ i18n.postEvidence.header }}</h1>
-      <p>{{ i18n.postEvidence.info }}</p>
+      <h1 class="govuk-heading-l">{{ content.en.postEvidence.header }}</h1>
+      <p>{{ content.en.postEvidence.info }}</p>
 
-      <address class="--margin-bottom-m" aria-label="{{ i18n.postEvidence.screenReaderPostalAddress }}">
-        <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ i18n.postEvidence.postalAddress | safe }}</span>
+      <address class="--margin-bottom-m" aria-label="{{ content.en.postEvidence.screenReaderPostalAddress }}">
+        <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ content.en.postEvidence.postalAddress | safe }}</span>
       </address>
-      <p>{{ i18n.postEvidence.para1 | eval | safe }}</p>
-      <p>{{ i18n.postEvidence.para2 | eval | safe }}</p>
-      <p>{{ i18n.postEvidence.para3 | eval | safe }}</p>
+      <p>{{ content.en.postEvidence.para1 | eval | safe }}</p>
+      <p>{{ content.en.postEvidence.para2 | eval | safe }}</p>
+      <p>{{ content.en.postEvidence.para3 | eval | safe }}</p>
     </div>
   </div>
 {% else %}
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">{{ i18n.additionalEvidence.evidencePost.header }}</h1>
-    <p>{{i18n.additionalEvidence.evidencePost.subtitle}}</p>
-    <address class="--margin-bottom-m" aria-label="{{ i18n.guidance.sendingEvidence.screenReaderPostalAddress }}">
-      <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ i18n.guidance.sendingEvidence.postalAddress | safe }}</span>
+    <h1 class="govuk-heading-l">{{ content.en.additionalEvidence.evidencePost.header }}</h1>
+    <p>{{content.en.additionalEvidence.evidencePost.subtitle}}</p>
+    <address class="--margin-bottom-m" aria-label="{{ content.en.guidance.sendingEvidence.screenReaderPostalAddress }}">
+      <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ content.en.guidance.sendingEvidence.postalAddress | safe }}</span>
     </address>
     <div class="govuk-details__text --margin-bottom-m">
       <p>
-        {{ i18n.additionalEvidence.evidencePost.description.para1 }}<br/>
+        {{ content.en.additionalEvidence.evidencePost.description.para1 }}<br/>
         <strong>{{ caseRef }}</strong>
       </p>
     </div>

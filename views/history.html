@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% from "components/navigation-tabs.html" import navigationTabs with context%}
 {% from "components/panel.html" import panel %}
-{% set pageHeader = i18n.taskList.header %}
+{% set pageHeader = content.en.taskList.header %}
 {% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">{{ i18n.taskList.header }}</h1>
+            <h1 class="govuk-heading-xl">{{ content.en.taskList.header }}</h1>
             {% include "includes/appellant-details.html" %}
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="govuk-grid-column-two-thirds">
             {{ navigationTabs('history') }}
             <div class="task-list">
-                <h2 class="govuk-heading-m --margin-bottom-s">{{ i18n.historyTab.header }}</h2>
+                <h2 class="govuk-heading-m --margin-bottom-s">{{ content.en.historyTab.header }}</h2>
                 <dl class="govuk-summary-list history-list">
                     {% for event in events %}
                         <div class="govuk-summary-list__row">
@@ -24,11 +24,11 @@
                                 <details class="govuk-details">
                                     <summary class="govuk-details__summary">
                                         <span class="govuk-details__summary-text">
-                                            {{ i18n.appealEvents[event.type].heading | eval }}
+                                            {{ content.en.appealEvents[event.type].heading | eval }}
                                         </span>
                                     </summary>
                                     <div class="govuk-details__text">
-                                        {{ i18n.appealEvents[event.type].content[appeal.hearingType] | eval }}
+                                        {{ content.en.appealEvents[event.type].content[appeal.hearingType] | eval }}
                                     </div>
                                 </details>
                             </dd>
@@ -37,7 +37,7 @@
                             </dd>
                         </div>
                     {% endfor %}
-                    
+
                 </dl>
             </div>
         </div>

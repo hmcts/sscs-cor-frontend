@@ -1,32 +1,31 @@
 {% extends "help-guides/support-layout.html" %}
 
-{% set pageHeader = i18n.helpGuides.evidence.title %}
+{% set pageHeader = content.en.helpGuides.evidence.title %}
 {% block pageTitle %}
-   {{i18n.helpGuides.evidence.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+   {{content.en.helpGuides.evidence.title}}   - {{ content.en.general.serviceTitle }} - {{ content.en.general.govUK }}
 {% endblock %}
 
 {% block supportTitle %}
-   {{i18n.helpGuides.evidence.title}}
+   {{content.en.helpGuides.evidence.title}}
 {% endblock%}
 
 
 {% block supportContent %}
-        <p class="govuk-!-font-size-24">{{i18n.helpGuides.evidence.entry}} </p>
-        <p>{{i18n.helpGuides.evidence.para1}}</p>
-        <h2 class="govuk-heading-m">{{i18n.helpGuides.evidence.medicalEvidenceTitle}}</h2>
-        <p>{{i18n.helpGuides.evidence.medicalEvidenceDesc.para1 }}</p>
-        <p>{{i18n.helpGuides.evidence.medicalEvidenceDesc.para2 }}</p>
-        <h2 class="govuk-heading-m">{{i18n.helpGuides.evidence.writtenStatementTitle }}</h2>
-        <p>{{i18n.helpGuides.evidence.writtenStatementDesc.para1 }}</p>
-        <p>{{i18n.helpGuides.evidence.writtenStatementDesc.para2 }}</p>
-        <h2 class="govuk-heading-m">{{i18n.helpGuides.evidence.photographsTitle }}</h2>
-        <p>{{i18n.helpGuides.evidence.photographsDesc.para1 }}</p>
-        <h2 class="govuk-heading-m">{{i18n.helpGuides.evidence.whatYouSayTitle }}</h2>
-        <p>{{i18n.helpGuides.evidence.whatYouSayDesc.para1 }}</p>
-        <p>{{i18n.helpGuides.evidence.whatYouSayDesc.para2 }}</p>
-        <h2 class="govuk-heading-m">{{i18n.helpGuides.evidence.sendingEvidenceTitle }}</h2>
-        <p>{{i18n.helpGuides.evidence.sendingEvidenceDesc.para1 | safe }}</p>
-        <p>{{i18n.helpGuides.evidence.sendingEvidenceDesc.para2 | safe }}</p>
-        <p>{{i18n.helpGuides.evidence.sendingEvidenceDesc.para3 | safe }}</p>
-        <p>{{i18n.helpGuides.evidence.sendingEvidenceDesc.para4 | safe }}</p>
+  <p class="govuk-!-font-size-24">{{content.en.helpGuides.evidence.entry}} </p>
+  <p>{{content.en.helpGuides.evidence.para1}}</p>
+  <h2 class="govuk-heading-m">{{content.en.helpGuides.evidence.medicalEvidenceTitle}}</h2>
+  <p>{{content.en.helpGuides.evidence.medicalEvidenceDesc.para1 }}</p>
+  <p>{{content.en.helpGuides.evidence.medicalEvidenceDesc.para2 }}</p>
+  <h2 class="govuk-heading-m">{{content.en.helpGuides.evidence.writtenStatementTitle }}</h2>
+  <p>{{content.en.helpGuides.evidence.writtenStatementDesc.para1 }}</p>
+  <p>{{content.en.helpGuides.evidence.writtenStatementDesc.para2 }}</p>
+  <h2 class="govuk-heading-m">{{content.en.helpGuides.evidence.photographsTitle }}</h2>
+  <p>{{content.en.helpGuides.evidence.photographsDesc.para1 }}</p>
+  <h2 class="govuk-heading-m">{{content.en.helpGuides.evidence.whatYouSayTitle }}</h2>
+  <p>{{content.en.helpGuides.evidence.whatYouSayDesc.para1 }}</p>
+  <p>{{content.en.helpGuides.evidence.whatYouSayDesc.para2 }}</p>
+  <h2 class="govuk-heading-m">{{content.en.helpGuides.evidence.sendingEvidenceTitle }}</h2>
+  <p>{{content.en.helpGuides.evidence.sendingEvidenceDesc.para1 | safe }}</p>
+  <p>{{content.en.helpGuides.evidence.sendingEvidenceDesc.para2 | safe }}</p>
+  <p>{{content.en.helpGuides.evidence.sendingEvidenceDesc.para3 | safe }}</p>
 {% endblock%}

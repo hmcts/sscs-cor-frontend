@@ -375,7 +375,8 @@ describe('controllers/login', () => {
               case_reference: '12345',
               online_hearing_id: '1'
             }]
-          }});
+          }
+        });
       });
     });
 

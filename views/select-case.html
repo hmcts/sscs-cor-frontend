@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
-{% set pageHeader = i18n.selectCase.title %}
+{% set pageHeader = content.en.selectCase.title %}
 
 {% block corContent %}
-  <h1 class="govuk-heading-xl">{{ i18n.selectCase.heading }}</h1>
+  <h1 class="govuk-heading-xl">{{ content.en.selectCase.heading }}</h1>
 
   {% for name, hearings in hearingsByName %}
     <h2 class="govuk-heading-m">
@@ -12,11 +12,11 @@
     <table class="govuk-table govuk-!-margin-bottom-9">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.appealReference }}</th>
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.benefit }}</th>
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.dateSubmitted }}</th>
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.mrnDate }}</th>
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.action }}</th>
+          <th scope="col" class="govuk-table__header">{{ content.en.selectCase.appealReference }}</th>
+          <th scope="col" class="govuk-table__header">{{ content.en.selectCase.benefit }}</th>
+          <th scope="col" class="govuk-table__header">{{ content.en.selectCase.dateSubmitted }}</th>
+          <th scope="col" class="govuk-table__header">{{ content.en.selectCase.mrnDate }}</th>
+          <th scope="col" class="govuk-table__header">{{ content.en.selectCase.action }}</th>
         </tr>
       </thead>
       <tbody class="govuk-table__body">
@@ -27,7 +27,7 @@
             <td class="govuk-table__cell">{{ hearing.appeal_details.submitted_date | dateFilter('DD MMMM YYYY') }}</td>
             <td class="govuk-table__cell">{{ hearing.appeal_details.mrn_date | dateFilter('DD MMMM YYYY') }}</td>
             <td class="govuk-table__cell">
-              <a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}">{{ i18n.selectCase.view }}</a>
+              <a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}">{{ content.en.selectCase.view }}</a>
             </td>
           </tr>
         {% endfor %}

@@ -15,9 +15,9 @@ $govuk-assets-path: '/public/govuk-frontend/';
 @import "_history-list";
 @import "_hearing-details";
 @import "_help-guides";
-@import "_web-chat.scss";
-@import "_email-notifications.scss";
-
+@import "_web-chat";
+@import "_email-notifications";
+@import '_phase-banner';
 
 body {
   font-size: 1rem;

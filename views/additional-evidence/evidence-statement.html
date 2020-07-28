@@ -5,20 +5,20 @@
     <div>
       {{ govukTextarea({
           label: {
-            text: i18n.additionalEvidence.evidenceStatement.header,
+            text: content.en.additionalEvidence.evidenceStatement.header,
             classes: "govuk-label--l",
             isPageHeading: true
           },
           hint: {
-            text: i18n.additionalEvidence.evidenceStatement.description
+            text: content.en.additionalEvidence.evidenceStatement.description
           },
           id: 'question-field',
           classes: 'auto-expand',
           name: 'question-field',
           value: '',
           attributes: {
-              placeholder: i18n.additionalEvidence.evidenceStatement.placeholder,
-              "aria-label": i18n.additionalEvidence.evidenceStatement.label,
+              placeholder: content.en.additionalEvidence.evidenceStatement.placeholder,
+              "aria-label": content.en.additionalEvidence.evidenceStatement.label,
               "autocomplete": "off"
           },
           rows: 6,
@@ -30,7 +30,7 @@
     </div>
     {% include "includes/csrf-hidden-input.html" %}
     <div id="submit-buttons">
-      <input id="submit-statement" type="submit" name="submit" value="{{i18n.additionalEvidence.evidenceStatement.button}}" class="govuk-button button-padding">
+      <input id="submit-statement" type="submit" name="submit" value="{{content.en.additionalEvidence.evidenceStatement.button}}" class="govuk-button button-padding">
     </div>
-  </form> 
+  </form>
  </div>
