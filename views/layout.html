@@ -33,7 +33,8 @@
 {% block beforeContent %}
     {% set phaseBarHtml = content[i18n.language].phaseBanner.new + '<a class="govuk-link" href="'+ content[i18n.language].general.exitLink + pageHeader + '" target="_blank">' + content[i18n.language].phaseBanner.report + "</a> " + content[i18n.language].phaseBanner.improve %}
     {% if welshEnabled %}
-        {% set phaseBarHtml = phaseBarHtml + content[i18n.language].phaseBanner.languageToggle %}
+        {% set queryStringConcat = "&" if "?" in currentUrl else "?" %}
+        {% set phaseBarHtml = phaseBarHtml + (content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}", currentUrl) | replace("{queryStringConcat}", queryStringConcat)) %}
     {% endif %}
 
     {{ govukPhaseBanner({

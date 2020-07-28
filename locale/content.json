@@ -36,7 +36,7 @@
       "new": "This is a new service – your ",
       "report": "feedback (opens in a new window)",
       "improve": "will help us improve it.",
-      "languageToggle": "<a href=\"?lng=cy\" class=\"govuk-link language\">Cymraeg</a>"
+      "languageToggle": "<a href=\"{currentUrl}{queryStringConcat}lng=cy\" class=\"govuk-link language\">Cymraeg</a>"
     },
     "guidance": {
       "sendingEvidence": {
@@ -1402,7 +1402,7 @@
       "new": "Mae hwn yn wasanaeth newydd - bydd eich ",
       "report": "bydd adborth (agor mewn ffenestr newydd)",
       "improve": "yn ein helpu ni i'w wella.",
-      "languageToggle": "<a href=\"?lng=en\" class=\"govuk-link language\">English</a>"
+      "languageToggle": "<a href=\"{currentUrl}{queryStringConcat}lng=en\" class=\"govuk-link language\">English</a>"
     },
     "guidance": {
       "sendingEvidence": {
