@@ -46,7 +46,7 @@
                                 {{ type | safe }} {{ content[i18n.language].yourDetails.emailLabel | safe }}
                             </th>
                             <td class="govuk-table__cell {{ hideBottomBorder }}">
-                                {{ (value.email if value.email else content[i18n.language].yourDetails.notProvided | safe }}
+                                {{ (value.email if value.email else content[i18n.language].yourDetails.notProvided) | safe }}
                             </td>
                         </tr>
                     {% endfor %}
