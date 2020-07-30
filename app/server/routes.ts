@@ -1,6 +1,8 @@
 const express = require('express');
 const i18next = require('i18next');
 const languages = require('config').languages;
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('app-configuration.ts');
 
 import * as Paths from './paths';
 import * as config from 'config';
@@ -101,6 +103,7 @@ router.use((req, res, next) => {
 
 router.use((req, res, next) => {
   if (req.query && req.query.lng && languages.includes(req.query.lng)) {
+    logger.info(`Setting language to ${req.query.lng.toUpperCase()}`);
     i18next.changeLanguage(req.query.lng);
   }
 
