@@ -52,7 +52,7 @@
     }
   },
   "dependencies": {
-    "@hmcts/ctsc-web-chat": "^0.3.11",
+    "@hmcts/ctsc-web-chat": "^0.2.4",
     "@hmcts/nodejs-healthcheck": "^1.4.6",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/properties-volume": "^0.0.9",
@@ -76,7 +76,7 @@
     "ioredis": "^4.2.0",
     "joi": "^13.5.2",
     "jquery": "^3.3.1",
-    "lodash": "^4.17.17",
+    "lodash": "^4.17.10",
     "moment": "^2.18.1",
     "multer": "^1.4.2",
     "node-sass": "^4.13.1",
@@ -149,12 +149,5 @@
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
     "webdriverio": "^5.10.4"
-  },
-  "resolutions": {
-    "minimist": "^1.2.5",
-    "https-proxy-agent": "^2.2.3",
-    "acorn": "^7.1.1",
-    "lodash": "^4.17.17",
-    "yargs-parser": "^18.1.2"
   }
 }
