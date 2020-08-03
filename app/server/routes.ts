@@ -102,6 +102,7 @@ router.use((req, res, next) => {
 });
 
 router.use((req, res, next) => {
+  logger.info(`Language currently set to ${i18next.language.toUpperCase()}`);
   if (req.query && req.query.lng && languages.includes(req.query.lng)) {
     logger.info(`Setting language to ${req.query.lng.toUpperCase()}`);
     i18next.changeLanguage(req.query.lng);
