@@ -156,7 +156,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     const hearingId = req.session.hearing.online_hearing_id;
 
     if (!req.file) {
-      const error = res.locals.multerError || content.en.questionUploadEvidence.error.empty;
+      const error = res.locals.multerError || content[i18next.language].questionUploadEvidence.error.empty;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
     try {
