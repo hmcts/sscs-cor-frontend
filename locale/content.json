@@ -2332,10 +2332,10 @@
         "heading": "Apêl wedi cyrraedd",
         "content": {
           "oral": [
-            " Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
           ],
           "paper": [
-            " Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
           ]
         }
       },
