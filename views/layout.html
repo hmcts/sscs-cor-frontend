@@ -71,9 +71,9 @@
     {% if showSignOut %}
         {% include "session-inactivity-modal.html" %}
     {% endif %}
-
-    {{ contactUs() }}
-
+    {% if allowContactUs %}
+        {{ contactUs() }}
+    {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}
