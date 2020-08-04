@@ -7,7 +7,7 @@
     {{super()}}
     {{ govukBackLink({
         href: "#",
-        text: "Back",
+        text: content[i18n.language].general.back,
         attributes : {
             onclick: "history.go(-1); return false;"
         }

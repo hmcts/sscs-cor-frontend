@@ -43,7 +43,11 @@
                         {% endset %}
                         <tr class="govuk-table__row">
                             <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                                {{ type | safe }} {{ content[i18n.language].yourDetails.emailLabel | safe }}
+                                {% if i18n.language == "en" %}
+                                    {{ type | safe }} {{ content[i18n.language].yourDetails.emailLabel | safe }}
+                                {% else %}
+                                    {{ content[i18n.language].yourDetails.emailLabelCy1 | safe }} {{ type | safe }} {{ content[i18n.language].yourDetails.emailLabelCy2 | safe }}
+                                {% endif %}
                             </th>
                             <td class="govuk-table__cell {{ hideBottomBorder }}">
                                 {{ (value.email if value.email else content[i18n.language].yourDetails.notProvided) | safe }}
