@@ -72,11 +72,8 @@
         {% include "session-inactivity-modal.html" %}
     {% endif %}
 
-    {% if featureFlags.manageYourAppeal and allowContactUs %}
-        {{ contactUs() }}
-    {% else %}
-        {% include "includes/contact-us.html" %}
-    {% endif %}
+    {{ contactUs() }}
+
 {% endblock %}
 
 {% block bodyEnd %}
