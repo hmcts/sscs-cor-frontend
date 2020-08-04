@@ -28,7 +28,13 @@
       "confirm": "Confirm",
       "extendDeadline": "Extend the deadline",
       "describeTheEvidence": "Describe the evidence",
-      "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why"
+      "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why",
+      "type": {
+        "Appellant": "Appellant",
+        "Appointee": "Appointee",
+        "Representative": "Representative",
+        "Supporter": "Supporter"
+      }
     },
     "pageTitle": "Manage your appeal",
     "contactEmail": "pipappeals@justice.gov.uk",
@@ -1396,7 +1402,13 @@
       "confirm": "Cadarnhau",
       "extendDeadline": "Ymestyn y terfyn amser",
       "describeTheEvidence": "Rhowch ddisgrifiad o’r dystiolaeth",
-      "breflyDescribeWhatAndWhy": "Disgrifiwch yn fyr beth ydych yn ei uwchlwytho a pham"
+      "breflyDescribeWhatAndWhy": "Disgrifiwch yn fyr beth ydych yn ei uwchlwytho a pham",
+      "type": {
+        "Appellant": "Apelydd",
+        "Appointee": "Penodai",
+        "Representative": "Cynrychiolydd",
+        "Supporter": "Cefnogwr"
+      }
     },
     "pageTitle": "Rheoli eich apêl",
     "contactEmail": "ymholiadaucymraeg@justice.gov.uk",

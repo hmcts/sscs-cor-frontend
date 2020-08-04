@@ -44,9 +44,9 @@
                         <tr class="govuk-table__row">
                             <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
                                 {% if i18n.language == "en" %}
-                                    {{ type | safe }} {{ content[i18n.language].yourDetails.emailLabel | safe }}
+                                    {{ content[i18n.language].common.type[type] | safe }} {{ content[i18n.language].yourDetails.emailLabel | safe }}
                                 {% else %}
-                                    {{ content[i18n.language].yourDetails.emailLabelCy1 | safe }} {{ type | safe }} {{ content[i18n.language].yourDetails.emailLabelCy2 | safe }}
+                                    {{ content[i18n.language].yourDetails.emailLabelCy1 | safe }} {{ content[i18n.language].common.type[type] | safe }} {{ content[i18n.language].yourDetails.emailLabelCy2 | safe }}
                                 {% endif %}
                             </th>
                             <td class="govuk-table__cell {{ hideBottomBorder }}">
@@ -60,7 +60,7 @@
                         {% endset %}
                         <tr class="govuk-table__row">
                             <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                                {{ type | safe }} {{ content[i18n.language].yourDetails.mobileLabel | safe }}
+                                {{ content[i18n.language].common.type[type] | safe }} {{ content[i18n.language].yourDetails.mobileLabel | safe }}
                             </th>
                             <td class="govuk-table__cell {{ hideBottomBorder }}">
                                 {{ value.mobile if value.mobile else content[i18n.language].yourDetails.notProvided | safe }}
@@ -70,7 +70,7 @@
                     {% if contact.phone %}
                         <tr class="govuk-table__row">
                             <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                                {{ type | safe }} {{ content[i18n.language].contact.phone | safe }}
+                                {{ content[i18n.language].contact.phone | safe }}
                             </th>
                             <td class="govuk-table__cell {{ hideBottomBorder }}">
                                 {{ contact.phone if contact.phone else content[i18n.language].yourDetails.notProvided | safe}}
@@ -80,7 +80,7 @@
                     {% if contact.mobile %}
                         <tr class="govuk-table__row">
                             <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                                {{ type | safe }} {{ content[i18n.language].contact.mobile | safe }}
+                                {{ content[i18n.language].contact.mobile | safe }}
                             </th>
                             <td class="govuk-table__cell {{ hideBottomBorder }}">
                                 {{ contact.mobile if contact.mobile else content[i18n.language].yourDetails.notProvided | safe }}
@@ -90,7 +90,7 @@
                     {% if contact.email %}
                           <tr class="govuk-table__row">
                               <th class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}" scope="row">
-                                  {{ type | safe }} {{ content[i18n.language].contact.email | safe }}
+                                  {{ content[i18n.language].contact.email | safe }}
                               </th>
                               <td class="govuk-table__cell {{ hideBottomBorder }}">
                                   {{ contact.email if contact.email else content[i18n.language].yourDetails.notProvided | safe }}
