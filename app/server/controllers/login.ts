@@ -6,7 +6,6 @@ import * as Paths from '../paths';
 import { URL } from 'url';
 import { generateToken } from '../services/s2s';
 const content = require('../../../locale/content');
-
 const config = require('config');
 
 import * as rp from 'request-promise';
