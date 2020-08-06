@@ -2,6 +2,9 @@
   "node": {
     "port": "9999"
   },
+  "api": {
+    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+  },
   "testUrl": "http://localhost:9999",
   "cohUrl": "http://localhost:8081",
   "headless": true,
