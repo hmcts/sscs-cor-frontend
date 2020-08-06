@@ -71,11 +71,8 @@
     {% if showSignOut %}
         {% include "session-inactivity-modal.html" %}
     {% endif %}
-
-    {% if featureFlags.manageYourAppeal and allowContactUs %}
+    {% if allowContactUs %}
         {{ contactUs() }}
-    {% else %}
-        {% include "includes/contact-us.html" %}
     {% endif %}
 {% endblock %}
 
