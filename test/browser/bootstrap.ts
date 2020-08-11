@@ -13,7 +13,7 @@ async function bootstrapCcdCase(hearingType) {
 
 async function bootstrapSidamUser(ccdCase) {
   try {
-    // await sidam.registerRedirectUri();
+    await sidam.registerRedirectUri();
     return await sidam.createUser(ccdCase);
   } catch (error) {
     console.log('Error bootstrapping SIDAM user', error);
