@@ -2,5 +2,5 @@
     <h2 class="govuk-heading-m">
         <span id="appellant-name">{{ hearing.appellant_name }}</span>
     </h2>
-    <p tabindex="0">Appeal reference: <span id="case-reference" aria-label="{{ screenReaderUtils.spellNumbersOut(hearing.case_reference) }}">{{ hearing.case_reference }}</span></p>
+    <p tabindex="0">{{ content[i18n.language].common.appealReference | safe }}: <span id="case-reference" aria-label="{{ screenReaderUtils.spellNumbersOut(hearing.case_reference) }}">{{ hearing.case_reference | safe }}</span></p>
 </div>

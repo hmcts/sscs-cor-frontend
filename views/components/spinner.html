@@ -4,7 +4,7 @@
             <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         {% if text %}
-            <div class="govuk-heading-m spinner-text">{{ text }}</div>
+            <div class="govuk-heading-m spinner-text">{{ text | safe }}</div>
         {% endif %}
     </div>
 {% endmacro %}

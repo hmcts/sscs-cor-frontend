@@ -26,9 +26,11 @@ interface Options {
 }
 
 function setup(sessionHandler: RequestHandler, options: Options) {
-  i18next.init(content);
-  i18next.languages = config.get('languages');
-  i18next.changeLanguage('en');
+  i18next.init({
+    resources: content,
+    supportedLngs: config.get('languages'),
+    lng: 'en'
+  });
 
   const opts = options || {};
   if (!opts.disableAppInsights) {

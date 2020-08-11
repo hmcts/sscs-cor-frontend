@@ -11,6 +11,7 @@ const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
 const config = require('config');
+const i18next = require('i18next');
 
 function configureHelmet(app) {
   // by setting HTTP headers appropriately.
@@ -84,6 +85,11 @@ function configureNunjucks(app: express.Application) {
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
 
+  app.use((req, res, next) => {
+    nunEnv.addGlobal('currentUrl', req.url);
+    next();
+  });
+
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
     const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
@@ -105,16 +111,16 @@ function configureNunjucks(app: express.Application) {
   });
   nunEnv.addFilter('dateFilter', dateFilter);
   nunEnv.addFilter('agencyAcronym', benefitType => {
-    return nunjucks.renderString(content.en.benefitTypes[benefitType].agencyAcronym, this.ctx);
+    return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].agencyAcronym, this.ctx);
   });
   nunEnv.addFilter('acronym', benefitType => {
     return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
   });
   nunEnv.addFilter('benefitAcronym', benefitType => {
-    return nunjucks.renderString(content.en.benefitTypes[benefitType].acronym, this.ctx);
+    return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].acronym, this.ctx);
   });
   nunEnv.addFilter('panel', benefitType => {
-    return nunjucks.renderString(content.en.benefitTypes[benefitType].panel, this.ctx);
+    return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].panel, this.ctx);
   });
   nunEnv.addFilter('dateForDecisionReceived', utcDateTimeStr => {
     const howManyDaysAfterHearing = 5;

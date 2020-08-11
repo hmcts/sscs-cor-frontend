@@ -1,38 +1,39 @@
 {% extends "layout.html" %}
+
 {% from "components/navigation-tabs.html" import navigationTabs with context %}
 {% from "components/status-bar.html" import statusBar with context %}
 {% from "components/panel.html" import panel with context %}
 
-{% set pageHeader = content.en.taskList.header1 + ' ' + content.en.benefitTypes[appeal.benefitType].acronym  + ' ' + content.en.taskList.header2 %}
+{% set pageHeader = content[i18n.language].taskList.header1 + ' ' + content[i18n.language].benefitTypes[appeal.benefitType].acronym  + ' ' + content[i18n.language].taskList.header2 %}
 
 {% block pageTitle %}
-    {{ content.en.taskList.header1 }} {{ content.en.benefitTypes[appeal.benefitType].acronym }} {{ content.en.taskList.header2 }} - {{ content.en.statusTab.tabHeader }} - {{ content.en.general.govUK }}
+    {{ content[i18n.language].taskList.header1 }} {{ content[i18n.language].benefitTypes[appeal.benefitType].acronym }} {{ content[i18n.language].taskList.header2 }} - {{ content[i18n.language].statusTab.tabHeader }} - {{ content[i18n.language].general.govUK }}
 {% endblock %}
 
 {% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">{{ content.en.taskList.header1 }} {{ content.en.benefitTypes[appeal.benefitType].acronym }} {{ content.en.taskList.header2 }}</h1>
+            <h1 class="govuk-heading-xl">{{ content[i18n.language].taskList.header1 }} {{ content[i18n.language].benefitTypes[appeal.benefitType].acronym }} {{ content[i18n.language].taskList.header2 }}</h1>
             {% include "includes/appellant-details.html" %}
-            <p class="govuk-body-s">{{ content.en.general.sessionExpiryWarning }}</p>
+            <p class="govuk-body-s">{{ content[i18n.language].general.sessionExpiryWarning | safe }}</p>
         </div>
 
     {% include "includes/divider.html" %}
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            {{ navigationTabs('status') }}
+            {{ navigationTabs("status") }}
             <div class="task-list">
-                <h2 class="govuk-heading-m --margin-bottom-s">{{ content.en.statusTab.header }}</h2>
+                <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].statusTab.header | safe }}</h2>
                 {% if stages | length %}
                     {{ statusBar(stages) }}
                 {% endif %}
-                {% if appeal.hearingType == 'cor' %}
+                {% if appeal.hearingType == "cor" %}
                     {% set latestUpdate = "TBC" %}
                 {% else %}
-                    {% set latestUpdate = content.en.appealEvents[appeal.status]['content'][appeal.hearingType] %}
+                    {% set latestUpdate = content[i18n.language].appealEvents[appeal.status]["content"][appeal.hearingType] %}
                 {% endif %}
-                {{ panel(content.en.statusTab.panelHeader, latestUpdate | evalStatus) }}
+                {{ panel(content[i18n.language].statusTab.panelHeader, latestUpdate | evalStatus) }}
             </div>
         </div>
     </div>

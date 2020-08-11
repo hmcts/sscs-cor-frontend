@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as config from 'config';
 const multer = require('multer');
+const i18next = require('i18next');
 import * as AppInsights from '../app-insights';
 import { answerValidation, uploadDescriptionValidation } from '../utils/fieldValidation';
 import * as Paths from '../paths';
@@ -33,7 +34,7 @@ function postAdditionalEvidence (req: Request, res: Response) {
   if (action) {
     return res.redirect(`${Paths.additionalEvidence}/${action}`);
   } else {
-    const errorMessage = content.en.additionalEvidence.evidenceOptions.error.noButtonSelected;
+    const errorMessage = content[i18next.language].additionalEvidence.evidenceOptions.error.noButtonSelected;
     res.render('additional-evidence/index.html', { action: 'options', pageTitleError: true, error: errorMessage });
   }
 }
@@ -104,7 +105,7 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         const evidenceDescription = req.session.additional_evidence.description;
         const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
-        const evidencesValidationMsg = evidences.length ? false : content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded;
+        const evidencesValidationMsg = evidences.length ? false : content[i18next.language].additionalEvidence.evidenceUpload.error.noFilesUploaded;
 
         if (descriptionValidationMsg || evidencesValidationMsg) {
           return res.render('additional-evidence/index.html',

@@ -1,21 +1,22 @@
 {% extends "layout.html" %}
+
 {% from "button/macro.njk" import govukButton %}
-{% set pageHeader = content.en.tribunalViewAccepted.header %}
+
+{% set pageHeader = content[i18n.language].tribunalViewAccepted.header | safe %}
+
 {% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ content.en.tribunalViewAccepted.header }}</h1>
-            <p>{{ content.en.tribunalViewAccepted.para1 }}</p>
-            <p>{{ content.en.tribunalViewAccepted.para2 }}</p>
-            <p>{{ content.en.tribunalViewAccepted.para3 }}</p>
-            <p>{{ content.en.tribunalViewAccepted.para4 | eval | date }}</p>
+            <h1 class="govuk-heading-l">{{ content[i18n.language].tribunalViewAccepted.header | safe }}</h1>
+            <p>{{ content[i18n.language].tribunalViewAccepted.para1 | safe }}</p>
+            <p>{{ content[i18n.language].tribunalViewAccepted.para2 | safe }}</p>
+            <p>{{ content[i18n.language].tribunalViewAccepted.para3 | safe }}</p>
+            <p>{{ content[i18n.language].tribunalViewAccepted.para4 | eval | date }}</p>
             <p>
-                {{
-                    govukButton({
-                    text: content.en.general.continue,
-                    href: '/sign-out/?redirectUrl=' + content.en.tribunalViewAccepted.exitLink + pageHeader
-                    })
-                }}
+                {{ govukButton({
+                    text: content[i18n.language].general.continue,
+                    href: "/sign-out/?redirectUrl=" + content[i18n.language].tribunalViewAccepted.exitLink + pageHeader
+                }) }}
             </p>
         </div>
     </div>
