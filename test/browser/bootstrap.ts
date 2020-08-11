@@ -23,7 +23,9 @@ async function bootstrapSidamUser(ccdCase) {
 
 export async function bootstrap(hearingType = 'oral') {
   try {
+    console.log('Before creating ccd case....................');
     const ccdCase = await bootstrapCcdCase(hearingType);
+    console.log('Before creating sidam user....................');
     const sidamUser = await bootstrapSidamUser(ccdCase);
     return { ccdCase, sidamUser };
   } catch (error) {
