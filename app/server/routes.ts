@@ -1,6 +1,9 @@
 const express = require('express');
+const setLanguage = require('./setLanguage');
+
 import * as Paths from './paths';
 import * as config from 'config';
+
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 import { checkDecision } from './middleware/check-decision';
 
@@ -95,6 +98,7 @@ router.use((req, res, next) => {
   next();
 });
 
+router.use(setLanguage);
 router.use(idamStubController);
 router.use(loginController);
 router.use(submitQuestionController);

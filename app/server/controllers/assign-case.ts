@@ -7,6 +7,7 @@ import { OK } from 'http-status-codes';
 import { TrackYourApealService } from '../services/tyaService';
 import * as AppInsights from '../app-insights';
 
+const i18next = require('i18next');
 const content = require('../../../locale/content');
 const postcodeRegex = /^((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])|([Gg][Ii][Rr]))))\s?([0-9][A-Za-z]{2})|(0[Aa]{2}))$/;
 
@@ -20,12 +21,12 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
   return async (req: Request, res: Response) => {
     if (!req.body.postcode || !req.body.postcode.trim()) {
       return res.render('assign-case/index.html', {
-        error: content.en.assignCase.errors.noPostcode
+        error: content[i18next.language].assignCase.errors.noPostcode
       });
     } else {
       if (!req.body.postcode.replace(/ /g,'').match(postcodeRegex)) {
         return res.render('assign-case/index.html', {
-          error: content.en.assignCase.errors.invalidPostcode
+          error: content[i18next.language].assignCase.errors.invalidPostcode
         });
       }
     }
@@ -36,7 +37,7 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
 
     if (statusCode !== OK) {
       return res.render('assign-case/index.html', {
-        error: content.en.assignCase.errors.postcodeDoesNotMatch
+        error: content[i18next.language].assignCase.errors.postcodeDoesNotMatch
       });
     }
 

@@ -13,18 +13,18 @@
             position: relative;
             flex-direction: column;
             &:not(:first-child) {
-                width: 100%;    
+                width: 100%;
             }
         }
         p {
             margin: 0;
             margin-left: .5rem;
-            line-height: 2.75rem;
             font-weight: 400;
+            text-align: center;
             @include for-tablet-portrait-up {
                 margin: 0;
                 position: absolute;
-                top: 3rem;
+                top: 3.4rem;
                 right: 0;
                 transform:translateX(30%);
             }

@@ -6,7 +6,7 @@
 {% set assetPath = "/public/govuk-frontend" %}
 
 {% block pageTitle %}
-    {{ content.en.pageTitle }}
+    {{ content[i18n.language].pageTitle | safe }}
 {% endblock %}
 
 {% block head %}
@@ -31,9 +31,28 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {% set phaseBarHtml = content.en.phaseBanner.new + '<a class="govuk-link" href="'+ content.en.general.exitLink + pageHeader + '" target="_blank">' + content.en.phaseBanner.report + "</a> " + content.en.phaseBanner.improve %}
+    {% set phaseBarHtml = content[i18n.language].phaseBanner.new + '<a class="govuk-link" href="'+ content[i18n.language].general.exitLink + pageHeader + '" target="_blank">' + content[i18n.language].phaseBanner.report + "</a> " + content[i18n.language].phaseBanner.improve %}
     {% if welshEnabled %}
-        {% set phaseBarHtml = phaseBarHtml + content.en.phaseBanner.languageToggle %}
+        {% set queryStringConcat = "" %}
+
+        {% if "lng=" in currentUrl %}
+            {% set currentUrl = currentUrl | replace("?lng=en", "") | replace("&lng=en", "") | replace("?lng=cy", "") | replace("&lng=cy", "") %}
+        {% endif %}
+
+        {% if "?" not in currentUrl %}
+            {% set queryStringConcat = "?" %}
+        {% else %}
+            {% set queryStringConcat = "&" %}
+        {% endif %}
+
+        {% set languageFlag = "" %}
+        {% if i18n.language == "en" %}
+            {% set languageFlag = queryStringConcat + "lng=cy" %}
+        {% else %}
+            {% set languageFlag = queryStringConcat + "lng=en" %}
+        {% endif %}
+
+        {% set phaseBarHtml = phaseBarHtml + (content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}", currentUrl) | replace("{languageFlag}", languageFlag)) %}
     {% endif %}
 
     {{ govukPhaseBanner({
@@ -52,11 +71,8 @@
     {% if showSignOut %}
         {% include "session-inactivity-modal.html" %}
     {% endif %}
-
-    {% if featureFlags.manageYourAppeal and allowContactUs %}
+    {% if allowContactUs %}
         {{ contactUs() }}
-    {% else %}
-        {% include "includes/contact-us.html" %}
     {% endif %}
 {% endblock %}
 
@@ -70,30 +86,30 @@
         <script src="/public/js/hmcts-webchat.js"></script>
         <script>
             /*
-             * webchat_init() has been developed by CTSC and is defined in hmcts-webchat.js
-             * uuid, tenant, channel and other parameters can be passed into it as below to configure
-             * and customise the web-chat experience,
-             * busHandlerURL: is another jQuery javascript that further customises the web-chat journey
-             *
-             * NOTE: URLs must be https and not behind a VPN for 8x8 to work with web-chat
-             */
+              * webchat_init() has been developed by CTSC and is defined in hmcts-webchat.js
+              * uuid, tenant, channel and other parameters can be passed into it as below to configure
+              * and customise the web-chat experience,
+              * busHandlerURL: is another jQuery javascript that further customises the web-chat journey
+              *
+              * NOTE: URLs must be https and not behind a VPN for 8x8 to work with web-chat
+              */
             webchat_init({
-                uuid: '{{ webChat.uuid }}',
-                tenant: '{{ webChat.tenant }}',
-                channel: '{{ webChat.channel }}',
-                buttonContainerId: 'ctsc-web-chat',
-                textChatDown: '{{ content[content.en.language].contactUs.webchat.textChatDown | safe }}',
-                textChatWithAnAgent: '{{ content[content.en.language].contactUs.webchat.textChatWithAnAgent | safe }}',
-                textNoAgentsAvailable: '{{ content[content.en.language].contactUs.webchat.textNoAgentsAvailable | safe }}',
-                textAllAgentsBusy: '{{ content[content.en.language].contactUs.webchat.textAllAgentsBusy | safe }}',
-                textChatClosed : '{{ content[content.en.language].contactUs.webchat.textChatClosed | safe }}',
-                textChatAlreadyOpen: '{{ content[content.en.language].contactUs.webchat.textChatAlreadyOpen | safe }}',
-                textAdditional: '{{ content[content.en.language].contactUs.webchat.textAdditional | safe }}',
-                stylesheetURL: '{{ baseUrl }}/public/css/hmcts-webchat.css',
-                busHandlerURL: '{{ baseUrl }}/public/js/hmcts-webchat-busHandler.js',
-                btnNoAgents: '/{{ webChat.tenant }}/button_7732814745cac6f4603c4d1.53357933/img/logo',
-                btnAgentsBusy: '/{{ webChat.tenant }}/button_2042157415cc19c95669039.65793052/img/logo',
-                btnServiceClosed: '/{{ webChat.tenant }}/button_20199488815cc1a89e0861d5.73103009/img/logo'
+              uuid: '{{ webChat.uuid }}',
+              tenant: '{{ webChat.tenant }}',
+              channel: '{{ webChat.channel }}',
+              buttonContainerId: 'ctsc-web-chat',
+              textChatDown: '{{ content[i18n.language].contactUs.webchat.textChatDown | safe }}',
+              textChatWithAnAgent: '{{ content[i18n.language].contactUs.webchat.textChatWithAnAgent | safe }}',
+              textNoAgentsAvailable: '{{ content[i18n.language].contactUs.webchat.textNoAgentsAvailable | safe }}',
+              textAllAgentsBusy: '{{ content[i18n.language].contactUs.webchat.textAllAgentsBusy | safe }}',
+              textChatClosed : '{{ content[i18n.language].contactUs.webchat.textChatClosed | safe }}',
+              textChatAlreadyOpen: '{{ content[i18n.language].contactUs.webchat.textChatAlreadyOpen | safe }}',
+              textAdditional: '{{ content[i18n.language].contactUs.webchat.textAdditional | safe }}',
+              stylesheetURL: '{{ baseUrl }}/public/css/hmcts-webchat.css',
+              busHandlerURL: '{{ baseUrl }}/public/js/hmcts-webchat-busHandler.js',
+              btnNoAgents: '/{{ webChat.tenant }}/button_7732814745cac6f4603c4d1.53357933/img/logo',
+              btnAgentsBusy: '/{{ webChat.tenant }}/button_2042157415cc19c95669039.65793052/img/logo',
+              btnServiceClosed: '/{{ webChat.tenant }}/button_20199488815cc1a89e0861d5.73103009/img/logo'
             });
         </script>
     {% endif %}

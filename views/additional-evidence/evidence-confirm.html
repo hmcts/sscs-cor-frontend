@@ -1,7 +1,7 @@
 <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">{{ content.en.additionalEvidence.evidenceConfirm.header }}</h1>
-    <p>{{content.en.additionalEvidence.evidenceConfirm.description}}</p>
+    <h1 class="govuk-heading-l">{{ content[i18n.language].additionalEvidence.evidenceConfirm.header | safe }}</h1>
+    <p>{{ content[i18n.language].additionalEvidence.evidenceConfirm.description | safe }}</p>
     <p>
-        <a id="goToTaskList" href="/task-list" class="govuk-link">{{content.en.additionalEvidence.evidenceConfirm.link}}</a>
+        <a id="goToTaskList" href="/task-list" class="govuk-link">{{ content[i18n.language].additionalEvidence.evidenceConfirm.link | safe }}</a>
     </p>
 </div>

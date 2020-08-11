@@ -1,54 +1,54 @@
+{% extends "layout.html" %}
+
 {% from "button/macro.njk" import govukButton %}
 {% from "file-upload/macro.njk" import govukFileUpload %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
-{% extends "layout.html" %}
-{% set pageHeader = content.en.questionUploadEvidence.header  %}
+
+{% set pageHeader = content[i18n.language].questionUploadEvidence.header | safe %}
+
 {% block beforeContent %}
-  {{ super() }}
-  <a class="govuk-back-link" href="/question/{{ questionOrdinal }}">{{ content.en.questionUploadEvidence.backToQuestionText }}</a>
+    {{ super() }}
+    <a class="govuk-back-link" href="/question/{{ questionOrdinal }}">{{ content[i18n.language].questionUploadEvidence.backToQuestionText | safe }}</a>
 {% endblock %}
 
 {% block corContent %}
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% if error %}
+                {{ govukErrorSummary({
+                    titleText: content[i18n.language].errorSummary.titleText,
+                    descriptionText: content[i18n.language].errorSummary.descriptionText,
+                    errorList: [{
+                        text: error,
+                        href: "#file-upload-1"
+                    }]
+                }) }}
+            {% endif %}
 
-    {% if error %}
-      {{ govukErrorSummary({
-        titleText: content.en.errorSummary.titleText,
-        descriptionText: content.en.errorSummary.descriptionText,
-        errorList: [{
-          text: error,
-          href: "#file-upload-1"
-        }]
-      }) }}
-    {% endif %}
+            <h1 class="govuk-heading-l">{{ content[i18n.language].questionUploadEvidence.header | safe }}</h1>
 
-    <h1 class="govuk-heading-l">{{ content.en.questionUploadEvidence.header }}</h1>
+            <form action="/question/{{ questionOrdinal }}/upload-evidence?_csrf={{csrfToken}}" method="post" enctype="multipart/form-data">
+                {{ govukFileUpload({
+                    id: "file-upload-1",
+                    name: "file-upload-1",
+                    label: {
+                        text: content[i18n.language].questionUploadEvidence.label
+                    },
+                    attributes: {
+                        accept: fileTypeWhiteList
+                    },
+                    errorMessage: {
+                        text: error
+                    } if error
+                }) }}
 
-    <form action="/question/{{ questionOrdinal }}/upload-evidence?_csrf={{csrfToken}}" method="post" enctype="multipart/form-data">
-      {{ govukFileUpload({
-        id: "file-upload-1",
-        name: "file-upload-1",
-        label: {
-          text: content.en.questionUploadEvidence.label
-        },
-        attributes: {
-          accept: fileTypeWhiteList
-        },
-        "errorMessage": {
-          "text": error
-        } if error
-      }) }}
-
-      <p>{{ content.en.questionUploadEvidence.sizeWarning }}</p>
-      <div id="submit-button">
-        {{ govukButton({
-          text: content.en.general.continue
-        }) }}
-      </div>
-
-    </form>
-
-  </div>
-</div>
+                <p>{{ content[i18n.language].questionUploadEvidence.sizeWarning | safe }}</p>
+                <div id="submit-button">
+                    {{ govukButton({
+                        text: content[i18n.language].general.continue
+                    }) }}
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
