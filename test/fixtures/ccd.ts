@@ -8,7 +8,7 @@ const timeout = require('config').get('apiCallTimeout');
 async function createCase(hearingType) {
   const randomNumber = parseInt(Math.random() * 10000000 + '', 10);
   const email = `test${randomNumber}@hmcts.net`;
-  console.log(`backednApiUrl----------------------------${backendApiUrl}`);
+  console.log(`backednApiUrl----------------------------${backendApiUrl}/api/case`);
   const options = {
     url: `${backendApiUrl}/api/case`,
     qs: { email, hearingType },

@@ -1,11 +1,11 @@
 {
   "node": {
-    "port": "3000"
+    "port": "9999"
   },
   "api": {
-    "url": "http://localhost:8080"
+    "url": "http://localhost:8090"
   },
-  "testUrl": "http://localhost:3000",
+  "testUrl": "http://localhost:9999",
   "cohUrl": "http://localhost:8081",
   "headless": true,
   "pa11y": {
