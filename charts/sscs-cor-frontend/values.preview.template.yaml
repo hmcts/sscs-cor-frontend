@@ -10,6 +10,7 @@ nodejs:
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: "false"
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "true"
     POST_BULK_SCAN: "true"
+    IDAM_URL: "https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net"
   keyVaults:
     sscs:
       secrets:
