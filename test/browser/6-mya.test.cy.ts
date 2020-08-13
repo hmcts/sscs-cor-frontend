@@ -31,6 +31,7 @@ describe('Welsh:Manage your appeal app @mya', () => {
     });
 
     it('should land in assign-case page after a successful login', async() => {
+        await assignCasePage.clickElement('.govuk-link.language');
         assignCasePage.verifyPage();
     });
 
