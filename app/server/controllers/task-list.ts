@@ -62,8 +62,15 @@ function getEvidencePost(req: Request, res: Response, next: NextFunction) {
 function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const caseId = req.session.hearing.case_id;
-      const coversheet = await additionalEvidenceService.getCoversheet(caseId, req);
+      const session = req.session;
+
+      if (!session) {
+        const missingCaseIdError = new Error('Unable to retrieve session');
+        AppInsights.trackException(missingCaseIdError);
+        AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+      }
+
+      const coversheet = await additionalEvidenceService.getCoversheet(session.hearing.case_id, req);
       res.header('content-type', 'application/pdf');
       res.send(new Buffer(coversheet, 'binary'));
     } catch (error) {

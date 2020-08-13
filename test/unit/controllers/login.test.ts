@@ -216,9 +216,11 @@ describe('controllers/login', () => {
         } as HearingService;
 
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-        const error = new Error('Case ID cannot be empty');
+        const error = new Error('Case ID cannot be empty from hearing in session');
         expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
-        expect(AppInsights.trackEvent).to.have.been.calledOnce.calledWith('MYA_LOGIN_FAIL');
+        expect(AppInsights.trackEvent).to.have.been.calledTwice;
+        expect(AppInsights.trackEvent).calledWith('MYA_LOGIN_FAIL');
+        expect(AppInsights.trackEvent).calledWith('MYA_SESSION_READ_FAIL');
         expect(next).to.have.been.calledWith(sinon.match.has('message', error.message));
       });
     });
