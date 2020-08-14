@@ -3,6 +3,7 @@ import { RequestPromise } from './request-wrapper';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger('login.js');
 const i18next = require('i18next');
+const config = require('config');
 
 export interface TokenResponse {
   access_token: string;
@@ -35,7 +36,7 @@ export class IdamService {
 
     logger.info('microservice is ' + microservice);
     logger.info('s2sSecret is ' + s2sSecret);
-    logger.info('s2sUrl is ' + s2sUrl);
+    logger.info('s2sUrl is ' + redirectUri);
 
     return RequestPromise.request({
       method: 'POST',
