@@ -4,7 +4,7 @@
   },
   "testUrl": "http://localhost:3000",
   "api": {
-    "url": "http://localhost:8080"
+    "url": "http://sscs-tribunals-api-staging.service.core-compute-aat.internal"
   },
   "appInsights": {
     "instrumentationKey": "iKey",
@@ -32,7 +32,7 @@
     "enableStub": "false"
   },
   "tribunals": {
-    "api-url": "http://localhost:8080"
+    "api-url": "http://sscs-tribunals-api-staging.service.core-compute-aat.internal"
   },
   "httpProxy": "http://proxyout.reform.hmcts.net:8080",
   "evidenceUpload": {
