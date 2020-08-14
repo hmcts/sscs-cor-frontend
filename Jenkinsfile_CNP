@@ -10,7 +10,7 @@ def product = "sscs-cor"
 def component = "frontend"
 
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"
-def sscsCorBackEndUrlAat = "http://sscs-tribunals-api-aat-staging.service.core-compute-aat.internal"
+def sscsCorBackEndUrlAat = "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
 def idamUrlAat = "https://idam-web-public.aat.platform.hmcts.net"
 def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
