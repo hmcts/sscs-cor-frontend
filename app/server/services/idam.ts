@@ -1,5 +1,6 @@
 import * as Paths from '../paths';
 import { RequestPromise } from './request-wrapper';
+const logger = Logger.getLogger('login.js');
 const i18next = require('i18next');
 
 export interface TokenResponse {
@@ -23,6 +24,9 @@ export class IdamService {
 
   async getToken(code: string, protocol: string, host: string): Promise<TokenResponse> {
     const redirectUri: string = this.getRedirectUrl(protocol, host);
+    logger.info('redirectUri is ' + redirectUri);
+    logger.info('sending to ' + `${this.apiUrl}/oauth2/token`);
+
     return RequestPromise.request({
       method: 'POST',
       uri: `${this.apiUrl}/oauth2/token`,
