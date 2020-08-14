@@ -27,6 +27,7 @@ export class IdamService {
     const redirectUri: string = this.getRedirectUrl(protocol, host);
     logger.info('redirectUri is ' + redirectUri);
     logger.info('sending to ' + `${this.apiUrl}/oauth2/token`);
+    logger.info('this.appSecret ' + this.appSecret);
 
     return RequestPromise.request({
       method: 'POST',
