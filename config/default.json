@@ -34,7 +34,7 @@
   "tribunals": {
     "api-url": "http://localhost:8080"
   },
-  "httpProxy": false,
+  "httpProxy": "http://proxyout.reform.hmcts.net:8080",
   "evidenceUpload": {
     "questionPage": {
       "enabled": "false",
