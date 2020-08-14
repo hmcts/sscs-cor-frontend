@@ -29,6 +29,14 @@ export class IdamService {
     logger.info('sending to ' + `${this.apiUrl}/oauth2/token`);
     logger.info('this.appSecret ' + this.appSecret);
 
+    const microservice = config.get('s2s.microservice');
+    const s2sSecret = config.get('s2s.secret');
+    const s2sUrl = config.get('s2s.url');
+
+    logger.info('microservice is ' + microservice);
+    logger.info('s2sSecret is ' + s2sSecret);
+    logger.info('s2sUrl is ' + s2sUrl);
+
     return RequestPromise.request({
       method: 'POST',
       uri: `${this.apiUrl}/oauth2/token`,
