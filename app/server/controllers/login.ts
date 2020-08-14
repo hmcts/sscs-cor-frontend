@@ -111,7 +111,7 @@ function getIdamCallback(
     try {
       if (!req.session.accessToken) {
         try {
-          logger.info('getting token');
+          logger.info('getting token with code ' + code + 'req.protocol ' + req.protocol + 'req.hostname ' + req.hostname);
           const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
 
           logger.info('getting user details');
