@@ -1,5 +1,6 @@
 import * as Paths from '../paths';
 import { RequestPromise } from './request-wrapper';
+import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger('login.js');
 const i18next = require('i18next');
 
