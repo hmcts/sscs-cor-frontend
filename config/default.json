@@ -44,8 +44,8 @@
   },
   "s2s": {
     "microservice": "sscs",
-    "secret": "AAAAAAAAAAAAAAAC",
-    "url": "http://localhost:4502",
+    "secret": "443EL4ICRQ53FFUY",
+    "url": "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal",
     "oauth2": {
       "url": "http://localhost:5000",
       "user": "system.update@hmcts.net",
