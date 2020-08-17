@@ -28,7 +28,6 @@ nodejs:
         - sscs-cor-redis-access-key
         - sscs-cor-redis-connection-string
         - idam-sscs-oauth2-client-secret
-        - sscs-s2s-secret
         - AppInsightsInstrumentationKey
 redis:
   enabled: false
