@@ -111,21 +111,12 @@ function getIdamCallback(
     try {
       if (!req.session.accessToken) {
         try {
-          logger.info('getting token with code ' + code + 'req.protocol ' + req.protocol + 'req.hostname ' + req.hostname);
+          logger.info('getting token');
           const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-
-          logger.info('tokenResponse ' + tokenResponse);
-          logger.info('getting user details');
-
           req.session.accessToken = tokenResponse.access_token;
-          logger.info('req.session.accessToken ' + req.session.accessToken);
           req.session.serviceToken = await generateToken();
-          logger.info('req.session.serviceToken ' + req.session.serviceToken);
           req.session.tya = req.query.state;
-          logger.info('req.session.tya ' + req.session.tya);
-
         } catch (error) {
-          logger.info('its an error ' + error);
           const tokenError = new Error('Idam token verification failed for code ' + code + ' with error ' + error.message);
           AppInsights.trackException(tokenError);
           AppInsights.trackEvent('MYA_IDAM_CODE_AUTH_ERROR');
