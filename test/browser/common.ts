@@ -84,9 +84,6 @@ export async function login(page, force?, assignCase?) {
   taskListPage = new TaskListPage(page);
   console.log('in login');
 
-  await taskListPage.visitPage();
-
-  console.log('visited task list page');
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
   const signInFailed = () => page.url().indexOf(`${testUrl}/sign-in`) >= 0;
   console.log(`is on idam page [${isOnIdamPage()}]`);
@@ -122,7 +119,7 @@ export async function login(page, force?, assignCase?) {
 async function startServices(options?) {
   const opts = options || {};
   let sidamUser;
-  if (opts.bootstrapData && !testingLocalhost) {
+  if (opts.bootstrapData) {
     ({ ccdCase, sidamUser } = await bootstrap(opts.hearingType));
     sidamUsers.unshift(sidamUser);
   }

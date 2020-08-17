@@ -6,7 +6,7 @@ import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 const content = require('locale/content');
 
-describe.skip('Manage your appeal app @mya', () => {
+describe('Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -14,7 +14,7 @@ describe.skip('Manage your appeal app @mya', () => {
   let statusPage: StatusPage;
   let sidamUser;
   before(async () => {
-    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
+    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, performLogin: true, hearingType: 'oral' }));
     const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);

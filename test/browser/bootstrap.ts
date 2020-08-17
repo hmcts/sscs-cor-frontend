@@ -21,7 +21,7 @@ async function bootstrapSidamUser(ccdCase) {
   }
 }
 
-export async function bootstrap(hearingType = 'cor') {
+export async function bootstrap(hearingType = 'oral') {
   try {
     const ccdCase = await bootstrapCcdCase(hearingType);
     const sidamUser = await bootstrapSidamUser(ccdCase);

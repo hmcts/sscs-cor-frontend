@@ -4,7 +4,7 @@
   },
   "testUrl": "http://localhost:3000",
   "api": {
-    "url": "http://localhost:8080"
+    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
   "appInsights": {
     "instrumentationKey": "iKey",
@@ -27,14 +27,14 @@
     "api-url": "http://localhost:3000/idam-stub",
     "client": {
       "id": "sscs",
-      "secret": "a_secret"
+      "secret": "3$^zc#4srcqONrl&"
     },
     "enableStub": "false"
   },
   "tribunals": {
-    "api-url": "http://localhost:8080"
+    "api-url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
-  "httpProxy": false,
+  "httpProxy": "http://proxyout.reform.hmcts.net:8080",
   "evidenceUpload": {
     "questionPage": {
       "enabled": "false",
@@ -44,8 +44,8 @@
   },
   "s2s": {
     "microservice": "sscs",
-    "secret": "AAAAAAAAAAAAAAAC",
-    "url": "http://localhost:4502",
+    "secret": "443EL4ICRQ53FFUY",
+    "url": "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal",
     "oauth2": {
       "url": "http://localhost:5000",
       "user": "system.update@hmcts.net",
@@ -60,7 +60,7 @@
   "navigationTimeout" : 140000,
   "featureFlags": {
     "testFeature": "false",
-    "manageYourAppeal": "false",
+    "manageYourAppeal": "true",
     "additionalEvidence": "false",
     "allowContactUs": {
       "enabled": "true",
