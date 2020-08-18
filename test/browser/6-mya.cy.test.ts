@@ -20,8 +20,8 @@ describe('Welsh Manage your appeal app @mya', () => {
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
     await loginPage.setCookie('manageYourAppeal', 'true');
+    await loginPage.setCookie('welsh', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.clickLanguageToggle();
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
 
@@ -38,7 +38,6 @@ describe('Welsh Manage your appeal app @mya', () => {
   it('CY should inform postcode, submit and land in status page', async() => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
-
     statusPage.verifyPage();
   });
 
