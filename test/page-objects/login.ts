@@ -26,4 +26,8 @@ export class LoginPage extends BasePage {
       this.clickElement('[type=submit]')
     ]);
   }
+
+  async clickLanguageToggle() {
+    await this.clickElement('.govuk-link.language');
+  }
 }
