@@ -3,6 +3,7 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   environment:
     NODE_ENV: preprod
+    UV_THREADPOOL_SIZE: 4
     MYA_FEATURE_FLAG: "true"
     ADDITIONAL_EVIDENCE_FEATURE_FLAG: "true"
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: "false"
