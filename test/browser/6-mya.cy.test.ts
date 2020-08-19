@@ -23,6 +23,7 @@ describe('Welsh Manage your appeal app @mya', () => {
     await loginPage.setCookie('welsh', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
+    await loginPage.clickLanguageToggle();
   });
 
   after(async () => {
