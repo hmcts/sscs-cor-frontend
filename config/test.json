@@ -21,8 +21,8 @@
     }
   },
   "idam": {
-    "url": "http://localhost:8082",
-    "api-url": "http://localhost:8082",
+    "url": "https://idam-web-public.aat.platform.hmcts.net",
+    "api-url": "https://idam-api.aat.platform.hmcts.net",
     "enableStub": "false"
   },
   "saucelabs": {
