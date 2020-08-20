@@ -9,7 +9,7 @@ function getYourDetails(req: Request, res: Response) {
   const session = req.session;
 
   if (!session) {
-    const missingCaseIdError = new Error('Unable to retrieve session');
+    const missingCaseIdError = new Error('Unable to retrieve session from session store');
     AppInsights.trackException(missingCaseIdError);
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
