@@ -8,13 +8,16 @@ import * as AppInsights from '../app-insights';
 function getStatus(req: Request, res: Response) {
   if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
   let stages: IAppealStage[] = [];
-  const { appeal } = req.session;
 
-  if (!appeal) {
+  const session = req.session;
+
+  if (!session) {
     const missingCaseIdError = new Error('Unable to retrieve session from session store');
     AppInsights.trackException(missingCaseIdError);
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
+
+  const { appeal } = session;
 
   const noProgressBarStages = ['CLOSED', 'LAPSED_REVISED', 'WITHDRAWN'];
   const { hearingType, status } = appeal;

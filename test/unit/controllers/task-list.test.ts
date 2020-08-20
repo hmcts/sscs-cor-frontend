@@ -1,3 +1,5 @@
+import * as hearing from '../../../app/server/controllers/hearing';
+
 const { expect, sinon } = require('test/chai-sinon');
 import {
   setupTaskListController,
@@ -42,6 +44,7 @@ describe.skip('controllers/task-list', () => {
     };
     next = sandbox.stub();
     sandbox.stub(AppInsights, 'trackException');
+    sandbox.stub(AppInsights, 'trackEvent');
     additionalEvidenceService = {
       getCoversheet: sandbox.stub().resolves('file')
     };
@@ -49,6 +52,7 @@ describe.skip('controllers/task-list', () => {
 
   afterEach(() => {
     (AppInsights.trackException as sinon.SinonStub).restore();
+    (AppInsights.trackEvent as sinon.SinonStub).restore();
     sandbox.restore();
   });
 
@@ -66,6 +70,17 @@ describe.skip('controllers/task-list', () => {
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });
+
+    it('should throw error and event if no sessions', async() => {
+      req.session = null;
+
+      expect(await getCoversheet(additionalEvidenceService)(req, res, next)).to.throw(TypeError);
+
+      const error = new Error('Unable to retrieve session from session store');
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+      expect(AppInsights.trackEvent).to.have.been.calledTwice;
+    });
+
   });
 
   describe('getEvidencePost', () => {
