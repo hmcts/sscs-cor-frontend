@@ -1,4 +1,7 @@
 {
+  "api": {
+    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+  },
   "evidenceUpload": {
     "questionPage": {
       "enabled": "false",
@@ -7,7 +10,7 @@
   },
   "featureFlags": {
     "additionalEvidence": "false",
-    "manageYourAppeal": "false",
+    "manageYourAppeal": "true",
     "postBulkScan": "false"
   }
 }

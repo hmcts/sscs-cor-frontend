@@ -6,7 +6,6 @@ import * as Paths from '../paths';
 import { URL } from 'url';
 import { generateToken } from '../services/s2s';
 const content = require('../../../locale/content');
-
 const config = require('config');
 
 import * as rp from 'request-promise';
@@ -114,13 +113,9 @@ function getIdamCallback(
         try {
           logger.info('getting token');
           const tokenResponse: TokenResponse = await idamService.getToken(code, req.protocol, req.hostname);
-
-          logger.info('getting user details');
-
           req.session.accessToken = tokenResponse.access_token;
           req.session.serviceToken = await generateToken();
           req.session.tya = req.query.state;
-
         } catch (error) {
           const tokenError = new Error('Idam token verification failed for code ' + code + ' with error ' + error.message);
           AppInsights.trackException(tokenError);

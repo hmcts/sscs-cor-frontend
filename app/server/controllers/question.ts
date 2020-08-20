@@ -7,6 +7,7 @@ import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
 const multer = require('multer');
+const i18next = require('i18next');
 import { QuestionService } from '../services/question';
 import { EvidenceService } from '../services/evidence';
 const content = require('../../../locale/content');
@@ -155,7 +156,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
     const hearingId = req.session.hearing.online_hearing_id;
 
     if (!req.file) {
-      const error = res.locals.multerError || content.en.questionUploadEvidence.error.empty;
+      const error = res.locals.multerError || content[i18next.language].questionUploadEvidence.error.empty;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
     try {
@@ -164,7 +165,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
         return res.redirect(`${Paths.question}/${questionOrdinal}`);
       }
       if (response.statusCode === UNPROCESSABLE_ENTITY) {
-        const error = content.en.questionUploadEvidence.error.fileCannotBeUploaded;
+        const error = content[i18next.language].questionUploadEvidence.error.fileCannotBeUploaded;
         if (isJsUpload) {
           const question = req.session.question;
           return res.render('question/index.html', {

@@ -1,8 +1,11 @@
 {
   "node": {
-    "port": "9999"
+    "port": "3000"
   },
-  "testUrl": "http://localhost:9999",
+  "api": {
+    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+  },
+  "testUrl": "http://localhost:3000",
   "cohUrl": "http://localhost:8081",
   "headless": true,
   "pa11y": {
@@ -18,8 +21,8 @@
     }
   },
   "idam": {
-    "url": "http://localhost:8082",
-    "api-url": "http://localhost:8082",
+    "url": "https://idam-web-public.aat.platform.hmcts.net",
+    "api-url": "https://idam-api.aat.platform.hmcts.net",
     "enableStub": "false"
   },
   "saucelabs": {

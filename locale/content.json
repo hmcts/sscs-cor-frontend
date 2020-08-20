@@ -26,7 +26,15 @@
       "submitAnswerToTribunal": "Submit answer to the tribunal",
       "saveForLater": "Save for later",
       "confirm": "Confirm",
-      "extendDeadline": "Extend the deadline"
+      "extendDeadline": "Extend the deadline",
+      "describeTheEvidence": "Describe the evidence",
+      "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why",
+      "type": {
+        "Appellant": "Appellant",
+        "Appointee": "Appointee",
+        "Representative": "Representative",
+        "Supporter": "Supporter"
+      }
     },
     "pageTitle": "Manage your appeal",
     "contactEmail": "pipappeals@justice.gov.uk",
@@ -34,7 +42,7 @@
       "new": "This is a new service – your ",
       "report": "feedback (opens in a new window)",
       "improve": "will help us improve it.",
-      "languageToggle": "<a href=\"?lng=cy\" class=\"govuk-link language\">Cymraeg</a>"
+      "languageToggle": "<a href=\"{currentUrl}{languageFlag}\" class=\"govuk-link language\">Cymraeg</a>"
     },
     "guidance": {
       "sendingEvidence": {
@@ -894,6 +902,8 @@
       "addressLabel": "Address",
       "phoneLabel": "Contact phone number",
       "emailLabel": "email address for updates",
+      "emailLabelCy1": "",
+      "emailLabelCy2": "",
       "mobileLabel": "text message updates",
       "contactPhoneLabel": "Contact mobile",
       "notProvided": "Not provided"
@@ -1377,8 +1387,8 @@
       "date": "Dyddiad",
       "time": "Amser",
       "location": "Lleoliad",
-      "provideInformationOnline": "Darparwch eich gwybodaeth ar-lein",
-      "uploadLettersDocumentPhotos": "Uwchlwythwch llythyrau, dogfennau neu luniau",
+      "provideInformationOnline": "Darparu eich gwybodaeth ar-lein",
+      "uploadLettersDocumentPhotos": "Uwchlwytho llythyrau, dogfennau neu luniau",
       "sendByPost": "Anfon drwy’r post",
       "submitEvidenceToTribunal": "Cyflwyno tystiolaeth i’r tribiwnlys",
       "loading": "Yn llwytho",
@@ -1390,22 +1400,30 @@
       "submitAnswerToTribunal": "Cyflwyno ateb i’r tribiwnlys",
       "saveForLater": "Arbed tan rhywbryd eto",
       "confirm": "Cadarnhau",
-      "extendDeadline": "Ymestyn y terfyn amser"
+      "extendDeadline": "Ymestyn y terfyn amser",
+      "describeTheEvidence": "Rhowch ddisgrifiad o’r dystiolaeth",
+      "breflyDescribeWhatAndWhy": "Disgrifiwch yn fyr beth ydych yn ei uwchlwytho a pham",
+      "type": {
+        "Appellant": "Apelydd",
+        "Appointee": "Penodai",
+        "Representative": "Cynrychiolydd",
+        "Supporter": "Cefnogwr"
+      }
     },
     "pageTitle": "Rheoli eich apêl",
     "contactEmail": "ymholiadaucymraeg@justice.gov.uk",
     "phaseBanner": {
-      "new": "Mae hwn yn wasanaeth newydd - bydd eich",
-      "report": "Bydd adborth (agor mewn ffenestr newydd)",
-      "improve": "yn ein helpu ni i'w wella.",
-      "languageToggle": "<a href=\"?lng=en\" class=\"govuk-link language\">English</a>"
+      "new": "Mae hwn yn wasanaeth newydd - bydd eich ",
+      "report": "adborth",
+      "improve": "yn ein helpu ni i'w wella (agor mewn ffenestr newydd).",
+      "languageToggle": "<a href=\"{currentUrl}{languageFlag}\" class=\"govuk-link language\">English</a>"
     },
     "guidance": {
       "sendingEvidence": {
         "byEmailHeader": "Anfon tystiolaeth drwy e-bost",
         "byPostHeader": "Anfon tystiolaeth drwy’r post",
-        "postalAddress": "<p>GLlTEM<br>Uned yr Iaith Gymraeg<br>Ffordd Llanberis<br>Caernarfon<br>Gwynedd<br>LL55 2DF</p>",
-        "screenReaderPostalAddress": "GLlTEM, Uned yr Iaith Gymraeg Ffordd Llanberis Caernarfon Gwynedd LL55 2DF"
+        "postalAddress": "<p>HMCTS SSCS<br>PO BOX 12626<br>Harlow<br>CM20 9QF</p>",
+        "screenReaderPostalAddress": "HMCTS SSCS PO BOX 12626 Harlow CM20 9QF"
       }
     },
     "login": {
@@ -1435,8 +1453,8 @@
     },
     "taskList": {
       "header": "Eich apêl am fudd-dal",
-      "header1": "Eich",
-      "header2": "apêl am fudd-dal",
+      "header1": "Eich apêl am fudd-dal",
+      "header2": "",
       "noQuestions": "Nid oes gennych unrhyw gwestiynau gan y tribiwnlys",
       "deadline": {
         "pending": "Rhaid ichi ymateb erbyn",
@@ -1542,7 +1560,7 @@
         "para1": "Nawr mae gennych hyd at {{ deadline }} i ateb y cwestiynau."
       },
       "contactTribunal": {
-        "header": "Mae angen ichi ddarparu rhesymau ",
+        "header": "Mae angen ichi ddarparu rhesymau",
         "para1": "Mae angen ichi gysylltu â’r tribiwnlys ac esbonio pam eich bod angen mwy o amser.",
         "para2": "Anfonwch neges e-bost yn esbonio pam eich bod angen mwy o amser gan nodi erbyn pa ddyddiad y gallwch ateb i:",
         "para3": "Bydd eich rhesymau yn cael eu hadolygu gan farnwr.",
@@ -1578,7 +1596,7 @@
       "mobilityActivitiesHeader": "Gweithgareddau a disgrifyddion symudedd",
       "mobilityActivitiesHeaderEmpty": "Safbwynt y tribiwnlys yw nad oes unrhyw weithgareddau symudedd sy’n berthnasol i'ch apêl",
       "activitiesTable": {
-        "headerGweithgaredd  ": "Activity",
+        "headerActivity": "Activity",
         "headerDescriptor": "Disgrifydd",
         "headerPoints": "Pwyntiau"
       },
@@ -1979,11 +1997,11 @@
     "postEvidence": {
       "header": "Postio tystiolaeth i'r tribiwnlys",
       "info": "Postiwch eich tystiolaeth i'r cyfeiriad isod.",
-      "postalAddress": "GLlTEM<br>Uned yr Iaith Gymraeg<br>Canolfan Gyfiawnder Caernarfon<br>Ffordd Llanberis<br>Caernarfon<br>LL55 2DF",
-      "screenReaderPostalAddress": "GLlTEM, Uned yr Iaith Gymraeg Ffordd Llanberis Caernarfon Gwynedd LL55 2DF",
+      "postalAddress": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF",
+      "screenReaderPostalAddress": "HMCTS SSCS PO Box 12626 Harlow CM20 9QF",
       "para1": "Rhaid ichi gynnwys copi o’r ‘dalen flaen tystiolaeth’ a gafodd ei hamgáu gyda’r llythyr cyntaf a gawsoch ynghylch eich apêl budd-dal. Gallwch <a href='/coversheet'>lawrlwytho dalen flaen newydd yma </a>, os ydych angen un.",
       "para2": "Ceisiwch bostio’r dystiolaeth cyn gynted ag sy’n bosibl i osgoi unrhyw oedi gyda’ch apêl.",
-      "para3": "Os ydych yn credu y bydd oedi wrth anfon eich tystiolaeth i'r tribiwnlys, yna anfonwch neges e-bost i <a href='mailto:benefitappeals@hmcts.net'>benefitappeals@hmcts.net</a> yn disgrifio’n fras beth ydych yn ei anfon a phryd rydych yn credu y bydd yn cyrraedd."
+      "para3": "Os ydych yn credu y bydd oedi wrth anfon eich tystiolaeth i'r tribiwnlys, yna anfonwch neges e-bost i <a href='mailto:ymholiadaucymraeg@justice.gov.uk'>ymholiadaucymraeg@justice.gov.uk</a> yn disgrifio’n fras beth ydych yn ei anfon a phryd rydych yn credu y bydd yn cyrraedd."
     },
     "error": {
       "error404": {
@@ -2103,7 +2121,7 @@
           "google": "optio allan o Google Analytics ",
           "access": "os nad ydych eisiau i Google gael mynediad at eich gwybodaeth."
         },
-        "googleCookies": " Mae Google Analytics yn gosod y cwcis canlynol:",
+        "googleCookies": "Mae Google Analytics yn gosod y cwcis canlynol:",
         "cookieTable": {
           "columnNames": [
             "Enw’r cwci",
@@ -2182,7 +2200,7 @@
       "evidenceOptions": {
         "header": "Sut ydych chi eisiau darparu gwybodaeth ychwanegol?",
         "error": {
-          "noButtonSelected": " Dewiswch pa ddull yr hoffech ei ddefnyddio i ddarparu gwybodaeth ychwanegol"
+          "noButtonSelected": "Dewiswch pa ddull yr hoffech ei ddefnyddio i ddarparu gwybodaeth ychwanegol"
         }
       },
       "evidenceStatement": {
@@ -2257,8 +2275,10 @@
       "nameLabel": "Enw",
       "addressLabel": "Cyfeiriad",
       "phoneLabel": "Rhif ffôn cyswllt",
-      "emailLabel": "cyfeiriad e-bost ar gyfer cael diweddariadau",
-      "mobileLabel": "diweddariadau ar ffurf neges testun",
+      "emailLabel": "",
+      "emailLabelCy1": "Cyfeiriad e-bost",
+      "emailLabelCy2": "ar gyfer cael diweddariadau",
+      "mobileLabel": "eisiau diweddariadau ar ffurf negeseuon testun",
       "contactPhoneLabel": "Rhif ffôn symudol",
       "notProvided": "Heb ei ddarparu"
     },
@@ -2292,7 +2312,7 @@
       "toBeConfirmed": "I’w gadarnhau",
       "mapsAndDirections": "Map a chyfarwyddiadau",
       "languageInterpreter": "Cyfieithydd",
-      "signInterpreter": "Dehonglydd iaith arwyddion ",
+      "signInterpreter": "Dehonglydd iaith arwyddion",
       "hearingLoop": "Dolen glyw",
       "disableAccess": "Mynediad i bobl anabl",
       "otherArrangements": "Unrhyw drefniadau eraill",
@@ -2328,10 +2348,10 @@
         "heading": "Apêl wedi cyrraedd",
         "content": {
           "oral": [
-            " Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
           ],
           "paper": [
-            " Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
           ]
         }
       },
@@ -2358,10 +2378,10 @@
         }
       },
       "DORMANT": {
-        "heading": " Cynhaliwyd gwrandawiad",
+        "heading": "Cynhaliwyd gwrandawiad",
         "content": {
           "oral": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ],
           "paper": [
@@ -2372,7 +2392,7 @@
         }
       },
       "DWP_RESPOND": {
-        "heading": " Ymateb {{appeal.benefitType | agencyAcronym}} ",
+        "heading": "Ymateb {{appeal.benefitType | agencyAcronym}} ",
         "content": {
           "oral": [
             "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl budd-dal {{appeal.benefitType | benefitAcronym}}. Dylent fod wedi anfon copi o’u hymateb atoch drwy’r post.",
@@ -2385,7 +2405,7 @@
         }
       },
       "DWP_RESPOND_OVERDUE": {
-        "heading": "{{appeal.benefitType | agencyAcronym}}  ymateb yn hwyr",
+        "heading": "{{appeal.benefitType | agencyAcronym}} ymateb yn hwyr",
         "content": {
           "oral": [
             "Roedd {{appeal.benefitType | agencyAcronym}} i fod i ymateb i'ch apêl ond nid ydynt wedi gwneud hynny. Nid oes rhaid ichi wneud unrhyw beth. Rydym wedi cysylltu â nhw eto yn gofyn iddynt ymateb. Byddwn yn rhoi gwybod ichi pan fyddant yn gwneud hynny."
@@ -2399,28 +2419,28 @@
         "heading": "Tystiolaeth wedi cyrraedd",
         "content": {
           "oral": [
-            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('DD MMMM YYYY')}}."
+            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}."
           ],
           "paper": [
-            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('DD MMMM YYYY')}}."
+            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}."
           ]
         }
       },
       "HEARING": {
-        "heading": " Gwrandawiad wedi’i gynnal",
+        "heading": "Gwrandawiad wedi’i gynnal",
         "content": {
           "oral": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ],
           "paper": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ]
         }
       },
       "HEARING_BOOKED": {
-        "heading": " Gwrandawiad wedi’i drefnu",
+        "heading": "Gwrandawiad wedi’i drefnu",
         "content": {
           "oral": [
             "Mae gwrandawiad wedi’i drefnu ar gyfer eich apêl."
@@ -2438,7 +2458,7 @@
             "Os oes gennych unrhyw gwestiynau ynglyn â’ch budd-daliadau, cysylltwch â {{appeal.benefitType | agencyAcronym}}. Gallwch ddod o hyd i’w manylion cyswllt ar unrhyw ohebiaeth rydych wedi’i chael ganddynt."
           ],
           "paper": [
-            " Mae {{appeal.benefitType | agencyAcronym}} wedi dweud wrthym eu bod wedi newid eu penderfyniad ynghylch eich hawl i gael {{appeal.benefitType | benefitAcronym}} i fod o’ch plaid. Rydym felly wedi cau’r apêl hon.",
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi dweud wrthym eu bod wedi newid eu penderfyniad ynghylch eich hawl i gael {{appeal.benefitType | benefitAcronym}} i fod o’ch plaid. Rydym felly wedi cau’r apêl hon.",
             "Os nad ydych yn cytuno â’r penderfyniad newydd, gallwch ddechrau apêl newydd: <a href=\"https://www.gov.uk/appeal-benefit-decision\">https://www.gov.uk/appeal-benefit-decision</a>",
             "Os oes gennych unrhyw gwestiynau ynglyn â’ch budd-daliadau, cysylltwch â {{appeal.benefitType | agencyAcronym}}. Gallwch ddod o hyd i’w manylion cyswllt ar unrhyw ohebiaeth rydych wedi’i chael ganddynt."
           ]
@@ -2530,26 +2550,26 @@
         "title": "Anfon tystiolaeth i gefnogi eich apêl",
         "entry": "Tystiolaeth yw unrhyw wybodaeth sy’n cefnogi’ch apêl, fel llythyr, datganiad ysgrifenedig neu adroddiad meddygol. Gall helpu’r tribiwnlys i ddeall ffeithiau eich apêl. Nid oes rhaid ichi anfon tystiolaeth ond gall helpu eich apêl. ",
         "para1": "Dylech anfon unrhyw dystiolaeth i'r tribiwnlys cyn gynted ag sy’n bosibl. Mae hyn er mwyn rhoi amser i'r tribiwnlys ei hystyried cyn iddynt wneud penderfyniad ynghylch eich apêl.",
-        "medicalEvidenceTitle": " Tystiolaeth feddygol",
+        "medicalEvidenceTitle": "Tystiolaeth feddygol",
         "medicalEvidenceDesc": {
           "para1": "Mae’r math hwn o dystiolaeth yn ddefnyddiol mewn achosion lle’r ydych eisiau dangos bod gennych gyflwr meddygol. Gall llythyr gan eich meddyg, ffisiotherapydd, gweithiwr cymdeithasol neu ymgynghorydd ysbyty helpu i brofi hyn. Bydd llythyr defnyddiol yn egluro sut mae eich cyflwr yn effeithio ar eich bywyd. Dylai hefyd ganolbwyntio ar yr adeg y gwnaeth DWP eu penderfyniad ynghylch eich hawl i gael y budd-dal. Nid yw llythyrau apwyntiadau yn ddefnyddiol.",
           "para2": "Sylwch, gall eich meddyg godi ffi arnoch am ysgrifennu llythyr. Ni all y tribiwnlys ad-dalu'r costau hyn."
         },
-        "writtenStatementTitle": " Datganiad ysgrifenedig",
+        "writtenStatementTitle": "Datganiad ysgrifenedig",
         "writtenStatementDesc": {
           "para1": "Gall rhywun sy’n byw gyda chi neu rywun sy’n eich adnabod yn dda ysgrifennu datganiad neu lythyr. Mae datganiad defnyddiol yn disgrifio sut mae eich cyflwr yn effeithio ar eich bywyd a’r mathau o weithgareddau y gallwch eu gwneud a’r rhai na allwch eu gwneud. Dylai’r datganiad gyfleu eu safbwynt nhw. Dylai hefyd ganolbwyntio ar yr adeg y gwnaeth DWP eu penderfyniad ynghylch eich hawl i gael y budd-dal.",
           "para2": "Gellir ei ysgrifennu â llaw neu ei deipio ond rhaid i'r unigolyn sydd wedi’i ysgrifennu ei lofnodi. Dylai hefyd nodi beth yw eu perthynas gyda chi."
         },
-        "photographsTitle": " Ffotograffau",
+        "photographsTitle": "Ffotograffau",
         "photographsDesc": {
-          "para1": "Weithiau gall ffotograff fod yn ddefnyddiol i helpu i ddangos i'r tribiwnlys sut mae eich cyflwr meddygol yn effeithio ar eich bywyd. Er enghraifft, gallwch dynnu llun o unrhyw addasiadau yn eich cartref, neu unrhyw declynnau cymorth rydych yn ei defnyddio i'ch helpu i symud. Peidiwch ag anfon unrhyw ffotograffau o’ch corff."
+          "para1": "Weithiau gall ffotograff fod yn ddefnyddiol i helpu i ddangos i'r tribiwnlys sut mae eich cyflwr meddygol yn effeithio ar eich bywyd. Er enghraifft, gallwch dynnu llun o unrhyw addasiadau yn eich cartref, neu unrhyw declynnau cymorth rydych yn eu defnyddio i'ch helpu i symud. Peidiwch ag anfon unrhyw ffotograffau o’ch corff."
         },
-        "whatYouSayTitle": " Yr hyn byddwch yn ei ddweud yn y gwrandawiad",
+        "whatYouSayTitle": "Yr hyn byddwch yn ei ddweud yn y gwrandawiad",
         "whatYouSayDesc": {
           "para1": "Gall yr hyn byddwch yn ei ddweud yn y gwrandawiad fod y math mwyaf defnyddiol o dystiolaeth. Bydd y tribiwnlys yn gwrando ar yr hyn byddwch yn ei ddweud i'w helpu i wneud penderfyniad ynghylch eich apêl.",
           "para2": "Os oes gennych ofalwr neu rywun sy’n eich cefnogi adref, gallwch ofyn iddynt ddod i'r gwrandawiad a dweud wrth y tribiwnlys am eich cyflwr. Dylech wneud yn siwr eu bod yn fodlon dod a’u bod ar gael ar ddyddiad y gwrandawiad."
         },
-        "sendingEvidenceTitle": " Anfon tystiolaeth i'r tribiwnlys",
+        "sendingEvidenceTitle": "Anfon tystiolaeth i'r tribiwnlys",
         "sendingEvidenceDesc": {
           "para1": "Gallwch ddarparu tystiolaeth trwy ddefnyddio unrhyw un o’r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a> a dylech wneud hynny cyn gynted â phosib er mwyn i’r tribiwnlys gael amser i’w darllen cyn gwneud penderfyniad.",
           "para2": "Neu gallwch bostio’ch tystiolaeth i’r cyfeiriad a nodir isod.",
@@ -2576,7 +2596,7 @@
         "arriveDesc": {
           "para1": "Bydd clerc y tribiwnlys yn eich croesawu. Byddant yn gofalu amdanoch chi yn y ganolfan wrandawiadau ac yn ateb unrhyw gwestiynau y bydd gennych. Byddant hefyd yn rhoi ffurflen ichi ar gyfer hawlio yn ôl unrhyw arian byddwch yn ei wario o ganlyniad i fynychu’r gwrandawiad.<a href='support-hearing-expenses'>Darllenwch fwy am hawlio treuliau ar gyfer eich gwrandawiad.</a>"
         },
-        "hearingRoomTitle": " Yr ystafell wrandawiadau",
+        "hearingRoomTitle": "Yr ystafell wrandawiadau",
         "hearingRoomDesc": {
           "para1": "Bydd clerc y tribiwnlys yn eich hebrwng i'r ystafell wrandawiadau. Bydd panel y tribiwnlys yn eistedd y tu ôl i fwrdd. Byddwch yn cael eich gwahodd i eistedd gyferbyn â’r panel. Os bydd rhywun wedi dod gyda chi i’ch cefnogi neu i roi tystiolaeth, byddant yn eistedd wrth eich ymyl."
         },
@@ -2585,7 +2605,7 @@
           "para1": "Mae panel y tribiwnlys yn cynnwys 2 neu 3 o bobl, yn ddibynnol ar y math o fudd-dal sy’n destun yr apêl. Bydd y panel yn ystyried dwy ochr yr apêl ac yn gwneud penderfyniad diduedd. Maent yn annibynnol o DWP.",
           "para2": "Y barnwr sy’n rheoli’r gwrandawiad a bydd yn egluro beth sy’n digwydd. Byddant hefyd yn cymryd nodiadau o’r hyn sy’n cael ei ddweud yn ystod y gwrandawiad. Mae'r meddyg yno i ddarparu gwybodaeth feddygol. Os bydd arbenigwr anabledd yn eich gwrandawiad, yna bydd yn darparu gwybodaeth am faterion anabledd a sut mae anabledd yn effeithio ar bobl."
         },
-        "duringHearingTitle": " Yn ystod eich gwrandawiad",
+        "duringHearingTitle": "Yn ystod eich gwrandawiad",
         "duringHearingDesc": {
           "para1": "Bydd panel y tribiwnlys yn gofyn rhywfaint o gwestiynau syml ichi. Dyma eich cyfle i egluro eich ochr chi o’r apêl. Byddant yn gwrando ar bopeth rydych yn ei ddweud wrthynt. Efallai byddant yn gofyn cwestiynau i DWP hefyd. Fel arfer bydd y gwrandawiad cyfan yn cymryd tua awr.",
           "para2": "Mae’n bwysig eich bod yn cyflwyno’ch tystiolaeth i gyd cyn y gwrandawiad fel bod gan banel y tribiwnlys amser i'w hadolygu. Os byddant yn ei chael yn rhy hwyr, efallai bydd rhaid iddynt ohirio eich gwrandawiad i'w gynnal ar ddiwrnod arall."
@@ -2596,13 +2616,13 @@
           "para2": "Bydd y barnwr yn egluro ichi a oes gennych hawl i gael y budd-dal, ac os felly, ar ba lefel.",
           "para3": "Weithiau mae’r tribiwnlys angen mwy o amser i wneud penderfyniad. Os bydd hynny’n digwydd, bydd y penderfyniad ynghylch eich apêl yn cael ei bostio atoch."
         },
-        "dwpTitle": " Yr Adran Gwaith a Phensiynau (DWP)",
+        "dwpTitle": "Yr Adran Gwaith a Phensiynau (DWP)",
         "dwpDesc": {
           "para1": "Gall cynrychiolydd o DWP fod yna. Nid ydynt yn rhan o banel y tribiwnlys ac maent yna i siarad ar ran DWP. Nid y cynrychiolydd fydd yr unigolyn a wnaeth y penderfyniad ynghylch eich hawl i gael budd-daliadau."
         }
       },
       "representatives": {
-        "linkHeader": "Cynrychiolwyr ",
+        "linkHeader": "Cynrychiolwyr",
         "title": "Cynrychiolwyr",
         "entry": "Gallwch benodi rhywun fel ‘cynrychiolydd’ i'ch helpu gyda’ch apêl budd-dal, os ydych yn credu na fyddwch yn gallu delio â’r apêl ar eich pen eich hun.",
         "what": "Gall cynrychiolydd:",
@@ -2612,10 +2632,10 @@
           "item3": "gweithredu ar eich rhan yn ystod yr apêl (dylent ofyn am eich caniatâd yn gyntaf)"
         },
         "para1": "Gall unrhyw un fod yn gynrychiolydd, yn cynnwys ffrind neu aelod o’ch teulu. Bydd cynrychiolydd da yn gyfarwydd â’r system budd-daliadau ac yn gallu rhoi cyngor ichi ar y gyfraith.",
-        "para2": "Gallwch gael cynrychiolydd yn eich canolfan gynghori leol, canolfan y gyfraith leol neu <a href='https://www.citizensadvice.org.uk/'>ganolfan Cyngor ar Bopeth leol</a> Bydd arnoch angen eu cofrestru gyda’r tribiwnlys.",
+        "para2": "Gallwch gael cynrychiolydd yn eich canolfan gynghori leol, canolfan y gyfraith leol neu <a href='https://www.citizensadvice.org.uk/'>ganolfan Cyngor ar Bopeth leol</a>. Bydd arnoch angen eu cofrestru gyda’r tribiwnlys.",
         "representative": {
           "title": "Cofrestru cynrychiolydd",
-          "para1": "Mae arnom angen eich awdurdod ysgrifenedig i gofrestru rhywun fel eich cynrychiolydd. Gallwch ddarparu’r wybodaeth hon trwy unrhyw un o’r opsiynau yn y <a href='/task-list'><b>Provide Evidence</b></a> tab.",
+          "para1": "Mae arnom angen eich awdurdod ysgrifenedig i gofrestru rhywun fel eich cynrychiolydd. Gallwch ddarparu’r wybodaeth hon trwy unrhyw un o’r opsiynau yn y tab <a href='/task-list'><b>Darparu Tystiolaeth</b></a>.",
           "para2": "Cofiwch gynnwys enw eich cynrychiolydd, eu cyfeiriad a’u manylion cyswllt (ffôn neu e-bost). Os byddwch yn darparu eu cyfeiriad e-bost â’u rhif ffôn symudol, byddant yn cael diweddariadau yn rheolaidd."
         }
       },
@@ -2625,7 +2645,7 @@
         "entry": "Gallwch dynnu eich apêl yn ôl ar unrhyw adeg. Bydd DWP yn cael gwybod nad ydych eisiau apelio yn erbyn eu penderfyniad mwyach. Bydd y gwrandawiad ar gyfer eich apêl yn cael ei ganslo, os oedd un wedi’i drefnu.",
         "para1": "Dylech siarad gyda’ch cynrychiolydd neu rywun sy’n gwybod am eich apêl i gael cyngor ar p’un a ddylech dynnu eich apêl yn ôl ai peidio.",
         "para2": "Os ydych dal eisiau tynnu eich apêl yn ôl, yna dylech roi gwybod i'r tribiwnlys cyn gynted ag sy’n bosibl.",
-        "para3": "Gallwch ddarparu’r wybodaeth hon trwy unrhyw un o’r opsiynau yn y  <a href='/additional-evidence'><b>Provide Evidence</b></a> tab, neu cysylltwch â ni ar y rhif isod. "
+        "para3": "Gallwch ddarparu’r wybodaeth hon trwy unrhyw un o’r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a>, neu cysylltwch â ni ar y rhif isod. "
       },
       "relatedLinks": {
         "title": "Arweiniad cysylltiedig",
