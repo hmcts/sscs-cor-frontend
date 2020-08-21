@@ -6,7 +6,7 @@ import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 const content = require('locale/content');
 
-describe.only('Welsh Manage your appeal app @mya', () => {
+describe('Welsh Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -29,10 +29,6 @@ describe.only('Welsh Manage your appeal app @mya', () => {
     if (page && page.close) {
       await page.close();
     }
-  });
-
-  it('CY should land in assign-case page after a successful login', async() => {
-    assignCasePage.verifyPage();
   });
 
   it('CY should inform postcode, submit and land in status page', async() => {
