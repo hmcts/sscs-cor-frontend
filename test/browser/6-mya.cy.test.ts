@@ -6,7 +6,7 @@ import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 const content = require('locale/content');
 
-describe('Welsh Manage your appeal app @mya', () => {
+describe.only('Welsh Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -23,7 +23,6 @@ describe('Welsh Manage your appeal app @mya', () => {
     await loginPage.setCookie('welsh', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
-    await loginPage.clickLanguageToggle();
   });
 
   after(async () => {
@@ -37,6 +36,7 @@ describe('Welsh Manage your appeal app @mya', () => {
   });
 
   it('CY should inform postcode, submit and land in status page', async() => {
+    await assignCasePage.clickLanguageToggle();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
     statusPage.verifyPage();
