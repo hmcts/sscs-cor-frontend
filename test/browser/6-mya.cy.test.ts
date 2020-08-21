@@ -6,7 +6,7 @@ import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 const content = require('locale/content');
 
-describe('Welsh Manage your appeal app @mya', () => {
+describe.only('Welsh Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -41,6 +41,7 @@ describe('Welsh Manage your appeal app @mya', () => {
       visible: true
     });
     await assignCasePage.clickLanguageToggle();
+    await page.reload();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
   });
