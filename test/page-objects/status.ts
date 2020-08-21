@@ -13,4 +13,5 @@ export class StatusPage extends BasePage {
       this.clickElement('#tab-questions')
     ]);
   }
+
 }

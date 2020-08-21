@@ -95,5 +95,4 @@ describe('Welsh Manage your appeal app @mya', () => {
       expect(heightOpen).to.equal(480);
     });
   });
-
 });
