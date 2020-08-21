@@ -36,6 +36,10 @@ describe('Welsh Manage your appeal app @mya', () => {
   });
 
   it('CY should inform postcode, submit and land in status page', async() => {
+    await page.waitFor('*');
+    await page.waitForSelector('.govuk-link.language', {
+      visible: true,
+    });
     await assignCasePage.clickLanguageToggle();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
