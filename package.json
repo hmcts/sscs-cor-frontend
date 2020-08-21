@@ -148,6 +148,6 @@
     "uglify-js": "^3.8.0",
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
-    "webdriverio": "^5.10.4"
+    "webdriverio": "^4.14.4"
   }
 }
