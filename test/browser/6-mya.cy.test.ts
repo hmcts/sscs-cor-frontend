@@ -39,7 +39,6 @@ describe('Welsh Manage your appeal app @mya', () => {
     await assignCasePage.clickLanguageToggle();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
-    statusPage.verifyPage();
   });
 
   describe('CY Status page', () => {
