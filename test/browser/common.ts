@@ -119,7 +119,7 @@ export async function login(page, force?, assignCase?) {
 async function startServices(options?) {
   const opts = options || {};
   let sidamUser;
-  if (opts.bootstrapData) {
+  if (opts.bootstrapData && !testingLocalhost) {
     ({ ccdCase, sidamUser } = await bootstrap(opts.hearingType));
     sidamUsers.unshift(sidamUser);
   }
