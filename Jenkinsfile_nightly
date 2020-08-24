@@ -40,8 +40,8 @@ withNightlyPipeline("nodejs", product, component) {
     env.TEST_URL = params.URL_TO_TEST
 
     before('DependencyCheckNightly') {sh 'yarn test:audit'}
-    enableSecurityScan()
-    enableSlackNotifications('#sscs-tech')
+  //  enableSecurityScan()
+  //  enableSlackNotifications('#sscs-tech')
     enableCrossBrowserTest()
     enableFullFunctionalTest(20)
     after('crossBrowserTest') {
