@@ -1,6 +1,6 @@
-Feature('Complete all COR questions');
+Feature('Manage your appeal');
 
-Scenario('A PIP appellant can answer all questions for their appeal', async I => {
+Scenario('can track appeal status via manager your appeal', async I => {
   await I.loginToANewCase();
   I.verifyAppeallantPostCode();
   I.waitForElement('.govuk-heading-xl', 5);

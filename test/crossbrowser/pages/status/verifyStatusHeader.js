@@ -12,5 +12,5 @@ function verifyStatusHeader() {
   I.see(content.en.helpGuides.representatives.linkHeader, '.mya-contact__content .govuk-list');
   I.see(content.en.contactUs.title, '.govuk-details.contact-us');
 }
-  
+
 module.exports = { verifyStatusHeader };
