@@ -5,7 +5,6 @@ nodejs:
     REDIS_URL: redis://${SERVICE_NAME}-redis-master
     SESSION_SECRET:
     NODE_ENV: preview
-    UV_THREADPOOL_SIZE: 4
     MYA_FEATURE_FLAG: "true"
     ADDITIONAL_EVIDENCE_FEATURE_FLAG: "true"
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: "false"
