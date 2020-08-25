@@ -26,17 +26,6 @@ export class IdamService {
 
   async getToken(code: string, protocol: string, host: string): Promise<TokenResponse> {
     const redirectUri: string = this.getRedirectUrl(protocol, host);
-    logger.info('redirectUri is ' + redirectUri);
-    logger.info('sending to ' + `${this.apiUrl}/oauth2/token`);
-    logger.info('this.appSecret ' + this.appSecret);
-
-    const microservice = config.get('s2s.microservice');
-    const s2sSecret = config.get('s2s.secret');
-    const s2sUrl = config.get('s2s.url');
-
-    logger.info('microservice is ' + microservice);
-    logger.info('s2sSecret is ' + s2sSecret);
-    logger.info('s2sUrl is ' + redirectUri);
 
     return RequestPromise.request({
       method: 'POST',
