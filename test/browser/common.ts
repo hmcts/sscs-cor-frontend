@@ -60,7 +60,6 @@ async function startBrowser() {
 function startAppServer(): Promise<void> {
   if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
-    setupKeyVaultSecrets();
     dysonSetupCorBackend();
     dysonSetupIdam();
     dysonSetupS2s();
@@ -78,6 +77,7 @@ function startAppServer(): Promise<void> {
 }
 
 export async function login(page, force?, assignCase?) {
+  setupKeyVaultSecrets();
   const sidamUser = sidamUsers[0];
   const email = (sidamUser && sidamUser.email) || (ccdCase && ccdCase.email) || 'someone@example.com';
   const password = sidamUser && sidamUser.password || 'somePassword';
