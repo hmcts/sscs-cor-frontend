@@ -14,6 +14,7 @@ const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
 import { URL } from 'url';
+import { setupKeyVaultSecrets } from 'app/server/services/setupSecrets';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('commong.js');
@@ -59,6 +60,7 @@ async function startBrowser() {
 function startAppServer(): Promise<void> {
   if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
+    setupKeyVaultSecrets();
     dysonSetupCorBackend();
     dysonSetupIdam();
     dysonSetupS2s();
