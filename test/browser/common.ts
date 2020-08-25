@@ -14,7 +14,6 @@ const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
 import { URL } from 'url';
-import { setupKeyVaultSecrets } from 'app/server/services/setupSecrets';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('commong.js');
@@ -77,7 +76,6 @@ function startAppServer(): Promise<void> {
 }
 
 export async function login(page, force?, assignCase?) {
-  setupKeyVaultSecrets();
   const sidamUser = sidamUsers[0];
   const email = (sidamUser && sidamUser.email) || (ccdCase && ccdCase.email) || 'someone@example.com';
   const password = sidamUser && sidamUser.password || 'somePassword';
