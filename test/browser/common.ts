@@ -14,6 +14,7 @@ const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
 import * as sidam from 'test/fixtures/sidam';
 import { URL } from 'url';
+import { setupKeyVaultSecrets } from 'app/server/services/setupSecrets';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('commong.js');
@@ -40,6 +41,8 @@ async function startBrowser() {
     if (httpProxy) {
       args.push(`-proxy-server=${httpProxy}`);
     }
+    console.log('Setting up secrets');
+    setupKeyVaultSecrets();
     const opts = {
       args,
       headless,
