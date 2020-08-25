@@ -27,6 +27,7 @@
     "test:browser": "NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/browser/**/*.ts --colors --reporter mochawesome  --reporter-options reportDir=functional-output/reports/functional,inlineAssets=true --exit",
     "test:integration": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/integration/**/*.ts --exit",
     "test:functional": "yarn test:browser -g '@smoke|@pa11y' --invert",
+    "test:fullfunctional": "yarn test:functional",
     "test:smoke": "yarn test:browser -g @smoke",
     "test:audit": "./bin/run-yarn-audit.sh -f yarn-audit-known-issues",
     "test:create-s2s-headers": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json node --require tsconfig-paths/register --require ts-node/register create-s2s-header.ts",
@@ -148,6 +149,6 @@
     "uglify-js": "^3.8.0",
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
-    "webdriverio": "^5.10.4"
+    "webdriverio": "^4.14.4"
   }
 }
