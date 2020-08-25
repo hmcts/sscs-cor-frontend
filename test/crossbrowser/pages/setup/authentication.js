@@ -4,7 +4,7 @@ async function loginToANewCase() {
   const I = this;
   appealData = await I.createTestAppealData();
 
-  I.amOnPage('/sign-in');
+  I.amOnPage(`/sign-in?tya=${appealData.ccdCase.appellant_tya}`);
   I.waitForText('Email address');
   I.fillField('username', appealData.ccdCase.email);
   I.fillField('password', 'Apassword123');
