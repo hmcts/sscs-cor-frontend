@@ -14,7 +14,7 @@ describe('Manage your appeal app @mya', () => {
   let statusPage: StatusPage;
   let sidamUser;
   before(async () => {
-    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, performLogin: true, hearingType: 'oral' }));
+    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
     const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
