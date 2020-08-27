@@ -64,27 +64,6 @@ withPipeline("nodejs", product, component) {
         env.HTTP_PROXY = ""
         sh 'echo HTTP_PROXY=$HTTP_PROXY'
     }
-
-    before("unitTest:preview") {
-        env.COH_URL = cohUrlAat
-        sh 'echo COH_URL=$COH_URL'
-        env.SSCS_API_URL = sscsCorBackEndUrlAat
-        sh 'echo SSCS_API_URL=$SSCS_API_URL'
-        env.IDAM_URL = idamUrlAat
-        sh 'echo IDAM_URL=$IDAM_URL'
-        env.IDAM_API_URL = idamApiUrlAat
-        sh 'echo IDAM_API_URL=$IDAM_API_URL'
-        env.HTTP_PROXY = httpProxy
-        sh 'echo HTTP_PROXY=$HTTP_PROXY'
-        env.S2S_URL = s2sUrlAat
-        sh 'echo S2S_URL=$S2S_URL'
-        env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
-        sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
-    }
-    after("unitTest:preview") {
-        env.HTTP_PROXY = ""
-        sh 'echo HTTP_PROXY=$HTTP_PROXY'
-    }
     before("functionalTest:aat") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
