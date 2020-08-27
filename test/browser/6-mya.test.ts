@@ -56,21 +56,19 @@ describe('Manage your appeal app @mya', () => {
     statusPage.verifyPage();
   });
 
+  it('checks /status page path passes @pa11y', async () => {
+    statusPage.verifyPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
+    pa11yOpts.page = await statusPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
   describe('Status page', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be.null;
       expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.statusTab.tabHeader);
-    });
-
-    it('checks /status page path passes @pa11y', async () => {
-      await assignCasePage.fillPostcode('TN32 6PL');
-      await assignCasePage.submit();
-      statusPage.verifyPage();
-      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
-      pa11yOpts.page = await statusPage.page;
-      const result = await pa11y(pa11yOpts);
-      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
 
     it('should display subheading', async() => {
