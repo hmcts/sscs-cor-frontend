@@ -2,7 +2,7 @@
   "node": {
     "port": "3000"
   },
-  "testUrl": "https://sscs-cor.aat.platform.hmcts.net",
+  "testUrl": "http://localhost:3000",
   "api": {
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
