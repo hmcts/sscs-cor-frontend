@@ -44,7 +44,7 @@ withPipeline("nodejs", product, component) {
     disableLegacyDeployment()
     before('securitychecks') { yarnBuilder.yarn('test:audit') }
 
-    before("functionalTest:preview" | "a11yTest:preview") {
+    before("functionalTest:preview" || "a11yTest:preview") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
@@ -60,11 +60,11 @@ withPipeline("nodejs", product, component) {
         env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
-    after("functionalTest:preview" | "a11yTest:preview") {
+    after("functionalTest:preview" || "a11yTest:preview") {
         env.HTTP_PROXY = ""
         sh 'echo HTTP_PROXY=$HTTP_PROXY'
     }
-    before("functionalTest:aat" | "a11yTest:aat") {
+    before("functionalTest:aat" || "a11yTest:aat") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
@@ -80,7 +80,7 @@ withPipeline("nodejs", product, component) {
         env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
-    after("functionalTest:aat" | "a11yTest:aat") {
+    after("functionalTest:aat" || "a11yTest:aat") {
         env.HTTP_PROXY = ""
         sh 'echo HTTP_PROXY=$HTTP_PROXY'
     }
