@@ -65,7 +65,7 @@ withPipeline("nodejs", product, component) {
         sh 'echo HTTP_PROXY=$HTTP_PROXY'
     }
 
-    before("test:preview") {
+    before("unitTest:preview") {
         env.COH_URL = cohUrlAat
         sh 'echo COH_URL=$COH_URL'
         env.SSCS_API_URL = sscsCorBackEndUrlAat
@@ -81,7 +81,7 @@ withPipeline("nodejs", product, component) {
         env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
-    after("test:preview") {
+    after("unitTest:preview") {
         env.HTTP_PROXY = ""
         sh 'echo HTTP_PROXY=$HTTP_PROXY'
     }
