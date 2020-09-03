@@ -138,7 +138,9 @@ function getIdamCallback(
         hearings.forEach(value => {
           value.case_reference = value.case_id ? value.case_id.toString() : '';
           if (value.case_reference === '') {
-            throw new Error('Case ID cannot be empty');
+            const missingHearingIdError = new Error('Case ID cannot be empty from hearing in session');
+            AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+            throw missingHearingIdError;
           }
         });
 

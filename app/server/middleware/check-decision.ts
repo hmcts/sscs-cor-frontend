@@ -3,12 +3,20 @@ const { Logger } = require('@hmcts/nodejs-logging');
 import * as Paths from '../paths';
 import { OnlineHearing } from '../services/hearing';
 import { CONST } from '../../constants';
+import * as AppInsights from '../app-insights';
 
 const logger = Logger.getLogger('check-decision.js');
 const acceptedDecisionStates = [CONST.TRIBUNAL_VIEW_ISSUED_STATE, CONST.DECISION_REJECTED_STATE, CONST.DECISION_ACCEPTED_STATE];
 
 export function checkDecision(req: Request, res: Response, next: NextFunction) {
   const hearing: OnlineHearing = req.session.hearing;
+
+  if (!hearing.decision) {
+    const missingDecisionError = new Error('Unable to retrieve decision from session store');
+    AppInsights.trackException(missingDecisionError);
+    AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+  }
+
   const decisionState = hearing.decision && hearing.decision.decision_state;
   if (!acceptedDecisionStates.includes(decisionState) && !hearing.has_final_decision) {
     return next();

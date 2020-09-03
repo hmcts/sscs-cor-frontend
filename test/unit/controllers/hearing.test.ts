@@ -1,8 +1,11 @@
+import * as AppInsights from '../../../app/server/app-insights';
+
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 const oralHearing = require('../../mock/tribunals/data/oral/hearing');
 import * as hearing from 'app/server/controllers/hearing';
 import * as Paths from 'app/server/paths';
+import * as assert from 'assert';
 
 describe('controllers/hearing', () => {
   let req: any;
@@ -22,10 +25,15 @@ describe('controllers/hearing', () => {
       render: sandbox.stub(),
       send: sandbox.stub()
     };
+
+    sinon.stub(AppInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackEvent');
   });
 
   afterEach(() => {
     sandbox.restore();
+    (AppInsights.trackException as sinon.SinonStub).restore();
+    (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
   describe('setupHearingController', () => {
@@ -61,6 +69,16 @@ describe('controllers/hearing', () => {
       req.session.appeal.hearingType = 'paper';
       hearing.getHearing(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: false, hearingArrangements: {}, hearingInfo: undefined });
+    });
+
+    it('should throw error if no sessions', async() => {
+      req.session = null;
+
+      expect(() => hearing.getHearing(req, res)).to.throw(TypeError);
+
+      const error = new Error('Unable to retrieve session from session store');
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+      expect(AppInsights.trackEvent).to.have.been.calledOnce;
     });
   });
 });
