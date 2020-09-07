@@ -17,4 +17,8 @@ export class AssignCasePage extends BasePage {
       this.clickElement('#assign-case')
     ]);
   }
+
+    async clickLanguageToggle() {
+        await this.clickElement('.govuk-link.language');
+    }
 }
