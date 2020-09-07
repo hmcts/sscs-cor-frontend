@@ -54,34 +54,34 @@ describe('Welsh Manage your appeal app @mya', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be.null;
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.statusTab.tabHeader);
+      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.cy.statusTab.tabHeader);
     });
 
     it('CY:should display subheading', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.task-list h2')).to.equal(content.en.statusTab.header);
+      expect(await statusPage.getElementText('.task-list h2')).to.equal(content.cy.statusTab.header);
     });
 
     it('CY:should display status bar', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.task-list h2')).to.equal(content.en.statusTab.header);
+      expect(await statusPage.getElementText('.task-list h2')).to.equal(content.cy.statusTab.header);
     });
 
     it('CY:should display panel with latest update', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.panel')).contain(content.en.statusTab.panelHeader);
+      expect(await statusPage.getElementText('.panel')).contain(content.cy.statusTab.panelHeader);
     });
 
     it('CY:should display Help and Support links', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.mya-contact__content h2')).to.equal(content.en.helpGuides.header);
-      expect(await statusPage.getElementText('.mya-contact__content .govuk-list')).contain(content.en.helpGuides.representatives.linkHeader);
-      expect(await statusPage.getElementText('.mya-contact__content .govuk-list')).contain(content.en.helpGuides.withdrawAppeal.linkHeader);
+      expect(await statusPage.getElementText('.mya-contact__content h2')).to.equal(content.cy.helpGuides.header);
+      expect(await statusPage.getElementText('.mya-contact__content .govuk-list')).contain(content.cy.helpGuides.representatives.linkHeader);
+      expect(await statusPage.getElementText('.mya-contact__content .govuk-list')).contain(content.cy.helpGuides.withdrawAppeal.linkHeader);
     });
 
     it('CY:should display Contact us for help options and open details', async() => {
       statusPage.verifyPage();
-      expect(await statusPage.getElementText('.govuk-details.contact-us')).to.equal(content.en.contactUs.title);
+      expect(await statusPage.getElementText('.govuk-details.contact-us')).to.equal(content.cy.contactUs.title);
       const elementHandle = await page.$('.govuk-details.contact-us');
       const heightClosed = await page.evaluate(element => {
         const { height } = element.getBoundingClientRect();
