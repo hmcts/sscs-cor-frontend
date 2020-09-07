@@ -1,8 +1,11 @@
+import * as hearing from '../../../app/server/controllers/hearing';
+
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 import * as status from 'app/server/controllers/status';
 import * as Paths from 'app/server/paths';
 import * as appealStagesUtils from 'app/server/utils/appealStages';
+import * as AppInsights from '../../../app/server/app-insights';
 const oralAppealReceived = require('../../mock/tribunals/data/oral/appealReceived');
 const paperAppealReceived = require('../../mock/tribunals/data/paper/appealReceived');
 
@@ -24,10 +27,15 @@ describe('controllers/status', () => {
       render: sandbox.stub(),
       send: sandbox.stub()
     };
+
+    sinon.stub(AppInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackEvent');
   });
 
   afterEach(() => {
     sandbox.restore();
+    (AppInsights.trackException as sinon.SinonStub).restore();
+    (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
   describe('setupStatusController', () => {
@@ -63,6 +71,16 @@ describe('controllers/status', () => {
       status.getStatus(req, res);
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(paperAppealReceived.appeal.status);
       expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', { stages: [], appeal: paperAppealReceived.appeal });
+    });
+
+    it('should throw error if no sessions', async() => {
+      req.session = null;
+
+      expect(() => status.getStatus(req, res)).to.throw(TypeError);
+
+      const error = new Error('Unable to retrieve session from session store');
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+      expect(AppInsights.trackEvent).to.have.been.calledOnce;
     });
   });
 });

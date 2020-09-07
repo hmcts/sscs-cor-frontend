@@ -1,17 +1,27 @@
+import * as AppInsights from '../app-insights';
+
 const csurf = require('csurf');
 
 function csrfToken(req, res, next) {
   const csrfMiddleware = csurf();
-  if (req.session.accessToken) {
+  const session = req.session;
+  if (session && session.accessToken) {
     csrfMiddleware(req, res, next);
   } else {
+    if (!session) {
+      AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+    }
     next();
   }
 }
 
 function csrfTokenEmbed(req, res, next) {
-  if (req.session.accessToken) {
+  const session = req.session;
+  if (session && session.accessToken) {
     res.locals.csrfToken = req.csrfToken();
+  }
+  if (!session) {
+    AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
   next();
 
