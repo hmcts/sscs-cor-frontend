@@ -18,7 +18,7 @@ export class AssignCasePage extends BasePage {
     ]);
   }
 
-    async clickLanguageToggle() {
-        await this.clickElement('.govuk-link.language');
-    }
+  async clickLanguageToggle(){
+    await this.clickElement('.govuk-link.language');
+  }
 }

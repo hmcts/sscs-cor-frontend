@@ -41,7 +41,6 @@ describe('Welsh Manage your appeal app @mya', () => {
     assignCasePage.verifyPage();
   });
 
-    /* PA11Y */
   it('CY:checks /postcode page path passes @pa11y', async () => {
     assignCasePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
@@ -56,8 +55,7 @@ describe('Welsh Manage your appeal app @mya', () => {
       visible: true
     });
     await assignCasePage.clickLanguageToggle();
-    // await page.reload();
-    page.waitForNavigation({ waitUntil: 'networkidle0' });
+    await page.waitForNavigation({ waitUntil: 'networkidle0' });
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
