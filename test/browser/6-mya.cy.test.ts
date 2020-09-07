@@ -37,10 +37,6 @@ describe('Welsh Manage your appeal app @mya', () => {
     }
   });
 
-  it('CY:should land in assign-case page after a successful login', async() => {
-    assignCasePage.verifyPage();
-  });
-
   it('CY:checks /postcode page path passes @pa11y', async () => {
     assignCasePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
