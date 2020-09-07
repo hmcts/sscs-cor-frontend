@@ -50,23 +50,6 @@ describe('Welsh Manage your appeal app @mya', () => {
     statusPage.verifyPage();
   });
 
-  it('CY:checks /postcode page path passes @pa11y', async () => {
-    assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
-    pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
-
-  it('CY:checks /status page path passes @pa11y', async () => {
-    statusPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
-    pa11yOpts.page = await statusPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
   describe('CY:Status page', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
       statusPage.verifyPage();
@@ -119,6 +102,22 @@ describe('Welsh Manage your appeal app @mya', () => {
 
       expect(heightOpen).to.equal(480);
     });
+  });
+
+  it('CY:checks postcode page path passes @pa11y', async () => {
+    assignCasePage.verifyPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
+    pa11yOpts.page = assignCasePage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  it('CY:checks /status page path passes @pa11y', async () => {
+    statusPage.verifyPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
+    pa11yOpts.page = await statusPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
 });
