@@ -37,14 +37,6 @@ describe('Welsh Manage your appeal app @mya', () => {
     }
   });
 
-  it('CY:checks /postcode page path passes @pa11y', async () => {
-    assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
-    pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
   it('CY:should inform postcode, submit and land in status page', async() => {
     await page.waitFor('*');
     await page.waitForSelector('.govuk-link.language', {
@@ -57,6 +49,15 @@ describe('Welsh Manage your appeal app @mya', () => {
 
     statusPage.verifyPage();
   });
+
+  it('CY:checks /postcode page path passes @pa11y', async () => {
+    assignCasePage.verifyPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
+    pa11yOpts.page = assignCasePage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
 
   it('CY:checks /status page path passes @pa11y', async () => {
     statusPage.verifyPage();
