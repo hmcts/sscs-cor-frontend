@@ -2680,7 +2680,6 @@
     "redirectMya": {
       "tab": "Gwasanaeth Dilyn Trywydd eich Apêl",
       "title": "Gwasanaeth Dilyn Trywydd eich Apêl",
-      "title": "Gwasanaeth Dilyn Trywydd eich Apêl",
       "para1": "Rydym wedi datblygu'r Gwasanaeth Dilyn Trywydd eich Apêl fel y gallwch nawr Reoli eich Apêl ar-lein.  I sicrhau bod eich data’n cael ei gadw’n ddiogel, bydd angen ichi greu cyfrif i allu defnyddio'r gwasanaeth hwn. ",
       "para2": "Os bu ichi greu cyfrif pan wnaethoch gyflwyno eich apêl, dilynwch y ddolen hon <a href='/sign-in?tya={{ tyaNumber }}'>login</a> a defnyddiwch yr un manylion mewngofnodi i reoli eich apêl.",
       "para3": "Os na wnaethoch greu cyfrif, yna dilynwch y ddolen hon i wneud hynny <a href='/register?tya={{ tyaNumber }}'>cofrestru</a>. Bydd hyn yn eich galluogi i reoli eich apêl o hyn ymlaen. "
