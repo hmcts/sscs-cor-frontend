@@ -1298,6 +1298,7 @@
       "errors": {
         "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
         "invalidPostcode": "The details you have provided don’t match, please contact us",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
         "postcodeDoesNotMatch": "The details you have provided don’t match, please contact us"
       }
     },
@@ -2672,11 +2673,13 @@
       "errors": {
         "noPostcode": "Nid ydych wedi nodi cod post. Nodwch eich cod post cyn parhau.",
         "invalidPostcode": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
         "postcodeDoesNotMatch": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda"
       }
     },
     "redirectMya": {
       "tab": "Gwasanaeth Dilyn Trywydd eich Apêl",
+      "title": "Gwasanaeth Dilyn Trywydd eich Apêl",
       "title": "Gwasanaeth Dilyn Trywydd eich Apêl",
       "para1": "Rydym wedi datblygu'r Gwasanaeth Dilyn Trywydd eich Apêl fel y gallwch nawr Reoli eich Apêl ar-lein.  I sicrhau bod eich data’n cael ei gadw’n ddiogel, bydd angen ichi greu cyfrif i allu defnyddio'r gwasanaeth hwn. ",
       "para2": "Os bu ichi greu cyfrif pan wnaethoch gyflwyno eich apêl, dilynwch y ddolen hon <a href='/sign-in?tya={{ tyaNumber }}'>login</a> a defnyddiwch yr un manylion mewngofnodi i reoli eich apêl.",
