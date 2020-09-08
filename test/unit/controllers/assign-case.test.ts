@@ -148,7 +148,7 @@ describe('controllers/assign-case.js', () => {
 
       beforeEach(() => {
         req = {
-          session: { idamEmail, undefined },
+          session: { idamEmail },
           body: { postcode }
         } as any;
 
