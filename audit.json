@@ -167,8 +167,6 @@
 	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/support-evidence_GET": "ignore",
 	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/cookie-policy_GET": "ignore",
 	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal_GET" : "ignore",
-	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses_GET" : "ignore",
-	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/additional-evidence_GET" : "ignore",
 	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA2SVfgjqru_10193200616095656.js_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA2SVfgjqru_10193200616095656.js_GET" : "ignore",
 	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA2SVfgjqru_10193200616095656.js_GET" : "ignore",
