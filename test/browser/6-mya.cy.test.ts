@@ -37,16 +37,24 @@ describe('Welsh Manage your appeal app @mya', () => {
     }
   });
 
+  it('CY:checks postcode page path passes @pa11y', async () => {
+    await assignCasePage.clickLanguageToggle();
+    await page.reload();
+    assignCasePage.verifyPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
+    pa11yOpts.page = assignCasePage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
   it('CY:should inform postcode, submit and land in status page', async() => {
     await page.waitFor('*');
     await page.waitForSelector('.govuk-link.language', {
       visible: true
     });
-    await assignCasePage.clickLanguageToggle();
-    await page.waitForNavigation({ waitUntil: 'networkidle0' });
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
-
+    await page.reload();
     statusPage.verifyPage();
   });
 
@@ -102,14 +110,6 @@ describe('Welsh Manage your appeal app @mya', () => {
 
       expect(heightOpen).to.equal(480);
     });
-  });
-
-  it('CY:checks postcode page path passes @pa11y', async () => {
-    assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
-    pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
   it('CY:checks /status page path passes @pa11y', async () => {

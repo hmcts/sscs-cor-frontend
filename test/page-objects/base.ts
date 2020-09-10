@@ -190,4 +190,7 @@ export class BasePage {
       expires: Date.now() + 30 * 60 * 1000
     });
   }
+  async clickLanguageToggle() {
+    await this.clickElement('.govuk-link.language');
+    }
 }
