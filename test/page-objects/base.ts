@@ -192,5 +192,5 @@ export class BasePage {
   }
   async clickLanguageToggle() {
     await this.clickElement('.govuk-link.language');
-    }
+  }
 }
