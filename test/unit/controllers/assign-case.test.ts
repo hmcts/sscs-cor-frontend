@@ -142,5 +142,24 @@ describe('controllers/assign-case.js', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.invalidPostcode });
       });
     });
+
+    describe('for missing tya', () => {
+      const postcode = 'TS1 1ST';
+
+      beforeEach(() => {
+        req = {
+          session: { idamEmail },
+          body: { postcode }
+        } as any;
+
+        underTest = postIndex(hearingService, trackYourAppealService);
+      });
+
+      it('redirects to task-list', async () => {
+        await underTest(req, res);
+
+        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.tyaNotProvided });
+      });
+    });
   });
 });

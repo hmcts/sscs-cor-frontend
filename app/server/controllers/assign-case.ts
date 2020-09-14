@@ -30,6 +30,11 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
         });
       }
     }
+    if (!req.session.tya) {
+      return res.render('assign-case/index.html', {
+        error: content[i18next.language].assignCase.errors.tyaNotProvided
+      });
+    }
     AppInsights.trackTrace(`assign-case: Finding case to assign for tya [${req.session.tya}] email [${req.session.idamEmail}] postcode [${req.body.postcode}]`);
     const { statusCode, body }: rp.Response = await hearingService.assignOnlineHearingsToCitizen(
       req.session.idamEmail, req.session.tya, req.body.postcode, req
@@ -60,8 +65,8 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
 
 function setupAssignCaseController(deps) {
   const router = Router();
-  router.get(Paths.assignCase, getIndex);
-  router.post(Paths.assignCase, postIndex(deps.hearingService, deps.trackYourApealService));
+  router.get(Paths.assignCase, deps.prereqMiddleware, getIndex);
+  router.post(Paths.assignCase, deps.prereqMiddleware, postIndex(deps.hearingService, deps.trackYourApealService));
 
   return router;
 }
