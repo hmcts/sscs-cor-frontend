@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "1.41.0"
+  features {}
 }
 
 locals {
@@ -7,8 +7,8 @@ locals {
 }
 
 data "azurerm_key_vault" "sscs_key_vault" {
-  name                = "${local.azureVaultName}"
-  resource_group_name = "${local.azureVaultName}"
+  name                = local.azureVaultName
+  resource_group_name = local.azureVaultName
 }
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
@@ -20,21 +20,21 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 module "redis-cache" {
   source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product  = "${var.product}-redis"
-  location = "${var.location}"
-  env      = "${var.env}"
+  location = var.location
+  env      = var.env
 
-  subnetid    = "${data.azurerm_subnet.core_infra_redis_subnet.id}"
-  common_tags = "${var.common_tags}"
+  subnetid    = data.azurerm_subnet.core_infra_redis_subnet.id
+  common_tags = var.common_tags
 }
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
   name         = "${var.product}-redis-access-key"
-  value        = "${module.redis-cache.access_key}"
-  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
+  value        = module.redis-cache.access_key
+  key_vault_id = data.azurerm_key_vault.sscs_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "redis_connection_string" {
   name         = "${var.product}-redis-connection-string"
   value        = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
-  key_vault_id = "${data.azurerm_key_vault.sscs_key_vault.id}"
+  key_vault_id = data.azurerm_key_vault.sscs_key_vault.id
 }
