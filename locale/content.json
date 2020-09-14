@@ -1298,6 +1298,7 @@
       "errors": {
         "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
         "invalidPostcode": "The details you have provided don’t match, please contact us",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
         "postcodeDoesNotMatch": "The details you have provided don’t match, please contact us"
       }
     },
@@ -2672,6 +2673,7 @@
       "errors": {
         "noPostcode": "Nid ydych wedi nodi cod post. Nodwch eich cod post cyn parhau.",
         "invalidPostcode": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
         "postcodeDoesNotMatch": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda"
       }
     },
