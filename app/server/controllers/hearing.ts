@@ -13,16 +13,22 @@ function getHearing(req: Request, res: Response) {
   }
 
   if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) || session.appeal.hearingType === 'cor') return res.render('errors/404.html');
+
   const { latestEvents = [], historicalEvents = [], hearingType } = session.appeal;
   const attending: boolean = hearingType === 'oral';
-  const hearingInfo = latestEvents.concat(historicalEvents).find(event => {
-    const { type } = event;
-    if (type === 'HEARING_BOOKED' || type === 'NEW_HEARING_BOOKED') return event;
-  });
+  const showHearing: boolean = session.notListable == null ? true : !session.notListable;
+  let hearingInfo = null;
+
+  if (showHearing) {
+    hearingInfo = latestEvents.concat(historicalEvents).find(event => {
+      const { type } = event;
+      if (type === 'HEARING_BOOKED' || type === 'NEW_HEARING_BOOKED') return event;
+    });
+  }
 
   let hearingArrangements = {};
 
-  if (session.hearing && session.hearing.hearing_arrangements) {
+  if (session.hearing && showHearing && session.hearing.hearing_arrangements) {
     hearingArrangements = session.hearing.hearing_arrangements;
   }
   return res.render('hearing-tab.html', { hearingInfo, attending, hearingArrangements });

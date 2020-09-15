@@ -145,7 +145,7 @@ function getIdamCallback(
         });
 
         AppInsights.trackEvent('MYA_LOGIN_SUCCESS');
-
+        logger.info(`Number of hearings ${hearings.length}`);
         if (hearings.length === 0) {
           return res.redirect(Paths.assignCase);
         } else if (hearings.length === 1) {
@@ -153,6 +153,7 @@ function getIdamCallback(
           const { appeal, subscriptions } = await trackYourApealService.getAppeal(req.session.hearing.case_id, req);
           req.session.appeal = appeal;
           req.session.subscriptions = subscriptions;
+          req.session.notListable = appeal.notListable == null ? false : appeal.notListable;
 
           logger.info(`Logging in ${email}`);
           AppInsights.trackTrace(`[${req.session.hearing && req.session.hearing.case_id}] - User logged in successfully as ${email}`);
