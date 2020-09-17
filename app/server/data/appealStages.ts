@@ -153,15 +153,6 @@ const corAppealStages = [
     showOnBar: true
   },
   {
-    status: 'RESPONSE_RECEIVED',
-    title: {
-      en: 'Response Received',
-      cy: 'Derbyniwyd ateb'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
-  {
     status: 'HEARING',
     title: {
       en: 'still to',
