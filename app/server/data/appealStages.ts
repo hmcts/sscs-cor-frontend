@@ -1,40 +1,68 @@
+const APPEAL_RECEIVED = {
+  status: 'APPEAL_RECEIVED',
+  title: {
+    en: 'Appeal',
+    cy: 'Apêl'
+  },
+  latestUpdateText: 'text',
+  showOnBar: true
+};
+
+const WITH_DWP = {
+  status: 'WITH_DWP',
+  title: {
+    en: 'Appeal',
+    cy: 'Apêl'
+  },
+  latestUpdateText: 'text',
+  showOnBar: false
+};
+
+const DWP_RESPOND = {
+  status: 'DWP_RESPOND',
+  title: {
+    en: 'DWP response',
+    cy: 'Ymateb DWP'
+  },
+  latestUpdateText: 'text',
+  showOnBar: true
+};
+
+const RESPONSE_RECEIVED = {
+  status: 'RESPONSE_RECEIVED',
+  title: {
+    en: 'Response Received',
+    cy: 'Derbyniwyd ateb'
+  },
+  latestUpdateText: 'text',
+  showOnBar: true
+};
+
+const DORMANT = {
+  status: 'DORMANT',
+  title: {
+    en: 'Hearing',
+    cy: 'Gwrandawiad'
+  },
+  latestUpdateText: 'text',
+  showOnBar: true
+};
+
+const CLOSED = {
+  status: 'CLOSED',
+  title: {
+    en: 'Closed',
+    cy: 'Wedi cau'
+  },
+  latestUpdateText: 'text',
+  showOnBar: true
+};
+
 const oralAppealStages = [
-  {
-    status: 'APPEAL_RECEIVED',
-    title: {
-      en: 'Appeal',
-      cy: 'Apêl'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
-  {
-    status: 'WITH_DWP',
-    title: {
-      en: 'Appeal',
-      cy: 'Apêl'
-    },
-    latestUpdateText: 'text',
-    showOnBar: false
-  },
-  {
-    status: 'DWP_RESPOND',
-    title: {
-      en: 'DWP response',
-      cy: 'Ymateb DWP'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
-  {
-    status: 'RESPONSE_RECEIVED',
-    title: {
-      en: 'Response Received',
-      cy: 'Derbyniwyd ateb'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
+  APPEAL_RECEIVED,
+  WITH_DWP,
+  DWP_RESPOND,
+  RESPONSE_RECEIVED,
   {
     status: 'POSTPONED',
     showOnBar: false
@@ -56,81 +84,17 @@ const oralAppealStages = [
     status: 'NEW_HEARING_BOOKED',
     showOnBar: false
   },
-  {
-    status: 'DORMANT',
-    title: {
-      en: 'Hearing',
-      cy: 'Gwrandawiad'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
-  {
-    status: 'CLOSED',
-    title: {
-      en: 'Closed',
-      cy: 'Wedi cau'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  }
+  DORMANT,
+  CLOSED
 ];
 
 const paperAppealStages = [
-  {
-    status: 'APPEAL_RECEIVED',
-    title: {
-      en: 'Appeal',
-      cy: 'Apêl'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
-  {
-    status: 'WITH_DWP',
-    title: {
-      en: 'Appeal',
-      cy: 'Apêl'
-    },
-    latestUpdateText: 'text',
-    showOnBar: false
-  },
-  {
-    status: 'DWP_RESPOND',
-    title: {
-      en: 'DWP response',
-      cy: 'Ymateb DWP'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
-  {
-    status: 'RESPONSE_RECEIVED',
-    title: {
-      en: 'Response Received',
-      cy: 'Derbyniwyd ateb'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
-  {
-    status: 'DORMANT',
-    title: {
-      en: 'Hearing',
-      cy: 'Gwrandawiad'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  },
-  {
-    status: 'CLOSED',
-    title: {
-      en: 'Closed',
-      cy: 'Wedi cau'
-    },
-    latestUpdateText: 'text',
-    showOnBar: true
-  }
+  APPEAL_RECEIVED,
+  WITH_DWP,
+  DWP_RESPOND,
+  RESPONSE_RECEIVED,
+  DORMANT,
+  CLOSED
 ];
 
 const corAppealStages = [
