@@ -103,27 +103,6 @@ describe('controllers/assign-case.js', () => {
 
         expect(req.session.appeal).to.be.eql(appeal);
       });
-
-      it('sets notListable false in session', async () => {
-        await underTest(req, res);
-
-        expect(req.session.notListable).to.be.eql(false);
-      });
-
-      it('sets notListable true in session', async () => {
-        trackYourAppealService = {
-          getAppeal: sandbox.stub().resolves({
-            statusCode: OK,
-            appeal: {
-              hearingType: 'paper',
-              notListable: true
-            }
-          })
-        } as any;
-        await underTest(req, res);
-
-        expect(req.session.notListable).to.be.eql(false);
-      });
     });
 
     describe('for missing postcode', () => {

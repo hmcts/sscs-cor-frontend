@@ -27,6 +27,15 @@ const oralAppealStages = [
     showOnBar: true
   },
   {
+    status: 'RESPONSE_RECEIVED',
+    title: {
+      en: 'Response Received',
+      cy: 'Derbyniwyd ateb'
+    },
+    latestUpdateText: 'text',
+    showOnBar: true
+  },
+  {
     status: 'POSTPONED',
     showOnBar: false
   },
@@ -96,6 +105,15 @@ const paperAppealStages = [
     showOnBar: true
   },
   {
+    status: 'RESPONSE_RECEIVED',
+    title: {
+      en: 'Response Received',
+      cy: 'Derbyniwyd ateb'
+    },
+    latestUpdateText: 'text',
+    showOnBar: true
+  },
+  {
     status: 'DORMANT',
     title: {
       en: 'Hearing',
@@ -130,6 +148,15 @@ const corAppealStages = [
     title: {
       en: 'for COR appeal',
       cy: 'at gyfer apêl Datrys Achosion Ar-lein'
+    },
+    latestUpdateText: 'text',
+    showOnBar: true
+  },
+  {
+    status: 'RESPONSE_RECEIVED',
+    title: {
+      en: 'Response Received',
+      cy: 'Derbyniwyd ateb'
     },
     latestUpdateText: 'text',
     showOnBar: true
