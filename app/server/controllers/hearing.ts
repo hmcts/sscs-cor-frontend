@@ -14,9 +14,9 @@ function getHearing(req: Request, res: Response) {
 
   if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) || session.appeal.hearingType === 'cor') return res.render('errors/404.html');
 
-  const { latestEvents = [], historicalEvents = [], hearingType, status } = session.appeal;
+  const { latestEvents = [], historicalEvents = [], hearingType } = session.appeal;
   const attending: boolean = hearingType === 'oral';
-  const showHearing: boolean = status !== 'RESPONSE_RECEIVED';
+  const showHearing: boolean = session.notListable == null ? true : !session.notListable;
   let hearingInfo = null;
 
   if (showHearing) {

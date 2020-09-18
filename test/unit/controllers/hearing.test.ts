@@ -3,7 +3,6 @@ import * as AppInsights from '../../../app/server/app-insights';
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 const oralHearing = require('../../mock/tribunals/data/oral/hearing');
-const hideHearing = require('../../mock/tribunals/data/paper/hearing');
 import * as hearing from 'app/server/controllers/hearing';
 import * as Paths from 'app/server/paths';
 
@@ -64,9 +63,10 @@ describe('controllers/hearing', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: oralHearing.appeal.historicalEvents[0], hearingArrangements });
     });
 
-    it('should hide hearing info when appeal status is RESPONSE_RECEIVED', async() => {
+    it('should hide hearing info when appeal status is notListable', async() => {
       req.cookies.manageYourAppeal = 'true';
-      req.session.appeal = hideHearing.appeal;
+      req.session.appeal = oralHearing.appeal;
+      req.session.notListable = true;
       const hearingArrangements = { };
       req.session.hearing = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);
