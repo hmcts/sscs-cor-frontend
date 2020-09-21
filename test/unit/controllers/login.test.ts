@@ -301,7 +301,7 @@ describe('controllers/login', () => {
       });
     });
 
-    describe('check notListable flag with MYA enabled', () => {
+    describe('check hideHearing flag with MYA enabled', () => {
       let hearingServiceStub;
       let trackYourAppealService;
       let redirectToIdam;
@@ -319,20 +319,20 @@ describe('controllers/login', () => {
         } as HearingService;
       });
 
-      it('sets the notListable false', async () => {
+      it('sets the hideHearing false', async () => {
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal : {} })
         };
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
-        expect(req.session.notListable).to.be.eql(false);
+        expect(req.session.hideHearing).to.be.eql(false);
       });
 
-      it('sets the notListable true', async () => {
+      it('sets the hideHearing true', async () => {
         trackYourAppealService = {
-          getAppeal: sinon.stub().resolves({ appeal : { notListable: true } })
+          getAppeal: sinon.stub().resolves({ appeal : { hideHearing: true } })
         };
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
-        expect(req.session.notListable).to.be.eql(true);
+        expect(req.session.hideHearing).to.be.eql(true);
       });
     });
 

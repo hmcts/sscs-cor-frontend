@@ -63,10 +63,10 @@ describe('controllers/hearing', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: oralHearing.appeal.historicalEvents[0], hearingArrangements });
     });
 
-    it('should hide hearing info when appeal status is notListable', async() => {
+    it('should hide hearing info when appeal has hideHearing set to true', async() => {
       req.cookies.manageYourAppeal = 'true';
       req.session.appeal = oralHearing.appeal;
-      req.session.notListable = true;
+      req.session.hideHearing = true;
       const hearingArrangements = { };
       req.session.hearing = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);

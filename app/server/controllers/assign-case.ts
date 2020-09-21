@@ -53,7 +53,7 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
     const { appeal } = await trackYourAppealService.getAppeal(req.session.hearing.case_id, req);
 
     req.session.appeal = appeal;
-    req.session.notListable = appeal.notListable == null ? false : appeal.notListable;
+    req.session.hideHearing = appeal.hideHearing == null ? false : appeal.hideHearing;
     if (req.session.appeal.hearingType === 'cor') {
       return res.redirect(Paths.taskList);
     } else {
