@@ -5,7 +5,6 @@ const { expect, sinon } = require('test/chai-sinon');
 const oralHearing = require('../../mock/tribunals/data/oral/hearing');
 import * as hearing from 'app/server/controllers/hearing';
 import * as Paths from 'app/server/paths';
-import * as assert from 'assert';
 
 describe('controllers/hearing', () => {
   let req: any;
@@ -62,6 +61,16 @@ describe('controllers/hearing', () => {
       req.session.hearing = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: oralHearing.appeal.historicalEvents[0], hearingArrangements });
+    });
+
+    it('should hide hearing info when appeal has hideHearing set to true', async() => {
+      req.cookies.manageYourAppeal = 'true';
+      req.session.appeal = oralHearing.appeal;
+      req.session.hideHearing = true;
+      const hearingArrangements = { };
+      req.session.hearing = { hearing_arrangements: hearingArrangements };
+      hearing.getHearing(req, res);
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: null, hearingArrangements });
     });
 
     it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async() => {

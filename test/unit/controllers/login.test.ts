@@ -301,6 +301,41 @@ describe('controllers/login', () => {
       });
     });
 
+    describe('check hideHearing flag with MYA enabled', () => {
+      let hearingServiceStub;
+      let trackYourAppealService;
+      let redirectToIdam;
+      let idamServiceStub;
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode', 'state': 'tya-number' };
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        redirectToIdam = sinon.stub();
+        idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: [ hearingDetails ] })
+        } as HearingService;
+      });
+
+      it('sets the hideHearing false', async () => {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : {} })
+        };
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.hideHearing).to.be.eql(false);
+      });
+
+      it('sets the hideHearing true', async () => {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : { hideHearing: true } })
+        };
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.hideHearing).to.be.eql(true);
+      });
+    });
+
     describe('cannot find case with MYA enabled', () => {
       let hearingServiceStub;
       let trackYourAppealService;
