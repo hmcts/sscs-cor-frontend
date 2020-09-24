@@ -2,6 +2,9 @@ import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
+import { Logger } from '@hmcts/nodejs-logging';
+
+const logger = Logger.getLogger('hearing.js');
 
 function getHearing(req: Request, res: Response) {
   const session = req.session;
@@ -16,19 +19,19 @@ function getHearing(req: Request, res: Response) {
 
   const { latestEvents = [], historicalEvents = [], hearingType } = session.appeal;
   const attending: boolean = hearingType === 'oral';
-  const showHearing: boolean = session.notListable == null ? true : !session.notListable;
   let hearingInfo = null;
 
-  if (showHearing) {
+  if (!session.hideHearing) {
     hearingInfo = latestEvents.concat(historicalEvents).find(event => {
       const { type } = event;
       if (type === 'HEARING_BOOKED' || type === 'NEW_HEARING_BOOKED') return event;
     });
+    logger.info(`Hearing ${JSON.stringify(hearingInfo)}`);
   }
 
   let hearingArrangements = {};
 
-  if (session.hearing && showHearing && session.hearing.hearing_arrangements) {
+  if (session.hearing && !session.hideHearing && session.hearing.hearing_arrangements) {
     hearingArrangements = session.hearing.hearing_arrangements;
   }
   return res.render('hearing-tab.html', { hearingInfo, attending, hearingArrangements });

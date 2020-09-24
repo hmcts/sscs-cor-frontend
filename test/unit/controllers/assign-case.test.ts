@@ -104,25 +104,40 @@ describe('controllers/assign-case.js', () => {
         expect(req.session.appeal).to.be.eql(appeal);
       });
 
-      it('sets notListable false in session', async () => {
+      it('sets hideHearing false in session', async () => {
         await underTest(req, res);
 
-        expect(req.session.notListable).to.be.eql(false);
+        expect(req.session.hideHearing).to.be.eql(false);
       });
+    });
 
-      it('sets notListable true in session', async () => {
+    describe('for missing postcode and hideHearing true', () => {
+
+      const postcode = 'cm11 1ab';
+
+      beforeEach(() => {
         trackYourAppealService = {
           getAppeal: sandbox.stub().resolves({
             statusCode: OK,
             appeal: {
               hearingType: 'paper',
-              notListable: true
+              hideHearing: true
             }
           })
         } as any;
+
+        req = {
+          session: { idamEmail, tya },
+          body: { postcode }
+        } as any;
+
+        underTest = postIndex(hearingService, trackYourAppealService);
+      });
+
+      it('sets hideHearing true in session', async () => {
         await underTest(req, res);
 
-        expect(req.session.notListable).to.be.eql(false);
+        expect(req.session.hideHearing).to.be.eql(true);
       });
     });
 
