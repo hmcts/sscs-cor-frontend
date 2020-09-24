@@ -56,6 +56,7 @@ describe('Manage your appeal app @mya', () => {
     statusPage.verifyPage();
   });
 
+  /* PA11Y */
   it('checks /status page path passes @pa11y', async () => {
     statusPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
