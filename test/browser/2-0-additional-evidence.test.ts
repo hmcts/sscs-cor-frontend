@@ -9,6 +9,7 @@ import { AdditionalEvidenceStatementPage } from 'test/page-objects/additional-ev
 import { AdditionalEvidenceConfirmationPage } from 'test/page-objects/additional-evidence-confirmation';
 import { AdditionalEvidenceUploadPage } from 'test/page-objects/additional-evidence-upload';
 import { AdditionalEvidencePostPage } from 'test/page-objects/additional-evidence-post';
+import { AdditionalEvidenceCoversheetPage } from 'test/page-objects/additional-evidence-coversheet';
 import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
@@ -26,6 +27,7 @@ describe('Additional Evidence @mya', () => {
   let additionalEvidenceConfirmationPage: AdditionalEvidenceConfirmationPage;
   let additionalEvidenceUploadPage: AdditionalEvidenceUploadPage;
   let additionalEvidencePostPage: AdditionalEvidencePostPage;
+  let additionalEvidenceCoversheetPage: AdditionalEvidenceCoversheetPage;
   let loginPage: LoginPage;
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
@@ -43,6 +45,7 @@ describe('Additional Evidence @mya', () => {
     additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
     additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
     additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
+    additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(page);
     taskListPage = new TaskListPage(page);
     await loginPage.setCookie('manageYourAppeal', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
@@ -165,7 +168,6 @@ describe('Additional Evidence @mya', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidencePostPage.verifyPage();
-    await additionalEvidencePostPage.returnToAppealPage();
-    additionalEvidencePage.verifyPage();
+    await additionalEvidenceCoversheetPage.navigateToCoverSheetPage();
   });
 });

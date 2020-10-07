@@ -119,4 +119,14 @@ describe('Manage your appeal app @mya', () => {
     });
   });
 
+  describe('Hearing page', () => {
+    it('Navigate to hearing tab', async() => {
+      statusPage.verifyPage();
+      await statusPage.clickElement('#tab-hearing');
+      await page.waitFor(500);
+      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.hearingTab.tabHeader);
+    });
+
+  });
+
 });
