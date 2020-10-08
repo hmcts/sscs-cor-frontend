@@ -360,6 +360,9 @@
 	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10201200909073022.js_GET" : "ignore",
 	"10098_Cross-Domain Misconfiguration_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10201200909073022.js_GET" : "ignore",
 	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10201200909073022.js_GET" : "ignore",
-	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10201200909073022.js_GET" : "ignore"
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10201200909073022.js_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10201200909073022.js_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
+	"10015_Incomplete or No Cache-control and Pragma HTTP Header Set_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore"
 
 }
