@@ -9,14 +9,17 @@ const logger = Logger.getLogger('check-decision.js');
 const acceptedDecisionStates = [CONST.TRIBUNAL_VIEW_ISSUED_STATE, CONST.DECISION_REJECTED_STATE, CONST.DECISION_ACCEPTED_STATE];
 
 export function checkDecision(req: Request, res: Response, next: NextFunction) {
-  const hearing: OnlineHearing = req.session.hearing;
 
-  if (!hearing.decision) {
-    const missingDecisionError = new Error('Unable to retrieve decision from session store');
-    AppInsights.trackException(missingDecisionError);
+  const session = req.session;
+
+  if (!session) {
+    const missingCaseIdError = new Error('Unable to retrieve session from session store');
+    AppInsights.trackException(missingCaseIdError);
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+    return next();
   }
 
+  const hearing: OnlineHearing = session.hearing;
   const decisionState = hearing.decision && hearing.decision.decision_state;
   if (!acceptedDecisionStates.includes(decisionState) && !hearing.has_final_decision) {
     return next();

@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 const { expect, sinon } = require('test/chai-sinon');
 import { checkDecision } from 'app/server/middleware/check-decision.ts';
 import * as Paths from 'app/server/paths';
+import * as hearing from '../../../app/server/controllers/hearing';
+import * as AppInsights from '../../../app/server/app-insights';
 
 describe('middleware/check-decision', () => {
   let req: Request;
@@ -31,6 +33,14 @@ describe('middleware/check-decision', () => {
       redirect: sinon.spy()
     } as any;
     next = sinon.spy();
+
+    sinon.stub(AppInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackEvent');
+  });
+
+  afterEach(() => {
+    (AppInsights.trackException as sinon.SinonStub).restore();
+    (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
   it('calls next when decision that is not issued exists in the session', () => {
@@ -41,6 +51,17 @@ describe('middleware/check-decision', () => {
   it('calls next when no decision exists in the session', () => {
     delete req.session.hearing.decision;
     checkDecision(req, res, next);
+    expect(next).to.have.been.calledOnce.calledWith();
+  });
+
+  it('should log exception if no session and call next', () => {
+    delete req.session;
+
+    checkDecision(req, res, next);
+
+    const error = new Error('Unable to retrieve session from session store');
+    expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+    expect(AppInsights.trackEvent).to.have.been.calledOnce;
     expect(next).to.have.been.calledOnce.calledWith();
   });
 
