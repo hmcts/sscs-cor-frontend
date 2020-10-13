@@ -5,7 +5,6 @@ import * as Paths from './paths';
 import * as config from 'config';
 
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
-import { checkDecision } from './middleware/check-decision';
 
 import { setupQuestionController } from './controllers/question';
 import { setupSubmitQuestionController } from './controllers/submit-question';
@@ -62,7 +61,7 @@ const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
 
-const prereqMiddleware = [ensureAuthenticated, checkDecision];
+const prereqMiddleware = [ensureAuthenticated];
 
 const questionController = setupQuestionController({ questionService, evidenceService, prereqMiddleware });
 const submitQuestionController = setupSubmitQuestionController({ questionService, evidenceService, prereqMiddleware });
