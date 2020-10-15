@@ -166,8 +166,6 @@ describe('Additional Evidence @mya', () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectPostOption();
     await additionalEvidencePage.submit();
-
     additionalEvidencePostPage.verifyPage();
-    await additionalEvidenceCoversheetPage.navigateToCoverSheetPage();
   });
 });

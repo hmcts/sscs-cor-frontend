@@ -14,4 +14,11 @@ export class AdditionalEvidenceCoversheetPage extends BasePage {
   async navigateToCoverSheetPage() {
     await this.page.goto(`${testUrl}${this.pagePath}`, { waitUntil : 'networkidle2' }).catch(e => void 0);
   }
+
+  async verifyPdfLoaded() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      this.getElement('embed')
+    ]);
+  }
 }
