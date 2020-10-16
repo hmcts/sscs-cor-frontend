@@ -36,7 +36,6 @@ describe('Manage your appeal app @smoke', () => {
     assignCasePage.verifyPage();
   });
 
-
   it('should inform postcode, submit and land in status page', async() => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
@@ -84,5 +83,5 @@ describe('Manage your appeal app @smoke', () => {
 
       expect(heightClosed).to.equal(40);
     });
-});
+  });
 });
