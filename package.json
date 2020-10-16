@@ -28,7 +28,7 @@
     "test:integration": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/integration/**/*.ts --exit",
     "test:functional": "yarn test:browser --grep @mya",
     "test:fullfunctional": "yarn test:functional",
-    "test:smoke": "yarn test:browser -g @smoke",
+    "test:smoke": "NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/smoke/*.ts --grep @smoke --colors --reporter mochawesome  --reporter-options reportDir=smoke-output/reports/smoke,inlineAssets=true --exit",
     "test:audit": "./bin/run-yarn-audit.sh -f yarn-audit-known-issues",
     "test:create-s2s-headers": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json node --require tsconfig-paths/register --require ts-node/register create-s2s-header.ts",
     "test:create-data": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json node --require tsconfig-paths/register --require ts-node/register create-test-data.ts",
