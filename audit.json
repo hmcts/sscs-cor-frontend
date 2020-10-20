@@ -373,7 +373,12 @@
 	"10015_Incomplete or No Cache-control and Pragma HTTP Header Set_https://sscs-cor.aat.platform.hmcts.net/health?lng=en_GET": "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
-	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore"
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore"
+
 
 
 }
