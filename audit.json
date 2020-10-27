@@ -399,5 +399,7 @@
 	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10203201023153222.js_GET" : "ignore",
 	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/health_GET" : "ignore",
 	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
-	"40034_.env Information Leak_https://sscs-cor.aat.platform.hmcts.net/health/.env_GET" : "ignore"
+	"40034_.env Information Leak_https://sscs-cor.aat.platform.hmcts.net/health/.env_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-evidence_GET" : "ignore"
 }
