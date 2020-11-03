@@ -1,10 +1,13 @@
 import { Router, Request, Response } from 'express';
 import { NO_CONTENT } from 'http-status-codes';
+import { diskStorage } from 'multer';
 const config = require('config');
 const { Logger } = require('@hmcts/nodejs-logging');
 const Redis = require('ioredis');
 const multer = require('multer');
-const multipart = multer();
+const multipart = multer({
+  storage: diskStorage
+});
 
 const logger = Logger.getLogger('idam-stub');
 
