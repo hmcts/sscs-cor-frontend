@@ -2,7 +2,6 @@ import { Router, Request, Response } from 'express';
 import { NO_CONTENT } from 'http-status-codes';
 import { diskStorage } from 'multer';
 const config = require('config');
-const crypto = require('crypto');
 const { Logger } = require('@hmcts/nodejs-logging');
 const Redis = require('ioredis');
 const multer = require('multer');
@@ -18,7 +17,7 @@ const redisUrl = config.get('session.redis.url');
 let redis;
 
 function generateRandomNumber() {
-  return Math.floor(crypto.randomBytes(1) * 100000);
+  return Math.floor(Math.random() * 100000);
 }
 
 function getLogin(req: Request, res: Response) {
