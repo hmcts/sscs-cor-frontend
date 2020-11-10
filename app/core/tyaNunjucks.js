@@ -49,7 +49,7 @@ const filters = {
 
 const renderContent = (content, placeholder) => {
   if (Array.isArray(content)) {
-    content.map(str => renderContent(str, placeholder));
+    content.forEach(str => renderContent(str, placeholder));
   }
   if (typeof content === 'object') {
     const newKeys = Object.keys(content).map(key => {
