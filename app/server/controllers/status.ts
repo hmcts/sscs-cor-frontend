@@ -17,7 +17,7 @@ function getStatus(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const { appeal } = session;
+  const { appeal } = session['appeal'];
 
   const noProgressBarStages = ['CLOSED', 'LAPSED_REVISED', 'WITHDRAWN'];
   const { hearingType, status } = appeal;

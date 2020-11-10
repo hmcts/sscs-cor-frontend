@@ -44,7 +44,7 @@ function getQuestion(questionService: QuestionService) {
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
-    const hearingId = req.session.hearing.online_hearing_id;
+    const hearingId = req.session['hearing'].online_hearing_id;
     try {
       const response = await questionService.getQuestion(hearingId, currentQuestionId, req);
 
@@ -60,7 +60,7 @@ function getQuestion(questionService: QuestionService) {
         },
         evidences: response.evidence ? response.evidence.reverse() : []
       };
-      req.session.question = question;
+      req.session['question'] = question;
       res.render('question/index.html', {
         question,
         showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
@@ -80,7 +80,7 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
-    const hearingId = req.session.hearing.online_hearing_id;
+    const hearingId = req.session['hearing'].online_hearing_id;
     const answerText = req.body['question-field'];
 
     try {
@@ -89,7 +89,7 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
       if (!validationMessage) {
         await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText, req);
       } else if (req.body.save || req.body.submit) {
-        const question = req.session.question;
+        const question = req.session['question'];
         question.answer = {
           value: answerText,
           error: validationMessage
@@ -111,7 +111,7 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
       } else if (req.body.submit) {
         res.redirect(`${Paths.question}/${questionOrdinal}/submit`);
       } else if (res.locals.multerError) {
-        const question = req.session.question;
+        const question = req.session['question'];
         question.answer = {
           value: req.body['question-field']
         };
@@ -153,7 +153,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       return res.redirect(Paths.taskList);
     }
 
-    const hearingId = req.session.hearing.online_hearing_id;
+    const hearingId = req.session['hearing'].online_hearing_id;
 
     if (!req.file) {
       const error = res.locals.multerError || content[i18next.language].questionUploadEvidence.error.empty;
@@ -167,7 +167,7 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       if (response.statusCode === UNPROCESSABLE_ENTITY) {
         const error = content[i18next.language].questionUploadEvidence.error.fileCannotBeUploaded;
         if (isJsUpload) {
-          const question = req.session.question;
+          const question = req.session['question'];
           return res.render('question/index.html', {
             question,
             showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),

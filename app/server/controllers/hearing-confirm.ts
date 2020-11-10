@@ -4,11 +4,11 @@ import { newHearingAcceptedValidation } from '../utils/fieldValidation';
 import { CONST } from '../../constants';
 
 function getIndex(req: Request, res: Response) {
-  const decisionViewExists: boolean = req.session.hearing.decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE;
+  const decisionViewExists: boolean = req.session['hearing'].decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE;
   if (!decisionViewExists) {
     return res.redirect(Paths.logout);
   }
-  const appellantRejected: boolean = req.session.hearing.decision && req.session.hearing.decision.appellant_reply === 'decision_rejected';
+  const appellantRejected: boolean = req.session['hearing'].decision && req.session['hearing'].decision.appellant_reply === 'decision_rejected';
   if (appellantRejected) {
     return res.redirect(Paths.hearingWhy);
   }
