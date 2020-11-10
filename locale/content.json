@@ -29,6 +29,7 @@
       "extendDeadline": "Extend the deadline",
       "describeTheEvidence": "Describe the evidence",
       "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why",
+      "hearingOutcome": "Hearing Outcome",
       "type": {
         "Appellant": "Appellant",
         "Appointee": "Appointee",
@@ -955,6 +956,13 @@
     "historyTab": {
       "tabHeader": "History",
       "header": "History of your appeal"
+    },
+    "outcomeTab": {
+      "tabHeader": "Hearing Outcome",
+      "header": "Hearing outcome of your appeal",
+      "document": "Document",
+      "hearingDate": "Hearing date",
+      "outcomeFrom": "Hearing outcome from"
     },
     "appealEvents": {
       "ADJOURNED": {
