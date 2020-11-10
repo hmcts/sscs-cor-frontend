@@ -156,8 +156,8 @@ function getIdamCallback(
 
           logger.info(`Logging in ${email}`);
           AppInsights.trackTrace(`[${req.session['hearing'] && req.session['hearing'].case_id}] - User logged in successfully as ${email}`);
-          let ap = JSON.parse(localStorage.getItem(req.session['appeal']));
-          if (ap.hearingType === 'cor') {
+
+          if (req.session['appeal'].hearingType === 'cor') {
             return res.redirect(Paths.taskList);
           } else {
             return res.redirect(Paths.status);
