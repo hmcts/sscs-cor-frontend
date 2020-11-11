@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { tribunalViewAcceptedValidation } from '../utils/fieldValidation';
 
 function getTribunalViewConfirm(req: Request, res: Response) {
-  const hearing: OnlineHearing = req.session['hearing'];
+  const hearing: OnlineHearing = req.session.hearing;
   if (hearing.decision && hearing.decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE) {
     return res.render('tribunal-view-confirm.html');
   }
@@ -16,7 +16,7 @@ function getTribunalViewConfirm(req: Request, res: Response) {
 
 function postTribunalViewConfirm(hearingService) {
   return async(req: Request, res: Response, next: NextFunction) => {
-    const hearing: OnlineHearing = req.session['hearing'];
+    const hearing: OnlineHearing = req.session.hearing;
     const acceptView = req.body['accept-view'];
     const validationMessage = tribunalViewAcceptedValidation(acceptView, true);
     if (validationMessage) {
@@ -29,8 +29,8 @@ function postTribunalViewConfirm(hearingService) {
           CONST.DECISION_ACCEPTED_STATE,
           req
         );
-        req.session['hearing'].decision.appellant_reply = 'decision_accepted';
-        req.session['hearing'].decision.appellant_reply_datetime = moment.utc().format();
+        req.session.hearing.decision.appellant_reply = 'decision_accepted';
+        req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
         return res.redirect(Paths.tribunalViewAccepted);
       } catch (error) {
         AppInsights.trackException(error);

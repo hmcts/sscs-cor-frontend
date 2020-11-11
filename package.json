@@ -97,7 +97,7 @@
     "@types/chokidar": "^2.1.3",
     "@types/cli-color": "^0.3.29",
     "@types/config": "0.0.34",
-    "@types/connect-redis": "0.0.15",
+    "@types/connect-redis": "0.0.14",
     "@types/cookie-parser": "^1.4.1",
     "@types/jquery": "^3.3.6",
     "@types/jsdom": "^11.12.0",
@@ -126,7 +126,7 @@
     "jsdom": "^16.2.1",
     "jsdom-global": "^3.0.2",
     "memory-cache": "^0.2.0",
-    "mocha": "^6.2.3",
+    "mocha": "^5.2.0",
     "mocha-multi": "^1.1.3",
     "mochawesome": "^4.1.0",
     "nock": "^12.0.3",
@@ -149,6 +149,6 @@
     "uglify-js": "^3.8.0",
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
-    "webdriverio": "^5.15.2"
+    "webdriverio": "^4.14.4"
   }
 }

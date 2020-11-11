@@ -55,7 +55,7 @@ export class QuestionService {
   }
 
   getQuestionIdFromOrdinal(req: Request): string {
-    const questions: QuestionSummary[] = req.session['questions'];
+    const questions: QuestionSummary[] = req.session.questions;
     if (!questions) {
       return undefined;
     }

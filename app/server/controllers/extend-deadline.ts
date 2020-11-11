@@ -5,13 +5,13 @@ import { HearingService } from '../services/hearing';
 
 function getIndex(req: Request, res: Response) {
   return res.render('extend-deadline/index.html', {
-    hearing: req.session['hearing']
+    hearing: req.session.hearing
   });
 }
 
 function extensionConfirmation(hearingService: HearingService) {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const hearingId: string = req.session['hearing'].online_hearing_id;
+    const hearingId: string = req.session.hearing.online_hearing_id;
     const extend: string = req.body['extend-deadline'];
 
     if (!extend) return res.render('extend-deadline/index.html', { error: true });
@@ -19,10 +19,10 @@ function extensionConfirmation(hearingService: HearingService) {
     try {
       if (extend === 'yes') {
         const response = await hearingService.extendDeadline(hearingId, req);
-        req.session['hearing'].deadline = response.deadline_expiry_date;
+        req.session.hearing.deadline = response.deadline_expiry_date;
       }
 
-      res.render('extend-deadline/index.html', { extend: extend, deadline: req.session['hearing'].deadline });
+      res.render('extend-deadline/index.html', { extend: extend, deadline: req.session.hearing.deadline });
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);

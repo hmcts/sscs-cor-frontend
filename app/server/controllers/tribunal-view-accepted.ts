@@ -3,9 +3,9 @@ import * as moment from 'moment';
 import * as Paths from '../paths';
 
 function getTribunalViewAccepted(req: Request, res: Response) {
-  const appellantAccepted: boolean = req.session['hearing'].decision && req.session['hearing'].decision.appellant_reply === 'decision_accepted';
+  const appellantAccepted: boolean = req.session.hearing.decision && req.session.hearing.decision.appellant_reply === 'decision_accepted';
   if (appellantAccepted) {
-    const appellantReplyDatetime: string = req.session['hearing'].decision && req.session['hearing'].decision.appellant_reply_datetime;
+    const appellantReplyDatetime: string = req.session.hearing.decision && req.session.hearing.decision.appellant_reply_datetime;
     const nextCorrespondenceDate = moment.utc(appellantReplyDatetime).add(14, 'days').format();
     return res.render('tribunal-view-accepted.html', { nextCorrespondenceDate });
   }
