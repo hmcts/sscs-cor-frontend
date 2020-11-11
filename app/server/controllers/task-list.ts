@@ -26,18 +26,6 @@ function getTaskList(questionService: QuestionService) {
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
         hearingType = req.session['appeal'].hearingType;
       }
-      if (hearingType === 'cor') {
-        const response = await questionService.getAllQuestions(hearing.online_hearing_id, req);
-
-        req.session['hearing'].deadline = response.deadline_expiry_date;
-        req.session['questions'] = response.questions ? response.questions : [];
-        req.session['hearing'].extensionCount = response.deadline_extension_count;
-        const totalQuestionCount = req.session['questions'].length;
-        if (totalQuestionCount !== 0) {
-          const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(req.session['questions']);
-          deadlineDetails = processDeadline(response.deadline_expiry_date, allQuestionsSubmitted);
-        }
-      }
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
         questions: req.session['questions'] || [],
