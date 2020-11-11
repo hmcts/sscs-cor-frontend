@@ -15,11 +15,8 @@ function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
   return { status, expiryDate, extendable: true };
 }
 
-const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
-
-function getTaskList(questionService: QuestionService) {
+function getTaskList() {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const hearing = req.session['hearing'];
     try {
       let deadlineDetails = null;
       let hearingType = 'cor';
@@ -70,7 +67,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
 
 function setupTaskListController(deps: any): Router {
   const router: Router = Router();
-  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList(deps.questionService));
+  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList());
   router.get(Paths.postEvidence, deps.prereqMiddleware, getEvidencePost);
   router.get(Paths.coversheet, deps.prereqMiddleware, getCoversheet(deps.additionalEvidenceService));
   return router;
