@@ -6,7 +6,7 @@ import * as AppInsights from 'app/server/app-insights';
 import * as Paths from 'app/server/paths';
 import * as express from 'express';
 
-describe.skip('controllers/submit-question', () => {
+describe('controllers/submit-question', () => {
   const next = sinon.stub();
   const req: any = {};
   const res: any = {};

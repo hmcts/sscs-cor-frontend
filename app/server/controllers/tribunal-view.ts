@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { tribunalViewAcceptedValidation } from '../utils/fieldValidation';
 
 function getTribunalView(req: Request, res: Response) {
-  const hearing: OnlineHearing = req.session.hearing;
+  const hearing: OnlineHearing = req.session['hearing'];
   if (hearing.decision && hearing.decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE) {
     const respondBy = moment.utc(hearing.decision.decision_state_datetime).add(7, 'day').format();
 
@@ -22,7 +22,7 @@ function getTribunalView(req: Request, res: Response) {
 
 function postTribunalView(hearingService) {
   return async(req: Request, res: Response, next: NextFunction) => {
-    const hearing: OnlineHearing = req.session.hearing;
+    const hearing: OnlineHearing = req.session['hearing'];
     const acceptView = req.body['accept-view'];
     const validationMessage = tribunalViewAcceptedValidation(acceptView);
     if (validationMessage) {

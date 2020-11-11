@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 
-describe.skip('controllers/questions-completed.js', () => {
+describe('controllers/questions-completed.js', () => {
   let req: any;
   let res: any;
 
