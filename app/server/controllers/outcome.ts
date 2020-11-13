@@ -18,8 +18,7 @@ function getOutcome(req: Request, res: Response) {
 
   if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
 
-  logger.info(`Hearing outcome ${session.appeal.hearingOutcome}`);
-  let outcomes = session.appeal.hearingOutcome;
+  let outcomes = session['appeal'].hearingOutcome;
   return res.render('outcome-tab.html', { outcomes });
 }
 
@@ -27,7 +26,7 @@ function getDocument(trackYourAppealService: TrackYourApealService) {
   return async (req: Request, res: Response) => {
     const pdf = await trackYourAppealService.getDocument(req.query.url as string, req);
     res.header('content-type', 'application/pdf');
-    res.send(new Buffer(pdf, 'binary'));
+    res.send(Buffer.from(pdf, 'binary'));
   };
 }
 
