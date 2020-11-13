@@ -41,6 +41,8 @@ function setLocals(req, res, next) {
 }
 
 function setTabNavigationItems(appeal) {
+  logger.info(i18next.language);
+  logger.info(JSON.stringify(content[i18next.language]));
   const { hearingType } = appeal;
   const { createdInGapsFrom } = appeal;
   const tabs = [
@@ -74,12 +76,11 @@ function setTabNavigationItems(appeal) {
 
   tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== content[i18next.language].provideEvidenceTab.tabHeader) : tabs;
   tabsToShow = tabsToShow.filter(tab => tab.id !== 'history');
-  tabsToShow = (appeal.hearingOutcome == null) ? tabsToShow.filter(tab => tab.title === content[i18next.language].outcomeTab.tabHeader) : tabsToShow;
+  tabsToShow = (!appeal.hearingOutcome) ? tabsToShow.filter(tab => tab.id !== 'outcome') : tabsToShow;
   return tabsToShow;
 }
 
 const ensureAuthenticated = [checkAccessToken, setLocals];
-
 export {
   checkAccessToken,
   setLocals,

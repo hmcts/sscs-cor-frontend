@@ -16,13 +16,10 @@ function getOutcome(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) || session.appeal.hearingType === 'cor') return res.render('errors/404.html');
+  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
 
   logger.info(`Hearing outcome ${session.appeal.hearingOutcome}`);
-  let outcomes = {};
-  if (session.appeal.hearingOutcome) {
-    outcomes = session.appeal.hearingOutcome;
-  }
+  let outcomes = session.appeal.hearingOutcome;
   return res.render('outcome-tab.html', { outcomes });
 }
 
@@ -43,5 +40,6 @@ function setupOutcomeController(deps: any) {
 
 export {
   getOutcome,
-  setupOutcomeController
+  setupOutcomeController,
+  getDocument
 };

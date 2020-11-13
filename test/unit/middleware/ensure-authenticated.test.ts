@@ -2,7 +2,7 @@ const { expect, sinon } = require('test/chai-sinon');
 const { checkAccessToken, setLocals, ensureAuthenticated } = require('app/server/middleware/ensure-authenticated.ts');
 import * as Paths from 'app/server/paths';
 
-describe('middleware/ensure-authenticated', () => {
+describe.only('middleware/ensure-authenticated', () => {
   let req;
   let res;
   let next;
@@ -68,11 +68,34 @@ describe('middleware/ensure-authenticated', () => {
         manageYourAppeal: 'true'
       };
       req.session['appeal'] = {
-        hearingType: 'oral'
+        hearingType: 'oral',
+        hearingOutcome: []
       };
 
       setLocals(req, res, next);
       expect(res.locals).to.have.property('tabs');
+      const members = [];
+      res.locals.tabs.forEach((t) => {
+        members.push(t.id);
+      });
+      expect(members).to.have.members(['status','hearing', 'outcome']);
+    });
+    it('also remove outcome tab if hearingOutcome not present', () => {
+      req.cookies = {
+        manageYourAppeal: 'true'
+      };
+      req.session['appeal'] = {
+        hearingType: 'oral',
+        hearingOutcome: null
+      };
+
+      setLocals(req, res, next);
+      expect(res.locals).to.have.property('tabs');
+      const members = [];
+      res.locals.tabs.forEach((t) => {
+        members.push(t.id);
+      });
+      expect(members).to.have.members(['status','hearing']);
     });
     it('does not set tabs on the locals if cor appeal', () => {
       req.cookies = {
