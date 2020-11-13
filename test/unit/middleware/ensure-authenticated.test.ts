@@ -2,7 +2,7 @@ const { expect, sinon } = require('test/chai-sinon');
 const { checkAccessToken, setLocals, ensureAuthenticated } = require('app/server/middleware/ensure-authenticated.ts');
 import * as Paths from 'app/server/paths';
 
-describe.only('middleware/ensure-authenticated', () => {
+describe('middleware/ensure-authenticated', () => {
   let req;
   let res;
   let next;
@@ -85,8 +85,7 @@ describe.only('middleware/ensure-authenticated', () => {
         manageYourAppeal: 'true'
       };
       req.session['appeal'] = {
-        hearingType: 'oral',
-        hearingOutcome: null
+        hearingType: 'oral'
       };
 
       setLocals(req, res, next);

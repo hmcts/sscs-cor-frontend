@@ -41,8 +41,6 @@ function setLocals(req, res, next) {
 }
 
 function setTabNavigationItems(appeal) {
-  logger.info(i18next.language);
-  logger.info(JSON.stringify(content[i18next.language]));
   const { hearingType } = appeal;
   const { createdInGapsFrom } = appeal;
   const tabs = [
