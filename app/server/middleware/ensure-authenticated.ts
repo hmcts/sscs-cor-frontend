@@ -35,12 +35,13 @@ function setLocals(req, res, next) {
 
   // Setting up Tabs to show on MYA;
   if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) && req.session.appeal && req.session.appeal.hearingType !== 'cor') {
-    res.locals.tabs = setTabNavigationItems(req.session.appeal);
+    const hearingOutcomeTab = isFeatureEnabled(Feature.HEARING_OUTCOME_TAB, req.cookies);
+    res.locals.tabs = setTabNavigationItems(req.session.appeal, hearingOutcomeTab);
   }
   next();
 }
 
-function setTabNavigationItems(appeal) {
+function setTabNavigationItems(appeal, hearingOutcomeTab) {
   const { hearingType } = appeal;
   const { createdInGapsFrom } = appeal;
   const tabs = [
@@ -74,7 +75,7 @@ function setTabNavigationItems(appeal) {
 
   tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== content[i18next.language].provideEvidenceTab.tabHeader) : tabs;
   tabsToShow = tabsToShow.filter(tab => tab.id !== 'history');
-  tabsToShow = (!appeal.hearingOutcome) ? tabsToShow.filter(tab => tab.id !== 'outcome') : tabsToShow;
+  tabsToShow = (!appeal.hearingOutcome || !hearingOutcomeTab) ? tabsToShow.filter(tab => tab.id !== 'outcome') : tabsToShow;
   return tabsToShow;
 }
 

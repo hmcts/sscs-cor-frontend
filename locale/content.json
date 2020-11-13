@@ -2339,6 +2339,13 @@
       "tabHeader": "Hanes",
       "header": "Hanes eich apêl "
     },
+    "outcomeTab": {
+      "tabHeader": "",
+      "header": "",
+      "document": "",
+      "hearingDate": "",
+      "outcomeFrom": ""
+    },
     "appealEvents": {
       "ADJOURNED": {
         "heading": "Ni chynhaliwyd y gwrandawiad",
