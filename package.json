@@ -57,7 +57,7 @@
     "@hmcts/nodejs-healthcheck": "^1.4.6",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/properties-volume": "^0.0.9",
-    "@types/express": "^4.16.0",
+    "@types/express": "^4.17.9",
     "applicationinsights": "^1.6.0",
     "applicationinsights-native-metrics": "^0.0.5",
     "axios": "^0.19.0",
@@ -146,9 +146,12 @@
     "tslint-config-standard": "^8.0.1",
     "tslint-no-unused-expression-chai": "^0.1.4",
     "typescript": "^3.0.0",
-    "uglify-js": "^3.8.0",
+    "uglify-js": "^3.11.6",
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
-    "webdriverio": "^5.15.2"
+    "webdriverio": "^4.14.4"
+  },
+  "resolutions": {
+    "minimist": "^1.2.5"
   }
 }
