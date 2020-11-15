@@ -216,9 +216,11 @@ describe('controllers/login', () => {
         } as HearingService;
 
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-        const error = new Error('Case ID cannot be empty');
+        const error = new Error('Case ID cannot be empty from hearing in session');
         expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
-        expect(AppInsights.trackEvent).to.have.been.calledOnce.calledWith('MYA_LOGIN_FAIL');
+        expect(AppInsights.trackEvent).to.have.been.calledTwice;
+        expect(AppInsights.trackEvent).calledWith('MYA_LOGIN_FAIL');
+        expect(AppInsights.trackEvent).calledWith('MYA_SESSION_READ_FAIL');
         expect(next).to.have.been.calledWith(sinon.match.has('message', error.message));
       });
     });
@@ -296,6 +298,41 @@ describe('controllers/login', () => {
 
       it('redirects to task list page', () => {
         expect(res.redirect).to.have.been.calledWith(Paths.status);
+      });
+    });
+
+    describe('check hideHearing flag with MYA enabled', () => {
+      let hearingServiceStub;
+      let trackYourAppealService;
+      let redirectToIdam;
+      let idamServiceStub;
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode', 'state': 'tya-number' };
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        redirectToIdam = sinon.stub();
+        idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: [ hearingDetails ] })
+        } as HearingService;
+      });
+
+      it('sets the hideHearing false', async () => {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : {} })
+        };
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.hideHearing).to.be.eql(false);
+      });
+
+      it('sets the hideHearing true', async () => {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : { hideHearing: true } })
+        };
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.hideHearing).to.be.eql(true);
       });
     });
 

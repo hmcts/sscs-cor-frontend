@@ -1,7 +1,5 @@
 import { Page } from 'puppeteer';
 const config = require('config');
-
-import * as Paths from 'app/server/paths';
 const { expect } = require('test/chai-sinon');
 import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
@@ -11,11 +9,17 @@ import { AdditionalEvidenceStatementPage } from 'test/page-objects/additional-ev
 import { AdditionalEvidenceConfirmationPage } from 'test/page-objects/additional-evidence-confirmation';
 import { AdditionalEvidenceUploadPage } from 'test/page-objects/additional-evidence-upload';
 import { AdditionalEvidencePostPage } from 'test/page-objects/additional-evidence-post';
+import { AdditionalEvidenceCoversheetPage } from 'test/page-objects/additional-evidence-coversheet';
+import { LoginPage } from 'test/page-objects/login';
+import { AssignCasePage } from 'test/page-objects/assign-case';
+import { StatusPage } from 'test/page-objects/status';
+import * as _ from 'lodash';
 const content = require('locale/content');
+const pa11y = require('pa11y');
+const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
+let pa11yOpts = _.clone(config.get('pa11y'));
 
-const testUrl = config.get('testUrl');
-
-describe.skip('Additional Evidence', () => {
+describe('Additional Evidence @mya', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
@@ -23,16 +27,30 @@ describe.skip('Additional Evidence', () => {
   let additionalEvidenceConfirmationPage: AdditionalEvidenceConfirmationPage;
   let additionalEvidenceUploadPage: AdditionalEvidenceUploadPage;
   let additionalEvidencePostPage: AdditionalEvidencePostPage;
+  let additionalEvidenceCoversheetPage: AdditionalEvidenceCoversheetPage;
+  let loginPage: LoginPage;
+  let assignCasePage: AssignCasePage;
+  let statusPage: StatusPage;
+  let ccdCase;
+  let sidamUser;
   before('start services and bootstrap data in CCD/COH', async () => {
-    const res = await startServices({ performLogin: true });
-    page = res.page;
-    taskListPage = new TaskListPage(page);
-    await taskListPage.setCookie('additionalEvidence', 'true');
+    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
+    const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
+    pa11yOpts.browser = page.browser;
+    loginPage = new LoginPage(page);
+    assignCasePage = new AssignCasePage(page);
+    statusPage = new StatusPage(page);
     additionalEvidencePage = new AdditionalEvidencePage(page);
     additionalEvidenceStatementPage = new AdditionalEvidenceStatementPage(page);
     additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
     additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
     additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
+    additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(page);
+    taskListPage = new TaskListPage(page);
+    await loginPage.setCookie('manageYourAppeal', 'true');
+    await loginPage.visitPage(`?tya=${appellantTya}`);
+    await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
+    await taskListPage.setCookie('additionalEvidence', 'true');
   });
 
   after(async () => {
@@ -41,15 +59,17 @@ describe.skip('Additional Evidence', () => {
     }
   });
 
-  beforeEach(async () => {
-    await taskListPage.visitPage();
-    await Promise.all([
-      taskListPage.clickElement('#evidence-options-link'),
-      taskListPage.page.waitForNavigation()
-    ]);
+  it('navigate to additional evidence page', async () => {
+
+    assignCasePage.verifyPage();
+    await assignCasePage.fillPostcode('TN32 6PL');
+    await assignCasePage.submit();
+
+    statusPage.verifyPage();
+    await additionalEvidencePage.visitPage();
   });
 
-  it('navigates to additional evidence page and shows options', async () => {
+  it('Verify additional evidence options', async () => {
     additionalEvidencePage.verifyPage();
 
     const header = await additionalEvidencePage.getElementText('h1');
@@ -74,8 +94,26 @@ describe.skip('Additional Evidence', () => {
     taskListPage.verifyPage();
   });
 
+  /* PA11Y */
+  it('checks /additional-evidence page path passes @pa11y', async () => {
+    await additionalEvidencePage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-page.png`;
+    pa11yOpts.page = await additionalEvidencePage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /additional-evidence-upload page path passes @pa11y', async () => {
+    await additionalEvidenceUploadPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-upload-page.png`;
+    pa11yOpts.page = await additionalEvidenceUploadPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
   it('shows an error if no file to upload and no description', async () => {
-    additionalEvidencePage.verifyPage();
+    await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
 
@@ -86,7 +124,7 @@ describe.skip('Additional Evidence', () => {
   });
 
   it('shows an error if no file to upload', async () => {
-    additionalEvidencePage.verifyPage();
+    await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
 
@@ -96,8 +134,8 @@ describe.skip('Additional Evidence', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('uploads a file and shows file list', async () => {
-    additionalEvidencePage.verifyPage();
+  it('uploads a file and shows file list and check evidence cofirmation page @pally', async () => {
+    await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
 
@@ -112,18 +150,22 @@ describe.skip('Additional Evidence', () => {
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();
     await page.waitFor(4000);
+
+    /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-confirmation-page.png`;
+    pa11yOpts.page = await additionalEvidenceConfirmationPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+
     await additionalEvidenceConfirmationPage.returnToAppealPage();
     taskListPage.verifyPage();
   });
 
   it('shows additional evidence post page', async () => {
-    additionalEvidencePage.verifyPage();
+    await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectPostOption();
     await additionalEvidencePage.submit();
-
     additionalEvidencePostPage.verifyPage();
-    await additionalEvidencePostPage.returnToAppealPage();
-    additionalEvidencePage.verifyPage();
   });
 });

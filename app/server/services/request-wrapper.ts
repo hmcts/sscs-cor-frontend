@@ -16,8 +16,8 @@ export class RequestPromise {
 
     if (req && req.session) {
       defaultOptions['headers'] = {
-        Authorization: `Bearer ${req.session.accessToken}`,
-        ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+        Authorization: `Bearer ${req.session['accessToken']}`,
+        ServiceAuthorization: `Bearer ${req.session['serviceToken']}`
       };
     }
 
