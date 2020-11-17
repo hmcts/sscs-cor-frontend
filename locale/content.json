@@ -2340,11 +2340,11 @@
       "header": "Hanes eich apêl "
     },
     "outcomeTab": {
-      "tabHeader": "",
-      "header": "",
-      "document": "",
-      "hearingDate": "",
-      "outcomeFrom": ""
+      "tabHeader": "Canlyniad y Gwrandawiad",
+      "header": "Canlyniad y gwrandawiad yng nghyswllt eich apêl",
+      "document": "Dogfen",
+      "hearingDate": "Dyddiad y gwrandawiad",
+      "outcomeFrom": "Canlyniad y gwrandawiad o"
     },
     "appealEvents": {
       "ADJOURNED": {
