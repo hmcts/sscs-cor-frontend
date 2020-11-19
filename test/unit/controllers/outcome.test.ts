@@ -61,7 +61,7 @@ describe('controllers/outcome', () => {
       const outcomes = [
         {
           name: 'Adjournment.pdf',
-          date: '2019-11-20',
+          date: '20-11-2019',
           url: 'http://dbed7988-4ed5-4965-b1b4-50e5582770f3/binary'
         }
       ];
