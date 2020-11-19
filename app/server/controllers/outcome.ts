@@ -4,6 +4,7 @@ import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { TrackYourApealService } from '../services/tyaService';
+import { dd_mm_yyyyFormat } from '../utils/dateUtils';
 
 const logger = Logger.getLogger('outcome.js');
 
@@ -19,6 +20,10 @@ function getOutcome(req: Request, res: Response) {
   if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
 
   let outcomes = session['appeal'].hearingOutcome;
+  outcomes.forEach((outcome) => {
+    logger.info(`Date converted from ${outcome.date} to ${dd_mm_yyyyFormat(outcome.date, 'YYYY-MM-DD')}`);
+    outcome.date = dd_mm_yyyyFormat(outcome.date, 'YYYY-MM-DD');
+  });
   return res.render('outcome-tab.html', { outcomes });
 }
 
