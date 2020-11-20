@@ -50,7 +50,8 @@
       "webFormEnabled": "CONTACT_US_WEB_FORM_ENABLED",
       "webChatEnabled": "CONTACT_US_WEBCHAT_ENABLED"
     },
-    "postBulkScan": "POST_BULK_SCAN"
+    "postBulkScan": "POST_BULK_SCAN",
+    "hearingOutcomeTab": "HEARING_OUTCOME_TAB_ENABLED"
   },
   "s2s": {
     "secret": "S2S_SECRET",

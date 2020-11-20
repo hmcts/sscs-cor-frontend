@@ -65,7 +65,26 @@ describe('middleware/ensure-authenticated', () => {
     });
     it('also sets tabs data on the locals', () => {
       req.cookies = {
-        manageYourAppeal: 'true'
+        manageYourAppeal: 'true',
+        hearingOutcomeTab: 'true'
+      };
+      req.session['appeal'] = {
+        hearingType: 'oral',
+        hearingOutcome: []
+      };
+
+      setLocals(req, res, next);
+      expect(res.locals).to.have.property('tabs');
+      const members = [];
+      res.locals.tabs.forEach((t) => {
+        members.push(t.id);
+      });
+      expect(members).to.have.members(['status','hearing', 'outcome']);
+    });
+    it('also remove outcome tab if hearingOutcome not present', () => {
+      req.cookies = {
+        manageYourAppeal: 'true',
+        hearingOutcomeTab: 'true'
       };
       req.session['appeal'] = {
         hearingType: 'oral'
@@ -73,6 +92,29 @@ describe('middleware/ensure-authenticated', () => {
 
       setLocals(req, res, next);
       expect(res.locals).to.have.property('tabs');
+      const members = [];
+      res.locals.tabs.forEach((t) => {
+        members.push(t.id);
+      });
+      expect(members).to.have.members(['status','hearing']);
+    });
+    it('also remove outcome tab if hearingOutcomeTab flag is false', () => {
+      req.cookies = {
+        manageYourAppeal: 'true',
+        hearingOutcomeTab: 'false'
+      };
+      req.session['appeal'] = {
+        hearingType: 'oral',
+        hearingOutcome: []
+      };
+
+      setLocals(req, res, next);
+      expect(res.locals).to.have.property('tabs');
+      const members = [];
+      res.locals.tabs.forEach((t) => {
+        members.push(t.id);
+      });
+      expect(members).to.have.members(['status','hearing']);
     });
     it('does not set tabs on the locals if cor appeal', () => {
       req.cookies = {

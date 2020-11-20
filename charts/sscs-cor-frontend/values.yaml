@@ -21,6 +21,7 @@ nodejs:
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: "false"
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "false"
     POST_BULK_SCAN: "false"
+    HEARING_OUTCOME_TAB_ENABLED: "false"
   keyVaults:
     sscs:
       secrets:
