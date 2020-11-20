@@ -111,7 +111,7 @@ describe.skip('controllers/task-list', () => {
 
     it('should call render with the template and the empty list of questions', async() => {
       questionService.getAllQuestions = () => Promise.resolve({ });
-      await getTaskList(questionService)(req, res, next);
+      await getTaskList()(req, res, next);
       expect(res.render).to.have.been.called.calledWith('task-list.html', {
         deadlineExpiryDate: null,
         questions: [],
@@ -121,7 +121,7 @@ describe.skip('controllers/task-list', () => {
 
     it('should call render with the template and the list of questions and deadline details', async() => {
       questionService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
-      await getTaskList(questionService)(req, res, next);
+      await getTaskList()(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
         deadlineExpiryDate: {
@@ -136,7 +136,7 @@ describe.skip('controllers/task-list', () => {
     it('should call render with deadline status complete when all questions submitted', async() => {
       questions[0].answer_state = 'submitted';
       questionService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputDeadline });
-      await getTaskList(questionService)(req, res, next);
+      await getTaskList()(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
         deadlineExpiryDate: {
@@ -153,7 +153,7 @@ describe.skip('controllers/task-list', () => {
       const inputExpiredDeadline = expiredDeadline.format();
       const expectedExpiredDeadline = expiredDeadline.format();
       questionService.getAllQuestions = () => Promise.resolve({ questions, deadline_expiry_date: inputExpiredDeadline });
-      await getTaskList(questionService)(req, res, next);
+      await getTaskList()(req, res, next);
       expect(res.render).to.have.been.calledWith('task-list.html', {
         questions,
         deadlineExpiryDate: {
@@ -167,7 +167,7 @@ describe.skip('controllers/task-list', () => {
 
     it('should call next and appInsights with the error when there is one', async() => {
       questionService.getAllQuestions = () => Promise.reject(error);
-      await getTaskList(questionService)(req, res, next);
+      await getTaskList()(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledWith(error);
     });

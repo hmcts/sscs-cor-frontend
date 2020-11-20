@@ -9,14 +9,14 @@ import * as moment from 'moment';
 const getResponseDate = (appellantReplyDatetime?: string) => moment.utc(appellantReplyDatetime).add(6, 'weeks').format();
 
 function getIndex(req: Request, res: Response) {
-  const decisionViewExists: boolean = req.session.hearing.decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE;
+  const decisionViewExists: boolean = req.session['hearing'].decision.decision_state === CONST.TRIBUNAL_VIEW_ISSUED_STATE;
   if (!decisionViewExists) {
     return res.redirect(Paths.logout);
   }
-  const appellantRejected: boolean = req.session.hearing.decision && req.session.hearing.decision.appellant_reply === 'decision_rejected';
+  const appellantRejected: boolean = req.session['hearing'].decision && req.session['hearing'].decision.appellant_reply === 'decision_rejected';
   let responseDate;
   if (appellantRejected) {
-    const appellantReplyDatetime: string = req.session.hearing.decision && req.session.hearing.decision.appellant_reply_datetime;
+    const appellantReplyDatetime: string = req.session['hearing'].decision && req.session['hearing'].decision.appellant_reply_datetime;
     responseDate = getResponseDate(appellantReplyDatetime);
   }
   return res.render('hearing-why/index.html', { submitted: appellantRejected, responseDate });
@@ -30,7 +30,7 @@ function postIndex(hearingService) {
     if (validationMessage) return res.render('hearing-why/index.html', { error: validationMessage });
 
     try {
-      const hearing: OnlineHearing = req.session.hearing;
+      const hearing: OnlineHearing = req.session['hearing'];
       const responseDate = getResponseDate();
       await hearingService.recordTribunalViewResponse(
         hearing.online_hearing_id,
@@ -38,9 +38,9 @@ function postIndex(hearingService) {
         req,
         explainWhy
       );
-      req.session.hearing.decision.appellant_reply = 'decision_rejected';
-      req.session.hearing.decision.appellant_reply_datetime = moment.utc().format();
-      return res.render('hearing-why/index.html', { submitted: true, hearing: req.session.hearing, responseDate });
+      req.session['hearing'].decision.appellant_reply = 'decision_rejected';
+      req.session['hearing'].decision.appellant_reply_datetime = moment.utc().format();
+      return res.render('hearing-why/index.html', { submitted: true, hearing: req.session['hearing'], responseDate });
     } catch (error) {
       AppInsights.trackException(error);
       next(error);

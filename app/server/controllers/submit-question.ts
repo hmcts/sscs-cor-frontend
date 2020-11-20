@@ -22,7 +22,7 @@ function postSubmitAnswer(questionService: QuestionService) {
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
-    const hearingId = req.session.hearing.online_hearing_id;
+    const hearingId = req.session['hearing'].online_hearing_id;
 
     try {
       await questionService.submitAnswer(hearingId, currentQuestionId, req);
@@ -32,7 +32,7 @@ function postSubmitAnswer(questionService: QuestionService) {
       const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(response.questions);
 
       if (allQuestionsSubmitted) {
-        req.session.questionsCompletedThisSession = true;
+        req.session['questionsCompletedThisSession'] = true;
         return res.redirect(Paths.completed);
       }
       return res.redirect(Paths.taskList);
