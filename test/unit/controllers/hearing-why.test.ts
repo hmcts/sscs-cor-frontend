@@ -2,7 +2,6 @@ import { OnlineHearing } from 'app/server/services/hearing';
 const { expect, sinon } = require('test/chai-sinon');
 import { getIndex, postIndex, setupHearingWhyController } from 'app/server/controllers/hearing-why';
 import * as express from 'express';
-const i18n = require('locale/en.json');
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
 import { CONST } from 'app/constants';

@@ -1,19 +1,9 @@
-<h1 class="govuk-heading-l">{{ i18n.extendDeadline.contactTribunal.header }}</h1>
+<h1 class="govuk-heading-l">{{ content[i18n.language].extendDeadline.contactTribunal.header | safe }}</h1>
+<p>{{ content[i18n.language].extendDeadline.contactTribunal.para1 | safe }}</p>
 <p>
-  {{ i18n.extendDeadline.contactTribunal.para1 }}
+  {{ content[i18n.language].extendDeadline.contactTribunal.para2 | safe }}
+  <a href="mailto:{{ content[i18n.language].contactEmail }}?subject=Extend Deadline {{ hearing.case_reference }}">{{ content[i18n.language].contactEmail | safe }}</a>
 </p>
-<p>
-  {{ i18n.extendDeadline.contactTribunal.para2 }}
-  <a href="mailto:{{ i18n.contactEmail }}?subject=Extend Deadline {{ hearing.case_reference }}">
-    {{ i18n.contactEmail }}
-  </a>
-</p>
-<p>
-  {{ i18n.extendDeadline.contactTribunal.para3 }}
-</p>
-<p>
-  {{ i18n.extendDeadline.contactTribunal.para4 }}
-</p>
-<p>
-  <a href="/task-list" class="govuk-link">{{ i18n.general.backToQuestions }}</a>
-</p>
+<p>{{ content[i18n.language].extendDeadline.contactTribunal.para3 | safe }}</p>
+<p>{{ content[i18n.language].extendDeadline.contactTribunal.para4 | safe }}</p>
+<p><a href="/task-list" class="govuk-link">{{ content[i18n.language].general.backToQuestions | safe }}</a></p>

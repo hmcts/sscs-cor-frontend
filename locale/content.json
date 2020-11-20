@@ -1,0 +1,2752 @@
+{
+  "en": {
+    "common": {
+      "yourBenefitAppeal": "Your PIP benefit appeal",
+      "appealDetails": "Appeal details",
+      "signIn": "Sign in",
+      "signOut": "Sign out",
+      "appealReference": "Appeal reference",
+      "contactIfProblemContinues": "Contact us if the problem continues",
+      "received": "Received:",
+      "awaiting": "Awaiting:",
+      "hearingForYourAppeal": "The hearing for your appeal",
+      "date": "Date",
+      "time": "Time",
+      "location": "Location",
+      "provideInformationOnline": "Provide your information online",
+      "uploadLettersDocumentPhotos": "Upload letters, documents or photos",
+      "sendByPost": "Send by post",
+      "submitEvidenceToTribunal": "Submit evidence to the tribunal",
+      "loading": "Loading",
+      "homePage": "Home Page",
+      "enterNewEmailAddress": "Enter your new email address",
+      "enterNewEmailAddressAgain": "Enter your new email address again",
+      "changeEmailAddress": "Change your email address",
+      "stopReceivingEmails": "Stop receiving emails",
+      "submitAnswerToTribunal": "Submit answer to the tribunal",
+      "saveForLater": "Save for later",
+      "confirm": "Confirm",
+      "extendDeadline": "Extend the deadline",
+      "describeTheEvidence": "Describe the evidence",
+      "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why",
+      "type": {
+        "Appellant": "Appellant",
+        "Appointee": "Appointee",
+        "Representative": "Representative",
+        "Supporter": "Supporter"
+      }
+    },
+    "pageTitle": "Manage your appeal",
+    "contactEmail": "pipappeals@justice.gov.uk",
+    "phaseBanner": {
+      "new": "This is a new service – your ",
+      "report": "feedback (opens in a new window)",
+      "improve": "will help us improve it.",
+      "languageToggle": "<a href=\"{currentUrl}{languageFlag}\" class=\"govuk-link language\">Cymraeg</a>"
+    },
+    "guidance": {
+      "sendingEvidence": {
+        "byEmailHeader": "Send by email",
+        "byPostHeader": "Send by post",
+        "postalAddress": "<p>HMCTS SSCS<br>PO BOX 12626<br>Harlow<br>CM20 9QF</p>",
+        "screenReaderPostalAddress": "HMCTS SSCS PO BOX 12626 Harlow CM20 9QF"
+      }
+    },
+    "login": {
+      "header": "Login",
+      "emailAddress": {
+        "error": {
+          "empty": "Enter your email address",
+          "format": "Enter a valid email address",
+          "error404": "Online hearing could not be found",
+          "error422": "Multiple online hearings found"
+        }
+      },
+      "failed": {
+        "emailNotFound": {
+          "header": "There is no benefit appeal associated with this email address",
+          "body": "<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>"
+        },
+        "technicalError": {
+          "header": "There is a technical problem with your account",
+          "body": "<p>There is a technical problem with the account you are using to access your benefit appeal.</p><p>Please email <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> and we will resolve it for you. Include your appeal reference number and name.</p><p>We apologise for any inconvenience.</p>"
+        },
+        "cannotUseService": {
+          "header": "You cannot access this service",
+          "body": "<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>"
+        }
+      }
+    },
+    "taskList": {
+      "header": "Your benefit appeal",
+      "header1": "Your",
+      "header2": "benefit appeal",
+      "noQuestions": "You have no questions from the tribunal",
+      "deadline": {
+        "pending": "You need to respond by ",
+        "completed": "You have answered all the questions and submitted them to the tribunal.",
+        "expired": "Deadline to respond expired on "
+      },
+      "answerState": {
+        "unanswered": "Not answered",
+        "draft": "Draft",
+        "completed": "Completed"
+      },
+      "sendingEvidence": {
+        "header": "Providing additional evidence",
+        "intro": "If you have any additional information that is relevant to your appeal, you can",
+        "anchorText": "submit your evidence",
+        "summary": "How to send additional evidence",
+        "details": {
+          "para1": "You can either email it or send it by post. Make sure it’s clearly marked with your appeal reference number:",
+          "closingPara1": "If you are posting it in, send the tribunal an email briefly describing what you are posting and when you think it will arrive. Use the email address above.",
+          "closingPara2": "Try to send it as soon as possible to avoid delaying your appeal."
+        }
+      }
+    },
+    "question": {
+      "textareaField": {
+        "label": "Please enter your answer here",
+        "placeholder": "You can write as much as you want",
+        "error": {
+          "empty": "You have not entered any information. Enter some information before submitting.",
+          "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+        },
+        "errorOnSave": {
+          "empty": "You have not entered any information. Enter some information before saving."
+        }
+      },
+      "evidenceUpload": {
+        "checkbox": "I want to provide evidence to support my answer",
+        "header": "Provide evidence to support your answer",
+        "info": "You can upload evidence to support your answer such as letters, photos and documents. If you are taking a picture of a letter, place it on a flat surface and take the picture from above.",
+        "addFileButton": "Add file",
+        "fileUploading": "File uploading",
+        "postEvidence": {
+          "summary": "You can also post evidence to the tribunal",
+          "details": {
+            "para1": "You can post evidence to the address below.",
+            "para2": "Make sure it’s clearly marked with your appeal reference number:",
+            "closingPara1": "Try to post it as soon as possible to avoid delaying your appeal.",
+            "closingPara2": "Tell the tribunal in your answer if you plan on posting evidence. Briefly describe what you are posting and say when you think it will arrive."
+          }
+        },
+        "fileList": {
+          "uploadedFiles": "Uploaded files",
+          "noFilesUploaded": "No files uploaded"
+        }
+      },
+      "sendingEvidence": {
+        "summary": "Sending evidence to support your answer",
+        "details": {
+          "para1": "If you have any evidence to support your answer, you can either email it or send it by post.",
+          "para2": "Make sure it’s clearly marked with your appeal reference number:",
+          "closingPara1": "Useful evidence helps prove what you have said in your answer such as a letter from a doctor or someone who knows you well. You do not have to send in evidence if you don’t have any.",
+          "closingPara2": "If you are posting it in, send the tribunal an email briefly describing what you are posting and when you think it will arrive. Use the email address above."
+        }
+      },
+      "completedAnswer": {
+        "header": "Your answer",
+        "submittedText": "Submitted"
+      }
+    },
+    "questionUploadEvidence": {
+      "header": "Upload your evidence",
+      "backToQuestionText": "Back to question",
+      "label": "Choose file",
+      "sizeWarning": "Larger files may take a few minutes to upload",
+      "error": {
+        "fileCannotBeUploaded": "File cannot be uploaded",
+        "empty": "You have not selected a file.",
+        "tooLarge": "The file you have uploaded is too big. Please upload a file under",
+        "invalidFileType": "The type of file you have uploaded is not acceptable. Please convert it to a common file format and try again."
+      }
+    },
+    "submitQuestion": {
+      "title": "You will not be able to change your answer after you submit it.",
+      "backToQuestionText": "Back to question"
+    },
+    "questionsCompleted": {
+      "header": "You have answered the tribunal’s questions",
+      "para1": "You’ve provided the information the tribunal have asked for. They’ll review what you’ve sent and consider it as part of your appeal.",
+      "para2Start": "You’ll get another email by",
+      "para2End": "which will explain how the tribunal want to proceed with your appeal.",
+      "exitService": "Exit service"
+    },
+    "extendDeadline": {
+      "header": "Extending the deadline will delay your appeal",
+      "hint": "You can have another week to answer the questions but your appeal will take longer.",
+      "subheader": "Do you still want to extend the deadline?",
+      "no": {
+        "header": "You have not extended the deadline",
+        "para1": "You still have until {{ deadline }} to answer the questions."
+      },
+      "yes": {
+        "header": "You have another week to answer the questions ",
+        "para1": "You now have until {{ deadline }} to answer the questions."
+      },
+      "contactTribunal": {
+        "header": "You need to provide reasons",
+        "para1": "You need to contact the tribunal and explain why you need more time.",
+        "para2": "Send an email explaining why you need more time and the date you can respond by to:",
+        "para3": "Your reasons will be reviewed by a judge.",
+        "para4": "You will then receive another email telling you whether you have been granted additional time and how the tribunal wish to proceed."
+      },
+      "error": {
+        "text": "You need to say whether you want to extend the deadline before continuing"
+      }
+    },
+    "tribunalView": {
+      "header": "Read the tribunal’s view on your appeal",
+      "decision": {
+        "viewEntitledTo": "You are entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
+        "viewEntitledToIndefinite": "You are entitled to PIP at the rate below from {{ startDate }}.",
+        "dailyLiving": "Daily living",
+        "mobility": "Mobility",
+        "rate": {
+          "noAward": "No award",
+          "enhancedRate": "Enhanced rate",
+          "standardRate": "Standard rate"
+        },
+        "dwp": {
+          "Same": "This is the same as DWP initially awarded you.",
+          "Higher": "This is more than DWP initially awarded you.",
+          "Lower": "This is less than DWP initially awarded you."
+        },
+        "confirmAccept": "Confirm whether you accept this view at the bottom of the page, after reading the tribunal’s reason below."
+      },
+      "reasonsHeader": "The reason for the tribunal’s view",
+      "activitiesSummary": "PIP activities and descriptors the tribunal consider apply to your appeal",
+      "dailyLivingActivitiesHeader": "Daily living activities and descriptors",
+      "dailyLivingActivitiesHeaderEmpty": "The tribunal’s view is that no daily living activities apply to your appeal",
+      "mobilityActivitiesHeader": "Mobility activities and descriptors",
+      "mobilityActivitiesHeaderEmpty": "The tribunal’s view is that no mobility activities apply to your appeal",
+      "activitiesTable": {
+        "headerActivity": "Activity",
+        "headerDescriptor": "Descriptor",
+        "headerPoints": "Points"
+      },
+      "activities": {
+        "dailyLiving": {
+          "preparingFood": {
+            "name": "Preparing food",
+            "scores": {
+              "0": {
+                "text": "Can prepare and cook a simple meal unaided",
+                "score": 0
+              },
+              "4": {
+                "text": "Needs supervision or assistance to either prepare or cook a simple meal",
+                "score": 4
+              },
+              "8": {
+                "text": "Cannot prepare and cook food",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Needs to use an aid or appliance to be able to either prepare or cook a simple meal",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Cannot cook a simple meal using a conventional cooker but is able to do so using a microwave",
+                "score": 2
+              },
+              "2.2": {
+                "text": "Needs prompting to be able to either prepare or cook a simple meal",
+                "score": 2
+              }
+            }
+          },
+          "takingNutrition": {
+            "name": "Taking nutrition",
+            "scores": {
+              "0": {
+                "text": "Can take nutrition unaided",
+                "score": 0
+              },
+              "4": {
+                "text": "Needs prompting to be able to take nutrition",
+                "score": 4
+              },
+              "6": {
+                "text": "Needs assistance to be able to manage a therapeutic source to take nutrition",
+                "score": 6
+              },
+              "8": {
+                "text": "Cannot convey food and drink to their mouth and needs another person to do so",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Needs either:<ul><li>to use an aid or appliance to be able to take nutrition</li><li>supervision to be able to take nutrition</li><li>assistance to be able to cut up food</li></ul>",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Needs a therapeutic source to be able to take nutrition",
+                "score": 2
+              }
+            }
+          },
+          "managingTherapy": {
+            "name": "Managing therapy or monitoring a health condition",
+            "scores": {
+              "0": {
+                "text": "Either:<ul><li>does not receive medication or therapy or need to monitor a health condition</li><li>or can manage medication or therapy or monitor a health condition unaided</li></ul>",
+                "score": 0
+              },
+              "1": {
+                "text": "Needs either:<ul><li>to use an aid or appliance to be able to manage medication</li><li>supervision, prompting or assistance to be able to manage medication or monitor a health condition</li><li>supervision, prompting or assistance to be able to monitor a health condition</li></ul>",
+                "score": 1
+              },
+              "2": {
+                "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes no more than 3.5 hours a week",
+                "score": 2
+              },
+              "4": {
+                "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 3.5 but no more than 7 hours a week",
+                "score": 4
+              },
+              "6": {
+                "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 7 but no more than 14 hours a week",
+                "score": 6
+              },
+              "8": {
+                "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 14 hours a week",
+                "score": 8
+              }
+            }
+          },
+          "washingBathing": {
+            "name": "Washing and bathing",
+            "scores": {
+              "0": {
+                "text": "Can wash and bathe unaided",
+                "score": 0
+              },
+              "3": {
+                "text": "Needs assistance to be able to get in or out of a bath or shower",
+                "score": 3
+              },
+              "4": {
+                "text": "Needs assistance to be able to wash their body between the shoulders and waist",
+                "score": 4
+              },
+              "8": {
+                "text": "Cannot wash and bathe at all and needs another person to wash their entire body",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Needs to use an aid or appliance to be able to wash or bathe",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Needs supervision or prompting to be able to wash or bathe",
+                "score": 2
+              },
+              "2.2": {
+                "text": "Needs assistance to be able to wash either their hair or body below the waist",
+                "score": 2
+              }
+            }
+          },
+          "managingToilet": {
+            "name": "Managing toilet needs or incontinence",
+            "scores": {
+              "0": {
+                "text": "Can manage toilet needs or incontinence unaided",
+                "score": 0
+              },
+              "4": {
+                "text": "Needs assistance to be able to manage toilet needs",
+                "score": 4
+              },
+              "6": {
+                "text": "Needs assistance to be able to manage incontinence of either bladder and bowel",
+                "score": 6
+              },
+              "8": {
+                "text": "Needs assistance to be able to manage incontinence of both bladder and bowel",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Needs to use an aid or appliance to be able to manage toilet needs or incontinence",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Needs supervision or prompting to be able to manage toilet needs",
+                "score": 2
+              }
+            }
+          },
+          "dressingUndressing": {
+            "name": "Dressing and undressing",
+            "scores": {
+              "0": {
+                "text": "Can dress and undress unaided",
+                "score": 0
+              },
+              "4": {
+                "text": "Needs assistance to be able to dress or undress their upper body",
+                "score": 4
+              },
+              "8": {
+                "text": "Cannot dress or undress at all",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Needs to use an aid or appliance to be able to dress or undress",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Needs either:<ul><li>prompting to be able to dress, undress or determine appropriate circumstances for remaining clothed</li><li>prompting or assistance to be able to select appropriate clothing</li></ul>",
+                "score": 2
+              },
+              "2.2": {
+                "text": "Needs assistance to be able to dress or undress their lower body",
+                "score": 2
+              }
+            }
+          },
+          "communicatingVerbally": {
+            "name": "Communicating verbally",
+            "scores": {
+              "0": {
+                "text": "Can express and understand verbal information unaided",
+                "score": 0
+              },
+              "2": {
+                "text": "Needs to use an aid or appliance to be able to speak or hear",
+                "score": 2
+              },
+              "4": {
+                "text": "Needs communication support to be able to express or understand complex verbal information",
+                "score": 4
+              },
+              "8": {
+                "text": "Needs communication support to be able to express or understand basic verbal information",
+                "score": 8
+              },
+              "12": {
+                "text": "Cannot express or understand verbal information at all even with communication support",
+                "score": 12
+              }
+            }
+          },
+          "readingAndUnderstanding": {
+            "name": "Reading and understanding signs, symbols and words",
+            "scores": {
+              "0": {
+                "text": "Can read and understand basic and complex written information either unaided or using spectacles or contact lenses",
+                "score": 0
+              },
+              "4": {
+                "text": "Needs prompting to be able to read or understand basic written information",
+                "score": 4
+              },
+              "8": {
+                "text": "Cannot read or understand signs, symbols or words at all",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Needs to use an aid or appliance, other than spectacles or contact lenses, to be able to read or understand either basic or complex written information",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Needs prompting to be able to read or understand complex written information",
+                "score": 2
+              }
+            }
+          },
+          "engagingWithOtherPeople": {
+            "name": "Engaging with other people face to face",
+            "scores": {
+              "0": {
+                "text": "Can engage with other people unaided",
+                "score": 0
+              },
+              "2": {
+                "text": "Needs prompting to be able to engage with other people",
+                "score": 2
+              },
+              "4": {
+                "text": "Needs social support to be able to engage with other people",
+                "score": 4
+              },
+              "8": {
+                "text": "Cannot engage with other people due to such engagement causing either:<ul><li>overwhelming psychological distress to the claimant</li><li>the claimant to exhibit behaviour which would result in a substantial risk of harm to the claimant or another person</li></ul>",
+                "score": 8
+              }
+            }
+          },
+          "makingBudgetingDecisions": {
+            "name": "Making budgeting decisions",
+            "scores": {
+              "0": {
+                "text": "Can manage complex budgeting decisions unaided",
+                "score": 0
+              },
+              "4": {
+                "text": "Needs prompting or assistance to be able to make simple budgeting decisions",
+                "score": 4
+              },
+              "6": {
+                "text": "Cannot make any budgeting decisions at all",
+                "score": 6
+              },
+              "2": {
+                "text": "Needs prompting or assistance to be able to make complex budgeting decisions",
+                "score": 2
+              }
+            }
+          }
+        },
+        "mobility": {
+          "planningFollowingJourneys": {
+            "name": "Planning and following journeys",
+            "scores": {
+              "0": {
+                "text": "Can plan and follow the route of a journey unaided",
+                "score": 0
+              },
+              "4": {
+                "text": "Needs prompting to be able to undertake any journey to avoid overwhelming psychological distress to the claimant",
+                "score": 4
+              },
+              "8": {
+                "text": "Cannot plan the route of a journey",
+                "score": 8
+              },
+              "12": {
+                "text": "Cannot follow the route of an unfamiliar journey without another person, assistance dog or orientation aid",
+                "score": 12
+              },
+              "10.0": {
+                "text": "Cannot undertake any journey because it would cause overwhelming psychological distress to the claimant",
+                "score": 10
+              },
+              "10.1": {
+                "text": "Cannot follow the route of a familiar journey without another person, an assistance dog or an orientation aid",
+                "score": 10
+              }
+            }
+          },
+          "movingAround": {
+            "name": "Moving around",
+            "scores": {
+              "0": {
+                "text": "Can stand and then move more than 200 metres, either aided or unaided",
+                "score": 0
+              },
+              "4": {
+                "text": "Can stand and then move more than 50 metres but no more than 200 metres, either aided or unaided",
+                "score": 4
+              },
+              "8": {
+                "text": "Can stand and then move unaided more than 20 metres but no more than 50 metres",
+                "score": 8
+              },
+              "10": {
+                "text": "Can stand and then move using an aid or appliance more than 20 metres but no more than 50 metres",
+                "score": 10
+              },
+              "12.0": {
+                "text": "Can stand and then move more than 1 metre but no more than 20 metres, either aided or unaided",
+                "score": 12
+              },
+              "12.1": {
+                "text": "Cannot, either aided or unaided:<ul><li>stand</li><li>move more than 1 metre</li></ul>",
+                "score": 12
+              }
+            }
+          }
+        }
+      },
+      "whatNextPara": "You can either accept this view or if you want to provide further evidence to the tribunal then you can request a hearing. You can ask a friend, family member or support worker for help in making this decision.",
+      "acceptHeader": "Do you accept this view?",
+      "acceptYes": "I accept the tribunal’s view",
+      "acceptNo": "I want a hearing",
+      "acceptRespondBy": "Please respond by {{ respondBy }}.",
+      "submitResponse": "Submit response",
+      "error": {
+        "emptyOnDecisionPick": "You must accept the tribunal’s view or request a hearing.",
+        "emptyOnConfirm": "You need to say whether you want to accept the view or want to go back."
+      }
+    },
+    "tribunalViewConfirm": {
+      "header": "Are you sure you want to accept the view?",
+      "headerText": "You will not be able to change your mind.",
+      "acceptYes": "Yes, I want to accept the view",
+      "acceptNo": "No, I want to go back",
+      "acceptHelp": "If you need help deciding then you could talk to your representative or a friend or family member who know about your condition."
+    },
+    "tribunalViewAccepted": {
+      "header": "You have accepted the tribunal’s view",
+      "para1": "This view has also been communicated to DWP.",
+      "para2": "If they accept, the decision will be issued and your appeal will be closed.",
+      "para3": "If they request a hearing, you will be asked if you want to attend.",
+      "para4": "You will get an email telling you whether they have accepted the view by {{ nextCorrespondenceDate }}.",
+      "exitService": "Exit service",
+      "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_2/?pageurl="
+    },
+    "tribunalDecision": {
+      "header": "The tribunal’s decision on your appeal",
+      "outcome": {
+        "decision_accepted": "Your appeal has been successful",
+        "decision_rejected": "Your appeal has not been successful"
+      },
+      "reasonsHeader": "A decision has been made on your PIP benefit appeal",
+      "postInfo": "<p>A ‘Decision Notice’ has been emailed to you and posted to your registered address.<p/><p>Please note that we cannot give you your decision over the phone. This is to protect your personal information.</p>"
+    },
+    "hearingConfirm": {
+      "header": "A new tribunal panel will decide your appeal",
+      "para": "A new tribunal panel will make a decision on your appeal. This may be different from the view already given.",
+      "legend": "Do you still want a hearing?",
+      "error": {
+        "title": "There are errors on this page",
+        "text": "You need to say whether you still want a hearing"
+      }
+    },
+    "hearingWhy": {
+      "header": "Explain why you want a hearing",
+      "info": "Your reasons do not affect your right to a hearing.",
+      "error": {
+        "empty": "You have not entered any information so you cannot submit your request for a hearing. Enter some information before saving.",
+        "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+      },
+      "booking": {
+        "header": "A hearing needs to be booked for your appeal",
+        "para1": "You’ll receive an email with the details of your hearing by {{ responseDate }}.",
+        "para2": "If you require a hearing room with disabled access or any other support then please email the tribunal at ",
+        "para3": "Include your appeal reference number on any emails to the tribunal:",
+        "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_4/?pageurl="
+      }
+    },
+    "postEvidence": {
+      "header": "Posting evidence to the tribunal",
+      "info": "Post evidence to the address below.",
+      "postalAddress": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF",
+      "screenReaderPostalAddress": "HMCTS SSCS PO Box 12626 Harlow CM20 9QF",
+      "para1": "You must include a copy of the ‘evidence cover sheet’ which was included in the first letter you received about your benefit appeal. You can <a href=\"/coversheet\">download a new cover sheet here</a>, if you need one.",
+      "para2": "Try to post it as soon as possible to avoid delaying your appeal.",
+      "para3": "If you think there will be a delay in getting your evidence to the tribunal then send an email to <a href=\"mailto:benefitappeals@hmcts.net\">benefitappeals@hmcts.net</a> briefly describing what you are sending and when you think it will arrive."
+    },
+    "error": {
+      "error404": {
+        "header": "Sorry, this page could not be found"
+      },
+      "error500": {
+        "header": "Sorry, we’re experiencing technical difficulties",
+        "content": "Please try again."
+      }
+    },
+    "general": {
+      "yes": "Yes",
+      "no": "No",
+      "continue": "Continue",
+      "backToQuestions": "Back to questions",
+      "back": "Back",
+      "exitService": "Exit Service",
+      "logo": "HMCTS Logo",
+      "signOut": "Sign out",
+      "delete": "Delete",
+      "serviceTitle": "Appeal a benefit decision",
+      "sessionExpiryWarning": "Your session will expire and you will be signed out after 20 minutes of inactivity",
+      "govUK": "GOV.UK",
+      "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
+      "tbc": "To be confirmed"
+    },
+    "errorSummary": {
+      "titleText": "There is a problem",
+      "descriptionText": "Please fix the errors before you continue",
+      "errorPageTitle": "Error:"
+    },
+    "contactUsCor": {
+      "title": "Contact us",
+      "emailText": "You can request support by emailing",
+      "includeRefNum": "Please include your appeal reference number.",
+      "getBackIn": "We’ll get back to you within 2 days."
+    },
+    "contactUs": {
+      "title": "Contact us for help",
+      "webform": {
+        "title": "Send us a message",
+        "desc": "You’ll get a response by email within 2 working days.",
+        "link": "Send message (opens in a new window)"
+      },
+      "webchat": {
+        "title": "Web chat",
+        "desc": "Get some help by messaging an agent online.",
+        "link": "Start web chat (opens in a new window)",
+        "textChatDown": "The web chat service is temporarily unavailable, please try again later.",
+        "textChatWithAnAgent": "Start web chat (opens in a new window)",
+        "textNoAgentsAvailable": "No agents are available, please try again later.",
+        "textAllAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.",
+        "textChatClosed": "The web chat is now closed. Come back Monday to Friday 8:30am to 5pm. Or contact us using one of the ways below.",
+        "textChatAlreadyOpen": "A web chat window is already open.",
+        "textAdditional": "Monday to Friday, 8.30am to 5pm"
+      },
+      "telephone": {
+        "title": "Telephone",
+        "desc": "Talk to one of our agents now over the phone.",
+        "England": {
+          "desc": "Benefit appeals helpline (England and Wales)",
+          "phone": "Telephone: 0300 123 1142",
+          "availability": "Monday to Friday, 8:00am to 8:00pm",
+          "saturdayAvailability": "Saturday, 8:00am to 2:00pm",
+          "emailText": "Email:",
+          "emailAddress": "Contactsscs@justice.gov.uk",
+          "charges": "Find out about call charges"
+        },
+        "Scotland": {
+          "desc": "Benefit appeals helpline (Scotland)",
+          "phone": "Telephone: 0300 790 6234",
+          "availability": "Monday to Friday, 8:30am to 5:00pm",
+          "emailText": "Email:",
+          "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
+          "charges": "Find out about call charges"
+        }
+      }
+    },
+    "cookieBanner": {
+      "message": "HMCTS uses cookies to make the site simpler. ",
+      "link": "Find out more about cookies"
+    },
+    "cookiePrivacy": {
+      "titleHead": "Cookie Policy - Appeal a benefit decision - GOV.UK",
+      "footer": {
+        "cookies": "Cookies"
+      },
+      "cookies": {
+        "title": "Cookies",
+        "description": "A cookie is a small piece of data that’s stored on your computer, tablet, or phone when you visit a website. Most websites need cookies to work properly."
+      },
+      "usedInService": {
+        "title": "How cookies are used in this service",
+        "uses": "This service uses them to:",
+        "usesList": [
+          "measure how you use the service so it can be improved",
+          "remember the notifications you’ve seen so that you’re not shown them again",
+          "temporarily store the answers you give"
+        ],
+        "more": "Find out more about ",
+        "manage": "how to manage cookies."
+      },
+      "howAreTheyUsed": {
+        "title": "Cookies used to measure website usage",
+        "description": "We use Google Analytics software to collect information about how you use this service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements, for example improving site search.",
+        "info": "Google Analytics stores information about:",
+        "infoList": [
+          "the pages you visit",
+          "how long you spend on each page",
+          "how you got to the service",
+          "what you click on while you’re visiting the service"
+        ],
+        "googleShare": "We allow Google to use or share this data. Find out more about how they use this information in the ",
+        "googlePrivacyPolicy": "Google privacy policy.",
+        "optOut": {
+          "youCan": "You can ",
+          "google": "opt out of Google Analytics ",
+          "access": "if you do not want Google to have access to your information."
+        },
+        "googleCookies": "Google Analytics sets the following cookies:",
+        "cookieTable": {
+          "columnNames": [
+            "Cookie name",
+            "What this cookie is for",
+            "Expires after"
+          ],
+          "items": [
+            {
+              "name": "_ga",
+              "purpose": "This helps us count how many people visit the service by tracking if you’ve visited before",
+              "expires": "2 years"
+            },
+            {
+              "name": "_gid",
+              "purpose": "Identifies you to the service",
+              "expires": "24 hours"
+            }
+          ]
+        }
+      },
+      "introMessage": {
+        "title": "Cookies used to turn our introductory message off",
+        "description": "You may see a welcome message when you first visit the service. We’ll store a cookie so that your computer knows not to show this message again.",
+        "cookieTable": {
+          "columnNames": [
+            "Cookie name",
+            "What this cookie is for",
+            "Expires after"
+          ],
+          "items": [
+            {
+              "name": "seen_cookie_message",
+              "purpose": "Saves a message to let us know that you’ve seen our cookie message",
+              "expires": "1 month"
+            }
+          ]
+        }
+      },
+      "sessionCookie": {
+        "title": "Cookies used to store the answers you’ve given during your visit (known as a ‘session’)",
+        "description": "Session cookies are stored on your computer as you browse a website, and let the website know what you’ve seen and done so far. These are temporary cookies and are automatically deleted after you leave the website.",
+        "cookieTable": {
+          "columnNames": [
+            "Cookie name",
+            "What this cookie is for",
+            "Expires after"
+          ],
+          "items": [
+            {
+              "name": "connect.sid",
+              "purpose": "Keeps track of your answers",
+              "expires": "When you close your browser"
+            },
+            {
+              "name": "ARRAffinity",
+              "purpose": "To know which internal IP a request should be routed to. ",
+              "expires": "When you close your browser"
+            }
+          ]
+        }
+      }
+    },
+    "cookieTimeOut": {
+      "modal": {
+        "title": "Do you want more time to continue?",
+        "body": [
+          "Your session will expire in",
+          "minutes and you will be signed out."
+        ],
+        "info": "You will lose any unsaved information you have entered.",
+        "extend": "Stay signed in ",
+        "cancel": "Sign out"
+      }
+    },
+    "additionalEvidence": {
+      "evidenceOptions": {
+        "header": "How do you want to provide additional information?",
+        "error": {
+          "noButtonSelected": "Select how you would like to provide additional information"
+        }
+      },
+      "evidenceStatement": {
+        "header": "Provide your information online",
+        "description": "What do you want to tell the tribunal? This might be further evidence or a request to, for example, add a representative",
+        "placeholder": "You can write as much as you want",
+        "label": "Additional statement filed",
+        "button": "Submit your statement to the tribunal"
+      },
+      "evidenceUpload": {
+        "header": "Upload additional evidence",
+        "description": {
+          "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
+          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>"
+        },
+        "error": {
+          "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
+          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading."
+        }
+      },
+      "evidencePost": {
+        "header": "Posting evidence to the tribunal",
+        "subtitle": "Post your evidence to the address below as soon as possible. This is so the tribunal have time to read it before they make a decision on your appeal.",
+        "description": {
+          "para1": "Write your appeal reference number on any evidence you send in."
+        }
+      },
+      "evidenceConfirm": {
+        "header": "You have submitted additional evidence",
+        "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
+        "link": "Return to Your PIP benefit appeal"
+      },
+      "about": {
+        "header": "Providing evidence to support your appeal",
+        "leadParagraph": "Evidence is any information that supports your appeal, such as a letter, written statement or medical report. It all helps the tribunal understand the facts of your appeal.",
+        "intro": {
+          "para1": "You should provide evidence as soon as you can, if you have any. This is so the tribunal have time to consider it before making a decision on your benefit appeal.",
+          "para2": "You can provide evidence online or by post. Find out more about how to provide it at the bottom of this page."
+        },
+        "types": {
+          "medical": {
+            "header": "Medical evidence",
+            "para1": "This type of evidence helps the tribunal understand your condition from the perspective of a medical professional. For example, letters you have from your hospital consultant, doctor, physiotherapist or social worker. A useful letter explains how your condition affects your life at the time of the decision by DWP. Appointment letters are not useful.",
+            "para2": "If you don’t have any letters and you think one will help your appeal, you could ask the medical professional who has been treating your condition to write one. Please be aware they may charge you for this and they can take a long time to organise. The tribunal can’t pay for these."
+          },
+          "statement": {
+            "header": "Written statement",
+            "para1": "Someone who lives with you or knows you well could write a statement. A useful statement describes how your condition affects your life and includes the types of activities you can and can’t do. It should be their own view.",
+            "para2": "It can written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you."
+          },
+          "photographic": {
+            "header": "Photographic evidence",
+            "para1": "A useful photo will show how your condition affects your life, for example you could take a picture of any aids you use to help you move. Don’t send in photos of your body."
+          },
+          "oral": {
+            "header": "Oral evidence",
+            "para1": "What you or anyone else says at a hearing (if you have one) is called ‘oral evidence’. The tribunal will use what is said to help them make a decision on your appeal.",
+            "para2": "If you have a hearing then you could invite someone who knows you well to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day."
+          }
+        },
+        "howto": {
+          "header": "How to provide evidence to the tribunal",
+          "para1": "You can provide evidence to the tribunal by:",
+          "options": "<ul><li>writing a message online</li><li>uploading files, documents or photos</li><li>sending it by post</li></ul>",
+          "cta": "<a href=\"/additional-evidence\">Provide evidence to the tribunal</a>"
+        }
+      }
+    },
+    "yourDetails": {
+      "header": "Appeal details",
+      "contact": "If any of the details are incorrect, contact us below.",
+      "nameLabel": "Name",
+      "addressLabel": "Address",
+      "phoneLabel": "Contact phone number",
+      "emailLabel": "email address for updates",
+      "emailLabelCy1": "",
+      "emailLabelCy2": "",
+      "mobileLabel": "text message updates",
+      "contactPhoneLabel": "Contact mobile",
+      "notProvided": "Not provided"
+    },
+    "contact": {
+      "phone": "Appellant contact phone number",
+      "mobile": "Appellant contact mobile number",
+      "email": "Appellant contact email address"
+    },
+    "statusTab": {
+      "tabHeader": "Status",
+      "header": "Status of your appeal",
+      "panelHeader": "Latest update"
+    },
+    "provideEvidenceTab": {
+      "tabHeader": "Provide Evidence",
+      "header": "Provide evidence to the tribunal",
+      "corCase": {
+        "header": "Information requested by the tribunal",
+        "noQuestions": "The tribunal have not requested any information from you. You will receive an email if they do."
+      },
+      "additionalEvidence": {
+        "header": "Send evidence to the tribunal",
+        "content": "If you have any more information that you want the tribunal to consider as part of your appeal, then you can <a id=\"evidence-options-link\" href=\"/additional-evidence\">submit your evidence</a> here."
+      }
+    },
+    "hearingTab": {
+      "tabHeader": "Hearing",
+      "header": "The hearing for your appeal",
+      "noHearingDate": "You will receive an email when your hearing has been booked.",
+      "notAttendingDescription": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
+      "toBeConfirmed": "To be confirmed",
+      "mapsAndDirections": "Maps and directions",
+      "languageInterpreter": "Language interpreter",
+      "signInterpreter": "Sign interpreter",
+      "hearingLoop": "Hearing loop",
+      "disableAccess": "Disable access",
+      "otherArrangements": "Any other arrangements",
+      "tribunalLookLike": "Find out what a tribunal hearing is like if you attend",
+      "contactIfChanges": "If you need to make any changes or you cannot attend, contact us below.",
+      "notAttending": {
+        "info": "You have chosen not to attend your hearing.",
+        "description": "Your benefit appeal will be decided at a tribunal hearing using the information you and DWP have submitted. You will receive your decision when the hearing has taken place. We cannot say exactly when this will be.",
+        "contactToAttend": "If you need to make any changes or you cannot attend, contact us below."
+      },
+      "required": "Required",
+      "notRequired": "Not required"
+    },
+    "historyTab": {
+      "tabHeader": "History",
+      "header": "History of your appeal"
+    },
+    "appealEvents": {
+      "ADJOURNED": {
+        "heading": "Hearing didn’t take place",
+        "content": {
+          "oral": [
+            "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
+            "You will receive another email or text message when your new hearing has been booked."
+          ],
+          "paper": [
+            "The hearing for your {{appeal.benefitType | agencyAcronym}} appeal did not go ahead as scheduled because the tribunal felt they could not proceed. You’ll get a letter in a few days which explains why. Read the letter because you may be asked to provide further information to the tribunal.",
+            "You will receive another email or text message when your new hearing has been booked."
+          ]
+        }
+      },
+      "WITH_DWP": {
+        "heading": "Appeal Received",
+        "content": {
+          "oral": [
+            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."
+          ],
+          "paper": [
+            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."
+          ]
+        }
+      },
+      "APPEAL_RECEIVED": {
+        "heading": "Appeal Received",
+        "content": {
+          "oral": [
+            "We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal"
+          ],
+          "paper": [
+            "We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal"
+          ]
+        }
+      },
+      "CLOSED": {
+        "heading": "Appeal closed",
+        "content": {
+          "oral": [
+            "The latest update on your appeal should have been sent to you. If you have any other questions, please contact us."
+          ],
+          "paper": [
+            "The latest update on your appeal should have been sent to you. If you have any other questions, please contact us."
+          ]
+        }
+      },
+      "DORMANT": {
+        "heading": "Hearing took place",
+        "content": {
+          "oral": [
+            "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+          ],
+          "paper": [
+            "The tribunal have reviewed all the information you and {{appeal.benefitType | agencyAcronym}} have provided and have reached a decision on your {{appeal.benefitType}} appeal.",
+            "The decision notice has been posted to you. This has the tribunal’s decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
+            "Please note we cannot give you your decision over the phone. This is to protect your personal information."
+          ]
+        }
+      },
+      "DWP_RESPOND": {
+        "heading": "{{appeal.benefitType | agencyAcronym}} response",
+        "content": {
+          "oral": [
+            "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitAcronym}} benefit appeal. They should have sent you a copy of their response in the post.",
+            "You do not need to do anything. You will receive another email or text message update when your hearing has been booked. Unfortunately we cannot say how long this will be but it may be several months."
+          ],
+          "paper": [
+            "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitAcronym}} appeal. They should have sent you a copy in the post. Read their response and send your comments to the tribunal, if you have any.",
+            "A tribunal panel made up of {{appeal.benefitType|panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
+          ]
+        }
+      },
+      "DWP_RESPOND_OVERDUE": {
+        "heading": "{{appeal.benefitType | agencyAcronym}} response overdue",
+        "content": {
+          "oral": [
+            "{{appeal.benefitType | agencyAcronym}} were due to respond to your appeal but they have not yet done so. You do not have to do anything. We’ve contacted them again to ask them to respond. We’ll let you know when they do."
+          ],
+          "paper": [
+            "{{appeal.benefitType | agencyAcronym}} were due to respond to your appeal but they have not yet done so. You do not have to do anything. We’ve contacted them again to ask them to respond. We’ll let you know when they do."
+          ]
+        }
+      },
+      "EVIDENCE_RECEIVED": {
+        "heading": "Evidence received",
+        "content": {
+          "oral": [
+            "The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."
+          ],
+          "paper": [
+            "The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."
+          ]
+        }
+      },
+      "HEARING": {
+        "heading": "Hearing took place",
+        "content": {
+          "oral": [
+            "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+          ],
+          "paper": [
+            "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
+          ]
+        }
+      },
+      "HEARING_BOOKED": {
+        "heading": "Hearing booked",
+        "content": {
+          "oral": [
+            "A hearing has been booked for your appeal."
+          ],
+          "paper": [
+            "A hearing has been booked for your appeal."
+          ]
+        }
+      },
+      "LAPSED_REVISED": {
+        "heading": "Change of decision",
+        "content": {
+          "oral": [
+            "{{appeal.benefitType | agencyAcronym}} have told us they changed their decision on your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal. If you don’t agree with their new decision you can start a new appeal.",
+            "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+          ],
+          "paper": [
+            "{{appeal.benefitType | agencyAcronym}} has told us they changed their decision about your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal.",
+            "If you don’t agree with their new decision you can start a new appeal: <a href=\"https://www.gov.uk/appeal-benefit-decision\">https://www.gov.uk/appeal-benefit-decision</a>",
+            "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+          ]
+        }
+      },
+      "NEW_HEARING_BOOKED": {
+        "heading": "New hearing booked",
+        "content": {
+          "oral": [
+            "A new hearing has been booked for your appeal."
+          ],
+          "paper": [
+            "A new hearing has been booked for your appeal."
+          ]
+        }
+      },
+      "PAST_HEARING_BOOKED": {
+        "heading": "Still booking a hearing",
+        "content": {
+          "oral": [
+            "We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."
+          ],
+          "paper": [
+            "We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."
+          ]
+        }
+      },
+      "POSTPONED": {
+        "heading": "Hearing postponed",
+        "content": {
+          "oral": [
+            "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
+            "You do not need to do anything. We’ll now book a new hearing for your appeal as soon as we can."
+          ],
+          "paper": [
+            "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
+            "You do not need to do anything. We’ll now book a new hearing for your appeal as soon as we can."
+          ]
+        }
+      },
+      "WITHDRAWN": {
+        "heading": "Appeal withdrawn",
+        "content": {
+          "oral": [
+            "You told us you wanted to withdraw your appeal so we’ve closed it.",
+            "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+          ],
+          "paper": [
+            "You told us you wanted to withdraw your appeal so we’ve closed it.",
+            "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
+          ]
+        }
+      },
+      "SYA_APPEAL_CREATED": {
+        "heading": "Appeal created TBC",
+        "content": {
+          "cor": [
+            "Content TBC"
+          ]
+        }
+      }
+    },
+    "benefitTypes": {
+      "esa": {
+        "acronym": "ESA",
+        "fullDescription": "Employment and Support Allowance (ESA)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge and a doctor"
+      },
+      "pip": {
+        "acronym": "PIP",
+        "fullDescription": "Personal Independence Payment (PIP)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge, doctor and disability expert"
+      },
+      "uc": {
+        "acronym": "UC",
+        "fullDescription": "Universal Credit (UC)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge, doctor and disability expert"
+      }
+    },
+    "helpGuides": {
+      "header": "Help and support",
+      "evidence": {
+        "title": "Providing evidence to support your appeal",
+        "entry": "Evidence is any information that supports your side of the appeal, such as a letter, written statement or medical report. It can help the tribunal understand the facts of your appeal. You do not have to send in evidence but it can help your appeal.",
+        "para1": "You should send any evidence to the tribunal as soon as you can. This is so the tribunal have time to consider it before making a decision on your appeal.",
+        "medicalEvidenceTitle": "Medical evidence",
+        "medicalEvidenceDesc": {
+          "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. It should also be focussed on the time that DWP made their decision about your entitlement to the benefit. Letters which just show you had an appointment are not useful.",
+          "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
+        },
+        "writtenStatementTitle": "Written statement",
+        "writtenStatementDesc": {
+          "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. It should also be focussed on the time that the DWP made their decision about your entitlement to benefits. ",
+          "para2": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
+        },
+        "photographsTitle": "Photographs",
+        "photographsDesc": {
+          "para1": "Sometimes a photo can be useful to help the tribunal panel see how your medical condition affects your life. For example, you could take a picture of any modifications in your home or aids you use to help you move. Do not send in any photos of your body. "
+        },
+        "whatYouSayTitle": "What you say at the hearing",
+        "whatYouSayDesc": {
+          "para1": "What you say at the hearing can be the most useful form of evidence. The tribunal will listen to what you say to help them make a decision on your appeal.",
+          "para2": "If you have a carer or someone who supports you at home, you could ask them to come and tell the tribunal about your condition. You should check that they are willing to come and they are available on the day. "
+        },
+        "sendingEvidenceTitle": "Sending evidence to the tribunal",
+        "sendingEvidenceDesc": {
+          "para1": "You can provide evidence using any of the options in the <a href='/additional-evidence'><b>Provide Evidence</b></a> tab, as soon as possible. This is so the tribunal have time to read it before they make a decision.",
+          "para2": "Or you can post your evidence to the address below.",
+          "para3": "Make sure you include the ‘document cover sheet’. This helps us match your evidence with your appeal. You received this cover sheet in the first letter that was sent to you about your appeal.",
+          "para4": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
+        }
+      },
+      "claimExpenses": {
+        "title": "Claiming expenses to attend your hearing",
+        "entry": "You may be able to claim back some of the money you spend on attending your hearing.",
+        "para1": "You should use public transport where possible. Keep your travel tickets and bring them with you to your hearing. You’ll be given a claim form to fill out by the tribunal clerk.",
+        "para2": "If you have a health condition or disability which means you can’t get yourself to the hearing then you might be able to claim for a taxi. You’ll need to get authorisation first by phoning 0300 123 1142."
+      },
+      "hearing": {
+        "title": "What to expect at your appeal hearing",
+        "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the Department of Work and Pensions (DWP).",
+        "imageText": "A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.",
+        "beforeHearingTitle": "Before your hearing",
+        "beforeHearingDesc": {
+          "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
+          "para2": "You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. "
+        },
+        "arriveTitle": "When you arrive",
+        "arriveDesc": {
+          "para1": "You’ll be greeted by a tribunal clerk. They’ll take care of you at the hearing venue and answer any questions you have. They will also give you a form so you can claim back any money you spend on attending the hearing. <a href=\"support-hearing-expenses\">Read about claiming expenses for your hearing.</a>"
+        },
+        "hearingRoomTitle": "The hearing room",
+        "hearingRoomDesc": {
+          "para1": "The tribunal clerk will take you into the hearing room. The tribunal panel will be sat behind a table. You’ll be invited to sit opposite them. If you have someone to support you or to give evidence, they’ll sit next to you."
+        },
+        "peopleInTheRoomTitle": "The people at your hearing",
+        "peopleInTheRoomDesc": {
+          "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP.",
+          "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people."
+        },
+        "duringHearingTitle": "During your hearing",
+        "duringHearingDesc": {
+          "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour.",
+          "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
+        },
+        "gettingDecisionTitle": "Getting a decision",
+        "gettingDecisionDesc": {
+          "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.",
+          "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level.",
+          "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
+        },
+        "dwpTitle": "Department for Work and Pensions (DWP)",
+        "dwpDesc": {
+          "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits."
+        }
+      },
+      "representatives": {
+        "linkHeader": "Representatives",
+        "title": "Representatives",
+        "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
+        "what": "A representative can:",
+        "whatList": {
+          "item1": "give you advice in relation to your appeal",
+          "item2": "help you submit your appeal or prepare evidence",
+          "item3": "act on your behalf during the appeal (they should ask your permission first)"
+        },
+        "para1": "Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. ",
+        "para2": "You can get a representative at your local advice centre, law centre or <a href=\"https://www.citizensadvice.org.uk/\">Citizens Advice</a> You will need to register them with the tribunal.",
+        "representative": {
+          "title": "Registering a representative",
+          "para1": "We need your written authority to register someone as your representative. You can provide this information via any of the options in the <a href=\"/task-list\"><b>Provide Evidence</b></a> tab.",
+          "para2": "Please include your representative’s name, address and contact details (phone or email). If you provide their email address and mobile phone number, they will also get regular updates."
+        }
+      },
+      "withdrawAppeal": {
+        "linkHeader": "Withdrawing an appeal",
+        "title": "Withdrawing your appeal",
+        "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
+        "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
+        "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible.",
+        "para3": "You can provide this information via any of the options in the <a href=\"/additional-evidence\"><b>Provide Evidence</b></a> tab . Or contact us on the number below."
+      },
+      "relatedLinks": {
+        "title": "Related guidance",
+        "supportEvidence": "Providing evidence to support your appeal",
+        "supportHearing": "What to expect at your hearing",
+        "supportHearingExpenses": "Claiming hearing expenses",
+        "supportWithdrawAppeal": "Withdrawing your appeal",
+        "supportRepresentatives": "Representatives"
+      }
+    },
+    "selectCase": {
+      "title": "Select Case",
+      "heading": "Your benefit appeals",
+      "appealReference": "Appeal reference",
+      "benefit": "Benefit",
+      "dateSubmitted": "Date submitted",
+      "mrnDate": "MRN date",
+      "action": "Action",
+      "view": "View"
+    },
+    "assignCase": {
+      "title": "Enter the postcode for the appeal",
+      "message": "This is the postcode used when the appeal was registered",
+      "errors": {
+        "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
+        "invalidPostcode": "The details you have provided don’t match, please contact us",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
+        "postcodeDoesNotMatch": "The details you have provided don’t match, please contact us"
+      }
+    },
+    "redirectMya": {
+      "tab": "Track Your Appeal service",
+      "title": "Track Your Appeal service",
+      "para1": "We have enhanced the Track Your Appeal service so that you’re now able to Manage Your Appeal online. To ensure your data is kept secure, you  will need to create an account to access this service.",
+      "para2": "If you created an account when you submitted your appeal, please follow this link <a href=\"/sign-in?tya={{ tyaNumber }}\">login</a> & enter the same login details to manage your appeal.",
+      "para3": "If you did not create an account, please create one by following this link <a href=\"/register?tya={{ tyaNumber }}\">register</a>. This will enable you to manage your appeal going forward."
+    },
+    "notifications": {
+      "register": {
+        "title": "Register for notifications",
+        "content": "Receive reminders and notifications to keep you updated on the progress of your appeal",
+        "question": "How would you like to receive notifications?",
+        "options": [
+          "Email",
+          "Text Message",
+          "Both"
+        ],
+        "continue": "Continue",
+        "cancel": "Cancel"
+      },
+      "email": {
+        "manage": {
+          "tab": "Manage email notifications",
+          "title": "What do you want to do?",
+          "visuallyHidden": "What do you want to do?",
+          "continue": "Continue"
+        },
+        "stop": {
+          "tab": "Stop receiving email updates",
+          "title": "You’ll stop receiving email updates and reminders about your {{benefitType|acronym}} benefit appeal.",
+          "confirm": "Confirm",
+          "link": "Cancel"
+        },
+        "stopConfirmation": {
+          "tab": "Email notifications stopped",
+          "title": "You’ve stopped email notifications",
+          "content": "You won’t receive any more emails about your {{benefitType|acronym}} benefit appeal.",
+          "exitFeedbackSurveyPreLink": "Please provide some",
+          "exitFeedbackSurveyLink": "feedback to help us improve this service.",
+          "linkPre": "You can still",
+          "linkPost": "track your benefit appeal online"
+        },
+        "addressChange": {
+          "tab": "Your new email address",
+          "tabError": "Errors on page",
+          "title": "Your new email address",
+          "visuallyHidden": "What do you want to do?",
+          "continue": "Continue",
+          "cancel": "Cancel",
+          "errors": {
+            "title": "There are errors on the page."
+          }
+        },
+        "addressChangeConfirmed": {
+          "tab": "Email address change confirmation",
+          "title": "Emails about your {{benefitType|acronym}} benefit appeal will now be sent to",
+          "content": "We’ve sent a confirmation email to that address. Check it in a few minutes.",
+          "link": "Change your email address"
+        },
+        "errors": {
+          "selectAnOptionHeading": "Please select an option",
+          "selectAnOptionField": "You have not selected an option. Select an option.",
+          "emptyStringHeading": "New email address not entered",
+          "emptyStringEmailField": "You have not entered your email address. Enter your email address.",
+          "notValidHeading": "New email address is invalid",
+          "notValidField": "The email address you’ve entered is invalid. Check it and enter it again.",
+          "noMatchHeading": "Email addresses do not match",
+          "noMatchField": "Your email addresses don’t match. Check and enter them again."
+        }
+      }
+    }
+  },
+  "cy": {
+    "common": {
+      "yourBenefitAppeal": "Eich apêl am fudd-dal",
+      "appealDetails": "Manylion yr apêl",
+      "signIn": "Mewngofnodi",
+      "signOut": "Allgofnodi",
+      "appealReference": "Cyfeirnod yr apêl",
+      "contactIfProblemContinues": "Cysylltwch â ni os byddwch yn dal i gael anhawster",
+      "received": "Derbyniwyd:",
+      "awaiting": "Aros am:",
+      "hearingForYourAppeal": "Gwrandawiad eich apêl ",
+      "date": "Dyddiad",
+      "time": "Amser",
+      "location": "Lleoliad",
+      "provideInformationOnline": "Darparu eich gwybodaeth ar-lein",
+      "uploadLettersDocumentPhotos": "Uwchlwytho llythyrau, dogfennau neu luniau",
+      "sendByPost": "Anfon drwy’r post",
+      "submitEvidenceToTribunal": "Cyflwyno tystiolaeth i’r tribiwnlys",
+      "loading": "Yn llwytho",
+      "homePage": "Tudalen Gartref",
+      "enterNewEmailAddress": "Nodwch eich cyfeiriad e-bost newydd",
+      "enterNewEmailAddressAgain": "Nodwch eich cyfeiriad e-bost newydd eto",
+      "changeEmailAddress": "Newid eich cyfeiriad e-bost",
+      "stopReceivingEmails": "Rhoi stop ar gael negeseuon e-bost",
+      "submitAnswerToTribunal": "Cyflwyno ateb i’r tribiwnlys",
+      "saveForLater": "Arbed tan rhywbryd eto",
+      "confirm": "Cadarnhau",
+      "extendDeadline": "Ymestyn y terfyn amser",
+      "describeTheEvidence": "Rhowch ddisgrifiad o’r dystiolaeth",
+      "breflyDescribeWhatAndWhy": "Disgrifiwch yn fyr beth ydych yn ei uwchlwytho a pham",
+      "type": {
+        "Appellant": "Apelydd",
+        "Appointee": "Penodai",
+        "Representative": "Cynrychiolydd",
+        "Supporter": "Cefnogwr"
+      }
+    },
+    "pageTitle": "Rheoli eich apêl",
+    "contactEmail": "ymholiadaucymraeg@justice.gov.uk",
+    "phaseBanner": {
+      "new": "Mae hwn yn wasanaeth newydd - bydd eich ",
+      "report": "adborth",
+      "improve": "yn ein helpu ni i'w wella (agor mewn ffenestr newydd).",
+      "languageToggle": "<a href=\"{currentUrl}{languageFlag}\" class=\"govuk-link language\">English</a>"
+    },
+    "guidance": {
+      "sendingEvidence": {
+        "byEmailHeader": "Anfon tystiolaeth drwy e-bost",
+        "byPostHeader": "Anfon tystiolaeth drwy’r post",
+        "postalAddress": "<p>HMCTS SSCS<br>PO BOX 12626<br>Harlow<br>CM20 9QF</p>",
+        "screenReaderPostalAddress": "HMCTS SSCS PO BOX 12626 Harlow CM20 9QF"
+      }
+    },
+    "login": {
+      "header": "Mewngofnodi",
+      "emailAddress": {
+        "error": {
+          "empty": "Nodwch eich cyfeiriad e-bost",
+          "format": "Rhowch gyfeiriad e-bost dilys",
+          "error404": "Ni ellir dod o hyd i’r gwrandawiad ar-lein",
+          "error422": "Wedi dod o hyd i sawl gwrandawiad ar-lein"
+        }
+      },
+      "failed": {
+        "emailNotFound": {
+          "header": "Nid oes unrhyw apêl budd-dal sy’n gysylltiedig â’r cyfeiriad e-bost hwn",
+          "body": "<p>Naill ai rydych wedi newid eich cyfeiriad e-bost neu nid os gennych apêl budd-dal gweithredol.</p><p>Os ydych wedi newid eich cyfeiriad e-bost yna bydd rhaid ichi greu cyfrif newydd gan ddefnyddio eich cyfeiriad e-bost newydd:</p>"
+        },
+        "technicalError": {
+          "header": "Mae problem technegol gyda’ch cyfrif",
+          "body": "<p>Mae problem technegol gyda’r cyfrif rydych yn ei ddefnyddio i gael mynediad at eich apêl budd-dal.</p><p>Anfonwch neges e-bost I <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> aa byddwn yn datrys y broblem ichi. Cofiwch gynnwys cyfeirnod eich apêl a’ch enw.</p><p>We apologise for any inconvenience.</p>"
+        },
+        "cannotUseService": {
+          "header": "Ni allwch gael mynediad at y gwasanaeth hwn",
+          "body": "<p>Os yr hoffech gael diweddariad ar eich apêl, yna gwiriwch unrhyw negeseuon e-bost neu lythyrau rydych wedi’u cael ynghylch eich apêl budd-dal.</p>"
+        }
+      }
+    },
+    "taskList": {
+      "header": "Eich apêl am fudd-dal",
+      "header1": "Eich apêl am fudd-dal",
+      "header2": "",
+      "noQuestions": "Nid oes gennych unrhyw gwestiynau gan y tribiwnlys",
+      "deadline": {
+        "pending": "Rhaid ichi ymateb erbyn",
+        "completed": "Rydych wedi ateb yr holl gwestiynau a chyflwyno’r atebion i'r tribiwnlys.",
+        "expired": "Daeth y dyddiad cau ar gyfer ymateb i ben ar "
+      },
+      "answerState": {
+        "unanswered": "Heb ateb",
+        "draft": "Drafft",
+        "completed": "Wedi cwblhau"
+      },
+      "sendingEvidence": {
+        "header": "Anfon tystiolaeth ychwanegol",
+        "intro": "Os oes gennych unrhyw wybodaeth ychwanegol sy’n berthnasol i'ch apêl, gallwch",
+        "anchorText": "cyflwyno eich tystiolaeth",
+        "summary": "Sut i anfon tystiolaeth ychwanegol",
+        "details": {
+          "para1": "Gallwch naill ai ei hanfon drwy e-bost neu drwy’r post. Gwnewch yn siwr ei bod wedi’i marcio’n glir gyda chyfeirnod eich apêl:",
+          "closingPara1": "Os ydych am bostio’r dystiolaeth, anfonwch neges e-bost i'r tribiwnlys yn disgrifio'n fras beth rydych yn ei bostio a phryd rydych yn credu y bydd yn cyrraedd. Defnyddiwch y cyfeiriad e-bost uchod. ",
+          "closingPara2": "Ceisiwch ei hanfon cyn gynted ag sy’n bosibl i osgoi oedi gyda’ch apêl."
+        }
+      }
+    },
+    "question": {
+      "textareaField": {
+        "label": "Rhowch eich ateb yma",
+        "placeholder": "Gallwch ysgrifennu faint bynnag a fynnoch",
+        "error": {
+          "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn cyflwyno’ch ateb.",
+          "maxCharacters": "Rydych wedi defnyddio mwy na 20,000 o nodau. Ceisiwch leihau faint rydych wedi ysgrifennu a rhowch gynnig arall arni."
+        },
+        "errorOnSave": {
+          "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn arbed eich ateb."
+        }
+      },
+      "evidenceUpload": {
+        "checkbox": "Rwyf eisiau anfon tystiolaeth i gefnogi fy ateb",
+        "header": "Darparwch dystiolaeth i gefnogi eich ateb",
+        "info": "Gallwch lwytho tystiolaeth i gefnogi eich ateb, fel llythyrau, ffotograffau a dogfennau. Os ydych am dynnu llun o lythyr, yna rhowch y llythyr ar wyneb fflat a thynnu’r llun o uwchben.",
+        "addFileButton": "Ychwanegu ffeil",
+        "fileUploading": "Ffeil yn llwytho",
+        "postEvidence": {
+          "summary": "Gallwch hefyd anfon tystiolaeth i’r tribiwnlys drwy’r post",
+          "details": {
+            "para1": "Gallwch bostio tystiolaeth i'r cyfeiriad isod.",
+            "para2": "Gwnewch yn siwr ei bod wedi’i marcio’n glir gyda chyfeirnod eich apêl:",
+            "closingPara1": "Ceisiwch ei hanfon cyn gynted ag sy’n bosibl i osgoi oedi gyda’ch apêl.",
+            "closingPara2": "Rhowch wybod i'r tribiwnlys yn eich ateb os ydych yn bwriadu postio tystiolaeth. Disgrifiwch yn fras beth rydych yn ei bostio a dweud pryd rydych yn credu y bydd yn cyrraedd."
+          }
+        },
+        "fileList": {
+          "uploadedFiles": "Ffeiliau sydd wedi cael eu llwytho",
+          "noFilesUploaded": "Nid oes ffeiliau wedi cael eu llwytho"
+        }
+      },
+      "sendingEvidence": {
+        "summary": "Anfon tystiolaeth i gefnogi eich apêl",
+        "details": {
+          "para1": "Os oes gennych unrhyw dystiolaeth i gefnogi’ch ateb, gallwch ei hanfon naill ai trwy e-bost neu drwy’r post.",
+          "para2": "Gwnewch yn siwr ei bod wedi’i marcio’n glir gyda chyfeirnod eich apêl:",
+          "closingPara1": "Mae tystiolaeth ddefnyddiol yn helpu i brofi’r hyn rydych wedi’i ddweud yn eich ateb, fel llythyr gan feddyg neu rywun sy’n eich adnabod yn dda. Nid oes rhaid ichi anfon tystiolaeth os nad oes gennych ddim.",
+          "closingPara2": "Os ydych am bostio’r dystiolaeth, anfonwch neges e-bost i'r tribiwnlys yn disgrifio'n fras beth rydych yn ei bostio a phryd rydych yn credu y bydd yn cyrraedd. Defnyddiwch y cyfeiriad e-bost a nodir uchod."
+        }
+      },
+      "completedAnswer": {
+        "header": "Eich ateb",
+        "submittedText": "Wedi'i gyflwyno"
+      }
+    },
+    "questionUploadEvidence": {
+      "header": "Llwytho eich tystiolaeth",
+      "backToQuestionText": "Yn ôl i'r cwestiwn",
+      "label": "Dewis ffeil",
+      "sizeWarning": "Efallai y bydd ffeiliau mawr yn cymryd ychydig funudau i'w llwytho",
+      "error": {
+        "fileCannotBeUploaded": "Ni ellir llwytho’r ffeil",
+        "empty": "Nid ydych wedi dewis ffeil.",
+        "tooLarge": "Mae’r ffeil rydych wedi’i llwytho yn rhy fawr. Llwythwch ffeil sy’n llai na ",
+        "invalidFileType": "Nid yw’r math o ffeil rydych wedi’i llwytho yn dderbyniol. Ceisiwch drosi’r ffeil i fformat ffeil cyffredin a rhowch gynnig arall arni."
+      }
+    },
+    "submitQuestion": {
+      "title": "Ni fyddwch yn gallu newid eich ateb ar ôl ichi ei gyflwyno.",
+      "backToQuestionText": "Yn ôl i'r cwestiwn"
+    },
+    "questionsCompleted": {
+      "header": "Rydych wedi ateb cwestiynau’r tribiwnlys",
+      "para1": "Rydych wedi darparu’r wybodaeth y mae’r tribiwnlys wedi gofyn amdani. Byddant yn adolygu’r hyn rydych wedi’i hanfon a’i hystyried fel rhan o’ch apêl.",
+      "para2Start": "Byddwch yn cael neges e-bost arall gan",
+      "para2End": "a fydd yn esbonio sut mae’r tribiwnlys eisiau bwrw ymlaen gyda’ch apêl.",
+      "exitService": "Gadael y gwasanaeth hwn"
+    },
+    "extendDeadline": {
+      "header": "Bydd ymestyn y dyddiad cau yn achosi oedi gyda’ch apêl",
+      "hint": "Mi gewch wythnos arall i ateb y cwestiynau ond bydd yn cymryd yn hirach i ddelio â’ch apêl.",
+      "subheader": "Ydych chi dal eisiau ymestyn y dyddiad cau?",
+      "no": {
+        "header": "Nid ydych wedi ymestyn y dyddiad cau",
+        "para1": "Mae gennych hyd at {{ deadline }} i ateb y cwestiynau."
+      },
+      "yes": {
+        "header": "Mae gennych wythnos arall i ateb y cwestiynau",
+        "para1": "Nawr mae gennych hyd at {{ deadline }} i ateb y cwestiynau."
+      },
+      "contactTribunal": {
+        "header": "Mae angen ichi ddarparu rhesymau",
+        "para1": "Mae angen ichi gysylltu â’r tribiwnlys ac esbonio pam eich bod angen mwy o amser.",
+        "para2": "Anfonwch neges e-bost yn esbonio pam eich bod angen mwy o amser gan nodi erbyn pa ddyddiad y gallwch ateb i:",
+        "para3": "Bydd eich rhesymau yn cael eu hadolygu gan farnwr.",
+        "para4": "Yna byddwch yn cael neges e-bost arall yn dweud wrthych p’un a yw‘r llys wedi caniatáu i chi gael amser ychwanegol i ateb a sut mae’r tribiwnlys yn dymuno parhau â’ch apêl."
+      },
+      "error": {
+        "text": "Mae angen ichi ddweud p’un a ydych eisiau ymestyn y dyddiad cau cyn parhau"
+      }
+    },
+    "tribunalView": {
+      "header": "Darllenwch safbwynt y tribiwnlys ar eich apêl",
+      "decision": {
+        "viewEntitledTo": "Mae gennych hawl i gael PIP ar y gyfradd isod o {{ startDate }} hyd at {{ endDate }}.",
+        "viewEntitledToIndefinite": "Mae gennych hawl i gael PIP ar y gyfradd isod o {{ startDate }}.",
+        "dailyLiving": "Bywyd bob dydd",
+        "mobility": "Symudedd",
+        "rate": {
+          "noAward": "Dim dyfarniad",
+          "enhancedRate": "Cyfradd uwch",
+          "standardRate": "Cyfradd safonol"
+        },
+        "dwp": {
+          "Same": "Mae hyn yr un fath â’r dyfarniad a gawsoch gan DWP yn wreiddiol.",
+          "Higher": "Mae hyn yn uwch na’r dyfarniad a gawsoch gan DWP yn wreiddiol.",
+          "Lower": "Mae hyn yn is na’r dyfarniad a gawsoch gan DWP yn wreiddiol."
+        },
+        "confirmAccept": "Cadarnhewch ar waelod y dudalen p’un a ydych yn derbyn y safbwynt hwn ai peidio, ar ôl darllen rheswm y tribiwnlys isod."
+      },
+      "reasonsHeader": "Y rheswm dros safbwynt y tribiwnlys",
+      "activitiesSummary": "Gweithgareddau a disgrifyddion PIP y mae’r tribiwnlys yn ystyried yn berthnasol i'ch apêl",
+      "dailyLivingActivitiesHeader": "Gweithgareddau a disgrifyddion bywyd bob dydd",
+      "dailyLivingActivitiesHeaderEmpty": "Safbwynt y tribiwnlys yw nad oes unrhyw weithgareddau bywyd bob dydd sy’n berthnasol i'ch apêl",
+      "mobilityActivitiesHeader": "Gweithgareddau a disgrifyddion symudedd",
+      "mobilityActivitiesHeaderEmpty": "Safbwynt y tribiwnlys yw nad oes unrhyw weithgareddau symudedd sy’n berthnasol i'ch apêl",
+      "activitiesTable": {
+        "headerActivity": "Activity",
+        "headerDescriptor": "Disgrifydd",
+        "headerPoints": "Pwyntiau"
+      },
+      "activities": {
+        "dailyLiving": {
+          "preparingFood": {
+            "name": "Paratoi bwyd",
+            "scores": {
+              "0": {
+                "text": "Gallu paratoi a choginio pryd o fwyd syml heb help",
+                "score": 0
+              },
+              "4": {
+                "text": "Angen goruchwyliaeth neu gymorth i baratoi neu goginio pryd o fwyd syml",
+                "score": 4
+              },
+              "8": {
+                "text": "Ddim yn gallu paratoi na choginio bwyd",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Angen defnyddio cymhorthyn neu declyn er mwyn gallu paratoi neu goginio pryd o fwyd syml",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Ddim yn gallu coginio pryd o fwyd syml trwy ddefnyddio popty confensiynol ond yn gallu gwneud hynny trwy ddefnyddio microdon",
+                "score": 2
+              },
+              "2.2": {
+                "text": "Angen anogaeth i allu paratoi neu goginio pryd o fwyd syml",
+                "score": 2
+              }
+            }
+          },
+          "takingNutrition": {
+            "name": "Cymryd maeth",
+            "scores": {
+              "0": {
+                "text": "Gallu cymryd maeth heb gymorth",
+                "score": 0
+              },
+              "4": {
+                "text": "Angen anogaeth i allu cymryd maeth",
+                "score": 4
+              },
+              "6": {
+                "text": "Angen cymorth i allu rheoli ffynhonnell therapiwtig i gymryd maeth",
+                "score": 6
+              },
+              "8": {
+                "text": "Ddim yn gallu rhoi bwyd a diod yn eu ceg ac angen cymorth rhywun arall i allu gwneud hynny",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Angen naill ai:<ul><li>defnyddio cymhorthyn neu declyn i allu cymryd maeth</li><li>goruchwyliaeth i allu cymryd maeth</li><li>cymorth i allu torri bwyd yn ddarnau</li></ul>",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Angen ffynhonnell therapiwtig i allu cymryd maeth",
+                "score": 2
+              }
+            }
+          },
+          "managingTherapy": {
+            "name": "Rheoli therapi neu fonitro cyflwr iechyd",
+            "scores": {
+              "0": {
+                "text": "Naill ai:<ul><li>nid yw'n derbyn meddyginiaeth neu therapi neu nid oes angen monitro cyflwr iechyd; </li><li>neu gall reoli meddyginiaeth neu therapi neu fonitro cyflwr iechyd heb gymorth</li></ul>",
+                "score": 0
+              },
+              "1": {
+                "text": "Angen naill ai:<ul><li>defnyddio cymhorthyn neu offer i allu rheoli meddyginiaeth </li><li>goruchwyliaeth, anogaeth neu gymorth i allu rheoli meddyginiaeth neu fonitro cyflwr iechyd</li><li> goruchwyliaeth, anogaeth neu gymorth i allu monitro cyflwr iechyd</li></ul>",
+                "score": 1
+              },
+              "2": {
+                "text": "Angen goruchwyliaeth, anogaeth neu gymorth i allu rheoli therapi nad yw’n cymryd mwy na 3.5 awr yr wythnos",
+                "score": 2
+              },
+              "4": {
+                "text": "Angen goruchwyliaeth, anogaeth neu gymorth i allu rheoli therapi sy’n cymryd mwy na 3.5 awr yr wythnos ond llai na 7 awr yr wythnos",
+                "score": 4
+              },
+              "6": {
+                "text": "Angen goruchwyliaeth, anogaeth neu gymorth i allu rheoli therapi sy’n cymryd mwy na 7 awr yr wythnos ond llai na 14 awr yr wythnos",
+                "score": 6
+              },
+              "8": {
+                "text": "Angen goruchwyliaeth, anogaeth neu gymorth i allu rheoli therapi sy’n cymryd mwy na 14 awr yr wythnos",
+                "score": 8
+              }
+            }
+          },
+          "washingBathing": {
+            "name": "Ymolchi a chael bath/cawod",
+            "scores": {
+              "0": {
+                "text": "Gallu ymolchi a chael bath/cawod heb help",
+                "score": 0
+              },
+              "3": {
+                "text": "Angen cymorth i allu mynd i mewn neu allan o fath neu gawod",
+                "score": 3
+              },
+              "4": {
+                "text": "Angen cymorth i allu ymolchi eu corff rhwng eu hysgwyddau a’u wast",
+                "score": 4
+              },
+              "8": {
+                "text": "Ddim yn gallu ymolchi na chael bath/cawod o gwbl ac mae angen person arall i ymolchi eu corff cyfan",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Angen defnyddio cymhorthyn neu declyn i allu ymolchi neu gael bath/cawod",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Angen goruchwyliaeth neu anogaeth i ymolchi neu gael bath/cawod",
+                "score": 2
+              },
+              "2.2": {
+                "text": "Angen cymorth i allu golchi naill ai eu gwallt neu ymolchi eu corff yn is na’u wast",
+                "score": 2
+              }
+            }
+          },
+          "managingToilet": {
+            "name": "Rheoli anghenion toiled neu anymataliaeth",
+            "scores": {
+              "0": {
+                "text": "Gallu rheoli anghenion toiled neu anymataliaeth heb gymorth",
+                "score": 0
+              },
+              "4": {
+                "text": "Angen cymorth i allu rheoli anghenion toiled",
+                "score": 4
+              },
+              "6": {
+                "text": "Angen cymorth i allu rheoli anymataliaeth y bledren neu’r coluddyn",
+                "score": 6
+              },
+              "8": {
+                "text": "Angen cymorth i allu rheoli anymataliaeth y bledren a’r coluddyn",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Angen defnyddio cymhorthyn neu declyn i reoli anghenion toiled neu anymataliaeth",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Angen goruchwyliaeth neu anogaeth i allu rheoli anghenion toiled",
+                "score": 2
+              }
+            }
+          },
+          "dressingUndressing": {
+            "name": "Gwisgo a dadwisgo",
+            "scores": {
+              "0": {
+                "text": "Gallu gwisgo a dadwisgo heb gymorth",
+                "score": 0
+              },
+              "4": {
+                "text": "Angen cymorth i wisgo neu ddadwisgo rhan uchaf eu corff",
+                "score": 4
+              },
+              "8": {
+                "text": "Ddim yn gallu gwisgo na dadwisgo o gwbl",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Angen defnyddio cymhorthyn neu declyn i wisgo neu ddadwisgo",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Angen naill ai:<ul><li>anogaeth i wisgo, dadwisgo neu benderfynu ar amgylchiadau priodol i aros wedi gwisgo</li><li>anogaeth neu gymorth i ddewis dillad priodol</li></ul>",
+                "score": 2
+              },
+              "2.2": {
+                "text": "Angen cymorth i wisgo neu ddadwisgo rhan isaf eu corff",
+                "score": 2
+              }
+            }
+          },
+          "communicatingVerbally": {
+            "name": "Cyfathrebu ar Lafar",
+            "scores": {
+              "0": {
+                "text": "Gallu mynegi a deall gwybodaeth ar lafar heb gymorth",
+                "score": 0
+              },
+              "2": {
+                "text": "Angen defnyddio cymhorthyn neu declyn i allu siarad neu glywed",
+                "score": 2
+              },
+              "4": {
+                "text": "Angen cefnogaeth cyfathrebu i allu mynegi neu ddeall gwybodaeth gymhleth ar lafar",
+                "score": 4
+              },
+              "8": {
+                "text": "Angen cefnogaeth cyfathrebu i allu mynegi neu ddeall gwybodaeth syml ar lafar",
+                "score": 8
+              },
+              "12": {
+                "text": "Ddim yn gallu mynegi neu ddeall gwybodaeth ar lafar o gwbl, hyd yn oed gyda chefnogaeth cyfathrebu",
+                "score": 12
+              }
+            }
+          },
+          "readingAndUnderstanding": {
+            "name": "Darllen a deall arwyddion, symbolau a geiriau",
+            "scores": {
+              "0": {
+                "text": "Gallu darllen a deall gwybodaeth ysgrifenedig syml a chymhleth naill ai heb gymorth neu drwy wisgo sbectol neu lensys cyffwrdd",
+                "score": 0
+              },
+              "4": {
+                "text": "Angen anogaeth i ddarllen neu ddeall gwybodaeth ysgrifenedig syml",
+                "score": 4
+              },
+              "8": {
+                "text": "Ddim yn gallu darllen neu ddeall arwyddion, symbolau neu eiriau o gwbl",
+                "score": 8
+              },
+              "2.0": {
+                "text": "Angen defnyddio cymhorthyn neu declyn, ar wahân i sbectol neu lensys cyffwrdd, i ddarllen neu ddeall  gwybodaeth ysgrifenedig syml neu gymhleth",
+                "score": 2
+              },
+              "2.1": {
+                "text": "Angen anogaeth i ddarllen neu ddeall gwybodaeth ysgrifenedig gymhleth",
+                "score": 2
+              }
+            }
+          },
+          "engagingWithOtherPeople": {
+            "name": "Ymgysylltu â phobl eraill wyneb yn wyneb",
+            "scores": {
+              "0": {
+                "text": "Gallu ymgysylltu â phobl eraill heb gymorth",
+                "score": 0
+              },
+              "2": {
+                "text": "Angen anogaeth i ymgysylltu â phobl eraill",
+                "score": 2
+              },
+              "4": {
+                "text": "Angen cefnogaeth gymdeithasol i allu ymgysylltu â phobl eraill.",
+                "score": 4
+              },
+              "8": {
+                "text": "Ddim yn gallu ymgysylltu â phobl eraill oherwydd bydd y fath ymgysylltu yn achosi naill ai:<ul><li>pryder seicolegol aruthrol i’r hawlydd</li><li>i'r hawlydd ymddwyn mewn ffordd a fyddai’n arwain at risg sylweddol o niwed i'r hawlydd neu unigolyn arall</li></ul>",
+                "score": 8
+              }
+            }
+          },
+          "makingBudgetingDecisions": {
+            "name": "Gwneud Penderfyniadau Cyllidebol",
+            "scores": {
+              "0": {
+                "text": "Gallu gwneud penderfyniadau cyllidebol cymhleth heb gymorth",
+                "score": 0
+              },
+              "4": {
+                "text": "Angen anogaeth neu gymorth i allu gwneud penderfyniadau cyllidebol syml",
+                "score": 4
+              },
+              "6": {
+                "text": "Ddim yn gallu gwneud unrhyw benderfyniadau cyllidebol o gwbl",
+                "score": 6
+              },
+              "2": {
+                "text": "Angen anogaeth neu gymorth i allu gwneud penderfyniadau cyllidebol cymhleth",
+                "score": 2
+              }
+            }
+          }
+        },
+        "mobility": {
+          "planningFollowingJourneys": {
+            "name": "Cynllunio a dilyn teithiau",
+            "scores": {
+              "0": {
+                "text": "Gallu cynllunio a dilyn llwybr taith heb gymorth",
+                "score": 0
+              },
+              "4": {
+                "text": "Angen anogaeth i allu mynd ar unrhyw daith i osgoi gofid seicolegol aruthrol i'r hawlydd",
+                "score": 4
+              },
+              "8": {
+                "text": "Ddim yn gallu cynllunio llwybr taith",
+                "score": 8
+              },
+              "12": {
+                "text": "Ddim yn gallu dilyn llwybr taith anghyfarwydd heb unigolyn arall, ci cymorth neu gymhorthyn cyfeiriadu",
+                "score": 12
+              },
+              "10.0": {
+                "text": "Ddim yn gallu mynd ar unrhyw daith oherwydd y byddai’n peri gofid seicolegol aruthrol i'r hawlydd",
+                "score": 10
+              },
+              "10.1": {
+                "text": "Ddim yn gallu dilyn llwybr taith cyfarwydd heb unigolyn arall, ci cymorth neu gymhorthyn cyfeiriadu",
+                "score": 10
+              }
+            }
+          },
+          "movingAround": {
+            "name": "Symud o gwmpas",
+            "scores": {
+              "0": {
+                "text": "Gallu sefyll ac yna symud mwy na 200 metr, naill ai gyda chymorth neu heb gymorth",
+                "score": 0
+              },
+              "4": {
+                "text": "Gallu sefyll ac yna symud mwy na 50 metr ond ddim pellach na 200 metr, naill ai gyda chymorth neu heb gymorth",
+                "score": 4
+              },
+              "8": {
+                "text": "Gallu sefyll ac yna symud mwy nag 20 metr ond ddim pellach na 50 metr heb gymorth ",
+                "score": 8
+              },
+              "10": {
+                "text": "Gallu sefyll ac yna symud mwy nag 20 metr ond ddim pellach na 50 metr gan ddefnyddio cymhorthyn neu declyn",
+                "score": 10
+              },
+              "12.0": {
+                "text": "Gallu sefyll ac yna symud mwy nag 1 metr ond ddim pellach nag 20 metr, naill gyda chymorth neu heb gymorth",
+                "score": 12
+              },
+              "12.1": {
+                "text": "Ni all, naill ai gyda chymorth neu heb gymorth:< ul><li>sefyll</li><li>symud mwy nag 1 metr</li></ul>",
+                "score": 12
+              }
+            }
+          }
+        }
+      },
+      "whatNextPara": "Gallwch naill ai dderbyn y safbwynt hwn, neu os ydych eisiau anfon tystiolaeth bellach i'r tribiwnlys, yna gallwch ofyn am gael gwrandawiad. Gallwch ofyn i ffrind, aelod o’ch teulu neu weithiwr cefnogi am gymorth i wneud y penderfyniad hwn.",
+      "acceptHeader": "Ydych chi’n derbyn y safbwynt hwn?",
+      "acceptYes": "Rwy’n derbyn safbwynt y tribiwnlys",
+      "acceptNo": "Rwyf eisiau gwrandawiad",
+      "acceptRespondBy": "Anfonwch eich ymateb erbyn {{ respondBy }}.",
+      "submitResponse": "Cyflwyno eich ymateb",
+      "error": {
+        "emptyOnDecisionPick": "Rhaid ichi naill ai dderbyn safbwynt y tribiwnlys neu ofyn am gael gwrandawiad.",
+        "emptyOnConfirm": "Rhaid ichi ddweud os ydych eisiau derbyn y safbwynt ynteu fynd yn ôl."
+      }
+    },
+    "tribunalViewConfirm": {
+      "header": "Ydych chi’n siwr eich bod eisiau derbyn y safbwynt?",
+      "headerText": "Ni fyddwch yn gallu newid eich meddwl.",
+      "acceptYes": "Ydw, rwyf eisiau derbyn y safbwynt",
+      "acceptNo": "Nac ydw, rwyf eisiau mynd yn ôl",
+      "acceptHelp": "Os ydych angen cymorth i wneud penderfyniad yna gallwch siarad â’ch cynrychiolydd neu ffrind neu aelod o’ch teulu sy’n gyfarwydd â’ch cyflwr."
+    },
+    "tribunalViewAccepted": {
+      "header": "Rydych wedi derbyn safbwynt y tribiwnlys",
+      "para1": "Mae’r safbwynt hwn hefyd wedi’i gyfleu i DWP.",
+      "para2": "Os byddant yn ei dderbyn, bydd y penderfyniad yn cael ei gyhoeddi a bydd eich apêl yn cael ei chau.",
+      "para3": "Os byddant yn gofyn am gael gwrandawiad, gofynnir ichi os byddwch eisiau mynychu.",
+      "para4": "Byddwch yn cael neges e-bost yn dweud wrthych p’un a ydynt wedi derbyn y safbwynt ai peidio erbyn {{ nextCorrespondenceDate }}.",
+      "exitService": "Gadael y gwasanaeth hwn",
+      "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_2/?pageurl="
+    },
+    "tribunalDecision": {
+      "header": "Penderfyniad y tribiwnlys ynghylch eich apêl",
+      "outcome": {
+        "decision_accepted": "Mae eich apêl wedi bod yn llwyddiannus.",
+        "decision_rejected": "Nid yw eich apêl wedi bod yn llwyddiannus."
+      },
+      "reasonsHeader": "Mae penderfyniad wedi’i wneud ynghylch eich apêl budd-dal PIP",
+      "postInfo": "<p>Mae ‘Hysbysiad o Benderfyniad’ wedi cael ei anfon atoch trwy e-bost a’i bostio i'ch cyfeiriad cofrestredig.<p/><p>Sylwch, ni allwn roi’r penderfyniad ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol..</p>"
+    },
+    "hearingConfirm": {
+      "header": "Bydd panel tribiwnlys newydd yn gwneud penderfyniad ynghylch eich apêl",
+      "para": "Bydd panel tribiwnlys newydd yn gwneud penderfyniad ynghylch eich apêl. Gall hyn fod yn wahanol i'r safbwynt a roddwyd yn barod.",
+      "legend": "Ydych chi dal eisiau gwrandawiad?",
+      "error": {
+        "title": "Mae gwallau ar y dudalen hon",
+        "text": "Rydych angen dweud os ydych dal eisiau gwrandawiad"
+      }
+    },
+    "hearingWhy": {
+      "header": "Eglurwch pam eich bod eisiau gwrandawiad",
+      "info": "Nid yw eich rhesymau yn effeithio ar eich hawl i gael gwrandawiad.",
+      "error": {
+        "empty": "Nid ydych wedi rhoi unrhyw wybodaeth felly ni allwch gyflwyno’ch cais i gael gwrandawiad. Rhowch rywfaint o wybodaeth cyn arbed eich ateb.",
+        "maxCharacters": "Rydych wedi defnyddio mwy na 20,000 o nodau. Ceisiwch leihau faint rydych wedi ysgrifennu a rhowch gynnig arall arni.  "
+      },
+      "booking": {
+        "header": "Bydd angen trefnu gwrandawiad ar gyfer eich apêl",
+        "para1": "Byddwch yn cael neges e-bost gyda manylion eich gwrandawiad erbyn {{ responseDate }}.",
+        "para2": "Os byddwch angen ystafell wrandawiadau gyda mynediad i bobl anabl neu unrhyw gymorth arall yna anfonwch neges e-bost i'r tribiwnlys yn",
+        "para3": "Cofiwch nodi cyfeirnod eich apêl mewn unrhyw negeseuon e-bost i'r tribiwnlys:",
+        "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_4/?pageurl="
+      }
+    },
+    "postEvidence": {
+      "header": "Postio tystiolaeth i'r tribiwnlys",
+      "info": "Postiwch eich tystiolaeth i'r cyfeiriad isod.",
+      "postalAddress": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF",
+      "screenReaderPostalAddress": "HMCTS SSCS PO Box 12626 Harlow CM20 9QF",
+      "para1": "Rhaid ichi gynnwys copi o’r ‘dalen flaen tystiolaeth’ a gafodd ei hamgáu gyda’r llythyr cyntaf a gawsoch ynghylch eich apêl budd-dal. Gallwch <a href='/coversheet'>lawrlwytho dalen flaen newydd yma </a>, os ydych angen un.",
+      "para2": "Ceisiwch bostio’r dystiolaeth cyn gynted ag sy’n bosibl i osgoi unrhyw oedi gyda’ch apêl.",
+      "para3": "Os ydych yn credu y bydd oedi wrth anfon eich tystiolaeth i'r tribiwnlys, yna anfonwch neges e-bost i <a href='mailto:ymholiadaucymraeg@justice.gov.uk'>ymholiadaucymraeg@justice.gov.uk</a> yn disgrifio’n fras beth ydych yn ei anfon a phryd rydych yn credu y bydd yn cyrraedd."
+    },
+    "error": {
+      "error404": {
+        "header": "Mae’n ddrwg gennym, ni ellir dod o hyd i'r dudalen hon"
+      },
+      "error500": {
+        "header": "Mae’n ddrwg gennym, rydym yn cael anawsterau technegol",
+        "content": "Rhowch gynnig arall arni."
+      }
+    },
+    "general": {
+      "yes": "Ydw",
+      "no": "Nac Ydw",
+      "continue": "Parhau",
+      "backToQuestions": "Yn ôl i'r cwestiynau",
+      "back": "Yn ôl",
+      "exitService": "Gadael y gwasanaeth hwn",
+      "logo": "Welsh HMCTS LOGO",
+      "signOut": "Allgofnodi",
+      "delete": "Dileu",
+      "serviceTitle": "Apelio yn erbyn penderfyniad ynghylch budd-dal",
+      "sessionExpiryWarning": "Bydd eich sesiwn yn dod i ben ac fe gewch eich allgofnodi ar ôl 20 munud o anactifedd ",
+      "govUK": "GOV.UK",
+      "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
+      "tbc": "I’w gadarnhau"
+    },
+    "errorSummary": {
+      "titleText": "Mae yna broblem",
+      "descriptionText": "Bydd rhaid ichi gywiro’r gwallau cyn parhau",
+      "errorPageTitle": "Gwall:"
+    },
+    "contactUsCor": {
+      "title": "Cysylltu â ni",
+      "emailText": "Gallwch ofyn am gymorth trwy anfon neges e-bost i",
+      "includeRefNum": "Cofiwch gynnwys cyfeirnod eich apêl.",
+      "getBackIn": "Byddwn yn ymateb o fewn 2 ddiwrnod."
+    },
+    "contactUs": {
+      "title": "Cysylltwch â ni i gael cymorth",
+      "webform": {
+        "title": "Anfonwch neges atom",
+        "desc": "Fe gewch ateb ar ffurf neges e-bost o fewn 2 ddiwrnod gwaith.",
+        "link": "Anfon neges (agor mewn ffenestr newydd)"
+      },
+      "webchat": {
+        "title": "Sgwrsio dros y we",
+        "desc": "Gallwch gael cymorth trwy sgwrsio ag asiant ar-lein.",
+        "link": "Cychwyn sgwrs dros y we (agor mewn ffenestr newydd)",
+        "textChatDown": "Nid yw’r adnodd sgwrsio dros y we ar gael ar hyn o bryd; rhowch gynnig arall arni yn hwyrach ymlaen.",
+        "textChatWithAnAgent": "Cychwyn sgwrs dros y we (agor mewn ffenestr newydd)",
+        "textNoAgentsAvailable": "Nid oes asiant ar gael ar hyn o bryd; rhowch gynnig arall arni yn hwyrach ymlaen.",
+        "textAllAgentsBusy": "Mae ein hasiantau sgwrsio dros y we i gyd yn brysur ar hyn o bryd yn helpu pobl eraill. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
+        "textChatClosed": "Mae’r gwasanaeth sgwrsio dros y we nawr ar gau. Gallwch ddefnyddio’r gwasanaeth hwn o ddydd Llun i ddydd Gwener, 8.30am - 5pm, neu cysylltwch â ni drwy un o’r dulliau isod.",
+        "textChatAlreadyOpen": "Mae ffenestr sgwrsio dros y we ar agor yn barod.",
+        "textAdditional": "Dydd Llun i ddydd Gwener, 8.30am – 5pm."
+      },
+      "telephone": {
+        "title": "Ffoniwch ni",
+        "desc": "Siaradwch ag un o’n asiantau dros y ffôn nawr.",
+        "England": {
+          "desc": "Llinell gymorth apeliadau budd-daliadau (Cymru a Lloegr - Siaradwyr Cymraeg)",
+          "phone": "Rhif ffôn: 0300 303 5170",
+          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5.00pm.",
+          "saturdayAvailability": "",
+          "emailText": "E-bost:",
+          "emailAddress": "ymholiadaucymraeg@justice.gov.uk",
+          "charges": "Gwybodaeth am brisiau galwadau"
+        },
+        "Scotland": {
+          "desc": "Llinell gymorth apeliadau budd-daliadau (Yr Alban)",
+          "phone": "Rhif ffôn: 0300 790 6234",
+          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5.00pm.",
+          "emailText": "E-bost:",
+          "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
+          "charges": "Gwybodaeth am brisiau galwadau"
+        }
+      }
+    },
+    "cookieBanner": {
+      "message": "Mae GLlTEM yn defnyddio cwcis i wneud y wefan yn symlach.",
+      "link": "Mwy o wybodaeth am gwcis"
+    },
+    "cookiePrivacy": {
+      "titleHead": "Polisi Cwcis – Gwasanaeth apelio yn erbyn penderfyniad ynghylch budd-dal - GOV.UK",
+      "footer": {
+        "cookies": "Cwcis"
+      },
+      "cookies": {
+        "title": "Cwcis",
+        "description": "Darn bach o ddata sy'n cael ei storio ar eich cyfrifiadur, eich tabled neu eich ffôn symudol pan fyddwch yn ymweld â gwefan yw cwci. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio'n iawn."
+      },
+      "usedInService": {
+        "title": "Sut ydym yn defnyddio cwcis yn y gwasanaeth hwn",
+        "uses": "Mae’r gwasanaeth hwn yn eu defnyddio i:",
+        "usesList": [
+          "fesur sut ydych yn defnyddio’r gwasanaeth fel y gallwn ei wella",
+          "cofio'r hysbysiadau rydych wedi'u gweld fel na fyddwch yn eu gweld eto",
+          "storio’r atebion a roddwch dros dro"
+        ],
+        "more": "Mwy o wybodaeth am",
+        "manage": "sut i reoli cwcis."
+      },
+      "howAreTheyUsed": {
+        "title": "Rydym yn defnyddio meddalwedd Google Analytics i gasglu gwybodaeth am sut rydych yn defnyddio'r gwasanaeth hwn. Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu anghenion defnyddwyr ac i'n helpu i wneud gwelliannau, er enghraifft gwella’r cyfleuster chwilio.",
+        "description": "Mae Google Analytics yn storio gwybodaeth am:",
+        "info": "",
+        "infoList": [
+          "y tudalennau yr ydych yn ymweld â hwy",
+          "faint o amser y byddwch yn ei dreulio ar bob tudalen",
+          "sut y daethoch o hyd i’r gwasanaeth",
+          "yr hyn rydych chi'n clicio arno wrth ddefnyddio'r gwasanaeth"
+        ],
+        "googleShare": "Rydym yn caniatáu i Google ddefnyddio neu rannu’r data hwn. Gallwch ddarganfod mwy am sut maent yn defnyddio’r wybodaeth hon ym ",
+        "googlePrivacyPolicy": "mholisi preifatrwydd Google.",
+        "optOut": {
+          "youCan": "Gallwch ",
+          "google": "optio allan o Google Analytics ",
+          "access": "os nad ydych eisiau i Google gael mynediad at eich gwybodaeth."
+        },
+        "googleCookies": "Mae Google Analytics yn gosod y cwcis canlynol:",
+        "cookieTable": {
+          "columnNames": [
+            "Enw’r cwci",
+            "Pwrpas y cwci",
+            "Darfod ymhen"
+          ],
+          "items": [
+            {
+              "name": "_ga",
+              "purpose": "Mae hyn yn ein helpu i gyfrif faint o bobl sy'n ymweld â'r gwasanaeth drwy olrhain os ydych wedi ymweld o'r blaen",
+              "expires": "2 flynedd"
+            },
+            {
+              "name": "_gid",
+              "purpose": "Gadael i'r gwasanaeth wybod pwy ydych chi",
+              "expires": "24 awr"
+            }
+          ]
+        }
+      },
+      "introMessage": {
+        "title": "Cwcis a ddefnyddir i droi ein neges gyflwyno i ffwrdd",
+        "description": "Efallai y byddwch yn gweld neges groeso pan fyddwch yn ymweld â'r gwasanaeth am y tro cyntaf. Byddwn yn storio cwci ar eich cyfrifiadur fel ei fod yn gwybod i beidio â'i dangos eto.",
+        "cookieTable": {
+          "columnNames": [
+            "Enw’r cwci",
+            "Pwrpas y cwci",
+            "Darfod ymhen"
+          ],
+          "items": [
+            {
+              "name": "seen_cookie_message",
+              "purpose": "Arbed neges i roi gwybod inni eich bod wedi gweld ein neges ynglyn â chwcis",
+              "expires": "1 mis"
+            }
+          ]
+        }
+      },
+      "sessionCookie": {
+        "title": "Cwcis a ddefnyddir i storio’r atebion a roesoch yn ystod eich ymweliad (gelwir hyn yn ‘sesiwn’)",
+        "description": "Caiff cwcis sesiwn eu storio ar eich cyfrifiadur wrth ichi fynd drwy wefan, ac maent yn gadael i'r wefan wybod beth rydych wedi'i weld a'i wneud hyd yn hyn. Cwcis dros dro yw'r rhain ac fe'u dilëir yn awtomatig ychydig ar ôl ichi adael y wefan.",
+        "cookieTable": {
+          "columnNames": [
+            "Enw’r cwci",
+            "Pwrpas y cwci",
+            "Darfod ymhen"
+          ],
+          "items": [
+            {
+              "name": "connect.sid",
+              "purpose": "Cadw cofnod o’ch atebion",
+              "expires": "Pan fyddwch chi’n cau eich porwr"
+            },
+            {
+              "name": "ARRAffinity",
+              "purpose": "Gwybod i ba IP y dylid cyfeirio cais ",
+              "expires": "Pan fyddwch chi’n cau eich porwr"
+            }
+          ]
+        }
+      }
+    },
+    "cookieTimeOut": {
+      "modal": {
+        "title": "A ydych chi eisiau rhagor o amser i barhau?",
+        "body": [
+          "Bydd eich sesiwn yn dod i ben mewn",
+          "munud a byddwch yn cael eich allgofnodi’n awtomatig."
+        ],
+        "info": "Byddwch yn colli unrhyw wybodaeth rydych wedi’i rhoi sydd heb gael ei harbed.",
+        "extend": "Aros wedi mewngofnodi",
+        "cancel": "Allgofnodi"
+      }
+    },
+    "additionalEvidence": {
+      "evidenceOptions": {
+        "header": "Sut ydych chi eisiau darparu gwybodaeth ychwanegol?",
+        "error": {
+          "noButtonSelected": "Dewiswch pa ddull yr hoffech ei ddefnyddio i ddarparu gwybodaeth ychwanegol"
+        }
+      },
+      "evidenceStatement": {
+        "header": "Darparu eich gwybodaeth ar-lein",
+        "description": "Beth ydych chi eisiau dweud wrth y tribiwnlys? Gall hyn fod yn dystiolaeth bellach neu, er enghraifft, gofyn am gael ychwanegu cynrychiolydd ",
+        "placeholder": "Gallwch ysgrifennu faint bynnag a fynnoch",
+        "label": "Datganiad ychwanegol wedi’i ffeilio",
+        "button": "Cyflwyno eich datganiad i'r tribiwnlys"
+      },
+      "evidenceUpload": {
+        "header": "Llwytho tystiolaeth ychwanegol",
+        "description": {
+          "para1": "Gallwch lwytho llythyrau, dogfennau neu ffotograffau. Er enghraifft, gallwch dynnu ffotograff o lythyr gan eich meddyg a’i lwytho. Os byddwch yn tynnu ffotograff, gwnewch yn siwr bod y llythyr neu’r ddogfen yn gorwedd ar wyneb fflat a bod y ffotograff yn cael ei dynnu o uwchben.",
+          "para2": "Mae tystiolaeth ddefnyddiol yn disgrifio neu’n dangos sut mae eich cyflwr yn effeithio ar eich bywyd. <a href='/about-evidence'><br>Darllenwch fwy am ba fath o dystiolaeth sy’n ddefnyddiol i'r tribiwnlys</a>"
+        },
+        "error": {
+          "emptyDescription": "Nid ydych wedi rhoi disgrifiad. Rhowch ddisgrifiad bras o’r dystiolaeth rydych eisiau ei llwytho.",
+          "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau."
+        }
+      },
+      "evidencePost": {
+        "header": "Postio tystiolaeth i'r tribiwnlys",
+        "subtitle": "Postiwch eich tystiolaeth i’r cyfeiriad a nodir isod cyn gynted ag sy’n bosibl. Mae hyn er mwyn caniatáu amser i'r tribiwnlys ei darllen cyn iddynt wneud penderfyniad ynghylch eich apêl.",
+        "description": {
+          "para1": "Cofiwch nodi cyfeirnod eich apêl ar unrhyw dystiolaeth byddwch yn ei hanfon."
+        }
+      },
+      "evidenceConfirm": {
+        "header": "Rydych wedi cyflwyno tystiolaeth ychwanegol",
+        "description": "Bydd yn cael ei hadolygu gan y tribiwnlys a’i hystyried fel rhan o’ch apêl.",
+        "link": "Dychwelyd i'ch apêl budd-dal PIP"
+      },
+      "about": {
+        "header": "Anfon tystiolaeth i gefnogi eich apêl",
+        "leadParagraph": "Tystiolaeth yw unrhyw wybodaeth sy’n cefnogi’ch apêl, fel llythyr, datganiad ysgrifenedig neu adroddiad meddygol. Mae’n helpu’r tribiwnlys i ddeall ffeithiau eich apêl.",
+        "intro": {
+          "para1": "Dylech anfon unrhyw dystiolaeth sydd gennych cyn gynted ag sy’n bosibl. Mae hyn er mwyn caniatáu amser i'r tribiwnlys ei hystyried cyn iddynt wneud penderfyniad ynghylch eich apêl.",
+          "para2": "Gallwch anfon tystiolaeth ar-lein neu drwy’r post. Cewch ragor o wybodaeth am sut i'w hanfon ar waelod y dudalen hon."
+        },
+        "types": {
+          "medical": {
+            "header": "Tystiolaeth feddygol",
+            "para1": "Mae’r math hwn o dystiolaeth yn helpu’r tribiwnlys i ddeall eich cyflwr o safbwynt gweithiwr proffesiynol meddygol. Er enghraifft, llythyrau rydych wedi’u cael gan eich ymgynghorydd ysbyty, eich meddyg, eich ffisiotherapydd neu’ch gweithiwr cymdeithasol. Mae llythyr defnyddiol yn egluro sut oedd eich cyflwr yn effeithio ar eich bywyd ar yr adeg gwnaed y penderfyniad gan y DWP. Nid yw llythyrau apwyntiadau yn ddefnyddiol.",
+            "para2": "Os nad oes gennych unrhyw lythyrau ac rydych yn credu y byddai cael un yn eich helpu gyda’ch apêl, gallwch ofyn i’r gweithiwr proffesiynol meddygol sydd wedi bod yn trin eich cyflwr i ysgrifennu un. Sylwch, gallant godi ffi arnoch am wneud hyn a gall gymryd cryn amser i'w drefnu. Ni all y tribiwnlys dalu am y rhain."
+          },
+          "statement": {
+            "header": "Datganiad ysgrifenedig",
+            "para1": "Gall rhywun sy’n byw gyda chi neu’n eich adnabod yn dda ysgrifennu datganiad. Mae datganiad defnyddiol yn disgrifio sut mae eich cyflwr yn effeithio ar eich bywyd ac yn cynnwys y mathau o weithgareddau y gallwch eu gwneud a’r rhai na allwch eu gwneud. Dylai’r datganiad gyfleu eu safbwynt nhw.",
+            "para2": "Gellir ei ysgrifennu â llaw neu ei deipio ond rhaid i'r unigolyn sydd wedi’i ysgrifennu ei lofnodi. Dylai hefyd nodi beth yw eu perthynas â chi."
+          },
+          "photographic": {
+            "header": "Tystiolaeth ffotograffig",
+            "para1": "Bydd ffotograff defnyddiol yn dangos sut mae eich cyflwr yn effeithio ar eich bywyd, er enghraifft, gallwch dynnu llun o unrhyw declynnau cymorth rydych yn eu defnyddio i'ch helpu i symud. Peidiwch ag anfon unrhyw ffotograffau o’ch corff."
+          },
+          "oral": {
+            "header": "Tystiolaeth lafar",
+            "para1": "Gelwir yr hyn rydych chi neu unrhyw un arall yn ei ddweud mewn gwrandawiad (os byddwch yn cael un) yn ‘dystiolaeth lafar’. Bydd y tribiwnlys yn defnyddio’r hyn a gaiff ei ddweud i’w helpu i wneud penderfyniad ynghylch eich apêl.",
+            "para2": "Os byddwch yn cael gwrandawiad yna gallwch wahodd rhywun sy’n eich adnabod yn dda i ddod iddo ac i ddweud wrth y tribiwnlys am eich cyflwr. Dylech wneud yn siwr eu bod yn fodlon dod a'u bod ar gael ar ddyddiad y gwrandawiad."
+          }
+        },
+        "howto": {
+          "header": "Sut i anfon tystiolaeth i'r tribiwnlys",
+          "para1": "Gallwch anfon tystiolaeth i'r tribiwnlys drwy:",
+          "options": "<ul><li>ysgrifennu neges ar-lein</li><li>llwytho ffeiliau, dogfennau neu ffotograffau</li><li>ei hanfon drwy’r post</li></ul>",
+          "cta": "<a href='/additional-evidence'>Anfon tystiolaeth i'r tribiwnlys</a>"
+        }
+      }
+    },
+    "yourDetails": {
+      "header": "Manylion yr apêl",
+      "contact": "Os yw unrhyw un o’r manylion yn anghywir, cysylltwch â ni. Gweler y manylion cyswllt isod.",
+      "nameLabel": "Enw",
+      "addressLabel": "Cyfeiriad",
+      "phoneLabel": "Rhif ffôn cyswllt",
+      "emailLabel": "",
+      "emailLabelCy1": "Cyfeiriad e-bost",
+      "emailLabelCy2": "ar gyfer cael diweddariadau",
+      "mobileLabel": "eisiau diweddariadau ar ffurf negeseuon testun",
+      "contactPhoneLabel": "Rhif ffôn symudol",
+      "notProvided": "Heb ei ddarparu"
+    },
+    "contact": {
+      "phone": "Rhif ffôn cyswllt yr Apelydd",
+      "mobile": "Rhif ffôn cyswllt yr Apelydd (ffôn symudol)",
+      "email": "Cyfeiriad e-bost yr Apelydd"
+    },
+    "statusTab": {
+      "tabHeader": "Statws",
+      "header": "Statws eich apêl",
+      "panelHeader": "Diweddariad diweddaraf"
+    },
+    "provideEvidenceTab": {
+      "tabHeader": "Anfon tystiolaeth",
+      "header": "Anfon tystiolaeth i'r tribiwnlys",
+      "corCase": {
+        "header": "Gwybodaeth a ofynnwyd amdani gan y tribiwnlys",
+        "noQuestions": "Nid yw’r tribiwnlys wedi gofyn am unrhyw wybodaeth gennych. Byddwch yn cael neges e-bost os byddant yn gwneud hynny."
+      },
+      "additionalEvidence": {
+        "header": "Anfon tystiolaeth i'r tribiwnlys",
+        "content": "Os oes gennych ragor o wybodaeth yr ydych eisiau i'r tribiwnlys ei hystyried fel rhan o’ch apêl, yna gallwch <a id='evidence-options-link' href='/additional-evidence'>gyflwyno eich tystiolaeth</a> yma."
+      }
+    },
+    "hearingTab": {
+      "tabHeader": "Gwrandawiad",
+      "header": "Y gwrandawiad ar gyfer eich apêl ",
+      "noHearingDate": "Byddwch yn cael neges e-bost pan fydd eich gwrandawiad wedi’i drefnu.",
+      "notAttendingDescription": "Gwneir penderfyniad ynghylch eich apêl budd-dal mewn gwrandawiad tribiwnlys, gan ddefnyddio’r wybodaeth rydych chi a’r Adran Gwaith a Phensiynau wedi’i chyflwyno. Yna byddwch yn cael y penderfyniad pan fydd y gwrandawiad wedi digwydd. Ni allwn ddweud yn union pa bryd fydd hyn.",
+      "toBeConfirmed": "I’w gadarnhau",
+      "mapsAndDirections": "Map a chyfarwyddiadau",
+      "languageInterpreter": "Cyfieithydd",
+      "signInterpreter": "Dehonglydd iaith arwyddion",
+      "hearingLoop": "Dolen glyw",
+      "disableAccess": "Mynediad i bobl anabl",
+      "otherArrangements": "Unrhyw drefniadau eraill",
+      "tribunalLookLike": "Canfod mwy am sut brofiad bydd gwrandawiad tribiwnlys os byddwch yn mynychu",
+      "contactIfChanges": "Os oes arnoch angen gwneud unrhyw newidiadau neu os na allwch fynychu, cysylltwch â ni drwy ddefnyddio’r  manylion isod.",
+      "notAttending": {
+        "info": "Rydych wedi dewis peidio â mynychu eich gwrandawiad.",
+        "description": "Gwneir penderfyniad ynghylch eich apêl budd-dal mewn gwrandawiad tribiwnlys, gan ddefnyddio’r wybodaeth rydych chi a’r Adran Gwaith a Phensiynau wedi’i chyflwyno. Yna byddwch yn cael y penderfyniad pan fydd y gwrandawiad wedi digwydd. Ni allwn ddweud yn union pa bryd fydd hyn.",
+        "contactToAttend": "Os oes arnoch angen gwneud unrhyw newidiadau neu os na allwch fynychu, cysylltwch â ni drwy ddefnyddio’r  manylion isod."
+      },
+      "required": "Gofynnol",
+      "notRequired": "Ddim yn ofynnol"
+    },
+    "historyTab": {
+      "tabHeader": "Hanes",
+      "header": "Hanes eich apêl "
+    },
+    "appealEvents": {
+      "ADJOURNED": {
+        "heading": "Ni chynhaliwyd y gwrandawiad",
+        "content": {
+          "oral": [
+            "Ni chafodd gwrandawiad eich apêl {{appeal.benefitType | agencyAcronym}} ei gynnal fel y rhestrwyd oherwydd roedd y tribiwnlys yn teimlo nad oedd modd gwneud hynny. Cewch lythyr mewn ychydig ddyddiau yn egluro’r rhesymau. Darllenwch y llythyr oherwydd efallai gofynnir ichi ddarparu gwybodaeth bellach i'r tribiwnlys.",
+            "Byddwch yn cael neges e-bost arall neu neges destun pan fydd eich gwrandawiad newydd wedi’i drefnu."
+          ],
+          "paper": [
+            "Ni chafodd gwrandawiad eich apêl {{appeal.benefitType | agencyAcronym}} ei gynnal fel y rhestrwyd oherwydd roedd y tribiwnlys yn teimlo nad oedd modd gwneud hynny. Cewch lythyr mewn ychydig ddyddiau yn egluro’r rhesymau. Darllenwch y llythyr oherwydd efallai gofynnir ichi ddarparu gwybodaeth bellach i'r tribiwnlys.",
+            "Byddwch yn cael neges e-bost arall neu neges destun pan fydd eich gwrandawiad newydd wedi’i drefnu."
+          ]
+        }
+      },
+      "WITH_DWP": {
+        "heading": "Apêl wedi cyrraedd",
+        "content": {
+          "oral": [
+            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+          ],
+          "paper": [
+            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+          ]
+        }
+      },
+      "APPEAL_RECEIVED": {
+        "heading": "Apêl wedi cyrraedd",
+        "content": {
+          "oral": [
+            "Mae eich apêl wedi cyrraedd ac rydym yn ei hadolygu. Byddwn yn cysylltu â chi gyda diweddariad yn fuan. Peidiwch ag ailgyflwyno eich apêl "
+          ],
+          "paper": [
+            "Mae eich apêl wedi cyrraedd ac rydym yn ei hadolygu. Byddwn yn cysylltu â chi gyda diweddariad yn fuan. Peidiwch ag ailgyflwyno eich apêl"
+          ]
+        }
+      },
+      "CLOSED": {
+        "heading": "Apêl wedi’i chau",
+        "content": {
+          "oral": [
+            "Dylai fod y diweddariad diweddaraf am eich apêl wedi cael ei anfon atoch. Os oes gennych unrhyw gwestiynau eraill, cysylltwch â ni."
+          ],
+          "paper": [
+            "Dylai fod y diweddariad diweddaraf am eich apêl wedi cael ei anfon atoch. Os oes gennych unrhyw gwestiynau eraill, cysylltwch â ni."
+          ]
+        }
+      },
+      "DORMANT": {
+        "heading": "Cynhaliwyd gwrandawiad",
+        "content": {
+          "oral": [
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
+            "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
+          ],
+          "paper": [
+            "Mae’r tribiwnlys wedi adolygu’r holl wybodaeth rydych chi a {{appeal.benefitType | agencyAcronym}} wedi’i darparu ac wedi gwneud penderfyniad ynghylch eich apêl {{appeal.benefitType}}.",
+            "Mae’r hysbysiad o benderfyniad wedi cael ei anfon atoch drwy'r post. Mae’n cynnwys penderfyniad y tribiwnlys a’u rhesymau. Dylech ei gael erbyn {{date|dateForDecisionReceived}}.",
+            "Sylwch, ni allwn roi’r penderfyniad ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol."
+          ]
+        }
+      },
+      "DWP_RESPOND": {
+        "heading": "Ymateb {{appeal.benefitType | agencyAcronym}} ",
+        "content": {
+          "oral": [
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl budd-dal {{appeal.benefitType | benefitAcronym}}. Dylent fod wedi anfon copi o’u hymateb atoch drwy’r post.",
+            "Nid oes angen ichi wneud unrhyw beth. Byddwch yn cael neges e-bost arall neu neges testun gyda diweddariad pan fydd eich gwrandawiad wedi’i drefnu. Yn anffodus ni allwn ddweud pryd y bydd hyn, ond gall fod ymhen sawl mis."
+          ],
+          "paper": [
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitAcronym}}. Dylent fod wedi anfon copi atoch drwy’r post. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
+            "Bydd panel tribiwnlys sy’n cynnwys {{appeal.benefitType|panel}} yn cynnal gwrandawiad ar gyfer eich apêl. Rydych wedi dweud wrthym nad ydych eisiau mynychu, felly byddwch yn cael y penderfyniad drwy’r post, ar ôl i'r gwrandawiad gael ei gynnal. Yn anffodus ni allwn ddweud yn union pa bryd fydd hyn, ond gall fod ymhen sawl mis."
+          ]
+        }
+      },
+      "DWP_RESPOND_OVERDUE": {
+        "heading": "{{appeal.benefitType | agencyAcronym}} ymateb yn hwyr",
+        "content": {
+          "oral": [
+            "Roedd {{appeal.benefitType | agencyAcronym}} i fod i ymateb i'ch apêl ond nid ydynt wedi gwneud hynny. Nid oes rhaid ichi wneud unrhyw beth. Rydym wedi cysylltu â nhw eto yn gofyn iddynt ymateb. Byddwn yn rhoi gwybod ichi pan fyddant yn gwneud hynny."
+          ],
+          "paper": [
+            "Roedd {{appeal.benefitType | agencyAcronym}} i fod i ymateb i'ch apêl ond nid ydynt wedi gwneud hynny. Nid oes rhaid chi wneud unrhyw beth. Rydym wedi cysylltu â nhw eto yn gofyn iddynt ymateb. Byddwn yn rhoi gwybod ichi pan fyddant yn gwneud hynny."
+          ]
+        }
+      },
+      "EVIDENCE_RECEIVED": {
+        "heading": "Tystiolaeth wedi cyrraedd",
+        "content": {
+          "oral": [
+            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}."
+          ],
+          "paper": [
+            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}."
+          ]
+        }
+      },
+      "HEARING": {
+        "heading": "Gwrandawiad wedi’i gynnal",
+        "content": {
+          "oral": [
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
+          ],
+          "paper": [
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
+          ]
+        }
+      },
+      "HEARING_BOOKED": {
+        "heading": "Gwrandawiad wedi’i drefnu",
+        "content": {
+          "oral": [
+            "Mae gwrandawiad wedi’i drefnu ar gyfer eich apêl."
+          ],
+          "paper": [
+            "Mae gwrandawiad wedi’i drefnu ar gyfer eich apêl."
+          ]
+        }
+      },
+      "LAPSED_REVISED": {
+        "heading": "Newid penderfyniad",
+        "content": {
+          "oral": [
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi dweud wrthym eu bod wedi newid eu penderfyniad ynghylch eich hawl i gael {{appeal.benefitType | benefitAcronym}} i fod o’ch plaid. Rydym felly wedi cau’r apêl hon. Os nad ydych yn cytuno â’r penderfyniad newydd, gallwch ddechrau apêl newydd.",
+            "Os oes gennych unrhyw gwestiynau ynglyn â’ch budd-daliadau, cysylltwch â {{appeal.benefitType | agencyAcronym}}. Gallwch ddod o hyd i’w manylion cyswllt ar unrhyw ohebiaeth rydych wedi’i chael ganddynt."
+          ],
+          "paper": [
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi dweud wrthym eu bod wedi newid eu penderfyniad ynghylch eich hawl i gael {{appeal.benefitType | benefitAcronym}} i fod o’ch plaid. Rydym felly wedi cau’r apêl hon.",
+            "Os nad ydych yn cytuno â’r penderfyniad newydd, gallwch ddechrau apêl newydd: <a href=\"https://www.gov.uk/appeal-benefit-decision\">https://www.gov.uk/appeal-benefit-decision</a>",
+            "Os oes gennych unrhyw gwestiynau ynglyn â’ch budd-daliadau, cysylltwch â {{appeal.benefitType | agencyAcronym}}. Gallwch ddod o hyd i’w manylion cyswllt ar unrhyw ohebiaeth rydych wedi’i chael ganddynt."
+          ]
+        }
+      },
+      "NEW_HEARING_BOOKED": {
+        "heading": "Gwrandawiad newydd wedi’i drefnu",
+        "content": {
+          "oral": [
+            "Mae gwrandawiad newydd wedi’i drefnu ar gyfer eich apêl."
+          ],
+          "paper": [
+            "Mae gwrandawiad newydd wedi’i drefnu ar gyfer eich apêl."
+          ]
+        }
+      },
+      "PAST_HEARING_BOOKED": {
+        "heading": "Wrthi’n trefnu gwrandawiad",
+        "content": {
+          "oral": [
+            "Rydym dal wrthi’n trefnu dyddiad ar gyfer eich apêl budd-dal {{appeal.benefitType | benefitAcronym}}. Ymddiheurwn am yr oedi. Mae’r ganolfan wrandawiadau yn brysurach na’r disgwyl. Byddwn yn cysylltu â chi unwaith y byddwn wedi trefnu dyddiad ar gyfer eich gwrandawiad."
+          ],
+          "paper": [
+            "Rydym dal wrthi’n trefnu dyddiad ar gyfer eich apêl budd-dal {{appeal.benefitType | benefitAcronym}}. Ymddiheurwn am yr oedi. Mae’r ganolfan wrandawiadau yn brysurach na’r disgwyl. Byddwn yn cysylltu â chi unwaith y byddwn wedi trefnu dyddiad ar gyfer eich gwrandawiad."
+          ]
+        }
+      },
+      "POSTPONED": {
+        "heading": "Gwrandawiad wedi’i ohirio",
+        "content": {
+          "oral": [
+            "Mae’r gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} wedi’i ohirio a bydd nawr yn cael ei gynnal ar ddiwrnod gwahanol.",
+            "Nid oes angen ichi wneud unrhyw beth. Byddwn yn trefnu gwrandawiad newydd ar eich cyfer cyn gynted ag y gallwn."
+          ],
+          "paper": [
+            "Mae’r gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} wedi’i ohirio a bydd nawr yn cael ei gynnal ar ddiwrnod gwahanol.",
+            "Nid oes angen ichi wneud unrhyw beth. Byddwn yn trefnu gwrandawiad newydd ar eich cyfer cyn gynted ag y gallwn."
+          ]
+        }
+      },
+      "WITHDRAWN": {
+        "heading": "Apêl wedi’i thynnu’n ôl",
+        "content": {
+          "oral": [
+            "Bu ichi ddweud wrthym eich bod eisiau tynnu eich apêl yn ôl ac felly rydym wedi’i chau.",
+            "Os oes gennych unrhyw gwestiynau ynglyn â’ch budd-daliadau, cysylltwch â {{appeal.benefitType | agencyAcronym}}. Gallwch ddod o hyd i’w manylion cyswllt ar unrhyw ohebiaeth rydych wedi’i chael ganddynt."
+          ],
+          "paper": [
+            "Bu ichi ddweud wrthym eich bod eisiau tynnu eich apêl yn ôl ac felly rydym wedi’i chau.",
+            "Os oes gennych unrhyw gwestiynau ynglyn â’ch budd-daliadau, cysylltwch â {{appeal.benefitType | agencyAcronym}}. Gallwch ddod o hyd i’w manylion cyswllt ar unrhyw ohebiaeth rydych wedi’i chael ganddynt."
+          ]
+        }
+      },
+      "SYA_APPEAL_CREATED": {
+        "heading": "Apêl wedi’i chreu - i’w gadarnhau",
+        "content": {
+          "cor": [
+            "Cynnwys – i’w gadarnhau"
+          ]
+        }
+      }
+    },
+    "benefitTypes": {
+      "esa": {
+        "acronym": "ESA",
+        "fullDescription": "Lwfans Cyflogaeth a Chymorth (ESA)",
+        "agency": "Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr a meddyg"
+      },
+      "pip": {
+        "acronym": "PIP",
+        "fullDescription": "Taliad Annibyniaeth Personol (PIP)",
+        "agency": "Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anabledd"
+      },
+      "uc": {
+        "acronym": "UC",
+        "fullDescription": "Credyd Cynhwysol (UC)",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anableddau"
+      }
+    },
+    "helpGuides": {
+      "header": "Cymorth a chefnogaeth",
+      "evidence": {
+        "title": "Anfon tystiolaeth i gefnogi eich apêl",
+        "entry": "Tystiolaeth yw unrhyw wybodaeth sy’n cefnogi’ch apêl, fel llythyr, datganiad ysgrifenedig neu adroddiad meddygol. Gall helpu’r tribiwnlys i ddeall ffeithiau eich apêl. Nid oes rhaid ichi anfon tystiolaeth ond gall helpu eich apêl. ",
+        "para1": "Dylech anfon unrhyw dystiolaeth i'r tribiwnlys cyn gynted ag sy’n bosibl. Mae hyn er mwyn rhoi amser i'r tribiwnlys ei hystyried cyn iddynt wneud penderfyniad ynghylch eich apêl.",
+        "medicalEvidenceTitle": "Tystiolaeth feddygol",
+        "medicalEvidenceDesc": {
+          "para1": "Mae’r math hwn o dystiolaeth yn ddefnyddiol mewn achosion lle’r ydych eisiau dangos bod gennych gyflwr meddygol. Gall llythyr gan eich meddyg, ffisiotherapydd, gweithiwr cymdeithasol neu ymgynghorydd ysbyty helpu i brofi hyn. Bydd llythyr defnyddiol yn egluro sut mae eich cyflwr yn effeithio ar eich bywyd. Dylai hefyd ganolbwyntio ar yr adeg y gwnaeth DWP eu penderfyniad ynghylch eich hawl i gael y budd-dal. Nid yw llythyrau apwyntiadau yn ddefnyddiol.",
+          "para2": "Sylwch, gall eich meddyg godi ffi arnoch am ysgrifennu llythyr. Ni all y tribiwnlys ad-dalu'r costau hyn."
+        },
+        "writtenStatementTitle": "Datganiad ysgrifenedig",
+        "writtenStatementDesc": {
+          "para1": "Gall rhywun sy’n byw gyda chi neu rywun sy’n eich adnabod yn dda ysgrifennu datganiad neu lythyr. Mae datganiad defnyddiol yn disgrifio sut mae eich cyflwr yn effeithio ar eich bywyd a’r mathau o weithgareddau y gallwch eu gwneud a’r rhai na allwch eu gwneud. Dylai’r datganiad gyfleu eu safbwynt nhw. Dylai hefyd ganolbwyntio ar yr adeg y gwnaeth DWP eu penderfyniad ynghylch eich hawl i gael y budd-dal.",
+          "para2": "Gellir ei ysgrifennu â llaw neu ei deipio ond rhaid i'r unigolyn sydd wedi’i ysgrifennu ei lofnodi. Dylai hefyd nodi beth yw eu perthynas gyda chi."
+        },
+        "photographsTitle": "Ffotograffau",
+        "photographsDesc": {
+          "para1": "Weithiau gall ffotograff fod yn ddefnyddiol i helpu i ddangos i'r tribiwnlys sut mae eich cyflwr meddygol yn effeithio ar eich bywyd. Er enghraifft, gallwch dynnu llun o unrhyw addasiadau yn eich cartref, neu unrhyw declynnau cymorth rydych yn eu defnyddio i'ch helpu i symud. Peidiwch ag anfon unrhyw ffotograffau o’ch corff."
+        },
+        "whatYouSayTitle": "Yr hyn byddwch yn ei ddweud yn y gwrandawiad",
+        "whatYouSayDesc": {
+          "para1": "Gall yr hyn byddwch yn ei ddweud yn y gwrandawiad fod y math mwyaf defnyddiol o dystiolaeth. Bydd y tribiwnlys yn gwrando ar yr hyn byddwch yn ei ddweud i'w helpu i wneud penderfyniad ynghylch eich apêl.",
+          "para2": "Os oes gennych ofalwr neu rywun sy’n eich cefnogi adref, gallwch ofyn iddynt ddod i'r gwrandawiad a dweud wrth y tribiwnlys am eich cyflwr. Dylech wneud yn siwr eu bod yn fodlon dod a’u bod ar gael ar ddyddiad y gwrandawiad."
+        },
+        "sendingEvidenceTitle": "Anfon tystiolaeth i'r tribiwnlys",
+        "sendingEvidenceDesc": {
+          "para1": "Gallwch ddarparu tystiolaeth trwy ddefnyddio unrhyw un o’r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a> a dylech wneud hynny cyn gynted â phosib er mwyn i’r tribiwnlys gael amser i’w darllen cyn gwneud penderfyniad.",
+          "para2": "Neu gallwch bostio’ch tystiolaeth i’r cyfeiriad a nodir isod.",
+          "para3": "Gwnewch yn siŵr eich bod yn cynnwys y ‘dalen flaen dogfen’ fel y gallwn baru’r dystiolaeth gyda’ch apêl. Cawsoch y daflen flaen hon gyda’r llythyr cyntaf a anfonwyd atoch ynghylch eich apêl.",
+          "para4": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
+        }
+      },
+      "claimExpenses": {
+        "title": "Hawlio treuliau i fynychu eich gwrandawiad",
+        "entry": "Efallai y bydd modd ichi hawlio yn ôl ychydig o’r arian y byddwch yn ei wario ar fynychu eich gwrandawiad.",
+        "para1": "Dylech ddefnyddio trafnidiaeth gyhoeddus lle bo’n bosibl. Cadwch eich tocynnau teithio a dewch â nhw gyda chi i'ch gwrandawiad. Bydd clerc y tribiwnlys yn rhoi ffurflen hawlio i chi ei llenwi.",
+        "para2": "Os oes gennych gyflwr meddygol neu anabledd sy’n golygu na allwch ddod i'r gwrandawiad ar ben eich hun, yna efallai gallwch hawlio costau tacsi. Bydd rhaid ichi gael caniatâd yn gyntaf trwy ffonio 0300 303 5170."
+      },
+      "hearing": {
+        "title": "Beth i'w ddisgwyl yn eich gwrandawiad apêl",
+        "entry": "Mae eich gwrandawiad yn gyfle ichi egluro eich apêl budd-dal yn bersonol. Bydd panel tribiwnlys yn ystyried popeth byddwch yn ei ddweud wrthynt ac yn gwneud penderfyniad diduedd ynghylch eich apêl. Mae panel y tribiwnlys yn annibynnol o'r Adran Gwaith a Phensiynau (DWP).",
+        "imageText": "Bydd panel y tribiwnlys yn cynnwys barnwr a meddyg. Bydd yna arbenigwr anabledd hefyd mewn rhai apeliadau budd-dal. ",
+        "beforeHearingTitle": "Cyn eich gwrandawiad",
+        "beforeHearingDesc": {
+          "para1": "Gwnewch yn siwr bod gennych yr holl ddogfennau sy’n ymwneud â’ch apêl. Dylech fod wedi cael y rhain drwy’r post gan DWP fel ‘bwndel’ o ddogfennau wedi’u rhifo. Dewch â’r rhain gyda chi i'r gwrandawiad.",
+          "para2": "Dylech anelu at fod yn y ganolfan wrandawiadau o leiaf 15 munud cyn i'r gwrandawiad ddechrau. Gall eich gwrandawiad fynd yn ei flaen hebddoch chi os byddwch yn hwyr, neu gall gael ei ohirio i'w gynnal ar ddiwrnod arall."
+        },
+        "arriveTitle": "Pan fyddwch yn cyrraedd",
+        "arriveDesc": {
+          "para1": "Bydd clerc y tribiwnlys yn eich croesawu. Byddant yn gofalu amdanoch chi yn y ganolfan wrandawiadau ac yn ateb unrhyw gwestiynau y bydd gennych. Byddant hefyd yn rhoi ffurflen ichi ar gyfer hawlio yn ôl unrhyw arian byddwch yn ei wario o ganlyniad i fynychu’r gwrandawiad.<a href='support-hearing-expenses'>Darllenwch fwy am hawlio treuliau ar gyfer eich gwrandawiad.</a>"
+        },
+        "hearingRoomTitle": "Yr ystafell wrandawiadau",
+        "hearingRoomDesc": {
+          "para1": "Bydd clerc y tribiwnlys yn eich hebrwng i'r ystafell wrandawiadau. Bydd panel y tribiwnlys yn eistedd y tu ôl i fwrdd. Byddwch yn cael eich gwahodd i eistedd gyferbyn â’r panel. Os bydd rhywun wedi dod gyda chi i’ch cefnogi neu i roi tystiolaeth, byddant yn eistedd wrth eich ymyl."
+        },
+        "peopleInTheRoomTitle": "Y bobl yn eich gwrandawiad",
+        "peopleInTheRoomDesc": {
+          "para1": "Mae panel y tribiwnlys yn cynnwys 2 neu 3 o bobl, yn ddibynnol ar y math o fudd-dal sy’n destun yr apêl. Bydd y panel yn ystyried dwy ochr yr apêl ac yn gwneud penderfyniad diduedd. Maent yn annibynnol o DWP.",
+          "para2": "Y barnwr sy’n rheoli’r gwrandawiad a bydd yn egluro beth sy’n digwydd. Byddant hefyd yn cymryd nodiadau o’r hyn sy’n cael ei ddweud yn ystod y gwrandawiad. Mae'r meddyg yno i ddarparu gwybodaeth feddygol. Os bydd arbenigwr anabledd yn eich gwrandawiad, yna bydd yn darparu gwybodaeth am faterion anabledd a sut mae anabledd yn effeithio ar bobl."
+        },
+        "duringHearingTitle": "Yn ystod eich gwrandawiad",
+        "duringHearingDesc": {
+          "para1": "Bydd panel y tribiwnlys yn gofyn rhywfaint o gwestiynau syml ichi. Dyma eich cyfle i egluro eich ochr chi o’r apêl. Byddant yn gwrando ar bopeth rydych yn ei ddweud wrthynt. Efallai byddant yn gofyn cwestiynau i DWP hefyd. Fel arfer bydd y gwrandawiad cyfan yn cymryd tua awr.",
+          "para2": "Mae’n bwysig eich bod yn cyflwyno’ch tystiolaeth i gyd cyn y gwrandawiad fel bod gan banel y tribiwnlys amser i'w hadolygu. Os byddant yn ei chael yn rhy hwyr, efallai bydd rhaid iddynt ohirio eich gwrandawiad i'w gynnal ar ddiwrnod arall."
+        },
+        "gettingDecisionTitle": "Cael penderfyniad",
+        "gettingDecisionDesc": {
+          "para1": "Ar ôl ichi ateb yr holl gwestiynau, gofynnir ichi aros y tu allan tra bydd panel y tribiwnlys yn trafod eich apêl. Yna gofynnir ichi ddod yn ôl i mewn i'r ystafell i gael gwybod beth yw’r penderfyniad.",
+          "para2": "Bydd y barnwr yn egluro ichi a oes gennych hawl i gael y budd-dal, ac os felly, ar ba lefel.",
+          "para3": "Weithiau mae’r tribiwnlys angen mwy o amser i wneud penderfyniad. Os bydd hynny’n digwydd, bydd y penderfyniad ynghylch eich apêl yn cael ei bostio atoch."
+        },
+        "dwpTitle": "Yr Adran Gwaith a Phensiynau (DWP)",
+        "dwpDesc": {
+          "para1": "Gall cynrychiolydd o DWP fod yna. Nid ydynt yn rhan o banel y tribiwnlys ac maent yna i siarad ar ran DWP. Nid y cynrychiolydd fydd yr unigolyn a wnaeth y penderfyniad ynghylch eich hawl i gael budd-daliadau."
+        }
+      },
+      "representatives": {
+        "linkHeader": "Cynrychiolwyr",
+        "title": "Cynrychiolwyr",
+        "entry": "Gallwch benodi rhywun fel ‘cynrychiolydd’ i'ch helpu gyda’ch apêl budd-dal, os ydych yn credu na fyddwch yn gallu delio â’r apêl ar eich pen eich hun.",
+        "what": "Gall cynrychiolydd:",
+        "whatList": {
+          "item1": "roi cyngor ichi ynghylch eich apêl",
+          "item2": "eich helpu i gyflwyno eich apêl neu i baratoi tystiolaeth",
+          "item3": "gweithredu ar eich rhan yn ystod yr apêl (dylent ofyn am eich caniatâd yn gyntaf)"
+        },
+        "para1": "Gall unrhyw un fod yn gynrychiolydd, yn cynnwys ffrind neu aelod o’ch teulu. Bydd cynrychiolydd da yn gyfarwydd â’r system budd-daliadau ac yn gallu rhoi cyngor ichi ar y gyfraith.",
+        "para2": "Gallwch gael cynrychiolydd yn eich canolfan gynghori leol, canolfan y gyfraith leol neu <a href='https://www.citizensadvice.org.uk/'>ganolfan Cyngor ar Bopeth leol</a>. Bydd arnoch angen eu cofrestru gyda’r tribiwnlys.",
+        "representative": {
+          "title": "Cofrestru cynrychiolydd",
+          "para1": "Mae arnom angen eich awdurdod ysgrifenedig i gofrestru rhywun fel eich cynrychiolydd. Gallwch ddarparu’r wybodaeth hon trwy unrhyw un o’r opsiynau yn y tab <a href='/task-list'><b>Darparu Tystiolaeth</b></a>.",
+          "para2": "Cofiwch gynnwys enw eich cynrychiolydd, eu cyfeiriad a’u manylion cyswllt (ffôn neu e-bost). Os byddwch yn darparu eu cyfeiriad e-bost â’u rhif ffôn symudol, byddant yn cael diweddariadau yn rheolaidd."
+        }
+      },
+      "withdrawAppeal": {
+        "linkHeader": "Tynnu apêl yn ôl",
+        "title": "Tynnu eich apêl yn ôl",
+        "entry": "Gallwch dynnu eich apêl yn ôl ar unrhyw adeg. Bydd DWP yn cael gwybod nad ydych eisiau apelio yn erbyn eu penderfyniad mwyach. Bydd y gwrandawiad ar gyfer eich apêl yn cael ei ganslo, os oedd un wedi’i drefnu.",
+        "para1": "Dylech siarad gyda’ch cynrychiolydd neu rywun sy’n gwybod am eich apêl i gael cyngor ar p’un a ddylech dynnu eich apêl yn ôl ai peidio.",
+        "para2": "Os ydych dal eisiau tynnu eich apêl yn ôl, yna dylech roi gwybod i'r tribiwnlys cyn gynted ag sy’n bosibl.",
+        "para3": "Gallwch ddarparu’r wybodaeth hon trwy unrhyw un o’r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a>, neu cysylltwch â ni ar y rhif isod. "
+      },
+      "relatedLinks": {
+        "title": "Arweiniad cysylltiedig",
+        "supportEvidence": "Anfon tystiolaeth i gefnogi eich apêl",
+        "supportHearing": "Beth i'w ddisgwyl yn eich gwrandawiad",
+        "supportHearingExpenses": "Hawlio treuliau ar gyfer y gwrandawiad",
+        "supportWithdrawAppeal": "Tynnu eich apêl yn ôl ",
+        "supportRepresentatives": "Cynrychiolwyr"
+      }
+    },
+    "selectCase": {
+      "title": "Dewiswch achos",
+      "heading": "Eich apeliadau budd-daliadau",
+      "appealReference": "Cyfeirnod yr apêl",
+      "benefit": "Budd-dal",
+      "dateSubmitted": "Dyddiad cyflwyno",
+      "mrnDate": "Dyddiad MRN",
+      "action": "Cam gweithredu",
+      "view": "Gweld"
+    },
+    "assignCase": {
+      "title": "Nodwch y cod post ar gyfer yr apêl",
+      "message": "Hwn yw’r cod post a ddefnyddiwyd pan gafodd yr apêl ei chofrestru",
+      "errors": {
+        "noPostcode": "Nid ydych wedi nodi cod post. Nodwch eich cod post cyn parhau.",
+        "invalidPostcode": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
+        "postcodeDoesNotMatch": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda"
+      }
+    },
+    "redirectMya": {
+      "tab": "Gwasanaeth Dilyn Trywydd eich Apêl",
+      "title": "Gwasanaeth Dilyn Trywydd eich Apêl",
+      "para1": "Rydym wedi datblygu'r Gwasanaeth Dilyn Trywydd eich Apêl fel y gallwch nawr Reoli eich Apêl ar-lein.  I sicrhau bod eich data’n cael ei gadw’n ddiogel, bydd angen ichi greu cyfrif i allu defnyddio'r gwasanaeth hwn. ",
+      "para2": "Os bu ichi greu cyfrif pan wnaethoch gyflwyno eich apêl, dilynwch y ddolen hon <a href='/sign-in?tya={{ tyaNumber }}'>login</a> a defnyddiwch yr un manylion mewngofnodi i reoli eich apêl.",
+      "para3": "Os na wnaethoch greu cyfrif, yna dilynwch y ddolen hon i wneud hynny <a href='/register?tya={{ tyaNumber }}'>cofrestru</a>. Bydd hyn yn eich galluogi i reoli eich apêl o hyn ymlaen. "
+    },
+    "notifications": {
+      "register": {
+        "title": "Cofrestru i gael hysbysiadau",
+        "content": "Gallwch gael negeseuon atgoffa a hysbysiadau fel eich bod yn cael yr wybodaeth ddiweddaraf am eich apêl ",
+        "question": "Sut yr hoffech chi gael hysbysiadau?",
+        "options": [
+          "E-bost",
+          "Neges testun",
+          "Y ddau"
+        ],
+        "continue": "Parhau",
+        "cancel": "Canslo"
+      },
+      "email": {
+        "manage": {
+          "tab": "Rheoli hysbysiadau e-bost",
+          "title": "Beth ydych chi eisiau ei wneud?",
+          "visuallyHidden": "Beth ydych chi eisiau ei wneud?",
+          "continue": "Parhau"
+        },
+        "stop": {
+          "tab": "Stopio cael diweddariadau ar ffurf e-bost",
+          "title": "Ni fyddwch yn cael diweddariadau ar ffurf e-bost neu negeseuon atgoffa am eich apêl budd-dal {{benefitType|acronym}}.",
+          "confirm": "Cadarnhau",
+          "link": "Canslo"
+        },
+        "stopConfirmation": {
+          "tab": "Hysbysiadau e-bost wedi stopio ",
+          "title": "Rydych wedi dewis stopio cael hysbysiadau ar ffurf e-bost",
+          "content": "Ni fyddwch yn cael rhagor o negeseuon e-bost am eich apêl budd-dal {{benefitType|acronym}}.",
+          "exitFeedbackSurveyPreLink": "Rhowch ychydig o",
+          "exitFeedbackSurveyLink": "adborth os gwelwch yn dda i’n helpu ni i wella'r gwasanaeth hwn.",
+          "linkPre": "Gallwch dal",
+          "linkPost": "ddilyn trywydd eich apêl budd-dal ar-lein"
+        },
+        "addressChange": {
+          "tab": "Eich cyfeiriad e-bost newydd",
+          "tabError": "Mae gwallau ar y dudalen",
+          "title": "Eich cyfeiriad e-bost newydd",
+          "visuallyHidden": "Beth ydych chi eisiau ei wneud?",
+          "continue": "Parhau",
+          "cancel": "Canslo",
+          "errors": {
+            "title": "Mae yna wallau ar y dudalen. "
+          }
+        },
+        "addressChangeConfirmed": {
+          "tab": "Cadarnhad eich bod wedi newid eich cyfeiriad e-bost",
+          "title": "Bydd negeseuon e-bost am eich apêl budd-dal {{benefitType|acronym}} nawr yn cael eu hanfon i",
+          "content": "Rydym wedi anfon neges e-bost yn cadarnhau hyn i'r cyfeiriad hwnnw.  Edrychwch os ydyw wedi cyrraedd ymhen ychydig o funudau. ",
+          "link": "Newid eich cyfeiriad e-bost"
+        },
+        "errors": {
+          "selectAnOptionHeading": "Dewiswch opsiwn",
+          "selectAnOptionField": "Nid ydych wedi dewis opsiwn.  Dewiswch opsiwn. ",
+          "emptyStringHeading": "Cyfeiriad e-bost newydd heb ei nodi ",
+          "emptyStringEmailField": "Nid ydych wedi nodi’ch cyfeiriad e-bost. Nodwch eich cyfeiriad e-bost.",
+          "notValidHeading": "Nid yw’r cyfeiriad e-bost newydd yn ddilys",
+          "notValidField": "Nid yw’r cyfeiriad e-bost rydych wedi’i nodi yn ddilys. Gwiriwch y cyfeiriad e-bost a theipiwch ef eto.",
+          "noMatchHeading": "Nid yw’r cyfeiriadau e-bost yr un fath",
+          "noMatchField": "Nid yw eich cyfeiriadau e-bost yr un fath.  Gwiriwch eu bod yn gywir a theipiwch nhw eto. "
+        }
+      }
+    }
+  }
+}

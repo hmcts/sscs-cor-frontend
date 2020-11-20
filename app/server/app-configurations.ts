@@ -7,12 +7,13 @@ import * as moment from 'moment';
 import express = require('express');
 const { getContentAsString } = require('../core/contentLookup');
 const { lowerCase } = require('lodash');
-const locale = require('../../locale/en.json');
+const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
+const config = require('config');
+const i18next = require('i18next');
 
 function configureHelmet(app) {
-
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
@@ -71,7 +72,6 @@ function configureHeaders(app) {
 }
 
 function configureNunjucks(app: express.Application) {
-
   const nunEnv = nunjucks.configure([
     'views',
     'views/notifications',
@@ -83,6 +83,13 @@ function configureNunjucks(app: express.Application) {
     noCache:  true
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
+  nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
+
+  app.use((req, res, next) => {
+    nunEnv.addGlobal('currentUrl', req.url);
+    next();
+  });
+
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
     const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
@@ -98,33 +105,29 @@ function configureNunjucks(app: express.Application) {
       logger.error(`Error rendering text eval: ${JSON.stringify(error)} : ${text}`);
       return 'Error rendering text';
     }
-
   });
-
   nunEnv.addFilter('isArray', function(input) {
     return Array.isArray(input);
   });
   nunEnv.addFilter('dateFilter', dateFilter);
   nunEnv.addFilter('agencyAcronym', benefitType => {
-    return nunjucks.renderString(locale.benefitTypes[benefitType].agencyAcronym, this.ctx);
+    return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].agencyAcronym, this.ctx);
   });
   nunEnv.addFilter('acronym', benefitType => {
     return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
   });
   nunEnv.addFilter('benefitAcronym', benefitType => {
-    return nunjucks.renderString(locale.benefitTypes[benefitType].acronym, this.ctx);
+    return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].acronym, this.ctx);
   });
   nunEnv.addFilter('panel', benefitType => {
-    return nunjucks.renderString(locale.benefitTypes[benefitType].panel, this.ctx);
+    return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].panel, this.ctx);
   });
-
   nunEnv.addFilter('dateForDecisionReceived', utcDateTimeStr => {
     const howManyDaysAfterHearing = 5;
     return moment(utcDateTimeStr)
       .add(howManyDaysAfterHearing, 'days')
       .format('DD MMMM YYYY');
   });
-
   nunEnv.addFilter('evalStatus', function (text) {
     try {
       if (Array.isArray(text)) {

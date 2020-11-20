@@ -7,7 +7,8 @@ import { OK } from 'http-status-codes';
 import { TrackYourApealService } from '../services/tyaService';
 import * as AppInsights from '../app-insights';
 
-const i18n = require('../../../locale/en.json');
+const i18next = require('i18next');
+const content = require('../../../locale/content');
 const postcodeRegex = /^((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])|([Gg][Ii][Rr]))))\s?([0-9][A-Za-z]{2})|(0[Aa]{2}))$/;
 
 const logger = Logger.getLogger('login.js');
@@ -20,47 +21,48 @@ function postIndex(hearingService: HearingService, trackYourAppealService: Track
   return async (req: Request, res: Response) => {
     if (!req.body.postcode || !req.body.postcode.trim()) {
       return res.render('assign-case/index.html', {
-        error: i18n.assignCase.errors.noPostcode
+        error: content[i18next.language].assignCase.errors.noPostcode
       });
     } else {
       if (!req.body.postcode.replace(/ /g,'').match(postcodeRegex)) {
         return res.render('assign-case/index.html', {
-          error: i18n.assignCase.errors.invalidPostcode
+          error: content[i18next.language].assignCase.errors.invalidPostcode
         });
       }
     }
-    AppInsights.trackTrace(`assign-case: Finding case to assign for tya [${req.session.tya}] email [${req.session.idamEmail}] postcode [${req.body.postcode}]`);
+    if (!req.session['tya']) {
+      return res.render('assign-case/index.html', {
+        error: content[i18next.language].assignCase.errors.tyaNotProvided
+      });
+    }
+    AppInsights.trackTrace(`assign-case: Finding case to assign for tya [${req.session['tya']}] email [${req.session['idamEmail']}] postcode [${req.body.postcode}]`);
     const { statusCode, body }: rp.Response = await hearingService.assignOnlineHearingsToCitizen(
-      req.session.idamEmail, req.session.tya, req.body.postcode, req
+      req.session['idamEmail'], req.session['tya'], req.body.postcode, req
     );
 
     if (statusCode !== OK) {
       return res.render('assign-case/index.html', {
-        error: i18n.assignCase.errors.postcodeDoesNotMatch
+        error: content[i18next.language].assignCase.errors.postcodeDoesNotMatch
       });
     }
 
-    req.session.hearing = body;
+    req.session['hearing'] = body;
 
-    logger.info(`Assigned ${req.session.tya} to ${req.session.idamEmail}`);
+    logger.info(`Assigned ${req.session['tya']} to ${req.session['idamEmail']}`);
 
-    const { appeal } = await trackYourAppealService.getAppeal(req.session.hearing.case_id, req);
+    const { appeal } = await trackYourAppealService.getAppeal(req.session['hearing'].case_id, req);
 
-    req.session.appeal = appeal;
-
-    if (req.session.appeal.hearingType === 'cor') {
-      return res.redirect(Paths.taskList);
-    } else {
-      req.session.hearing.case_reference = req.session.hearing.case_id ? req.session.hearing.case_id.toString() : '';
-      return res.redirect(Paths.status);
-    }
+    req.session['appeal'] = appeal;
+    req.session['hideHearing'] = appeal.hideHearing == null ? false : appeal.hideHearing;
+    req.session['hearing'].case_reference = req.session['hearing'].case_id ? req.session['hearing'].case_id.toString() : '';
+    return res.redirect(Paths.status);
   };
 }
 
 function setupAssignCaseController(deps) {
   const router = Router();
-  router.get(Paths.assignCase, getIndex);
-  router.post(Paths.assignCase, postIndex(deps.hearingService, deps.trackYourApealService));
+  router.get(Paths.assignCase, deps.prereqMiddleware, getIndex);
+  router.post(Paths.assignCase, deps.prereqMiddleware, postIndex(deps.hearingService, deps.trackYourApealService));
 
   return router;
 }

@@ -5,7 +5,7 @@ import * as Paths from 'app/server/paths';
 const { expect, sinon } = require('test/chai-sinon');
 import * as AppInsights from 'app/server/app-insights';
 import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
-const i18n = require('locale/en');
+const content = require('locale/content');
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
@@ -171,7 +171,7 @@ describe('controllers/additional-evidence.js', () => {
       expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
         action: 'statement',
         pageTitleError: true,
-        error: i18n.question.textareaField.errorOnSave.empty
+        error: content.en.question.textareaField.errorOnSave.empty
       });
     });
 
@@ -185,7 +185,6 @@ describe('controllers/additional-evidence.js', () => {
   });
 
   describe('#postFileUpload', () => {
-
     it('should catch error and track Excepction with AppInsights', async () => {
       req.file = { name: 'myfile.txt' };
       additionalEvidenceService = {
@@ -237,8 +236,8 @@ describe('controllers/additional-evidence.js', () => {
         pageTitleError: true,
         evidences: [],
         description: '',
-        error: i18n.additionalEvidence.evidenceUpload.error.emptyDescription,
-        fileUploadError: i18n.additionalEvidence.evidenceUpload.error.noFilesUploaded
+        error: content.en.additionalEvidence.evidenceUpload.error.emptyDescription,
+        fileUploadError: content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded
       });
     });
 
@@ -265,7 +264,7 @@ describe('controllers/additional-evidence.js', () => {
     });
 
     it('should show errors when file size is bigger than certain limit', async () => {
-      const fileSizeErrorMsg = `${i18n.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
+      const fileSizeErrorMsg = `${content.en.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
       res.locals.multerError = fileSizeErrorMsg;
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
@@ -282,6 +281,5 @@ describe('controllers/additional-evidence.js', () => {
       await postFileUpload(additionalEvidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
-
   });
 });

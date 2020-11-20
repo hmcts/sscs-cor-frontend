@@ -1,36 +1,37 @@
 const { Logger } = require('@hmcts/nodejs-logging');
 const { get } = require('lodash');
-const locale = require('../../locale/en');
+const content = require('../../locale/content');
+const i18next = require('i18next');
 
 const logger = Logger.getLogger('contentLookup.js');
 
 const getContentFromFile = key => {
-  const content = get(locale, key);
-  if (!content) {
+  const cont = get(content[i18next.language], key);
+  if (!cont) {
     throw new ReferenceError(`Unknown key: ${key}`);
   }
-  return content;
+  return cont;
 };
 
 const getContentAsString = key => {
-  let content = null;
+  let cont = null;
   try {
-    content = getContentFromFile(key);
+    cont = getContentFromFile(key);
   } catch (error) {
     logger.error(error);
   }
 
-  return content;
+  return cont;
 };
 
 const getContentAsArray = key => {
-  let content = getContentAsString(key);
+  let cont = getContentAsString(key);
 
-  if (typeof content === 'string') {
-    content = [content];
+  if (typeof cont === 'string') {
+    cont = [cont];
   }
 
-  return content;
+  return cont;
 };
 
 module.exports = { getContentFromFile, getContentAsString, getContentAsArray };

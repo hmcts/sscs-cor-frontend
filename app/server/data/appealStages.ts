@@ -1,19 +1,28 @@
 const oralAppealStages = [
   {
     status: 'APPEAL_RECEIVED',
-    title: 'Appeal',
+    title: {
+      en: 'Appeal',
+      cy: 'Apêl'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   },
   {
     status: 'WITH_DWP',
-    title: 'Appeal',
+    title: {
+      en: 'Appeal',
+      cy: 'Apêl'
+    },
     latestUpdateText: 'text',
     showOnBar: false
   },
   {
     status: 'DWP_RESPOND',
-    title: 'DWP response',
+    title: {
+      en: 'DWP response',
+      cy: 'Ymateb DWP'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   },
@@ -27,7 +36,10 @@ const oralAppealStages = [
   },
   {
     status: 'HEARING_BOOKED',
-    title: 'Hearing booked',
+    title: {
+      en: 'Hearing booked',
+      cy: 'Gwrandawiad wedi’i drefnu'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   },
@@ -37,13 +49,19 @@ const oralAppealStages = [
   },
   {
     status: 'DORMANT',
-    title: 'Hearing',
+    title: {
+      en: 'Hearing',
+      cy: 'Gwrandawiad'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   },
   {
     status: 'CLOSED',
-    title: 'Closed',
+    title: {
+      en: 'Closed',
+      cy: 'Wedi cau'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   }
@@ -52,30 +70,46 @@ const oralAppealStages = [
 const paperAppealStages = [
   {
     status: 'APPEAL_RECEIVED',
-    title: 'Appeal',
+    title: {
+      en: 'Appeal',
+      cy: 'Apêl'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   },
   {
     status: 'WITH_DWP',
-    title: 'Appeal',
+    title: {
+      en: 'Appeal',
+      cy: 'Apêl'
+    },
     latestUpdateText: 'text',
     showOnBar: false
   },
   {
     status: 'DWP_RESPOND',
-    title: 'DWP response',
+    title: {
+      en: 'DWP response',
+      cy: 'Ymateb DWP'
+    },
     latestUpdateText: 'text',
     showOnBar: true
-  }, {
+  },
+  {
     status: 'DORMANT',
-    title: 'Hearing',
+    title: {
+      en: 'Hearing',
+      cy: 'Gwrandawiad'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   },
   {
     status: 'CLOSED',
-    title: 'Closed',
+    title: {
+      en: 'Closed',
+      cy: 'Wedi cau'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   }
@@ -84,22 +118,37 @@ const paperAppealStages = [
 const corAppealStages = [
   {
     status: 'SYA_APPEAL_CREATED',
-    title: 'Stages',
+    title: {
+      en: 'Stages',
+      cy: 'Camau'
+    },
     latestUpdateText: 'text',
     showOnBar: true
-  }, {
+  },
+  {
     status: 'DWP_RESPOND',
-    title: 'for COR appeal',
+    title: {
+      en: 'for COR appeal',
+      cy: 'at gyfer apêl Datrys Achosion Ar-lein'
+    },
     latestUpdateText: 'text',
     showOnBar: true
-  }, {
+  },
+  {
     status: 'HEARING',
-    title: 'still to',
+    title: {
+      en: 'still to',
+      cy: 'dal i’w'
+    },
     latestUpdateText: 'text',
     showOnBar: true
-  }, {
+  },
+  {
     status: 'HEARING 2',
-    title: 'define',
+    title: {
+      en: 'define',
+      cy: 'ddiffinio'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   }
@@ -108,7 +157,10 @@ const corAppealStages = [
 const closedAppealStages = [
   {
     status: 'CLOSED',
-    title: 'Closed',
+    title: {
+      en: 'Closed',
+      cy: 'Wedi cau'
+    },
     latestUpdateText: 'text',
     showOnBar: true
   }

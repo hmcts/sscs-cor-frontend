@@ -15,6 +15,7 @@ nodejs:
     S2S_URL: "http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
     NODE_ENV: "production"
     HTTP_PROTOCOL: http
+    UV_THREADPOOL_SIZE: 64
     MYA_FEATURE_FLAG: "false"
     ADDITIONAL_EVIDENCE_FEATURE_FLAG: "false"
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: "false"
@@ -28,7 +29,6 @@ nodejs:
         - sscs-cor-redis-access-key
         - sscs-cor-redis-connection-string
         - idam-sscs-oauth2-client-secret
-        - sscs-s2s-secret
         - AppInsightsInstrumentationKey
 redis:
   enabled: false

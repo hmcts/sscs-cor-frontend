@@ -1,15 +1,17 @@
 {% extends "help-guides/support-layout.html" %}
-{% set pageHeader = i18n.helpGuides.claimExpenses.title %}
+
+{% set pageHeader = content[i18n.language].helpGuides.claimExpenses.title | safe %}
+
 {% block pageTitle %}
-   {{i18n.helpGuides.claimExpenses.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ content[i18n.language].helpGuides.claimExpenses.title | safe }} - {{ content[i18n.language].general.serviceTitle | safe }} - {{ content[i18n.language].general.govUK | safe }}
 {% endblock %}
 
 {% block supportTitle %}
-   {{i18n.helpGuides.claimExpenses.title}}
+    {{ content[i18n.language].helpGuides.claimExpenses.title | safe }}
 {% endblock%}
 
 {% block supportContent %}
-      <p class="govuk-!-font-size-24">{{i18n.helpGuides.claimExpenses.entry}}</p>
-      <p>{{i18n.helpGuides.claimExpenses.para1}}</p>
-      <p>{{i18n.helpGuides.claimExpenses.para2}}</p>
+    <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.claimExpenses.entry | safe }}</p>
+    <p>{{ content[i18n.language].helpGuides.claimExpenses.para1 | safe }}</p>
+    <p>{{ content[i18n.language].helpGuides.claimExpenses.para2 | safe }}</p>
 {% endblock%}

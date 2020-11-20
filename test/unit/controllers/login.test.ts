@@ -8,7 +8,7 @@ import * as Paths from 'app/server/paths';
 import { HearingService } from 'app/server/services/hearing';
 import { Feature } from '../../../app/server/utils/featureEnabled';
 const config = require('config');
-const i18n = require('locale/en');
+const content = require('locale/content');
 
 const idamUrl = config.get('idam.url');
 
@@ -216,9 +216,11 @@ describe('controllers/login', () => {
         } as HearingService;
 
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-        const error = new Error('Case ID cannot be empty');
+        const error = new Error('Case ID cannot be empty from hearing in session');
         expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
-        expect(AppInsights.trackEvent).to.have.been.calledOnce.calledWith('MYA_LOGIN_FAIL');
+        expect(AppInsights.trackEvent).to.have.been.calledTwice;
+        expect(AppInsights.trackEvent).calledWith('MYA_LOGIN_FAIL');
+        expect(AppInsights.trackEvent).calledWith('MYA_SESSION_READ_FAIL');
         expect(next).to.have.been.calledWith(sinon.match.has('message', error.message));
       });
     });
@@ -299,6 +301,41 @@ describe('controllers/login', () => {
       });
     });
 
+    describe('check hideHearing flag with MYA enabled', () => {
+      let hearingServiceStub;
+      let trackYourAppealService;
+      let redirectToIdam;
+      let idamServiceStub;
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode', 'state': 'tya-number' };
+        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
+        redirectToIdam = sinon.stub();
+        idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: [ hearingDetails ] })
+        } as HearingService;
+      });
+
+      it('sets the hideHearing false', async () => {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : {} })
+        };
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.hideHearing).to.be.eql(false);
+      });
+
+      it('sets the hideHearing true', async () => {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : { hideHearing: true } })
+        };
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.hideHearing).to.be.eql(true);
+      });
+    });
+
     describe('cannot find case with MYA enabled', () => {
       let hearingServiceStub;
       let trackYourAppealService;
@@ -375,7 +412,8 @@ describe('controllers/login', () => {
               case_reference: '12345',
               online_hearing_id: '1'
             }]
-          }});
+          }
+        });
       });
     });
 
@@ -397,7 +435,8 @@ describe('controllers/login', () => {
               online_hearing_id: '1',
               case_reference: '11111',
               appellant_name: 'John Smith'
-            }, {
+            },
+            {
               case_id: 22222,
               online_hearing_id: '2',
               case_reference: '22222',
@@ -474,8 +513,8 @@ describe('controllers/login', () => {
         await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
 
         expect(res.render).to.have.been.calledWith('load-case-error.html', {
-          errorBody: i18n.login.failed.technicalError.body,
-          errorHeader: i18n.login.failed.technicalError.header
+          errorBody: content.en.login.failed.technicalError.body,
+          errorHeader: content.en.login.failed.technicalError.header
         });
       });
 

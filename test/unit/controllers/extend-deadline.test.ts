@@ -6,7 +6,6 @@ import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
 import { ensureAuthenticated } from 'app/server/middleware/ensure-authenticated';
-import { checkDecision } from 'app/server/middleware/check-decision';
 
 describe('controllers/extend-deadline', () => {
   const next = sinon.stub();
@@ -45,7 +44,6 @@ describe('controllers/extend-deadline', () => {
   });
 
   describe('postExtension', () => {
-
     let questions;
     let hearingService;
 
@@ -100,7 +98,7 @@ describe('controllers/extend-deadline', () => {
 
   describe('setupExtendDeadlineController', () => {
     const deps = {
-      prereqMiddleware: [ensureAuthenticated, checkDecision]
+      prereqMiddleware: [ensureAuthenticated]
     };
 
     beforeEach(() => {

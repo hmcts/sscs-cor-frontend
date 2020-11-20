@@ -1,7 +1,8 @@
 const { Logger } = require('@hmcts/nodejs-logging');
+const i18next = require('i18next');
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
-const i18n = require('../../../locale/en');
+const content = require('../../../locale/content');
 
 const logger = Logger.getLogger('ensure-authenticated.js');
 
@@ -45,28 +46,28 @@ function setTabNavigationItems(appeal) {
   const tabs = [
     {
       'id': 'status',
-      'title': i18n.statusTab.tabHeader,
+      'title': content[i18next.language].statusTab.tabHeader,
       'url': '/status'
     },
     {
       'id': 'questions',
-      'title': i18n.provideEvidenceTab.tabHeader,
+      'title': content[i18next.language].provideEvidenceTab.tabHeader,
       'url': '/task-list'
     },
     {
       'id': 'hearing',
-      'title': i18n.hearingTab.tabHeader,
+      'title': content[i18next.language].hearingTab.tabHeader,
       'url': '/hearing'
     },
     {
       'id': 'history',
-      'title': i18n.historyTab.tabHeader,
+      'title': content[i18next.language].historyTab.tabHeader,
       'url': '/history'
     }
   ];
-  let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== 'Hearing') : tabs;
+  let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== content[i18next.language].hearingTab.tabHeader) : tabs;
 
-  tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== 'Provide Evidence') : tabs;
+  tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== content[i18next.language].provideEvidenceTab.tabHeader) : tabs;
   tabsToShow = tabsToShow.filter(tab => tab.id !== 'history');
   return tabsToShow;
 }

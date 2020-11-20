@@ -1,7 +1,8 @@
 const { setErrorFields } = require('../../core/fieldErrors');
-const i18n = require('../../../locale/en.json');
+const content = require('../../../locale/content');
 const HttpStatus = require('http-status-codes');
 const Joi = require('joi');
+const i18next = require('i18next');
 
 const validateFields = (email, confirmEmail, errors) => {
   const schema = Joi.string().email({ minDomainAtoms: 2 })
@@ -47,7 +48,7 @@ const validateFields = (email, confirmEmail, errors) => {
 const validateEmail = (req, res, next) => {
   const email = req.body.email.trim();
   const confirmEmail = req.body.confirmEmail.trim();
-  const errors = i18n.notifications.email.errors;
+  const errors = content[i18next.language].notifications.email.errors;
   const fields = validateFields(email, confirmEmail, errors);
   if (fields.error) {
     res.status(HttpStatus.BAD_REQUEST);

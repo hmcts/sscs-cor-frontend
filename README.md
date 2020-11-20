@@ -15,7 +15,7 @@ It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/s
 Once you have those, you need to install the dependencies using:
 
 ```bash
-yarn
+yarn install
 ```
 
 Then run the necessary build tasks using:

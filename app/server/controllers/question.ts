@@ -7,9 +7,10 @@ import { answerValidation } from '../utils/fieldValidation';
 import * as config from 'config';
 import { pageNotFoundHandler } from '../middleware/error-handler';
 const multer = require('multer');
+const i18next = require('i18next');
 import { QuestionService } from '../services/question';
 import { EvidenceService } from '../services/evidence';
-const i18n = require('../../../locale/en.json');
+const content = require('../../../locale/content');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 import * as rp from 'request-promise';
 import { OK, UNPROCESSABLE_ENTITY } from 'http-status-codes';
@@ -43,7 +44,7 @@ function getQuestion(questionService: QuestionService) {
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
-    const hearingId = req.session.hearing.online_hearing_id;
+    const hearingId = req.session['hearing'].online_hearing_id;
     try {
       const response = await questionService.getQuestion(hearingId, currentQuestionId, req);
 
@@ -59,7 +60,7 @@ function getQuestion(questionService: QuestionService) {
         },
         evidences: response.evidence ? response.evidence.reverse() : []
       };
-      req.session.question = question;
+      req.session['question'] = question;
       res.render('question/index.html', {
         question,
         showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),
@@ -79,7 +80,7 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
     if (!currentQuestionId) {
       return res.redirect(Paths.taskList);
     }
-    const hearingId = req.session.hearing.online_hearing_id;
+    const hearingId = req.session['hearing'].online_hearing_id;
     const answerText = req.body['question-field'];
 
     try {
@@ -88,7 +89,7 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
       if (!validationMessage) {
         await questionService.saveAnswer(hearingId, currentQuestionId, 'draft', answerText, req);
       } else if (req.body.save || req.body.submit) {
-        const question = req.session.question;
+        const question = req.session['question'];
         question.answer = {
           value: answerText,
           error: validationMessage
@@ -110,7 +111,7 @@ function postAnswer(questionService: QuestionService, evidenceService: EvidenceS
       } else if (req.body.submit) {
         res.redirect(`${Paths.question}/${questionOrdinal}/submit`);
       } else if (res.locals.multerError) {
-        const question = req.session.question;
+        const question = req.session['question'];
         question.answer = {
           value: req.body['question-field']
         };
@@ -152,10 +153,10 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
       return res.redirect(Paths.taskList);
     }
 
-    const hearingId = req.session.hearing.online_hearing_id;
+    const hearingId = req.session['hearing'].online_hearing_id;
 
     if (!req.file) {
-      const error = res.locals.multerError || i18n.questionUploadEvidence.error.empty;
+      const error = res.locals.multerError || content[i18next.language].questionUploadEvidence.error.empty;
       return res.render('question/upload-evidence.html', { questionOrdinal, error });
     }
     try {
@@ -164,9 +165,9 @@ function postUploadEvidence(questionService: QuestionService, evidenceService: E
         return res.redirect(`${Paths.question}/${questionOrdinal}`);
       }
       if (response.statusCode === UNPROCESSABLE_ENTITY) {
-        const error = i18n.questionUploadEvidence.error.fileCannotBeUploaded;
+        const error = content[i18next.language].questionUploadEvidence.error.fileCannotBeUploaded;
         if (isJsUpload) {
-          const question = req.session.question;
+          const question = req.session['question'];
           return res.render('question/index.html', {
             question,
             showEvidenceUpload: showEvidenceUpload(evidenceUploadEnabled, evidenceUploadOverrideAllowed, req.cookies),

@@ -1,20 +1,37 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+import * as AppInsights from '../app-insights';
+import { Logger } from '@hmcts/nodejs-logging';
+
+const logger = Logger.getLogger('hearing.js');
 
 function getHearing(req: Request, res: Response) {
-  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) || req.session.appeal.hearingType === 'cor') return res.render('errors/404.html');
-  const { latestEvents = [], historicalEvents = [], hearingType } = req.session.appeal;
+  const session = req.session;
+
+  if (!session) {
+    const missingCaseIdError = new Error('Unable to retrieve session from session store');
+    AppInsights.trackException(missingCaseIdError);
+    AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+  }
+
+  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) || session['appeal'].hearingType === 'cor') return res.render('errors/404.html');
+
+  const { latestEvents = [], historicalEvents = [], hearingType } = session['appeal'];
   const attending: boolean = hearingType === 'oral';
-  const hearingInfo = latestEvents.concat(historicalEvents).find(event => {
-    const { type } = event;
-    if (type === 'HEARING_BOOKED' || type === 'NEW_HEARING_BOOKED') return event;
-  });
+  let hearingInfo = null;
+
+  if (!session['hideHearing']) {
+    hearingInfo = latestEvents.concat(historicalEvents).find(event => {
+      const { type } = event;
+      if (type === 'HEARING_BOOKED' || type === 'NEW_HEARING_BOOKED') return event;
+    });
+  }
 
   let hearingArrangements = {};
 
-  if (req.session.hearing && req.session.hearing.hearing_arrangements) {
-    hearingArrangements = req.session.hearing.hearing_arrangements;
+  if (session['hearing'] && !session['hideHearing'] && session['hearing'].hearing_arrangements) {
+    hearingArrangements = session['hearing'].hearing_arrangements;
   }
   return res.render('hearing-tab.html', { hearingInfo, attending, hearingArrangements });
 }

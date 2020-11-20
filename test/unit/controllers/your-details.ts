@@ -1,7 +1,10 @@
+import * as status from '../../../app/server/controllers/status';
+
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 import * as yourDetails from 'app/server/controllers/your-details';
 import * as Paths from 'app/server/paths';
+import * as AppInsights from '../../../app/server/app-insights';
 
 describe('controllers/your-details', () => {
   let req: any;
@@ -27,10 +30,15 @@ describe('controllers/your-details', () => {
       render: sandbox.stub(),
       send: sandbox.stub()
     };
+
+    sinon.stub(AppInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackEvent');
   });
 
   afterEach(() => {
     sandbox.restore();
+    (AppInsights.trackException as sinon.SinonStub).restore();
+    (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
   describe('setupYourDetailsController', () => {
@@ -56,6 +64,16 @@ describe('controllers/your-details', () => {
 
       expect(res.render).to.have.been.calledOnce.calledWith('your-details.html', { details: req.session.hearing,
         subscriptions: req.session.subscriptions, contact: req.session.appeal.contact });
+    });
+
+    it('should throw error if no sessions', async() => {
+      req.session = null;
+
+      expect(() => yourDetails.getYourDetails(req, res)).to.throw(TypeError);
+
+      const error = new Error('Unable to retrieve session from session store');
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+      expect(AppInsights.trackEvent).to.have.been.calledOnce;
     });
   });
 });

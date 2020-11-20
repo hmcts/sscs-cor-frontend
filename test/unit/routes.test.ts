@@ -3,7 +3,7 @@ import * as session from 'express-session';
 import express = require('express');
 import { setup } from '../../app/server/app';
 import { expect } from 'test/chai-sinon';
-const i18n = require('locale/en.json');
+const content = require('locale/content');
 const { createSession } = require('../../app/server/middleware/session');
 const HttpStatus = require('http-status-codes');
 const tribunalApiUrl = require('config').get('tribunals.api-url');
@@ -174,16 +174,16 @@ describe('Routes', () => {
     describe.skip('Questions Routes', () => {
       before(() => {
         mockApp.all('*', function(req, res, next) {
-          req.session.accessToken = 'mock uid';
-          req.session.hearing = {
+          req.session['accessToken'] = 'mock uid';
+          req.session['hearing'] = {
             appellant_name: 'Adam Jenkins',
             case_reference: '112233',
             online_hearing_id: '2-completed'
           };
-          req.session.appeal = {
+          req.session['appeal'] = {
             hearingType: 'cor'
           };
-          req.session.questions = [
+          req.session['questions'] = [
             {
               question_id: '001',
               question_ordinal: 1,
@@ -222,7 +222,7 @@ describe('Routes', () => {
         const response = await request(mockApp)
           .get('/extend-deadline');
         expect(response.status).to.be.equal(200);
-        expect(response.text).to.contain(i18n.extendDeadline.header);
+        expect(response.text).to.contain(content.en.extendDeadline.header);
       });
       it('GET /decision should redirect to sign-in as user is not allowed', async () => {
         const response = await request(mockApp)
@@ -250,8 +250,8 @@ describe('Routes', () => {
       }));
       before(() => {
         mockApp.all('*', function(req, res, next) {
-          req.session.accessToken = 'mock uid';
-          req.session.hearing = {
+          req.session['accessToken'] = 'mock uid';
+          req.session['hearing'] = {
             appellant_name: 'Adam Jenkins',
             case_reference: '112233',
             online_hearing_id: '2-completed',
@@ -264,7 +264,7 @@ describe('Routes', () => {
             final_decision: { reason: 'final decision reason' },
             has_final_decision: true
           };
-          req.session.appeal = {
+          req.session['appeal'] = {
             hearingType: 'cor'
           };
           next();
@@ -299,9 +299,9 @@ describe('Routes', () => {
               decision_state_datetime: moment.utc().format()
             }
           };
-          req.session.accessToken = 'mock uid';
-          req.session.hearing = hearingDetails,
-          req.session.appeal = {
+          req.session['accessToken'] = 'mock uid';
+          req.session['hearing'] = hearingDetails,
+          req.session['appeal'] = {
             hearingType: 'cor'
           };
           next();

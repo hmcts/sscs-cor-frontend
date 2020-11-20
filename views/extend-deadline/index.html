@@ -1,63 +1,45 @@
+{% extends "layout.html" %}
+
 {% from "button/macro.njk" import govukButton %}
 {% from "components/error-summary/macro.njk" import govukErrorSummary %}
 
-{% extends "layout.html" %}
-
 {% if (not extend) and (hearing.extensionCount > 0) %}
-
-  {% set pageHeader = i18n.extendDeadline.contactTribunal.header %}
-
+    {% set pageHeader = content[i18n.language].extendDeadline.contactTribunal.header | safe %}
 {% elseif not extend %}
-
-  {% set pageHeader = i18n.extendDeadline.header %} 
-
-{% elseif extend == 'yes' %}
-
-  {% set pageHeader = i18n.extendDeadline.yes.header %}
-
-{% elseif extend == 'no' %}
-
-  {% set pageHeader = i18n.extendDeadline.no.header %}
-
+    {% set pageHeader = content[i18n.language].extendDeadline.header | safe %}
+{% elseif extend == "yes" %}
+    {% set pageHeader = content[i18n.language].extendDeadline.yes.header | safe %}
+{% elseif extend == "no" %}
+    {% set pageHeader = content[i18n.language].extendDeadline.no.header | safe %}
 {% endif %}
 
 {% block beforeContent %}
-  {{ super() }}
+    {{ super() }}
 {% endblock %}
 
 {% block corContent %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% if error %}
+                {{ govukErrorSummary({
+                    titleText: content[i18n.language].errorSummary.titleText,
+                    descriptionText: content[i18n.language].errorSummary.descriptionText,
+                    errorList: [{
+                        text: content[i18n.language].extendDeadline.error.text,
+                        href: "#extend-deadline-1"
+                    }]
+                }) }}
+            {% endif %}
 
-      {% if error %}
-        {{ govukErrorSummary({
-            titleText: i18n.errorSummary.titleText,
-            descriptionText: i18n.errorSummary.descriptionText,
-            errorList: [{
-                text: i18n.extendDeadline.error.text,
-                href: "#extend-deadline-1"
-            }]
-          }) 
-        }}
-      {% endif %}
-
-      {% if (not extend) and (hearing.extensionCount > 0) %}
-
-        {% include "extend-deadline/contact-tribunal.html" %}
-
-      {% elseif not extend %}
-
-        {% include "extend-deadline/confirmation-form.html" %}
-
-      {% elseif extend == 'yes' %}
-
-        {% include "extend-deadline/confirmation-yes.html" %}
-
-      {% elseif extend == 'no' %}
-
-        {% include "extend-deadline/confirmation-no.html" %}
-
-      {% endif %}
+            {% if (not extend) and (hearing.extensionCount > 0) %}
+                {% include "extend-deadline/contact-tribunal.html" %}
+            {% elseif not extend %}
+                {% include "extend-deadline/confirmation-form.html" %}
+            {% elseif extend == "yes" %}
+                {% include "extend-deadline/confirmation-yes.html" %}
+            {% elseif extend == "no" %}
+                {% include "extend-deadline/confirmation-no.html" %}
+            {% endif %}
+        </div>
     </div>
-  </div>
 {% endblock %}

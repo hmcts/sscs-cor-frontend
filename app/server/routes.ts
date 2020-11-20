@@ -1,8 +1,10 @@
 const express = require('express');
+const setLanguage = require('./setLanguage');
+
 import * as Paths from './paths';
 import * as config from 'config';
+
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
-import { checkDecision } from './middleware/check-decision';
 
 import { setupQuestionController } from './controllers/question';
 import { setupSubmitQuestionController } from './controllers/submit-question';
@@ -59,7 +61,7 @@ const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
 
-const prereqMiddleware = [ensureAuthenticated, checkDecision];
+const prereqMiddleware = [ensureAuthenticated];
 
 const questionController = setupQuestionController({ questionService, evidenceService, prereqMiddleware });
 const submitQuestionController = setupSubmitQuestionController({ questionService, evidenceService, prereqMiddleware });
@@ -85,7 +87,7 @@ const evidenceOptionsController = setupadditionalEvidenceController({ prereqMidd
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
-const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService });
+const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService, prereqMiddleware: ensureAuthenticated });
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
 
 router.use((req, res, next) => {
@@ -95,6 +97,7 @@ router.use((req, res, next) => {
   next();
 });
 
+router.use(setLanguage);
 router.use(idamStubController);
 router.use(loginController);
 router.use(submitQuestionController);

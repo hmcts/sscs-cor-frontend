@@ -13,7 +13,7 @@ async function bootstrapCcdCase(hearingType) {
 
 async function bootstrapSidamUser(ccdCase) {
   try {
-    // await sidam.registerRedirectUri();
+    await sidam.registerRedirectUri();
     return await sidam.createUser(ccdCase);
   } catch (error) {
     console.log('Error bootstrapping SIDAM user', error);
@@ -21,7 +21,7 @@ async function bootstrapSidamUser(ccdCase) {
   }
 }
 
-export async function bootstrap(hearingType = 'cor') {
+export async function bootstrap(hearingType = 'oral') {
   try {
     const ccdCase = await bootstrapCcdCase(hearingType);
     const sidamUser = await bootstrapSidamUser(ccdCase);

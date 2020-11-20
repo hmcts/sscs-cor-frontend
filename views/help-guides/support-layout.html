@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+
 {% from "back-link/macro.njk" import govukBackLink %}
 {% from "components/mya-contact-us.html" import contactUs with context  %}
 
@@ -6,29 +7,30 @@
     {{super()}}
     {{ govukBackLink({
         href: "#",
-        text: "Back",
-        attributes : { onclick: "history.go(-1); return false;" }
-        }) 
-    }}
+        text: content[i18n.language].general.back,
+        attributes : {
+            onclick: "history.go(-1); return false;"
+        }
+    }) }}
 {% endblock%}
 
 {% block content %}
     <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">
-        {% block supportTitle %}
-        {% endblock %}
-        </h1>
-    </div>
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                {% block supportTitle %}
+                {% endblock %}
+            </h1>
+        </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-        {% block supportContent %}
-        {% endblock %}
+            {% block supportContent %}
+            {% endblock %}
         </div>
         <div class="govuk-grid-column-one-third">
             {% include "help-guides/support-related-links.html" %}
         </div>
     </div>
-     {{ contactUs(false) }} 
+    {{ contactUs(false) }}
 {% endblock %}

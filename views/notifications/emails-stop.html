@@ -1,35 +1,25 @@
-{% from "button/macro.njk" import govukButton %}
 {% extends "layout.html" %}
-{% set pageHeader = i18n.notifications.email.stop.tab %}
+
+{% from "button/macro.njk" import govukButton %}
+
+{% set pageHeader = content[i18n.language].notifications.email.stop.tab | safe %}
 
 {% block content %}
-
-<main id="content" class="confirm-emails-stop" role="main">
-
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-
-            <form action="/manage-email-notifications/{{ mactoken }}/stopconfirm" method="get">
-
-                <h1 class="govuk-heading-l">{{ i18n.notifications.email.stop.title }}</h1>
-
-                <div class="form-group">
-                    <div id="submit-button">
-                        {{
-                        govukButton({
-                        text: i18n.notifications.email.stop.confirm
-                        })
-                        }}
+    <main id="content" class="confirm-emails-stop" role="main">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <form action="/manage-email-notifications/{{ mactoken }}/stopconfirm" method="get">
+                    <h1 class="govuk-heading-l">{{ content[i18n.language].notifications.email.stop.title | safe }}</h1>
+                    <div class="form-group">
+                        <div id="submit-button">
+                            {{ govukButton({
+                                text: content[i18n.language].notifications.email.stop.confirm
+                            }) }}
+                        </div>
                     </div>
-                </div>
-
-            </form>
-
-            <a class="cancel" href="/manage-email-notifications/{{ mactoken }}">{{ i18n.notifications.email.stop.link }}</a>
-
+                </form>
+                <a class="cancel" href="/manage-email-notifications/{{ mactoken }}">{{ content[i18n.language].notifications.email.stop.link | safe }}</a>
+            </div>
         </div>
-    </div>
-
-</main>
-
+    </main>
 {% endblock %}

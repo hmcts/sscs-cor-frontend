@@ -1,5 +1,10 @@
 import * as Paths from '../paths';
 import { RequestPromise } from './request-wrapper';
+import { Logger } from '@hmcts/nodejs-logging';
+const logger = Logger.getLogger('login.js');
+const i18next = require('i18next');
+const config = require('config');
+
 export interface TokenResponse {
   access_token: string;
 }
@@ -20,8 +25,8 @@ export class IdamService {
   }
 
   async getToken(code: string, protocol: string, host: string): Promise<TokenResponse> {
-
     const redirectUri: string = this.getRedirectUrl(protocol, host);
+
     return RequestPromise.request({
       method: 'POST',
       uri: `${this.apiUrl}/oauth2/token`,
@@ -32,7 +37,8 @@ export class IdamService {
       form: {
         grant_type: 'authorization_code',
         code,
-        redirect_uri: redirectUri
+        redirect_uri: redirectUri,
+        ui_locales: i18next.language
       }
     });
   }

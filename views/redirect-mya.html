@@ -1,19 +1,18 @@
-{% from "inset-text/macro.njk" import govukInsetText %}
 {% extends "layout.html" %}
-{% set pageHeader = i18n.notifications.email.stopConfirmation.tab %}
+{% from "inset-text/macro.njk" import govukInsetText %}
+
+{% set pageHeader = content[i18n.language].notifications.email.stopConfirmation.tab | safe %}
 
 {% block content %}
-
-<main id="content" class="confirm-emails-stop" role="main">
-
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ i18n.redirectMya.title }}</h1>
-            <p class="govuk-body">{{ i18n.redirectMya.para1 | safe }}</p>
-            <p class="govuk-body">{{ i18n.redirectMya.para2 | eval | safe }}</p>
-            <p class="govuk-body">{{ i18n.redirectMya.para3 | eval | safe }}</p>
+    <main id="content" class="confirm-emails-stop" role="main">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">{{ content[i18n.language].redirectMya.title | safe }}</h1>
+                <p class="govuk-body">{{ content[i18n.language].redirectMya.para1 | safe }}</p>
+                <p class="govuk-body">{{ content[i18n.language].redirectMya.para2 | eval | safe }}</p>
+                <p class="govuk-body">{{ content[i18n.language].redirectMya.para3 | eval | safe }}</p>
+            </div>
         </div>
-    </div>
-</main>
-
+        <input type="hidden" name="state" value="{{ state | safe }}"/>
+    </main>
 {% endblock %}

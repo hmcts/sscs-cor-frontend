@@ -1,16 +1,18 @@
 {% extends "help-guides/support-layout.html" %}
-{% set pageHeader = i18n.helpGuides.withdrawAppeal.title %}
+
+{% set pageHeader = content[i18n.language].helpGuides.withdrawAppeal.title | safe %}
+
 {% block pageTitle %}
-   {{i18n.helpGuides.withdrawAppeal.title}}   - {{ i18n.general.serviceTitle }} - {{ i18n.general.govUK }}
+    {{ content[i18n.language].helpGuides.withdrawAppeal.title | safe }} - {{ content[i18n.language].general.serviceTitle | safe }} - {{ content[i18n.language].general.govUK | safe }}
 {% endblock %}
 
 {% block supportTitle %}
-   {{i18n.helpGuides.withdrawAppeal.title}}
+    {{ content[i18n.language].helpGuides.withdrawAppeal.title | safe }}
 {% endblock%}
 
 {% block supportContent %}
-     <p class="govuk-!-font-size-24">{{i18n.helpGuides.withdrawAppeal.entry}}</p>
-     <p>{{i18n.helpGuides.withdrawAppeal.para1}}</p>   
-     <p>{{i18n.helpGuides.withdrawAppeal.para2}}</p>
-     <p>{{i18n.helpGuides.withdrawAppeal.para3 | safe}}</p>
+     <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.withdrawAppeal.entry | safe }}</p>
+     <p>{{ content[i18n.language].helpGuides.withdrawAppeal.para1 | safe }}</p>
+     <p>{{ content[i18n.language].helpGuides.withdrawAppeal.para2 | safe }}</p>
+     <p>{{ content[i18n.language].helpGuides.withdrawAppeal.para3 | safe }}</p>
 {% endblock%}

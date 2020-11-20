@@ -4,7 +4,7 @@
   },
   "testUrl": "http://localhost:3000",
   "api": {
-    "url": "http://localhost:8080"
+    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
   "appInsights": {
     "instrumentationKey": "iKey",
@@ -36,9 +36,9 @@
     "enableStub": "false"
   },
   "tribunals": {
-    "api-url": "http://localhost:8080"
+    "api-url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
-  "httpProxy": false,
+  "httpProxy": "http://proxyout.reform.hmcts.net:8080",
   "evidenceUpload": {
     "questionPage": {
       "enabled": "false",
@@ -49,7 +49,7 @@
   "s2s": {
     "microservice": "sscs",
     "secret": "AAAAAAAAAAAAAAAC",
-    "url": "http://localhost:4502",
+    "url": "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal",
     "oauth2": {
       "url": "http://localhost:5000",
       "user": "system.update@hmcts.net",
@@ -64,7 +64,7 @@
   "navigationTimeout" : 140000,
   "featureFlags": {
     "testFeature": "false",
-    "manageYourAppeal": "false",
+    "manageYourAppeal": "true",
     "additionalEvidence": "false",
     "allowContactUs": {
       "enabled": "true",
@@ -73,7 +73,8 @@
       "webChatEnabled": "false"
     },
     "postBulkScan": "false",
-    "historyTab": "false"
+    "historyTab": "false",
+    "welsh": "true"
   },
   "services": {
     "webForm" : {
@@ -84,5 +85,6 @@
       "tenant": "aG1jdHNzdGFnaW5nMDE",
       "channel": "SSCS"
     }
-  }
+  },
+  "languages": ["en", "cy"]
 }

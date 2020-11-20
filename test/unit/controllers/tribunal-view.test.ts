@@ -2,7 +2,7 @@ import { OnlineHearing } from 'app/server/services/hearing';
 const { expect, sinon } = require('test/chai-sinon');
 const { getTribunalView, postTribunalView, setupTribunalViewController } = require('app/server/controllers/tribunal-view');
 const express = require('express');
-const i18n = require('locale/en.json');
+const content = require('locale/content');
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
 import * as AppInsights from 'app/server/app-insights';
@@ -89,7 +89,7 @@ describe('controllers/tribunal-view', () => {
         expect(res.render).to.have.been.calledOnce.calledWith('tribunal-view.html', {
           decision: hearingDetails.decision,
           respondBy,
-          error: i18n.tribunalView.error.emptyOnDecisionPick
+          error: content.en.tribunalView.error.emptyOnDecisionPick
         });
       });
     });

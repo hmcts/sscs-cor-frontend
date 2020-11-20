@@ -15,32 +15,17 @@ function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
   return { status, expiryDate, extendable: true };
 }
 
-const getSubmittedQuestionCount = (questions: any) => questions.filter((q: any) => q.answer_state === 'submitted').length;
-
-function getTaskList(questionService: QuestionService) {
+function getTaskList() {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const hearing = req.session.hearing;
     try {
       let deadlineDetails = null;
       let hearingType = 'cor';
       if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
-        hearingType = req.session.appeal.hearingType;
-      }
-      if (hearingType === 'cor') {
-        const response = await questionService.getAllQuestions(hearing.online_hearing_id, req);
-
-        req.session.hearing.deadline = response.deadline_expiry_date;
-        req.session.questions = response.questions ? response.questions : [];
-        req.session.hearing.extensionCount = response.deadline_extension_count;
-        const totalQuestionCount = req.session.questions.length;
-        if (totalQuestionCount !== 0) {
-          const allQuestionsSubmitted = totalQuestionCount === getSubmittedQuestionCount(req.session.questions);
-          deadlineDetails = processDeadline(response.deadline_expiry_date, allQuestionsSubmitted);
-        }
+        hearingType = req.session['appeal'].hearingType;
       }
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
-        questions: req.session.questions || [],
+        questions: req.session['questions'] || [],
         hearingType
       });
     } catch (error) {
@@ -62,8 +47,15 @@ function getEvidencePost(req: Request, res: Response, next: NextFunction) {
 function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const caseId = req.session.hearing.case_id;
-      const coversheet = await additionalEvidenceService.getCoversheet(caseId, req);
+      const session = req.session;
+
+      if (!session) {
+        const missingCaseIdError = new Error('Unable to retrieve session');
+        AppInsights.trackException(missingCaseIdError);
+        AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+      }
+
+      const coversheet = await additionalEvidenceService.getCoversheet(session['hearing'].case_id, req);
       res.header('content-type', 'application/pdf');
       res.send(new Buffer(coversheet, 'binary'));
     } catch (error) {
@@ -75,7 +67,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
 
 function setupTaskListController(deps: any): Router {
   const router: Router = Router();
-  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList(deps.questionService));
+  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList());
   router.get(Paths.postEvidence, deps.prereqMiddleware, getEvidencePost);
   router.get(Paths.coversheet, deps.prereqMiddleware, getCoversheet(deps.additionalEvidenceService));
   return router;

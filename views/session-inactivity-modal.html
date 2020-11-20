@@ -1,22 +1,20 @@
 <div id="timeout-dialog" class="modal">
     <div class="modal__title" role="dialog" aria-labelledby="aria-timeout-label">
         <h2 class="govuk-heading-m">
-            {{ i18n.cookieTimeOut.modal.title }}
+            {{ content[i18n.language].cookieTimeOut.modal.title | safe }}
         </h2>
     </div>
     <div class="modal__content">
         <p id="expiring-in-message">
-            {{ i18n.cookieTimeOut.modal.body[0] }} {{ i18n.cookieTimeOut.modal.body[1]}}
+            {{ content[i18n.language].cookieTimeOut.modal.body[0] | safe }} {{ content[i18n.language].cookieTimeOut.modal.body[1] | safe }}
         </p>
-        <p>
-            {{ i18n.cookieTimeOut.modal.info }}
-        </p>
+        <p>{{ content[i18n.language].cookieTimeOut.modal.info | safe }}</p>
         <div class="modals__buttons">
             <button class="govuk-button button-padding" id="extend" href="#" rel="modal:close">
-                {{ i18n.cookieTimeOut.modal.extend }}
+                {{ content[i18n.language].cookieTimeOut.modal.extend | safe }}
             </button>
             <button class="govuk-button secondary-button" id="cancel" href="#">
-                {{ i18n.cookieTimeOut.modal.cancel }}
+                {{ content[i18n.language].cookieTimeOut.modal.cancel | safe }}
             </button>
         </div>
     </div>

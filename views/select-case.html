@@ -1,38 +1,34 @@
 {% extends "layout.html" %}
-{% set pageHeader = i18n.selectCase.title %}
+
+{% set pageHeader = content[i18n.language].selectCase.title | safe %}
 
 {% block corContent %}
-  <h1 class="govuk-heading-xl">{{ i18n.selectCase.heading }}</h1>
+    <h1 class="govuk-heading-xl">{{ content[i18n.language].selectCase.heading | safe }}</h1>
 
-  {% for name, hearings in hearingsByName %}
-    <h2 class="govuk-heading-m">
-      <span id="appellant-name">{{ name }}</span>
-    </h2>
-    <div class="divider"></div>
-    <table class="govuk-table govuk-!-margin-bottom-9">
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.appealReference }}</th>
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.benefit }}</th>
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.dateSubmitted }}</th>
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.mrnDate }}</th>
-          <th scope="col" class="govuk-table__header">{{ i18n.selectCase.action }}</th>
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        {% for hearing in hearings %}
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ hearing.case_reference }}</td>
-            <td class="govuk-table__cell">{{ hearing.appeal_details.benefit_type }}</td>
-            <td class="govuk-table__cell">{{ hearing.appeal_details.submitted_date | dateFilter('DD MMMM YYYY') }}</td>
-            <td class="govuk-table__cell">{{ hearing.appeal_details.mrn_date | dateFilter('DD MMMM YYYY') }}</td>
-            <td class="govuk-table__cell">
-              <a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}">{{ i18n.selectCase.view }}</a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% endfor %}
-
+    {% for name, hearings in hearingsByName %}
+        <h2 class="govuk-heading-m"><span id="appellant-name">{{ name | safe }}</span></h2>
+        <div class="divider"></div>
+        <table class="govuk-table govuk-!-margin-bottom-9">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  <th scope="col" class="govuk-table__header">{{ content[i18n.language].selectCase.appealReference | safe }}</th>
+                  <th scope="col" class="govuk-table__header">{{ content[i18n.language].selectCase.benefit | safe }}</th>
+                  <th scope="col" class="govuk-table__header">{{ content[i18n.language].selectCase.dateSubmitted | safe }}</th>
+                  <th scope="col" class="govuk-table__header">{{ content[i18n.language].selectCase.mrnDate | safe }}</th>
+                  <th scope="col" class="govuk-table__header">{{ content[i18n.language].selectCase.action | safe }}</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                {% for hearing in hearings %}
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">{{ hearing.case_reference | safe }}</td>
+                        <td class="govuk-table__cell">{{ hearing.appeal_details.benefit_type | safe }}</td>
+                        <td class="govuk-table__cell">{{ hearing.appeal_details.submitted_date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}</td>
+                        <td class="govuk-table__cell">{{ hearing.appeal_details.mrn_date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}</td>
+                        <td class="govuk-table__cell"><a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}">{{ content[i18n.language].selectCase.view | safe }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
 {% endblock %}
