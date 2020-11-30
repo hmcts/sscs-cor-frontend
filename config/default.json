@@ -74,6 +74,7 @@
     },
     "postBulkScan": "false",
     "historyTab": "false",
+    "hearingOutcomeTab": "false",
     "welsh": "true"
   },
   "services": {
