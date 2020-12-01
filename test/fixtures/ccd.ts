@@ -23,7 +23,7 @@ async function createCase(hearingType) {
   }
 
   const { id, case_reference, appellant_tya, joint_party_tya } = body;
-  console.log(`Created CCD case for ${email} with ID ${id} and reference ${case_reference} and appellant_tya ${appellant_tya} and jp_tya ${joint_party_tya}` );
+  console.log(`Created CCD case for ${email} with ID ${id} and reference ${case_reference} and appellant_tya ${appellant_tya} and jp_tya ${joint_party_tya}`);
   return { email, id, case_reference, appellant_tya, joint_party_tya };
 }
 
