@@ -18,6 +18,7 @@ import watch from './watch';
 import * as config from 'config';
 import { isFeatureEnabled, Feature } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
+const healthCheck = require('@hmcts/nodejs-healthcheck');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -80,8 +81,8 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(sessionHandler);
   app.use(csrfToken);
   app.use(csrfTokenEmbed);
-  app.use(Paths.health, health.livenessCheck);
-  app.use(Paths.readiness, health.readinessCheck);
+  app.use(Paths.health, health.getHealthConfigure());
+  app.use(Paths.readiness, health.getReadinessConfigure());
   app.use(errors.sessionNotFoundHandler);
   app.use(routes);
   app.use(errors.pageNotFoundHandler);

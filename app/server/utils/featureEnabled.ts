@@ -9,7 +9,8 @@ enum Feature {
   CONTACT_US_TELEPHONE_ENABLED = 'allowContactUs.telephoneEnabled',
   CONTACT_US_WEBCHAT_ENABLED= 'allowContactUs.webChatEnabled',
   POST_BULK_SCAN = 'postBulkScan',
-  HISTORY_TAB = 'historyTab'
+  HISTORY_TAB = 'historyTab',
+  HEARING_OUTCOME_TAB = 'hearingOutcomeTab'
 }
 
 function isFeatureEnabled(feature: Feature, force?: {}): boolean {
