@@ -22,9 +22,9 @@ async function createCase(hearingType) {
     logger.error('Error at CCD createCase:', error.error);
   }
 
-  const { id, case_reference, appellant_tya } = body;
-  console.log(`Created CCD case for ${email} with ID ${id} and reference ${case_reference} and appellant_tya ${appellant_tya}`);
-  return { email, id, case_reference, appellant_tya };
+  const { id, case_reference, appellant_tya, joint_party_tya } = body;
+  console.log(`Created CCD case for ${email} with ID ${id} and reference ${case_reference} and appellant_tya ${appellant_tya} and jp_tya ${joint_party_tya}`);
+  return { email, id, case_reference, appellant_tya, joint_party_tya };
 }
 
 export { createCase };
