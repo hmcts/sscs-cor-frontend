@@ -451,5 +451,7 @@
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA27QSVfgqrux_10205201116183137.js_GET" : "ignore",
 	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10205201116183137.js_GET" : "ignore",
 	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10205201116183137.js_GET" : "ignore",
-    "40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore"
+    "40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore",
+	"90033_Loosely Scoped Cookie_https://sscs-cor.aat.platform.hmcts.net_GET" : "ignore",
+	"10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net_GET" : "ignore"
 }
