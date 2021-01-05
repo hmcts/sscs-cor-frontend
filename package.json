@@ -61,7 +61,7 @@
     "@types/express-serve-static-core": "^4.16.0",
     "applicationinsights": "^1.6.0",
     "applicationinsights-native-metrics": "^0.0.5",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.17.1",
     "chokidar": "^3.3.1",
     "computed-style": "^0.3.0",
