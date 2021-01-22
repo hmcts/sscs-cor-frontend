@@ -22,6 +22,10 @@
       "secure": "false"
     }
   },
+  "health": {
+    "timeout": 5000,
+    "deadline": 15000
+  },
   "idam": {
     "url": "http://localhost:3000/idam-stub",
     "api-url": "http://localhost:3000/idam-stub",
@@ -70,7 +74,8 @@
     },
     "postBulkScan": "false",
     "historyTab": "false",
-    "welsh": "false"
+    "hearingOutcomeTab": "false",
+    "welsh": "true"
   },
   "services": {
     "webForm" : {

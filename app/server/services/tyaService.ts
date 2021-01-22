@@ -21,4 +21,15 @@ export class TrackYourApealService {
       uri: `${this.tribunalApiUrl}/appeals/${appealNumber}/surname/${surname}`
     }, req);
   }
+
+  async getDocument(url: string, req: Request) {
+    return RequestPromise.request({
+      method: 'GET',
+      encoding: 'binary',
+      uri: `${this.tribunalApiUrl}/document?url=${url}`,
+      headers: {
+        'Content-type': 'application/pdf'
+      }
+    }, req);
+  }
 }

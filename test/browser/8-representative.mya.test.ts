@@ -11,7 +11,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Appellant - Manage your appeal app @mya', () => {
+describe('Representative - Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -20,13 +20,13 @@ describe('Appellant - Manage your appeal app @mya', () => {
   let sidamUser;
   before(async () => {
     ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
-    const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
+    const representativeTya = ccdCase.hasOwnProperty('representative_tya') ? ccdCase.representative_tya : 'anId';
     pa11yOpts.browser = page.browser;
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
     await loginPage.setCookie('manageYourAppeal', 'true');
-    await loginPage.visitPage(`?tya=${appellantTya}`);
+    await loginPage.visitPage(`?tya=${representativeTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
 
@@ -36,12 +36,12 @@ describe('Appellant - Manage your appeal app @mya', () => {
     }
   });
 
-  it('should land in assign-case page after a successful login', async() => {
+  it('Representative should land in assign-case page after a successful login', async() => {
     assignCasePage.verifyPage();
   });
 
     /* PA11Y */
-  it('checks /postcode page path passes @pa11y', async () => {
+  it('Representative checks /postcode page path passes @pa11y', async () => {
     assignCasePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
     pa11yOpts.page = assignCasePage.page;
@@ -49,7 +49,7 @@ describe('Appellant - Manage your appeal app @mya', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
-  it('should inform postcode, submit and land in status page', async() => {
+  it('Representative should inform postcode, submit and land in status page', async() => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
@@ -57,7 +57,7 @@ describe('Appellant - Manage your appeal app @mya', () => {
   });
 
   /* PA11Y */
-  it('checks /status page path passes @pa11y', async () => {
+  it('Representative checks /status page path passes @pa11y', async () => {
     statusPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
     pa11yOpts.page = await statusPage.page;
@@ -65,7 +65,7 @@ describe('Appellant - Manage your appeal app @mya', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
-  describe('Status page', () => {
+  describe('Representative Status page', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be.null;
@@ -118,15 +118,4 @@ describe('Appellant - Manage your appeal app @mya', () => {
       expect(heightOpen).to.equal(585);
     });
   });
-
-  describe('Hearing page', () => {
-    it('Navigate to hearing tab', async() => {
-      statusPage.verifyPage();
-      await statusPage.clickElement('#tab-hearing');
-      await page.waitFor(500);
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.hearingTab.tabHeader);
-    });
-
-  });
-
 });

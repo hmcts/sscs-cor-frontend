@@ -174,16 +174,16 @@ describe('Routes', () => {
     describe.skip('Questions Routes', () => {
       before(() => {
         mockApp.all('*', function(req, res, next) {
-          req.session.accessToken = 'mock uid';
-          req.session.hearing = {
+          req.session['accessToken'] = 'mock uid';
+          req.session['hearing'] = {
             appellant_name: 'Adam Jenkins',
             case_reference: '112233',
             online_hearing_id: '2-completed'
           };
-          req.session.appeal = {
+          req.session['appeal'] = {
             hearingType: 'cor'
           };
-          req.session.questions = [
+          req.session['questions'] = [
             {
               question_id: '001',
               question_ordinal: 1,
@@ -250,8 +250,8 @@ describe('Routes', () => {
       }));
       before(() => {
         mockApp.all('*', function(req, res, next) {
-          req.session.accessToken = 'mock uid';
-          req.session.hearing = {
+          req.session['accessToken'] = 'mock uid';
+          req.session['hearing'] = {
             appellant_name: 'Adam Jenkins',
             case_reference: '112233',
             online_hearing_id: '2-completed',
@@ -264,7 +264,7 @@ describe('Routes', () => {
             final_decision: { reason: 'final decision reason' },
             has_final_decision: true
           };
-          req.session.appeal = {
+          req.session['appeal'] = {
             hearingType: 'cor'
           };
           next();
@@ -299,9 +299,9 @@ describe('Routes', () => {
               decision_state_datetime: moment.utc().format()
             }
           };
-          req.session.accessToken = 'mock uid';
-          req.session.hearing = hearingDetails,
-          req.session.appeal = {
+          req.session['accessToken'] = 'mock uid';
+          req.session['hearing'] = hearingDetails,
+          req.session['appeal'] = {
             hearingType: 'cor'
           };
           next();

@@ -7,11 +7,8 @@ import { StatusPage } from 'test/page-objects/status';
 import * as _ from 'lodash';
 const content = require('locale/content');
 const config = require('config');
-const pa11y = require('pa11y');
-const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
-let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Appellant - Manage your appeal app @mya', () => {
+describe('Manage your appeal app @smoke', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -21,7 +18,6 @@ describe('Appellant - Manage your appeal app @mya', () => {
   before(async () => {
     ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
     const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
-    pa11yOpts.browser = page.browser;
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
@@ -40,29 +36,11 @@ describe('Appellant - Manage your appeal app @mya', () => {
     assignCasePage.verifyPage();
   });
 
-    /* PA11Y */
-  it('checks /postcode page path passes @pa11y', async () => {
-    assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
-    pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
   it('should inform postcode, submit and land in status page', async() => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
     statusPage.verifyPage();
-  });
-
-  /* PA11Y */
-  it('checks /status page path passes @pa11y', async () => {
-    statusPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
-    pa11yOpts.page = await statusPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
   describe('Status page', () => {
@@ -105,28 +83,5 @@ describe('Appellant - Manage your appeal app @mya', () => {
 
       expect(heightClosed).to.equal(40);
     });
-
-    it('should open Contact us details', async() => {
-      statusPage.verifyPage();
-      const elementHandle = await page.$('.govuk-details.contact-us');
-      await statusPage.openDetails('.govuk-details.contact-us');
-      const heightOpen = await page.evaluate(element => {
-        const { height } = element.getBoundingClientRect();
-        return height;
-      }, elementHandle);
-
-      expect(heightOpen).to.equal(585);
-    });
   });
-
-  describe('Hearing page', () => {
-    it('Navigate to hearing tab', async() => {
-      statusPage.verifyPage();
-      await statusPage.clickElement('#tab-hearing');
-      await page.waitFor(500);
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.hearingTab.tabHeader);
-    });
-
-  });
-
 });

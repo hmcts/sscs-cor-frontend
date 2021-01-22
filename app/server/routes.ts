@@ -5,7 +5,6 @@ import * as Paths from './paths';
 import * as config from 'config';
 
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
-import { checkDecision } from './middleware/check-decision';
 
 import { setupQuestionController } from './controllers/question';
 import { setupSubmitQuestionController } from './controllers/submit-question';
@@ -29,6 +28,7 @@ import { setupStatusController } from './controllers/status';
 import { setupHistoryController } from './controllers/history';
 import { setupAssignCaseController } from './controllers/assign-case';
 import { setupHearingController } from './controllers/hearing';
+import { setupOutcomeController } from './controllers/outcome';
 
 const router = express.Router();
 
@@ -62,7 +62,7 @@ const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
 
-const prereqMiddleware = [ensureAuthenticated, checkDecision];
+const prereqMiddleware = [ensureAuthenticated];
 
 const questionController = setupQuestionController({ questionService, evidenceService, prereqMiddleware });
 const submitQuestionController = setupSubmitQuestionController({ questionService, evidenceService, prereqMiddleware });
@@ -88,8 +88,9 @@ const evidenceOptionsController = setupadditionalEvidenceController({ prereqMidd
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
-const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService });
+const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService, prereqMiddleware: ensureAuthenticated });
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
+const outcomeController = setupOutcomeController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -125,6 +126,7 @@ router.use(yourDetailsController);
 router.use(historyController);
 router.use(assignCaseController);
 router.use(hearingTabController);
+router.use(outcomeController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {

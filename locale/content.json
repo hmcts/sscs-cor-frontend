@@ -29,6 +29,7 @@
       "extendDeadline": "Extend the deadline",
       "describeTheEvidence": "Describe the evidence",
       "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why",
+      "hearingOutcome": "Hearing Outcome",
       "type": {
         "Appellant": "Appellant",
         "Appointee": "Appointee",
@@ -690,16 +691,21 @@
         "England": {
           "desc": "Benefit appeals helpline (England and Wales)",
           "phone": "Telephone: 0300 123 1142",
-          "availability": "Monday to Friday, 8:00am to 8:00pm",
-          "saturdayAvailability": "Saturday, 8:00am to 2:00pm",
+          "availability": "Monday to Friday, 8am to 5pm",
           "emailText": "Email:",
           "emailAddress": "Contactsscs@justice.gov.uk",
+          "charges": "Find out about call charges"
+        },
+        "WelshSpeakers": {
+          "desc": "Benefit appeals helpline (for Welsh speakers)",
+          "phone": "Telephone: 0300 303 5170",
+          "availability": "Monday to Friday, 8:30am to 5pm",
           "charges": "Find out about call charges"
         },
         "Scotland": {
           "desc": "Benefit appeals helpline (Scotland)",
           "phone": "Telephone: 0300 790 6234",
-          "availability": "Monday to Friday, 8:30am to 5:00pm",
+          "availability": "Monday to Friday, 8:30am to 5pm",
           "emailText": "Email:",
           "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
           "charges": "Find out about call charges"
@@ -955,6 +961,13 @@
     "historyTab": {
       "tabHeader": "History",
       "header": "History of your appeal"
+    },
+    "outcomeTab": {
+      "tabHeader": "Hearing Outcome",
+      "header": "Hearing outcome of your appeal",
+      "document": "Document",
+      "hearingDate": "Hearing date",
+      "outcomeFrom": "Hearing outcome from"
     },
     "appealEvents": {
       "ADJOURNED": {
@@ -1298,6 +1311,7 @@
       "errors": {
         "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
         "invalidPostcode": "The details you have provided don’t match, please contact us",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
         "postcodeDoesNotMatch": "The details you have provided don’t match, please contact us"
       }
     },
@@ -2064,8 +2078,7 @@
         "England": {
           "desc": "Llinell gymorth apeliadau budd-daliadau (Cymru a Lloegr - Siaradwyr Cymraeg)",
           "phone": "Rhif ffôn: 0300 303 5170",
-          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5.00pm.",
-          "saturdayAvailability": "",
+          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5pm.",
           "emailText": "E-bost:",
           "emailAddress": "ymholiadaucymraeg@justice.gov.uk",
           "charges": "Gwybodaeth am brisiau galwadau"
@@ -2073,7 +2086,7 @@
         "Scotland": {
           "desc": "Llinell gymorth apeliadau budd-daliadau (Yr Alban)",
           "phone": "Rhif ffôn: 0300 790 6234",
-          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5.00pm.",
+          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5pm.",
           "emailText": "E-bost:",
           "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
           "charges": "Gwybodaeth am brisiau galwadau"
@@ -2329,6 +2342,13 @@
     "historyTab": {
       "tabHeader": "Hanes",
       "header": "Hanes eich apêl "
+    },
+    "outcomeTab": {
+      "tabHeader": "Canlyniad y Gwrandawiad",
+      "header": "Canlyniad y gwrandawiad yng nghyswllt eich apêl",
+      "document": "Dogfen",
+      "hearingDate": "Dyddiad y gwrandawiad",
+      "outcomeFrom": "Canlyniad y gwrandawiad o"
     },
     "appealEvents": {
       "ADJOURNED": {
@@ -2672,6 +2692,7 @@
       "errors": {
         "noPostcode": "Nid ydych wedi nodi cod post. Nodwch eich cod post cyn parhau.",
         "invalidPostcode": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
         "postcodeDoesNotMatch": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda"
       }
     },
