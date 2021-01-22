@@ -31,7 +31,7 @@
     "api-url": "http://localhost:3000/idam-stub",
     "client": {
       "id": "sscs",
-      "secret": "3$^zc#4srcqONrl&"
+      "secret": "a_secret"
     },
     "enableStub": "false"
   },
@@ -48,7 +48,7 @@
   },
   "s2s": {
     "microservice": "sscs",
-    "secret": "443EL4ICRQ53FFUY",
+    "secret": "AAAAAAAAAAAAAAAC",
     "url": "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal",
     "oauth2": {
       "url": "http://localhost:5000",
@@ -74,7 +74,6 @@
     },
     "postBulkScan": "false",
     "historyTab": "false",
-    "hearingOutcomeTab": "false",
     "welsh": "true"
   },
   "services": {

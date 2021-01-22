@@ -188,6 +188,7 @@
 	"10027_Information Disclosure - Suspicious Comments_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10193200616095656.js_GET" : "ignore",
 	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10193200616095656.js_GET" : "ignore",
 	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfqrux_10193200616095656.js_GET" : "ignore",
+<<<<<<< HEAD
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
@@ -196,20 +197,45 @@
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
+=======
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
+	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
+	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
+<<<<<<< HEAD
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+=======
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
+<<<<<<< HEAD
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-hearing_GET" : "ignore",
+=======
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
@@ -219,6 +245,7 @@
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
+<<<<<<< HEAD
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
 	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
@@ -234,6 +261,24 @@
 	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
 	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/additional-evidence_GET" : "ignore",
 	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/health_GET" : "ignore",
+=======
+	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
+	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
+	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/additional-evidence_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
+	"10015_Incomplete or No Cache-control and Pragma HTTP Header Set_https://sscs-cor.aat.platform.hmcts.net/health?lng=cy_GET" : "ignore",
+	"10015_Incomplete or No Cache-control and Pragma HTTP Header Set_https://sscs-cor.aat.platform.hmcts.net/health?lng=en_GET" : "ignore",
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
@@ -244,11 +289,19 @@
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
+<<<<<<< HEAD
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
 	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
 	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
 	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+=======
+	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
+	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
+	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
 	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
 	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
@@ -261,8 +314,13 @@
 	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
 	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
 	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
+<<<<<<< HEAD
 	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
 	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+=======
+	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
 	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
 	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
@@ -273,7 +331,11 @@
 	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
 	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
 	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
+<<<<<<< HEAD
 	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+=======
+	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
 	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
 	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
@@ -286,6 +348,10 @@
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
+<<<<<<< HEAD
+=======
+	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
@@ -294,7 +360,10 @@
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
+<<<<<<< HEAD
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+=======
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
@@ -304,18 +373,27 @@
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
+<<<<<<< HEAD
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
 	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
 	"40029_Trace.axd Information Leak_https://sscs-cor.aat.platform.hmcts.net/health/trace.axd_GET" : "ignore",
+=======
+	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
+	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
+	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
+	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 	"10031_User Controllable HTML Element Attribute (Potential XSS)_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
 	"10031_User Controllable HTML Element Attribute (Potential XSS)_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
 	"10031_User Controllable HTML Element Attribute (Potential XSS)_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
 	"10031_User Controllable HTML Element Attribute (Potential XSS)_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
 	"10031_User Controllable HTML Element Attribute (Potential XSS)_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
 	"10031_User Controllable HTML Element Attribute (Potential XSS)_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
+<<<<<<< HEAD
 	"10015_Incomplete or No Cache-control and Pragma HTTP Header Set_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
 	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
 	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
@@ -466,4 +544,23 @@
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210111183057.js_GET" : "ignore",
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(2)%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210111183057.js_GET" : "ignore",
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210111183057.js_GET" : "ignore"
+=======
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-hearing_GET" : "ignore",
+	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
+	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
+	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"10054_Cookie Without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore"
+>>>>>>> 96cd589481b4e99250fa0d5fe26b38dcfb562108
 }
