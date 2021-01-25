@@ -358,5 +358,14 @@
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=cy_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
-	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore"
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=cy_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=cy_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/health_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public/images/hearing-formal-2panel.jpg?lng=en_GET" : "ignore",
+	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
+	"40034_.env Information Leak_https://sscs-cor.aat.platform.hmcts.net/health/.env_GET" : "ignore",
+	"6_Path Traversal_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=liveness_GET" : "ignore",
+	"10015_Incomplete or No Cache-control and Pragma HTTP Header Set_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore",
+	"40029_Trace.axd Information Leak_https://sscs-cor.aat.platform.hmcts.net/health/trace.axd_GET" : "ignore"
 }
