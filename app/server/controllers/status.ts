@@ -24,6 +24,7 @@ function getStatus(req: Request, res: Response) {
 
   const noProgressBarStages = ['CLOSED', 'LAPSED_REVISED', 'WITHDRAWN'];
   const { hearingType, status } = appeal;
+  logger.info(`Status is ${status}`);
   if (!noProgressBarStages.includes(status)) {
     if (hearingType === 'oral') {
       stages = getActiveStages(status, oralAppealStages);

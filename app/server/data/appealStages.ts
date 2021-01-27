@@ -96,6 +96,15 @@ const paperAppealStages = [
     showOnBar: true
   },
   {
+    status: 'HEARING_BOOKED',
+    title: {
+      en: 'DWP response',
+      cy: 'Ymateb DWP'
+    },
+    latestUpdateText: 'text',
+    showOnBar: false
+  },
+  {
     status: 'DORMANT',
     title: {
       en: 'Hearing',
