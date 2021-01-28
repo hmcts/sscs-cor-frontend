@@ -478,5 +478,6 @@
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(2)%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210122091729.js_GET" : "ignore",
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210122091729.js_GET" : "ignore",
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210122091729.js_GET" : "ignore",
-	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10207210122091729.js_GET" : "ignore"
+	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10207210122091729.js_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/additional-evidence?lng=en_GET" : "ignore"
 }
