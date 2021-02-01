@@ -15,6 +15,7 @@
       "location": "Location",
       "provideInformationOnline": "Provide your information online",
       "uploadLettersDocumentPhotos": "Upload letters, documents or photos",
+      "uploadLettersDocumentPhotosAudioVideo": "Upload letters, documents or photos, audio or video files",
       "sendByPost": "Send by post",
       "submitEvidenceToTribunal": "Submit evidence to the tribunal",
       "loading": "Loading",
@@ -846,7 +847,9 @@
         "header": "Upload additional evidence",
         "description": {
           "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
-          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>"
+          "para1a": "You can upload letters, documents, photos or videos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
+          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>",
+          "para3": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .doc, .docx, .mp3, mp4"
         },
         "error": {
           "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
@@ -1403,6 +1406,7 @@
       "location": "Lleoliad",
       "provideInformationOnline": "Darparu eich gwybodaeth ar-lein",
       "uploadLettersDocumentPhotos": "Uwchlwytho llythyrau, dogfennau neu luniau",
+      "uploadLettersDocumentPhotosAudioVideo": "Need welsh with audio and video",
       "sendByPost": "Anfon drwy’r post",
       "submitEvidenceToTribunal": "Cyflwyno tystiolaeth i’r tribiwnlys",
       "loading": "Yn llwytho",

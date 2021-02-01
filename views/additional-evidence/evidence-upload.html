@@ -6,7 +6,7 @@
 
 <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l question-header">{{ content[i18n.language].additionalEvidence.evidenceUpload.header | safe }}</h1>
-    <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para1 | safe }}</p>
+    <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para1a | safe }}</p>
     <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para2  | eval | safe }}.</p>
     <form class="--padding-top-m" id="additional-evidence-form" name="additional-evidence-form" action="/additional-evidence/upload?_csrf={{csrfToken}}" method="POST" enctype="multipart/form-data">
         {{ govukTextarea({
@@ -24,7 +24,7 @@
                 text: error
             } if error
           }) }}
-
+          <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para3  | eval | safe }}.</p>
         {{ govukFileUpload({
             id: "additional-evidence-file",
             name: "additional-evidence-file",
