@@ -38,8 +38,8 @@
                 accept: fileTypeWhiteList
             },
             "errorMessage": {
-                "text": fileUploadError
-            } if fileUploadError
+                "text": error
+            } if error
         }) }}
 
         {{ spinner(content[i18n.language].question.evidenceUpload.fileUploading) }}
