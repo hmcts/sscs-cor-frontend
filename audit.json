@@ -489,5 +489,6 @@
 	"10098_Cross-Domain Misconfiguration_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10207210127152629.js_GET" : "ignore",
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210127152629.js_GET" : "ignore",
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(2)%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210127152629.js_GET" : "ignore",
-	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210127152629.js_GET" : "ignore"
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QSVfgqrux_10207210127152629.js_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore"
 }
