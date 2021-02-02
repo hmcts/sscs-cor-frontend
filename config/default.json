@@ -47,7 +47,8 @@
         "enabled": "false"
       }
     },
-    "maxFileSizeInMb": 10
+    "maxFileSizeInMb": 500,
+    "maxDocumentFileSizeInMb": 10
   },
   "s2s": {
     "microservice": "sscs",

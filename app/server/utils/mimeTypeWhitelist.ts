@@ -19,6 +19,10 @@ module.exports = {
     'audio/mp3',
     'video/mp4'
   ],
+  audioVisualMimeTypes: [
+    'audio/mp3',
+    'video/mp4'
+  ],
   fileTypes: '.jpg, ' +
     '.jpeg, ' +
     '.bmp, ' +
@@ -45,5 +49,7 @@ module.exports = {
     '.potx, ' +
     '.ppsx, ' +
     '.mp3, ' +
+    '.mp4',
+  audioVisualFileTypes: '.mp3, ' +
     '.mp4'
 };

@@ -6,7 +6,7 @@ import * as AppInsights from '../app-insights';
 import { answerValidation, uploadDescriptionValidation } from '../utils/fieldValidation';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService, EvidenceDescriptor } from '../services/additional-evidence';
-import { handleFileUploadErrors } from '../middleware/file-upload-validation';
+import { handleFileUploadErrors, validateFileSize } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
 const content = require('../../../locale/content');
@@ -162,6 +162,7 @@ function setupadditionalEvidenceController(deps: any) {
   router.post(`${Paths.additionalEvidence}/upload`,
     deps.prereqMiddleware,
     upload.single('additional-evidence-file'),
+    validateFileSize,
     handleFileUploadErrors,
     postFileUpload(deps.additionalEvidenceService)
   );
