@@ -47,6 +47,8 @@ function fileTypeInWhitelist(req, file, cb) {
   if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
   } else {
+    const caseId = req.session['hearing'].case_id;
+    AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname}`);
     cb(new multer.MulterError(fileTypeError));
   }
 }
