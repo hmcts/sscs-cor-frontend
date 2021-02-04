@@ -65,7 +65,7 @@
     "body-parser": "^1.17.1",
     "chokidar": "^3.3.1",
     "computed-style": "^0.3.0",
-    "config": "3.2.5",
+    "config": "3.3.3",
     "connect-redis": "^3.4.2",
     "cookie-parser": "^1.4.3",
     "csurf": "^1.10.0",
