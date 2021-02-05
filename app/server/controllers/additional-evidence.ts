@@ -9,7 +9,9 @@ import * as Paths from '../paths';
 import { AdditionalEvidenceService, EvidenceDescriptor } from '../services/additional-evidence';
 import { handleFileUploadErrors } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+const { Logger } = require('@hmcts/nodejs-logging');
 
+const logger = Logger.getLogger('additional-evidence');
 const fileTypeError = 'LIMIT_FILE_TYPE';
 const content = require('../../../locale/content');
 
@@ -48,6 +50,7 @@ function fileTypeInWhitelist(req, file, cb) {
     cb(null, true);
   } else {
     const caseId = req.session['hearing'].case_id;
+    logger.info(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname}`);
     AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname}`);
     cb(new multer.MulterError(fileTypeError));
   }
