@@ -1,3 +1,5 @@
+import { fileTypeInWhitelist } from '../../../app/server/controllers/question';
+
 const multer = require('multer');
 import * as config from 'config';
 import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdditionalEvidence, postFileUpload } from 'app/server/controllers/additional-evidence';
@@ -282,4 +284,40 @@ describe('controllers/additional-evidence.js', () => {
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
   });
+
+  describe('#fileTypeInWhitelist', () => {
+    const cb = sinon.stub();
+    const file = {
+      mimetype: 'image/png',
+      originalname: 'someImage.png'
+    };
+
+    beforeEach(() => {
+      cb.reset();
+    });
+
+    it('file is in whitelist', () => {
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWith(null, true);
+    });
+
+    it('file mime type is not in whitelist', () => {
+      file.mimetype = 'plain/disallowed';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file extension type is not in whitelist', () => {
+      file.originalname = 'disallowed.file';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file does not have an extension ', () => {
+      file.originalname = 'disallowedfile';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+  });
+
 });
