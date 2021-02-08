@@ -1,8 +1,7 @@
-import { fileTypeInWhitelist } from '../../../app/server/controllers/question';
 
 const multer = require('multer');
 import * as config from 'config';
-import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdditionalEvidence, postFileUpload } from 'app/server/controllers/additional-evidence';
+import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdditionalEvidence, postFileUpload, fileTypeInWhitelist } from 'app/server/controllers/additional-evidence';
 import * as Paths from 'app/server/paths';
 const { expect, sinon } = require('test/chai-sinon');
 import * as AppInsights from 'app/server/app-insights';
