@@ -4,20 +4,25 @@ const multer = require('multer');
 const i18next = require('i18next');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 import * as AppInsights from '../app-insights';
+import { Logger } from '@hmcts/nodejs-logging';
+
 import { answerValidation, uploadDescriptionValidation } from '../utils/fieldValidation';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService, EvidenceDescriptor } from '../services/additional-evidence';
 import { handleFileUploadErrors, validateFileSize } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
-const { Logger } = require('@hmcts/nodejs-logging');
+import {dd_mm_yyyyFormat} from '../utils/dateUtils';
 
-const logger = Logger.getLogger('additional-evidence');
 const fileTypeError = 'LIMIT_FILE_TYPE';
 const content = require('../../../locale/content');
 
 const mediaFilesAllowed = config.get('featureFlags.mediaFilesAllowed') === 'true';
 
 const maxFileSizeInMb: number = (mediaFilesAllowed ? config.get('evidenceUpload.maxAudioVideoFileSizeInMb') : config.get('evidenceUpload.maxFileSizeInMb'));
+
+const md5 = require('md5');
+
+const logger = Logger.getLogger('additional-evidence.js');
 
 const upload = multer({
   limits: { fileSize:  maxFileSizeInMb * 1048576 },
@@ -130,6 +135,8 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
       req.session['additional_evidence'] = { description };
       if (req.file) {
         await additionalEvidenceService.uploadEvidence(caseId, req.file, req);
+        const buffer = req.file.buffer;
+        logger.info(`For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${md5(buffer).toUpperCase()}]`);
         return res.redirect(`${Paths.additionalEvidence}/upload`);
       } else if (req.body.delete) {
         const fileId = Object.keys(req.body.delete)[0];
