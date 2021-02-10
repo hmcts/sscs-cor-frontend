@@ -39,9 +39,9 @@
     "questionPage": {
       "enabled": "EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED",
       "overrideAllowed": "EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED",
-      "mediaFilesAllowed": {
-        "enabled": "MEDIA_FILES_ALLOWED_ENABLED"
-        }
+    },
+    "mediaFilesAllowed": {
+      "enabled": "MEDIA_FILES_ALLOWED_ENABLED"
     }
   },
   "featureFlags": {
