@@ -848,7 +848,7 @@
         "header": "Upload additional evidence",
         "description": {
           "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
-          "para1a": "You can upload letters, documents, photos or videos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
+          "para1audioVideo": "You can upload letters, documents, photos or videos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
           "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>",
           "para3": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .doc, .docx, .mp3, mp4"
         },
@@ -1519,6 +1519,7 @@
           "summary": "Gallwch hefyd anfon tystiolaeth i’r tribiwnlys drwy’r post",
           "details": {
             "para1": "Gallwch bostio tystiolaeth i'r cyfeiriad isod.",
+            "para1audioVideo": "Need the welsh translation for this"
             "para2": "Gwnewch yn siwr ei bod wedi’i marcio’n glir gyda chyfeirnod eich apêl:",
             "closingPara1": "Ceisiwch ei hanfon cyn gynted ag sy’n bosibl i osgoi oedi gyda’ch apêl.",
             "closingPara2": "Rhowch wybod i'r tribiwnlys yn eich ateb os ydych yn bwriadu postio tystiolaeth. Disgrifiwch yn fras beth rydych yn ei bostio a dweud pryd rydych yn credu y bydd yn cyrraedd."
