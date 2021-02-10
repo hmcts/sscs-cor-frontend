@@ -42,7 +42,7 @@
   "evidenceUpload": {
     "questionPage": {
       "enabled": "false",
-      "overrideAllowed": "false",
+      "overrideAllowed": "false"
     },
     "mediaFilesAllowed": {
       "enabled": "false"

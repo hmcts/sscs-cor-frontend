@@ -47,6 +47,31 @@ module.exports = {
     '.ppa, ' +
     '.pptx, ' +
     '.potx, ' +
+    '.ppsx, ',
+  fileTypesWithAudioVideo:  '.jpg, ' +
+    '.jpeg, ' +
+    '.bmp, ' +
+    '.tif, ' +
+    '.tiff, ' +
+    '.png, ' +
+    '.pdf, ' +
+    '.txt, ' +
+    '.doc, ' +
+    '.dot, ' +
+    '.docx, ' +
+    '.dotx, ' +
+    '.xls, ' +
+    '.xlt, ' +
+    '.xla, ' +
+    '.xlsx, ' +
+    '.xltx, ' +
+    '.xlsb, ' +
+    '.ppt, ' +
+    '.pot, ' +
+    '.pps, ' +
+    '.ppa, ' +
+    '.pptx, ' +
+    '.potx, ' +
     '.ppsx, ' +
     '.mp3, ' +
     '.mp4',
