@@ -11,7 +11,9 @@ import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
 const content = require('../../../locale/content');
 
-const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
+const mediaFilesAllowed = config.get('featureFlags.mediaFilesAllowed') === 'true';
+
+const maxFileSizeInMb: number = (mediaFilesAllowed ? config.get('evidenceUpload.maxAudioVideoFileSizeInMb') : config.get('evidenceUpload.maxFileSizeInMb'));
 
 const upload = multer({
   limits: { fileSize:  maxFileSizeInMb * 1048576 }
@@ -69,11 +71,14 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
         const { description } = req.session['additional_evidence'] || '';
         const caseId = req.session['hearing'].case_id;
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
+        const hasAudioVideoFile = checkAudioVideoFile(evidences);
+
         return res.render('additional-evidence/index.html',
           {
             action,
             evidences: evidences ? evidences.reverse() : [],
-            description
+            description,
+            hasAudioVideoFile
           }
         );
       }
@@ -86,6 +91,16 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
       return next(error);
     }
   };
+}
+
+function checkAudioVideoFile(evidences: EvidenceDescriptor[]) {
+  let hasAudioVideoFile = false;
+  evidences.forEach(evidences => {
+    if (evidences.file_name.toLowerCase().endsWith('.mp3') || evidences.file_name.toLowerCase().endsWith('.mp4')) {
+      hasAudioVideoFile = true;
+    }
+  });
+  return hasAudioVideoFile;
 }
 
 function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {

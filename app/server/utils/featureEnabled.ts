@@ -10,7 +10,8 @@ enum Feature {
   CONTACT_US_WEBCHAT_ENABLED= 'allowContactUs.webChatEnabled',
   POST_BULK_SCAN = 'postBulkScan',
   HISTORY_TAB = 'historyTab',
-  HEARING_OUTCOME_TAB = 'hearingOutcomeTab'
+  HEARING_OUTCOME_TAB = 'hearingOutcomeTab',
+  MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed'
 }
 
 function isFeatureEnabled(feature: Feature, force?: {}): boolean {

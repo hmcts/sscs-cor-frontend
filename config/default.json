@@ -44,9 +44,6 @@
       "enabled": "false",
       "overrideAllowed": "false"
     },
-    "mediaFilesAllowed": {
-      "enabled": "false"
-    },
     "maxFileSizeInMb": 10,
     "maxAudioVideoFileSizeInMb": 500,
     "maxDocumentFileSizeInMb": 10
@@ -68,6 +65,7 @@
   "apiCallTimeout" : 40000,
   "navigationTimeout" : 140000,
   "featureFlags": {
+    "mediaFilesAllowed": "true",
     "testFeature": "false",
     "manageYourAppeal": "true",
     "additionalEvidence": "false",

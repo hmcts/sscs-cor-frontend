@@ -8,7 +8,7 @@ const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 const maxDocumentFileSizeInMb: number = config.get('evidenceUpload.maxDocumentFileSizeInMb');
-const evidenceMediaFilesAllowed = config.get('evidenceUpload.mediaFilesAllowed.enabled') === 'true';
+const evidenceMediaFilesAllowed = config.get('featureFlags.mediaFilesAllowed') === 'true';
 
 function handleFileUploadErrors(err: any, req: Request, res: Response, next: NextFunction) {
   let error: string;
