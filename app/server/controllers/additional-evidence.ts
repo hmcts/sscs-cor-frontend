@@ -114,8 +114,8 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
 
 function checkAudioVideoFile(evidences: EvidenceDescriptor[]) {
   let hasAudioVideoFile = false;
-  evidences.forEach(evidences => {
-    if (evidences.file_name.toLowerCase().endsWith('.mp3') || evidences.file_name.toLowerCase().endsWith('.mp4')) {
+  evidences.forEach(evidence => {
+    if (evidence.file_name.toLowerCase().endsWith('.mp3') || evidence.file_name.toLowerCase().endsWith('.mp4')) {
       hasAudioVideoFile = true;
     }
   });
