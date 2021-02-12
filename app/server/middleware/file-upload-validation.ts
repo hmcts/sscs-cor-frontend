@@ -3,6 +3,7 @@ const i18next = require('i18next');
 import { NextFunction, Request, Response } from 'express';
 import * as config from 'config';
 import * as path from 'path';
+import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
 const content = require('../../../locale/content');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 
@@ -27,7 +28,7 @@ function handleFileUploadErrors(err: any, req: Request, res: Response, next: Nex
 }
 
 function validateFileSize(req: Request, res: Response, next: NextFunction) {
-  if (evidenceMediaFilesAllowed) {
+  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies)) {
     if (req.file) {
       let error: string;
       const fileExtension = path.extname(req.file.originalname);
