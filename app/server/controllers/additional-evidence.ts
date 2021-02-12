@@ -48,12 +48,14 @@ function postAdditionalEvidence (req: Request, res: Response) {
 
 function fileTypeInWhitelist(req, file, cb) {
   const fileExtension = (file.originalname || '').split('.').pop();
-  if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
+  if (mediaFilesAllowed && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
+    cb(null, true);
+  } else if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
   } else {
     const caseId = req.session['hearing'].case_id;
-    logger.info(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname}`);
-    AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname}`);
+    logger.info(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
     cb(new multer.MulterError(fileTypeError));
   }
 }

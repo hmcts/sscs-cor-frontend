@@ -31,7 +31,7 @@ function validateFileSize(req: Request, res: Response, next: NextFunction) {
     if (req.file) {
       let error: string;
       const fileExtension = path.extname(req.file.originalname);
-      if (!mimeTypeWhitelist.audioVisualMimeTypes.includes(req.file.mimetype) && !mimeTypeWhitelist.audioVisualFileTypes.includes(fileExtension.toLocaleLowerCase())
+      if (mimeTypeWhitelist.mimeTypes.includes(req.file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())
           && req.file.size > (maxDocumentFileSizeInMb * 1048576)) {
         error = `${content[i18next.language].questionUploadEvidence.error.tooLarge} ${maxDocumentFileSizeInMb}MB.`;
         res.locals.multerError = error;
