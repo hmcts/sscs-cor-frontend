@@ -48,7 +48,7 @@ function postAdditionalEvidence (req: Request, res: Response) {
 
 function fileTypeInWhitelist(req, file, cb) {
   const fileExtension = (file.originalname || '').split('.').pop();
-  if (mediaFilesAllowed && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
+  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies) && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
   } else if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
