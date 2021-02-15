@@ -3,7 +3,7 @@ const i18next = require('i18next');
 import { NextFunction, Request, Response } from 'express';
 import * as config from 'config';
 import * as path from 'path';
-import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
+import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 const content = require('../../../locale/content');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 
