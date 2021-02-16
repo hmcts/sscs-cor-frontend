@@ -115,7 +115,7 @@ describe('Joint party - Manage your appeal app @mya', () => {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(480);
+      expect(heightOpen).to.equal(610);
     });
   });
 });
