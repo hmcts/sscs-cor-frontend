@@ -508,5 +508,9 @@
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/robots.txt_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon-180x180.png_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon-167x167.png_GET" : "ignore",
-	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon.png_GET" : "ignore"
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon.png_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon-152x152.png_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/additional-evidence_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/task-list_GET" : "ignore",
+	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js_GET" : "ignore"
 }
