@@ -32,6 +32,7 @@ function setLocals(req, res, next) {
   res.locals.featureFlags = {};
   res.locals.featureFlags[Feature.MANAGE_YOUR_APPEAL] = isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) && req.session.appeal && req.session.appeal.hearingType !== 'cor';
   res.locals.featureFlags[Feature.ADDITIONAL_EVIDENCE_FEATURE] = isFeatureEnabled(Feature.ADDITIONAL_EVIDENCE_FEATURE, req.cookies);
+  res.locals.featureFlags[Feature.MEDIA_FILES_ALLOWED_ENABLED] = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
 
   // Setting up Tabs to show on MYA;
   if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) && req.session.appeal && req.session.appeal.hearingType !== 'cor') {

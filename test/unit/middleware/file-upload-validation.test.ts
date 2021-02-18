@@ -1,8 +1,9 @@
 const multer = require('multer');
 import { NextFunction, Request, Response } from 'express';
 const { expect, sinon } = require('test/chai-sinon');
-import { handleFileUploadErrors } from 'app/server/middleware/file-upload-validation';
+import { handleFileUploadErrors, validateFileSize } from 'app/server/middleware/file-upload-validation';
 import * as config from 'config';
+import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
 const content = require('locale/content');
 
 describe('#handleFileUploadErrors middleware', () => {
@@ -42,5 +43,35 @@ describe('#handleFileUploadErrors middleware', () => {
     const error = new Error('An error');
     handleFileUploadErrors(error, req, res, next);
     expect(next).to.have.been.calledOnce.calledWith(error);
+  });
+});
+describe('#validateFileSize middleware', () => {
+  const req: any = { cookies: { } };
+  let res: Response;
+  let next: NextFunction;
+  let sandbox: sinon.SinonSandbox;
+  const maxFileSizeInMb: number = config.get('evidenceUpload.maxDocumentFileSizeInMb');
+  const maxDocumentFileSizeInMb: number = config.get('evidenceUpload.maxDocumentFileSizeInMb');
+
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    req.file = { originalname: 'word.docx',
+      mimetype: 'application/msword',
+      size: 104857600};
+    req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
+    res = {
+      locals: {}
+    } as any;
+    next = sandbox.stub();
+  });
+
+  it('should catch custom multer LIMIT_FILE_SIZE error', () => {
+    req.file = { originalname: 'word.docx',
+      mimetype: 'application/msword',
+      size: 104857600};
+
+    validateFileSize(req, res, next);
+    expect(res.locals.multerError).to.equal(`${content.en.questionUploadEvidence.error.tooLarge} ${maxDocumentFileSizeInMb}MB.`);
+    expect(next).to.have.been.calledOnce.calledWith();
   });
 });
