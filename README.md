@@ -98,9 +98,9 @@ To do this you must set some extra environment variables locally:
 * HTTP_PROXY - to configure the tests to use the HMCTS proxy
 * SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
 * COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
-* TEST_URL - this is the URL you are testing e.g. https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
+* TEST_URL - this is the URL you are testing e.g. https://sscs-mya-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
 * HEADLESS - optionally choose to show the browser by setting this to false
-* IDAM_URL - Used to check the user returns to idam when logged out (currently https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub when using stub)
+* IDAM_URL - Used to check the user returns to idam when logged out (currently https://sscs-mya-frontend-aat-staging.service.core-compute-aat.internal/idam-stub when using stub)
 * IDAM_API_URL - Used to create a user in idam that can login to the system (not currently used with idam stub)
 * S2S_SECRET - used to provide auth for connecting to backend services
 * S2S_URL - the service-2-service application for generating access tokens
@@ -112,13 +112,13 @@ To do this you must set some extra environment variables locally:
 Put these together with the required `yarn` command in one line like this:
 
 ```bash
-HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=XXXXXXXXXXX IDAM_OAUTH2_CLIENT_SECRET=XXXXXXXXXXX S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net yarn test:functional
+HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-mya-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-mya-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=XXXXXXXXXXX IDAM_OAUTH2_CLIENT_SECRET=XXXXXXXXXXX S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net yarn test:functional
 ```
 
 Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
 
 ### Running app locally via terminal
-Open a terminal, go to the sscs-cor-frontend directory. Set env vars in a terminal
+Open a terminal, go to the sscs-mya-frontend directory. Set env vars in a terminal
 
 ```
 export SSCS_API_URL=http://localhost:8080
@@ -203,7 +203,7 @@ deadlineExpiryDate  2018-11-16T23:59:59Z
 ------------------------------------------------------------
 ```
 
-If you visit https://sscs-cor-frontend-aat.service.core-compute-aat.internal/ and enter the email address shown you should be able to use the service.
+If you visit https://sscs-mya-frontend-aat.service.core-compute-aat.internal/ and enter the email address shown you should be able to use the service.
 
 If you need to run against different environments, you can set the following environment variables:
 
@@ -236,7 +236,7 @@ If you wish to also issue a decision then add the environment variable ISSUE_DEC
 Analytics are tracking using Google Tag Manager (GTM) and Google Analytics (GA), all managed under the SSCS account.
 
 * one GTM code is used across all environments and Tag Manager is configured to track page view events using different GA settings per environment
-* page views with AAT type hostnames eg. sscs-cor-frontend-aat-staging.service.core-compute-aat.internal are sent to one GA account
+* page views with AAT type hostnames eg. sscs-mya-frontend-aat-staging.service.core-compute-aat.internal are sent to one GA account
 * page views with PROD hostnames are sent to another
 * prod hostnames are configured but will need amending when domains have been decided
 
