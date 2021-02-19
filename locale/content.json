@@ -2246,7 +2246,7 @@
         "error": {
           "emptyDescription": "Nid ydych wedi rhoi disgrifiad. Rhowch ddisgrifiad bras o’r dystiolaeth rydych eisiau ei llwytho.",
           "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau.",
-          "regex": "There are special character(s) in the text entered. Please remove these before continuing"
+          "regex": "Mae yna nod(au) arbennig yn y wybodaeth sydd wedi’i rhoi. Dilëwch y rhain cyn parhau"
         }
       },
       "evidencePost": {
