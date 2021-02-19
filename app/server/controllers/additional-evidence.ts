@@ -7,7 +7,7 @@ import * as AppInsights from '../app-insights';
 import { answerValidation, uploadDescriptionValidation } from '../utils/fieldValidation';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService, EvidenceDescriptor } from '../services/additional-evidence';
-import { handleFileUploadErrors } from '../middleware/file-upload-validation';
+import { handleFileUploadErrors, validateFileSize } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -15,7 +15,9 @@ const logger = Logger.getLogger('additional-evidence');
 const fileTypeError = 'LIMIT_FILE_TYPE';
 const content = require('../../../locale/content');
 
-const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
+const mediaFilesAllowed = config.get('featureFlags.mediaFilesAllowed') === 'true';
+
+const maxFileSizeInMb: number = (mediaFilesAllowed ? config.get('evidenceUpload.maxAudioVideoFileSizeInMb') : config.get('evidenceUpload.maxFileSizeInMb'));
 
 const upload = multer({
   limits: { fileSize:  maxFileSizeInMb * 1048576 },
@@ -46,12 +48,14 @@ function postAdditionalEvidence (req: Request, res: Response) {
 
 function fileTypeInWhitelist(req, file, cb) {
   const fileExtension = (file.originalname || '').split('.').pop();
-  if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
+  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies) && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
+    cb(null, true);
+  } else if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
   } else {
     const caseId = req.session['hearing'].case_id;
-    logger.info(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname}`);
-    AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname}`);
+    logger.info(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
     cb(new multer.MulterError(fileTypeError));
   }
 }
@@ -86,11 +90,14 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
         const { description } = req.session['additional_evidence'] || '';
         const caseId = req.session['hearing'].case_id;
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
+        const hasAudioVideoFile = checkAudioVideoFile(evidences);
+
         return res.render('additional-evidence/index.html',
           {
             action,
             evidences: evidences ? evidences.reverse() : [],
-            description
+            description,
+            hasAudioVideoFile
           }
         );
       }
@@ -103,6 +110,16 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
       return next(error);
     }
   };
+}
+
+function checkAudioVideoFile(evidences: EvidenceDescriptor[]) {
+  let hasAudioVideoFile = false;
+  evidences.forEach(evidence => {
+    if (evidence.file_name.toLowerCase().endsWith('.mp3') || evidence.file_name.toLowerCase().endsWith('.mp4')) {
+      hasAudioVideoFile = true;
+    }
+  });
+  return hasAudioVideoFile;
 }
 
 function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
@@ -179,6 +196,7 @@ function setupadditionalEvidenceController(deps: any) {
   router.post(`${Paths.additionalEvidence}/upload`,
     deps.prereqMiddleware,
     upload.single('additional-evidence-file'),
+    validateFileSize,
     handleFileUploadErrors,
     postFileUpload(deps.additionalEvidenceService)
   );

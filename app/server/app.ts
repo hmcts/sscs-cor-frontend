@@ -9,7 +9,7 @@ const content = require('../../locale/content');
 import * as Paths from './paths';
 const bodyParser = require('body-parser');
 import * as cookieParser from 'cookie-parser';
-const { fileTypes } = require('./utils/mimeTypeWhitelist');
+const { fileTypes, fileTypesWithAudioVideo } = require('./utils/mimeTypeWhitelist');
 const i18next = require('i18next');
 
 import * as screenReaderUtils from './utils/screenReaderUtils';
@@ -49,7 +49,13 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.set('view engine', 'html');
   app.locals.i18n = i18next;
   app.locals.content = content;
-  app.locals.fileTypeWhiteList = fileTypes;
+
+  if (config.get('featureFlags.mediaFilesAllowed') === 'true') {
+    app.locals.fileTypeWhiteList = fileTypesWithAudioVideo;
+  } else {
+    app.locals.fileTypeWhiteList = fileTypes;
+  }
+
   app.locals.screenReaderUtils = screenReaderUtils;
 
   if (!isDevelopment) {
@@ -73,6 +79,8 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     app.locals.contactUsWebFormEnabled = isFeatureEnabled(Feature.CONTACT_US_WEB_FORM_ENABLED, req.cookies);
     app.locals.contactUsTelephoneEnabled = isFeatureEnabled(Feature.CONTACT_US_TELEPHONE_ENABLED, req.cookies);
     app.locals.webChatEnabled = isFeatureEnabled(Feature.CONTACT_US_WEBCHAT_ENABLED, req.cookies);
+    // fixme needed?
+    app.locals.mediaFilesAllowed = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
     app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
     next();
   });
