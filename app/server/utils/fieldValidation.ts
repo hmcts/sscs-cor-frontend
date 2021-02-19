@@ -4,19 +4,29 @@ const content = require('../../../locale/content');
 
 const maxCharacters = 20000;
 const minCharecters = 1;
+const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
 
 function uploadDescriptionValidation(description) {
   let error = false;
   const schema = Joi.string()
     .required()
     .max(maxCharacters)
+    .regex(whitelist)
     .options({
       language: {
-        any: { empty: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.emptyDescription}` },
-        string: { max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}` }
+        any: {
+          empty: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.emptyDescription}`
+        },
+        string: {
+          max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}`,
+          regex: {
+            base: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.regex}`
+          }
+        }
       }
     });
   const result = schema.validate(description);
+
   if (result.error) {
     error = result.error.details[0].message;
   }

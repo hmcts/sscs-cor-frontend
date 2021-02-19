@@ -35,8 +35,16 @@ describe('utils/fieldValidation.js', () => {
       expect(uploadDescriptionValidation('Valid answer')).to.equal(false);
     });
 
-    it('returns the error message if answer is not an email', () => {
+    it('returns the error message if description is empty', () => {
       expect(uploadDescriptionValidation('')).to.equal(content.en.additionalEvidence.evidenceUpload.error.emptyDescription);
+    });
+
+    it('returns the error message if description has script chars', () => {
+      expect(uploadDescriptionValidation('<<sc<<script>script>alert("This is an XSS alert")<</scr<</script>/script>')).to.equal(content.en.additionalEvidence.evidenceUpload.error.regex);
+    });
+
+    it('returns the error message if description has invalid chars', () => {
+      expect(uploadDescriptionValidation('$ ^ @ { }')).to.equal(content.en.additionalEvidence.evidenceUpload.error.regex);
     });
   });
 

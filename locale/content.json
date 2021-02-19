@@ -857,7 +857,8 @@
         },
         "error": {
           "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
-          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading."
+          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing"
         }
       },
       "evidencePost": {
@@ -2244,7 +2245,8 @@
         },
         "error": {
           "emptyDescription": "Nid ydych wedi rhoi disgrifiad. Rhowch ddisgrifiad bras o’r dystiolaeth rydych eisiau ei llwytho.",
-          "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau."
+          "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing"
         }
       },
       "evidencePost": {
