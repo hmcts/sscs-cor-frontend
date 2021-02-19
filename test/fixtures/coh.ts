@@ -11,7 +11,7 @@ const PANEL_NAME = 'John Smith';
 const PANEL_IDENTITY_TOKEN = 'string';
 const HEARING_STATUS = 'continuous_online_hearing_started';
 
-const QUESTION_OWNER_REF = 'SSCS-MYA';
+const QUESTION_OWNER_REF = 'SSCS-COR';
 const QUESTION_ROUND = '1';
 
 const timeout = require('config').get('apiCallTimeout');

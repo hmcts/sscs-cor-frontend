@@ -1,12 +1,12 @@
 #!groovy
 properties(
-        [[$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/sscs-mya-frontend'],
+        [[$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/sscs-cor-frontend'],
          pipelineTriggers([[$class: 'GitHubPushTrigger']])]
 )
 
 @Library("Infrastructure")
 
-def product = "sscs-mya"
+def product = "sscs-cor"
 def component = "frontend"
 
 def cohUrlAat = "http://coh-cor-aat.service.core-compute-aat.internal"

@@ -1,8 +1,8 @@
 apiVersion: v2
-name: sscs-mya-frontend
-home: https://github.com/hmcts/sscs-mya-frontend
+name: sscs-cor-frontend
+home: https://github.com/hmcts/sscs-cor-frontend
 version: 0.1.23
-description: SSCS MYA FRONTEND
+description: SSCS COR FRONTEND
 dependencies:
   - name: nodejs
     version: ~2.3.4
