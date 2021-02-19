@@ -515,6 +515,8 @@
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/js/main.js_GET" : "ignore",
-	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-mask-icon.svg_GET" : "ignore"
-
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-mask-icon.svg_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/sign-in_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/public/css/main.css_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net_GET" : "ignore"
 }
