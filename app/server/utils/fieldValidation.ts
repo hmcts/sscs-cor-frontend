@@ -32,14 +32,22 @@ function answerValidation(answer, req?) {
     emptyErrorMsg = content[i18next.language].question.textareaField.error.empty;
   }
 
+  const allowedRegex = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
+
   const schema = Joi.string()
     .required()
     .min(minCharecters)
     .max(maxCharacters)
+    .regex(allowedRegex).required()
     .options({
       language: {
         any: { empty: `!!${emptyErrorMsg}` },
-        string: { max: `!!${content[i18next.language].question.textareaField.error.maxCharacters}` }
+        string: {
+          max: `!!${content[i18next.language].question.textareaField.error.maxCharacters}`,
+          regex: {
+            base: `!!${content[i18next.language].question.textareaField.error.regex}`
+          }
+        }
       }
     });
 
