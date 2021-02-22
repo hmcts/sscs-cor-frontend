@@ -46,10 +46,16 @@ function answerValidation(answer, req?) {
     .required()
     .min(minCharecters)
     .max(maxCharacters)
+    .regex(whitelist)
     .options({
       language: {
         any: { empty: `!!${emptyErrorMsg}` },
-        string: { max: `!!${content[i18next.language].question.textareaField.error.maxCharacters}` }
+        string: {
+          max: `!!${content[i18next.language].question.textareaField.error.maxCharacters}`,
+          regex: {
+            base: `!!${content[i18next.language].question.textareaField.error.regex}`
+          }
+        }
       }
     });
 

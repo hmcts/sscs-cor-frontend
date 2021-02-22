@@ -8,6 +8,14 @@ describe('utils/fieldValidation.js', () => {
       expect(answerValidation('', { body : { submit : true } })).to.equal(content.en.question.textareaField.error.empty);
     });
 
+    it('returns the error message if answer does not meet permitted characters', () => {
+      expect(answerValidation('$', { body : { submit : true } })).to.equal(content.en.question.textareaField.error.regex);
+    });
+
+    it('returns the error message if answer contains script characters', () => {
+      expect(answerValidation('hello <script>alert("This is an XSS alert")</script>', { body : { submit : true } })).to.equal(content.en.question.textareaField.error.regex);
+    });
+
     it('returns false if answer is valid', () => {
       expect(answerValidation('Valid answer', { body : { submit : true } })).to.equal(false);
     });

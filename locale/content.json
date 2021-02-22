@@ -112,7 +112,8 @@
         "placeholder": "You can write as much as you want",
         "error": {
           "empty": "You have not entered any information. Enter some information before submitting.",
-          "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+          "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing"
         },
         "errorOnSave": {
           "empty": "You have not entered any information. Enter some information before saving."
@@ -1507,7 +1508,8 @@
         "placeholder": "Gallwch ysgrifennu faint bynnag a fynnoch",
         "error": {
           "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn cyflwyno’ch ateb.",
-          "maxCharacters": "Rydych wedi defnyddio mwy na 20,000 o nodau. Ceisiwch leihau faint rydych wedi ysgrifennu a rhowch gynnig arall arni."
+          "maxCharacters": "Rydych wedi defnyddio mwy na 20,000 o nodau. Ceisiwch leihau faint rydych wedi ysgrifennu a rhowch gynnig arall arni.",
+          "regex": "Mae yna nod(au) arbennig yn y wybodaeth sydd wedi’i rhoi. Dilëwch y rhain cyn parhau."
         },
         "errorOnSave": {
           "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn arbed eich ateb."
