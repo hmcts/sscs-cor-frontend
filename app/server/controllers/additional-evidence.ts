@@ -14,7 +14,7 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('additional-evidence');
 const fileTypeError = 'LIMIT_FILE_TYPE';
 const content = require('../../../locale/content');
-
+const crypto = require('crypto');
 const mediaFilesAllowed = config.get('featureFlags.mediaFilesAllowed') === 'true';
 
 const maxFileSizeInMb: number = (mediaFilesAllowed ? config.get('evidenceUpload.maxAudioVideoFileSizeInMb') : config.get('evidenceUpload.maxFileSizeInMb'));
@@ -130,6 +130,12 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
       req.session['additional_evidence'] = { description };
       if (req.file) {
         await additionalEvidenceService.uploadEvidence(caseId, req.file, req);
+        const buffer: Buffer = req.file.buffer;
+        // NOSONAR
+        const md5Hash: String = crypto.createHash('md5').update(buffer).digest('hex');
+        const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${md5Hash}]`;
+        AppInsights.trackTrace(logMsg);
+        logger.info(logMsg);
         return res.redirect(`${Paths.additionalEvidence}/upload`);
       } else if (req.body.delete) {
         const fileId = Object.keys(req.body.delete)[0];
