@@ -6,6 +6,7 @@ module.exports = {
     'image/png',
     'image/bmp',
     'text/plain',
+    'text/rtf',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
@@ -24,6 +25,7 @@ module.exports = {
     'image/png',
     'image/bmp',
     'text/plain',
+    'text/rtf',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
@@ -46,6 +48,7 @@ module.exports = {
     '.png, ' +
     '.pdf, ' +
     '.txt, ' +
+    '.rtf, ' +
     '.doc, ' +
     '.dot, ' +
     '.docx, ' +
@@ -71,6 +74,7 @@ module.exports = {
     '.png, ' +
     '.pdf, ' +
     '.txt, ' +
+    '.rtf, ' +
     '.doc, ' +
     '.dot, ' +
     '.docx, ' +
