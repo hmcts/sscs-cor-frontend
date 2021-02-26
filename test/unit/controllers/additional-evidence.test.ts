@@ -1,12 +1,13 @@
+
 const multer = require('multer');
 import * as config from 'config';
-import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdditionalEvidence, postFileUpload } from 'app/server/controllers/additional-evidence';
+import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdditionalEvidence, postFileUpload, fileTypeInWhitelist } from 'app/server/controllers/additional-evidence';
 import * as Paths from 'app/server/paths';
 const { expect, sinon } = require('test/chai-sinon');
 import * as AppInsights from 'app/server/app-insights';
 import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
+import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
 const content = require('locale/content');
-
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
 describe('controllers/additional-evidence.js', () => {
@@ -38,7 +39,8 @@ describe('controllers/additional-evidence.js', () => {
       },
       body: {},
       file: null,
-      query: {}
+      query: {},
+      cookies: {}
     } as any;
 
     res = {
@@ -87,7 +89,8 @@ describe('controllers/additional-evidence.js', () => {
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'upload',
       description,
-      evidences: []
+      evidences: [],
+      hasAudioVideoFile: false
     });
   });
 
@@ -198,11 +201,15 @@ describe('controllers/additional-evidence.js', () => {
     });
 
     it('should upload file and render upload page', async () => {
-      req.file = { name: 'myfile.txt' };
+      req.file = {
+        name: 'myfile.txt',
+        buffer: new Buffer('some content')
+      };
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
       expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, req.file);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.additionalEvidence}/upload`);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce;
     });
 
     it('should delete file and render upload page', async () => {
@@ -282,4 +289,54 @@ describe('controllers/additional-evidence.js', () => {
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
   });
+
+  describe('#fileTypeInWhitelist', () => {
+    const cb = sinon.stub();
+    const file = {
+      mimetype: 'image/png',
+      originalname: 'someImage.png'
+    };
+
+    beforeEach(() => {
+      cb.reset();
+    });
+
+    it('file is in whitelist', () => {
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWith(null, true);
+    });
+
+    it('file mime type is not in whitelist', () => {
+      file.mimetype = 'plain/disallowed';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file extension type is not in whitelist', () => {
+      file.originalname = 'disallowed.file';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file does not have an extension ', () => {
+      file.originalname = 'disallowedfile';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file is audio ', () => {
+      file.originalname = 'audio.MP3';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file is audio with feature flag on', () => {
+      file.originalname = 'audio.MP3';
+      file.mimetype = 'audio/mp3';
+      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
+      fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWith(null, true);
+    });
+  });
+
 });

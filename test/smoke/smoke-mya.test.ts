@@ -40,7 +40,6 @@ describe('Manage your appeal app @smoke', () => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
-    await page.waitFor(4000);
     statusPage.verifyPage();
   });
 
