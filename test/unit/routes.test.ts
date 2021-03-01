@@ -12,7 +12,6 @@ import { CONST } from '../../app/constants';
 import moment = require('moment');
 
 const dysonSetupCorBackend = require('../mock/cor-backend/dysonSetup');
-const questionData = require('../mock/cor-backend/services/questionData');
 const dysonSetupCoh = require('../mock/coh/dysonSetup');
 const dysonSetupIdam = require('../mock/idam/dysonSetup');
 const dysonSetupS2s = require('../mock/s2s/dysonSetup');
