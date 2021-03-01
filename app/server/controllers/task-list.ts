@@ -3,7 +3,6 @@ import * as moment from 'moment';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService } from '../services/additional-evidence';
-import { QuestionService } from '../services/question';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
 function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
