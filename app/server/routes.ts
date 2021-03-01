@@ -1,7 +1,6 @@
 const express = require('express');
 const setLanguage = require('./setLanguage');
 
-import * as Paths from './paths';
 import * as config from 'config';
 
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
