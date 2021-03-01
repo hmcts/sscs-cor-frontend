@@ -8,8 +8,6 @@ import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticate
 import { setupTaskListController } from './controllers/task-list';
 import { setupLoginController, redirectToLogin } from './controllers/login';
 import { setupDecisionController } from './controllers/decision';
-import { setupHearingConfirmController } from './controllers/hearing-confirm';
-import { setupHearingWhyController } from './controllers/hearing-why';
 import { setupIdamStubController } from './controllers/idam-stub';
 import { setupCookiePrivacyController } from './controllers/policies';
 import { supportControllers } from './controllers/support';
@@ -57,8 +55,6 @@ const prereqMiddleware = [ensureAuthenticated];
 
 const taskListController = setupTaskListController({ additionalEvidenceService, prereqMiddleware });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
-const hearingConfirmController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
-const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const loginController = setupLoginController({ hearingService, idamService, trackYourApealService: trackYourAppealService });
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
@@ -89,8 +85,6 @@ router.use(idamStubController);
 router.use(loginController);
 router.use(taskListController);
 router.use(decisionController);
-router.use(hearingConfirmController);
-router.use(hearingWhyController);
 router.use(cookiePrivacyController);
 router.use(supportEvidenceController);
 router.use(supportHearingController);
