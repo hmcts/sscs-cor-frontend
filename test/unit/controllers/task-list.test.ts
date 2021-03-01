@@ -5,8 +5,7 @@ import {
   setupTaskListController,
   getCoversheet,
   getEvidencePost,
-  getTaskList,
-  processDeadline
+  getTaskList
 } from 'app/server/controllers/task-list';
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 const moment = require('moment');
