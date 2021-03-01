@@ -6,6 +6,9 @@ import * as config from 'config';
 
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 
+import { setupQuestionController } from './controllers/question';
+import { setupSubmitQuestionController } from './controllers/submit-question';
+import { setupQuestionsCompletedController } from './controllers/questions-completed';
 import { setupTaskListController } from './controllers/task-list';
 import { setupLoginController, redirectToLogin } from './controllers/login';
 import { setupExtendDeadlineController } from './controllers/extend-deadline';
@@ -29,6 +32,7 @@ import { setupOutcomeController } from './controllers/outcome';
 
 const router = express.Router();
 
+import { QuestionService } from './services/question';
 import { HearingService } from './services/hearing';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
@@ -54,12 +58,16 @@ const { validateEmail } = require('./controllers/validateEmail');
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret);
 const hearingService: HearingService = new HearingService(apiUrl);
+const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
 
 const prereqMiddleware = [ensureAuthenticated];
 
-const taskListController = setupTaskListController({ additionalEvidenceService, prereqMiddleware });
+const questionController = setupQuestionController({ questionService, evidenceService, prereqMiddleware });
+const submitQuestionController = setupSubmitQuestionController({ questionService, evidenceService, prereqMiddleware });
+const questionsCompletedController = setupQuestionsCompletedController({ prereqMiddleware });
+const taskListController = setupTaskListController({ questionService, additionalEvidenceService, prereqMiddleware });
 const extendDeadlineController = setupExtendDeadlineController({ prereqMiddleware, hearingService });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewConfirmController = setupTribunalViewConfirmController({ prereqMiddleware: ensureAuthenticated, hearingService });
@@ -94,6 +102,9 @@ router.use((req, res, next) => {
 router.use(setLanguage);
 router.use(idamStubController);
 router.use(loginController);
+router.use(submitQuestionController);
+router.use(questionsCompletedController);
+router.use(Paths.question, questionController);
 router.use(taskListController);
 router.use(extendDeadlineController);
 router.use(decisionController);
