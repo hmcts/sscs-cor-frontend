@@ -1,0 +1,137 @@
+import * as moment from 'moment';
+import * as _ from 'lodash';
+import { CONST } from 'app/constants';
+const { expect } = require('test/chai-sinon');
+import { Page } from 'puppeteer';
+import { startServices } from 'test/browser/common';
+import { TaskListPage } from 'test/page-objects/task-list';
+const content = require('locale/content');
+
+import { ExtendDeadlinePage } from 'test/page-objects/extend-deadline';
+const config = require('config');
+
+const pa11y = require('pa11y');
+let pa11yOpts = _.clone(config.get('pa11y'));
+const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
+
+describe.skip('Extend deadline', () => {
+  let page: Page;
+  let taskListPage: TaskListPage;
+  let extendDeadlinePage: ExtendDeadlinePage;
+
+  before('start services and bootstrap data in CCD/COH', async () => {
+    const res = await startServices({ performLogin: true });
+    page = res.page;
+    taskListPage = new TaskListPage(page);
+    extendDeadlinePage = new ExtendDeadlinePage(page);
+    pa11yOpts.browser = res.browser;
+    pa11yOpts.page = extendDeadlinePage.page;
+    await taskListPage.clickExtend();
+    await extendDeadlinePage.screenshot('extend-deadline');
+  });
+
+  afterEach(function () {
+    if (this.currentTest.state !== 'passed') {
+      const testName = this.currentTest.title.replace(/[ \/]/g, '_');
+      taskListPage.screenshot('failed-' + testName).catch(err => {
+        console.log(err);
+      });
+    }
+  });
+
+  after(async () => {
+    if (page && page.close) {
+      await page.close();
+    }
+  });
+
+  it('is on the /extend-deadline path', async () => {
+    extendDeadlinePage.verifyPage();
+  });
+
+  /* PA11Y */
+  it('checks /extend-deadline passes @pa11y', async () => {
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/extend-deadline.png`;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  it('displays contact for help', async () => {
+    const contactHelpLink = 'summary.govuk-details__summary span';
+    const contactHelpLinkText = await extendDeadlinePage.getElementText(contactHelpLink);
+    expect(contactHelpLinkText.trim()).to.equal(content.en.contactUsCor.title);
+  });
+
+  it('displays an error message in the summary when you try to continue without selecting an option', async () => {
+    await extendDeadlinePage.submit();
+    expect(await extendDeadlinePage.getElementText('.govuk-error-summary'))
+      .to.contain(content.en.errorSummary.titleText);
+    expect(await extendDeadlinePage.getElementText('.govuk-error-summary__list'))
+      .to.contain(content.en.extendDeadline.error.text);
+  });
+
+  describe('confirming no', () => {
+    before('go to extend deadline   page', async () => {
+      await extendDeadlinePage.visitPage();
+      await extendDeadlinePage.clickNo();
+      await extendDeadlinePage.submit();
+    });
+
+    it('shows the confirmation page with existing deadline', async () => {
+      await extendDeadlinePage.screenshot('extend-deadline-confirmation-no');
+      const deadline = await extendDeadlinePage.getElementText('#extend-message');
+      expect(deadline).to.contain(`${moment.utc().add(7, 'day').format(CONST.DATE_FORMAT)}`);
+    });
+
+    /* PA11Y */
+    it('checks the confirmation page with existing deadline passes @pa11y', async () => {
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/extend-deadline-confirmation-no.png`;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+  });
+
+  describe('confirming yes', () => {
+    before('go to extend page and select yes', async () => {
+      await taskListPage.visitPage();
+      await taskListPage.clickExtend();
+      await extendDeadlinePage.clickYes();
+      await extendDeadlinePage.submit();
+    });
+
+    it('shows the confirmation page with new deadline', async () => {
+      await extendDeadlinePage.screenshot('extend-deadline-confirmation-yes');
+      const deadline = await extendDeadlinePage.getElementText('#extend-message');
+      expect(deadline).to.contain(`${moment.utc().add(14, 'day').format(CONST.DATE_FORMAT)}`);
+    });
+
+    /* PA11Y */
+    it('checks the confirmation page with existing deadline passes @pa11y', async () => {
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/extend-deadline-confirmation-yes.png`;
+      const result = await pa11y('', pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+  });
+
+  describe('trying to extend deadline a second time', () => {
+    before('go to the extend page', async () => {
+      await taskListPage.visitPage();
+      await taskListPage.clickExtend();
+    });
+
+    it('shows the contact tribunal details if tyring for second extension', async () => {
+      await extendDeadlinePage.screenshot('extend-deadline-contact-tribunal');
+      const heading = await extendDeadlinePage.getElementText('.govuk-main-wrapper h1');
+      expect(heading).to.equal(content.en.extendDeadline.contactTribunal.header);
+    });
+
+    /* PA11Y */
+    it('checks the contact tribunal details if tyring for second extension passes @pa11y', async () => {
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/extend-deadline-contact-tribunal.png`;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
+  });
+});
+
+export { };

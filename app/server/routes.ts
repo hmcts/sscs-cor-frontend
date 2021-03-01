@@ -8,6 +8,7 @@ import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticate
 
 import { setupTaskListController } from './controllers/task-list';
 import { setupLoginController, redirectToLogin } from './controllers/login';
+import { setupExtendDeadlineController } from './controllers/extend-deadline';
 import { setupDecisionController } from './controllers/decision';
 import { setupTribunalViewController } from './controllers/tribunal-view';
 import { setupHearingConfirmController } from './controllers/hearing-confirm';
@@ -59,6 +60,7 @@ const trackYourAppealService: TrackYourApealService = new TrackYourApealService(
 const prereqMiddleware = [ensureAuthenticated];
 
 const taskListController = setupTaskListController({ additionalEvidenceService, prereqMiddleware });
+const extendDeadlineController = setupExtendDeadlineController({ prereqMiddleware, hearingService });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
 const tribunalViewConfirmController = setupTribunalViewConfirmController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, hearingService });
@@ -93,6 +95,7 @@ router.use(setLanguage);
 router.use(idamStubController);
 router.use(loginController);
 router.use(taskListController);
+router.use(extendDeadlineController);
 router.use(decisionController);
 router.use(tribunalViewController);
 router.use(tribunalViewAcceptedController);
