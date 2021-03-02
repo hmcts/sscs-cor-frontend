@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 const { expect } = require('test/chai-sinon');
 import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
-const mockDataQuestions = require('test/mock/cor-backend/services/all-questions').template;
 const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
 import { TaskListPage } from 'test/page-objects/task-list';
 import { LoginPage } from 'test/page-objects/login';
