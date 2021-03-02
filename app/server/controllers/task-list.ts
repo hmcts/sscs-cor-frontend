@@ -18,13 +18,10 @@ function getTaskList() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       let deadlineDetails = null;
-      let hearingType = 'cor';
-      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
-        hearingType = req.session['appeal'].hearingType;
-      }
+      let hearingType = req.session['appeal'].hearingType;
+
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
-        questions: req.session['questions'] || [],
         hearingType
       });
     } catch (error) {

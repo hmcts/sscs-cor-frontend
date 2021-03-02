@@ -56,7 +56,6 @@ describe('controllers/status', () => {
 
   describe('getStatus', () => {
     it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async() => {
-      req.cookies.manageYourAppeal = 'true';
       req.session = oralAppealReceived;
       const getActiveStagesStub = sandbox.stub(appealStagesUtils, 'getActiveStages').returns([]);
       status.getStatus(req, res);
@@ -65,7 +64,6 @@ describe('controllers/status', () => {
     });
 
     it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async() => {
-      req.cookies.manageYourAppeal = 'true';
       req.session = paperAppealReceived;
       const getActiveStagesStub = sandbox.stub(appealStagesUtils, 'getActiveStages').returns([]);
       status.getStatus(req, res);

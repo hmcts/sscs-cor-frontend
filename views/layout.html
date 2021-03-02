@@ -55,9 +55,7 @@
         },
         html: phaseBarHtml
     }) }}
-    {% if featureFlags.manageYourAppeal %}
-        {% include "includes/account-navigation.html" %}
-    {% endif %}
+    {% include "includes/account-navigation.html" %}
 {% endblock %}
 
 {% block content %}
@@ -76,7 +74,7 @@
     {% endif %}
     <script src="/public/js/main.js"></script>
 
-    {% if featureFlags.manageYourAppeal and webChatEnabled and content.en.language == "en" %}
+    {% if webChatEnabled and content.en.language == "en" %}
         <script src="/public/js/hmcts-webchat.js"></script>
         <script>
             /*

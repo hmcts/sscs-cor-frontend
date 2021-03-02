@@ -40,10 +40,6 @@
   },
   "httpProxy": "http://proxyout.reform.hmcts.net:8080",
   "evidenceUpload": {
-    "questionPage": {
-      "enabled": "false",
-      "overrideAllowed": "false"
-    },
     "maxFileSizeInMb": 10,
     "maxAudioVideoFileSizeInMb": 500,
     "maxDocumentFileSizeInMb": 10
@@ -67,8 +63,6 @@
   "featureFlags": {
     "mediaFilesAllowed": "false",
     "testFeature": "false",
-    "manageYourAppeal": "true",
-    "additionalEvidence": "false",
     "allowContactUs": {
       "enabled": "true",
       "telephoneEnabled": "true",

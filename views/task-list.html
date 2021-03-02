@@ -23,16 +23,8 @@
             <div class="task-list">
                 <h2 class="govuk-heading-m --margin-bottom-m">{{ content[i18n.language].provideEvidenceTab.header | safe }}</h2>
             </div>
-            {% if featureFlags.additionalEvidence %}
-                <h2 class="govuk-heading-s --margin-bottom-s">{{ content[i18n.language].provideEvidenceTab.additionalEvidence.header | safe }}</h2>
-                <p>{{ content[i18n.language].provideEvidenceTab.additionalEvidence.content | safe }}</p>
-            {% else %}
-                <h2 class="govuk-heading-s">{{ content[i18n.language].taskList.sendingEvidence.header | safe }}</h2>
-                <p>
-                    {{ content[i18n.language].taskList.sendingEvidence.intro | safe }}
-                    <a id="evidence-options-link" href="/post-evidence">{{ content[i18n.language].taskList.sendingEvidence.anchorText | safe }}</a>.
-                </p>
-            {% endif %}
+            <h2 class="govuk-heading-s --margin-bottom-s">{{ content[i18n.language].provideEvidenceTab.additionalEvidence.header | safe }}</h2>
+            <p>{{ content[i18n.language].provideEvidenceTab.additionalEvidence.content | safe }}</p>
         </div>
     </div>
 {% endblock %}
