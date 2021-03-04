@@ -107,6 +107,19 @@
         }
       }
     },
+    "question": {
+      "textareaField": {
+        "label": "Please enter your answer here",
+        "placeholder": "You can write as much as you want",
+        "error": {
+          "empty": "You have not entered any information. Enter some information before submitting.",
+          "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+        },
+        "errorOnSave": {
+          "empty": "You have not entered any information. Enter some information before saving."
+        }
+      }
+    },
     "tribunalDecision": {
       "header": "The tribunal’s decision on your appeal",
       "outcome": {
@@ -1026,6 +1039,19 @@
           "para1": "Gallwch naill ai ei hanfon drwy e-bost neu drwy’r post. Gwnewch yn siwr ei bod wedi’i marcio’n glir gyda chyfeirnod eich apêl:",
           "closingPara1": "Os ydych am bostio’r dystiolaeth, anfonwch neges e-bost i'r tribiwnlys yn disgrifio'n fras beth rydych yn ei bostio a phryd rydych yn credu y bydd yn cyrraedd. Defnyddiwch y cyfeiriad e-bost uchod. ",
           "closingPara2": "Ceisiwch ei hanfon cyn gynted ag sy’n bosibl i osgoi oedi gyda’ch apêl."
+        }
+      }
+    },
+    "question": {
+      "textareaField": {
+        "label": "Rhowch eich ateb yma",
+        "placeholder": "Gallwch ysgrifennu faint bynnag a fynnoch",
+        "error": {
+          "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn cyflwyno’ch ateb.",
+          "maxCharacters": "Rydych wedi defnyddio mwy na 20,000 o nodau. Ceisiwch leihau faint rydych wedi ysgrifennu a rhowch gynnig arall arni."
+        },
+        "errorOnSave": {
+          "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn arbed eich ateb."
         }
       }
     },
