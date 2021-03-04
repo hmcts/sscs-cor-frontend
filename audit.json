@@ -522,5 +522,17 @@
 	"10015_Incomplete or No Cache-control Header Set_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore",
 	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/public/images/hmcts-logo-compress.svg_GET" : "ignore",
 	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/public/css/main.css_GET" : "ignore",
-	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-mask-icon.svg_GET" : "ignore"
+	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-mask-icon.svg_GET" : "ignore",
+	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js?lng=cy_GET" : "ignore",
+	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js?lng=cy_GET" : "ignore",
+	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js_GET" : "ignore",
+	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js_GET" : "ignore",
+	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js_GET" : "ignore",
+	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js_GET" : "ignore",
+	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js_GET" : "ignore",
+	"10027_Information Disclosure - Suspicious Comments_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js?lng=cy_GET" : "ignore",
+	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js?lng=cy_GET" : "ignore",
+	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js?lng=cy_GET" : "ignore",
+	"10098_Cross-Domain Misconfiguration_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js?lng=cy_GET" : "ignore"
 }
