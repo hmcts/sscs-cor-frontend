@@ -1,5 +1,5 @@
 const { expect } = require('test/chai-sinon');
-import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedValidation, newHearingAcceptedValidation, hearingWhyValidation, uploadDescriptionValidation } from 'app/server/utils/fieldValidation.ts';
+import { answerValidation, loginEmailAddressValidation, newHearingAcceptedValidation, hearingWhyValidation, uploadDescriptionValidation } from 'app/server/utils/fieldValidation.ts';
 const content = require('locale/content');
 
 describe('utils/fieldValidation.js', () => {
@@ -67,32 +67,6 @@ describe('utils/fieldValidation.js', () => {
 
     it('returns false if answer is valid', () => {
       expect(loginEmailAddressValidation('test@example.com')).to.equal(false);
-    });
-  });
-
-  describe('tribunalViewAcceptedValidation', () => {
-    it('returns false if answer is yes', () => {
-      expect(tribunalViewAcceptedValidation('yes')).to.be.false;
-    });
-
-    it('returns false if answer is no', () => {
-      expect(tribunalViewAcceptedValidation('no')).to.be.false;
-    });
-
-    it('returns empty error message is answer is anything else', () => {
-      expect(tribunalViewAcceptedValidation('not valid')).to.equal(content.en.tribunalView.error.emptyOnDecisionPick);
-    });
-
-    it('returns empty error message is answer is missing', () => {
-      expect(tribunalViewAcceptedValidation(undefined)).to.equal(content.en.tribunalView.error.emptyOnDecisionPick);
-    });
-
-    it('returns empty error message is confirmation is anything else', () => {
-      expect(tribunalViewAcceptedValidation('not valid', true)).to.equal(content.en.tribunalView.error.emptyOnConfirm);
-    });
-
-    it('returns empty error message is confirmation is missing', () => {
-      expect(tribunalViewAcceptedValidation(undefined, true)).to.equal(content.en.tribunalView.error.emptyOnConfirm);
     });
   });
 

@@ -120,6 +120,18 @@
         }
       }
     },
+    "questionUploadEvidence": {
+      "header": "Upload your evidence",
+      "backToQuestionText": "Back to question",
+      "label": "Choose file",
+      "sizeWarning": "Larger files may take a few minutes to upload",
+      "error": {
+        "fileCannotBeUploaded": "File cannot be uploaded",
+        "empty": "You have not selected a file.",
+        "tooLarge": "The file you have uploaded is too big. Please upload a file under",
+        "invalidFileType": "The type of file you have uploaded is not accepted. Please convert it to a common file format and try again."
+      }
+    },
     "tribunalDecision": {
       "header": "The tribunal’s decision on your appeal",
       "outcome": {
@@ -1053,6 +1065,18 @@
         "errorOnSave": {
           "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn arbed eich ateb."
         }
+      }
+    },
+    "questionUploadEvidence": {
+      "header": "Llwytho eich tystiolaeth",
+      "backToQuestionText": "Yn ôl i'r cwestiwn",
+      "label": "Dewis ffeil",
+      "sizeWarning": "Efallai y bydd ffeiliau mawr yn cymryd ychydig funudau i'w llwytho",
+      "error": {
+        "fileCannotBeUploaded": "Ni ellir llwytho’r ffeil",
+        "empty": "Nid ydych wedi dewis ffeil.",
+        "tooLarge": "Mae’r ffeil rydych wedi’i llwytho yn rhy fawr. Llwythwch ffeil sy’n llai na ",
+        "invalidFileType": "Nid yw’r math o ffeil rydych wedi’i llwytho yn dderbyniol. Ceisiwch drosi’r ffeil i fformat ffeil cyffredin a rhowch gynnig arall arni."
       }
     },
     "tribunalDecision": {
