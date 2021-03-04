@@ -8,7 +8,6 @@ import * as AppInsights from 'app/server/app-insights';
 import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
 const content = require('locale/content');
-
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
 describe('controllers/additional-evidence.js', () => {
@@ -202,11 +201,15 @@ describe('controllers/additional-evidence.js', () => {
     });
 
     it('should upload file and render upload page', async () => {
-      req.file = { name: 'myfile.txt' };
+      req.file = {
+        name: 'myfile.txt',
+        buffer: new Buffer('some content')
+      };
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
       expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, req.file);
       expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.additionalEvidence}/upload`);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce;
     });
 
     it('should delete file and render upload page', async () => {
