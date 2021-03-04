@@ -850,8 +850,8 @@
           "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
           "para1audioVideo": "You can upload letters, documents, photos or videos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
           "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>",
-          "para3": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .doc, .docx",
-          "para3audioVideo": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .doc, .docx, .mp3, .mp4",
+          "para3": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx",
+          "para3audioVideo": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, .mp4",
           "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal",
           "contentWarningPara2": "Please note that we review all evidence to ensure it is suitable and relevant before adding it to your appeal"
         },
@@ -2237,8 +2237,8 @@
           "para1": "Gallwch lwytho llythyrau, dogfennau neu ffotograffau. Er enghraifft, gallwch dynnu ffotograff o lythyr gan eich meddyg a’i lwytho. Os byddwch yn tynnu ffotograff, gwnewch yn siwr bod y llythyr neu’r ddogfen yn gorwedd ar wyneb fflat a bod y ffotograff yn cael ei dynnu o uwchben.",
           "para1audioVideo": "Gallwch uwchlwytho llythyrau, dogfennau, lluniau neu fideos. Er enghraifft, gallech dynnu llun o lythyr gan eich meddyg a'i uwchlwytho. Os ydych chi'n tynnu llun, gwnewch yn siŵr bod y llythyr neu'r ddogfen ar arwyneb gwastad a bod y llun yn cael ei dynnu o uchder.",
           "para2": "Mae tystiolaeth ddefnyddiol yn disgrifio neu’n dangos sut mae eich cyflwr yn effeithio ar eich bywyd. <a href='/about-evidence'><br>Darllenwch fwy am ba fath o dystiolaeth sy’n ddefnyddiol i'r tribiwnlys</a>",
-          "para3": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .doc, .docx",
-          "para3audioVideo": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .doc, .docx, .mp3, mp4",
+          "para3": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .rtf, .doc, .docx",
+          "para3audioVideo": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, mp4",
           "contentWarningPara1": "Os yw eich recordiad yn cynnwys sain neu fideo o unigolyn arall, gwnewch yn siŵr eich bod yn cael ei ganiatâd/ei chaniatâd cyn cadw'r recordiad i'ch apêl.",
           "contentWarningPara2": "Sylwch ein bod yn adolygu'r holl dystiolaeth i sicrhau ei bod yn addas ac yn berthnasol cyn ei hychwanegu at eich apêl."
         },
