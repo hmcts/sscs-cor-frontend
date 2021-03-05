@@ -1,3 +1,5 @@
+export const avEvidence = '/av-evidence';
+export const avEvidenceList = '/av-evidence-list';
 export const document = '/document';
 export const outcome = '/outcome';
 export const health = '/health';

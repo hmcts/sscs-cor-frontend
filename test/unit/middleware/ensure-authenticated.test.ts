@@ -66,7 +66,8 @@ describe('middleware/ensure-authenticated', () => {
     it('also sets tabs data on the locals', () => {
       req.cookies = {
         manageYourAppeal: 'true',
-        hearingOutcomeTab: 'true'
+        hearingOutcomeTab: 'true',
+        mediaFilesAllowed: 'true'
       };
       req.session['appeal'] = {
         hearingType: 'oral',
@@ -79,12 +80,13 @@ describe('middleware/ensure-authenticated', () => {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status','hearing', 'outcome']);
+      expect(members).to.have.members(['status','hearing', 'outcome', 'avEvidence']);
     });
     it('also remove outcome tab if hearingOutcome not present', () => {
       req.cookies = {
         manageYourAppeal: 'true',
-        hearingOutcomeTab: 'true'
+        hearingOutcomeTab: 'true',
+        mediaFilesAllowed: 'true'
       };
       req.session['appeal'] = {
         hearingType: 'oral'
@@ -96,16 +98,34 @@ describe('middleware/ensure-authenticated', () => {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status','hearing']);
+      expect(members).to.have.members(['status','hearing', 'avEvidence']);
     });
     it('also remove outcome tab if hearingOutcomeTab flag is false', () => {
       req.cookies = {
         manageYourAppeal: 'true',
-        hearingOutcomeTab: 'false'
+        hearingOutcomeTab: 'false',
+        mediaFilesAllowed: 'true'
       };
       req.session['appeal'] = {
         hearingType: 'oral',
         hearingOutcome: []
+      };
+
+      setLocals(req, res, next);
+      expect(res.locals).to.have.property('tabs');
+      const members = [];
+      res.locals.tabs.forEach((t) => {
+        members.push(t.id);
+      });
+      expect(members).to.have.members(['status','hearing', 'avEvidence']);
+    });
+    it('remove audio/video tab if mediaFilesAllowed flag is false', () => {
+      req.cookies = {
+        manageYourAppeal: 'true',
+        mediaFilesAllowed: 'false'
+      };
+      req.session['appeal'] = {
+        audioVideoEvidence: []
       };
 
       setLocals(req, res, next);

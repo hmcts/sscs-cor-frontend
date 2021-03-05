@@ -31,6 +31,7 @@
       "describeTheEvidence": "Describe the evidence",
       "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why",
       "hearingOutcome": "Hearing Outcome",
+      "avEvidence": "Audio/Video Evidence",
       "type": {
         "Appellant": "Appellant",
         "Appointee": "Appointee",
@@ -975,6 +976,9 @@
       "document": "Document",
       "hearingDate": "Hearing date",
       "outcomeFrom": "Hearing outcome from"
+    },
+    "avEvidenceTab": {
+      "tabHeader": "Audio/Video Evidence"
     },
     "appealEvents": {
       "ADJOURNED": {
@@ -2362,6 +2366,9 @@
       "document": "Dogfen",
       "hearingDate": "Dyddiad y gwrandawiad",
       "outcomeFrom": "Canlyniad y gwrandawiad o"
+    },
+    "avEvidenceTab": {
+      "tabHeader": "Tystiolaeth Sain/Fideo"
     },
     "appealEvents": {
       "ADJOURNED": {
