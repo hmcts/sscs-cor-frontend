@@ -6,6 +6,7 @@ const { Logger } = require('@hmcts/nodejs-logging');
 
 const logger = Logger.getLogger('saucelabs.conf.js');
 const tunnelName = process.env.SAUCE_TUNNEL_IDENTIFIER || config.get('saucelabs.tunnelId');
+const parentTunnel = config.get('saucelabs.parentTunnel');
 
 const getBrowserConfig = browserGroup => {
   const browserConfig = [];
@@ -13,6 +14,7 @@ const getBrowserConfig = browserGroup => {
     if (candidateBrowser) {
       const desiredCapability = supportedBrowsers[browserGroup][candidateBrowser];
       desiredCapability.tunnelIdentifier = tunnelName;
+      desiredCapability.parentTunnel = parentTunnel;
       desiredCapability.tags = ['sscs cor'];
       browserConfig.push({
         browser: desiredCapability.browserName,
@@ -81,15 +83,15 @@ const setupConfig = {
     }
   },
   multiple: {
-    microsoft: {
-      browsers: getBrowserConfig('microsoft')
-    },
+    // microsoft: {
+    //   browsers: getBrowserConfig('microsoft')
+    // },
     chrome: {
       browsers: getBrowserConfig('chrome')
     },
-    firefox: {
-      browsers: getBrowserConfig('firefox')
-    }
+    // firefox: {
+    //   browsers: getBrowserConfig('firefox')
+    // }
   },
   name: 'SSCS COR Crossbrowser Tests'
 };

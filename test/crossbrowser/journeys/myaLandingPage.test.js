@@ -1,8 +1,17 @@
 Feature('Manage your appeal');
 
-Scenario('can track appeal status via manager your appeal', async I => {
+// Scenario('can track appeal status via manager your appeal', async I => {
+//   await I.loginToANewCase();
+//   I.verifyAppeallantPostCode();
+//   I.waitForElement('.govuk-heading-xl', 5);
+//   I.verifyStatusHeader();
+//   I.uploadEvidence();
+// }).retry(1);
+
+Scenario('Welsh - can track appeal status via manager your appeal', async I => {
   await I.loginToANewCase();
-  I.verifyAppeallantPostCode();
+  I.verifyWelshAppellantPostCode();
   I.waitForElement('.govuk-heading-xl', 5);
-  I.verifyStatusHeader();
+  I.verifyWelshStatusHeader();
+  I.uploadWelshEvidence();
 }).retry(1);

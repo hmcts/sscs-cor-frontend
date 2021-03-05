@@ -5,7 +5,7 @@
   "api": {
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
-  "testUrl": "http://localhost:3000",
+  "testUrl": "https://sscs-cor.aat.platform.hmcts.net",
   "cohUrl": "http://localhost:8081",
   "headless": true,
   "pa11y": {
@@ -27,9 +27,10 @@
   },
   "saucelabs": {
     "browser": "chrome",
-    "username": "username",
-    "key": "privatekey",
+    "username": "gokul20",
+    "key": "b2e9ba4e-c195-44d3-ba2c-9e2851a52653",
     "tunnelId": "reformtunnel",
+    "parentTunnel": "reform",
     "waitForTimeout": "180",
     "smartWait": "30000",
     "outputDir": "./functional-output/crossbrowser/reports"
