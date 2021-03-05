@@ -20,13 +20,7 @@
 
 {% block bodyStart %}
     <!-- Google Tag Manager (noscript) -->
-    {% if environment === "prod" or environment === "production" %}
-        <!-- Live analytics -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM&gtm_auth=s9D_6Cs9pP0A0pPraIxTSA&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
-    {% else %}
-        <!-- Dev analytics -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM&gtm_auth=vVL1r5F0rqfg4e_0meyy0w&gtm_preview=env-31&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
-    {% endif %}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 {% endblock %}
 
