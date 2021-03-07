@@ -26,15 +26,19 @@
                 <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].common.avEvidence | safe }}</h2>
                 <br/>
                 <div>
-                    {% for avEvidence in avEvidenceList %}
-                        <table class="govuk-table" id="av-evidence">
-                            <tbody class="govuk-table__body">
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell"><a href="/av-evidence?type={{avEvidence.type}}&url={{avEvidence.url}}" target="_blank">{{avEvidence.name}}</a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    {% endfor %}
+                    {% if not avEvidenceList %}
+                        <div>{{ content[i18n.language].avEvidenceTab.noEvidence | safe }}</div>
+                    {% else %}
+                        {% for avEvidence in avEvidenceList %}
+                            <table class="govuk-table" id="av-evidence">
+                                <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell"><a href="/av-evidence?type={{avEvidence.type}}&url={{avEvidence.url}}" target="_blank">{{avEvidence.name}}</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
