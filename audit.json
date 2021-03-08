@@ -537,5 +537,9 @@
 	"10098_Cross-Domain Misconfiguration_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10209210209190405.js?lng=cy_GET" : "ignore",
 	"90033_Loosely Scoped Cookie_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore",
 	"10010_Cookie No HttpOnly Flag_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore",
-	"10011_Cookie Without Secure Flag_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore"
+	"10011_Cookie Without Secure Flag_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/?lng=cy_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
+	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
+	"6_Path Traversal_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=liveness_GET" : "ignore"
 }
