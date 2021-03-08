@@ -27,10 +27,9 @@
   },
   "saucelabs": {
     "browser": "chrome",
-    "username": "gokul20",
-    "key": "b2e9ba4e-c195-44d3-ba2c-9e2851a52653",
+    "username": "username",
+    "key": "privatekey",
     "tunnelId": "reformtunnel",
-    "parentTunnel": "reform",
     "waitForTimeout": "180",
     "smartWait": "30000",
     "outputDir": "./functional-output/crossbrowser/reports"
