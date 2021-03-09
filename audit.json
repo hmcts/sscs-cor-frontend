@@ -541,5 +541,7 @@
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/?lng=cy_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
 	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
-	"6_Path Traversal_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=liveness_GET" : "ignore"
+	"6_Path Traversal_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=liveness_GET" : "ignore",
+	"90033_Loosely Scoped Cookie_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml_GET" : "ignore",
+	"10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml_GET" : "ignore"
 }
