@@ -19,7 +19,7 @@ function uploadWelshEvidence() {
   I.click('#additional-evidence-option-1');
   I.click('Parhau');
   I.fillField('#question-field', 'this is a welsh test');
-  I.click(content.cy.evidenceStatement.button);
+  I.click('#submit-statement');
 }
 
 
