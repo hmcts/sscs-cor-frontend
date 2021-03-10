@@ -6,7 +6,7 @@ Scenario('English - can track appeal status via manager your appeal', async I =>
   I.waitForElement('.govuk-heading-xl', 5);
   I.verifyStatusHeader();
   I.uploadEvidence();
-}).retry(1);
+}).retry(2);
 
 Scenario('Welsh - can track appeal status via manager your appeal', async I => {
   await I.loginToANewCase();
