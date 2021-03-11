@@ -45,4 +45,18 @@ describe('services/tyaService', () => {
     await trackYourAppealService.getDocument(url, req);
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
+
+  it('should getMediaFile', async () => {
+    const url = 'http://test';
+    const expectedRequestOptions = {
+      method: 'GET',
+      encoding: 'binary',
+      uri: `${tribunalsApiUrl}/document?url=${url}`,
+      headers: {
+        'Content-type': ['audio/mp3', 'video/mp4']
+      }
+    };
+    await trackYourAppealService.getMediaFile(url, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
 });

@@ -37,12 +37,13 @@ function setLocals(req, res, next) {
   // Setting up Tabs to show on MYA;
   if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) && req.session.appeal && req.session.appeal.hearingType !== 'cor') {
     const hearingOutcomeTab = isFeatureEnabled(Feature.HEARING_OUTCOME_TAB, req.cookies);
-    res.locals.tabs = setTabNavigationItems(req.session.appeal, hearingOutcomeTab);
+    const avEvidenceTab = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
+    res.locals.tabs = setTabNavigationItems(req.session.appeal, hearingOutcomeTab, avEvidenceTab);
   }
   next();
 }
 
-function setTabNavigationItems(appeal, hearingOutcomeTab) {
+function setTabNavigationItems(appeal, hearingOutcomeTab, avEvidenceTab) {
   const { hearingType } = appeal;
   const { createdInGapsFrom } = appeal;
   const tabs = [
@@ -70,6 +71,11 @@ function setTabNavigationItems(appeal, hearingOutcomeTab) {
       'id': 'outcome',
       'title': content[i18next.language].outcomeTab.tabHeader,
       'url': '/outcome'
+    },
+    {
+      'id': 'avEvidence',
+      'title': content[i18next.language].avEvidenceTab.tabHeader,
+      'url': '/av-evidence-list'
     }
   ];
   let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== content[i18next.language].hearingTab.tabHeader) : tabs;
@@ -77,6 +83,7 @@ function setTabNavigationItems(appeal, hearingOutcomeTab) {
   tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== content[i18next.language].provideEvidenceTab.tabHeader) : tabs;
   tabsToShow = tabsToShow.filter(tab => tab.id !== 'history');
   tabsToShow = (!appeal.hearingOutcome || !hearingOutcomeTab) ? tabsToShow.filter(tab => tab.id !== 'outcome') : tabsToShow;
+  tabsToShow = (!avEvidenceTab) ? tabsToShow.filter(tab => tab.id !== 'avEvidence') : tabsToShow;
   return tabsToShow;
 }
 

@@ -32,4 +32,15 @@ export class TrackYourApealService {
       }
     }, req);
   }
+
+  async getMediaFile(url: string, req: Request) {
+    return RequestPromise.request({
+      method: 'GET',
+      encoding: 'binary',
+      uri: `${this.tribunalApiUrl}/document?url=${url}`,
+      headers: {
+        'Content-type': ['audio/mp3', 'video/mp4']
+      }
+    }, req);
+  }
 }
