@@ -541,5 +541,17 @@
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/?lng=cy_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
 	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
-	"6_Path Traversal_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=liveness_GET" : "ignore"
+	"6_Path Traversal_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=liveness_GET" : "ignore",
+	"90033_Loosely Scoped Cookie_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml_GET" : "ignore",
+	"10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10027_Information Disclosure - Suspicious Comments_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(2)%20of%20ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10098_Cross-Domain Misconfiguration_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore",
+	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10211210226114004.js_GET" : "ignore"
 }

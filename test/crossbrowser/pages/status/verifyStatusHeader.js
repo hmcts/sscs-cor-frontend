@@ -13,4 +13,15 @@ function verifyStatusHeader() {
   I.see(content.en.contactUs.title, '.govuk-details.contact-us');
 }
 
-module.exports = { verifyStatusHeader };
+function verifyWelshStatusHeader() {
+  const I = this;
+
+  I.see(content.cy.common.yourBenefitAppeal, '.govuk-heading-xl');
+  I.seeElement('.navigation-tabs');
+  I.see(content.cy.statusTab.tabHeader, '.navigation-tabs ul li.selected');
+  I.see(content.cy.statusTab.header, '.task-list h2');
+  I.see(content.cy.statusTab.panelHeader, '.panel');
+  I.see(content.cy.contactUs.title, '.govuk-details.contact-us span');
+}
+
+module.exports = { verifyStatusHeader, verifyWelshStatusHeader };
