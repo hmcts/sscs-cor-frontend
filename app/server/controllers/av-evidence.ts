@@ -21,8 +21,6 @@ function getAvEvidenceList(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
-
   let avEvidenceList = session['appeal'].audioVideoEvidence;
   logger.info(`Number of audio video evidence: ${avEvidenceList ? avEvidenceList.size : 0}`);
   return res.render('av-evidence-tab.html', { avEvidenceList });
