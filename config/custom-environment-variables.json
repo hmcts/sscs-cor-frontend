@@ -35,16 +35,8 @@
   "tribunals": {
     "api-url": "TRIBUNALS_API_URL"
   },
-  "evidenceUpload": {
-    "questionPage": {
-      "enabled": "EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED",
-      "overrideAllowed": "EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED"
-    }
-  },
   "featureFlags": {
     "mediaFilesAllowed": "MEDIA_FILES_ALLOWED_ENABLED",
-    "manageYourAppeal": "MYA_FEATURE_FLAG",
-    "additionalEvidence": "ADDITIONAL_EVIDENCE_FEATURE_FLAG",
     "allowContactUs": {
       "enabled": "ALLOW_CONTACT_US",
       "telephoneEnabled": "CONTACT_US_TELEPHONE_ENABLED",

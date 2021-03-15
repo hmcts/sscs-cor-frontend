@@ -6,9 +6,6 @@ nodejs:
     SESSION_SECRET:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: "true"
-    ADDITIONAL_EVIDENCE_FEATURE_FLAG: "true"
-    EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: "false"
-    EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: "true"
     POST_BULK_SCAN: "true"
     HTTP_PROXY: "http://proxyout.reform.hmcts.net:8080"
   keyVaults:

@@ -15,8 +15,6 @@ function getHearing(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies) || session['appeal'].hearingType === 'cor') return res.render('errors/404.html');
-
   const { latestEvents = [], historicalEvents = [], hearingType } = session['appeal'];
   const attending: boolean = hearingType === 'oral';
   let hearingInfo = null;

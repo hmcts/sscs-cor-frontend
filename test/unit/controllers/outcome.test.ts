@@ -56,7 +56,6 @@ describe('controllers/outcome', () => {
 
   describe('getOutcome', () => {
     it('should render outcome page when mya feature enabled for oral (APPEAL_RECEIVED)', async() => {
-      req.cookies.manageYourAppeal = 'true';
       req.session.appeal = oralHearing.appeal;
       const outcomes = [
         {

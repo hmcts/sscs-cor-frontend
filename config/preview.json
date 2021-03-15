@@ -2,15 +2,7 @@
   "api": {
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
-  "evidenceUpload": {
-    "questionPage": {
-      "enabled": "false",
-      "overrideAllowed": "false"
-    }
-  },
   "featureFlags": {
-    "additionalEvidence": "false",
-    "manageYourAppeal": "true",
     "postBulkScan": "false"
   }
 }

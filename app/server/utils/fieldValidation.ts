@@ -107,18 +107,6 @@ function loginEmailAddressValidation(email) {
   return error;
 }
 
-function tribunalViewAcceptedValidation(acceptView, isConfirm = false) {
-  const allowedValues = ['yes', 'no'];
-  if (!allowedValues.includes(acceptView)) {
-    if (isConfirm) {
-      return content[i18next.language].tribunalView.error.emptyOnConfirm;
-    } else {
-      return content[i18next.language].tribunalView.error.emptyOnDecisionPick;
-    }
-  }
-  return false;
-}
-
 function newHearingAcceptedValidation(newHearing) {
   const allowedValues = ['yes', 'no'];
   if (!allowedValues.includes(newHearing)) {
@@ -130,7 +118,6 @@ function newHearingAcceptedValidation(newHearing) {
 export {
   answerValidation,
   loginEmailAddressValidation,
-  tribunalViewAcceptedValidation,
   newHearingAcceptedValidation,
   hearingWhyValidation,
   uploadDescriptionValidation
