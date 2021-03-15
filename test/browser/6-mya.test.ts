@@ -4,6 +4,7 @@ import { startServices } from 'test/browser/common';
 import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
+import { AppealDetailsPage } from 'test/page-objects/appeal-details';
 import * as _ from 'lodash';
 const content = require('locale/content');
 const config = require('config');
@@ -17,6 +18,7 @@ describe('Appellant - Manage your appeal app @mya', () => {
   let loginPage: LoginPage;
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
+  let appealDetailsPage: AppealDetailsPage;
   let sidamUser;
   before(async () => {
     ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
@@ -25,6 +27,7 @@ describe('Appellant - Manage your appeal app @mya', () => {
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
+    appealDetailsPage = new AppealDetailsPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
@@ -125,7 +128,26 @@ describe('Appellant - Manage your appeal app @mya', () => {
       await page.waitFor(500);
       expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.hearingTab.tabHeader);
     });
-
   });
 
+  describe('Audio/video Evidence page', () => {
+    it('Navigate to Audio/Video Evidence tab', async() => {
+      await statusPage.clickElement('#tab-avEvidence');
+      await page.waitFor(500);
+
+      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.avEvidenceTab.tabHeader);
+      expect(await statusPage.getElementText('.task-list div div')).contain(content.en.avEvidenceTab.noEvidence);
+    });
+  });
+
+  describe('Appeal Details page', () => {
+    it('Navigate to Appeal Details page', async() => {
+      await statusPage.navigateToAppealDetailsPage();
+      await page.waitFor(500);
+
+      expect(await appealDetailsPage.getElementText('.govuk-heading-xl')).contain(content.en.yourDetails.header);
+      expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('TN32 6PL');
+      expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('joe@bloggs.com');
+    });
+  });
 });

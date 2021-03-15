@@ -13,4 +13,11 @@ export class StatusPage extends BasePage {
       this.clickElement('#tab-questions')
     ]);
   }
+
+  async navigateToAppealDetailsPage() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      this.clickElement('a[href="/your-details"]')
+    ]);
+  }
 }
