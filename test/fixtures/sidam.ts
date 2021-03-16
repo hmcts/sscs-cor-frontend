@@ -76,6 +76,10 @@ async function createUser(ccdCase) {
 }
 
 async function deleteUser(sidamUser) {
+  const value = sidamUser.email;
+  console.log('email value is..', value);
+  console.log('email querystring string value is..', querystring.stringify(value));
+  console.log('email querystring string2 value is..',querystring.stringify(sidamUser.email));
   const email = querystring.stringify(sidamUser.email);
   console.log('sidam user is...', sidamUser);
   console.log('url is..', `${sidamApiUrl}/testing-support/accounts/${email}`);
