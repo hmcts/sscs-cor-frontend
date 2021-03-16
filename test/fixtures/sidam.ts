@@ -77,6 +77,8 @@ async function createUser(ccdCase) {
 
 async function deleteUser(sidamUser) {
   const email = querystring.stringify(sidamUser.email);
+  console.log('sidam user is...', sidamUser);
+  console.log('url is..', `${sidamApiUrl}/testing-support/accounts/${email}`);
   const options = {
     url: `${sidamApiUrl}/testing-support/accounts/${email}`,
     insecure: true,
