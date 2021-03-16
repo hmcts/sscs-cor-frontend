@@ -1,13 +1,12 @@
 /* eslint-disable prefer-const, camelcase, no-undef */
-
-import { deleteUser } from 'test/fixtures/sidam';
+const { deleteIdamUser } = require('../../browser/teardown.ts');
 
 let Helper = codecept_helper;
 
 class TeardownHelper extends Helper {
-  deleteIdamUser(sidamUser) {
+  deleteUser(sidamUser) {
     console.log(`Deleting user ${sidamUser.email}`);
-    return deleteUser(sidamUser);
+    return deleteIdamUser(sidamUser);
   }
 }
 

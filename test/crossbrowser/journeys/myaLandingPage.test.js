@@ -32,6 +32,6 @@ Scenario('Welsh - can track appeal status via manager your appeal', async I => {
 
 After(async I => {
   if (appealData && appealData.sidamUser) {
-    await I.deleteIdamUser(appealData.sidamUser);
+    await I.deleteUser(appealData.sidamUser);
   }
 });
