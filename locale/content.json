@@ -743,6 +743,13 @@
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge, doctor and disability expert"
+      },
+      "dla": {
+        "acronym": "DLA",
+        "fullDescription": "Disability Living Allowance (DLA)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge, doctor and disability expert"
       }
     },
     "helpGuides": {
@@ -1681,6 +1688,13 @@
       "uc": {
         "acronym": "UC",
         "fullDescription": "Credyd Cynhwysol (UC)",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anableddau"
+      },
+      "dla": {
+        "acronym": "DLA",
+        "fullDescription": "Lwfans Byw i’r Anabl (DLA)",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr, meddyg ac arbenigwr anableddau"
