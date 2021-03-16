@@ -1,5 +1,4 @@
 const rp = require('request-promise');
-const querystring = require('querystring');
 
 const sidamApiUrl = require('config').get('idam.api-url');
 const testUrl = require('config').get('testUrl');
@@ -76,13 +75,7 @@ async function createUser(ccdCase) {
 }
 
 async function deleteUser(sidamUser) {
-  const value = sidamUser.email;
-  console.log('email value is..', value);
-  console.log('email querystring string value is..', querystring.stringify(value));
-  console.log('email querystring string2 value is..',querystring.stringify(sidamUser.email));
-  const email = querystring.stringify(sidamUser.email);
-  console.log('sidam user is...', sidamUser);
-  console.log('url is..', `${sidamApiUrl}/testing-support/accounts/${email}`);
+  const email = encodeURIComponent(sidamUser.email);
   const options = {
     url: `${sidamApiUrl}/testing-support/accounts/${email}`,
     insecure: true,
