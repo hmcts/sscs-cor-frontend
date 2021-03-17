@@ -51,6 +51,7 @@ const setupConfig = {
       }
     },
     BootstrapHelper: { require: './helpers/BootstrapHelper' },
+    TeardownHelper: { require: './helpers/TeardownHelper' },
     GeneralHelpers: { require: './helpers/GeneralHelpers' },
     SauceLabsReportingHelper: { require: './helpers/SauceLabsReportingHelper' }
   },

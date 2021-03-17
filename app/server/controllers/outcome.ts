@@ -17,8 +17,6 @@ function getOutcome(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
-
   let outcomes = session['appeal'].hearingOutcome;
   outcomes.forEach((outcome) => {
     logger.info(`Date converted from ${outcome.date} to ${dd_mm_yyyyFormat(outcome.date, 'YYYY-MM-DD')}`);

@@ -47,7 +47,7 @@
             name: "additional-evidence-file",
             classes: "file-display-none",
             label: {
-                text: content[i18n.language].questionUploadEvidence.label,
+                text: content[i18n.language].additionalEvidence.evidenceUpload.label,
                 classes: "govuk-button secondary-button element--inline-block",
                 id: "additional-evidence-file-label"
             },
@@ -59,7 +59,7 @@
             } if error
         }) }}
 
-        {{ spinner(content[i18n.language].question.evidenceUpload.fileUploading) }}
+        {{ spinner(content[i18n.language].additionalEvidence.evidenceUpload.fileUploading) }}
 
         {{ evidenceList(evidences) }}
         <div id="submit-buttons">

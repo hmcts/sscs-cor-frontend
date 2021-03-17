@@ -47,10 +47,8 @@ describe('Additional Evidence @mya', () => {
     additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
     additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(page);
     taskListPage = new TaskListPage(page);
-    await loginPage.setCookie('manageYourAppeal', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
-    await taskListPage.setCookie('additionalEvidence', 'true');
   });
 
   after(async () => {

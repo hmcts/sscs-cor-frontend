@@ -3,7 +3,6 @@ import * as moment from 'moment';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService } from '../services/additional-evidence';
-import { QuestionService } from '../services/question';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
 function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
@@ -19,13 +18,10 @@ function getTaskList() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       let deadlineDetails = null;
-      let hearingType = 'cor';
-      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
-        hearingType = req.session['appeal'].hearingType;
-      }
+      let hearingType = req.session['appeal'].hearingType;
+
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
-        questions: req.session['questions'] || [],
         hearingType
       });
     } catch (error) {

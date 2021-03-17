@@ -8,7 +8,6 @@ import { AssignCasePage } from '../page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
-import { TribunalViewPage } from 'test/page-objects/tribunal-view';
 const content = require('locale/content');
 
 describe.skip('Login page', () => {
@@ -27,7 +26,6 @@ describe.skip('Login page', () => {
     statusPage = new StatusPage(page);
     taskListPage = new TaskListPage(page);
     decisionPage = new DecisionPage(page);
-    tribunalViewPage = new TribunalViewPage(page);
     assignCasePage = new AssignCasePage(page);
   });
 
