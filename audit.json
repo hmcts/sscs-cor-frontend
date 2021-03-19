@@ -570,5 +570,10 @@
 	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=cy_GET" : "ignore",
 	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
 	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
-	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon-167x167.png_GET" : "ignore"
+	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon-167x167.png_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/health_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA27QSVfgqrux_10211210318124316.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QSVfgqrux_10211210318124316.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(2)%20of%20ruxitagentjs_ICA27QSVfgqrux_10211210318124316.js_GET" : "ignore",
+	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore"
 }
