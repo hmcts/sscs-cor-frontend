@@ -752,8 +752,8 @@
         "agencyAcronym": "DWP",
         "panel": "a judge, doctor and disability expert"
       },
-      "ca": {
-        "acronym": "CA",
+      "carersAllowance": {
+        "acronym": "CARER'S ALLOWANCE",
         "yourBenefitAppeal": "Your Carer's Allowance appeal",
         "fullDescription": "Carer's Allowance",
         "agency": "Department for Work and Pensions",
@@ -1709,8 +1709,8 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr, meddyg ac arbenigwr anableddau"
       },
-      "ca": {
-        "acronym": "ca",
+      "carersAllowance": {
+        "acronym": "LWFANS GOFALWR",
         "yourBenefitAppeal": "Eich apêl Lwfans Gofalwr",
         "fullDescription": "Lwfans Gofalwr",
         "agency": "Yr Adran Gwaith a Phensiynau",
