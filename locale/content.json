@@ -418,7 +418,13 @@
       "evidenceConfirm": {
         "header": "You have submitted additional evidence",
         "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
-        "link": "Return to Your PIP benefit appeal"
+        "link":{
+         "pip":  "Return to Your PIP benefit appeal",
+         "esa":  "Return to Your ESA benefit appeal",
+         "uc":  "Return to Your UC benefit appeal",
+         "dla":  "Return to Your DLA benefit appeal",
+         "carersallowance":  "Return to Your Carer's Allowance appeal"
+        }
       },
       "about": {
         "header": "Providing evidence to support your appeal",
@@ -1375,7 +1381,13 @@
       "evidenceConfirm": {
         "header": "Rydych wedi cyflwyno tystiolaeth ychwanegol",
         "description": "Bydd yn cael ei hadolygu gan y tribiwnlys a’i hystyried fel rhan o’ch apêl.",
-        "link": "Dychwelyd i'ch apêl budd-dal PIP"
+        "link": {
+          "pip": "Dychwelyd i'ch apêl budd-dal PIP",
+          "esa": "Dychwelyd i'ch apêl budd-dal ESA",
+          "uc": "Dychwelyd i'ch apêl budd-dal UC",
+          "dla": "Dychwelyd i'ch apêl budd-dal DLA",
+          "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr"
+        }
       },
       "about": {
         "header": "Anfon tystiolaeth i gefnogi eich apêl",
