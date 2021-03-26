@@ -23,6 +23,7 @@ const testUrl = config.get('testUrl');
 const port = config.get('node.port');
 const headless = config.get('headless') !== 'false';
 const httpProxy = config.get('httpProxy');
+const proxyBool = config.get('proxyBool') === 'true';
 const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 
 let browser;
@@ -36,8 +37,8 @@ async function startBrowser() {
   if (!browser) {
     console.log('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
-    console.log(`Http proxy ${httpProxy}`);
-    if (httpProxy) {
+    if (httpProxy && proxyBool) {
+      console.log(`Http proxy ${httpProxy}`);
       args.push(`-proxy-server=${httpProxy}`);
     }
     const opts = {

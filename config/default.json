@@ -39,6 +39,7 @@
     "api-url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
   "httpProxy": "http://proxyout.reform.hmcts.net:8080",
+  "proxyBool": "false",
   "evidenceUpload": {
     "maxFileSizeInMb": 10,
     "maxAudioVideoFileSizeInMb": 500,
