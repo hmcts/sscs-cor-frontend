@@ -148,10 +148,10 @@ after(async() => {
   if (sidamUsers.length) {
     console.log('Clean up sidam');
     // await sidam.unregisterRedirectUri();
-    for (const sidamUser of sidamUsers) {
+    sidamUsers.forEach(async (sidamUser) => {
       console.log(`Deleting user ${sidamUser.email}`);
       await sidam.deleteUser(sidamUser);
-    }
+    });
   }
 
   if (server && server.close) {
