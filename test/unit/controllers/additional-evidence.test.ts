@@ -118,7 +118,8 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'statement',
-      postBulkScan: false
+      postBulkScan: false,
+      benefitType: 'UC'
     });
   });
 
@@ -127,7 +128,8 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'post',
-      postBulkScan: false
+      postBulkScan: false,
+      benefitType: 'UC'
     });
   });
 
@@ -136,7 +138,8 @@ describe('controllers/additional-evidence.js', () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
-      postBulkScan: false
+      postBulkScan: false,
+      benefitType: 'UC'
     });
   });
 
