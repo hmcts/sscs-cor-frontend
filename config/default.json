@@ -61,7 +61,7 @@
   "apiCallTimeout" : 40000,
   "navigationTimeout" : 140000,
   "featureFlags": {
-    "mediaFilesAllowed": "false",
+    "mediaFilesAllowed": "true",
     "testFeature": "false",
     "allowContactUs": {
       "enabled": "true",
