@@ -23,6 +23,9 @@ describe('Manage your appeal app @smoke', () => {
     statusPage = new StatusPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
+    await Promise.all([
+      page.waitForNavigation()
+    ]);
   });
 
   after(async () => {

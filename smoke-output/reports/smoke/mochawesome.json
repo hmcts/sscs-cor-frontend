@@ -1,0 +1,317 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 0,
+    "passes": 0,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-03-29T13:10:58.947Z",
+    "end": "2021-03-29T13:11:09.076Z",
+    "duration": 10129,
+    "testsRegistered": 8,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 1,
+    "hasOther": true,
+    "skipped": 8,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "05fd44b5-365a-44df-b0f1-d664cd6eaaca",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [
+        {
+          "title": "\"after all\" hook",
+          "fullTitle": "\"after all\" hook",
+          "timedOut": false,
+          "duration": 1,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "__awaiter(void 0, void 0, void 0, function* () {\n    if (sidamUsers.length) {\n        console.log('Clean up sidam');\n        // await sidam.unregisterRedirectUri();\n        for (const sidamUser of sidamUsers) {\n            console.log(`Deleting user ${sidamUser.email}`);\n            yield sidam.deleteUser(sidamUser);\n        }\n    }\n    if (server && server.close) {\n        console.log('Killing server');\n        server.close();\n    }\n    if (browser && browser.close) {\n        console.log('Killing browser');\n        yield browser.close();\n    }\n})",
+          "err": {},
+          "uuid": "d14d6789-e553-45b6-9d50-a8e27dc61a05",
+          "parentUUID": "05fd44b5-365a-44df-b0f1-d664cd6eaaca",
+          "isHook": true,
+          "skipped": false
+        }
+      ],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c3a47d16-0f20-45fd-920b-30726146ff06",
+          "title": "Manage your appeal app @smoke",
+          "fullFile": "/Users/mounika/IdeaProjects/sscs-cor-frontend/test/smoke/smoke-mya.test.ts",
+          "file": "/test/smoke/smoke-mya.test.ts",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook",
+              "fullTitle": "Manage your appeal app @smoke \"before all\" hook",
+              "timedOut": false,
+              "duration": 0,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        ({ ccdCase, page, sidamUser = {} } = yield common_1.startServices({ bootstrapData: true, hearingType: 'oral' }));\n        const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';\n        loginPage = new login_1.LoginPage(page);\n        assignCasePage = new assign_case_1.AssignCasePage(page);\n        statusPage = new status_1.StatusPage(page);\n        yield loginPage.visitPage(`?tya=${appellantTya}`);\n        yield loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');\n    })",
+              "err": {
+                "message": "Error: listen EADDRINUSE: address already in use :::8082",
+                "estack": "Error: listen EADDRINUSE: address already in use :::8082\n    at Server.setupListenHandle [as _listen2] (net.js:1317:16)\n    at listenInCluster (net.js:1365:12)\n    at Server.listen (net.js:1451:7)\n    at Function.listen (/Users/mounika/IdeaProjects/sscs-cor-frontend/node_modules/express/lib/application.js:618:24)\n    at Object.createServer (/Users/mounika/IdeaProjects/sscs-cor-frontend/node_modules/dyson/lib/dyson.js:40:9)\n    at module.exports (/Users/mounika/IdeaProjects/sscs-cor-frontend/test/mock/idam/dysonSetup.js:10:27)\n    at startAppServer (/Users/mounika/IdeaProjects/sscs-cor-frontend/test/browser/common.ts:58:5)\n    at Object.<anonymous> (/Users/mounika/IdeaProjects/sscs-cor-frontend/test/browser/common.ts:122:9)\n    at Generator.next (<anonymous>)\n    at /Users/mounika/IdeaProjects/sscs-cor-frontend/test/browser/common.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/mounika/IdeaProjects/sscs-cor-frontend/test/browser/common.ts:4:12)\n    at Object.startServices (/Users/mounika/IdeaProjects/sscs-cor-frontend/test/browser/common.ts:121:12)\n    at /Users/mounika/IdeaProjects/sscs-cor-frontend/test/smoke/smoke-mya.test.ts:19:48\n    at Generator.next (<anonymous>)\n    at /Users/mounika/IdeaProjects/sscs-cor-frontend/test/smoke/smoke-mya.test.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/mounika/IdeaProjects/sscs-cor-frontend/test/smoke/smoke-mya.test.ts:4:12)\n    at Context.<anonymous> (/Users/mounika/IdeaProjects/sscs-cor-frontend/test/smoke/smoke-mya.test.ts:18:21)\n    at callFn (/Users/mounika/IdeaProjects/sscs-cor-frontend/node_modules/mocha/lib/runnable.js:387:21)\n    at Hook.Runnable.run (/Users/mounika/IdeaProjects/sscs-cor-frontend/node_modules/mocha/lib/runnable.js:379:7)\n    at next (/Users/mounika/IdeaProjects/sscs-cor-frontend/node_modules/mocha/lib/runner.js:384:10)\n    at Immediate.<anonymous> (/Users/mounika/IdeaProjects/sscs-cor-frontend/node_modules/mocha/lib/runner.js:425:5)\n    at processImmediate (internal/timers.js:461:21)",
+                "diff": null
+              },
+              "uuid": "b3a86c4c-40f2-49cd-8a4d-6a9e90c7b180",
+              "parentUUID": "c3a47d16-0f20-45fd-920b-30726146ff06",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook",
+              "fullTitle": "Manage your appeal app @smoke \"after all\" hook",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        if (page && page.close) {\n            yield page.close();\n        }\n    })",
+              "err": {},
+              "uuid": "2c55e721-6392-4cb4-85d5-d02b036befe0",
+              "parentUUID": "c3a47d16-0f20-45fd-920b-30726146ff06",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "should land in assign-case page after a successful login",
+              "fullTitle": "Manage your appeal app @smoke should land in assign-case page after a successful login",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        assignCasePage.verifyPage();\n    })",
+              "err": {},
+              "uuid": "b00b8645-fec0-4d59-8415-d535d2053ce1",
+              "parentUUID": "c3a47d16-0f20-45fd-920b-30726146ff06",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "should inform postcode, submit and land in status page",
+              "fullTitle": "Manage your appeal app @smoke should inform postcode, submit and land in status page",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "__awaiter(void 0, void 0, void 0, function* () {\n        yield assignCasePage.fillPostcode('TN32 6PL');\n        yield assignCasePage.submit();\n        statusPage.verifyPage();\n    })",
+              "err": {},
+              "uuid": "dd6364cc-185c-4066-8eb1-a9e2bb3a487f",
+              "parentUUID": "c3a47d16-0f20-45fd-920b-30726146ff06",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [
+            {
+              "uuid": "9539f8b7-a1c2-4c68-bc42-02be473d769e",
+              "title": "Status page",
+              "fullFile": "/Users/mounika/IdeaProjects/sscs-cor-frontend/test/smoke/smoke-mya.test.ts",
+              "file": "/test/smoke/smoke-mya.test.ts",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should display navigation tabs and Status tab should be active",
+                  "fullTitle": "Manage your appeal app @smoke Status page should display navigation tabs and Status tab should be active",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": null,
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "__awaiter(void 0, void 0, void 0, function* () {\n            statusPage.verifyPage();\n            expect(yield statusPage.getElementText('.navigation-tabs')).to.not.be.null;\n            expect(yield statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.statusTab.tabHeader);\n        })",
+                  "err": {},
+                  "uuid": "4f4890c1-fbca-4a5e-bfa7-8b935c0f584a",
+                  "parentUUID": null,
+                  "isHook": false,
+                  "skipped": true
+                },
+                {
+                  "title": "should display subheading",
+                  "fullTitle": "Manage your appeal app @smoke Status page should display subheading",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": null,
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "__awaiter(void 0, void 0, void 0, function* () {\n            statusPage.verifyPage();\n            expect(yield statusPage.getElementText('.task-list h2')).to.equal(content.en.statusTab.header);\n        })",
+                  "err": {},
+                  "uuid": "c516b0fb-26ee-4f28-8c75-d3aa83f4406b",
+                  "parentUUID": null,
+                  "isHook": false,
+                  "skipped": true
+                },
+                {
+                  "title": "should display status bar",
+                  "fullTitle": "Manage your appeal app @smoke Status page should display status bar",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": null,
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "__awaiter(void 0, void 0, void 0, function* () {\n            statusPage.verifyPage();\n            expect(yield statusPage.getElementText('.task-list h2')).to.equal(content.en.statusTab.header);\n        })",
+                  "err": {},
+                  "uuid": "a7370cfa-2c35-4737-8a7b-4f96e63f9597",
+                  "parentUUID": null,
+                  "isHook": false,
+                  "skipped": true
+                },
+                {
+                  "title": "should display panel with latest update",
+                  "fullTitle": "Manage your appeal app @smoke Status page should display panel with latest update",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": null,
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "__awaiter(void 0, void 0, void 0, function* () {\n            statusPage.verifyPage();\n            expect(yield statusPage.getElementText('.panel')).contain(content.en.statusTab.panelHeader);\n        })",
+                  "err": {},
+                  "uuid": "2cc2cfb7-6016-460c-94ae-59522e140084",
+                  "parentUUID": null,
+                  "isHook": false,
+                  "skipped": true
+                },
+                {
+                  "title": "should display Help and Support links",
+                  "fullTitle": "Manage your appeal app @smoke Status page should display Help and Support links",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": null,
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "__awaiter(void 0, void 0, void 0, function* () {\n            statusPage.verifyPage();\n            expect(yield statusPage.getElementText('.mya-contact__content h2')).to.equal(content.en.helpGuides.header);\n            expect(yield statusPage.getElementText('.mya-contact__content .govuk-list')).contain(content.en.helpGuides.representatives.linkHeader);\n            expect(yield statusPage.getElementText('.mya-contact__content .govuk-list')).contain(content.en.helpGuides.withdrawAppeal.linkHeader);\n        })",
+                  "err": {},
+                  "uuid": "16d977ec-b2ce-4992-a1c8-fc16fae67b3a",
+                  "parentUUID": null,
+                  "isHook": false,
+                  "skipped": true
+                },
+                {
+                  "title": "should display Contact us for help options and open details",
+                  "fullTitle": "Manage your appeal app @smoke Status page should display Contact us for help options and open details",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": null,
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "__awaiter(void 0, void 0, void 0, function* () {\n            statusPage.verifyPage();\n            expect(yield statusPage.getElementText('.govuk-details.contact-us')).to.equal(content.en.contactUs.title);\n            const elementHandle = yield page.$('.govuk-details.contact-us');\n            const heightClosed = yield page.evaluate(element => {\n                const { height } = element.getBoundingClientRect();\n                return height;\n            }, elementHandle);\n            expect(heightClosed).to.equal(40);\n        })",
+                  "err": {},
+                  "uuid": "f33e6395-d19e-4263-97c6-4b274ba2ff2d",
+                  "parentUUID": null,
+                  "isHook": false,
+                  "skipped": true
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [
+                "4f4890c1-fbca-4a5e-bfa7-8b935c0f584a",
+                "c516b0fb-26ee-4f28-8c75-d3aa83f4406b",
+                "a7370cfa-2c35-4737-8a7b-4f96e63f9597",
+                "2cc2cfb7-6016-460c-94ae-59522e140084",
+                "16d977ec-b2ce-4992-a1c8-fc16fae67b3a",
+                "f33e6395-d19e-4263-97c6-4b274ba2ff2d"
+              ],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 180000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [
+            "b00b8645-fec0-4d59-8415-d535d2053ce1",
+            "dd6364cc-185c-4066-8eb1-a9e2bb3a487f"
+          ],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 180000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 180000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "6.2.3"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "smoke-output/reports/smoke",
+        "inlineAssets": "true"
+      },
+      "version": "4.1.0"
+    }
+  }
+}
