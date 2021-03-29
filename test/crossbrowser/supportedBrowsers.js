@@ -17,7 +17,8 @@ const supportedBrowsers = {
       ignoreZoomSetting: true,
       nativeEvents: false,
       ignoreProtectedModeSettings: true,
-      version: '17.17134'
+      version: '17.17134',
+      avoidProxy: true
     }
   },
   chrome: {
@@ -25,13 +26,15 @@ const supportedBrowsers = {
       browserName: 'chrome',
       name: 'WIN_CHROME_LATEST',
       platform: 'Windows 10',
-      version: 'latest'
+      version: 'latest',
+      avoidProxy: true
     },
     chrome_mac_latest: {
       browserName: 'chrome',
       name: 'MAC_CHROME_LATEST',
       platform: 'macOS 10.13',
-      version: 'latest'
+      version: 'latest',
+      avoidProxy: true
     }
   },
   firefox: {
@@ -39,13 +42,15 @@ const supportedBrowsers = {
       browserName: 'firefox',
       name: 'WIN_FIREFOX_LATEST',
       platform: 'Windows 10',
-      version: 'latest'
+      version: 'latest',
+      avoidProxy: true
     },
     firefox_mac_latest: {
       browserName: 'firefox',
       name: 'MAC_FIREFOX_LATEST',
       platform: 'macOS 10.13',
-      version: 'latest'
+      version: 'latest',
+      avoidProxy: true
     }
   },
   safari: {
