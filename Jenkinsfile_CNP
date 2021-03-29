@@ -14,7 +14,6 @@ def sscsCorBackEndUrlAat = "http://sscs-tribunals-api-aat.service.core-compute-a
 def idamUrlAat = "https://idam-web-public.aat.platform.hmcts.net"
 def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-def httpProxy =  "http://proxyout.reform.hmcts.net:8080"
 
 def secrets = [
         'sscs-${env}': [
@@ -90,16 +89,10 @@ withPipeline("nodejs", product, component) {
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
         sh 'echo IDAM_API_URL=$IDAM_API_URL'
-        env.HTTP_PROXY = httpProxy
-        sh 'echo HTTP_PROXY=$HTTP_PROXY'
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
         env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
-    }
-    after("functionalTest:preview") {
-        env.HTTP_PROXY = ""
-        sh 'echo HTTP_PROXY=$HTTP_PROXY'
     }
     before("functionalTest:aat") {
         env.COH_URL = cohUrlAat
@@ -110,15 +103,9 @@ withPipeline("nodejs", product, component) {
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
         sh 'echo IDAM_API_URL=$IDAM_API_URL'
-        env.HTTP_PROXY = httpProxy
-        sh 'echo HTTP_PROXY=$HTTP_PROXY'
         env.S2S_URL = s2sUrlAat
         sh 'echo S2S_URL=$S2S_URL'
         env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
-    }
-    after("functionalTest:aat") {
-        env.HTTP_PROXY = ""
-        sh 'echo HTTP_PROXY=$HTTP_PROXY'
     }
 }
