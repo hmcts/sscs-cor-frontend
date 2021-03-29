@@ -14,7 +14,7 @@ def sscsCorBackEndUrlAat = "http://sscs-tribunals-api-aat.service.core-compute-a
 def idamUrlAat = "https://idam-web-public.aat.platform.hmcts.net"
 def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-def httpProxy =  "http://proxyout.reform.hmcts.net:8080"
+def httpProxy =  ""
 
 def secrets = [
         'sscs-${env}': [
