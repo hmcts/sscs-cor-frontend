@@ -37,9 +37,9 @@ async function startBrowser() {
     console.log('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
     console.log(`Http proxy ${httpProxy}`);
-    if (httpProxy) {
+    /*if (httpProxy) {
       args.push(`-proxy-server=${httpProxy}`);
-    }
+    }*/
     const opts = {
       args,
       headless,
@@ -148,10 +148,10 @@ after(async() => {
   if (sidamUsers.length) {
     console.log('Clean up sidam');
     // await sidam.unregisterRedirectUri();
-    sidamUsers.forEach(async (sidamUser) => {
+    for (const sidamUser of sidamUsers) {
       console.log(`Deleting user ${sidamUser.email}`);
       await sidam.deleteUser(sidamUser);
-    });
+    }
   }
 
   if (server && server.close) {
