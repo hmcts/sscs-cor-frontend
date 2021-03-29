@@ -7,7 +7,6 @@ nodejs:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: "true"
     POST_BULK_SCAN: "true"
-    HTTP_PROXY: "http://proxyout.reform.hmcts.net:8080"
   keyVaults:
     sscs:
       secrets:
