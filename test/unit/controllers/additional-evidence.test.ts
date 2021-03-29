@@ -35,6 +35,9 @@ describe('controllers/additional-evidence.js', () => {
           case_reference: 'mockedCaseRef',
           case_id: '1234567890'
         },
+        appeal: {
+          benefitType: 'UC'
+        },
         additional_evidence: {}
       },
       body: {},
@@ -72,7 +75,8 @@ describe('controllers/additional-evidence.js', () => {
 
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
-      postBulkScan: false
+      postBulkScan: false,
+      benefitType: 'UC'
     });
   });
 
