@@ -35,7 +35,6 @@ const tribunalsApiUrl: string = config.get('tribunals.api-url');
 const appPort: string = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
-const httpProxy: string = config.get('httpProxy');
 const { validateToken } = require('./services/tokenService');
 const { notificationRedirect } = require('./controllers/notificationRedirect');
 const {
