@@ -101,9 +101,11 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
           }
         );
       }
+      const benefitType = req.session['appeal'].benefitType;
       return res.render('additional-evidence/index.html', {
         action,
-        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies)
+        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
+        benefitType
       });
     } catch (error) {
       AppInsights.trackException(error);
