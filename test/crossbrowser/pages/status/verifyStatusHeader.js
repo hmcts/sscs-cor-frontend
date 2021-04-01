@@ -3,7 +3,7 @@ const content = require('locale/content');
 function verifyStatusHeader() {
   const I = this;
 
-  I.see(content.en.common.pip.yourBenefitAppeal, '.govuk-heading-xl');
+  I.see(content.en.benefitTypes.pip.yourBenefitAppeal, '.govuk-heading-xl');
   I.seeElement('.navigation-tabs');
   I.see(content.en.statusTab.tabHeader, '.navigation-tabs ul li.selected');
   I.see(content.en.statusTab.header, '.task-list h2');
@@ -16,7 +16,7 @@ function verifyStatusHeader() {
 function verifyWelshStatusHeader() {
   const I = this;
 
-  I.see(content.cy.common.pip.yourBenefitAppeal, '.govuk-heading-xl');
+  I.see(content.cy.benefitTypes.pip.yourBenefitAppeal, '.govuk-heading-xl');
   I.seeElement('.navigation-tabs');
   I.see(content.cy.statusTab.tabHeader, '.navigation-tabs ul li.selected');
   I.see(content.cy.statusTab.header, '.task-list h2');
