@@ -4,7 +4,7 @@
             <a href="/status" class="{{ "--not-active" if inDashboard }}">
                 <img src="/public/images/home.png" alt="{{ content[i18n.language].common.homePage | safe }}">
                 <span class="govuk-phase-banner__text">
-                    {{ content[i18n.language].common.yourBenefitAppeal | safe }}
+                    {{ content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal | safe }}
                 </span>
             </a>
         </div>

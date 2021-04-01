@@ -1,7 +1,6 @@
 {
   "en": {
     "common": {
-      "yourBenefitAppeal": "Your PIP benefit appeal",
       "appealDetails": "Appeal details",
       "signIn": "Sign in",
       "signOut": "Sign out",
@@ -82,8 +81,6 @@
     },
     "taskList": {
       "header": "Your benefit appeal",
-      "header1": "Your",
-      "header2": "benefit appeal",
       "noQuestions": "You have no questions from the tribunal",
       "deadline": {
         "pending": "You need to respond by ",
@@ -421,7 +418,13 @@
       "evidenceConfirm": {
         "header": "You have submitted additional evidence",
         "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
-        "link": "Return to Your PIP benefit appeal"
+        "link":{
+         "pip":  "Return to Your PIP benefit appeal",
+         "esa":  "Return to Your ESA benefit appeal",
+         "uc":  "Return to Your UC benefit appeal",
+         "dla":  "Return to Your DLA benefit appeal",
+         "carersallowance":  "Return to Your Carer's Allowance appeal"
+        }
       },
       "about": {
         "header": "Providing evidence to support your appeal",
@@ -725,6 +728,7 @@
     "benefitTypes": {
       "esa": {
         "acronym": "ESA",
+        "yourBenefitAppeal": "Your ESA benefit appeal",
         "fullDescription": "Employment and Support Allowance (ESA)",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
@@ -732,6 +736,7 @@
       },
       "pip": {
         "acronym": "PIP",
+        "yourBenefitAppeal": "Your PIP benefit appeal",
         "fullDescription": "Personal Independence Payment (PIP)",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
@@ -739,7 +744,24 @@
       },
       "uc": {
         "acronym": "UC",
+        "yourBenefitAppeal": "Your UC benefit appeal",
         "fullDescription": "Universal Credit (UC)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge, doctor and disability expert"
+      },
+      "dla": {
+        "acronym": "DLA",
+        "yourBenefitAppeal": "Your DLA benefit appeal",
+        "fullDescription": "Disability Living Allowance (DLA)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge, doctor and disability expert"
+      },
+      "carersallowance": {
+        "acronym": "CARER'S ALLOWANCE",
+        "yourBenefitAppeal": "Your Carer's Allowance appeal",
+        "fullDescription": "Carer's Allowance",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge, doctor and disability expert"
@@ -951,7 +973,6 @@
   },
   "cy": {
     "common": {
-      "yourBenefitAppeal": "Eich apêl am fudd-dal",
       "appealDetails": "Manylion yr apêl",
       "signIn": "Mewngofnodi",
       "signOut": "Allgofnodi",
@@ -1030,8 +1051,6 @@
     },
     "taskList": {
       "header": "Eich apêl am fudd-dal",
-      "header1": "Eich apêl am fudd-dal",
-      "header2": "",
       "noQuestions": "Nid oes gennych unrhyw gwestiynau gan y tribiwnlys",
       "deadline": {
         "pending": "Rhaid ichi ymateb erbyn",
@@ -1362,7 +1381,13 @@
       "evidenceConfirm": {
         "header": "Rydych wedi cyflwyno tystiolaeth ychwanegol",
         "description": "Bydd yn cael ei hadolygu gan y tribiwnlys a’i hystyried fel rhan o’ch apêl.",
-        "link": "Dychwelyd i'ch apêl budd-dal PIP"
+        "link": {
+          "pip": "Dychwelyd i'ch apêl budd-dal PIP",
+          "esa": "Dychwelyd i'ch apêl budd-dal ESA",
+          "uc": "Dychwelyd i'ch apêl budd-dal UC",
+          "dla": "Dychwelyd i'ch apêl budd-dal DLA",
+          "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr"
+        }
       },
       "about": {
         "header": "Anfon tystiolaeth i gefnogi eich apêl",
@@ -1666,6 +1691,7 @@
     "benefitTypes": {
       "esa": {
         "acronym": "ESA",
+        "yourBenefitAppeal": "Eich apêl am fudd-dal ESA",
         "fullDescription": "Lwfans Cyflogaeth a Chymorth (ESA)",
         "agency": "Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
@@ -1673,6 +1699,7 @@
       },
       "pip": {
         "acronym": "PIP",
+        "yourBenefitAppeal": "Eich apêl am fudd-dal PIP",
         "fullDescription": "Taliad Annibyniaeth Personol (PIP)",
         "agency": "Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
@@ -1680,7 +1707,24 @@
       },
       "uc": {
         "acronym": "UC",
+        "yourBenefitAppeal": "Eich apêl am fudd-dal UC",
         "fullDescription": "Credyd Cynhwysol (UC)",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anableddau"
+      },
+      "dla": {
+        "acronym": "DLA",
+        "yourBenefitAppeal": "Eich apêl budd-dal DLA",
+        "fullDescription": "Lwfans Byw i’r Anabl (DLA)",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anableddau"
+      },
+      "carersallowance": {
+        "acronym": "LWFANS GOFALWR",
+        "yourBenefitAppeal": "Eich apêl Lwfans Gofalwr",
+        "fullDescription": "Lwfans Gofalwr",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr, meddyg ac arbenigwr anableddau"
