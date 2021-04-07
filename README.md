@@ -1,6 +1,9 @@
-# SSCS - Continuous Online Resolution
+# SSCS - ~~Continuous Online Resolution~~ Manage Your Appeal
 
-This application is the public facing service for online hearings.
+This application is the public facing service for Manage Your Appeal (MYA).
+
+MYA was adapted from the Continuous Online Resolution (COR) service. There are still many configuration references to
+COR and SSCS-COR  as to change these to MYA would require building it as a new service and migrating over which is non-trivial engineering effort for low benefit.
 
 It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/sscs-tribunals-case-api)
 
@@ -95,7 +98,6 @@ If a functional/smoke test run is failing in AAT (or other integrated environmen
 
 To do this you must set some extra environment variables locally:
 
-* HTTP_PROXY - to configure the tests to use the HMCTS proxy
 * SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
 * COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
 * TEST_URL - this is the URL you are testing e.g. https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
@@ -112,7 +114,7 @@ To do this you must set some extra environment variables locally:
 Put these together with the required `yarn` command in one line like this:
 
 ```bash
-HEADLESS=false HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=XXXXXXXXXXX IDAM_OAUTH2_CLIENT_SECRET=XXXXXXXXXXX S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net yarn test:functional
+HEADLESS=false SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=XXXXXXXXXXX IDAM_OAUTH2_CLIENT_SECRET=XXXXXXXXXXX S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net yarn test:functional
 ```
 
 Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
@@ -122,7 +124,6 @@ Open a terminal, go to the sscs-cor-frontend directory. Set env vars in a termin
 
 ```
 export SSCS_API_URL=http://localhost:8080
-export HTTP_PROXY=''
 export COH_URL=http://coh-cor-aat.service.core-compute-aat.internal
 export S2S_SECRET=AAAAAAAAAAAAAAAC
 export S2S_URL=http://localhost:4502
@@ -136,8 +137,9 @@ export MYA_FEATURE_FLAG=true
 export EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED=true
 export EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED=false
 export ADDITIONAL_EVIDENCE_FEATURE_FLAG=true
+export POST_BULK_SCAN=true
 ```
-then do 
+then do
 ```
 yarn build
 yarn start
@@ -153,7 +155,7 @@ You can easily create a benefit appeal in CCD with online panel and associate it
 
 Since this script directly accesses services such as CCD and COH, which are protected by service-2-service auth, you must specify the secret in order to connect.
 
-This can be done locally by using a yarn command with a required environment variable 
+This can be done locally by using a yarn command with a required environment variable
 
 ```bash
 S2S_SECRET=44******* IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=Bb******** IDAM_OAUTH2_CLIENT_SECRET=3\******** yarn test:create-data-aat
@@ -207,7 +209,6 @@ If you visit https://sscs-cor-frontend-aat.service.core-compute-aat.internal/ an
 
 If you need to run against different environments, you can set the following environment variables:
 
-* HTTP_PROXY - to configure the tests to use the HMCTS proxy
 * SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
 * COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
 * S2S_SECRET - used to provide auth for connecting to backend services
@@ -217,10 +218,10 @@ If you need to run against different environments, you can set the following env
 And use the command:
 
 ```bash
-HTTP_PROXY=http://proxyout.reform.hmcts.net:8080 SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_SECRET=XXXXXXXXXXXXX yarn test:create-data
+SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_SECRET=XXXXXXXXXXXXX yarn test:create-data
 ```
 
-If you then want to make calls directly to COH to change the state of an online hearing you will need the S2S headers 
+If you then want to make calls directly to COH to change the state of an online hearing you will need the S2S headers
 these can be generated with
 
 ```bash
@@ -229,7 +230,7 @@ yarn test:create-s2s-headers
 
 You will need the same environment variables used when creating test data.
 
-If you wish to also issue a decision then add the environment variable ISSUE_DECISION=true. NB it does not matter the value of the variable just that it exists to issue the decision. 
+If you wish to also issue a decision then add the environment variable ISSUE_DECISION=true. NB it does not matter the value of the variable just that it exists to issue the decision.
 
 ### Analytics
 
@@ -281,4 +282,4 @@ _Application mounted SIDAM stub_
 * found at `app/server/controller/idam-stub.ts`
 * uses Redis to keep track of username associated with code/token
 * used when running functional tests as part of the "Functional Test" stages on the pipeline
-* also used when signing into the service on preview or AAT environments 
+* also used when signing into the service on preview or AAT environments

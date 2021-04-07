@@ -25,7 +25,6 @@ describe('Welsh Manage your appeal app @mya', () => {
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
-    await loginPage.setCookie('manageYourAppeal', 'true');
     await loginPage.setCookie('welsh', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');

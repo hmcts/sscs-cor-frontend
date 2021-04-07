@@ -65,18 +65,4 @@ export class HearingService {
     }, req);
   }
 
-  async extendDeadline(hearingId: string, req: Request) {
-    return RequestPromise.request({
-      method: 'PATCH',
-      uri: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}`
-    }, req);
-  }
-
-  async recordTribunalViewResponse(hearingId: string, reply: string, req: Request, reason?: string) {
-    return RequestPromise.request({
-      method: 'PATCH',
-      uri: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/tribunal-view`,
-      body: { reply, reason: reason ? reason : '' }
-    }, req);
-  }
 }

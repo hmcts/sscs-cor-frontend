@@ -9,7 +9,6 @@ import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger('status.js');
 
 function getStatus(req: Request, res: Response) {
-  if (!isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) return res.render('errors/404.html');
   let stages: IAppealStage[] = [];
 
   const session = req.session;

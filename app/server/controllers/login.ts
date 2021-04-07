@@ -127,56 +127,44 @@ function getIdamCallback(
       const { email }: UserDetails = await idamService.getUserDetails(req.session['accessToken']);
       req.session['idamEmail'] = email;
 
-      if (isFeatureEnabled(Feature.MANAGE_YOUR_APPEAL, req.cookies)) {
-        const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session['tya'], req);
+      const { statusCode, body }: rp.Response = await hearingService.getOnlineHearingsForCitizen(email, req.session['tya'], req);
 
-        if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
+      if (statusCode !== OK) return renderErrorPage(email, statusCode, idamService, req, res);
 
-        const hearings = req.query.caseId ?
-          body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
+      const hearings = req.query.caseId ?
+        body.filter(hearing => hearing.case_id + '' === req.query.caseId) : body;
 
-        hearings.forEach(value => {
-          value.case_reference = value.case_id ? value.case_id.toString() : '';
-          if (value.case_reference === '') {
-            const missingHearingIdError = new Error('Case ID cannot be empty from hearing in session');
-            AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
-            throw missingHearingIdError;
-          }
-        });
+      hearings.forEach(value => {
+        value.case_reference = value.case_id ? value.case_id.toString() : '';
+        if (value.case_reference === '') {
+          const missingHearingIdError = new Error('Case ID cannot be empty from hearing in session');
+          AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+          throw missingHearingIdError;
+        }
+      });
 
-        AppInsights.trackEvent('MYA_LOGIN_SUCCESS');
-        if (hearings.length === 0) {
-          return res.redirect(Paths.assignCase);
-        } else if (hearings.length === 1) {
-          req.session['hearing'] = hearings[0];
-          const { appeal, subscriptions } = await trackYourApealService.getAppeal(req.session['hearing'].case_id, req);
-          req.session['appeal'] = appeal;
-          req.session['subscriptions'] = subscriptions;
-          req.session['hideHearing'] = appeal.hideHearing == null ? false : appeal.hideHearing;
+      AppInsights.trackEvent('MYA_LOGIN_SUCCESS');
+      if (hearings.length === 0) {
+        return res.redirect(Paths.assignCase);
+      } else if (hearings.length === 1) {
+        req.session['hearing'] = hearings[0];
+        const { appeal, subscriptions } = await trackYourApealService.getAppeal(req.session['hearing'].case_id, req);
+        req.session['appeal'] = appeal;
+        req.session['subscriptions'] = subscriptions;
+        req.session['hideHearing'] = appeal.hideHearing == null ? false : appeal.hideHearing;
 
-          logger.info(`Logging in ${email}`);
-          AppInsights.trackTrace(`[${req.session['hearing'] && req.session['hearing'].case_id}] - User logged in successfully as ${email}`);
+        logger.info(`Logging in ${email}`);
+        AppInsights.trackTrace(`[${req.session['hearing'] && req.session['hearing'].case_id}] - User logged in successfully as ${email}`);
 
-          if (req.session['appeal'].hearingType === 'cor') {
-            return res.redirect(Paths.taskList);
-          } else {
-            return res.redirect(Paths.status);
-          }
+        if (req.session['appeal'].hearingType === 'cor') {
+          return res.redirect(Paths.taskList);
         } else {
-          const hearingsByName = getHearingsByName(hearings);
-          AppInsights.trackTrace(`[Cases count ${hearings.length}] - User logged in successfully as ${email}`);
-          return res.render('select-case.html', { hearingsByName });
+          return res.redirect(Paths.status);
         }
       } else {
-        const emailToSearchFor = (req.query.caseId) ? email + '+' + req.query.caseId : email;
-        const { statusCode, body }: rp.Response = await hearingService.getOnlineHearing(emailToSearchFor, req);
-        if (statusCode !== OK) return renderErrorPage(emailToSearchFor, statusCode, idamService, req, res);
-
-        req.session['hearing'] = body;
-
-        logger.info(`Logging in ${emailToSearchFor}`);
-        AppInsights.trackTrace(`[${req.session['hearing'] && req.session['hearing'].case_id}] - User logged in successfully as ${email}`);
-        return res.redirect(Paths.taskList);
+        const hearingsByName = getHearingsByName(hearings);
+        AppInsights.trackTrace(`[Cases count ${hearings.length}] - User logged in successfully as ${email}`);
+        return res.render('select-case.html', { hearingsByName });
       }
     } catch (error) {
       AppInsights.trackException(error);

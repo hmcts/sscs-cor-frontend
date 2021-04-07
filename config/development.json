@@ -1,16 +1,8 @@
 {
-  "evidenceUpload": {
-    "questionPage": {
-      "enabled": "false",
-      "overrideAllowed": "true"
-    }
-  },
   "idam": {
     "enableStub": "true"
   },
   "featureFlags": {
-    "additionalEvidence": "true",
-    "manageYourAppeal": "true",
     "postBulkScan": "true"
   }
 }

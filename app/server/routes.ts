@@ -1,23 +1,13 @@
 const express = require('express');
 const setLanguage = require('./setLanguage');
 
-import * as Paths from './paths';
 import * as config from 'config';
 
 import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
 
-import { setupQuestionController } from './controllers/question';
-import { setupSubmitQuestionController } from './controllers/submit-question';
-import { setupQuestionsCompletedController } from './controllers/questions-completed';
 import { setupTaskListController } from './controllers/task-list';
 import { setupLoginController, redirectToLogin } from './controllers/login';
-import { setupExtendDeadlineController } from './controllers/extend-deadline';
 import { setupDecisionController } from './controllers/decision';
-import { setupTribunalViewController } from './controllers/tribunal-view';
-import { setupHearingConfirmController } from './controllers/hearing-confirm';
-import { setupHearingWhyController } from './controllers/hearing-why';
-import { setupTribunalViewAcceptedController } from './controllers/tribunal-view-accepted';
-import { setupTribunalViewConfirmController } from './controllers/tribunal-view-confirm';
 import { setupIdamStubController } from './controllers/idam-stub';
 import { setupCookiePrivacyController } from './controllers/policies';
 import { supportControllers } from './controllers/support';
@@ -29,10 +19,10 @@ import { setupHistoryController } from './controllers/history';
 import { setupAssignCaseController } from './controllers/assign-case';
 import { setupHearingController } from './controllers/hearing';
 import { setupOutcomeController } from './controllers/outcome';
+import { setupAvEvidenceController } from './controllers/av-evidence';
 
 const router = express.Router();
 
-import { QuestionService } from './services/question';
 import { HearingService } from './services/hearing';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
@@ -45,7 +35,6 @@ const tribunalsApiUrl: string = config.get('tribunals.api-url');
 const appPort: string = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
-const httpProxy: string = config.get('httpProxy');
 const { validateToken } = require('./services/tokenService');
 const { notificationRedirect } = require('./controllers/notificationRedirect');
 const {
@@ -58,23 +47,13 @@ const { validateEmail } = require('./controllers/validateEmail');
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret);
 const hearingService: HearingService = new HearingService(apiUrl);
-const questionService: QuestionService = new QuestionService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
 
 const prereqMiddleware = [ensureAuthenticated];
 
-const questionController = setupQuestionController({ questionService, evidenceService, prereqMiddleware });
-const submitQuestionController = setupSubmitQuestionController({ questionService, evidenceService, prereqMiddleware });
-const questionsCompletedController = setupQuestionsCompletedController({ prereqMiddleware });
-const taskListController = setupTaskListController({ questionService, additionalEvidenceService, prereqMiddleware });
-const extendDeadlineController = setupExtendDeadlineController({ prereqMiddleware, hearingService });
+const taskListController = setupTaskListController({ additionalEvidenceService, prereqMiddleware });
 const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
-const tribunalViewConfirmController = setupTribunalViewConfirmController({ prereqMiddleware: ensureAuthenticated, hearingService });
-const tribunalViewController = setupTribunalViewController({ prereqMiddleware: ensureAuthenticated, hearingService });
-const tribunalViewAcceptedController = setupTribunalViewAcceptedController({ prereqMiddleware: ensureAuthenticated });
-const hearingConfirmController = setupHearingConfirmController({ prereqMiddleware: ensureAuthenticated });
-const hearingWhyController = setupHearingWhyController({ prereqMiddleware: ensureAuthenticated, hearingService });
 const loginController = setupLoginController({ hearingService, idamService, trackYourApealService: trackYourAppealService });
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
@@ -91,6 +70,7 @@ const historyController = setupHistoryController({ prereqMiddleware: ensureAuthe
 const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService, prereqMiddleware: ensureAuthenticated });
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
 const outcomeController = setupOutcomeController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
+const avEvidenceController = setupAvEvidenceController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -102,17 +82,8 @@ router.use((req, res, next) => {
 router.use(setLanguage);
 router.use(idamStubController);
 router.use(loginController);
-router.use(submitQuestionController);
-router.use(questionsCompletedController);
-router.use(Paths.question, questionController);
 router.use(taskListController);
-router.use(extendDeadlineController);
 router.use(decisionController);
-router.use(tribunalViewController);
-router.use(tribunalViewAcceptedController);
-router.use(tribunalViewConfirmController);
-router.use(hearingConfirmController);
-router.use(hearingWhyController);
 router.use(cookiePrivacyController);
 router.use(supportEvidenceController);
 router.use(supportHearingController);
@@ -127,6 +98,7 @@ router.use(historyController);
 router.use(assignCaseController);
 router.use(hearingTabController);
 router.use(outcomeController);
+router.use(avEvidenceController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {
