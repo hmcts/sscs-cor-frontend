@@ -4,19 +4,29 @@ const content = require('../../../locale/content');
 
 const maxCharacters = 20000;
 const minCharecters = 1;
+const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
 
 function uploadDescriptionValidation(description) {
   let error = false;
   const schema = Joi.string()
     .required()
     .max(maxCharacters)
+    .regex(whitelist)
     .options({
       language: {
-        any: { empty: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.emptyDescription}` },
-        string: { max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}` }
+        any: {
+          empty: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.emptyDescription}`
+        },
+        string: {
+          max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}`,
+          regex: {
+            base: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.regex}`
+          }
+        }
       }
     });
   const result = schema.validate(description);
+
   if (result.error) {
     error = result.error.details[0].message;
   }
@@ -36,10 +46,16 @@ function answerValidation(answer, req?) {
     .required()
     .min(minCharecters)
     .max(maxCharacters)
+    .regex(whitelist)
     .options({
       language: {
         any: { empty: `!!${emptyErrorMsg}` },
-        string: { max: `!!${content[i18next.language].question.textareaField.error.maxCharacters}` }
+        string: {
+          max: `!!${content[i18next.language].question.textareaField.error.maxCharacters}`,
+          regex: {
+            base: `!!${content[i18next.language].question.textareaField.error.regex}`
+          }
+        }
       }
     });
 
@@ -91,18 +107,6 @@ function loginEmailAddressValidation(email) {
   return error;
 }
 
-function tribunalViewAcceptedValidation(acceptView, isConfirm = false) {
-  const allowedValues = ['yes', 'no'];
-  if (!allowedValues.includes(acceptView)) {
-    if (isConfirm) {
-      return content[i18next.language].tribunalView.error.emptyOnConfirm;
-    } else {
-      return content[i18next.language].tribunalView.error.emptyOnDecisionPick;
-    }
-  }
-  return false;
-}
-
 function newHearingAcceptedValidation(newHearing) {
   const allowedValues = ['yes', 'no'];
   if (!allowedValues.includes(newHearing)) {
@@ -114,7 +118,6 @@ function newHearingAcceptedValidation(newHearing) {
 export {
   answerValidation,
   loginEmailAddressValidation,
-  tribunalViewAcceptedValidation,
   newHearingAcceptedValidation,
   hearingWhyValidation,
   uploadDescriptionValidation

@@ -22,6 +22,10 @@
       "secure": "false"
     }
   },
+  "health": {
+    "timeout": 5000,
+    "deadline": 15000
+  },
   "idam": {
     "url": "http://localhost:3000/idam-stub",
     "api-url": "http://localhost:3000/idam-stub",
@@ -34,13 +38,10 @@
   "tribunals": {
     "api-url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
-  "httpProxy": "http://proxyout.reform.hmcts.net:8080",
   "evidenceUpload": {
-    "questionPage": {
-      "enabled": "false",
-      "overrideAllowed": "false"
-    },
-    "maxFileSizeInMb": 10
+    "maxFileSizeInMb": 10,
+    "maxAudioVideoFileSizeInMb": 500,
+    "maxDocumentFileSizeInMb": 10
   },
   "s2s": {
     "microservice": "sscs",
@@ -59,9 +60,8 @@
   "apiCallTimeout" : 40000,
   "navigationTimeout" : 140000,
   "featureFlags": {
+    "mediaFilesAllowed": "false",
     "testFeature": "false",
-    "manageYourAppeal": "true",
-    "additionalEvidence": "false",
     "allowContactUs": {
       "enabled": "true",
       "telephoneEnabled": "true",
@@ -70,7 +70,8 @@
     },
     "postBulkScan": "false",
     "historyTab": "false",
-    "welsh": "false"
+    "hearingOutcomeTab": "false",
+    "welsh": "true"
   },
   "services": {
     "webForm" : {

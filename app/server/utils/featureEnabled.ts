@@ -1,15 +1,15 @@
 import * as config from 'config';
 
 enum Feature {
-  ADDITIONAL_EVIDENCE_FEATURE = 'additionalEvidence',
-  MANAGE_YOUR_APPEAL = 'manageYourAppeal',
   TEST_FEATURE = 'testFeature',
   ALLOW_CONTACT_US = 'allowContactUs.enabled',
   CONTACT_US_WEB_FORM_ENABLED = 'allowContactUs.webFormEnabled',
   CONTACT_US_TELEPHONE_ENABLED = 'allowContactUs.telephoneEnabled',
   CONTACT_US_WEBCHAT_ENABLED= 'allowContactUs.webChatEnabled',
   POST_BULK_SCAN = 'postBulkScan',
-  HISTORY_TAB = 'historyTab'
+  HISTORY_TAB = 'historyTab',
+  HEARING_OUTCOME_TAB = 'hearingOutcomeTab',
+  MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed'
 }
 
 function isFeatureEnabled(feature: Feature, force?: {}): boolean {

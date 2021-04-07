@@ -1,7 +1,6 @@
 {
   "en": {
     "common": {
-      "yourBenefitAppeal": "Your PIP benefit appeal",
       "appealDetails": "Appeal details",
       "signIn": "Sign in",
       "signOut": "Sign out",
@@ -15,6 +14,7 @@
       "location": "Location",
       "provideInformationOnline": "Provide your information online",
       "uploadLettersDocumentPhotos": "Upload letters, documents or photos",
+      "uploadLettersDocumentPhotosAudioVideo": "Upload letters, documents or photos, audio or video files",
       "sendByPost": "Send by post",
       "submitEvidenceToTribunal": "Submit evidence to the tribunal",
       "loading": "Loading",
@@ -29,6 +29,8 @@
       "extendDeadline": "Extend the deadline",
       "describeTheEvidence": "Describe the evidence",
       "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why",
+      "hearingOutcome": "Hearing Outcome",
+      "avEvidence": "Audio/Video Evidence",
       "type": {
         "Appellant": "Appellant",
         "Appointee": "Appointee",
@@ -79,8 +81,6 @@
     },
     "taskList": {
       "header": "Your benefit appeal",
-      "header1": "Your",
-      "header2": "benefit appeal",
       "noQuestions": "You have no questions from the tribunal",
       "deadline": {
         "pending": "You need to respond by ",
@@ -110,44 +110,12 @@
         "placeholder": "You can write as much as you want",
         "error": {
           "empty": "You have not entered any information. Enter some information before submitting.",
-          "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again."
+          "maxCharacters": "You have entered over 20,000 characters. Reduce the amount you have written and try again.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing"
         },
         "errorOnSave": {
           "empty": "You have not entered any information. Enter some information before saving."
         }
-      },
-      "evidenceUpload": {
-        "checkbox": "I want to provide evidence to support my answer",
-        "header": "Provide evidence to support your answer",
-        "info": "You can upload evidence to support your answer such as letters, photos and documents. If you are taking a picture of a letter, place it on a flat surface and take the picture from above.",
-        "addFileButton": "Add file",
-        "fileUploading": "File uploading",
-        "postEvidence": {
-          "summary": "You can also post evidence to the tribunal",
-          "details": {
-            "para1": "You can post evidence to the address below.",
-            "para2": "Make sure it’s clearly marked with your appeal reference number:",
-            "closingPara1": "Try to post it as soon as possible to avoid delaying your appeal.",
-            "closingPara2": "Tell the tribunal in your answer if you plan on posting evidence. Briefly describe what you are posting and say when you think it will arrive."
-          }
-        },
-        "fileList": {
-          "uploadedFiles": "Uploaded files",
-          "noFilesUploaded": "No files uploaded"
-        }
-      },
-      "sendingEvidence": {
-        "summary": "Sending evidence to support your answer",
-        "details": {
-          "para1": "If you have any evidence to support your answer, you can either email it or send it by post.",
-          "para2": "Make sure it’s clearly marked with your appeal reference number:",
-          "closingPara1": "Useful evidence helps prove what you have said in your answer such as a letter from a doctor or someone who knows you well. You do not have to send in evidence if you don’t have any.",
-          "closingPara2": "If you are posting it in, send the tribunal an email briefly describing what you are posting and when you think it will arrive. Use the email address above."
-        }
-      },
-      "completedAnswer": {
-        "header": "Your answer",
-        "submittedText": "Submitted"
       }
     },
     "questionUploadEvidence": {
@@ -159,433 +127,8 @@
         "fileCannotBeUploaded": "File cannot be uploaded",
         "empty": "You have not selected a file.",
         "tooLarge": "The file you have uploaded is too big. Please upload a file under",
-        "invalidFileType": "The type of file you have uploaded is not acceptable. Please convert it to a common file format and try again."
+        "invalidFileType": "The type of file you have uploaded is not accepted. Please convert it to a common file format and try again."
       }
-    },
-    "submitQuestion": {
-      "title": "You will not be able to change your answer after you submit it.",
-      "backToQuestionText": "Back to question"
-    },
-    "questionsCompleted": {
-      "header": "You have answered the tribunal’s questions",
-      "para1": "You’ve provided the information the tribunal have asked for. They’ll review what you’ve sent and consider it as part of your appeal.",
-      "para2Start": "You’ll get another email by",
-      "para2End": "which will explain how the tribunal want to proceed with your appeal.",
-      "exitService": "Exit service"
-    },
-    "extendDeadline": {
-      "header": "Extending the deadline will delay your appeal",
-      "hint": "You can have another week to answer the questions but your appeal will take longer.",
-      "subheader": "Do you still want to extend the deadline?",
-      "no": {
-        "header": "You have not extended the deadline",
-        "para1": "You still have until {{ deadline }} to answer the questions."
-      },
-      "yes": {
-        "header": "You have another week to answer the questions ",
-        "para1": "You now have until {{ deadline }} to answer the questions."
-      },
-      "contactTribunal": {
-        "header": "You need to provide reasons",
-        "para1": "You need to contact the tribunal and explain why you need more time.",
-        "para2": "Send an email explaining why you need more time and the date you can respond by to:",
-        "para3": "Your reasons will be reviewed by a judge.",
-        "para4": "You will then receive another email telling you whether you have been granted additional time and how the tribunal wish to proceed."
-      },
-      "error": {
-        "text": "You need to say whether you want to extend the deadline before continuing"
-      }
-    },
-    "tribunalView": {
-      "header": "Read the tribunal’s view on your appeal",
-      "decision": {
-        "viewEntitledTo": "You are entitled to PIP at the rate below from {{ startDate }} until {{ endDate }}.",
-        "viewEntitledToIndefinite": "You are entitled to PIP at the rate below from {{ startDate }}.",
-        "dailyLiving": "Daily living",
-        "mobility": "Mobility",
-        "rate": {
-          "noAward": "No award",
-          "enhancedRate": "Enhanced rate",
-          "standardRate": "Standard rate"
-        },
-        "dwp": {
-          "Same": "This is the same as DWP initially awarded you.",
-          "Higher": "This is more than DWP initially awarded you.",
-          "Lower": "This is less than DWP initially awarded you."
-        },
-        "confirmAccept": "Confirm whether you accept this view at the bottom of the page, after reading the tribunal’s reason below."
-      },
-      "reasonsHeader": "The reason for the tribunal’s view",
-      "activitiesSummary": "PIP activities and descriptors the tribunal consider apply to your appeal",
-      "dailyLivingActivitiesHeader": "Daily living activities and descriptors",
-      "dailyLivingActivitiesHeaderEmpty": "The tribunal’s view is that no daily living activities apply to your appeal",
-      "mobilityActivitiesHeader": "Mobility activities and descriptors",
-      "mobilityActivitiesHeaderEmpty": "The tribunal’s view is that no mobility activities apply to your appeal",
-      "activitiesTable": {
-        "headerActivity": "Activity",
-        "headerDescriptor": "Descriptor",
-        "headerPoints": "Points"
-      },
-      "activities": {
-        "dailyLiving": {
-          "preparingFood": {
-            "name": "Preparing food",
-            "scores": {
-              "0": {
-                "text": "Can prepare and cook a simple meal unaided",
-                "score": 0
-              },
-              "4": {
-                "text": "Needs supervision or assistance to either prepare or cook a simple meal",
-                "score": 4
-              },
-              "8": {
-                "text": "Cannot prepare and cook food",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Needs to use an aid or appliance to be able to either prepare or cook a simple meal",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Cannot cook a simple meal using a conventional cooker but is able to do so using a microwave",
-                "score": 2
-              },
-              "2.2": {
-                "text": "Needs prompting to be able to either prepare or cook a simple meal",
-                "score": 2
-              }
-            }
-          },
-          "takingNutrition": {
-            "name": "Taking nutrition",
-            "scores": {
-              "0": {
-                "text": "Can take nutrition unaided",
-                "score": 0
-              },
-              "4": {
-                "text": "Needs prompting to be able to take nutrition",
-                "score": 4
-              },
-              "6": {
-                "text": "Needs assistance to be able to manage a therapeutic source to take nutrition",
-                "score": 6
-              },
-              "8": {
-                "text": "Cannot convey food and drink to their mouth and needs another person to do so",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Needs either:<ul><li>to use an aid or appliance to be able to take nutrition</li><li>supervision to be able to take nutrition</li><li>assistance to be able to cut up food</li></ul>",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Needs a therapeutic source to be able to take nutrition",
-                "score": 2
-              }
-            }
-          },
-          "managingTherapy": {
-            "name": "Managing therapy or monitoring a health condition",
-            "scores": {
-              "0": {
-                "text": "Either:<ul><li>does not receive medication or therapy or need to monitor a health condition</li><li>or can manage medication or therapy or monitor a health condition unaided</li></ul>",
-                "score": 0
-              },
-              "1": {
-                "text": "Needs either:<ul><li>to use an aid or appliance to be able to manage medication</li><li>supervision, prompting or assistance to be able to manage medication or monitor a health condition</li><li>supervision, prompting or assistance to be able to monitor a health condition</li></ul>",
-                "score": 1
-              },
-              "2": {
-                "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes no more than 3.5 hours a week",
-                "score": 2
-              },
-              "4": {
-                "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 3.5 but no more than 7 hours a week",
-                "score": 4
-              },
-              "6": {
-                "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 7 but no more than 14 hours a week",
-                "score": 6
-              },
-              "8": {
-                "text": "Needs supervision, prompting or assistance to be able to manage therapy that takes more than 14 hours a week",
-                "score": 8
-              }
-            }
-          },
-          "washingBathing": {
-            "name": "Washing and bathing",
-            "scores": {
-              "0": {
-                "text": "Can wash and bathe unaided",
-                "score": 0
-              },
-              "3": {
-                "text": "Needs assistance to be able to get in or out of a bath or shower",
-                "score": 3
-              },
-              "4": {
-                "text": "Needs assistance to be able to wash their body between the shoulders and waist",
-                "score": 4
-              },
-              "8": {
-                "text": "Cannot wash and bathe at all and needs another person to wash their entire body",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Needs to use an aid or appliance to be able to wash or bathe",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Needs supervision or prompting to be able to wash or bathe",
-                "score": 2
-              },
-              "2.2": {
-                "text": "Needs assistance to be able to wash either their hair or body below the waist",
-                "score": 2
-              }
-            }
-          },
-          "managingToilet": {
-            "name": "Managing toilet needs or incontinence",
-            "scores": {
-              "0": {
-                "text": "Can manage toilet needs or incontinence unaided",
-                "score": 0
-              },
-              "4": {
-                "text": "Needs assistance to be able to manage toilet needs",
-                "score": 4
-              },
-              "6": {
-                "text": "Needs assistance to be able to manage incontinence of either bladder and bowel",
-                "score": 6
-              },
-              "8": {
-                "text": "Needs assistance to be able to manage incontinence of both bladder and bowel",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Needs to use an aid or appliance to be able to manage toilet needs or incontinence",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Needs supervision or prompting to be able to manage toilet needs",
-                "score": 2
-              }
-            }
-          },
-          "dressingUndressing": {
-            "name": "Dressing and undressing",
-            "scores": {
-              "0": {
-                "text": "Can dress and undress unaided",
-                "score": 0
-              },
-              "4": {
-                "text": "Needs assistance to be able to dress or undress their upper body",
-                "score": 4
-              },
-              "8": {
-                "text": "Cannot dress or undress at all",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Needs to use an aid or appliance to be able to dress or undress",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Needs either:<ul><li>prompting to be able to dress, undress or determine appropriate circumstances for remaining clothed</li><li>prompting or assistance to be able to select appropriate clothing</li></ul>",
-                "score": 2
-              },
-              "2.2": {
-                "text": "Needs assistance to be able to dress or undress their lower body",
-                "score": 2
-              }
-            }
-          },
-          "communicatingVerbally": {
-            "name": "Communicating verbally",
-            "scores": {
-              "0": {
-                "text": "Can express and understand verbal information unaided",
-                "score": 0
-              },
-              "2": {
-                "text": "Needs to use an aid or appliance to be able to speak or hear",
-                "score": 2
-              },
-              "4": {
-                "text": "Needs communication support to be able to express or understand complex verbal information",
-                "score": 4
-              },
-              "8": {
-                "text": "Needs communication support to be able to express or understand basic verbal information",
-                "score": 8
-              },
-              "12": {
-                "text": "Cannot express or understand verbal information at all even with communication support",
-                "score": 12
-              }
-            }
-          },
-          "readingAndUnderstanding": {
-            "name": "Reading and understanding signs, symbols and words",
-            "scores": {
-              "0": {
-                "text": "Can read and understand basic and complex written information either unaided or using spectacles or contact lenses",
-                "score": 0
-              },
-              "4": {
-                "text": "Needs prompting to be able to read or understand basic written information",
-                "score": 4
-              },
-              "8": {
-                "text": "Cannot read or understand signs, symbols or words at all",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Needs to use an aid or appliance, other than spectacles or contact lenses, to be able to read or understand either basic or complex written information",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Needs prompting to be able to read or understand complex written information",
-                "score": 2
-              }
-            }
-          },
-          "engagingWithOtherPeople": {
-            "name": "Engaging with other people face to face",
-            "scores": {
-              "0": {
-                "text": "Can engage with other people unaided",
-                "score": 0
-              },
-              "2": {
-                "text": "Needs prompting to be able to engage with other people",
-                "score": 2
-              },
-              "4": {
-                "text": "Needs social support to be able to engage with other people",
-                "score": 4
-              },
-              "8": {
-                "text": "Cannot engage with other people due to such engagement causing either:<ul><li>overwhelming psychological distress to the claimant</li><li>the claimant to exhibit behaviour which would result in a substantial risk of harm to the claimant or another person</li></ul>",
-                "score": 8
-              }
-            }
-          },
-          "makingBudgetingDecisions": {
-            "name": "Making budgeting decisions",
-            "scores": {
-              "0": {
-                "text": "Can manage complex budgeting decisions unaided",
-                "score": 0
-              },
-              "4": {
-                "text": "Needs prompting or assistance to be able to make simple budgeting decisions",
-                "score": 4
-              },
-              "6": {
-                "text": "Cannot make any budgeting decisions at all",
-                "score": 6
-              },
-              "2": {
-                "text": "Needs prompting or assistance to be able to make complex budgeting decisions",
-                "score": 2
-              }
-            }
-          }
-        },
-        "mobility": {
-          "planningFollowingJourneys": {
-            "name": "Planning and following journeys",
-            "scores": {
-              "0": {
-                "text": "Can plan and follow the route of a journey unaided",
-                "score": 0
-              },
-              "4": {
-                "text": "Needs prompting to be able to undertake any journey to avoid overwhelming psychological distress to the claimant",
-                "score": 4
-              },
-              "8": {
-                "text": "Cannot plan the route of a journey",
-                "score": 8
-              },
-              "12": {
-                "text": "Cannot follow the route of an unfamiliar journey without another person, assistance dog or orientation aid",
-                "score": 12
-              },
-              "10.0": {
-                "text": "Cannot undertake any journey because it would cause overwhelming psychological distress to the claimant",
-                "score": 10
-              },
-              "10.1": {
-                "text": "Cannot follow the route of a familiar journey without another person, an assistance dog or an orientation aid",
-                "score": 10
-              }
-            }
-          },
-          "movingAround": {
-            "name": "Moving around",
-            "scores": {
-              "0": {
-                "text": "Can stand and then move more than 200 metres, either aided or unaided",
-                "score": 0
-              },
-              "4": {
-                "text": "Can stand and then move more than 50 metres but no more than 200 metres, either aided or unaided",
-                "score": 4
-              },
-              "8": {
-                "text": "Can stand and then move unaided more than 20 metres but no more than 50 metres",
-                "score": 8
-              },
-              "10": {
-                "text": "Can stand and then move using an aid or appliance more than 20 metres but no more than 50 metres",
-                "score": 10
-              },
-              "12.0": {
-                "text": "Can stand and then move more than 1 metre but no more than 20 metres, either aided or unaided",
-                "score": 12
-              },
-              "12.1": {
-                "text": "Cannot, either aided or unaided:<ul><li>stand</li><li>move more than 1 metre</li></ul>",
-                "score": 12
-              }
-            }
-          }
-        }
-      },
-      "whatNextPara": "You can either accept this view or if you want to provide further evidence to the tribunal then you can request a hearing. You can ask a friend, family member or support worker for help in making this decision.",
-      "acceptHeader": "Do you accept this view?",
-      "acceptYes": "I accept the tribunal’s view",
-      "acceptNo": "I want a hearing",
-      "acceptRespondBy": "Please respond by {{ respondBy }}.",
-      "submitResponse": "Submit response",
-      "error": {
-        "emptyOnDecisionPick": "You must accept the tribunal’s view or request a hearing.",
-        "emptyOnConfirm": "You need to say whether you want to accept the view or want to go back."
-      }
-    },
-    "tribunalViewConfirm": {
-      "header": "Are you sure you want to accept the view?",
-      "headerText": "You will not be able to change your mind.",
-      "acceptYes": "Yes, I want to accept the view",
-      "acceptNo": "No, I want to go back",
-      "acceptHelp": "If you need help deciding then you could talk to your representative or a friend or family member who know about your condition."
-    },
-    "tribunalViewAccepted": {
-      "header": "You have accepted the tribunal’s view",
-      "para1": "This view has also been communicated to DWP.",
-      "para2": "If they accept, the decision will be issued and your appeal will be closed.",
-      "para3": "If they request a hearing, you will be asked if you want to attend.",
-      "para4": "You will get an email telling you whether they have accepted the view by {{ nextCorrespondenceDate }}.",
-      "exitService": "Exit service",
-      "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_2/?pageurl="
     },
     "tribunalDecision": {
       "header": "The tribunal’s decision on your appeal",
@@ -690,16 +233,22 @@
         "England": {
           "desc": "Benefit appeals helpline (England and Wales)",
           "phone": "Telephone: 0300 123 1142",
-          "availability": "Monday to Friday, 8:00am to 8:00pm",
-          "saturdayAvailability": "Saturday, 8:00am to 2:00pm",
+          "availability": "Monday to Friday, 8am to 6pm",
+          "availability2": "Saturday, 8am to 2pm",
           "emailText": "Email:",
           "emailAddress": "Contactsscs@justice.gov.uk",
+          "charges": "Find out about call charges"
+        },
+        "WelshSpeakers": {
+          "desc": "Benefit appeals helpline (for Welsh speakers)",
+          "phone": "Telephone: 0300 303 5170",
+          "availability": "Monday to Friday, 8:30am to 5pm",
           "charges": "Find out about call charges"
         },
         "Scotland": {
           "desc": "Benefit appeals helpline (Scotland)",
           "phone": "Telephone: 0300 790 6234",
-          "availability": "Monday to Friday, 8:30am to 5:00pm",
+          "availability": "Monday to Friday, 8:30am to 5pm",
           "emailText": "Email:",
           "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
           "charges": "Find out about call charges"
@@ -840,11 +389,23 @@
         "header": "Upload additional evidence",
         "description": {
           "para1": "You can upload letters, documents or photos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
-          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>"
+          "para1audioVideo": "You can upload letters, documents, photos or videos. For example, you could take a photo of a letter from your doctor and upload it. If you do take a photo, make sure the letter or document is on a flat surface and the photo is taken from above.",
+          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful</a>",
+          "para3": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx",
+          "para3audioVideo": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, .mp4",
+          "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal",
+          "contentWarningPara2": "Please note that we review all evidence to ensure it is suitable and relevant before adding it to your appeal"
+        },
+        "label": "Choose file",
+        "fileUploading": "File uploading",
+        "fileList": {
+          "uploadedFiles": "Uploaded files",
+          "noFilesUploaded": "No files uploaded"
         },
         "error": {
           "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
-          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading."
+          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing"
         }
       },
       "evidencePost": {
@@ -857,7 +418,13 @@
       "evidenceConfirm": {
         "header": "You have submitted additional evidence",
         "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
-        "link": "Return to Your PIP benefit appeal"
+        "link":{
+         "pip":  "Return to Your PIP benefit appeal",
+         "esa":  "Return to Your ESA benefit appeal",
+         "uc":  "Return to Your UC benefit appeal",
+         "dla":  "Return to Your DLA benefit appeal",
+         "carersallowance":  "Return to Your Carer's Allowance appeal"
+        }
       },
       "about": {
         "header": "Providing evidence to support your appeal",
@@ -955,6 +522,17 @@
     "historyTab": {
       "tabHeader": "History",
       "header": "History of your appeal"
+    },
+    "outcomeTab": {
+      "tabHeader": "Hearing Outcome",
+      "header": "Hearing outcome of your appeal",
+      "document": "Document",
+      "hearingDate": "Hearing date",
+      "outcomeFrom": "Hearing outcome from"
+    },
+    "avEvidenceTab": {
+      "tabHeader": "Audio/Video Evidence",
+      "noEvidence": "There is no approved audio/video evidence on your case"
     },
     "appealEvents": {
       "ADJOURNED": {
@@ -1150,6 +728,7 @@
     "benefitTypes": {
       "esa": {
         "acronym": "ESA",
+        "yourBenefitAppeal": "Your ESA benefit appeal",
         "fullDescription": "Employment and Support Allowance (ESA)",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
@@ -1157,6 +736,7 @@
       },
       "pip": {
         "acronym": "PIP",
+        "yourBenefitAppeal": "Your PIP benefit appeal",
         "fullDescription": "Personal Independence Payment (PIP)",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
@@ -1164,7 +744,24 @@
       },
       "uc": {
         "acronym": "UC",
+        "yourBenefitAppeal": "Your UC benefit appeal",
         "fullDescription": "Universal Credit (UC)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge, doctor and disability expert"
+      },
+      "dla": {
+        "acronym": "DLA",
+        "yourBenefitAppeal": "Your DLA benefit appeal",
+        "fullDescription": "Disability Living Allowance (DLA)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge, doctor and disability expert"
+      },
+      "carersallowance": {
+        "acronym": "CARER'S ALLOWANCE",
+        "yourBenefitAppeal": "Your Carer's Allowance appeal",
+        "fullDescription": "Carer's Allowance",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge, doctor and disability expert"
@@ -1298,6 +895,7 @@
       "errors": {
         "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
         "invalidPostcode": "The details you have provided don’t match, please contact us",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
         "postcodeDoesNotMatch": "The details you have provided don’t match, please contact us"
       }
     },
@@ -1375,7 +973,6 @@
   },
   "cy": {
     "common": {
-      "yourBenefitAppeal": "Eich apêl am fudd-dal",
       "appealDetails": "Manylion yr apêl",
       "signIn": "Mewngofnodi",
       "signOut": "Allgofnodi",
@@ -1389,6 +986,7 @@
       "location": "Lleoliad",
       "provideInformationOnline": "Darparu eich gwybodaeth ar-lein",
       "uploadLettersDocumentPhotos": "Uwchlwytho llythyrau, dogfennau neu luniau",
+      "uploadLettersDocumentPhotosAudioVideo": "Uwchlwytho llythyrau, dogfennau neu ffeiliau llun, sain neu fideo",
       "sendByPost": "Anfon drwy’r post",
       "submitEvidenceToTribunal": "Cyflwyno tystiolaeth i’r tribiwnlys",
       "loading": "Yn llwytho",
@@ -1453,8 +1051,6 @@
     },
     "taskList": {
       "header": "Eich apêl am fudd-dal",
-      "header1": "Eich apêl am fudd-dal",
-      "header2": "",
       "noQuestions": "Nid oes gennych unrhyw gwestiynau gan y tribiwnlys",
       "deadline": {
         "pending": "Rhaid ichi ymateb erbyn",
@@ -1484,44 +1080,12 @@
         "placeholder": "Gallwch ysgrifennu faint bynnag a fynnoch",
         "error": {
           "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn cyflwyno’ch ateb.",
-          "maxCharacters": "Rydych wedi defnyddio mwy na 20,000 o nodau. Ceisiwch leihau faint rydych wedi ysgrifennu a rhowch gynnig arall arni."
+          "maxCharacters": "Rydych wedi defnyddio mwy na 20,000 o nodau. Ceisiwch leihau faint rydych wedi ysgrifennu a rhowch gynnig arall arni.",
+          "regex": "Mae yna nod(au) arbennig yn y wybodaeth sydd wedi’i rhoi. Dilëwch y rhain cyn parhau"
         },
         "errorOnSave": {
           "empty": "Nid ydych wedi rhoi unrhyw wybodaeth. Rhowch rywfaint o wybodaeth cyn arbed eich ateb."
         }
-      },
-      "evidenceUpload": {
-        "checkbox": "Rwyf eisiau anfon tystiolaeth i gefnogi fy ateb",
-        "header": "Darparwch dystiolaeth i gefnogi eich ateb",
-        "info": "Gallwch lwytho tystiolaeth i gefnogi eich ateb, fel llythyrau, ffotograffau a dogfennau. Os ydych am dynnu llun o lythyr, yna rhowch y llythyr ar wyneb fflat a thynnu’r llun o uwchben.",
-        "addFileButton": "Ychwanegu ffeil",
-        "fileUploading": "Ffeil yn llwytho",
-        "postEvidence": {
-          "summary": "Gallwch hefyd anfon tystiolaeth i’r tribiwnlys drwy’r post",
-          "details": {
-            "para1": "Gallwch bostio tystiolaeth i'r cyfeiriad isod.",
-            "para2": "Gwnewch yn siwr ei bod wedi’i marcio’n glir gyda chyfeirnod eich apêl:",
-            "closingPara1": "Ceisiwch ei hanfon cyn gynted ag sy’n bosibl i osgoi oedi gyda’ch apêl.",
-            "closingPara2": "Rhowch wybod i'r tribiwnlys yn eich ateb os ydych yn bwriadu postio tystiolaeth. Disgrifiwch yn fras beth rydych yn ei bostio a dweud pryd rydych yn credu y bydd yn cyrraedd."
-          }
-        },
-        "fileList": {
-          "uploadedFiles": "Ffeiliau sydd wedi cael eu llwytho",
-          "noFilesUploaded": "Nid oes ffeiliau wedi cael eu llwytho"
-        }
-      },
-      "sendingEvidence": {
-        "summary": "Anfon tystiolaeth i gefnogi eich apêl",
-        "details": {
-          "para1": "Os oes gennych unrhyw dystiolaeth i gefnogi’ch ateb, gallwch ei hanfon naill ai trwy e-bost neu drwy’r post.",
-          "para2": "Gwnewch yn siwr ei bod wedi’i marcio’n glir gyda chyfeirnod eich apêl:",
-          "closingPara1": "Mae tystiolaeth ddefnyddiol yn helpu i brofi’r hyn rydych wedi’i ddweud yn eich ateb, fel llythyr gan feddyg neu rywun sy’n eich adnabod yn dda. Nid oes rhaid ichi anfon tystiolaeth os nad oes gennych ddim.",
-          "closingPara2": "Os ydych am bostio’r dystiolaeth, anfonwch neges e-bost i'r tribiwnlys yn disgrifio'n fras beth rydych yn ei bostio a phryd rydych yn credu y bydd yn cyrraedd. Defnyddiwch y cyfeiriad e-bost a nodir uchod."
-        }
-      },
-      "completedAnswer": {
-        "header": "Eich ateb",
-        "submittedText": "Wedi'i gyflwyno"
       }
     },
     "questionUploadEvidence": {
@@ -1535,431 +1099,6 @@
         "tooLarge": "Mae’r ffeil rydych wedi’i llwytho yn rhy fawr. Llwythwch ffeil sy’n llai na ",
         "invalidFileType": "Nid yw’r math o ffeil rydych wedi’i llwytho yn dderbyniol. Ceisiwch drosi’r ffeil i fformat ffeil cyffredin a rhowch gynnig arall arni."
       }
-    },
-    "submitQuestion": {
-      "title": "Ni fyddwch yn gallu newid eich ateb ar ôl ichi ei gyflwyno.",
-      "backToQuestionText": "Yn ôl i'r cwestiwn"
-    },
-    "questionsCompleted": {
-      "header": "Rydych wedi ateb cwestiynau’r tribiwnlys",
-      "para1": "Rydych wedi darparu’r wybodaeth y mae’r tribiwnlys wedi gofyn amdani. Byddant yn adolygu’r hyn rydych wedi’i hanfon a’i hystyried fel rhan o’ch apêl.",
-      "para2Start": "Byddwch yn cael neges e-bost arall gan",
-      "para2End": "a fydd yn esbonio sut mae’r tribiwnlys eisiau bwrw ymlaen gyda’ch apêl.",
-      "exitService": "Gadael y gwasanaeth hwn"
-    },
-    "extendDeadline": {
-      "header": "Bydd ymestyn y dyddiad cau yn achosi oedi gyda’ch apêl",
-      "hint": "Mi gewch wythnos arall i ateb y cwestiynau ond bydd yn cymryd yn hirach i ddelio â’ch apêl.",
-      "subheader": "Ydych chi dal eisiau ymestyn y dyddiad cau?",
-      "no": {
-        "header": "Nid ydych wedi ymestyn y dyddiad cau",
-        "para1": "Mae gennych hyd at {{ deadline }} i ateb y cwestiynau."
-      },
-      "yes": {
-        "header": "Mae gennych wythnos arall i ateb y cwestiynau",
-        "para1": "Nawr mae gennych hyd at {{ deadline }} i ateb y cwestiynau."
-      },
-      "contactTribunal": {
-        "header": "Mae angen ichi ddarparu rhesymau",
-        "para1": "Mae angen ichi gysylltu â’r tribiwnlys ac esbonio pam eich bod angen mwy o amser.",
-        "para2": "Anfonwch neges e-bost yn esbonio pam eich bod angen mwy o amser gan nodi erbyn pa ddyddiad y gallwch ateb i:",
-        "para3": "Bydd eich rhesymau yn cael eu hadolygu gan farnwr.",
-        "para4": "Yna byddwch yn cael neges e-bost arall yn dweud wrthych p’un a yw‘r llys wedi caniatáu i chi gael amser ychwanegol i ateb a sut mae’r tribiwnlys yn dymuno parhau â’ch apêl."
-      },
-      "error": {
-        "text": "Mae angen ichi ddweud p’un a ydych eisiau ymestyn y dyddiad cau cyn parhau"
-      }
-    },
-    "tribunalView": {
-      "header": "Darllenwch safbwynt y tribiwnlys ar eich apêl",
-      "decision": {
-        "viewEntitledTo": "Mae gennych hawl i gael PIP ar y gyfradd isod o {{ startDate }} hyd at {{ endDate }}.",
-        "viewEntitledToIndefinite": "Mae gennych hawl i gael PIP ar y gyfradd isod o {{ startDate }}.",
-        "dailyLiving": "Bywyd bob dydd",
-        "mobility": "Symudedd",
-        "rate": {
-          "noAward": "Dim dyfarniad",
-          "enhancedRate": "Cyfradd uwch",
-          "standardRate": "Cyfradd safonol"
-        },
-        "dwp": {
-          "Same": "Mae hyn yr un fath â’r dyfarniad a gawsoch gan DWP yn wreiddiol.",
-          "Higher": "Mae hyn yn uwch na’r dyfarniad a gawsoch gan DWP yn wreiddiol.",
-          "Lower": "Mae hyn yn is na’r dyfarniad a gawsoch gan DWP yn wreiddiol."
-        },
-        "confirmAccept": "Cadarnhewch ar waelod y dudalen p’un a ydych yn derbyn y safbwynt hwn ai peidio, ar ôl darllen rheswm y tribiwnlys isod."
-      },
-      "reasonsHeader": "Y rheswm dros safbwynt y tribiwnlys",
-      "activitiesSummary": "Gweithgareddau a disgrifyddion PIP y mae’r tribiwnlys yn ystyried yn berthnasol i'ch apêl",
-      "dailyLivingActivitiesHeader": "Gweithgareddau a disgrifyddion bywyd bob dydd",
-      "dailyLivingActivitiesHeaderEmpty": "Safbwynt y tribiwnlys yw nad oes unrhyw weithgareddau bywyd bob dydd sy’n berthnasol i'ch apêl",
-      "mobilityActivitiesHeader": "Gweithgareddau a disgrifyddion symudedd",
-      "mobilityActivitiesHeaderEmpty": "Safbwynt y tribiwnlys yw nad oes unrhyw weithgareddau symudedd sy’n berthnasol i'ch apêl",
-      "activitiesTable": {
-        "headerActivity": "Activity",
-        "headerDescriptor": "Disgrifydd",
-        "headerPoints": "Pwyntiau"
-      },
-      "activities": {
-        "dailyLiving": {
-          "preparingFood": {
-            "name": "Paratoi bwyd",
-            "scores": {
-              "0": {
-                "text": "Gallu paratoi a choginio pryd o fwyd syml heb help",
-                "score": 0
-              },
-              "4": {
-                "text": "Angen goruchwyliaeth neu gymorth i baratoi neu goginio pryd o fwyd syml",
-                "score": 4
-              },
-              "8": {
-                "text": "Ddim yn gallu paratoi na choginio bwyd",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Angen defnyddio cymhorthyn neu declyn er mwyn gallu paratoi neu goginio pryd o fwyd syml",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Ddim yn gallu coginio pryd o fwyd syml trwy ddefnyddio popty confensiynol ond yn gallu gwneud hynny trwy ddefnyddio microdon",
-                "score": 2
-              },
-              "2.2": {
-                "text": "Angen anogaeth i allu paratoi neu goginio pryd o fwyd syml",
-                "score": 2
-              }
-            }
-          },
-          "takingNutrition": {
-            "name": "Cymryd maeth",
-            "scores": {
-              "0": {
-                "text": "Gallu cymryd maeth heb gymorth",
-                "score": 0
-              },
-              "4": {
-                "text": "Angen anogaeth i allu cymryd maeth",
-                "score": 4
-              },
-              "6": {
-                "text": "Angen cymorth i allu rheoli ffynhonnell therapiwtig i gymryd maeth",
-                "score": 6
-              },
-              "8": {
-                "text": "Ddim yn gallu rhoi bwyd a diod yn eu ceg ac angen cymorth rhywun arall i allu gwneud hynny",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Angen naill ai:<ul><li>defnyddio cymhorthyn neu declyn i allu cymryd maeth</li><li>goruchwyliaeth i allu cymryd maeth</li><li>cymorth i allu torri bwyd yn ddarnau</li></ul>",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Angen ffynhonnell therapiwtig i allu cymryd maeth",
-                "score": 2
-              }
-            }
-          },
-          "managingTherapy": {
-            "name": "Rheoli therapi neu fonitro cyflwr iechyd",
-            "scores": {
-              "0": {
-                "text": "Naill ai:<ul><li>nid yw'n derbyn meddyginiaeth neu therapi neu nid oes angen monitro cyflwr iechyd; </li><li>neu gall reoli meddyginiaeth neu therapi neu fonitro cyflwr iechyd heb gymorth</li></ul>",
-                "score": 0
-              },
-              "1": {
-                "text": "Angen naill ai:<ul><li>defnyddio cymhorthyn neu offer i allu rheoli meddyginiaeth </li><li>goruchwyliaeth, anogaeth neu gymorth i allu rheoli meddyginiaeth neu fonitro cyflwr iechyd</li><li> goruchwyliaeth, anogaeth neu gymorth i allu monitro cyflwr iechyd</li></ul>",
-                "score": 1
-              },
-              "2": {
-                "text": "Angen goruchwyliaeth, anogaeth neu gymorth i allu rheoli therapi nad yw’n cymryd mwy na 3.5 awr yr wythnos",
-                "score": 2
-              },
-              "4": {
-                "text": "Angen goruchwyliaeth, anogaeth neu gymorth i allu rheoli therapi sy’n cymryd mwy na 3.5 awr yr wythnos ond llai na 7 awr yr wythnos",
-                "score": 4
-              },
-              "6": {
-                "text": "Angen goruchwyliaeth, anogaeth neu gymorth i allu rheoli therapi sy’n cymryd mwy na 7 awr yr wythnos ond llai na 14 awr yr wythnos",
-                "score": 6
-              },
-              "8": {
-                "text": "Angen goruchwyliaeth, anogaeth neu gymorth i allu rheoli therapi sy’n cymryd mwy na 14 awr yr wythnos",
-                "score": 8
-              }
-            }
-          },
-          "washingBathing": {
-            "name": "Ymolchi a chael bath/cawod",
-            "scores": {
-              "0": {
-                "text": "Gallu ymolchi a chael bath/cawod heb help",
-                "score": 0
-              },
-              "3": {
-                "text": "Angen cymorth i allu mynd i mewn neu allan o fath neu gawod",
-                "score": 3
-              },
-              "4": {
-                "text": "Angen cymorth i allu ymolchi eu corff rhwng eu hysgwyddau a’u wast",
-                "score": 4
-              },
-              "8": {
-                "text": "Ddim yn gallu ymolchi na chael bath/cawod o gwbl ac mae angen person arall i ymolchi eu corff cyfan",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Angen defnyddio cymhorthyn neu declyn i allu ymolchi neu gael bath/cawod",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Angen goruchwyliaeth neu anogaeth i ymolchi neu gael bath/cawod",
-                "score": 2
-              },
-              "2.2": {
-                "text": "Angen cymorth i allu golchi naill ai eu gwallt neu ymolchi eu corff yn is na’u wast",
-                "score": 2
-              }
-            }
-          },
-          "managingToilet": {
-            "name": "Rheoli anghenion toiled neu anymataliaeth",
-            "scores": {
-              "0": {
-                "text": "Gallu rheoli anghenion toiled neu anymataliaeth heb gymorth",
-                "score": 0
-              },
-              "4": {
-                "text": "Angen cymorth i allu rheoli anghenion toiled",
-                "score": 4
-              },
-              "6": {
-                "text": "Angen cymorth i allu rheoli anymataliaeth y bledren neu’r coluddyn",
-                "score": 6
-              },
-              "8": {
-                "text": "Angen cymorth i allu rheoli anymataliaeth y bledren a’r coluddyn",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Angen defnyddio cymhorthyn neu declyn i reoli anghenion toiled neu anymataliaeth",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Angen goruchwyliaeth neu anogaeth i allu rheoli anghenion toiled",
-                "score": 2
-              }
-            }
-          },
-          "dressingUndressing": {
-            "name": "Gwisgo a dadwisgo",
-            "scores": {
-              "0": {
-                "text": "Gallu gwisgo a dadwisgo heb gymorth",
-                "score": 0
-              },
-              "4": {
-                "text": "Angen cymorth i wisgo neu ddadwisgo rhan uchaf eu corff",
-                "score": 4
-              },
-              "8": {
-                "text": "Ddim yn gallu gwisgo na dadwisgo o gwbl",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Angen defnyddio cymhorthyn neu declyn i wisgo neu ddadwisgo",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Angen naill ai:<ul><li>anogaeth i wisgo, dadwisgo neu benderfynu ar amgylchiadau priodol i aros wedi gwisgo</li><li>anogaeth neu gymorth i ddewis dillad priodol</li></ul>",
-                "score": 2
-              },
-              "2.2": {
-                "text": "Angen cymorth i wisgo neu ddadwisgo rhan isaf eu corff",
-                "score": 2
-              }
-            }
-          },
-          "communicatingVerbally": {
-            "name": "Cyfathrebu ar Lafar",
-            "scores": {
-              "0": {
-                "text": "Gallu mynegi a deall gwybodaeth ar lafar heb gymorth",
-                "score": 0
-              },
-              "2": {
-                "text": "Angen defnyddio cymhorthyn neu declyn i allu siarad neu glywed",
-                "score": 2
-              },
-              "4": {
-                "text": "Angen cefnogaeth cyfathrebu i allu mynegi neu ddeall gwybodaeth gymhleth ar lafar",
-                "score": 4
-              },
-              "8": {
-                "text": "Angen cefnogaeth cyfathrebu i allu mynegi neu ddeall gwybodaeth syml ar lafar",
-                "score": 8
-              },
-              "12": {
-                "text": "Ddim yn gallu mynegi neu ddeall gwybodaeth ar lafar o gwbl, hyd yn oed gyda chefnogaeth cyfathrebu",
-                "score": 12
-              }
-            }
-          },
-          "readingAndUnderstanding": {
-            "name": "Darllen a deall arwyddion, symbolau a geiriau",
-            "scores": {
-              "0": {
-                "text": "Gallu darllen a deall gwybodaeth ysgrifenedig syml a chymhleth naill ai heb gymorth neu drwy wisgo sbectol neu lensys cyffwrdd",
-                "score": 0
-              },
-              "4": {
-                "text": "Angen anogaeth i ddarllen neu ddeall gwybodaeth ysgrifenedig syml",
-                "score": 4
-              },
-              "8": {
-                "text": "Ddim yn gallu darllen neu ddeall arwyddion, symbolau neu eiriau o gwbl",
-                "score": 8
-              },
-              "2.0": {
-                "text": "Angen defnyddio cymhorthyn neu declyn, ar wahân i sbectol neu lensys cyffwrdd, i ddarllen neu ddeall  gwybodaeth ysgrifenedig syml neu gymhleth",
-                "score": 2
-              },
-              "2.1": {
-                "text": "Angen anogaeth i ddarllen neu ddeall gwybodaeth ysgrifenedig gymhleth",
-                "score": 2
-              }
-            }
-          },
-          "engagingWithOtherPeople": {
-            "name": "Ymgysylltu â phobl eraill wyneb yn wyneb",
-            "scores": {
-              "0": {
-                "text": "Gallu ymgysylltu â phobl eraill heb gymorth",
-                "score": 0
-              },
-              "2": {
-                "text": "Angen anogaeth i ymgysylltu â phobl eraill",
-                "score": 2
-              },
-              "4": {
-                "text": "Angen cefnogaeth gymdeithasol i allu ymgysylltu â phobl eraill.",
-                "score": 4
-              },
-              "8": {
-                "text": "Ddim yn gallu ymgysylltu â phobl eraill oherwydd bydd y fath ymgysylltu yn achosi naill ai:<ul><li>pryder seicolegol aruthrol i’r hawlydd</li><li>i'r hawlydd ymddwyn mewn ffordd a fyddai’n arwain at risg sylweddol o niwed i'r hawlydd neu unigolyn arall</li></ul>",
-                "score": 8
-              }
-            }
-          },
-          "makingBudgetingDecisions": {
-            "name": "Gwneud Penderfyniadau Cyllidebol",
-            "scores": {
-              "0": {
-                "text": "Gallu gwneud penderfyniadau cyllidebol cymhleth heb gymorth",
-                "score": 0
-              },
-              "4": {
-                "text": "Angen anogaeth neu gymorth i allu gwneud penderfyniadau cyllidebol syml",
-                "score": 4
-              },
-              "6": {
-                "text": "Ddim yn gallu gwneud unrhyw benderfyniadau cyllidebol o gwbl",
-                "score": 6
-              },
-              "2": {
-                "text": "Angen anogaeth neu gymorth i allu gwneud penderfyniadau cyllidebol cymhleth",
-                "score": 2
-              }
-            }
-          }
-        },
-        "mobility": {
-          "planningFollowingJourneys": {
-            "name": "Cynllunio a dilyn teithiau",
-            "scores": {
-              "0": {
-                "text": "Gallu cynllunio a dilyn llwybr taith heb gymorth",
-                "score": 0
-              },
-              "4": {
-                "text": "Angen anogaeth i allu mynd ar unrhyw daith i osgoi gofid seicolegol aruthrol i'r hawlydd",
-                "score": 4
-              },
-              "8": {
-                "text": "Ddim yn gallu cynllunio llwybr taith",
-                "score": 8
-              },
-              "12": {
-                "text": "Ddim yn gallu dilyn llwybr taith anghyfarwydd heb unigolyn arall, ci cymorth neu gymhorthyn cyfeiriadu",
-                "score": 12
-              },
-              "10.0": {
-                "text": "Ddim yn gallu mynd ar unrhyw daith oherwydd y byddai’n peri gofid seicolegol aruthrol i'r hawlydd",
-                "score": 10
-              },
-              "10.1": {
-                "text": "Ddim yn gallu dilyn llwybr taith cyfarwydd heb unigolyn arall, ci cymorth neu gymhorthyn cyfeiriadu",
-                "score": 10
-              }
-            }
-          },
-          "movingAround": {
-            "name": "Symud o gwmpas",
-            "scores": {
-              "0": {
-                "text": "Gallu sefyll ac yna symud mwy na 200 metr, naill ai gyda chymorth neu heb gymorth",
-                "score": 0
-              },
-              "4": {
-                "text": "Gallu sefyll ac yna symud mwy na 50 metr ond ddim pellach na 200 metr, naill ai gyda chymorth neu heb gymorth",
-                "score": 4
-              },
-              "8": {
-                "text": "Gallu sefyll ac yna symud mwy nag 20 metr ond ddim pellach na 50 metr heb gymorth ",
-                "score": 8
-              },
-              "10": {
-                "text": "Gallu sefyll ac yna symud mwy nag 20 metr ond ddim pellach na 50 metr gan ddefnyddio cymhorthyn neu declyn",
-                "score": 10
-              },
-              "12.0": {
-                "text": "Gallu sefyll ac yna symud mwy nag 1 metr ond ddim pellach nag 20 metr, naill gyda chymorth neu heb gymorth",
-                "score": 12
-              },
-              "12.1": {
-                "text": "Ni all, naill ai gyda chymorth neu heb gymorth:< ul><li>sefyll</li><li>symud mwy nag 1 metr</li></ul>",
-                "score": 12
-              }
-            }
-          }
-        }
-      },
-      "whatNextPara": "Gallwch naill ai dderbyn y safbwynt hwn, neu os ydych eisiau anfon tystiolaeth bellach i'r tribiwnlys, yna gallwch ofyn am gael gwrandawiad. Gallwch ofyn i ffrind, aelod o’ch teulu neu weithiwr cefnogi am gymorth i wneud y penderfyniad hwn.",
-      "acceptHeader": "Ydych chi’n derbyn y safbwynt hwn?",
-      "acceptYes": "Rwy’n derbyn safbwynt y tribiwnlys",
-      "acceptNo": "Rwyf eisiau gwrandawiad",
-      "acceptRespondBy": "Anfonwch eich ymateb erbyn {{ respondBy }}.",
-      "submitResponse": "Cyflwyno eich ymateb",
-      "error": {
-        "emptyOnDecisionPick": "Rhaid ichi naill ai dderbyn safbwynt y tribiwnlys neu ofyn am gael gwrandawiad.",
-        "emptyOnConfirm": "Rhaid ichi ddweud os ydych eisiau derbyn y safbwynt ynteu fynd yn ôl."
-      }
-    },
-    "tribunalViewConfirm": {
-      "header": "Ydych chi’n siwr eich bod eisiau derbyn y safbwynt?",
-      "headerText": "Ni fyddwch yn gallu newid eich meddwl.",
-      "acceptYes": "Ydw, rwyf eisiau derbyn y safbwynt",
-      "acceptNo": "Nac ydw, rwyf eisiau mynd yn ôl",
-      "acceptHelp": "Os ydych angen cymorth i wneud penderfyniad yna gallwch siarad â’ch cynrychiolydd neu ffrind neu aelod o’ch teulu sy’n gyfarwydd â’ch cyflwr."
-    },
-    "tribunalViewAccepted": {
-      "header": "Rydych wedi derbyn safbwynt y tribiwnlys",
-      "para1": "Mae’r safbwynt hwn hefyd wedi’i gyfleu i DWP.",
-      "para2": "Os byddant yn ei dderbyn, bydd y penderfyniad yn cael ei gyhoeddi a bydd eich apêl yn cael ei chau.",
-      "para3": "Os byddant yn gofyn am gael gwrandawiad, gofynnir ichi os byddwch eisiau mynychu.",
-      "para4": "Byddwch yn cael neges e-bost yn dweud wrthych p’un a ydynt wedi derbyn y safbwynt ai peidio erbyn {{ nextCorrespondenceDate }}.",
-      "exitService": "Gadael y gwasanaeth hwn",
-      "exitLink": "https://www.smartsurvey.co.uk/s/COR_ExitSurvey_2/?pageurl="
     },
     "tribunalDecision": {
       "header": "Penderfyniad y tribiwnlys ynghylch eich apêl",
@@ -2064,8 +1203,7 @@
         "England": {
           "desc": "Llinell gymorth apeliadau budd-daliadau (Cymru a Lloegr - Siaradwyr Cymraeg)",
           "phone": "Rhif ffôn: 0300 303 5170",
-          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5.00pm.",
-          "saturdayAvailability": "",
+          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5pm.",
           "emailText": "E-bost:",
           "emailAddress": "ymholiadaucymraeg@justice.gov.uk",
           "charges": "Gwybodaeth am brisiau galwadau"
@@ -2073,7 +1211,7 @@
         "Scotland": {
           "desc": "Llinell gymorth apeliadau budd-daliadau (Yr Alban)",
           "phone": "Rhif ffôn: 0300 790 6234",
-          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5.00pm.",
+          "availability": "Dydd Llun i ddydd Gwener, 8.30am – 5pm.",
           "emailText": "E-bost:",
           "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
           "charges": "Gwybodaeth am brisiau galwadau"
@@ -2214,11 +1352,23 @@
         "header": "Llwytho tystiolaeth ychwanegol",
         "description": {
           "para1": "Gallwch lwytho llythyrau, dogfennau neu ffotograffau. Er enghraifft, gallwch dynnu ffotograff o lythyr gan eich meddyg a’i lwytho. Os byddwch yn tynnu ffotograff, gwnewch yn siwr bod y llythyr neu’r ddogfen yn gorwedd ar wyneb fflat a bod y ffotograff yn cael ei dynnu o uwchben.",
-          "para2": "Mae tystiolaeth ddefnyddiol yn disgrifio neu’n dangos sut mae eich cyflwr yn effeithio ar eich bywyd. <a href='/about-evidence'><br>Darllenwch fwy am ba fath o dystiolaeth sy’n ddefnyddiol i'r tribiwnlys</a>"
+          "para1audioVideo": "Gallwch uwchlwytho llythyrau, dogfennau, lluniau neu fideos. Er enghraifft, gallech dynnu llun o lythyr gan eich meddyg a'i uwchlwytho. Os ydych chi'n tynnu llun, gwnewch yn siŵr bod y llythyr neu'r ddogfen ar arwyneb gwastad a bod y llun yn cael ei dynnu o uchder.",
+          "para2": "Mae tystiolaeth ddefnyddiol yn disgrifio neu’n dangos sut mae eich cyflwr yn effeithio ar eich bywyd. <a href='/about-evidence'><br>Darllenwch fwy am ba fath o dystiolaeth sy’n ddefnyddiol i'r tribiwnlys</a>",
+          "para3": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .rtf, .doc, .docx",
+          "para3audioVideo": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, mp4",
+          "contentWarningPara1": "Os yw eich recordiad yn cynnwys sain neu fideo o unigolyn arall, gwnewch yn siŵr eich bod yn cael ei ganiatâd/ei chaniatâd cyn cadw'r recordiad i'ch apêl.",
+          "contentWarningPara2": "Sylwch ein bod yn adolygu'r holl dystiolaeth i sicrhau ei bod yn addas ac yn berthnasol cyn ei hychwanegu at eich apêl."
+        },
+        "label": "Dewis ffeil",
+        "fileUploading": "Ffeil yn llwytho",
+        "fileList": {
+          "uploadedFiles": "Ffeiliau sydd wedi cael eu llwytho",
+          "noFilesUploaded": "Nid oes ffeiliau wedi cael eu llwytho"
         },
         "error": {
           "emptyDescription": "Nid ydych wedi rhoi disgrifiad. Rhowch ddisgrifiad bras o’r dystiolaeth rydych eisiau ei llwytho.",
-          "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau."
+          "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau.",
+          "regex": "Mae yna nod(au) arbennig yn y wybodaeth sydd wedi’i rhoi. Dilëwch y rhain cyn parhau"
         }
       },
       "evidencePost": {
@@ -2231,7 +1381,13 @@
       "evidenceConfirm": {
         "header": "Rydych wedi cyflwyno tystiolaeth ychwanegol",
         "description": "Bydd yn cael ei hadolygu gan y tribiwnlys a’i hystyried fel rhan o’ch apêl.",
-        "link": "Dychwelyd i'ch apêl budd-dal PIP"
+        "link": {
+          "pip": "Dychwelyd i'ch apêl budd-dal PIP",
+          "esa": "Dychwelyd i'ch apêl budd-dal ESA",
+          "uc": "Dychwelyd i'ch apêl budd-dal UC",
+          "dla": "Dychwelyd i'ch apêl budd-dal DLA",
+          "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr"
+        }
       },
       "about": {
         "header": "Anfon tystiolaeth i gefnogi eich apêl",
@@ -2329,6 +1485,17 @@
     "historyTab": {
       "tabHeader": "Hanes",
       "header": "Hanes eich apêl "
+    },
+    "outcomeTab": {
+      "tabHeader": "Canlyniad y Gwrandawiad",
+      "header": "Canlyniad y gwrandawiad yng nghyswllt eich apêl",
+      "document": "Dogfen",
+      "hearingDate": "Dyddiad y gwrandawiad",
+      "outcomeFrom": "Canlyniad y gwrandawiad o"
+    },
+    "avEvidenceTab": {
+      "tabHeader": "Tystiolaeth Sain/Fideo",
+      "noEvidence": "Nid oes tystiolaeth sain/fideo gymeradwy yn gysylltiedig â’ch achos"
     },
     "appealEvents": {
       "ADJOURNED": {
@@ -2524,6 +1691,7 @@
     "benefitTypes": {
       "esa": {
         "acronym": "ESA",
+        "yourBenefitAppeal": "Eich apêl am fudd-dal ESA",
         "fullDescription": "Lwfans Cyflogaeth a Chymorth (ESA)",
         "agency": "Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
@@ -2531,6 +1699,7 @@
       },
       "pip": {
         "acronym": "PIP",
+        "yourBenefitAppeal": "Eich apêl am fudd-dal PIP",
         "fullDescription": "Taliad Annibyniaeth Personol (PIP)",
         "agency": "Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
@@ -2538,7 +1707,24 @@
       },
       "uc": {
         "acronym": "UC",
+        "yourBenefitAppeal": "Eich apêl am fudd-dal UC",
         "fullDescription": "Credyd Cynhwysol (UC)",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anableddau"
+      },
+      "dla": {
+        "acronym": "DLA",
+        "yourBenefitAppeal": "Eich apêl budd-dal DLA",
+        "fullDescription": "Lwfans Byw i’r Anabl (DLA)",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anableddau"
+      },
+      "carersallowance": {
+        "acronym": "LWFANS GOFALWR",
+        "yourBenefitAppeal": "Eich apêl Lwfans Gofalwr",
+        "fullDescription": "Lwfans Gofalwr",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr, meddyg ac arbenigwr anableddau"
@@ -2672,6 +1858,7 @@
       "errors": {
         "noPostcode": "Nid ydych wedi nodi cod post. Nodwch eich cod post cyn parhau.",
         "invalidPostcode": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda",
+        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
         "postcodeDoesNotMatch": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda"
       }
     },

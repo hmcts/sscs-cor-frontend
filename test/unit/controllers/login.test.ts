@@ -140,33 +140,6 @@ describe('controllers/login', () => {
     });
 
     const accessToken = 'someAccessToken';
-    describe.skip('on success', () => {
-      let hearingServiceStub;
-      beforeEach(async () => {
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
-        req.query = { 'code': 'someCode', 'state': 'tya-number' };
-        const redirectToIdam = sinon.stub();
-        const idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
-          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
-        } as IdamService;
-        hearingServiceStub = {
-          getOnlineHearing: sinon.stub().resolves({ statusCode: 200, body: hearingDetails })
-        } as HearingService;
-
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-        expect(req.session.accessToken).to.be.eql(accessToken);
-        expect(req.session.tya).to.be.eql('tya-number');
-      });
-
-      it('calls the online hearing service', () => {
-        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com', req);
-      });
-
-      it('redirects to task list page', () => {
-        expect(res.redirect).to.have.been.calledWith(Paths.taskList);
-      });
-    });
 
     describe('throw exception because idam 400', () => {
       it('throw error', async() => {
@@ -174,7 +147,6 @@ describe('controllers/login', () => {
         const error400 = new Error('400 Not Authorised');
 
         let hearingServiceStub;
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         req.query = {
           'code': 'badCode'
         };
@@ -198,7 +170,6 @@ describe('controllers/login', () => {
         sinon.stub(Service2Service, 'generateToken').returns(3);
         const accessToken = 'someAccessToken';
         let hearingServiceStub;
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         req.query = {
           'code': 'someCode'
         };
@@ -225,47 +196,11 @@ describe('controllers/login', () => {
       });
     });
 
-    describe.skip('on success with case id', () => {
-      const accessToken = 'someAccessToken';
-      let hearingServiceStub;
-      beforeEach(async () => {
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
-        req.query = {
-          'code': 'someCode',
-          'caseId': 'someCaseId'
-        };
-        const redirectToIdam = sinon.stub();
-        const idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
-          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
-        } as IdamService;
-        hearingServiceStub = {
-          getOnlineHearing: sinon.stub().resolves({ statusCode: 200, body: hearingDetails })
-        } as HearingService;
-
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-        expect(req.session.accessToken).to.be.eql(accessToken);
-      });
-
-      it('calls the online hearing service', () => {
-        expect(hearingServiceStub.getOnlineHearing).to.have.been.calledOnce.calledWith('someEmail@example.com+someCaseId', req);
-      });
-
-      it('logs AppInsights trace log', () => {
-        expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[12345] - User logged in successfully as someEmail@example.com`);
-      });
-
-      it('redirects to task list page', () => {
-        expect(res.redirect).to.have.been.calledWith(Paths.taskList);
-      });
-    });
-
     describe('on success with MYA enabled', () => {
       let hearingServiceStub;
       let trackYourAppealService;
       beforeEach(async () => {
         req.query = { 'code': 'someCode', 'state': 'tya-number' };
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
           getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
@@ -301,12 +236,45 @@ describe('controllers/login', () => {
       });
     });
 
+    describe('check hideHearing flag with MYA enabled', () => {
+      let hearingServiceStub;
+      let trackYourAppealService;
+      let redirectToIdam;
+      let idamServiceStub;
+      beforeEach(async () => {
+        req.query = { 'code': 'someCode', 'state': 'tya-number' };
+        redirectToIdam = sinon.stub();
+        idamServiceStub = {
+          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
+          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
+        } as IdamService;
+        hearingServiceStub = {
+          getOnlineHearingsForCitizen: sinon.stub().resolves({ statusCode: 200, body: [ hearingDetails ] })
+        } as HearingService;
+      });
+
+      it('sets the hideHearing false', async () => {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : {} })
+        };
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.hideHearing).to.be.eql(false);
+      });
+
+      it('sets the hideHearing true', async () => {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal : { hideHearing: true } })
+        };
+        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, trackYourAppealService)(req, res, next);
+        expect(req.session.hideHearing).to.be.eql(true);
+      });
+    });
+
     describe('cannot find case with MYA enabled', () => {
       let hearingServiceStub;
       let trackYourAppealService;
       beforeEach(async () => {
         req.query = { 'code': 'someCode', 'state': 'tya-number' };
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
           getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
@@ -339,7 +307,6 @@ describe('controllers/login', () => {
       let trackYourAppealService;
       beforeEach(async () => {
         req.query = { 'code': 'someCode', 'state': 'tya-number' };
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
           getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
@@ -387,7 +354,6 @@ describe('controllers/login', () => {
       let trackYourAppealService;
       beforeEach(async () => {
         req.query = { 'code': 'someCode', 'state': 'tya-number', caseId: '11111' };
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'true';
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
           getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
@@ -435,93 +401,6 @@ describe('controllers/login', () => {
       it('redirects to task list page', () => {
         expect(res.redirect).to.have.been.calledWith(Paths.status);
       });
-    });
-
-    describe('on load case failure', () => {
-      let hearingServiceStub;
-      const registerUrl = 'someUrl';
-      let idamServiceStub;
-      let redirectToIdam;
-
-      beforeEach(async () => {
-        req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
-        req.query = { 'code': 'someCode' };
-        redirectToIdam = sinon.stub();
-        let accessToken = 'someAccessToken';
-
-        idamServiceStub = {
-          getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
-          getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' }),
-          getRegisterUrl: sinon.stub().withArgs('http', 'localhost').returns(registerUrl)
-        } as IdamService;
-      });
-
-      it('loads error page when cannot find appeal', async () => {
-        hearingServiceStub = {
-          getOnlineHearing: sinon.stub().resolves({ statusCode: 404 })
-        } as HearingService;
-
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-
-        expect(res.render).to.have.been.calledWith('load-case-error.html', {
-          errorBody: '<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>',
-          errorHeader: 'There is no benefit appeal associated with this email address',
-          registerUrl
-        });
-      });
-
-      it('loads error page when multiple appeals found', async () => {
-        hearingServiceStub = {
-          getOnlineHearing: sinon.stub().resolves({ statusCode: 422 })
-        } as HearingService;
-
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-
-        expect(res.render).to.have.been.calledWith('load-case-error.html', {
-          errorBody: content.en.login.failed.technicalError.body,
-          errorHeader: content.en.login.failed.technicalError.header
-        });
-      });
-
-      it('loads error page when appeal found but it is not cor', async () => {
-        hearingServiceStub = {
-          getOnlineHearing: sinon.stub().resolves({ statusCode: 409 })
-        } as HearingService;
-
-        await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-
-        expect(res.render).to.have.been.calledWith('load-case-error.html', {
-          errorBody: '<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>',
-          errorHeader: 'You cannot access this service'
-        });
-      });
-    });
-  });
-
-  describe('on error', () => {
-    const error = new Error('getOnlineHearingService error');
-
-    beforeEach(async () => {
-      req.cookies[Feature.MANAGE_YOUR_APPEAL] = 'false';
-      req.query = { 'code': 'someCode' };
-      const redirectToIdam = sinon.stub();
-      let accessToken = 'someAccessToken';
-      const idamServiceStub = {
-        getToken: sinon.stub().withArgs('someCode', 'http', 'localhost').resolves({ 'access_token': accessToken }),
-        getUserDetails: sinon.stub().withArgs(accessToken).resolves({ 'email': 'someEmail@example.com' })
-      } as IdamService;
-      const hearingServiceStub = {
-        getOnlineHearing: sinon.stub().rejects(error)
-      } as HearingService;
-
-      await getIdamCallback(redirectToIdam, idamServiceStub, hearingServiceStub, null)(req, res, next);
-    });
-
-    it('tracks the exception', () => {
-      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
-    });
-    it('calls next with the error', () => {
-      expect(next).to.have.been.calledWith(error);
     });
   });
 });

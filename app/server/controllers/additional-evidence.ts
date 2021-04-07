@@ -2,19 +2,26 @@ import { NextFunction, Request, Response, Router } from 'express';
 import * as config from 'config';
 const multer = require('multer');
 const i18next = require('i18next');
+const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
 import * as AppInsights from '../app-insights';
 import { answerValidation, uploadDescriptionValidation } from '../utils/fieldValidation';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService, EvidenceDescriptor } from '../services/additional-evidence';
-import { handleFileUploadErrors } from '../middleware/file-upload-validation';
+import { handleFileUploadErrors, validateFileSize } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+const { Logger } = require('@hmcts/nodejs-logging');
 
+const logger = Logger.getLogger('additional-evidence');
+const fileTypeError = 'LIMIT_FILE_TYPE';
 const content = require('../../../locale/content');
+const crypto = require('crypto');
+const mediaFilesAllowed = config.get('featureFlags.mediaFilesAllowed') === 'true';
 
-const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
+const maxFileSizeInMb: number = (mediaFilesAllowed ? config.get('evidenceUpload.maxAudioVideoFileSizeInMb') : config.get('evidenceUpload.maxFileSizeInMb'));
 
 const upload = multer({
-  limits: { fileSize:  maxFileSizeInMb * 1048576 }
+  limits: { fileSize:  maxFileSizeInMb * 1048576 },
+  fileFilter: fileTypeInWhitelist
 });
 
 const allowedActions = [
@@ -39,6 +46,20 @@ function postAdditionalEvidence (req: Request, res: Response) {
   }
 }
 
+function fileTypeInWhitelist(req, file, cb) {
+  const fileExtension = (file.originalname || '').split('.').pop();
+  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies) && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
+    cb(null, true);
+  } else if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
+    cb(null, true);
+  } else {
+    const caseId = req.session['hearing'].case_id;
+    logger.info(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    cb(new multer.MulterError(fileTypeError));
+  }
+}
+
 function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const statementText = req.body['question-field'];
@@ -47,7 +68,7 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
       const validationMessage = answerValidation(statementText, req);
 
       if (!validationMessage) {
-        const caseId = req.session.hearing.case_id;
+        const caseId = req.session['hearing'].case_id;
         await additionalEvidenceService.saveStatement(caseId, statementText, req);
         AppInsights.trackTrace(`[${caseId}] - User has provided a statement`);
         res.redirect(`${Paths.additionalEvidence}/confirm`);
@@ -66,20 +87,25 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
     try {
       const action: string = (!allowedActions.includes(req.params.action) || !req.params.action) ? 'options' : req.params.action;
       if (action === 'upload') {
-        const { description } = req.session.additional_evidence || '';
-        const caseId = req.session.hearing.case_id;
+        const { description } = req.session['additional_evidence'] || '';
+        const caseId = req.session['hearing'].case_id;
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
+        const hasAudioVideoFile = checkAudioVideoFile(evidences);
+
         return res.render('additional-evidence/index.html',
           {
             action,
             evidences: evidences ? evidences.reverse() : [],
-            description
+            description,
+            hasAudioVideoFile
           }
         );
       }
+      const benefitType = req.session['appeal'].benefitType;
       return res.render('additional-evidence/index.html', {
         action,
-        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies)
+        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
+        benefitType
       });
     } catch (error) {
       AppInsights.trackException(error);
@@ -88,21 +114,37 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
   };
 }
 
+function checkAudioVideoFile(evidences: EvidenceDescriptor[]) {
+  let hasAudioVideoFile = false;
+  evidences.forEach(evidence => {
+    if (evidence.file_name.toLowerCase().endsWith('.mp3') || evidence.file_name.toLowerCase().endsWith('.mp4')) {
+      hasAudioVideoFile = true;
+    }
+  });
+  return hasAudioVideoFile;
+}
+
 function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const caseId = req.session.hearing.case_id;
+      const caseId = req.session['hearing'].case_id;
       const description = req.body['additional-evidence-description'] || '';
-      req.session.additional_evidence = { description };
+      req.session['additional_evidence'] = { description };
       if (req.file) {
         await additionalEvidenceService.uploadEvidence(caseId, req.file, req);
+        const buffer: Buffer = req.file.buffer;
+        // NOSONAR
+        const md5Hash: String = crypto.createHash('md5').update(buffer).digest('hex');
+        const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${md5Hash}]`;
+        AppInsights.trackTrace(logMsg);
+        logger.info(logMsg);
         return res.redirect(`${Paths.additionalEvidence}/upload`);
       } else if (req.body.delete) {
         const fileId = Object.keys(req.body.delete)[0];
         await additionalEvidenceService.removeEvidence(caseId, fileId, req);
         return res.redirect(`${Paths.additionalEvidence}/upload`);
       } else if (req.body.buttonSubmit) {
-        const evidenceDescription = req.session.additional_evidence.description;
+        const evidenceDescription = req.session['additional_evidence'].description;
         const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
         const evidencesValidationMsg = evidences.length ? false : content[i18next.language].additionalEvidence.evidenceUpload.error.noFilesUploaded;
@@ -120,7 +162,7 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
           );
         }
         await additionalEvidenceService.submitEvidences(caseId, evidenceDescription, req);
-        req.session.additional_evidence.description = '';
+        req.session['additional_evidence'].description = '';
         AppInsights.trackTrace(`[${caseId}] - User has uploaded a total of ${evidences.length} file(s)`);
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else if (res.locals.multerError) {
@@ -162,6 +204,7 @@ function setupadditionalEvidenceController(deps: any) {
   router.post(`${Paths.additionalEvidence}/upload`,
     deps.prereqMiddleware,
     upload.single('additional-evidence-file'),
+    validateFileSize,
     handleFileUploadErrors,
     postFileUpload(deps.additionalEvidenceService)
   );
@@ -176,5 +219,6 @@ export {
   getAboutEvidence,
   getAdditionalEvidence,
   setupadditionalEvidenceController,
-  postFileUpload
+  postFileUpload,
+  fileTypeInWhitelist
 };

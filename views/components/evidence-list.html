@@ -2,7 +2,7 @@
     <table class="govuk-table" id="files-uploaded">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th class="govuk-table__header" colspan="2">{{ content[i18n.language].question.evidenceUpload.fileList.uploadedFiles | safe }}</th>
+                <th class="govuk-table__header" colspan="2">{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.uploadedFiles | safe }}</th>
             </tr>
         </thead>
         <tbody class="govuk-table__body">
@@ -15,7 +15,7 @@
                 </tr>
             {% else %}
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">{{ content[i18n.language].question.evidenceUpload.fileList.noFilesUploaded | safe }}</td>
+                    <td class="govuk-table__cell">{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.noFilesUploaded | safe }}</td>
                     <td class="govuk-table__cell"></td>
                 </tr>
             {% endfor %}

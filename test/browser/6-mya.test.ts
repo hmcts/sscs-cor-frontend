@@ -4,6 +4,7 @@ import { startServices } from 'test/browser/common';
 import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
+import { AppealDetailsPage } from 'test/page-objects/appeal-details';
 import * as _ from 'lodash';
 const content = require('locale/content');
 const config = require('config');
@@ -11,12 +12,13 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Manage your appeal app @mya', () => {
+describe('Appellant - Manage your appeal app @mya', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
+  let appealDetailsPage: AppealDetailsPage;
   let sidamUser;
   before(async () => {
     ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
@@ -25,7 +27,7 @@ describe('Manage your appeal app @mya', () => {
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
-    await loginPage.setCookie('manageYourAppeal', 'true');
+    appealDetailsPage = new AppealDetailsPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
@@ -56,6 +58,7 @@ describe('Manage your appeal app @mya', () => {
     statusPage.verifyPage();
   });
 
+  /* PA11Y */
   it('checks /status page path passes @pa11y', async () => {
     statusPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
@@ -114,8 +117,37 @@ describe('Manage your appeal app @mya', () => {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(480);
+      expect(heightOpen).to.equal(610);
     });
   });
 
+  describe('Hearing page', () => {
+    it('Navigate to hearing tab', async() => {
+      statusPage.verifyPage();
+      await statusPage.clickElement('#tab-hearing');
+      await page.waitFor(500);
+      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.hearingTab.tabHeader);
+    });
+  });
+
+  describe('Audio/video Evidence page', () => {
+    it('Navigate to Audio/Video Evidence tab', async() => {
+      await statusPage.clickElement('#tab-avEvidence');
+      await page.waitFor(500);
+
+      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.avEvidenceTab.tabHeader);
+      expect(await statusPage.getElementText('.task-list div div')).contain(content.en.avEvidenceTab.noEvidence);
+    });
+  });
+
+  describe('Appeal Details page', () => {
+    it('Navigate to Appeal Details page', async() => {
+      await statusPage.navigateToAppealDetailsPage();
+      await page.waitFor(500);
+
+      expect(await appealDetailsPage.getElementText('.govuk-heading-xl')).contain(content.en.yourDetails.header);
+      expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('TN32 6PL');
+      expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('joe@bloggs.com');
+    });
+  });
 });

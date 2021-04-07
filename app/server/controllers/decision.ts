@@ -3,7 +3,7 @@ import * as Paths from '../paths';
 import { OnlineHearing } from '../services/hearing';
 
 function getDecision(req: Request, res: Response) {
-  const hearing: OnlineHearing = req.session.hearing;
+  const hearing: OnlineHearing = req.session['hearing'];
   if (hearing.has_final_decision) {
     return res.render('decision.html', { decision: hearing.decision, final_decision: hearing.final_decision.reason });
   }

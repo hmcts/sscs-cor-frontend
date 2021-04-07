@@ -103,6 +103,42 @@ describe('controllers/assign-case.js', () => {
 
         expect(req.session.appeal).to.be.eql(appeal);
       });
+
+      it('sets hideHearing false in session', async () => {
+        await underTest(req, res);
+
+        expect(req.session.hideHearing).to.be.eql(false);
+      });
+    });
+
+    describe('for missing postcode and hideHearing true', () => {
+
+      const postcode = 'cm11 1ab';
+
+      beforeEach(() => {
+        trackYourAppealService = {
+          getAppeal: sandbox.stub().resolves({
+            statusCode: OK,
+            appeal: {
+              hearingType: 'paper',
+              hideHearing: true
+            }
+          })
+        } as any;
+
+        req = {
+          session: { idamEmail, tya },
+          body: { postcode }
+        } as any;
+
+        underTest = postIndex(hearingService, trackYourAppealService);
+      });
+
+      it('sets hideHearing true in session', async () => {
+        await underTest(req, res);
+
+        expect(req.session.hideHearing).to.be.eql(true);
+      });
     });
 
     describe('for missing postcode', () => {
@@ -140,6 +176,25 @@ describe('controllers/assign-case.js', () => {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.invalidPostcode });
+      });
+    });
+
+    describe('for missing tya', () => {
+      const postcode = 'TS1 1ST';
+
+      beforeEach(() => {
+        req = {
+          session: { idamEmail },
+          body: { postcode }
+        } as any;
+
+        underTest = postIndex(hearingService, trackYourAppealService);
+      });
+
+      it('redirects to task-list', async () => {
+        await underTest(req, res);
+
+        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.tyaNotProvided });
       });
     });
   });

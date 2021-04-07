@@ -3,7 +3,6 @@ const config = require('config');
 
 const testUrl = config.get('testUrl');
 const navigationTimeout = config.get('navigationTimeout');
-const myaFeatureConfig = config.get('featureFlags.manageYourAppeal');
 export class BasePage {
 
   public page: any;
@@ -189,5 +188,8 @@ export class BasePage {
       url: testUrl,
       expires: Date.now() + 30 * 60 * 1000
     });
+  }
+  async clickLanguageToggle() {
+    await this.clickElement('.govuk-link.language');
   }
 }
