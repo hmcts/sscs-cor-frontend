@@ -154,7 +154,6 @@ describe('Appellant - Manage your appeal app @mya', () => {
   /* PA11Y */
   it('Navigate to Appeal Details page @pa11y', async () => {
     await statusPage.navigateToAppealDetailsPage();
-    appealDetailsPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/appeal-details-page.png`;
     pa11yOpts.page = appealDetailsPage.page;
     const result = await pa11y(pa11yOpts);
