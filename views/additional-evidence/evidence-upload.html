@@ -39,7 +39,6 @@
 
           {% if hasAudioVideoFile %}
             <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.contentWarningPara1 | eval | safe }}</p>
-            <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.contentWarningPara2 | eval | safe }}</p>
           {% endif %}
 
         {{ govukFileUpload({
