@@ -149,14 +149,13 @@ describe('Appellant - Manage your appeal app @mya', () => {
       expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('TN32 6PL');
       expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('joe@bloggs.com');
     });
+    /* PA11Y */
+    it('Navigate to Appeal Details page @pa11y', async () => {
+      await statusPage.navigateToAppealDetailsPage();
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/appeal-details-page.png`;
+      pa11yOpts.page = appealDetailsPage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    });
   });
-
-  // /* PA11Y */
-  // it('Navigate to Appeal Details page @pa11y', async () => {
-  //   await statusPage.navigateToAppealDetailsPage();
-  //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/appeal-details-page.png`;
-  //   pa11yOpts.page = appealDetailsPage.page;
-  //   const result = await pa11y(pa11yOpts);
-  //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  // });
 });
