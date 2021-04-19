@@ -148,7 +148,10 @@ after(async() => {
       await sidam.deleteUser(sidamUser);
     }
   }
+  await closeBrowser();
+});
 
+async function closeBrowser() {
   if (server && server.close) {
     console.log('Killing server');
     server.close();
@@ -157,6 +160,6 @@ after(async() => {
     console.log('Killing browser');
     await browser.close();
   }
-});
+}
 
 export { startServices };
