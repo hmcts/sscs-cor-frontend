@@ -18,28 +18,12 @@ let assignCasePage: AssignCasePage;
 let statusPage: StatusPage;
 let sidamUser;
 
-async function loginApp(language) {
-  ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
-  const representativeTya = ccdCase.hasOwnProperty('representative_tya') ? ccdCase.representative_tya : 'anId';
-  pa11yOpts.browser = page.browser;
-  loginPage = new LoginPage(page);
-  assignCasePage = new AssignCasePage(page);
-  statusPage = new StatusPage(page);
-  if (language === 'en') {
-    await loginPage.setCookie('manageYourAppeal', 'true');
-  } else {
-    await loginPage.setCookie('welsh', 'true');
-  }
-  await loginPage.visitPage(`?tya=${representativeTya}`);
-  await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
-}
-
 languages.forEach(language => {
 
   describe(`${language.toUpperCase()} - Representative - Manage your appeal app @mya`, async () => {
 
-    it(`${language.toUpperCase()} -   Representative should land in assign-case page after a successful login`, async() => {
-      await loginApp(language);
+    it(`${language.toUpperCase()} - Representative should land in assign-case page after a successful login`, async() => {
+      await loginToMYA(language);
       if (language === 'cy') {
         await assignCasePage.clickLanguageToggle();
         await page.reload();
@@ -73,3 +57,19 @@ languages.forEach(language => {
     });
   });
 });
+
+async function loginToMYA(language) {
+  ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
+  const representativeTya = ccdCase.hasOwnProperty('representative_tya') ? ccdCase.representative_tya : 'anId';
+  pa11yOpts.browser = page.browser;
+  loginPage = new LoginPage(page);
+  assignCasePage = new AssignCasePage(page);
+  statusPage = new StatusPage(page);
+  if (language === 'en') {
+    await loginPage.setCookie('manageYourAppeal', 'true');
+  } else {
+    await loginPage.setCookie('welsh', 'true');
+  }
+  await loginPage.visitPage(`?tya=${representativeTya}`);
+  await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
+}
