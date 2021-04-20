@@ -140,7 +140,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     });
   });
 
-  describe('CY - Appeal Details page', () => {
+  xdescribe('CY - Appeal Details page', () => {
     it('CY - Navigate to Appeal Details page', async() => {
       await statusPage.navigateToAppealDetailsPage();
       await page.waitFor(500);
