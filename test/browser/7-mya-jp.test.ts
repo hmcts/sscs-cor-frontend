@@ -11,7 +11,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Joint party - Manage your appeal app @mya', () => {
+describe('Joint party - Manage your appeal app @mya @nightly', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
