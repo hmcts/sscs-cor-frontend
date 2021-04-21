@@ -58,8 +58,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   it('navigate to additional evidence page', async () => {
-    await assignCasePage.clickLanguageToggle();
-    await page.reload();
+
     assignCasePage.verifyPage();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
