@@ -423,7 +423,8 @@
          "esa":  "Return to Your ESA benefit appeal",
          "uc":  "Return to Your UC benefit appeal",
          "dla":  "Return to Your DLA benefit appeal",
-         "carersallowance":  "Return to Your Carer's Allowance appeal"
+         "carersallowance":  "Return to Your Carer's Allowance appeal",
+         "attendanceallowance": "Return to your Attendance Allowance appeal"
         }
       },
       "about": {
@@ -762,6 +763,14 @@
         "acronym": "CARER'S ALLOWANCE",
         "yourBenefitAppeal": "Your Carer's Allowance appeal",
         "fullDescription": "Carer's Allowance",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge, doctor and disability expert"
+      },
+      "attendanceallowance": {
+        "acronym": "ATTENDANCE ALLOWANCE",
+        "yourBenefitAppeal": "Your Attendance Allowance appeal",
+        "fullDescription": "Attendance Allowance",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge, doctor and disability expert"
@@ -1386,7 +1395,8 @@
           "esa": "Dychwelyd i'ch apêl budd-dal ESA",
           "uc": "Dychwelyd i'ch apêl budd-dal UC",
           "dla": "Dychwelyd i'ch apêl budd-dal DLA",
-          "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr"
+          "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr",
+          "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini"
         }
       },
       "about": {
@@ -1725,6 +1735,14 @@
         "acronym": "LWFANS GOFALWR",
         "yourBenefitAppeal": "Eich apêl Lwfans Gofalwr",
         "fullDescription": "Lwfans Gofalwr",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr, meddyg ac arbenigwr anableddau"
+      },
+      "attendanceallowance": {
+        "acronym": "LWFANS GWEINI",
+        "yourBenefitAppeal": "Eich apêl Lwfans Gweini",
+        "fullDescription": "Lwfans Gweini",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr, meddyg ac arbenigwr anableddau"
