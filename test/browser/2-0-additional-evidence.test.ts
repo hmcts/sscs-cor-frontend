@@ -92,6 +92,14 @@ describe('Additional Evidence @mya', () => {
     taskListPage.verifyPage();
   });
 
+  it('checks /task-list passes @pa11y', async () => {
+    await taskListPage.visitPage();
+    pa11yOpts.page = taskListPage.page;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/task-list.png`;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
   /* PA11Y */
   it('checks /additional-evidence page path passes @pa11y', async () => {
     await additionalEvidencePage.visitPage();
@@ -112,7 +120,7 @@ describe('Additional Evidence @mya', () => {
 
   /* PA11Y */
   it('checks /additional-evidence/statement page path passes @pa11y', async () => {
-    additionalEvidenceStatementPage.verifyPage();
+    await additionalEvidenceStatementPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-statement-page.png`;
     pa11yOpts.page = additionalEvidenceStatementPage.page;
     const result = await pa11y(pa11yOpts);
