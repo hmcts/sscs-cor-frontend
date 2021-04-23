@@ -19,7 +19,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Additional Evidence @mya @nightly', () => {
+describe('CY - Additional Evidence @mya @nightly99', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
@@ -57,8 +57,9 @@ describe('Additional Evidence @mya @nightly', () => {
     }
   });
 
-  it('navigate to additional evidence page', async () => {
-
+  it('CY - navigate to additional evidence page', async () => {
+    await assignCasePage.clickLanguageToggle();
+    await page.reload();
     assignCasePage.verifyPage();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
@@ -67,18 +68,18 @@ describe('Additional Evidence @mya @nightly', () => {
     await additionalEvidencePage.visitPage();
   });
 
-  it('Verify additional evidence options', async () => {
+  it('CY - Verify additional evidence options', async () => {
     additionalEvidencePage.verifyPage();
 
     const header = await additionalEvidencePage.getElementText('h1');
-    expect(header).to.equal(content.en.additionalEvidence.evidenceOptions.header);
+    expect(header).to.equal(content.cy.additionalEvidence.evidenceOptions.header);
     const options = await additionalEvidencePage.getElementsValues("input[name='additional-evidence-option']");
     options.forEach(option => {
       expect(allowedActions).to.contain(option);
     });
   });
 
-  it('fills a statement and submit and shows confirmation page and returns to appeal page', async () => {
+  it('CY - fills a statement and submit and shows confirmation page and returns to appeal page', async () => {
     additionalEvidencePage.verifyPage();
     await additionalEvidencePage.selectStatementOption();
     await additionalEvidencePage.submit();
@@ -93,7 +94,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /additional-evidence page path passes @pa11y', async () => {
+  it('CY - checks /additional-evidence page path passes @pa11y', async () => {
     await additionalEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-page.png`;
     pa11yOpts.page = await additionalEvidencePage.page;
@@ -102,7 +103,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /additional-evidence-upload page path passes @pa11y', async () => {
+  it('CY - checks /additional-evidence-upload page path passes @pa11y', async () => {
     await additionalEvidenceUploadPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-upload-page.png`;
     pa11yOpts.page = await additionalEvidenceUploadPage.page;
@@ -110,27 +111,18 @@ describe('Additional Evidence @mya @nightly', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
-  /* PA11Y */
-  it('checks /additional-evidence/statement page path passes @pa11y', async () => {
-    additionalEvidenceStatementPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-statement-page.png`;
-    pa11yOpts.page = additionalEvidenceStatementPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
-  it('shows an error if no file to upload and no description', async () => {
+  it('CY - shows an error if no file to upload and no description', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.emptyDescription);
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.emptyDescription);
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('shows an error if no file to upload', async () => {
+  it('CY - shows an error if no file to upload', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -138,21 +130,21 @@ describe('Additional Evidence @mya @nightly', () => {
     additionalEvidenceUploadPage.verifyPage();
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('uploads a file and shows file list and check evidence cofirmation page @pally', async () => {
+  it('CY - uploads a file and shows file list and check evidence cofirmation page @pally', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
     await page.waitFor(4000);
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.cy.additionalEvidence.evidenceUpload.header);
 
     await additionalEvidenceUploadPage.selectFile('evidence.txt');
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.cy.additionalEvidence.evidenceUpload.header);
 
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();
@@ -169,19 +161,10 @@ describe('Additional Evidence @mya @nightly', () => {
     taskListPage.verifyPage();
   });
 
-  it('shows additional evidence post page', async () => {
+  it('CY - shows additional evidence post page', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectPostOption();
     await additionalEvidencePage.submit();
     additionalEvidencePostPage.verifyPage();
-
-    /* PA11Y */
-    it('checks /additional-evidence/post page path passes @pa11y', async () => {
-      additionalEvidencePostPage.verifyPage();
-      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-post-page.png`;
-      pa11yOpts.page = additionalEvidencePostPage.page;
-      const result = await pa11y(pa11yOpts);
-      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-    });
   });
 });
