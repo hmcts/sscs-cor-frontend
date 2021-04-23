@@ -110,6 +110,15 @@ describe('Additional Evidence @mya', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
+  /* PA11Y */
+  it('checks /additional-evidence/statement page path passes @pa11y', async () => {
+    additionalEvidenceStatementPage.verifyPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-statement-page.png`;
+    pa11yOpts.page = additionalEvidenceStatementPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
   it('shows an error if no file to upload and no description', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
@@ -165,5 +174,14 @@ describe('Additional Evidence @mya', () => {
     await additionalEvidencePage.selectPostOption();
     await additionalEvidencePage.submit();
     additionalEvidencePostPage.verifyPage();
+  });
+
+  /* PA11Y */
+  it('checks /additional-evidence/post page path passes @pa11y', async () => {
+    additionalEvidencePostPage.verifyPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-post-page.png`;
+    pa11yOpts.page = additionalEvidencePostPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 });
