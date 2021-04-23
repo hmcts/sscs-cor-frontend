@@ -127,6 +127,15 @@ describe('Additional Evidence @mya @nightly', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
+  /* PA11Y */
+  it('checks /additional-evidence/post page path passes @pa11y', async () => {
+    await additionalEvidencePostPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-post-page.png`;
+    pa11yOpts.page = additionalEvidencePostPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
   it('shows an error if no file to upload and no description', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
@@ -149,7 +158,7 @@ describe('Additional Evidence @mya @nightly', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('uploads a file and shows file list and check evidence cofirmation page @pally', async () => {
+  it('uploads a file and shows file list and check evidence confirmation page @pally', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -182,14 +191,5 @@ describe('Additional Evidence @mya @nightly', () => {
     await additionalEvidencePage.selectPostOption();
     await additionalEvidencePage.submit();
     additionalEvidencePostPage.verifyPage();
-
-    /* PA11Y */
-    it('checks /additional-evidence/post page path passes @pa11y', async () => {
-      additionalEvidencePostPage.verifyPage();
-      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-post-page.png`;
-      pa11yOpts.page = additionalEvidencePostPage.page;
-      const result = await pa11y(pa11yOpts);
-      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-    });
   });
 });
