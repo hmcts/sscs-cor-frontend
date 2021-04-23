@@ -58,12 +58,12 @@ describe('Task list page', () => {
     taskListPage.verifyPage();
   });
 
-  it('checks /task-list passes @pa11y', async () => {
-    pa11yOpts.page = taskListPage.page;
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/task-list.png`;
-    const result = await pa11y(`${testUrl}${taskListPage.pagePath}`, pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
+  // it('checks /task-list passes @pa11y', async () => {
+  //   pa11yOpts.page = taskListPage.page;
+  //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/task-list.png`;
+  //   const result = await pa11y(`${testUrl}${taskListPage.pagePath}`, pa11yOpts);
+  //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  // });
 
   it('displays the appellant case reference', async () => {
     const displayedCaseRef = await taskListPage.getElementText('#case-reference');
