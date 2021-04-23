@@ -8,11 +8,11 @@ import { AssignCasePage } from '../page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 const content = require('locale/content');
-const pa11y = require('pa11y');
-const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
-let pa11yOpts = _.clone(config.get('pa11y'));
+// const pa11y = require('pa11y');
+// const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
+// let pa11yOpts = _.clone(config.get('pa11y'));
 
 describe.skip('Login page', () => {
   let page;
@@ -127,32 +127,32 @@ describe.skip('Login page', () => {
     decisionPage.verifyPage();
   });
 
-  /* PA11Y */
-  it('checks decision page path passes @pa11y', async () => {
-    await decisionPage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/decision-page.png`;
-    pa11yOpts.page = decisionPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
-  /* PA11Y */
-  it('checks tribunal-view page path passes @pa11y', async () => {
-    await tribunalViewPage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/tribunal-view-page.png`;
-    pa11yOpts.page = tribunalViewPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
-  /* PA11Y */
-  it('checks assign-case page path passes @pa11y', async () => {
-    await assignCasePage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/assign-case-page.png`;
-    pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
+  // /* PA11Y */
+  // it('checks decision page path passes @pa11y', async () => {
+  //   await decisionPage.visitPage();
+  //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/decision-page.png`;
+  //   pa11yOpts.page = decisionPage.page;
+  //   const result = await pa11y(pa11yOpts);
+  //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  // });
+  //
+  // /* PA11Y */
+  // it('checks tribunal-view page path passes @pa11y', async () => {
+  //   await tribunalViewPage.visitPage();
+  //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/tribunal-view-page.png`;
+  //   pa11yOpts.page = tribunalViewPage.page;
+  //   const result = await pa11y(pa11yOpts);
+  //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  // });
+  //
+  // /* PA11Y */
+  // it('checks assign-case page path passes @pa11y', async () => {
+  //   await assignCasePage.visitPage();
+  //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/assign-case-page.png`;
+  //   pa11yOpts.page = assignCasePage.page;
+  //   const result = await pa11y(pa11yOpts);
+  //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  // });
 });
 
 export {};
