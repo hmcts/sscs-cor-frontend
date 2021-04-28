@@ -5,6 +5,7 @@ import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 import { AppealDetailsPage } from 'test/page-objects/appeal-details';
+import { HearingPage } from 'test/page-objects/hearing';
 import * as _ from 'lodash';
 const content = require('locale/content');
 const config = require('config');
@@ -19,6 +20,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
   let appealDetailsPage: AppealDetailsPage;
+  let hearingPage: HearingPage;
   let sidamUser;
   before(async () => {
     ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
@@ -28,6 +30,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
     appealDetailsPage = new AppealDetailsPage(page);
+    hearingPage = new HearingPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
@@ -161,10 +164,9 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
 
   /* PA11Y */
   it('checks /hearing path passes @pa11y', async () => {
-    statusPage.verifyPage();
-    this.clickElement('#tab-hearing');
+    hearingPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-page.png`;
-    pa11yOpts.page = await statusPage.page;
+    pa11yOpts.page = await hearingPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
