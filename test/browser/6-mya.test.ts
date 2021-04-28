@@ -158,4 +158,14 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
   });
+
+  /* PA11Y */
+  it('checks /hearing path passes @pa11y', async () => {
+    statusPage.verifyPage();
+    this.clickElement('#tab-hearing');
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-page.png`;
+    pa11yOpts.page = await statusPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
 });
