@@ -12,6 +12,7 @@ import { RepresentativesPage } from 'test/page-objects/representatives';
 import { SupportHearingPage } from 'test/page-objects/support-hearing';
 import { ClaimingExpensesPage } from 'test/page-objects/claiming-expenses';
 import { WithdrawAppealPage } from 'test/page-objects/withdraw-appeal';
+import { DecisionPage } from 'test/page-objects/decision';
 import * as _ from 'lodash';
 const content = require('locale/content');
 const config = require('config');
@@ -33,6 +34,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   let supportHearingPage: SupportHearingPage;
   let claimingExpensesPage: ClaimingExpensesPage;
   let withdrawAppealPage: WithdrawAppealPage;
+  let decisionPage: DecisionPage;
   let sidamUser;
 
   before(async () => {
@@ -50,6 +52,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     supportHearingPage = new SupportHearingPage(page);
     claimingExpensesPage = new ClaimingExpensesPage(page);
     withdrawAppealPage = new WithdrawAppealPage(page);
+    decisionPage = new DecisionPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
@@ -152,6 +155,15 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
+  /* PA11Y */
+  it('checks decision page path passes @pa11y', async () => {
+    await decisionPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/decision-page.png`;
+    pa11yOpts.page = decisionPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
   describe('Status page', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
       await statusPage.visitPage();
@@ -235,6 +247,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
       expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('TN32 6PL');
       expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('joe@bloggs.com');
     });
+
     /* PA11Y */
     it('Navigate to Appeal Details page @pa11y', async () => {
       appealDetailsPage.verifyPage();
