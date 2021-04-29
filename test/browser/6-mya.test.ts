@@ -6,6 +6,12 @@ import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 import { AppealDetailsPage } from 'test/page-objects/appeal-details';
 import { HearingPage } from 'test/page-objects/hearing';
+import { AudioVideoEvidencePage } from 'test/page-objects/audio-video-evidence';
+import { SupportEvidencePage } from 'test/page-objects/support-evidence';
+import { RepresentativesPage } from 'test/page-objects/representatives';
+import { SupportHearingPage } from 'test/page-objects/support-hearing';
+import { ClaimingExpensesPage } from 'test/page-objects/claiming-expenses';
+import { WithdrawAppealPage } from 'test/page-objects/withdraw-appeal';
 import * as _ from 'lodash';
 const content = require('locale/content');
 const config = require('config');
@@ -21,7 +27,14 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   let statusPage: StatusPage;
   let appealDetailsPage: AppealDetailsPage;
   let hearingPage: HearingPage;
+  let supportEvidencePage: SupportEvidencePage;
+  let representativesPage: RepresentativesPage;
+  let supportHearingPage: SupportHearingPage;
+  let claimingExpensesPage: ClaimingExpensesPage;
+  let withdrawAppealPage: WithdrawAppealPage;
+  let audioVideoEvidencePage: AudioVideoEvidencePage;
   let sidamUser;
+
   before(async () => {
     ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
     const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
@@ -71,11 +84,64 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /hearing path passes @pa11y', async () => {
-    // await hearingPage.navigateToHearingPage();
+  it('checks /hearing page passes @pa11y', async () => {
     await hearingPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-page.png`;
     pa11yOpts.page = await hearingPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /audio-video-evidence page passes @pa11y', async () => {
+    await audioVideoEvidencePage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/audio-video-evidence-page.png`;
+    pa11yOpts.page = await audioVideoEvidencePage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /support-evidence page passes @pa11y', async () => {
+    await supportEvidencePage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/support-evidence-page.png`;
+    pa11yOpts.page = await supportEvidencePage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /representatives page passes @pa11y', async () => {
+    await representativesPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/representatives-page.png`;
+    pa11yOpts.page = await representativesPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /support-hearing page passes @pa11y', async () => {
+    await supportHearingPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/support-hearing-page.png`;
+    pa11yOpts.page = await supportHearingPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /claiming-expenses page passes @pa11y', async () => {
+    await claimingExpensesPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/claiming-expenses-page.png`;
+    pa11yOpts.page = await claimingExpensesPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /withdraw-appeal page passes @pa11y', async () => {
+    await withdrawAppealPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/withdraw-appeal-page.png`;
+    pa11yOpts.page = await withdrawAppealPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });

@@ -6,11 +6,4 @@ export class HearingPage extends BasePage {
     super(page);
     this.pagePath = hearing;
   }
-
-  async navigateToHearingPage() {
-    await Promise.all([
-      this.page.waitForNavigation(),
-      this.clickElement('#tab-hearing')
-    ]);
-  }
 }
