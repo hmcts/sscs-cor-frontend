@@ -82,6 +82,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
 
   describe('Status page', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
+      await statusPage.visitPage();
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be.null;
       expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.statusTab.tabHeader);
