@@ -70,6 +70,16 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
+  /* PA11Y */
+  it('checks /hearing path passes @pa11y', async () => {
+    await hearingPage.navigateToHearingPage();
+    await page.waitFor(500);
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-page.png`;
+    pa11yOpts.page = await hearingPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
   describe('Status page', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
       statusPage.verifyPage();
@@ -160,15 +170,5 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
-  });
-
-  /* PA11Y */
-  it('checks /hearing path passes @pa11y', async () => {
-    await hearingPage.navigateToHearingPage();
-    await page.waitFor(500);
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-page.png`;
-    pa11yOpts.page = await hearingPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 });
