@@ -20,4 +20,11 @@ export class StatusPage extends BasePage {
       this.clickElement('a[href="/your-details"]')
     ]);
   }
+
+  async navigateToHearingPage() {
+    await Promise.all([
+      this.page.waitForNavigation(),
+      this.clickElement('#tab-hearing')
+    ]);
+  }
 }

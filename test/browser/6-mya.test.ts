@@ -164,7 +164,8 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
 
   /* PA11Y */
   it('checks /hearing path passes @pa11y', async () => {
-    hearingPage.verifyPage();
+    await statusPage.navigateToHearingPage();
+    await page.waitFor(500);
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-page.png`;
     pa11yOpts.page = await hearingPage.page;
     const result = await pa11y(pa11yOpts);
