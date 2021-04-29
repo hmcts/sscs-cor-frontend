@@ -92,14 +92,14 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
-  /* PA11Y */
-  it('checks /audio-video-evidence page passes @pa11y', async () => {
-    await audioVideoEvidencePage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/audio-video-evidence-page.png`;
-    pa11yOpts.page = await audioVideoEvidencePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
+  // /* PA11Y */
+  // it('checks /audio-video-evidence page passes @pa11y', async () => {
+  //   await audioVideoEvidencePage.visitPage();
+  //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/audio-video-evidence-page.png`;
+  //   pa11yOpts.page = await audioVideoEvidencePage.page;
+  //   const result = await pa11y(pa11yOpts);
+  //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  // });
 
   /* PA11Y */
   it('checks /support-evidence page passes @pa11y', async () => {
