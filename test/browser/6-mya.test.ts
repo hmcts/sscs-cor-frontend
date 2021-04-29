@@ -27,12 +27,12 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   let statusPage: StatusPage;
   let appealDetailsPage: AppealDetailsPage;
   let hearingPage: HearingPage;
+  let audioVideoEvidencePage: AudioVideoEvidencePage;
   let supportEvidencePage: SupportEvidencePage;
   let representativesPage: RepresentativesPage;
   let supportHearingPage: SupportHearingPage;
   let claimingExpensesPage: ClaimingExpensesPage;
   let withdrawAppealPage: WithdrawAppealPage;
-  let audioVideoEvidencePage: AudioVideoEvidencePage;
   let sidamUser;
 
   before(async () => {
@@ -44,6 +44,12 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     statusPage = new StatusPage(page);
     appealDetailsPage = new AppealDetailsPage(page);
     hearingPage = new HearingPage(page);
+    audioVideoEvidencePage = new AudioVideoEvidencePage(page);
+    supportEvidencePage = new SupportEvidencePage(page);
+    representativesPage = new RepresentativesPage(page);
+    supportHearingPage = new SupportHearingPage(page);
+    claimingExpensesPage = new ClaimingExpensesPage(page);
+    withdrawAppealPage = new WithdrawAppealPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
@@ -92,14 +98,14 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
-  // /* PA11Y */
-  // it('checks /audio-video-evidence page passes @pa11y', async () => {
-  //   await audioVideoEvidencePage.visitPage();
-  //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/audio-video-evidence-page.png`;
-  //   pa11yOpts.page = await audioVideoEvidencePage.page;
-  //   const result = await pa11y(pa11yOpts);
-  //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  // });
+  /* PA11Y */
+  it('checks /audio-video-evidence page passes @pa11y', async () => {
+    await audioVideoEvidencePage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/audio-video-evidence-page.png`;
+    pa11yOpts.page = await audioVideoEvidencePage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
 
   /* PA11Y */
   it('checks /support-evidence page passes @pa11y', async () => {
