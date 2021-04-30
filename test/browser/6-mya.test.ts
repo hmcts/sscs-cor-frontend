@@ -67,7 +67,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     /* PA11Y */
   it('checks /postcode page path passes @pa11y', async () => {
     assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-postcode-page.png`;
     pa11yOpts.page = assignCasePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -83,17 +83,8 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   /* PA11Y */
   it('checks /status page path passes @pa11y', async () => {
     statusPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-status-page.png`;
     pa11yOpts.page = await statusPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
-  /* PA11Y */
-  it('checks /audio-video-evidence page passes @pa11y', async () => {
-    await audioVideoEvidencePage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/audio-video-evidence-page.png`;
-    pa11yOpts.page = await audioVideoEvidencePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
@@ -101,7 +92,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   /* PA11Y */
   it('checks /support-evidence page passes @pa11y', async () => {
     await supportEvidencePage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/support-evidence-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-support-evidence-page.png`;
     pa11yOpts.page = await supportEvidencePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -110,7 +101,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   /* PA11Y */
   it('checks /representatives page passes @pa11y', async () => {
     await representativesPage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/representatives-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-representatives-page.png`;
     pa11yOpts.page = await representativesPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -119,7 +110,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   /* PA11Y */
   it('checks /support-hearing page passes @pa11y', async () => {
     await supportHearingPage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/support-hearing-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-support-hearing-page.png`;
     pa11yOpts.page = await supportHearingPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -128,7 +119,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   /* PA11Y */
   it('checks /claiming-expenses page passes @pa11y', async () => {
     await claimingExpensesPage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/claiming-expenses-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-claiming-expenses-page.png`;
     pa11yOpts.page = await claimingExpensesPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -137,7 +128,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   /* PA11Y */
   it('checks /withdraw-appeal page passes @pa11y', async () => {
     await withdrawAppealPage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/withdraw-appeal-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-withdraw-appeal-page.png`;
     pa11yOpts.page = await withdrawAppealPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -208,7 +199,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     /* PA11Y */
     it('checks /hearing page passes @pa11y', async () => {
       hearingPage.verifyPage();
-      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/hearing-page.png`;
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-hearing-page.png`;
       pa11yOpts.page = await hearingPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -222,6 +213,14 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
 
       expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.avEvidenceTab.tabHeader);
       expect(await statusPage.getElementText('.task-list div div')).contain(content.en.avEvidenceTab.noEvidence);
+    });
+    /* PA11Y */
+    it('checks /audio-video-evidence page passes @pa11y', async () => {
+      audioVideoEvidencePage.verifyPage();
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-audio-video-evidence-page.png`;
+      pa11yOpts.page = await audioVideoEvidencePage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
     });
   });
 
@@ -238,7 +237,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     /* PA11Y */
     it('Navigate to Appeal Details page @pa11y', async () => {
       appealDetailsPage.verifyPage();
-      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/appeal-details-page.png`;
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-appeal-details-page.png`;
       pa11yOpts.page = appealDetailsPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
