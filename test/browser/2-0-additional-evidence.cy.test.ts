@@ -94,9 +94,18 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   /* PA11Y */
+  it('CY - checks /task-list passes @pa11y', async () => {
+    await taskListPage.visitPage();
+    pa11yOpts.page = taskListPage.page;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-task-list.png`;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
   it('CY - checks /additional-evidence page path passes @pa11y', async () => {
     await additionalEvidencePage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-page.png`;
     pa11yOpts.page = await additionalEvidencePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -105,8 +114,26 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
   /* PA11Y */
   it('CY - checks /additional-evidence-upload page path passes @pa11y', async () => {
     await additionalEvidenceUploadPage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-upload-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-upload-page.png`;
     pa11yOpts.page = await additionalEvidenceUploadPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('CY - checks /additional-evidence/statement page path passes @pa11y', async () => {
+    await additionalEvidenceStatementPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-statement-page.png`;
+    pa11yOpts.page = additionalEvidenceStatementPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('CY - checks /additional-evidence/post page path passes @pa11y', async () => {
+    await additionalEvidencePostPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-post-page.png`;
+    pa11yOpts.page = additionalEvidencePostPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
@@ -133,7 +160,7 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('CY - uploads a file and shows file list and check evidence cofirmation page @pally', async () => {
+  it('CY - uploads a file and shows file list and check evidence confirmation page @pally', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -152,7 +179,7 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
 
     /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-confirmation-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-confirmation-page.png`;
     pa11yOpts.page = await additionalEvidenceConfirmationPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
