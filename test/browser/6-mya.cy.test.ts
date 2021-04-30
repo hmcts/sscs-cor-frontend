@@ -220,7 +220,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
 
     /* PA11Y */
     // this page is being skipped because it contains accessibility errors
-    it('CY - checks /audio-video-evidence page passes @wip', async () => {
+    it.skip('CY - checks /audio-video-evidence page passes @pa11y', async () => {
       audioVideoEvidencePage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-audio-video-evidence-page.png`;
       pa11yOpts.page = await audioVideoEvidencePage.page;
