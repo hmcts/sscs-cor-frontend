@@ -40,29 +40,11 @@ describe('Representative - Manage your appeal app @mya @nightly', () => {
     assignCasePage.verifyPage();
   });
 
-    /* PA11Y */
-  it('Representative checks /postcode page path passes @pa11y', async () => {
-    assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/dupli-postcode-page.png`;
-    pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
   it('Representative should inform postcode, submit and land in status page', async() => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
     statusPage.verifyPage();
-  });
-
-  /* PA11Y */
-  it('Representative checks /status page path passes @pa11y', async () => {
-    statusPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/trip-status-page.png`;
-    pa11yOpts.page = await statusPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
   describe('Representative Status page', () => {
