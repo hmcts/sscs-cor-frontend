@@ -218,7 +218,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       expect(await statusPage.getElementText('.task-list div div')).contain(content.cy.avEvidenceTab.noEvidence);
     });
     /* PA11Y */
-    it('checks /audio-video-evidence page passes @pa11y', async () => {
+    it('checks /audio-video-evidence page passes @wip @pa11y', async () => {
       audioVideoEvidencePage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-audio-video-evidence-page.png`;
       pa11yOpts.page = await audioVideoEvidencePage.page;
