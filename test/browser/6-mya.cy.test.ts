@@ -218,13 +218,13 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       expect(await statusPage.getElementText('.task-list div div')).contain(content.cy.avEvidenceTab.noEvidence);
     });
     /* PA11Y */
-    it('checks /audio-video-evidence page passes @wip @pa11y', async () => {
-      audioVideoEvidencePage.verifyPage();
-      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-audio-video-evidence-page.png`;
-      pa11yOpts.page = await audioVideoEvidencePage.page;
-      const result = await pa11y(pa11yOpts);
-      expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-    });
+    // it('checks /audio-video-evidence page passes @wip @pa11y', async () => {
+    //   audioVideoEvidencePage.verifyPage();
+    //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-audio-video-evidence-page.png`;
+    //   pa11yOpts.page = await audioVideoEvidencePage.page;
+    //   const result = await pa11y(pa11yOpts);
+    //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    // });
   });
 
   describe('CY - Appeal Details page', () => {
