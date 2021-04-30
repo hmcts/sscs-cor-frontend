@@ -139,7 +139,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('CY:checks /status page path passes @pa11y', async () => {
+  it('CY- checks /status page path passes @pa11y', async () => {
     statusPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-status-page.png`;
     pa11yOpts.page = await statusPage.page;
@@ -148,7 +148,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /support-evidence page passes @pa11y', async () => {
+  it('CY- checks /support-evidence page passes @pa11y', async () => {
     await supportEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-support-evidence-page.png`;
     pa11yOpts.page = await supportEvidencePage.page;
@@ -157,7 +157,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /representatives page passes @pa11y', async () => {
+  it('CY- checks /representatives page passes @pa11y', async () => {
     await representativesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-representatives-page.png`;
     pa11yOpts.page = await representativesPage.page;
@@ -166,7 +166,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /support-hearing page passes @pa11y', async () => {
+  it('CY- checks /support-hearing page passes @pa11y', async () => {
     await supportHearingPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-support-hearing-page.png`;
     pa11yOpts.page = await supportHearingPage.page;
@@ -175,7 +175,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /claiming-expenses page passes @pa11y', async () => {
+  it('CY - checks /claiming-expenses page passes @pa11y', async () => {
     await claimingExpensesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-claiming-expenses-page.png`;
     pa11yOpts.page = await claimingExpensesPage.page;
@@ -184,7 +184,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /withdraw-appeal page passes @pa11y', async () => {
+  it('CY - checks /withdraw-appeal page passes @pa11y', async () => {
     await withdrawAppealPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-withdraw-appeal-page.png`;
     pa11yOpts.page = await withdrawAppealPage.page;
@@ -200,7 +200,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.cy.hearingTab.tabHeader);
     });
     /* PA11Y */
-    it('checks /hearing page passes @pa11y', async () => {
+    it('CY - checks /hearing page passes @pa11y', async () => {
       hearingPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-hearing-page.png`;
       pa11yOpts.page = await hearingPage.page;
@@ -217,14 +217,16 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.cy.avEvidenceTab.tabHeader);
       expect(await statusPage.getElementText('.task-list div div')).contain(content.cy.avEvidenceTab.noEvidence);
     });
+
     /* PA11Y */
-    // it('checks /audio-video-evidence page passes @wip @pa11y', async () => {
-    //   audioVideoEvidencePage.verifyPage();
-    //   pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-audio-video-evidence-page.png`;
-    //   pa11yOpts.page = await audioVideoEvidencePage.page;
-    //   const result = await pa11y(pa11yOpts);
-    //   expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-    // });
+    // -------------------
+    it('CY - checks /audio-video-evidence page passes @wip @pa11y', async () => {
+      audioVideoEvidencePage.verifyPage();
+      pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-audio-video-evidence-page.png`;
+      pa11yOpts.page = await audioVideoEvidencePage.page;
+      const result = await pa11y(pa11yOpts);
+      expect(result.issues.length).to.equal(1, JSON.stringify(result.issues, null, 2));
+    });
   });
 
   describe('CY - Appeal Details page', () => {
@@ -237,7 +239,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       expect(await appealDetailsPage.getElementText('.govuk-table .govuk-table__body')).contain('joe@bloggs.com');
     });
     /* PA11Y */
-    it('Navigate to Appeal Details page @pa11y', async () => {
+    it('CY - Navigate to Appeal Details page @pa11y', async () => {
       appealDetailsPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-appeal-details-page.png`;
       pa11yOpts.page = appealDetailsPage.page;

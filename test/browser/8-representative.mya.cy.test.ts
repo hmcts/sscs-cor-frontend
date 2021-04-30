@@ -45,7 +45,7 @@ describe('CY - Representative - Manage your appeal app @mya @nightly', () => {
     /* PA11Y */
   it('CY- Representative checks /postcode page path passes @pa11y', async () => {
     assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/dupli-postcode-page.png`;
     pa11yOpts.page = assignCasePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));

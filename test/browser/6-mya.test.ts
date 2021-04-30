@@ -196,6 +196,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
       await page.waitFor(500);
       expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.hearingTab.tabHeader);
     });
+
     /* PA11Y */
     it('checks /hearing page passes @pa11y', async () => {
       hearingPage.verifyPage();
