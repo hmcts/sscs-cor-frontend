@@ -207,10 +207,36 @@ describe('controllers/additional-evidence.js', () => {
       expect(next).to.have.been.calledOnce.calledWith(error);
     });
 
+    it('should send error message for file upload error', async () => {
+      req.file = { name: 'myfile.txt' };
+      additionalEvidenceService = {
+        uploadEvidence: sandbox.stub().resolves({
+          id: null
+        })
+      };
+      const description: string = 'this is a description for the files to be upload';
+      req.session.additional_evidence.description = description;
+      await postFileUpload(additionalEvidenceService)(req, res, next);
+
+      expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, req.file);
+      expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
+        action: 'upload',
+        pageTitleError: true,
+        description: '',
+        fileUploadError: content.en.additionalEvidence.evidenceUpload.error.fileCannotBeUploaded
+      });
+    });
+
     it('should upload file and render upload page', async () => {
       req.file = {
         name: 'myfile.txt',
         buffer: new Buffer('some content')
+      };
+      additionalEvidenceService = {
+        uploadEvidence: sandbox.stub().resolves({
+          id: '1',
+          statusCode: 200
+        })
       };
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
@@ -261,7 +287,8 @@ describe('controllers/additional-evidence.js', () => {
       const evidence: EvidenceDescriptor = {
         'created_date': "2018-10-24'T'12:11:21Z",
         'file_name': 'some_file_name.txt',
-        'id': '8f79deb3-5d7a-4e6f-846a-a8131ac6a3bb'
+        'id': '8f79deb3-5d7a-4e6f-846a-a8131ac6a3bb',
+        'statusCode': 200
       };
       additionalEvidenceService = {
         getEvidences: sandbox.stub().resolves([evidence]),
