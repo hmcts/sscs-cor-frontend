@@ -4,7 +4,7 @@ import { startServices } from 'test/browser/common';
 import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
-import { AppealDetailsPage } from '../page-objects/appeal-details';
+import { AppealDetailsPage } from 'test/page-objects/appeal-details';
 import { HearingPage } from 'test/page-objects/hearing';
 import { AudioVideoEvidencePage } from 'test/page-objects/audio-video-evidence';
 import { SupportEvidencePage } from 'test/page-objects/support-evidence';
@@ -219,8 +219,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     });
 
     /* PA11Y */
-    // this page is being skipped because it contains accessibility errors
-    it.skip('CY - checks /audio-video-evidence page passes @pa11y', async () => {
+    it('CY - checks /audio-video-evidence page passes @pa11y', async () => {
       audioVideoEvidencePage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-audio-video-evidence-page.png`;
       pa11yOpts.page = await audioVideoEvidencePage.page;
