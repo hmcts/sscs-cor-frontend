@@ -22,7 +22,7 @@
                 {% for hearing in hearings %}
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">{{ hearing.case_reference | safe }}</td>
-                        <td class="govuk-table__cell">{{ content[i18n.language].benefitTypes[hearing.appeal_details.benefit_type].acronym | safe }}</td>
+                        <td class="govuk-table__cell">{{ content[i18n.language].benefitTypes[hearing.appeal_details.benefit_type.toLowerCase()].acronym | safe }}</td>
                         <td class="govuk-table__cell">{{ hearing.appeal_details.submitted_date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}</td>
                         <td class="govuk-table__cell">{{ hearing.appeal_details.mrn_date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}</td>
                         <td class="govuk-table__cell"><a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}">{{ content[i18n.language].selectCase.view | safe }}</a></td>
