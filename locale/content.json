@@ -424,7 +424,8 @@
          "uc":  "Return to Your UC benefit appeal",
          "dla":  "Return to Your DLA benefit appeal",
          "carersallowance":  "Return to Your Carer's Allowance appeal",
-         "attendanceallowance": "Return to your Attendance Allowance appeal"
+         "attendanceallowance": "Return to your Attendance Allowance appeal",
+         "bereavementbenefit": "Return to your Bereavement Benefit appeal"
         }
       },
       "about": {
@@ -774,6 +775,14 @@
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge, doctor and disability expert"
+      },
+      "bereavementbenefit" : {
+        "acronym": "BEREAVEMENT BENEFIT",
+        "yourBenefitAppeal": "Your Bereavement Benefit appeal",
+        "fullDescription": "Bereavement Benefit",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge"
       }
     },
     "helpGuides": {
@@ -1397,7 +1406,8 @@
           "uc": "Dychwelyd i'ch apêl budd-dal UC",
           "dla": "Dychwelyd i'ch apêl budd-dal DLA",
           "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr",
-          "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini"
+          "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini",
+          "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth"
         }
       },
       "about": {
@@ -1747,6 +1757,14 @@
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr, meddyg ac arbenigwr anableddau"
+      },
+      "bereavementbenefit": {
+        "acronym": "BUDD-DAL PROFEDIGAETH",
+        "yourBenefitAppeal": "Eich apêl Budd-dal Profedigaeth",
+        "fullDescription": "Budd-dal Profedigaeth",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr"
       }
     },
     "helpGuides": {
