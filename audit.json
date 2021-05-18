@@ -631,7 +631,9 @@
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-representatives_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
-	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal_GET" : "ignore"
+	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal_GET" : "ignore",
+	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
+	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore"
 
 
 }
