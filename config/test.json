@@ -14,12 +14,6 @@
     "hideElements": "link[rel=mask-icon], .govuk-header__logotype-crown, .govuk-footer__licence-logo, .govuk-skip-link, .govuk-footer__link"
   },
   "pa11yScreenshotPath": "./functional-output/pa11y-screenshots",
-  "evidenceUpload": {
-    "questionPage": {
-      "enabled": "false",
-      "overrideAllowed": "true"
-    }
-  },
   "idam": {
     "url": "https://idam-web-public.aat.platform.hmcts.net",
     "api-url": "https://idam-api.aat.platform.hmcts.net",

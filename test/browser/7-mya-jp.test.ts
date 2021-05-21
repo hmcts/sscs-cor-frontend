@@ -11,7 +11,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Joint party - Manage your appeal app @mya', () => {
+describe('Joint party - Manage your appeal app @mya @nightly', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -25,7 +25,6 @@ describe('Joint party - Manage your appeal app @mya', () => {
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
-    await loginPage.setCookie('manageYourAppeal', 'true');
     await loginPage.visitPage(`?tya=${jointTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
@@ -40,29 +39,11 @@ describe('Joint party - Manage your appeal app @mya', () => {
     assignCasePage.verifyPage();
   });
 
-    /* PA11Y */
-  it('Joint party checks /postcode page path passes @pa11y', async () => {
-    assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
-    pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
   it('Joint party should inform postcode, submit and land in status page', async() => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
     statusPage.verifyPage();
-  });
-
-  /* PA11Y */
-  it('Joint party checks /status page path passes @pa11y', async () => {
-    statusPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
-    pa11yOpts.page = await statusPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
   describe('Joint party Status page', () => {
@@ -115,7 +96,7 @@ describe('Joint party - Manage your appeal app @mya', () => {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(585);
+      expect(heightOpen).to.equal(610);
     });
   });
 });

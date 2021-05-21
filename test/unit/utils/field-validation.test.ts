@@ -1,11 +1,19 @@
 const { expect } = require('test/chai-sinon');
-import { answerValidation, loginEmailAddressValidation, tribunalViewAcceptedValidation, newHearingAcceptedValidation, hearingWhyValidation, uploadDescriptionValidation } from 'app/server/utils/fieldValidation.ts';
+import { answerValidation, loginEmailAddressValidation, newHearingAcceptedValidation, hearingWhyValidation, uploadDescriptionValidation } from 'app/server/utils/fieldValidation.ts';
 const content = require('locale/content');
 
 describe('utils/fieldValidation.js', () => {
   describe('answerValidation on submit', () => {
     it('returns the error message if answer is empty', () => {
       expect(answerValidation('', { body : { submit : true } })).to.equal(content.en.question.textareaField.error.empty);
+    });
+
+    it('returns the error message if answer does not meet permitted characters', () => {
+      expect(answerValidation('$', { body : { submit : true } })).to.equal(content.en.question.textareaField.error.regex);
+    });
+
+    it('returns the error message if answer contains script characters', () => {
+      expect(answerValidation('hello <script>alert("This is an XSS alert")</script>', { body : { submit : true } })).to.equal(content.en.question.textareaField.error.regex);
     });
 
     it('returns false if answer is valid', () => {
@@ -35,8 +43,16 @@ describe('utils/fieldValidation.js', () => {
       expect(uploadDescriptionValidation('Valid answer')).to.equal(false);
     });
 
-    it('returns the error message if answer is not an email', () => {
+    it('returns the error message if description is empty', () => {
       expect(uploadDescriptionValidation('')).to.equal(content.en.additionalEvidence.evidenceUpload.error.emptyDescription);
+    });
+
+    it('returns the error message if description has script chars', () => {
+      expect(uploadDescriptionValidation('<<sc<<script>script>alert("This is an XSS alert")<</scr<</script>/script>')).to.equal(content.en.additionalEvidence.evidenceUpload.error.regex);
+    });
+
+    it('returns the error message if description has invalid chars', () => {
+      expect(uploadDescriptionValidation('$ ^ @ { }')).to.equal(content.en.additionalEvidence.evidenceUpload.error.regex);
     });
   });
 
@@ -51,32 +67,6 @@ describe('utils/fieldValidation.js', () => {
 
     it('returns false if answer is valid', () => {
       expect(loginEmailAddressValidation('test@example.com')).to.equal(false);
-    });
-  });
-
-  describe('tribunalViewAcceptedValidation', () => {
-    it('returns false if answer is yes', () => {
-      expect(tribunalViewAcceptedValidation('yes')).to.be.false;
-    });
-
-    it('returns false if answer is no', () => {
-      expect(tribunalViewAcceptedValidation('no')).to.be.false;
-    });
-
-    it('returns empty error message is answer is anything else', () => {
-      expect(tribunalViewAcceptedValidation('not valid')).to.equal(content.en.tribunalView.error.emptyOnDecisionPick);
-    });
-
-    it('returns empty error message is answer is missing', () => {
-      expect(tribunalViewAcceptedValidation(undefined)).to.equal(content.en.tribunalView.error.emptyOnDecisionPick);
-    });
-
-    it('returns empty error message is confirmation is anything else', () => {
-      expect(tribunalViewAcceptedValidation('not valid', true)).to.equal(content.en.tribunalView.error.emptyOnConfirm);
-    });
-
-    it('returns empty error message is confirmation is missing', () => {
-      expect(tribunalViewAcceptedValidation(undefined, true)).to.equal(content.en.tribunalView.error.emptyOnConfirm);
     });
   });
 

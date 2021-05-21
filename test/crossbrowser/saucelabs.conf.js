@@ -51,6 +51,7 @@ const setupConfig = {
       }
     },
     BootstrapHelper: { require: './helpers/BootstrapHelper' },
+    TeardownHelper: { require: './helpers/TeardownHelper' },
     GeneralHelpers: { require: './helpers/GeneralHelpers' },
     SauceLabsReportingHelper: { require: './helpers/SauceLabsReportingHelper' }
   },
@@ -89,6 +90,9 @@ const setupConfig = {
     },
     firefox: {
       browsers: getBrowserConfig('firefox')
+    },
+    safari: {
+      browsers: getBrowserConfig('safari')
     }
   },
   name: 'SSCS COR Crossbrowser Tests'

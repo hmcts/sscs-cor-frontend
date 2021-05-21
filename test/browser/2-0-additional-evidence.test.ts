@@ -19,7 +19,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Additional Evidence @mya', () => {
+describe('Additional Evidence @mya @nightly', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
@@ -47,10 +47,8 @@ describe('Additional Evidence @mya', () => {
     additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
     additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(page);
     taskListPage = new TaskListPage(page);
-    await loginPage.setCookie('manageYourAppeal', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
     await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
-    await taskListPage.setCookie('additionalEvidence', 'true');
   });
 
   after(async () => {
@@ -95,9 +93,18 @@ describe('Additional Evidence @mya', () => {
   });
 
   /* PA11Y */
+  it('checks /task-list passes @pa11y', async () => {
+    await taskListPage.visitPage();
+    pa11yOpts.page = taskListPage.page;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-task-list.png`;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
   it('checks /additional-evidence page path passes @pa11y', async () => {
     await additionalEvidencePage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-page.png`;
     pa11yOpts.page = await additionalEvidencePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
@@ -106,8 +113,26 @@ describe('Additional Evidence @mya', () => {
   /* PA11Y */
   it('checks /additional-evidence-upload page path passes @pa11y', async () => {
     await additionalEvidenceUploadPage.visitPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-upload-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-page.png`;
     pa11yOpts.page = await additionalEvidenceUploadPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /additional-evidence/statement page path passes @pa11y', async () => {
+    await additionalEvidenceStatementPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-statement-page.png`;
+    pa11yOpts.page = additionalEvidenceStatementPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
+  it('checks /additional-evidence/post page path passes @pa11y', async () => {
+    await additionalEvidencePostPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-post-page.png`;
+    pa11yOpts.page = additionalEvidencePostPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
@@ -134,7 +159,7 @@ describe('Additional Evidence @mya', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('uploads a file and shows file list and check evidence cofirmation page @pally', async () => {
+  it('uploads a file and shows file list and check evidence confirmation page @pally', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -153,7 +178,7 @@ describe('Additional Evidence @mya', () => {
 
     /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/additional-evidence-confirmation-page.png`;
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-confirmation-page.png`;
     pa11yOpts.page = await additionalEvidenceConfirmationPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));

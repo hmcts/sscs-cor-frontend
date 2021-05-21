@@ -5,8 +5,5 @@
       "secret": "defaultsecret",
       "ttlInSeconds": 1200
     }
-  },
-  "featureFlags": {
-    "manageYourAppeal": "true"
   }
 }

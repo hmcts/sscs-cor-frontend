@@ -1,16 +1,11 @@
-let appealData = null;
-
-async function loginToANewCase() {
+async function loginToANewCase(appealData) {
   const I = this;
-  appealData = await I.createTestAppealData();
 
-  I.amOnPage(`/sign-in?tya=${appealData.ccdCase.appellant_tya}`);
-  I.waitForText('Email address');
-  I.fillField('username', appealData.ccdCase.email);
-  I.fillField('password', 'Apassword123');
-  I.click('Sign in');
-
-  return appealData;
+  await I.amOnPage(`/sign-in?tya=${appealData.ccdCase.appellant_tya}`);
+  await I.waitForText('Email address');
+  await I.fillField('username', appealData.ccdCase.email);
+  await I.fillField('password', 'Apassword123');
+  await I.click('Sign in');
 }
 
 module.exports = { loginToANewCase };

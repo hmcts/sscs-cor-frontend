@@ -11,7 +11,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Representative - Manage your appeal app @mya', () => {
+describe('Representative - Manage your appeal app @mya @nightly', () => {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -40,29 +40,11 @@ describe('Representative - Manage your appeal app @mya', () => {
     assignCasePage.verifyPage();
   });
 
-    /* PA11Y */
-  it('Representative checks /postcode page path passes @pa11y', async () => {
-    assignCasePage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/postcode-page.png`;
-    pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
-  });
-
   it('Representative should inform postcode, submit and land in status page', async() => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
     statusPage.verifyPage();
-  });
-
-  /* PA11Y */
-  it('Representative checks /status page path passes @pa11y', async () => {
-    statusPage.verifyPage();
-    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/status-page.png`;
-    pa11yOpts.page = await statusPage.page;
-    const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
   describe('Representative Status page', () => {
@@ -115,7 +97,7 @@ describe('Representative - Manage your appeal app @mya', () => {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(585);
+      expect(heightOpen).to.equal(610);
     });
   });
 });

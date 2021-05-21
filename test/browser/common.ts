@@ -22,7 +22,6 @@ const idamUrl = config.get('idam.url');
 const testUrl = config.get('testUrl');
 const port = config.get('node.port');
 const headless = config.get('headless') !== 'false';
-const httpProxy = config.get('httpProxy');
 const testingLocalhost = testUrl.indexOf('localhost') !== -1;
 
 let browser;
@@ -36,10 +35,6 @@ async function startBrowser() {
   if (!browser) {
     console.log('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
-    console.log(`Http proxy ${httpProxy}`);
-    if (httpProxy) {
-      args.push(`-proxy-server=${httpProxy}`);
-    }
     const opts = {
       args,
       headless,
@@ -148,12 +143,15 @@ after(async() => {
   if (sidamUsers.length) {
     console.log('Clean up sidam');
     // await sidam.unregisterRedirectUri();
-    sidamUsers.forEach(async (sidamUser) => {
+    for (const sidamUser of sidamUsers) {
       console.log(`Deleting user ${sidamUser.email}`);
       await sidam.deleteUser(sidamUser);
-    });
+    }
   }
+  await closeBrowser();
+});
 
+async function closeBrowser() {
   if (server && server.close) {
     console.log('Killing server');
     server.close();
@@ -162,6 +160,6 @@ after(async() => {
     console.log('Killing browser');
     await browser.close();
   }
-});
+}
 
 export { startServices };
