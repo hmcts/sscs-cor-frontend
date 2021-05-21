@@ -7,6 +7,7 @@ function uploadEvidence() {
   I.see(content.en.common.provideInformationOnline, "[for='additional-evidence-option-1']");
   I.click('#additional-evidence-option-1');
   I.click('[name="continue"]');
+  I.wait(3);
   I.fillField('#question-field', 'this is a test');
   I.click('#submit-statement');
 }
@@ -18,6 +19,7 @@ function uploadWelshEvidence() {
   I.see(content.cy.common.provideInformationOnline, "[for='additional-evidence-option-1']");
   I.click('#additional-evidence-option-1');
   I.click('Parhau');
+  I.wait(3);
   I.fillField('#question-field', 'this is a welsh test');
   I.click('#submit-statement');
 }
