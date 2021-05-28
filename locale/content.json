@@ -425,7 +425,8 @@
          "dla":  "Return to Your DLA benefit appeal",
          "carersallowance":  "Return to Your Carer's Allowance appeal",
          "attendanceallowance": "Return to your Attendance Allowance appeal",
-         "bereavementbenefit": "Return to your Bereavement Benefit appeal"
+         "bereavementbenefit": "Return to your Bereavement Benefit appeal",
+         "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal"
         }
       },
       "about": {
@@ -783,6 +784,14 @@
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
+      },
+      "industrialinjuriesdisablement" : {
+        "acronym": "INDUSTRIAL INJURIES DISABLEMENT BENEFIT",
+        "yourBenefitAppeal": "Your Industrial Injuries Disablement Benefit appeal",
+        "fullDescription": "Industrial Injuries Disablement Benefit",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge and up to 2 consultants doctors"
       }
     },
     "helpGuides": {
@@ -1407,7 +1416,8 @@
           "dla": "Dychwelyd i'ch apêl budd-dal DLA",
           "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr",
           "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini",
-          "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth"
+          "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth",
+          "industrialinjuriesdisablement": "Dychwelyd i'ch apêl Budd-dal Anabledd Anafiadau Diwydiannol"
         }
       },
       "about": {
@@ -1765,6 +1775,14 @@
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
+      },
+      "industrialinjuriesdisablement": {
+        "acronym": "BUDD-DAL ANABLEDD ANAFIADAU DIWYDIANNOL",
+        "yourBenefitAppeal": "Eich apêl Budd-dal Anabledd Anafiadau Diwydiannol",
+        "fullDescription": "Budd-dal Anabledd Anafiadau Diwydiannol",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr a hyd at 2 feddyg ymgynghorol"
       }
     },
     "helpGuides": {
