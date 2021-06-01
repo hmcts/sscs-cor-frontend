@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block header %}
-    {% include "includes/cookie-banner.html" %}
     {% include "includes/header.html" %}
 {% endblock %}
 
@@ -23,7 +22,6 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 {% endblock %}
-
 {% block beforeContent %}
     {% set phaseBarHtml = content[i18n.language].phaseBanner.new + '<a class="govuk-link" href="'+ content[i18n.language].general.exitLink + pageHeader + '" target="_blank">' + content[i18n.language].phaseBanner.report + "</a> " + content[i18n.language].phaseBanner.improve %}
     {% if welshEnabled %}
@@ -48,17 +46,20 @@
 
         {% set phaseBarHtml = phaseBarHtml + (content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}", currentUrl) | replace("{languageFlag}", languageFlag)) %}
     {% endif %}
-
     {{ govukPhaseBanner({
         tag: {
             text: "beta"
         },
         html: phaseBarHtml
     }) }}
+    <div>
+        <link href="/stylesheets/govuk-frontend-3.11.0.min.css" media="screen" rel="stylesheet" type="text/css"/>
+        {% include "components/cookie-manager/cookie-banner.njk" %}
+    </div>
     {% include "includes/account-navigation.html" %}
 {% endblock %}
-
 {% block content %}
+
     {% block corContent %}{% endblock %}
     {% if showSignOut %}
         {% include "session-inactivity-modal.html" %}
@@ -72,8 +73,8 @@
     {% if isDev %}
         <script src="/reload/reload.js"></script>
     {% endif %}
-    <script src="/public/js/main.js"></script>
-
+    <script src="/public/js/main.js.js"></script>
+    <script src="components/cookie-manager/cookies-manager.js"></script>
     {% if webChatEnabled and content.en.language == "en" %}
         <script src="/public/js/hmcts-webchat.js"></script>
         <script>
