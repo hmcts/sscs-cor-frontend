@@ -137,53 +137,33 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
       const caseId = req.session['hearing'].case_id;
       const description = req.body['additional-evidence-description'] || '';
       req.session['additional_evidence'] = { description };
-      if (req.file) {
-        let evidence = await additionalEvidenceService.uploadEvidence(caseId, req.file, req);
-        if (evidence && evidence.statusCode === 200) {
-          const buffer: Buffer = req.file.buffer;
-          // NOSONAR
-          const md5Hash: String = crypto.createHash('md5').update(buffer).digest('hex');
-          const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${md5Hash}]`;
-          AppInsights.trackTrace(logMsg);
-          logger.info(logMsg);
-          return res.redirect(`${Paths.additionalEvidence}/upload`);
-        } else {
-          logger.info('Error while uploading evidence');
-          const evidenceUploadErrorMsg = content[i18next.language].additionalEvidence.evidenceUpload.error.fileCannotBeUploaded;
-          return res.render('additional-evidence/index.html',
-            {
-              action: 'upload',
-              pageTitleError: true,
-              description,
-              fileUploadError: evidenceUploadErrorMsg
-            }
-          );
-        }
-      } else if (req.body.delete) {
-        const fileId = Object.keys(req.body.delete)[0];
-        await additionalEvidenceService.removeEvidence(caseId, fileId, req);
-        return res.redirect(`${Paths.additionalEvidence}/upload`);
-      } else if (req.body.buttonSubmit) {
+      if (req.body.buttonSubmit) {
         const evidenceDescription = req.session['additional_evidence'].description;
         const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
-        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
-        const evidencesValidationMsg = evidences.length ? false : content[i18next.language].additionalEvidence.evidenceUpload.error.noFilesUploaded;
+        const evidencesValidationMsg = req.file ? false : content[i18next.language].additionalEvidence.evidenceUpload.error.noFilesUploaded;
 
         if (descriptionValidationMsg || evidencesValidationMsg) {
           return res.render('additional-evidence/index.html',
             {
               action: 'upload',
               pageTitleError: true,
-              evidences: evidences ? evidences.reverse() : [],
               description,
               error: descriptionValidationMsg,
               fileUploadError: evidencesValidationMsg
             }
           );
         }
-        await additionalEvidenceService.submitEvidences(caseId, evidenceDescription, req);
+
+        const buffer: Buffer = req.file.buffer;
+        // NOSONAR
+        const md5Hash: String = crypto.createHash('md5').update(buffer).digest('hex');
+        const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${md5Hash}]`;
+        AppInsights.trackTrace(logMsg);
+        logger.info(logMsg);
+
+        await additionalEvidenceService.submitEvidences(caseId, evidenceDescription, req.file, req);
         req.session['additional_evidence'].description = '';
-        AppInsights.trackTrace(`[${caseId}] - User has uploaded a total of ${evidences.length} file(s)`);
+        AppInsights.trackTrace(`[${caseId}] - User has uploaded a file`);
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else if (res.locals.multerError) {
         const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);

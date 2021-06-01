@@ -73,16 +73,23 @@ export class AdditionalEvidenceService {
     }, req);
   }
 
-  async submitEvidences(identifier: string, description: string, req: Request) {
+  async submitEvidences(identifier: string, description: string, file: Express.Multer.File, req: Request) {
     return RequestPromise.request({
       method: 'POST',
       uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
-      body: {
-        body: description,
-        idamEmail: req.session['idamEmail']
-      },
       headers: {
         'Content-type': 'application/json'
+      },
+      formData: {
+        body: description,
+        idamEmail: req.session['idamEmail'],
+        file: {
+          value: file.buffer,
+          options: {
+            filename: file.originalname,
+            contentType: file.mimetype
+          }
+        }
       }
     }, req);
   }

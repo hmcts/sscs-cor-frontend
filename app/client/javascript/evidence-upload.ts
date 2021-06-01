@@ -19,7 +19,7 @@ export class EvidenceUpload {
       this.setFileUploadState();
       this.attachEventListeners();
     }
-    this.additionalEvidenceAttachEventListeners();
+    // this.additionalEvidenceAttachEventListeners();
   }
 
   showHideRevealContainer(e: any): void {
@@ -58,19 +58,19 @@ export class EvidenceUpload {
     fileUpload.addEventListener('change', this.uploadFile.bind(this));
   }
 
-  additionalEvidenceAttachEventListeners(): void {
-    const additionalEvidence = document.querySelector('#additional-evidence-file');
-    if (additionalEvidence) {
-      additionalEvidence.addEventListener('change', (input: any) => {
-        const spinner = document.getElementById('upload-spinner');
-        spinner.style.display = 'block';
-        const fileUpload: HTMLElement = document.querySelector('[for="additional-evidence-file"]');
-        fileUpload.style.display = 'none';
-
-        document.forms['additional-evidence-form'].submit();
-      });
-    }
-  }
+  // additionalEvidenceAttachEventListeners(): void {
+  //   const additionalEvidence = document.querySelector('#additional-evidence-file');
+  //   if (additionalEvidence) {
+  //     additionalEvidence.addEventListener('change', (input: any) => {
+  //       const spinner = document.getElementById('upload-spinner');
+  //       spinner.style.display = 'block';
+  //       const fileUpload: HTMLElement = document.querySelector('[for="additional-evidence-file"]');
+  //       fileUpload.style.display = 'none';
+  //
+  //       document.forms['additional-evidence-form'].submit();
+  //     });
+  //   }
+  // }
 
   setFileUploadState(): void {
     document.getElementById(this.FILE_UPLOAD_ID).className = 'file-display-none';
