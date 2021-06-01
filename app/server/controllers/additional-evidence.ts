@@ -89,25 +89,10 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
   };
 }
 
-function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceService) {
+function getAdditionalEvidence() {
   return async(req: Request, res: Response, next: NextFunction) => {
     try {
       const action: string = (!allowedActions.includes(req.params.action) || !req.params.action) ? 'options' : req.params.action;
-      if (action === 'upload') {
-        const { description } = req.session['additional_evidence'] || '';
-        const caseId = req.session['hearing'].case_id;
-        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
-        const hasAudioVideoFile = checkAudioVideoFile(evidences);
-
-        return res.render('additional-evidence/index.html',
-          {
-            action,
-            evidences: evidences ? evidences.reverse() : [],
-            description,
-            hasAudioVideoFile
-          }
-        );
-      }
       const benefitType = req.session['appeal'].benefitType;
       return res.render('additional-evidence/index.html', {
         action,
@@ -121,22 +106,13 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
   };
 }
 
-function checkAudioVideoFile(evidences: EvidenceDescriptor[]) {
-  let hasAudioVideoFile = false;
-  evidences.forEach(evidence => {
-    if (evidence.file_name.toLowerCase().endsWith('.mp3') || evidence.file_name.toLowerCase().endsWith('.mp4')) {
-      hasAudioVideoFile = true;
-    }
-  });
-  return hasAudioVideoFile;
-}
-
 function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const caseId = req.session['hearing'].case_id;
       const description = req.body['additional-evidence-description'] || '';
       req.session['additional_evidence'] = { description };
+
       if (req.body.buttonSubmit) {
         const evidenceDescription = req.session['additional_evidence'].description;
         const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
@@ -166,13 +142,11 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         AppInsights.trackTrace(`[${caseId}] - User has uploaded a file`);
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else if (res.locals.multerError) {
-        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
 
         return res.render('additional-evidence/index.html',
           {
             action: 'upload',
             pageTitleError: true,
-            evidences: evidences ? evidences.reverse() : [],
             description,
             fileUploadError: res.locals.multerError
           }
@@ -191,8 +165,7 @@ function setupadditionalEvidenceController(deps: any) {
   const router = Router();
   router.get(Paths.aboutEvidence, deps.prereqMiddleware, getAboutEvidence);
   router.get(`${Paths.additionalEvidence}/:action?`,
-    deps.prereqMiddleware,
-    getAdditionalEvidence(deps.additionalEvidenceService)
+      deps.prereqMiddleware
   );
 
   const url = `${Paths.additionalEvidence}`;

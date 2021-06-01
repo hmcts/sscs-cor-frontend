@@ -37,9 +37,9 @@
           {% endif %}
 
 
-          {% if hasAudioVideoFile %}
+        <div id="av-content-warning" style="display: none">
             <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.contentWarningPara1 | eval | safe }}</p>
-          {% endif %}
+        </div>
 
 <!--        https://design-system.service.gov.uk/components/file-upload/-->
         {{ govukFileUpload({
@@ -57,8 +57,6 @@
                 "text": error
             } if error
         }) }}
-
-        {{ spinner(content[i18n.language].additionalEvidence.evidenceUpload.fileUploading) }}
 
         <div id="submit-buttons">
             <input id="submit-evidences" type="submit" name="buttonSubmit" value="{{ content[i18n.language].common.submitEvidenceToTribunal | safe }}" class="govuk-button">

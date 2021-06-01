@@ -27,41 +27,6 @@ export class AdditionalEvidenceService {
     }, req);
   }
 
-  async uploadEvidence(identifier: string, file: Express.Multer.File, req: Request): Promise<EvidenceDescriptor> {
-    return RequestPromise.request({
-      method: 'PUT',
-      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
-      simple: false,
-      resolveWithFullResponse: true,
-      formData: {
-        file: {
-          value: file.buffer,
-          options: {
-            filename: file.originalname,
-            contentType: file.mimetype
-          }
-        }
-      }
-    }, req);
-  }
-
-  async removeEvidence(identifier: string, evidenceId: string, req: Request) {
-    return RequestPromise.request({
-      method: 'DELETE',
-      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence/${evidenceId}`,
-      headers: {
-        'Content-Length': '0'
-      }
-    }, req);
-  }
-
-  async getEvidences(identifier: string, req: Request): Promise<EvidenceDescriptor[]> {
-    return RequestPromise.request({
-      method: 'GET',
-      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`
-    }, req);
-  }
-
   async getCoversheet(caseId: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
