@@ -426,8 +426,8 @@
          "carersallowance":  "Return to Your Carer's Allowance appeal",
          "attendanceallowance": "Return to your Attendance Allowance appeal",
          "bereavementbenefit": "Return to your Bereavement Benefit appeal",
-         "industrialInjuriesDisablement": "Return to your Industrial Injuries Disablement Benefit appeal",
-         "jsa": "Return to your JSA Benefit appeal"
+         "jsa": "Return to your JSA Benefit appeal",
+         "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal"
         }
       },
       "about": {
@@ -786,8 +786,8 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
-      "industrialInjuriesDisablement" : {
-        "acronym": "INDUSTRIAL INJURIES DISABLEMENT BEREAVEMENT BENEFIT",
+      "industrialinjuriesdisablement" : {
+        "acronym": "INDUSTRIAL INJURIES DISABLEMENT BENEFIT",
         "yourBenefitAppeal": "Your Industrial Injuries Disablement Benefit appeal",
         "fullDescription": "Industrial Injuries Disablement Benefit",
         "agency": "Department for Work and Pensions",
@@ -1426,8 +1426,8 @@
           "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr",
           "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini",
           "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth",
-          "industrialInjuriesDisablement": "Dychwelyd i'ch apêl Budd-dal Anabledd Anafiadau Diwydiannol",
-          "jsa": "Dychwelyd i'ch apêl budd-dal JSA"
+          "jsa": "Dychwelyd i'ch apêl budd-dal JSA",
+          "industrialinjuriesdisablement": "Dychwelyd i'ch apêl Budd-dal Anabledd Anafiadau Diwydiannol"
         }
       },
       "about": {
@@ -1786,7 +1786,7 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr"
       },
-      "industrialInjuriesDisablement": {
+      "industrialinjuriesdisablement": {
         "acronym": "BUDD-DAL ANABLEDD ANAFIADAU DIWYDIANNOL",
         "yourBenefitAppeal": "Eich apêl Budd-dal Anabledd Anafiadau Diwydiannol",
         "fullDescription": "Budd-dal Anabledd Anafiadau Diwydiannol",
