@@ -62,7 +62,7 @@ export class EvidenceUpload {
     const additionalEvidence = document.querySelector('#additional-evidence-file');
     if (additionalEvidence) {
       additionalEvidence.addEventListener('change', (input: any) => {
-        if (input.currentTarget.files && input.currentTarget.files.length >= 0) {
+        if (input.currentTarget.files && input.currentTarget.files.length >= 1) {
           const fileName = input.currentTarget.files[0].name;
           const contentWarningPara: HTMLElement = document.getElementById('av-content-warning');
           if (fileName.toLowerCase().endsWith('.mp3') || fileName.toLowerCase().endsWith('.mp4')) {
