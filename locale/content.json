@@ -427,6 +427,7 @@
          "carersallowance":  "Return to Your Carer's Allowance appeal",
          "attendanceallowance": "Return to your Attendance Allowance appeal",
          "bereavementbenefit": "Return to your Bereavement Benefit appeal",
+         "jsa": "Return to your JSA Benefit appeal",
          "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal"
         }
       },
@@ -793,6 +794,14 @@
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge and up to 2 consultants doctors"
+      },
+      "jsa" : {
+        "acronym": "JSA",
+        "yourBenefitAppeal": "Your JSA Benefit appeal",
+        "fullDescription": "Job Seekers Allowance (JSA)",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge"
       }
     },
     "helpGuides": {
@@ -1419,6 +1428,7 @@
           "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr",
           "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini",
           "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth",
+          "jsa": "Dychwelyd i'ch apêl budd-dal JSA",
           "industrialinjuriesdisablement": "Dychwelyd i'ch apêl Budd-dal Anabledd Anafiadau Diwydiannol"
         }
       },
@@ -1785,6 +1795,14 @@
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr a hyd at 2 feddyg ymgynghorol"
+      },
+      "jsa": {
+        "acronym": "JSA",
+        "yourBenefitAppeal": "Eich apêl budd-dal JSA",
+        "fullDescription": "Lwfans Ceisio Gwaith (JSA)",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr"
       }
     },
     "helpGuides": {
