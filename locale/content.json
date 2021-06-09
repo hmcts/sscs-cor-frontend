@@ -398,7 +398,7 @@
         "label": "Choose file",
         "fileUploading": "File uploading",
         "fileList": {
-          "uploadedFiles": "Uploaded files",
+          "uploadedFiles": "Uploaded file",
           "noFilesUploaded": "No files uploaded"
         },
         "error": {
@@ -1399,7 +1399,7 @@
         "label": "Dewis ffeil",
         "fileUploading": "Ffeil yn llwytho",
         "fileList": {
-          "uploadedFiles": "Ffeiliau sydd wedi cael eu llwytho",
+          "uploadedFiles": "Ffeilia sydd wedi cael eu llwytho",
           "noFilesUploaded": "Nid oes ffeiliau wedi cael eu llwytho"
         },
         "error": {

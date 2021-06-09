@@ -62,14 +62,21 @@ export class EvidenceUpload {
     const additionalEvidence = document.querySelector('#additional-evidence-file');
     if (additionalEvidence) {
       additionalEvidence.addEventListener('change', (input: any) => {
+        const selectedFile: HTMLElement = document.getElementById('selected-evidence-file');
+        const noSelectedFile: HTMLElement = document.getElementById('no-evidence-file');
         if (input.currentTarget.files && input.currentTarget.files.length >= 1) {
           const fileName = input.currentTarget.files[0].name;
+          selectedFile.innerText = fileName;
+          noSelectedFile.style.display = 'none';
           const contentWarningPara: HTMLElement = document.getElementById('av-content-warning');
           if (fileName.toLowerCase().endsWith('.mp3') || fileName.toLowerCase().endsWith('.mp4')) {
             contentWarningPara.style.display = 'block';
           } else {
             contentWarningPara.style.display = 'none';
           }
+        } else {
+          selectedFile.innerText = '';
+          noSelectedFile.style.display = 'block';
         }
       });
     }

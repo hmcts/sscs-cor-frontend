@@ -45,6 +45,7 @@
         {{ govukFileUpload({
             id: "additional-evidence-file",
             name: "additional-evidence-file",
+            classes: "file-display-none",
             label: {
                 text: content[i18n.language].additionalEvidence.evidenceUpload.label,
                 classes: "govuk-button secondary-button element--inline-block",
@@ -57,6 +58,10 @@
                 "text": error
             } if error
         }) }}
+
+        <p class="govuk-table__header" >{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.uploadedFiles | safe }}</p>
+        <p id="selected-evidence-file"></p>
+        <p id="no-evidence-file">{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.noFilesUploaded | safe }}</p>
 
         <div id="submit-buttons">
             <input id="submit-evidences" type="submit" name="buttonSubmit" value="{{ content[i18n.language].common.submitEvidenceToTribunal | safe }}" class="govuk-button">

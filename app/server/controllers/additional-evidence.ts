@@ -158,7 +158,8 @@ function setupadditionalEvidenceController(deps: any) {
   const router = Router();
   router.get(Paths.aboutEvidence, deps.prereqMiddleware, getAboutEvidence);
   router.get(`${Paths.additionalEvidence}/:action?`,
-      deps.prereqMiddleware
+    deps.prereqMiddleware,
+    getAdditionalEvidence()
   );
 
   const url = `${Paths.additionalEvidence}`;
