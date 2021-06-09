@@ -162,7 +162,8 @@
     "url-parse": "1.5.0",
     "browserslist": "4.16.5",
     "ws": "7.4.6",
-    "trim-newlines": "3.0.1"
+    "trim-newlines": "3.0.1",
+    "normalize-url": "4.5.1"
   }
 }
 
