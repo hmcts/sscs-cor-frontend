@@ -12,7 +12,7 @@ Scenario('English - can track appeal status via manager your appeal', async I =>
   } else {
     await I.loginToANewCase(appealData);
     await I.verifyAppeallantPostCode();
-    await I.waitForElement('.govuk-heading-xl', 5);
+    await I.waitForElement('.govuk-heading-xl', 10);
     await I.verifyStatusHeader();
     await I.uploadEvidence();
   }
@@ -24,7 +24,7 @@ Scenario('Welsh - can track appeal status via manager your appeal', async I => {
   } else {
     await I.loginToANewCase(appealData);
     await I.verifyWelshAppellantPostCode();
-    await I.waitForElement('.govuk-heading-xl', 5);
+    await I.waitForElement('.govuk-heading-xl', 10);
     await I.verifyWelshStatusHeader();
     await I.uploadWelshEvidence();
   }

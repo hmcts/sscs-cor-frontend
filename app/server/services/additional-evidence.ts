@@ -1,10 +1,12 @@
 import { Request } from 'express';
+import { Response } from 'express-serve-static-core';
 import { RequestPromise } from './request-wrapper';
 
 export interface EvidenceDescriptor {
   created_date: string;
   file_name: string;
   id: string;
+  statusCode: any;
 }
 
 export class AdditionalEvidenceService {

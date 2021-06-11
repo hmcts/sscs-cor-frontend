@@ -37,13 +37,20 @@ function getAboutEvidence(req: Request, res: Response) {
 
 function postAdditionalEvidence (req: Request, res: Response) {
   const action = req.body['additional-evidence-option'];
-
-  if (action) {
-    return res.redirect(`${Paths.additionalEvidence}/${action}`);
+  const url = `${Paths.additionalEvidence}/${action}`;
+  if (isValidUrl(url)) {
+    return res.redirect(url);
   } else {
     const errorMessage = content[i18next.language].additionalEvidence.evidenceOptions.error.noButtonSelected;
     res.render('additional-evidence/index.html', { action: 'options', pageTitleError: true, error: errorMessage });
   }
+}
+
+function isValidUrl(url) {
+  if (url.startsWith(`${Paths.additionalEvidence}`)) {
+    return true;
+  }
+  return false;
 }
 
 function fileTypeInWhitelist(req, file, cb) {
@@ -131,14 +138,27 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
       const description = req.body['additional-evidence-description'] || '';
       req.session['additional_evidence'] = { description };
       if (req.file) {
-        await additionalEvidenceService.uploadEvidence(caseId, req.file, req);
-        const buffer: Buffer = req.file.buffer;
-        // NOSONAR
-        const md5Hash: String = crypto.createHash('md5').update(buffer).digest('hex');
-        const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${md5Hash}]`;
-        AppInsights.trackTrace(logMsg);
-        logger.info(logMsg);
-        return res.redirect(`${Paths.additionalEvidence}/upload`);
+        let evidence = await additionalEvidenceService.uploadEvidence(caseId, req.file, req);
+        if (evidence && evidence.statusCode === 200) {
+          const buffer: Buffer = req.file.buffer;
+          // NOSONAR
+          const md5Hash: String = crypto.createHash('md5').update(buffer).digest('hex');
+          const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${md5Hash}]`;
+          AppInsights.trackTrace(logMsg);
+          logger.info(logMsg);
+          return res.redirect(`${Paths.additionalEvidence}/upload`);
+        } else {
+          logger.info('Error while uploading evidence');
+          const evidenceUploadErrorMsg = content[i18next.language].additionalEvidence.evidenceUpload.error.fileCannotBeUploaded;
+          return res.render('additional-evidence/index.html',
+            {
+              action: 'upload',
+              pageTitleError: true,
+              description,
+              fileUploadError: evidenceUploadErrorMsg
+            }
+          );
+        }
       } else if (req.body.delete) {
         const fileId = Object.keys(req.body.delete)[0];
         await additionalEvidenceService.removeEvidence(caseId, fileId, req);
@@ -194,8 +214,11 @@ function setupadditionalEvidenceController(deps: any) {
     deps.prereqMiddleware,
     getAdditionalEvidence(deps.additionalEvidenceService)
   );
-  router.post(`${Paths.additionalEvidence}`, deps.prereqMiddleware, postAdditionalEvidence);
 
+  const url = `${Paths.additionalEvidence}`;
+  if (isValidUrl(url)) {
+    router.post(url, deps.prereqMiddleware, postAdditionalEvidence);
+  }
   router.post(`${Paths.additionalEvidence}/statement`,
     deps.prereqMiddleware,
     postEvidenceStatement(deps.additionalEvidenceService)
