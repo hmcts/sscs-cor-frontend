@@ -6,7 +6,7 @@ export class EvidenceUpload {
   public FILE_UPLOAD_LABEL_SELECTOR: string = '[for="file-upload-1"]';
   public REVEAL_CONTAINER_ID: string = 'evidence-upload-reveal-container';
   private revealContainer: HTMLElement;
-  public answerFormEl: HTMLElement = null;
+  public answerFormElement: HTMLElement = null;
   public modal: HTMLElement = null;
   public extend: HTMLElement = null;
   public cancel: HTMLElement = null;
@@ -28,7 +28,7 @@ export class EvidenceUpload {
       this.setFileUploadState();
       this.attachEventListeners();
     }
-    this.answerFormEl = document.getElementById(this.ANSWER_FORM);
+    this.answerFormElement = document.getElementById(this.ANSWER_FORM);
     this.keyStrokeEventListener = this.stayOnPage.bind(this);
 
     this.modal = document.getElementById(this.MODAL);
@@ -187,10 +187,10 @@ export class EvidenceUpload {
   }
 
   bindKeyStrokeListener(): void {
-    if (this.modal && this.answerFormEl) this.answerFormEl.addEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormElement) this.answerFormElement.addEventListener('keydown', this.keyStrokeEventListener);
   }
 
   removeKeyStrokeListener(): void {
-    if (this.modal && this.answerFormEl) this.answerFormEl.removeEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormElement) this.answerFormElement.removeEventListener('keydown', this.keyStrokeEventListener);
   }
 }

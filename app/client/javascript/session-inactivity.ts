@@ -7,7 +7,7 @@ export class SessionInactivity {
   public sessionExtendBuffer: number = 2 * 60 * 1000;
   public sessionExpiry: moment.Moment = null;
   public lastReset: moment.Moment = null;
-  public answerFormElement: HTMLElement = null;
+  public answerFormEl: HTMLElement = null;
   public modal: HTMLElement = null;
   public extend: HTMLElement = null;
   public cancel: HTMLElement = null;
@@ -23,7 +23,7 @@ export class SessionInactivity {
   private sessionTimeOut: number;
 
   init(): void {
-    this.answerFormElement = document.getElementById(this.ANSWER_FORM);
+    this.answerFormEl = document.getElementById(this.ANSWER_FORM);
     this.keyStrokeEventListener = this.extendSession.bind(this);
 
     this.modal = document.getElementById(this.MODAL);
@@ -131,10 +131,10 @@ export class SessionInactivity {
   }
 
   bindKeyStrokeListener(): void {
-    if (this.modal && this.answerFormElement) this.answerFormElement.addEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormEl) this.answerFormEl.addEventListener('keydown', this.keyStrokeEventListener);
   }
 
   removeKeyStrokeListener(): void {
-    if (this.modal && this.answerFormElement) this.answerFormElement.removeEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormEl) this.answerFormEl.removeEventListener('keydown', this.keyStrokeEventListener);
   }
 }
