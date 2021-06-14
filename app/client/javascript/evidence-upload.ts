@@ -73,6 +73,15 @@ export class EvidenceUpload {
     document.forms['js-upload-form'].submit();
   }
 
+  stopSignOut(event: any): void {
+    if (document.getElementById('selected-evidence-file').textContent) {
+      event.stopPropagation();
+      event.preventDefault();
+      this.openModal();
+      this.addListeners();
+    }
+  }
+
   attachEventListeners(): void {
     const provideEvidence: HTMLElement = document.getElementById(this.CHECKBOX_ID);
     provideEvidence.addEventListener('click', this.showHideRevealContainer.bind(this));
@@ -83,26 +92,12 @@ export class EvidenceUpload {
   additionalEvidenceAttachEventListeners(): void {
     const signOut = document.querySelector('#sign-out');
     if (signOut) {
-      signOut.addEventListener('click', (event: any) => {
-        if (document.getElementById('selected-evidence-file').textContent) {
-          event.stopPropagation();
-          event.preventDefault();
-          this.openModal();
-          this.addListeners();
-        }
-      });
+      signOut.addEventListener('click', this.stopSignOut.bind(this));
     }
 
     const headerSignOut = document.querySelector('#header-sign-out');
     if (headerSignOut) {
-      headerSignOut.addEventListener('click', (event: any) => {
-        if (document.getElementById('selected-evidence-file').textContent) {
-          event.stopPropagation();
-          event.preventDefault();
-          this.openModal();
-          this.addListeners();
-        }
-      });
+      headerSignOut.addEventListener('click', this.stopSignOut.bind(this));
     }
 
     const additionalEvidence = document.querySelector('#additional-evidence-file');
