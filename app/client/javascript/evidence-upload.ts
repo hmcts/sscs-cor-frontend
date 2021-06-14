@@ -95,7 +95,7 @@ export class EvidenceUpload {
 
   additionalEvidenceAttachEventListeners(): void {
     const signOut = document.querySelector('#sign-out');
-    if (signout) {
+    if (signOut) {
       signOut.addEventListener('click', this.stopSignOut.bind(this));
     }
 
