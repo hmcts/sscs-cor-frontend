@@ -39,11 +39,6 @@ export class EvidenceUpload {
     this.additionalEvidenceAttachEventListeners();
   }
 
-  stayOnPage(): void {
-    this.closeModal();
-    this.removeListeners();
-  }
-
   showHideRevealContainer(e: any): void {
     const checkbox = e.target as HTMLInputElement;
     if (checkbox.checked) {
@@ -73,11 +68,20 @@ export class EvidenceUpload {
     document.forms['js-upload-form'].submit();
   }
 
+  stayOnPage(): void {
+    if (this.modal) {
+      this.modal.classList.remove('modal--open');
+    }
+    this.removeListeners();
+  }
+
   stopSignOut(event: any): void {
     if (document.getElementById('selected-evidence-file').textContent) {
       event.stopPropagation();
       event.preventDefault();
-      this.openModal();
+      if (this.modal) {
+        this.modal.classList.add('modal--open');
+      }
       this.addListeners();
     }
   }
@@ -91,14 +95,10 @@ export class EvidenceUpload {
 
   additionalEvidenceAttachEventListeners(): void {
     const signOut = document.querySelector('#sign-out');
-    if (signOut) {
-      signOut.addEventListener('click', this.stopSignOut.bind(this));
-    }
+    signOut.addEventListener('click', this.stopSignOut.bind(this));
 
     const headerSignOut = document.querySelector('#header-sign-out');
-    if (headerSignOut) {
-      headerSignOut.addEventListener('click', this.stopSignOut.bind(this));
-    }
+    headerSignOut.addEventListener('click', this.stopSignOut.bind(this));
 
     const additionalEvidence = document.querySelector('#additional-evidence-file');
     if (additionalEvidence) {
@@ -148,18 +148,6 @@ export class EvidenceUpload {
     const jsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.JS_ELEMENT_SELECTOR);
     Array.from(noJsElements).forEach(e => e.style.display = 'none');
     Array.from(jsElements).forEach(e => e.style.display = 'block');
-  }
-
-  openModal() {
-    if (this.modal) {
-      this.modal.classList.add('modal--open');
-    }
-  }
-
-  closeModal() {
-    if (this.modal) {
-      this.modal.classList.remove('modal--open');
-    }
   }
 
   signOut() {
