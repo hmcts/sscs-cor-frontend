@@ -95,10 +95,14 @@ export class EvidenceUpload {
 
   additionalEvidenceAttachEventListeners(): void {
     const signOut = document.querySelector('#sign-out');
-    signOut.addEventListener('click', this.stopSignOut.bind(this));
+    if (signout) {
+      signOut.addEventListener('click', this.stopSignOut.bind(this));
+    }
 
     const headerSignOut = document.querySelector('#header-sign-out');
-    headerSignOut.addEventListener('click', this.stopSignOut.bind(this));
+    if (headerSignOut) {
+      headerSignOut.addEventListener('click', this.stopSignOut.bind(this));
+    }
 
     const additionalEvidence = document.querySelector('#additional-evidence-file');
     if (additionalEvidence) {
