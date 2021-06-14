@@ -6,19 +6,14 @@ export class EvidenceUpload {
   public FILE_UPLOAD_LABEL_SELECTOR: string = '[for="file-upload-1"]';
   public REVEAL_CONTAINER_ID: string = 'evidence-upload-reveal-container';
   private revealContainer: HTMLElement;
-
   public answerFormElement: HTMLElement = null;
-  public ANSWER_FORM: string = 'answer-form';
-
   public modal: HTMLElement = null;
-  public MODAL: string = 'file-dialog';
-
   public extend: HTMLElement = null;
-  public EXTEND_BUTTON: string = 'stay';
-
   public cancel: HTMLElement = null;
+  public ANSWER_FORM: string = 'answer-form';
+  public EXTEND_BUTTON: string = 'stay';
   public CANCEL_BUTTON: string = 'leave';
-
+  public MODAL: string = 'file-dialog';
   public keyStrokeEventListener: any;
 
   constructor() {
@@ -92,13 +87,19 @@ export class EvidenceUpload {
     provideEvidence.addEventListener('click', this.showHideRevealContainer.bind(this));
     const fileUpload: HTMLElement = document.getElementById(this.FILE_UPLOAD_ID);
     fileUpload.addEventListener('change', this.uploadFile.bind(this));
-    const signOut = document.querySelector('#sign-out');
-    signOut.addEventListener('click', this.stopSignOut.bind(this));
-    const headerSignOut = document.querySelector('#header-sign-out');
-    headerSignOut.addEventListener('click', this.stopSignOut.bind(this));
   }
 
   additionalEvidenceAttachEventListeners(): void {
+    const signOut = document.querySelector('#sign-out');
+    if (signOut) {
+      signOut.addEventListener('click', this.stopSignOut.bind(this));
+    }
+
+    const headerSignOut = document.querySelector('#header-sign-out');
+    if (headerSignOut) {
+      headerSignOut.addEventListener('click', this.stopSignOut.bind(this));
+    }
+
     const additionalEvidence = document.querySelector('#additional-evidence-file');
     if (additionalEvidence) {
       additionalEvidence.addEventListener('change', (input: any) => {
