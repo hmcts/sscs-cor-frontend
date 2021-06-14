@@ -371,18 +371,6 @@
         "cancel": "Sign out"
       }
     },
-    "fileSelected": {
-      "modal": {
-        "title": "",
-        "body": [
-          "You have unsaved evidence that will be lost if you decide to log out.",
-          "Are you sure you want to leave to page?"
-        ],
-        "info": "",
-        "extend": "Stay on this page",
-        "cancel": "Leave this page"
-      }
-    },
     "additionalEvidence": {
       "evidenceOptions": {
         "header": "How do you want to provide additional information?",
@@ -405,7 +393,6 @@
           "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
           "para3": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx",
           "para3audioVideo": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, .mp4",
-          "para4": "You can only submit one file at a time",
           "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
         },
         "label": "Choose file",
@@ -432,7 +419,6 @@
         "header": "You have submitted additional evidence",
         "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
         "review": "Please note any audio or video evidence will be reviewed separately by a Judge to ensure it is suitable and relevant before adding it to your appeal. You will be notified of the outcome of that review.",
-        "morelink": "Upload additional letters, documents or photos, audio or video files",
         "link":{
          "pip":  "Return to Your PIP benefit appeal",
          "esa":  "Return to Your ESA benefit appeal",
@@ -1386,18 +1372,6 @@
         "cancel": "Allgofnodi"
       }
     },
-    "fileSelected": {
-      "modal": {
-        "title": "",
-        "body": [
-          "Mae gennych dystiolaeth sydd heb ei chadw a byddwch yn ei cholli os penderfynwch allgofnodi.",
-          "Ydych chi’n siŵr eich bod eisiau gadael y dudalen?'"
-        ],
-        "info": "",
-        "extend": "Aros ar y dudalen hon",
-        "cancel": "Gadael y dudalen hon"
-      }
-    },
     "additionalEvidence": {
       "evidenceOptions": {
         "header": "Sut ydych chi eisiau darparu gwybodaeth ychwanegol?",
@@ -1420,7 +1394,6 @@
           "para2": "Mae tystiolaeth ddefnyddiol yn disgrifio neu’n dangos sut mae eich cyflwr yn effeithio ar eich bywyd. <a href='/about-evidence'><br>Darllenwch fwy am ba fath o dystiolaeth sy’n ddefnyddiol i'r tribiwnlys.</a>",
           "para3": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .rtf, .doc, .docx",
           "para3audioVideo": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, mp4",
-          "para4": "Gallwch ond cyflwyno un ffeil ar unrhyw adeg",
           "contentWarningPara1": "Os yw eich recordiad yn cynnwys sain neu fideo o unigolyn arall, sicrhewch eich bod yn cael  caniatâd ganddynt cyn cynnwys y recordiad yn eich apêl."
         },
         "label": "Dewis ffeil",
@@ -1447,7 +1420,6 @@
         "header": "Rydych wedi cyflwyno tystiolaeth ychwanegol",
         "description": "Bydd yn cael ei adolygu gan y tribiwnlys a’i ystyried yn rhan o’ch apêl.",
         "review": "Dalier sylw, bydd unrhyw dystiolaeth glywedol neu dystiolaeth fideo yn cael ei hadolygu ar wahân gan Farnwr i sicrhau ei bod yn briodol ac yn berthnasol cyn iddi gael ei hychwanegu at eich apêl. Fe gewch wybod am ganlyniad yr adolygiad hwnnw.",
-        "morelink": "Llwytho llythyrau ychwanegol, dogfennau neu luniau, ffeiliau sain neu fideos",
         "link": {
           "pip": "Dychwelyd i'ch apêl budd-dal PIP",
           "esa": "Dychwelyd i'ch apêl budd-dal ESA",
