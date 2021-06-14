@@ -67,7 +67,7 @@
     "chokidar": "^3.3.1",
     "computed-style": "^0.3.0",
     "config": "3.2.5",
-    "connect-redis": "^6.0.0",
+    "connect-redis": "^3.4.2",
     "cookie-parser": "^1.4.3",
     "csurf": "^1.10.0",
     "express": "^4.17.1",
@@ -166,3 +166,4 @@
     "normalize-url": "4.5.1"
   }
 }
+
