@@ -404,7 +404,8 @@
         "error": {
           "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
           "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading.",
-          "regex": "There are special character(s) in the text entered. Please remove these before continuing"
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing",
+          "fileCannotBeUploaded": "Uploading is currently unavailable, please try again later."
         }
       },
       "evidencePost": {
@@ -425,7 +426,9 @@
          "dla":  "Return to Your DLA benefit appeal",
          "carersallowance":  "Return to Your Carer's Allowance appeal",
          "attendanceallowance": "Return to your Attendance Allowance appeal",
-         "bereavementbenefit": "Return to your Bereavement Benefit appeal"
+         "bereavementbenefit": "Return to your Bereavement Benefit appeal",
+         "jsa": "Return to your JSA Benefit appeal",
+         "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal"
         }
       },
       "about": {
@@ -780,6 +783,22 @@
         "acronym": "BEREAVEMENT BENEFIT",
         "yourBenefitAppeal": "Your Bereavement Benefit appeal",
         "fullDescription": "Bereavement Benefit",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge"
+      },
+      "industrialinjuriesdisablement" : {
+        "acronym": "INDUSTRIAL INJURIES DISABLEMENT BENEFIT",
+        "yourBenefitAppeal": "Your Industrial Injuries Disablement Benefit appeal",
+        "fullDescription": "Industrial Injuries Disablement Benefit",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge and up to 2 consultants doctors"
+      },
+      "jsa" : {
+        "acronym": "JSA",
+        "yourBenefitAppeal": "Your JSA Benefit appeal",
+        "fullDescription": "Job Seekers Allowance (JSA)",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
@@ -1386,7 +1405,8 @@
         "error": {
           "emptyDescription": "Nid ydych wedi rhoi disgrifiad. Rhowch ddisgrifiad bras o’r dystiolaeth rydych eisiau ei llwytho.",
           "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau.",
-          "regex": "Mae yna nod(au) arbennig yn y wybodaeth sydd wedi’i rhoi. Dilëwch y rhain cyn parhau"
+          "regex": "Mae yna nod(au) arbennig yn y wybodaeth sydd wedi’i rhoi. Dilëwch y rhain cyn parhau",
+          "fileCannotBeUploaded": "Nid yw’r cyfleuster uwchlwytho ar gael ar hyn o bryd, rhowch gynnig arall arni yn hwyrach ymlaen."
         }
       },
       "evidencePost": {
@@ -1407,7 +1427,9 @@
           "dla": "Dychwelyd i'ch apêl budd-dal DLA",
           "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr",
           "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini",
-          "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth"
+          "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth",
+          "jsa": "Dychwelyd i'ch apêl budd-dal JSA",
+          "industrialinjuriesdisablement": "Dychwelyd i'ch apêl Budd-dal Anabledd Anafiadau Diwydiannol"
         }
       },
       "about": {
@@ -1762,6 +1784,22 @@
         "acronym": "BUDD-DAL PROFEDIGAETH",
         "yourBenefitAppeal": "Eich apêl Budd-dal Profedigaeth",
         "fullDescription": "Budd-dal Profedigaeth",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr"
+      },
+      "industrialinjuriesdisablement": {
+        "acronym": "BUDD-DAL ANABLEDD ANAFIADAU DIWYDIANNOL",
+        "yourBenefitAppeal": "Eich apêl Budd-dal Anabledd Anafiadau Diwydiannol",
+        "fullDescription": "Budd-dal Anabledd Anafiadau Diwydiannol",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr a hyd at 2 feddyg ymgynghorol"
+      },
+      "jsa": {
+        "acronym": "JSA",
+        "yourBenefitAppeal": "Eich apêl budd-dal JSA",
+        "fullDescription": "Lwfans Ceisio Gwaith (JSA)",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
