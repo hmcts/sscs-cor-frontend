@@ -1,4 +1,4 @@
-{% extends "template.njk" %}
+  {% extends "template.njk" %}
 
 {% from "components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "components/mya-contact-us.html" import contactUs with context %}
@@ -62,6 +62,7 @@
     {% block corContent %}{% endblock %}
     {% if showSignOut %}
         {% include "session-inactivity-modal.html" %}
+        {% include "file-selected-modal.html" %}
     {% endif %}
     {% if allowContactUs %}
         {{ contactUs() }}
