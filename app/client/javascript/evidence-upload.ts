@@ -35,7 +35,6 @@ export class EvidenceUpload {
     this.extend = document.getElementById(this.EXTEND_BUTTON);
     this.cancel = document.getElementById(this.CANCEL_BUTTON);
 
-    this.addListeners();
     this.additionalEvidenceAttachEventListeners();
   }
 
@@ -72,7 +71,8 @@ export class EvidenceUpload {
     if (this.modal) {
       this.modal.classList.remove('modal--open');
     }
-    this.removeListeners();
+    this.removeKeyStrokeListener();
+    this.removeModalButtonListeners();
   }
 
   stopSignOut(event: any): void {
@@ -82,8 +82,13 @@ export class EvidenceUpload {
       if (this.modal) {
         this.modal.classList.add('modal--open');
       }
-      this.addListeners();
+      this.bindModalButtonListeners();
+      this.bindKeyStrokeListener();
     }
+  }
+
+  signOut() {
+    window.location.assign('/sign-out');
   }
 
   attachEventListeners(): void {
@@ -152,20 +157,6 @@ export class EvidenceUpload {
     const jsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.JS_ELEMENT_SELECTOR);
     Array.from(noJsElements).forEach(e => e.style.display = 'none');
     Array.from(jsElements).forEach(e => e.style.display = 'block');
-  }
-
-  signOut() {
-    window.location.assign('/sign-out');
-  }
-
-  addListeners() {
-    this.bindModalButtonListeners();
-    this.bindKeyStrokeListener();
-  }
-
-  removeListeners() {
-    this.removeKeyStrokeListener();
-    this.removeModalButtonListeners();
   }
 
   bindModalButtonListeners() {
