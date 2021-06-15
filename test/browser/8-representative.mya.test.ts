@@ -44,6 +44,7 @@ describe('Representative - Manage your appeal app @mya @nightly', () => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
+    await page.reload();
     statusPage.verifyPage();
   });
 
