@@ -64,6 +64,7 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
+    await page.reload();
     statusPage.verifyPage();
     await additionalEvidencePage.visitPage();
   });
