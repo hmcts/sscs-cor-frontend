@@ -429,7 +429,7 @@
          "bereavementbenefit": "Return to your Bereavement Benefit appeal",
          "jsa": "Return to your JSA Benefit appeal",
          "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal",
-          "maternityallowance": "Return to your Your Maternity Allowance appeal"
+          "maternityallowance": "Return to your Maternity Allowance appeal"
         }
       },
       "about": {
@@ -805,12 +805,12 @@
         "panel": "a judge"
       },
       "maternityallowance" : {
-        "acronym": "Maternity Allowance",
+        "acronym": "MATERNITY ALLOWANCE",
         "yourBenefitAppeal": "Your Maternity Allowance appeal",
         "fullDescription": "Maternity Allowance",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
-        "panel": "a judge and a doctor"
+        "panel": "a judge"
       }
     },
     "helpGuides": {
@@ -1820,7 +1820,7 @@
         "fullDescription": "Lwfans Mamolaeth",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
-        "panel": "barnwr a meddyg"
+        "panel": "barnwr"
       }
     },
     "helpGuides": {
