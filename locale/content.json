@@ -428,7 +428,8 @@
          "attendanceallowance": "Return to your Attendance Allowance appeal",
          "bereavementbenefit": "Return to your Bereavement Benefit appeal",
          "jsa": "Return to your JSA Benefit appeal",
-         "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal"
+         "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal",
+          "maternityallowance": "Return to your Your Maternity Allowance appeal"
         }
       },
       "about": {
@@ -802,6 +803,14 @@
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
+      },
+      "maternityallowance" : {
+        "acronym": "Maternity Allowance",
+        "yourBenefitAppeal": "Your Maternity Allowance appeal",
+        "fullDescription": "Maternity Allowance",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge and a doctor"
       }
     },
     "helpGuides": {
@@ -1429,7 +1438,8 @@
           "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini",
           "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth",
           "jsa": "Dychwelyd i'ch apêl budd-dal JSA",
-          "industrialinjuriesdisablement": "Dychwelyd i'ch apêl Budd-dal Anabledd Anafiadau Diwydiannol"
+          "industrialinjuriesdisablement": "Dychwelyd i'ch apêl Budd-dal Anabledd Anafiadau Diwydiannol",
+          "maternityallowance": "Eich apêl Lwfans Mamolaeth"
         }
       },
       "about": {
@@ -1803,6 +1813,14 @@
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
+      },
+      "maternityallowance": {
+        "acronym": "LWFANS MAMOLEATH",
+        "yourBenefitAppeal": "Eich apêl Lwfans Mamolaeth",
+        "fullDescription": "Lwfans Mamolaeth",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr a meddyg"
       }
     },
     "helpGuides": {
