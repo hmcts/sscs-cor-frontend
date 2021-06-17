@@ -115,12 +115,12 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
 
       if (res.locals.multerError) {
         return res.render('additional-evidence/index.html',
-            {
-              action: 'upload',
-              pageTitleError: true,
-              description,
-              fileUploadError: res.locals.multerError
-            }
+          {
+            action: 'upload',
+            pageTitleError: true,
+            description,
+            fileUploadError: res.locals.multerError
+          }
         );
       } else if (req.body.buttonSubmit) {
         const evidenceDescription = req.session['additional_evidence'].description;
