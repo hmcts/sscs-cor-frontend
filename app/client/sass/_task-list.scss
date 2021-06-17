@@ -5,7 +5,7 @@
     li {
       border-bottom: 1px solid $govuk-border-colour;
       padding: 10px 0;
-  
+
       &:first-child {
         border-top: 1px solid $govuk-border-colour;
       }
@@ -16,20 +16,20 @@
           display: inline;
         }
       }
-  
+
       .answer-state {
         @extend .govuk-tag;
         @include govuk-media-query($from: tablet) {
           float: right;
         }
-  
+
         &.draft {
-          background-color: govuk-colour("grey-1");
+          background-color: govuk-colour("light-grey");
         }
       }
     }
   }
-  
+
   #extend-deadline {
     font-size: 16px;
   }

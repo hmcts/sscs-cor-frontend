@@ -88,7 +88,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       await statusPage.visitPage();
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be.null;
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.cy.statusTab.tabHeader);
+      expect(await statusPage.getElementText('.govuk-tabs__list-item--selected')).contain(content.cy.statusTab.tabHeader);
     });
 
     it('CY:should display subheading', async() => {
@@ -197,7 +197,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       statusPage.verifyPage();
       await statusPage.clickElement('#tab-hearing');
       await page.waitFor(500);
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.cy.hearingTab.tabHeader);
+      expect(await statusPage.getElementText('.govuk-tabs__list-item--selected')).contain(content.cy.hearingTab.tabHeader);
     });
     /* PA11Y */
     it('CY - checks /hearing page passes @pa11y', async () => {
@@ -214,7 +214,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       await statusPage.clickElement('#tab-avEvidence');
       await page.waitFor(500);
 
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.cy.avEvidenceTab.tabHeader);
+      expect(await statusPage.getElementText('.govuk-tabs__list-item--selected')).contain(content.cy.avEvidenceTab.tabHeader);
       expect(await statusPage.getElementText('.task-list div div')).contain(content.cy.avEvidenceTab.noEvidence);
     });
 

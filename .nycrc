@@ -6,8 +6,10 @@
     "**/*.d.ts",
     "app/server/app.ts",
     "app/server/server.ts",
-    "app/server/controllers/idam-stub.ts"
-  ],  
+    "app/server/controllers/idam-stub.ts",
+    "app/client/javascript/main.ts",
+    "app/server/app-configurations.ts"
+  ],
   "reporter": [
     "lcov",
     "text",
