@@ -1,11 +1,11 @@
 <div id="file-dialog" class="modal">
     <div class="modal__title" role="dialog" aria-labelledby="aria-timeout-label">
-        <h2 class="govuk-heading-m">
+        <h2>
             {{ content[i18n.language].fileSelected.modal.title | safe }}
         </h2>
     </div>
     <div class="modal__content">
-        <p id="expiring-in-message">
+        <p>
             {{ content[i18n.language].fileSelected.modal.body[0] | safe }} {{ content[i18n.language].fileSelected.modal.body[1] | safe }}
         </p>
         <p>{{ content[i18n.language].fileSelected.modal.info | safe }}</p>
