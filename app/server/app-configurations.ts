@@ -1,4 +1,6 @@
+
 const helmet = require('helmet');
+
 import { CONST } from '../constants';
 import nunjucks = require('nunjucks');
 const { tyaNunjucks } = require('../core/tyaNunjucks');
@@ -75,8 +77,16 @@ function configureNunjucks(app: express.Application) {
   const nunEnv = nunjucks.configure([
     'views',
     'views/notifications',
-    'node_modules/govuk-frontend/',
-    'node_modules/govuk-frontend/components/'
+    'node_modules/govuk-frontend/govuk/',
+    'node_modules/govuk-frontend/govuk/components/govuk/'
+    // path.resolve('node_modules/cmc-cookies-manager/shared-component/'),
+    // path.resolve('node_modules/cmc-cookies-manager/shared-component/components/'),
+    // path.resolve('node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/'),
+    // path.resolve('node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/'),
+    // path.resolve('node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/'),
+    // path.resolve(`node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.js`),
+    // path.resolve(`node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.njk`),
+    // path.resolve(`node_modules/cmc-cookies-manager/shared-component/components/button/**/*.*`)
   ], {
     autoescape: true,
     express: app,
@@ -84,6 +94,7 @@ function configureNunjucks(app: express.Application) {
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
+  nunEnv.addGlobal('serviceName', `Manage your appeal`);
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
