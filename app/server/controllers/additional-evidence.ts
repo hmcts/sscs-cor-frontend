@@ -113,7 +113,16 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
       const description = req.body['additional-evidence-description'] || '';
       req.session['additional_evidence'] = { description };
 
-      if (req.body.buttonSubmit) {
+      if (res.locals.multerError) {
+        return res.render('additional-evidence/index.html',
+            {
+              action: 'upload',
+              pageTitleError: true,
+              description,
+              fileUploadError: res.locals.multerError
+            }
+        );
+      } else if (req.body.buttonSubmit) {
         const evidenceDescription = req.session['additional_evidence'].description;
         const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
         const evidencesValidationMsg = req.file ? false : content[i18next.language].additionalEvidence.evidenceUpload.error.noFilesUploaded;
@@ -134,16 +143,6 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         req.session['additional_evidence'].description = '';
         AppInsights.trackTrace(`[${caseId}] - User has uploaded a file`);
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
-      } else if (res.locals.multerError) {
-
-        return res.render('additional-evidence/index.html',
-          {
-            action: 'upload',
-            pageTitleError: true,
-            description,
-            fileUploadError: res.locals.multerError
-          }
-        );
       } else {
         return res.redirect(Paths.taskList);
       }

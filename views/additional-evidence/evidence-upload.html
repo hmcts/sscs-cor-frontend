@@ -55,8 +55,8 @@
                 accept: fileTypeWhiteList
             },
             "errorMessage": {
-                "text": error
-            } if error
+                "text": fileUploadError
+            } if fileUploadError
         }) }}
 
         <p class="govuk-table__header" >{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.uploadedFiles | safe }}</p>
