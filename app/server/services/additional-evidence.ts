@@ -41,7 +41,7 @@ export class AdditionalEvidenceService {
   async submitEvidences(identifier: string, description: string, file: Express.Multer.File, req: Request) {
     return RequestPromise.request({
       method: 'POST',
-      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/singleevidence`,
       headers: {
         'Content-type': 'application/json'
       },
