@@ -66,7 +66,7 @@ describe('services/additional-evidence', () => {
     const description: string = 'An evidence description';
     const expectedRequestOptions = {
       method: 'POST',
-      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence`,
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/singleevidence`,
       headers: {
         'Content-type': 'application/json'
       },
