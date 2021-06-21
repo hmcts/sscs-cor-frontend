@@ -10,7 +10,7 @@
                 {{ content[i18n.language].general.serviceTitle | safe }}
             </a>
             {% if showSignOut and not featureFlags.manageYourAppeal %}
-                <a class="govuk-header__link govuk-header__link--signout" href="/sign-out">
+                <a class="govuk-header__link govuk-header__link--signout" id="header-sign-out" href="/sign-out">
                     {{ content[i18n.language].general.signOut | safe }}
                 </a>
             {% endif %}
