@@ -71,7 +71,7 @@ describe('controllers/additional-evidence.js', () => {
   });
 
   it('should pass "options" as argument to view if param action empty', async () => {
-    await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
+    await getAdditionalEvidence()(req, res, next);
 
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
@@ -80,42 +80,9 @@ describe('controllers/additional-evidence.js', () => {
     });
   });
 
-  it('should pass "upload" as argument to view if param action is "upload"', async () => {
-    const description: string = 'this is a description for the files to be upload';
-    req.params.action = 'upload';
-    req.session.hearing.online_hearing_id = 'hearingId';
-    const caseId = '1234567890';
-    req.session.hearing.case_id = caseId;
-    req.session.additional_evidence.description = description;
-    await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
-
-    expect(additionalEvidenceService.getEvidences).to.have.been.calledOnce.calledWith(caseId);
-    expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
-      action: 'upload',
-      description,
-      evidences: [],
-      hasAudioVideoFile: false
-    });
-  });
-
-  it('should catch error and track Excepction with AppInsights', async () => {
-    additionalEvidenceService = {
-      getEvidences: sandbox.stub().rejects(error)
-    };
-    req.params.action = 'upload';
-    req.session.hearing.online_hearing_id = 'hearingId';
-    const caseId = '1234567890';
-    req.session.hearing.case_id = caseId;
-    await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
-
-    expect(additionalEvidenceService.getEvidences).to.have.been.calledOnce.calledWith(caseId);
-    expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
-    expect(next).to.have.been.calledOnce.calledWith(error);
-  });
-
   it('should pass "statement" as argument to view if param action is "statement"', async () => {
     req.params.action = 'statement';
-    await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
+    await getAdditionalEvidence()(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'statement',
       postBulkScan: false,
@@ -125,7 +92,7 @@ describe('controllers/additional-evidence.js', () => {
 
   it('should pass "post" as argument to view if param action is "post"', async () => {
     req.params.action = 'post';
-    await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
+    await getAdditionalEvidence()(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'post',
       postBulkScan: false,
@@ -135,7 +102,7 @@ describe('controllers/additional-evidence.js', () => {
 
   it('should pass "options" as argument to view if param action is other', async () => {
     req.params.action = 'no-valid-argument';
-    await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
+    await getAdditionalEvidence()(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
       postBulkScan: false,
@@ -196,73 +163,18 @@ describe('controllers/additional-evidence.js', () => {
 
   describe('#postFileUpload', () => {
     it('should catch error and track Excepction with AppInsights', async () => {
+      req.body.buttonSubmit = 'there';
       req.file = { name: 'myfile.txt' };
+      const caseId = req.session.hearing.case_id;
       additionalEvidenceService = {
-        uploadEvidence: sandbox.stub().rejects(error)
-      };
-      await postFileUpload(additionalEvidenceService)(req, res, next);
-
-      expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, req.file);
-      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
-      expect(next).to.have.been.calledOnce.calledWith(error);
-    });
-
-    it('should send error message for file upload error', async () => {
-      req.file = { name: 'myfile.txt' };
-      additionalEvidenceService = {
-        uploadEvidence: sandbox.stub().resolves({
-          id: null
-        })
+        submitEvidences: sandbox.stub().rejects(error)
       };
       const description: string = 'this is a description for the files to be upload';
-      req.session.additional_evidence.description = description;
+      req.body['additional-evidence-description'] = description;
+
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
-      expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, req.file);
-      expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
-        action: 'upload',
-        pageTitleError: true,
-        description: '',
-        fileUploadError: content.en.additionalEvidence.evidenceUpload.error.fileCannotBeUploaded
-      });
-    });
-
-    it('should upload file and render upload page', async () => {
-      req.file = {
-        name: 'myfile.txt',
-        buffer: new Buffer('some content')
-      };
-      additionalEvidenceService = {
-        uploadEvidence: sandbox.stub().resolves({
-          id: '1',
-          statusCode: 200
-        })
-      };
-      await postFileUpload(additionalEvidenceService)(req, res, next);
-
-      expect(additionalEvidenceService.uploadEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, req.file);
-      expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.additionalEvidence}/upload`);
-      expect(AppInsights.trackTrace).to.have.been.calledOnce;
-    });
-
-    it('should delete file and render upload page', async () => {
-      req.body.delete = { 'fileId1': 'Delete' };
-      const fileId: string = 'fileId1';
-      await postFileUpload(additionalEvidenceService)(req, res, next);
-
-      expect(additionalEvidenceService.removeEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, fileId);
-      expect(res.redirect).to.have.been.calledOnce.calledWith(`${Paths.additionalEvidence}/upload`);
-    });
-
-    it('should catch error trying to delete file and track Exception with AppInsights', async () => {
-      req.body.delete = { 'fileId1': 'Delete' };
-      const fileId: string = 'fileId1';
-      additionalEvidenceService = {
-        removeEvidence: sandbox.stub().rejects(error)
-      };
-      await postFileUpload(additionalEvidenceService)(req, res, next);
-
-      expect(additionalEvidenceService.removeEvidence).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, fileId);
+      expect(additionalEvidenceService.submitEvidences).to.have.been.calledOnce.calledWith(caseId, description, req.file, req);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
       expect(next).to.have.been.calledOnce.calledWith(error);
     });
@@ -274,7 +186,6 @@ describe('controllers/additional-evidence.js', () => {
       expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
         action: 'upload',
         pageTitleError: true,
-        evidences: [],
         description: '',
         error: content.en.additionalEvidence.evidenceUpload.error.emptyDescription,
         fileUploadError: content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded
@@ -283,15 +194,12 @@ describe('controllers/additional-evidence.js', () => {
 
     it('should submit evidences and description and redirect to confirmation page', async () => {
       req.body.buttonSubmit = 'there';
-      const caseId = req.session.hearing.case_id;
-      const evidence: EvidenceDescriptor = {
-        'created_date': "2018-10-24'T'12:11:21Z",
-        'file_name': 'some_file_name.txt',
-        'id': '8f79deb3-5d7a-4e6f-846a-a8131ac6a3bb',
-        'statusCode': 200
+      req.file = {
+        name: 'myfile.txt',
+        buffer: new Buffer('some content')
       };
+      const caseId = req.session.hearing.case_id;
       additionalEvidenceService = {
-        getEvidences: sandbox.stub().resolves([evidence]),
         submitEvidences: sandbox.stub().resolves()
       };
       const description: string = 'this is a description for the files to be upload';
@@ -299,9 +207,9 @@ describe('controllers/additional-evidence.js', () => {
 
       await postFileUpload(additionalEvidenceService)(req, res, next);
 
-      expect(additionalEvidenceService.submitEvidences).to.have.been.calledOnce.calledWith(caseId, description, req);
+      expect(additionalEvidenceService.submitEvidences).to.have.been.calledOnce.calledWith(caseId, description, req.file, req);
       expect(req.session.additional_evidence.description).to.equal('');
-      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[${caseId}] - User has uploaded a total of 1 file(s)`);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[${caseId}] - User has uploaded a file`);
     });
 
     it('should show errors when file size is bigger than certain limit', async () => {
@@ -312,7 +220,6 @@ describe('controllers/additional-evidence.js', () => {
       expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
         action: 'upload',
         pageTitleError: true,
-        evidences: [],
         description: '',
         fileUploadError: fileSizeErrorMsg
       });
