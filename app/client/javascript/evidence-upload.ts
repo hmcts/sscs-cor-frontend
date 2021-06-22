@@ -6,6 +6,15 @@ export class EvidenceUpload {
   public FILE_UPLOAD_LABEL_SELECTOR: string = '[for="file-upload-1"]';
   public REVEAL_CONTAINER_ID: string = 'evidence-upload-reveal-container';
   private revealContainer: HTMLElement;
+  public answerFormElement: HTMLElement = null;
+  public modal: HTMLElement = null;
+  public extend: HTMLElement = null;
+  public cancel: HTMLElement = null;
+  public ANSWER_FORM: string = 'answer-form';
+  public EXTEND_BUTTON: string = 'stay';
+  public CANCEL_BUTTON: string = 'leave';
+  public MODAL: string = 'file-dialog';
+  public keyStrokeEventListener: any;
 
   constructor() {
     this.init();
@@ -19,6 +28,12 @@ export class EvidenceUpload {
       this.setFileUploadState();
       this.attachEventListeners();
     }
+    this.answerFormElement = document.getElementById(this.ANSWER_FORM);
+    this.keyStrokeEventListener = this.stayOnPage.bind(this);
+
+    this.modal = document.getElementById(this.MODAL);
+    this.extend = document.getElementById(this.EXTEND_BUTTON);
+    this.cancel = document.getElementById(this.CANCEL_BUTTON);
     this.additionalEvidenceAttachEventListeners();
   }
 
@@ -51,6 +66,30 @@ export class EvidenceUpload {
     document.forms['js-upload-form'].submit();
   }
 
+  stayOnPage(): void {
+    if (this.modal) {
+      this.modal.classList.remove('modal--open');
+    }
+    this.removeKeyStrokeListener();
+    this.removeModalButtonListeners();
+  }
+
+  stopSignOut(event: any): void {
+    if (document.getElementById('selected-evidence-file').textContent) {
+      event.stopPropagation();
+      event.preventDefault();
+      if (this.modal) {
+        this.modal.classList.add('modal--open');
+      }
+      this.bindModalButtonListeners();
+      this.bindKeyStrokeListener();
+    }
+  }
+
+  signOut() {
+    window.location.assign('/sign-out');
+  }
+
   attachEventListeners(): void {
     const provideEvidence: HTMLElement = document.getElementById(this.CHECKBOX_ID);
     provideEvidence.addEventListener('click', this.showHideRevealContainer.bind(this));
@@ -59,6 +98,16 @@ export class EvidenceUpload {
   }
 
   additionalEvidenceAttachEventListeners(): void {
+    const signOut = document.querySelector('#sign-out');
+    if (signOut) {
+      signOut.addEventListener('click', this.stopSignOut.bind(this));
+    }
+
+    const headerSignOut = document.querySelector('#header-sign-out');
+    if (headerSignOut) {
+      headerSignOut.addEventListener('click', this.stopSignOut.bind(this));
+    }
+
     const additionalEvidence = document.querySelector('#additional-evidence-file');
     if (additionalEvidence) {
       additionalEvidence.addEventListener('change', (input: any) => {
@@ -107,5 +156,23 @@ export class EvidenceUpload {
     const jsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.JS_ELEMENT_SELECTOR);
     Array.from(noJsElements).forEach(e => e.style.display = 'none');
     Array.from(jsElements).forEach(e => e.style.display = 'block');
+  }
+
+  bindModalButtonListeners() {
+    if (this.modal && this.extend) this.extend.addEventListener('click', this.keyStrokeEventListener);
+    if (this.modal && this.cancel) this.cancel.addEventListener('click', this.signOut);
+  }
+
+  removeModalButtonListeners() {
+    if (this.modal && this.extend) this.extend.removeEventListener('click', this.keyStrokeEventListener);
+    if (this.modal && this.cancel) this.cancel.removeEventListener('click', this.stayOnPage);
+  }
+
+  bindKeyStrokeListener(): void {
+    if (this.modal && this.answerFormElement) this.answerFormElement.addEventListener('keydown', this.keyStrokeEventListener);
+  }
+
+  removeKeyStrokeListener(): void {
+    if (this.modal && this.answerFormElement) this.answerFormElement.removeEventListener('keydown', this.keyStrokeEventListener);
   }
 }
