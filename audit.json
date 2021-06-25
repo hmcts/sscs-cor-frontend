@@ -612,6 +612,13 @@
 	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QSVfgqrux_10215210506134511.js_GET" : "ignore",
 	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10215210506134511.js_GET" : "ignore",
 	"10098_Cross-Domain Misconfiguration_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10215210506134511.js_GET" : "ignore",
+	"10027_Information Disclosure - Suspicious Comments_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
+	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(2)%20of%20ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
+	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
+	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/_GET" : "ignore",
@@ -633,7 +640,9 @@
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=cy_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
-	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore"
+	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
+	"10109_Modern Web Application_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore"
 
 
 }

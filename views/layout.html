@@ -61,6 +61,7 @@
 {% block content %}
     {% block corContent %}{% endblock %}
     {% if showSignOut %}
+        {% include "file-selected-modal.html" %}
         {% include "session-inactivity-modal.html" %}
     {% endif %}
     {% if allowContactUs %}
