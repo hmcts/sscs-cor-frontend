@@ -152,6 +152,20 @@ describe('evidence-upload', () => {
     });
   });
 
+  describe('upload media file', () => {
+    before(() => {
+      document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`).addEventListener = sinon.spy();
+    });
+    describe('initialize class', () => {
+      it('should attach Event Listeners', () => {
+        const target = document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`);
+        expect(target.addEventListener).to.have.not.been.called;
+        evidenceUpload.init();
+        expect(target.addEventListener).to.have.been.called;
+      });
+    });
+  });
+
   describe('#uploadFile', () => {
     let submitStub: sinon.SinonStub;
     beforeEach(() => {

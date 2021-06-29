@@ -76,7 +76,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   it('should inform postcode, submit and land in status page', async() => {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
-
+    await page.reload();
     statusPage.verifyPage();
   });
 

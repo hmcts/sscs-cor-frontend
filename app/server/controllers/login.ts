@@ -153,7 +153,7 @@ function getIdamCallback(
         req.session['subscriptions'] = subscriptions;
         req.session['hideHearing'] = appeal.hideHearing == null ? false : appeal.hideHearing;
 
-        logger.info(`Logging in ${email}`);
+        logger.info(`Logging in ${email} for benefit type ${appeal.benefitType}`);
         AppInsights.trackTrace(`[${req.session['hearing'] && req.session['hearing'].case_id}] - User logged in successfully as ${email}`);
 
         if (req.session['appeal'].hearingType === 'cor') {
