@@ -1,19 +1,31 @@
 const gulp = require('gulp');
 
-function copyCookieBanner() {
-  gulp.task('test', async() => {
-    await gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.js'])
-      .pipe(gulp.dest('./app/client/js/'));
+const appDirectory = './app/main/common/components/imported';
+const assetsDirectory = './app/main/public';
+const stylesheetsDirectory = `${assetsDirectory}/stylesheets`;
 
-    await gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.njk'])
-      .pipe(gulp.dest('./views/cookie-manager/'));
+function copyCookieBanner(done) {
+  gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.js'])
+    .pipe(gulp.dest(`${assetsDirectory}/js/`));
 
-    await gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/button/**/*.*'])
-      .pipe(gulp.dest('./views/button/'));
+  gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.njk'])
+    .pipe(gulp.dest(`${appDirectory}/cookie-manager/`));
 
-    await gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/cookie-banner/**/*.*'])
-      .pipe(gulp.dest('./views/cookie-banner/'));
-  });
+  gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/button/**/*.*'])
+    .pipe(gulp.dest(`${appDirectory}/button/`));
+
+  gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/styles/**/*.css'])
+    .pipe(gulp.dest(`${stylesheetsDirectory}/`));
+
+  gulp.src(['./node_modules/cmc-cookies-manager/shared-component/components/cookie-banner/**/*.*'])
+    .pipe(gulp.dest(`${appDirectory}/cookie-banner/`));
+
+  gulp.src([
+    './node_modules/jquery/dist/jquery.min.js',
+    './node_modules/govuk_template_jinja/assets/javascripts/**/*.js'
+  ])
+    .pipe(gulp.dest(`${assetsDirectory}/js/lib/`));
+  done();
 }
 
-exports.test = copyCookieBanner;
+exports.default = copyCookieBanner;

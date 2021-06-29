@@ -13,7 +13,7 @@ const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
 const config = require('config');
-const i18next = require('i18next');
+import i18next, { InitOptions } from 'i18next';
 
 function configureHelmet(app) {
   // by setting HTTP headers appropriately.
@@ -32,7 +32,6 @@ function configureHelmet(app) {
         '\'unsafe-inline\'',
         'www.google-analytics.com',
         'www.googletagmanager.com',
-        'tagmanager.google.com',
         'vcc-eu4.8x8.com'
       ],
       styleSrc: [
@@ -40,25 +39,6 @@ function configureHelmet(app) {
         '\'unsafe-inline\'',
         'tagmanager.google.com',
         'fonts.googleapis.com/'
-      ],
-      connectSrc: ['\'self\'', 'www.gov.uk', '//localhost:9856/', 'www.google-analytics.com', 'www.googletagmanager.com'],
-      mediaSrc: ['\'self\''],
-      frameSrc: [
-        '\'self\'',
-        'www.googletagmanager.com',
-        'vcc-eu4.8x8.com'
-      ],
-      frameAncestors: [
-        '\'self\'',
-        'www.googletagmanager.com'
-      ],
-      imgSrc: [
-        '\'self\'',
-        '\'self\' data:',
-        'www.google-analytics.com',
-        'www.googletagmanager.com',
-        'tagmanager.google.com',
-        'vcc-eu4.8x8.com'
       ]
     }
   }));
@@ -76,17 +56,10 @@ function configureHeaders(app) {
 function configureNunjucks(app: express.Application) {
   const nunEnv = nunjucks.configure([
     'views',
+    'app/main',
     'views/notifications',
     'node_modules/govuk-frontend/govuk/',
     'node_modules/govuk-frontend/govuk/components/govuk/'
-    // path.resolve('node_modules/cmc-cookies-manager/shared-component/'),
-    // path.resolve('node_modules/cmc-cookies-manager/shared-component/components/'),
-    // path.resolve('node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/'),
-    // path.resolve('node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/'),
-    // path.resolve('node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/'),
-    // path.resolve(`node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.js`),
-    // path.resolve(`node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.njk`),
-    // path.resolve(`node_modules/cmc-cookies-manager/shared-component/components/button/**/*.*`)
   ], {
     autoescape: true,
     express: app,
@@ -95,12 +68,12 @@ function configureNunjucks(app: express.Application) {
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
   nunEnv.addGlobal('serviceName', `Manage your appeal`);
+  nunEnv.addGlobal('t', (key: string, options?: InitOptions): string => this.i18next.t(key, options));
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
     next();
   });
-
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
     const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
