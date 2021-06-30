@@ -20,6 +20,7 @@ import { setupAssignCaseController } from './controllers/assign-case';
 import { setupHearingController } from './controllers/hearing';
 import { setupOutcomeController } from './controllers/outcome';
 import { setupAvEvidenceController } from './controllers/av-evidence';
+import { setupRequestTypeController } from './controllers/request-type';
 
 const router = express.Router();
 
@@ -28,6 +29,7 @@ import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
+import { RequestTypeService } from './services/request-type';
 
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
@@ -49,6 +51,7 @@ const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret)
 const hearingService: HearingService = new HearingService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
+const requestTypeService: RequestTypeService = new RequestTypeService(tribunalsApiUrl);
 
 const prereqMiddleware = [ensureAuthenticated];
 
@@ -71,6 +74,7 @@ const assignCaseController = setupAssignCaseController({ hearingService, trackYo
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
 const outcomeController = setupOutcomeController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
 const avEvidenceController = setupAvEvidenceController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
+const requestTypeController = setupRequestTypeController({ prereqMiddleware: ensureAuthenticated, requestTypeService: requestTypeService });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
@@ -99,6 +103,7 @@ router.use(assignCaseController);
 router.use(hearingTabController);
 router.use(outcomeController);
 router.use(avEvidenceController);
+router.use(requestTypeController);
 router.get('/', redirectToLogin);
 
 router.get('/robots.txt', (req, res) => {

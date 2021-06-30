@@ -74,6 +74,11 @@ function setTabNavigationItems(appeal, hearingOutcomeTab, avEvidenceTab) {
       'id': 'avEvidence',
       'title': content[i18next.language].avEvidenceTab.tabHeader,
       'url': '/av-evidence-list'
+    },
+    {
+      'id': 'requestType',
+      'title': content[i18next.language].requestTypeTab.tabHeader,
+      'url': '/request-type'
     }
   ];
   let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== content[i18next.language].hearingTab.tabHeader) : tabs;

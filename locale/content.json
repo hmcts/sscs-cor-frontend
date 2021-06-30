@@ -31,6 +31,7 @@
       "breflyDescribeWhatAndWhy": "Briefly describe what you’re uploading and why",
       "hearingOutcome": "Hearing Outcome",
       "avEvidence": "Audio/Video Evidence",
+      "submitRequestToTribunal": "Submit",
       "type": {
         "Appellant": "Appellant",
         "Appointee": "Appointee",
@@ -553,6 +554,21 @@
     "avEvidenceTab": {
       "tabHeader": "Audio/Video Evidence",
       "noEvidence": "There is no approved audio/video evidence on your case"
+    },
+    "requestTypeTab": {
+      "tabHeader": "Requests",
+      "selectRequestHeader": "Select Request",
+      "selectRequestOption": "--Select Request--",
+      "hearingRecordingOption": "Hearing Recording"
+    },
+    "hearingRecording": {
+      "hearingRecordings": "Hearing Recordings",
+      "noRecordings": "There are no hearing recordings linked to your case",
+      "noHearingIdSelected": "Please select hearing recording to request",
+      "releasedHearingRecordings": "Released Hearing Recordings",
+      "outstandingHearingRecordings": "Outstanding Hearing Recording Requests",
+      "hearingRecordingRequests": "Request for Hearing Recording",
+      "requestConfirmed": "Hearing recording request submitted"
     },
     "appealEvents": {
       "ADJOURNED": {
@@ -1577,6 +1593,9 @@
     "avEvidenceTab": {
       "tabHeader": "Tystiolaeth Sain/Fideo",
       "noEvidence": "Nid oes tystiolaeth sain/fideo gymeradwy yn gysylltiedig â’ch achos"
+    },
+    "requestTypeTab": {
+      "tabHeader": "Cais"
     },
     "appealEvents": {
       "ADJOURNED": {
