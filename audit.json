@@ -642,7 +642,13 @@
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing?lng=en_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=cy_GET" : "ignore",
 	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
-	"10109_Modern Web Application_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore"
-
+	"10109_Modern Web Application_https://idam-web-public.aat.platform.hmcts.net/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code_GET" : "ignore",
+	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-representatives?lng=en_GET" : "ignore",
+	"10015_Incomplete or No Cache-control Header Set_https://sscs-cor.aat.platform.hmcts.net/health/readiness?lng=cy_GET" : "ignore",
+	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=cy_GET" : "ignore",
+	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore",
+	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/status_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10217210531114014.js_GET" : "ignore"
 
 }
