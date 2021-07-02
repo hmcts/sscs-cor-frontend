@@ -36,11 +36,13 @@
             <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para3  | eval | safe }}.</p>
           {% endif %}
 
+          <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para4  | eval | safe }}.</p>
 
-          {% if hasAudioVideoFile %}
+        <div id="av-content-warning" style="display: none">
             <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.contentWarningPara1 | eval | safe }}</p>
-          {% endif %}
+        </div>
 
+<!--        https://design-system.service.gov.uk/components/file-upload/-->
         {{ govukFileUpload({
             id: "additional-evidence-file",
             name: "additional-evidence-file",
@@ -54,13 +56,14 @@
                 accept: fileTypeWhiteList
             },
             "errorMessage": {
-                "text": error
-            } if error
+                "text": fileUploadError
+            } if fileUploadError
         }) }}
 
-        {{ spinner(content[i18n.language].additionalEvidence.evidenceUpload.fileUploading) }}
+        <p class="govuk-table__header" >{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.uploadedFiles | safe }}</p>
+        <p id="selected-evidence-file"></p>
+        <p id="no-evidence-file">{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.noFilesUploaded | safe }}</p>
 
-        {{ evidenceList(evidences) }}
         <div id="submit-buttons">
             <input id="submit-evidences" type="submit" name="buttonSubmit" value="{{ content[i18n.language].common.submitEvidenceToTribunal | safe }}" class="govuk-button">
         </div>
