@@ -74,7 +74,7 @@ const assignCaseController = setupAssignCaseController({ hearingService, trackYo
 const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
 const outcomeController = setupOutcomeController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
 const avEvidenceController = setupAvEvidenceController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
-const requestTypeController = setupRequestTypeController({ prereqMiddleware: ensureAuthenticated, requestTypeService: requestTypeService });
+const requestTypeController = setupRequestTypeController({ prereqMiddleware: ensureAuthenticated, requestTypeService: requestTypeService, trackYourApealService: trackYourAppealService });
 
 router.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');

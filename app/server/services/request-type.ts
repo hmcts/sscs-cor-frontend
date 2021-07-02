@@ -2,21 +2,23 @@ import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 
 export interface HearingRecordingResponse {
-  releasedHearingRecordings: HearingRecordingRequest[];
-  outstandingHearingRecordings: HearingRecordingRequest[];
-  requestableHearingRecordings: HearingRecordingRequest[];
+  releasedHearingRecordings: CitizenHearingRecording[];
+  outstandingHearingRecordings: CitizenHearingRecording[];
+  requestableHearingRecordings: CitizenHearingRecording[];
 }
 
-export interface HearingRecordingRequest {
+export interface CitizenHearingRecording {
   hearingId: string;
   venue: string;
   hearingDate: string;
-  hearingTime: string;
   hearingRecordings: HearingRecording[];
 }
 
 export interface HearingRecording {
   fileName: string;
+  fileType: string;
+  documentUrl: string;
+  documentBinaryUrl: string;
 }
 
 export class RequestTypeService {
