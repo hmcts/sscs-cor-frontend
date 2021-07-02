@@ -75,8 +75,13 @@ function configureNunjucks(app: express.Application) {
   const nunEnv = nunjucks.configure([
     'views',
     'views/notifications',
-    'node_modules/govuk-frontend/',
-    'node_modules/govuk-frontend/components/'
+    'node_modules/govuk-frontend/govuk/',
+    'node_modules/govuk-frontend/components/govuk/',
+    'node_modules/cmc-cookies-manager/shared-component/',
+    'node_modules/cmc-cookies-manager/shared-component/components/cookie-manager/**/*.js',
+    'node_modules/cmc-cookies-manager/shared-component/components/button/**/*.*',
+    'node_modules/cmc-cookies-manager/shared-component/components/styles/**/*.css',
+    'node_modules/cmc-cookies-manager/shared-component/components/cookie-banner/**/*.*'
   ], {
     autoescape: true,
     express: app,
@@ -84,6 +89,7 @@ function configureNunjucks(app: express.Application) {
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
+  nunEnv.addGlobal('serviceName', `SSCS`);
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
