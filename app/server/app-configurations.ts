@@ -1,3 +1,4 @@
+import * as path from 'path';
 
 const helmet = require('helmet');
 
@@ -18,7 +19,7 @@ import i18next, { InitOptions } from 'i18next';
 function configureHelmet(app) {
   // by setting HTTP headers appropriately.
   app.use(helmet());
-
+  app.use(i18next);
   // Helmet referrer policy
   app.use(helmet.referrerPolicy({ policy: 'origin' }));
 
@@ -57,6 +58,7 @@ function configureNunjucks(app: express.Application) {
   const nunEnv = nunjucks.configure([
     'views',
     'app/main',
+    'app/main/common/components/imported/cookie-manager/',
     'views/notifications',
     'node_modules/govuk-frontend/govuk/',
     'node_modules/govuk-frontend/govuk/components/govuk/'
@@ -65,10 +67,16 @@ function configureNunjucks(app: express.Application) {
     express: app,
     noCache:  true
   });
+  nunEnv.addGlobal('t', function (key: string, options?: InitOptions) {
+    this.i18next.t(key, options);
+  });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
   nunEnv.addGlobal('serviceName', `Manage your appeal`);
-  nunEnv.addGlobal('t', (key: string, options?: InitOptions): string => this.i18next.t(key, options));
+
+  nunEnv.addFilter('t', function (key: string, options?: InitOptions) {
+    this.i18next.t(key, options);
+  });
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
