@@ -18,7 +18,7 @@ function getTaskList() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       let deadlineDetails = null;
-      let hearingType = req.session['appeal'].hearingType;
+      let hearingType = req.session['appeal']!.hearingType;
 
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
