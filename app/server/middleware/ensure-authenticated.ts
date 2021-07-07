@@ -36,12 +36,13 @@ function setLocals(req, res, next) {
   if (req.session.appeal) {
     const hearingOutcomeTab = isFeatureEnabled(Feature.HEARING_OUTCOME_TAB, req.cookies);
     const avEvidenceTab = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
-    res.locals.tabs = setTabNavigationItems(req.session.appeal, hearingOutcomeTab, avEvidenceTab);
+    const requestTab = isFeatureEnabled(Feature.REQUEST_TAB_ENABLED, req.cookies);
+    res.locals.tabs = setTabNavigationItems(req.session.appeal, hearingOutcomeTab, avEvidenceTab, requestTab);
   }
   next();
 }
 
-function setTabNavigationItems(appeal, hearingOutcomeTab, avEvidenceTab) {
+function setTabNavigationItems(appeal, hearingOutcomeTab, avEvidenceTab, requestTab) {
   const { hearingType } = appeal;
   const { createdInGapsFrom } = appeal;
   const tabs = [
@@ -87,6 +88,7 @@ function setTabNavigationItems(appeal, hearingOutcomeTab, avEvidenceTab) {
   tabsToShow = tabsToShow.filter(tab => tab.id !== 'history');
   tabsToShow = (!appeal.hearingOutcome || !hearingOutcomeTab) ? tabsToShow.filter(tab => tab.id !== 'outcome') : tabsToShow;
   tabsToShow = (!avEvidenceTab) ? tabsToShow.filter(tab => tab.id !== 'avEvidence') : tabsToShow;
+  tabsToShow = (!requestTab) ? tabsToShow.filter(tab => tab.id !== 'requestType') : tabsToShow;
   return tabsToShow;
 }
 

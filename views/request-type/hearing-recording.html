@@ -1,7 +1,7 @@
-<h2 class="govuk-heading-m --margin-bottom-s">{{ requestTypeLabel }}</h2>
-<br/>
-
 {% if hearingRecordingsResponse %}
+    <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].hearingRecording.hearingRecordings }}</h2>
+    <br/>
+
     <div id="released-hearing-recording">
         <h3 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].hearingRecording.releasedHearingRecordings | safe }}</h3>
         <br/>
@@ -43,39 +43,42 @@
         {% endif %}
     </div>
 
-<form class="--padding-top-m" id="hearing-recording-request-submit-form" name="hearing-recording-request-submit-form" action="/request-type/hearing-recording-request?_csrf={{csrfToken}}" method="POST">
-    <h3 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].hearingRecording.hearingRecordingRequests | safe }}</h3>
+    <form class="--padding-top-m" id="hearing-recording-request-submit-form" name="hearing-recording-request-submit-form" action="/request-type/hearing-recording-request?_csrf={{csrfToken}}" method="POST">
+        <h3 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].hearingRecording.hearingRecordingRequests | safe }}</h3>
+        <br/>
+        {% if hearingRecordingsResponse.requestableHearingRecordings | length %}
+        <div id="requestable-hearing-recording" class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <table class="govuk-table" id="requestable-{{ requestable.hearingId }}">
+                {% if emptyHearingIdError %}
+                    <span id="nationality-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>{{ content[i18n.language].hearingRecording.noHearingIdSelected}}
+                    </span>
+                {% endif %}
+            {% for requestable in hearingRecordingsResponse.requestableHearingRecordings %}
+                <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="{{requestable.hearingId}}" name="hearingId[]" type="checkbox" value="{{requestable.hearingId}}"/>
+                            <label class="govuk-label govuk-checkboxes__label" for="{{requestable.hearingId}}">
+                                {{ requestable.venue}} {{requestable.hearingDate}}
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+        <div id="submit-buttons">
+            <input id="submit-hearing-recording-request" type="submit" name="buttonSubmit" value="{{ content[i18n.language].common.submitRequestToTribunal | safe }}" class="govuk-button">
+        </div>
+        {% else %}
+            {{ content[i18n.language].hearingRecording.noRequestableRecordings | safe }}
+        {% endif %}
+    </form>
+{% else %}
+    <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].hearingRecording.noRecordings }}</h2>
     <br/>
-    {% if hearingRecordingsResponse.requestableHearingRecordings | length %}
-    <div id="requestable-hearing-recording" class="govuk-checkboxes" data-module="govuk-checkboxes">
-        <table class="govuk-table" id="requestable-{{ requestable.hearingId }}">
-            {% if emptyHearingIdError %}
-                <span id="nationality-error" class="govuk-error-message">
-                    <span class="govuk-visually-hidden">Error:</span>{{ content[i18n.language].hearingRecording.noHearingIdSelected}}
-                </span>
-            {% endif %}
-        {% for requestable in hearingRecordingsResponse.requestableHearingRecordings %}
-            <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="{{requestable.hearingId}}" name="hearingId[]" type="checkbox" value="{{requestable.hearingId}}"/>
-                        <label class="govuk-label govuk-checkboxes__label" for="{{requestable.hearingId}}">
-                            {{ requestable.venue}} {{requestable.hearingDate}}
-                        </label>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        {% endfor %}
-        </table>
-    </div>
-    <div id="submit-buttons">
-        <input id="submit-hearing-recording-request" type="submit" name="buttonSubmit" value="{{ content[i18n.language].common.submitRequestToTribunal | safe }}" class="govuk-button">
-    </div>
-    {% else %}
-        {{ content[i18n.language].hearingRecording.noRequestableRecordings | safe }}
-    {% endif %}
-</form>
 {% endif %}
 

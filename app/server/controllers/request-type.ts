@@ -4,10 +4,7 @@ import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { HearingRecordingResponse, RequestTypeService } from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
-const i18next = require('i18next');
-
 const logger = Logger.getLogger('request-type.ts');
-const content = require('../../../locale/content');
 
 const contentType = new Map([
   ['mp3', 'audio/mp3'],
@@ -29,22 +26,18 @@ function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
 
       if (emptyHearingIdError) {
         const hearingRecordingsResponse = req.session['hearingRecordingsResponse'];
-        const label = req.session['label'];
         return res.render('request-type/index.html',
           {
             action: 'hearingRecording',
             hearingRecordingsResponse: hearingRecordingsResponse,
-            requestTypeLabel: label,
             pageTitleError: true,
             emptyHearingIdError: emptyHearingIdError
           }
         );
       }
 
-      req.session['hearingRecordingsResponse'] = '';
-      req.session['label'] = '';
-
       await requestTypeService.submitHearingRecordingRequest(caseId, hearingIds, req);
+      req.session['hearingRecordingsResponse'] = '';
       return res.render('request-type/index.html', {
         action: 'confirm'
       });
@@ -63,20 +56,13 @@ function selectRequestType(requestTypeService: RequestTypeService) {
 
       if ('hearingRecording' === option) {
         const hearingRecordingsResponse: HearingRecordingResponse = await requestTypeService.getHearingRecording(caseId, req);
-        let label: string;
         if (hearingRecordingsResponse) {
-          label = content[i18next.language].hearingRecording.hearingRecordings;
-        } else {
-          label = content[i18next.language].hearingRecording.noRecordings;
+          req.session['hearingRecordingsResponse'] = hearingRecordingsResponse;
         }
-
-        req.session['hearingRecordingsResponse'] = hearingRecordingsResponse;
-        req.session['label'] = label;
 
         return res.render('request-type/index.html', {
           action: 'hearingRecording',
-          hearingRecordingsResponse: hearingRecordingsResponse,
-          requestTypeLabel: label
+          hearingRecordingsResponse: hearingRecordingsResponse
         });
       }
     } catch (error) {
@@ -112,7 +98,9 @@ function setupRequestTypeController(deps: any) {
 }
 
 export {
+  getRequestType,
   setupRequestTypeController,
   selectRequestType,
-  submitHearingRecordingRequest
+  submitHearingRecordingRequest,
+  getHearingRecording
 };

@@ -9,6 +9,7 @@ enum Feature {
   POST_BULK_SCAN = 'postBulkScan',
   HISTORY_TAB = 'historyTab',
   HEARING_OUTCOME_TAB = 'hearingOutcomeTab',
+  REQUEST_TAB_ENABLED = 'requestTabEnabled',
   MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed'
 }
 

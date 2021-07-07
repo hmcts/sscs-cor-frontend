@@ -71,6 +71,7 @@
     "postBulkScan": "false",
     "historyTab": "false",
     "hearingOutcomeTab": "false",
+    "requestTabEnabled": "false",
     "welsh": "true"
   },
   "services": {
