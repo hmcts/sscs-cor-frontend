@@ -6,8 +6,7 @@ const hearingRecording = require('../../mock/tribunals/data/oral/hearing-recordi
 
 import * as Paths from 'app/server/paths';
 import * as requestType from 'app/server/controllers/request-type';
-import {INTERNAL_SERVER_ERROR} from "http-status-codes";
-import * as avEvidence from "../../../app/server/controllers/av-evidence";
+import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 
 describe('controllers/request-type', () => {
   let req: any;
@@ -74,7 +73,7 @@ describe('controllers/request-type', () => {
     let requestTypeService;
     it('should render request type select page with hearing recordings', async() => {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1'};
+      req.session.hearing = { case_id: 'case_id_1' };
       req.body['request-options'] = 'hearingRecording';
 
       requestTypeService = {
@@ -84,14 +83,14 @@ describe('controllers/request-type', () => {
       await requestType.selectRequestType(requestTypeService)(req,res, next);
       expect(requestTypeService.getHearingRecording).to.have.been.calledOnce.calledWith('case_id_1', req);
       expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-          { action: "hearingRecording", hearingRecordingsResponse: hearingRecording }
+          { action: 'hearingRecording', hearingRecordingsResponse: hearingRecording }
           );
       expect(req.session.hearingRecordingsResponse).to.equal(hearingRecording);
     });
 
     it('should render request type select page without hearing recordings', async() => {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1'};
+      req.session.hearing = { case_id: 'case_id_1' };
       req.body['request-options'] = 'hearingRecording';
 
       requestTypeService = {
@@ -101,13 +100,13 @@ describe('controllers/request-type', () => {
       await requestType.selectRequestType(requestTypeService)(req,res, next);
       expect(requestTypeService.getHearingRecording).to.have.been.calledOnce.calledWith('case_id_1', req);
       expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-          { action: "hearingRecording", hearingRecordingsResponse: null }
+          { action: 'hearingRecording', hearingRecordingsResponse: null }
       );
     });
 
     it('should catch error and track Excepction with AppInsights', async () => {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1'};
+      req.session.hearing = { case_id: 'case_id_1' };
       req.body['request-options'] = 'hearingRecording';
 
       requestTypeService = {
@@ -131,17 +130,17 @@ describe('controllers/request-type', () => {
       await requestType.submitHearingRecordingRequest(requestTypeService)(req,res, next);
 
       expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-          { action: "hearingRecording",
-            hearingRecordingsResponse: hearingRecording,
-            pageTitleError: true,
-            emptyHearingIdError: true
-          }
+        { action: 'hearingRecording',
+          hearingRecordingsResponse: hearingRecording,
+          pageTitleError: true,
+          emptyHearingIdError: true
+        }
       );
     });
 
     it('should render confirm hearing request page for hearing ids', async() => {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1'};
+      req.session.hearing = { case_id: 'case_id_1' };
       req.session.hearingRecordingsResponse = hearingRecording;
       req.body['hearingId'] = ['hearing_id_1'];
 
@@ -151,8 +150,8 @@ describe('controllers/request-type', () => {
 
       await requestType.submitHearingRecordingRequest(requestTypeService)(req,res, next);
       expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html', {
-            action: 'confirm'
-          }
+        action: 'confirm'
+      }
       );
       expect(requestTypeService.submitHearingRecordingRequest).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
       expect(req.session.hearingRecordingsResponse).to.equal('');
@@ -160,7 +159,7 @@ describe('controllers/request-type', () => {
 
     it('should catch error and track Excepction with AppInsights', async () => {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1'};
+      req.session.hearing = { case_id: 'case_id_1' };
       req.session.hearingRecordingsResponse = hearingRecording;
       req.body['hearingId'] = ['hearing_id_1'];
 
@@ -177,26 +176,26 @@ describe('controllers/request-type', () => {
   });
 
   describe('getHearingRecording', () => {
-      const mp3 = '29312380';
-      let trackYourAppealService;
-      const url = 'http://test';
-      const type = 'mp3';
+    const mp3 = '29312380';
+    let trackYourAppealService;
+    const url = 'http://test';
+    const type = 'mp3';
 
-      beforeEach(() => {
-        req = {
-          query: {
-            url: url,
-            fileType: type
-          }
-        } as any;
+    beforeEach(() => {
+      req = {
+        query: {
+          url: url,
+          fileType: type
+        }
+      } as any;
 
-        res = {
-          header: sandbox.stub(),
-          send: sandbox.stub()
-        };
+      res = {
+        header: sandbox.stub(),
+        send: sandbox.stub()
+      };
 
-        trackYourAppealService = {};
-      });
+      trackYourAppealService = {};
+    });
 
     it('should return hearing recording for the document url', async () => {
       trackYourAppealService.getMediaFile = () => Promise.resolve(mp3);
