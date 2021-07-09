@@ -39,22 +39,25 @@ describe('request-type', () => {
       });
     });
   });
-  //
-  // describe('select request type', () => {
-  //   let submitStub: sinon.SinonStub;
-  //   before(() => {
-  //     submitStub = sinon.stub(HTMLFormElement.prototype, 'submit');
-  //   });
-  //   afterEach(() => {
-  //     submitStub.restore();
-  //   });
-  //   describe('select request type', () => {
-  //     it('should submit form', () => {
-  //       const select = document.querySelector<HTMLSelectElement>('#request-options');
-  //       requestType.init();
-  //       select.value = 'hearingRecording';
-  //       expect(submitStub).to.have.been.calledOnce;
-  //     });
-  //   });
-  // });
+
+  describe('select request type', () => {
+    let submitSpy;
+    before(() => {
+      const form = document.querySelector<HTMLFormElement>('#request-option-form');
+      submitSpy = sinon.spy(form, 'submit');
+      requestType.init();
+    });
+    afterEach(() => {
+      submitSpy.restore();
+    });
+    describe('select request type', () => {
+      it('should submit form', () => {
+        const select = document.querySelector<HTMLSelectElement>('#request-options');
+        expect(select.addEventListener).to.have.been.called;
+        select.value = 'hearingRecording';
+        select.dispatchEvent(new Event('change'));
+        expect(submitSpy).to.have.been.calledOnce;
+      });
+    });
+  });
 });
