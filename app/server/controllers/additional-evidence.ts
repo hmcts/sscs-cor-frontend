@@ -93,7 +93,7 @@ function getAdditionalEvidence() {
   return async(req: Request, res: Response, next: NextFunction) => {
     try {
       const action: string = (!allowedActions.includes(req.params.action) || !req.params.action) ? 'options' : req.params.action;
-      const benefitType = req.session['appeal'].benefitType;
+      const benefitType = req!.session['appeal']!.benefitType;
       return res.render('additional-evidence/index.html', {
         action,
         postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),

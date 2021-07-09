@@ -14,7 +14,7 @@ function getYourDetails(req: Request, res: Response) {
   }
 
   return res.render('your-details.html', { details: session['hearing'], subscriptions: session['subscriptions'],
-    contact: session['appeal'].contact });
+    contact: session['appeal']!.contact });
 }
 
 function setupYourDetailsController(deps: any) {

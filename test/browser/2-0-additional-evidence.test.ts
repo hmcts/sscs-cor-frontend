@@ -187,6 +187,25 @@ describe('Additional Evidence @mya @nightly', () => {
     taskListPage.verifyPage();
   });
 
+  it('uploads an audio file and shows file list and check evidence confirmation page', async () => {
+    await additionalEvidencePage.visitPage();
+    await additionalEvidencePage.selectUploadOption();
+    await additionalEvidencePage.submit();
+
+    additionalEvidenceUploadPage.verifyPage();
+    await page.waitFor(4000);
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+
+    await additionalEvidenceUploadPage.selectFile('test_audio.mp3');
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+
+    await additionalEvidenceUploadPage.addDescription('The evidence description for AV file');
+    await additionalEvidenceUploadPage.submit();
+    await page.waitFor(4000);
+
+    additionalEvidenceConfirmationPage.verifyPage();
+  });
+
   it('shows additional evidence post page', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectPostOption();
