@@ -19,3 +19,4 @@ test/*.js
 test/chai-sinon.js
 .terraform/
 ./yarn-audit-issues
+cookie-banner/

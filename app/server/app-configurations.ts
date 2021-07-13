@@ -57,7 +57,7 @@ function configureNunjucks(app: express.Application) {
   const nunEnv = nunjucks.configure([
     'views',
     'app/main',
-    'app/main/common/components/imported/cookie-manager/',
+    'cookie-banner/',
     'views/notifications',
     'node_modules/govuk-frontend/govuk/',
     'node_modules/govuk-frontend/govuk/components/'

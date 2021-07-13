@@ -12,15 +12,18 @@
 {% endblock %}
 
 {% block head %}
-    <div>
-        <link href="public/css/govuk-frontend-3.11.0.min.css" media="screen" rel="stylesheet" type="text/css"/>
-        {% include "../app/main/common/components/imported/cookie-manager/cookie-banner.njk" %}
-    </div>
     {% include "includes/head.html" %}
 {% endblock %}
 
 {% block header %}
-    {% include "includes/cookie-banner.html" %}
+    {% if cookieBannerEnabled %}
+        <div>
+            <link href="public/css/govuk-frontend-3.11.0.min.css" media="screen" rel="stylesheet" type="text/css"/>
+            {% include "../cookie-banner/common/components/imported/cookie-manager/cookie-banner.njk" %}
+        </div>
+    {% else %}
+        {% include "includes/cookie-banner.html" %}
+    {% endif %}
     {% include "includes/header.html" %}
 {% endblock %}
 
