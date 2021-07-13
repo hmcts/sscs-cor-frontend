@@ -43,7 +43,10 @@
       "webChatEnabled": "CONTACT_US_WEBCHAT_ENABLED"
     },
     "postBulkScan": "POST_BULK_SCAN",
-    "hearingOutcomeTab": "HEARING_OUTCOME_TAB_ENABLED"
+    "hearingOutcomeTab": "HEARING_OUTCOME_TAB_ENABLED",
+    "cookieBanner": {
+      "enabled": "ALLOW_COOKIE_BANNER_ENABLED"
+    }
   },
   "s2s": {
     "secret": "S2S_SECRET",

@@ -1,9 +1,14 @@
+const config = require('../../../config/default.json');
+
 export class CheckCookies {
   public COOKIE_BANNER: string = 'app-cookie-banner';
   public cookieBannerElement: HTMLElement;
   init(): void {
-    this.cookieBannerElement = document.getElementById(this.COOKIE_BANNER);
-    this.isCookiePrivacyMessageDisplayed();
+    const isCookieBanner = config.featureFlags.cookieBanner.enabled;
+    if (isCookieBanner === 'false') {
+      this.cookieBannerElement = document.getElementById('app-cookie-banner');
+      this.isCookiePrivacyMessageDisplayed();
+    }
   }
 
   isCookiePrivacyMessageDisplayed(): void {
