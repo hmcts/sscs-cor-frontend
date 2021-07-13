@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 import * as cookieParser from 'cookie-parser';
 const { fileTypes, fileTypesWithAudioVideo } = require('./utils/mimeTypeWhitelist');
 const i18next = require('i18next');
+const i18nextMiddleware = require('i18next-express-middleware');
 
 import * as screenReaderUtils from './utils/screenReaderUtils';
 import { configureHelmet, configureHeaders, configureNunjucks } from './app-configurations';
@@ -95,6 +96,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(routes);
   app.use(errors.pageNotFoundHandler);
   app.use(errors.coreErrorHandler);
+  app.use(i18nextMiddleware.handle(i18next));
   return app;
 }
 

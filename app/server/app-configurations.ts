@@ -19,7 +19,6 @@ import i18next, { InitOptions } from 'i18next';
 function configureHelmet(app) {
   // by setting HTTP headers appropriately.
   app.use(helmet());
-  app.use(i18next);
   // Helmet referrer policy
   app.use(helmet.referrerPolicy({ policy: 'origin' }));
 
@@ -61,7 +60,7 @@ function configureNunjucks(app: express.Application) {
     'app/main/common/components/imported/cookie-manager/',
     'views/notifications',
     'node_modules/govuk-frontend/govuk/',
-    'node_modules/govuk-frontend/govuk/components/govuk/'
+    'node_modules/govuk-frontend/govuk/components/'
   ], {
     autoescape: true,
     express: app,
