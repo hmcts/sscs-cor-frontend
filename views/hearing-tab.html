@@ -33,19 +33,27 @@
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">{{ content[i18n.language].common.date | safe }}</dt>
                                 <dd class="govuk-summary-list__value">
-                                    {{ hearingInfo.hearingDateTime | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") if hearingInfo else content[i18n.language].hearingTab.toBeConfirmed }}
+                                    {% if hearingInfo.hearingDateTime %}
+                                        {{ hearingInfo.hearingDateTime | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") if hearingInfo else content[i18n.language].hearingTab.toBeConfirmed }}
+                                    {% else %}
+                                        {{ content[i18n.language].hearingTab.toBeConfirmed | safe }}
+                                    {% endif %}
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">{{ content[i18n.language].common.time | safe }}</dt>
                                 <dd class="govuk-summary-list__value">
-                                    {{ hearingInfo.hearingDateTime | dateFilter("HH:mm") if hearingInfo else content[i18n.language].hearingTab.toBeConfirmed }}
+                                    {% if hearingInfo.hearingDateTime %}
+                                        {{ hearingInfo.hearingDateTime | dateFilter("HH:mm") if hearingInfo else content[i18n.language].hearingTab.toBeConfirmed }}
+                                    {% else %}
+                                        {{ content[i18n.language].hearingTab.toBeConfirmed | safe }}
+                                    {% endif %}
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">{{ content[i18n.language].common.location | safe }}</dt>
                                 <dd class="govuk-summary-list__value">
-                                    {% if hearingInfo %}
+                                    {% if hearingInfo.venueName %}
                                         {{ hearingInfo.venueName | safe }}<br>
                                         {{ hearingInfo.addressLine1 | safe }}<br>
                                         {{ hearingInfo.addressLine2 | safe }}<br>

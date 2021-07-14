@@ -444,7 +444,8 @@
          "jsa": "Return to your JSA Benefit appeal",
          "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal",
          "maternityallowance": "Return to your Maternity Allowance appeal",
-         "socialfund": "Return to your Social Fund appeal"
+         "socialfund": "Return to your Social Fund appeal",
+         "incomesupport": "Return to your Income Support appeal"
         }
       },
       "about": {
@@ -831,6 +832,14 @@
         "acronym": "SOCIAL FUND",
         "yourBenefitAppeal": "Your Social Fund appeal",
         "fullDescription": "Social Fund",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge"
+      },
+      "incomesupport" : {
+        "acronym": "INCOME SUPPORT",
+        "yourBenefitAppeal": "Your Income Support appeal",
+        "fullDescription": "Income Support",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
@@ -1477,7 +1486,8 @@
           "jsa": "Dychwelyd i'ch apêl budd-dal JSA",
           "industrialinjuriesdisablement": "Dychwelyd i'ch apêl Budd-dal Anabledd Anafiadau Diwydiannol",
           "maternityallowance": "Dychwelyd i'ch apêl Budd-dal Lwfans Mamolaeth",
-          "socialfund": "Dychwelyd i'ch apêl Budd-dal Cronfa Gymdeithasol"
+          "socialfund": "Dychwelyd i'ch apêl Budd-dal Cronfa Gymdeithasol",
+          "incomeSupport": "Dychwelyd i'ch apêl Budd-dal Cymhorthdal Incwm"
         }
       },
       "about": {
@@ -1864,6 +1874,14 @@
         "acronym": "CRONFA GYMDEITHASOL",
         "yourBenefitAppeal": "Eich apêl Cronfa Gymdeithasol",
         "fullDescription": "Cronfa Gymdeithasol",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr"
+      },
+      "incomesupport": {
+        "acronym": "CYMHORTHDAL INCWM",
+        "yourBenefitAppeal": "Eich apêl Cymhorthdal Incwm",
+        "fullDescription": "Cymhorthdal Incwm",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
