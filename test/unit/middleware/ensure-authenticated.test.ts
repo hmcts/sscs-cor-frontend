@@ -66,7 +66,8 @@ describe('middleware/ensure-authenticated', () => {
     it('also sets tabs data on the locals', () => {
       req.cookies = {
         hearingOutcomeTab: 'true',
-        mediaFilesAllowed: 'true'
+        mediaFilesAllowed: 'true',
+        requestTabEnabled: 'true'
       };
       req.session['appeal'] = {
         hearingType: 'oral',
@@ -79,12 +80,13 @@ describe('middleware/ensure-authenticated', () => {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status','hearing', 'outcome', 'avEvidence']);
+      expect(members).to.have.members(['status','hearing', 'outcome', 'avEvidence', 'requestType']);
     });
     it('also remove outcome tab if hearingOutcome not present', () => {
       req.cookies = {
         hearingOutcomeTab: 'true',
-        mediaFilesAllowed: 'true'
+        mediaFilesAllowed: 'true',
+        requestTabEnabled: 'false'
       };
       req.session['appeal'] = {
         hearingType: 'oral'
@@ -101,7 +103,8 @@ describe('middleware/ensure-authenticated', () => {
     it('also remove outcome tab if hearingOutcomeTab flag is false', () => {
       req.cookies = {
         hearingOutcomeTab: 'false',
-        mediaFilesAllowed: 'true'
+        mediaFilesAllowed: 'true',
+        requestTabEnabled: 'false'
       };
       req.session['appeal'] = {
         hearingType: 'oral',
@@ -119,10 +122,28 @@ describe('middleware/ensure-authenticated', () => {
     it('remove audio/video tab if mediaFilesAllowed flag is false', () => {
       req.cookies = {
         manageYourAppeal: 'true',
-        mediaFilesAllowed: 'false'
+        mediaFilesAllowed: 'false',
+        requestTabEnabled: 'false'
       };
       req.session['appeal'] = {
         audioVideoEvidence: []
+      };
+
+      setLocals(req, res, next);
+      expect(res.locals).to.have.property('tabs');
+      const members = [];
+      res.locals.tabs.forEach((t) => {
+        members.push(t.id);
+      });
+      expect(members).to.have.members(['status','hearing']);
+    });
+    it('remove request tab if requestTabEnabled flag is false', () => {
+      req.cookies = {
+        requestTabEnabled: 'false'
+      };
+      req.session['appeal'] = {
+        hearingType: 'oral',
+        hearingOutcome: []
       };
 
       setLocals(req, res, next);
