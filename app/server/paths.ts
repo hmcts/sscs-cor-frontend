@@ -1,3 +1,4 @@
+export const requestType = '/request-type';
 export const avEvidence = '/av-evidence';
 export const avEvidenceList = '/av-evidence-list';
 export const document = '/document';

@@ -4,6 +4,7 @@ import { EvidenceUpload } from './evidence-upload';
 import { CheckCookies } from './check-cookies';
 import { SessionInactivity } from './session-inactivity';
 import { DetailsTabIndexToggle } from './detailsToggle';
+import { RequestType } from './request-type';
 
 const domready = require('domready');
 
@@ -17,6 +18,7 @@ const onReady = () => {
   const evidence = new EvidenceUpload();
   const sessionInactivity = new SessionInactivity();
   const detailsToggle = new DetailsTabIndexToggle();
+  const requestType = new RequestType();
 
   checkCookies.init();
   govUK.initAll();
