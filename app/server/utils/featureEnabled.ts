@@ -9,8 +9,9 @@ enum Feature {
   POST_BULK_SCAN = 'postBulkScan',
   HISTORY_TAB = 'historyTab',
   HEARING_OUTCOME_TAB = 'hearingOutcomeTab',
-  MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed',
-  ALLOW_COOKIE_BANNER_ENABLED = 'cookieBanner.enabled'
+  ALLOW_COOKIE_BANNER_ENABLED = 'cookieBanner.enabled',
+  REQUEST_TAB_ENABLED = 'requestTabEnabled',
+  MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed'
 }
 
 function isFeatureEnabled(feature: Feature, force?: {}): boolean {
