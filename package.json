@@ -27,6 +27,7 @@
     "test:browser": "NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/browser/**/*.ts --colors --reporter mochawesome  --reporter-options reportDir=functional-output/reports/functional,inlineAssets=true --exit",
     "test:integration": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/integration/**/*.ts --exit",
     "test:functional": "yarn test:browser --grep @mya",
+    "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
     "test:nightly": "yarn test:browser --grep @nightly",
     "test:fullfunctional": "yarn test:nightly",
     "test:smoke": "NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/smoke/*.ts --grep @smoke --colors --reporter mochawesome  --reporter-options reportDir=smoke-output/reports/smoke,inlineAssets=true --exit",
