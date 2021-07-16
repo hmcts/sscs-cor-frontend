@@ -61,7 +61,6 @@ function configureHelmet(app) {
     }
   }));
 }
-
 function configureHeaders(app) {
   // Disallow search index indexing
   app.use((req, res, next) => {
