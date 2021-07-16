@@ -19,7 +19,7 @@
     {% if cookieBannerEnabled %}
         <div>
             <link href="public/css/govuk-frontend-3.11.0.min.css" media="screen" rel="stylesheet" type="text/css"/>
-            {% include "../cookie-banner/common/components/imported/cookie-manager/cookie-banner.njk" %}
+            {% include "../app/main/common/components/imported/cookie-manager/cookie-banner.njk" %}
         </div>
     {% else %}
         {% include "includes/cookie-banner.html" %}
@@ -94,18 +94,18 @@ text: "Cookies"
 {% block bodyEnd %}
     {% if isDev %}
         <script src="/reload/reload.js"></script>
-
     {% endif %}
 
-
     <script src="/public/js/main.js"></script>
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="public/js/cookies-manager.js"></script>
 
+    {% if cookieBannerEnabled %}
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="public/js/cookies-manager.js"></script>
+    {% endif %}
 
-{% if webChatEnabled and content.en.language == "en" %}
+    {% if webChatEnabled and content.en.language == "en" %}
         <script src="/public/js/hmcts-webchat.js"></script>
 
         <script>
