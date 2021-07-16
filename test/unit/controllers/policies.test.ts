@@ -10,7 +10,8 @@ describe('controllers/policies.js', () => {
 
   beforeEach(() => {
     req = {
-      session: {}
+      session: {},
+      cookies: {}
     } as any;
     res = {
       render: sinon.spy(),
@@ -21,7 +22,7 @@ describe('controllers/policies.js', () => {
   describe('getCookiePrivacy', () => {
     it('renders Cookie Policy page', async() => {
       await getCookiePrivacy(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('policy-pages/cookie-privacy.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('policy-pages/cookie-privacy-old.html');
     });
   });
 

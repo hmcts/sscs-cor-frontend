@@ -7,10 +7,15 @@ import { CheckCookies } from 'app/client/javascript/check-cookies';
 import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 
+const html = `<div id="app-cookie-banner" >`;
+
 describe('client main js', () => {
   let sandbox;
+  let body;
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
+    body = document.querySelector('body');
+    body.innerHTML = html;
   });
   afterEach(function () {
     sandbox.restore();

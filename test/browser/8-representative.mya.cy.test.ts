@@ -54,7 +54,7 @@ describe('CY - Representative - Manage your appeal app @mya @nightly', () => {
     it('CY - should display navigation tabs and Status tab should be active', async() => {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be.null;
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.cy.statusTab.tabHeader);
+      expect(await statusPage.getElementText('.govuk-tabs__list-item--selected')).contain(content.cy.statusTab.tabHeader);
     });
 
     it('CY - should display subheading', async() => {
