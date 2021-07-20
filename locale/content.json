@@ -1957,9 +1957,9 @@
         "panel": "barnwr"
       },
       "industrialdeathbenefit" : {
-        "acronym": "BUDD MARWOLAETH DDIWYDIANNOL",
-        "yourBenefitAppeal": "Eich apêl Budd Marwolaeth Ddiwydiannol",
-        "fullDescription": "Budd Marwolaeth Ddiwydiannol",
+        "acronym": "BUDD-DAL MARWOLAETH DDIWYDIANNOL",
+        "yourBenefitAppeal": "Eich apêl Budd-dal Marwolaeth Ddiwydiannol",
+        "fullDescription": "Budd-dal Marwolaeth Ddiwydiannol",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr a hyd at 2 feddyg ymgynghorol"
