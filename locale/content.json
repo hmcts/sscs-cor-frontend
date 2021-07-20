@@ -1537,13 +1537,13 @@
           "dla": "Dychwelyd i'ch apêl budd-dal DLA",
           "carersallowance": "Dychwelyd i'ch apêl Lwfans Gofalwr",
           "attendanceallowance": "Dychwelyd i'ch apêl Lwfans Gweini",
-          "bereavementbenefit": "Dychwelyd i'ch apêl budd-dal Profedigaeth",
+          "bereavementbenefit": "Dychwelyd i'ch apêl Budd-dal Profedigaeth",
           "jsa": "Dychwelyd i'ch apêl budd-dal JSA",
           "industrialinjuriesdisablement": "Dychwelyd i'ch apêl budd-dal Anabledd Anafiadau Diwydiannol",
           "maternityallowance": "Dychwelyd i'ch apêl budd-dal Lwfans Mamolaeth",
           "socialfund": "Dychwelyd i'ch apêl budd-dal Cronfa Gymdeithasol",
           "incomeSupport": "Dychwelyd i'ch apêl budd-dal Cymhorthdal Incwm",
-          "bereavementsupportpaymentscheme": "Dychwelyd i'ch apêl budd-dal Cynllun Taliad Cymorth Profedigaeth",
+          "bereavementsupportpaymentscheme": "Dychwelyd i'ch apêl budd-dal Cynllun Talu am Gymorth yng nghyswllt Profedigaeth",
           "industrialdeathbenefit": "Dychwelyd i'ch apêl budd-dal Marwolaeth Ddiwydiannol",
           "pensioncredits": "Dychwelyd i'ch apêl budd-dal Credydau Pensiwn",
           "retirementpension": "Dychwelyd i'ch apêl budd-dal Pensiwn Ymddeol"
@@ -1949,9 +1949,9 @@
         "panel": "barnwr"
       },
       "bereavementsupportpaymentscheme" : {
-        "acronym": "CYNLLUN TALIAD CYMORTH PROFEDIGAETH",
-        "yourBenefitAppeal": "Eich apêl Cynllun Taliad Cymorth Profedigaeth",
-        "fullDescription": "Cynllun Taliad Cymorth Profedigaeth",
+        "acronym": "CYNLLUN TALU AM GYMORTH YNG NGHYSWLLT PROFEDIGAETH",
+        "yourBenefitAppeal": "Eich apêl Cynllun Talu am Gymorth yng nghyswllt Profedigaeth",
+        "fullDescription": "Cynllun Talu am Gymorth yng nghyswllt Profedigaeth",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
