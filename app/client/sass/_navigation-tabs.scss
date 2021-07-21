@@ -2,7 +2,24 @@
     ul {
         li {
             &.selected {
-                pointer-events: none;
+                text-decoration: none;
+                a {
+                    text-decoration: underline;
+                    &.selected {
+                        @include govuk-media-query($from: tablet) {
+                            border-bottom: none;
+                            margin-bottom: -2px;
+                            background-color: white;
+                            border-color: lightgrey;
+                            border-style: solid;
+                            border-width: thin;
+                            border-bottom-color: white;
+                        }
+                        text-decoration: none;
+                        pointer-events: none;
+                        color: #0b0c0c;
+                    }
+                }
             }
         }
     }

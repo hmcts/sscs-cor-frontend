@@ -1,13 +1,13 @@
 {% macro navigationTabs(active) %}
 <div class="govuk-tabs" data-module="govuk-tabs">
     <nav class="navigation-tabs"> 
-    <ul class="govuk-tabs__list">
-    {% for tab in tabs %}
-        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected {{ "selected" if tab.id == active }}">
-            <a class="govuk-tabs__tab" style="text-decoration: underline;" id="tab-{{ tab.id }}" href="{{ tab.url }}">{{ tab.title | safe }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+        <ul class="govuk-tabs__list">
+        {% for tab in tabs %}
+            <li class="govuk-tabs__list-item govuk-tabs__list-item--selected {{ "selected" if tab.id == active }}">
+                <a class="{{ "selected" if tab.id == active }} govuk-tabs__tab" id="tab-{{ tab.id }}" href="{{ tab.url }}">{{ tab.title | safe }}</a>
+            </li>
+        {% endfor %}
+        </ul>
     </nav>
 </div>
 {% endmacro %}
