@@ -503,6 +503,16 @@
       "mobile": "Appellant contact mobile number",
       "email": "Appellant contact email address"
     },
+    "activeTab": {
+      "tabHeader": "Active",
+      "header": "Active cases",
+      "panelHeader": "Latest update"
+    },
+    "dormantTab": {
+      "tabHeader": "Dormant",
+      "header": "Dormant cases",
+      "panelHeader": "Latest update"
+    },
     "statusTab": {
       "tabHeader": "Status",
       "header": "Status of your appeal",
@@ -1562,6 +1572,16 @@
       "phone": "Rhif ffôn cyswllt yr Apelydd",
       "mobile": "Rhif ffôn cyswllt yr Apelydd (ffôn symudol)",
       "email": "Cyfeiriad e-bost yr Apelydd"
+    },
+    "activeTab": {
+      "tabHeader": "Active",
+      "header": "Active cases",
+      "panelHeader": "Latest update"
+    },
+    "dormantTab": {
+      "tabHeader": "Dormant",
+      "header": "Dormant cases",
+      "panelHeader": "Latest update"
     },
     "statusTab": {
       "tabHeader": "Statws",

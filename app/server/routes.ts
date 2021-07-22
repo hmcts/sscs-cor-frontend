@@ -15,6 +15,8 @@ import { setupSessionController } from './controllers/session';
 import { setupadditionalEvidenceController } from './controllers/additional-evidence';
 import { setupYourDetailsController } from './controllers/your-details';
 import { setupStatusController } from './controllers/status';
+import { setupActiveCasesController } from './controllers/active-cases';
+import { setupDormantCasesController } from './controllers/dormant-cases';
 import { setupHistoryController } from './controllers/history';
 import { setupAssignCaseController } from './controllers/assign-case';
 import { setupHearingController } from './controllers/hearing';
@@ -68,6 +70,9 @@ const supportWithdrawAppealController = supportControllers.setupSupportWithdrawA
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
 const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
+const activeCasesController = setupActiveCasesController({ prereqMiddleware: ensureAuthenticated });
+const dormantCasesController = setupDormantCasesController({ prereqMiddleware: ensureAuthenticated });
+
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
 const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService, prereqMiddleware: ensureAuthenticated });
@@ -97,6 +102,8 @@ router.use(supportWithdrawAppealController);
 router.use(sessionController);
 router.use(evidenceOptionsController);
 router.use(statusController);
+router.use(activeCasesController);
+router.use(dormantCasesController);
 router.use(yourDetailsController);
 router.use(historyController);
 router.use(assignCaseController);

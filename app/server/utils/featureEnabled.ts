@@ -10,7 +10,8 @@ enum Feature {
   HISTORY_TAB = 'historyTab',
   HEARING_OUTCOME_TAB = 'hearingOutcomeTab',
   REQUEST_TAB_ENABLED = 'requestTabEnabled',
-  MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed'
+  MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed',
+  MYA_PAGINATION_ENABLED = 'myaPagination'
 }
 
 function isFeatureEnabled(feature: Feature, force?: {}): boolean {

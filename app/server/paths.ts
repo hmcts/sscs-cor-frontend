@@ -36,3 +36,5 @@ export const supportHearingExpenses = '/support-hearing-expenses';
 export const supportHearing = '/support-hearing';
 export const supportRepresentatives = '/support-representatives';
 export const supportWithdrawAppeal = '/support-withdraw-appeal';
+export const activeCases = '/active-cases';
+export const dormantCases = '/dormant-cases';
