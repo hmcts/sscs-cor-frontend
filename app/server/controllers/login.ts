@@ -13,7 +13,6 @@ import { IdamService, TokenResponse, UserDetails } from '../services/idam';
 import { HearingService } from '../services/hearing';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
-import { setLocals } from '../middleware/ensure-authenticated';
 
 const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');

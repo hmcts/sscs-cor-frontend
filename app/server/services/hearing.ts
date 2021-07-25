@@ -58,7 +58,7 @@ export class HearingService {
   async getActiveOrDormantCasesForCitizen(email: string, caseType: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/api/citizen/${caseType}`,
+      uri: `${this.apiUrl}/api/citizen/cases/${caseType}`,
       qs: { email },
       resolveWithFullResponse: true,
       simple: false
