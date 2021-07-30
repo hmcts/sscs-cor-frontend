@@ -573,7 +573,7 @@
       "noReleasedRecordings": "No hearing recordings have been released to you",
       "noOutstandingRecordings": "You have no outstanding hearing recording requests",
       "noRequestableRecordings": "There are no hearing recordings available for you to request",
-      "noHearingIdSelected": "Please select hearing recording for you to request",
+      "noHearingIdSelected": "Please select hearing recording",
       "releasedHearingRecordings": "Released Hearing Recordings",
       "outstandingHearingRecordings": "Outstanding Hearing Recording Requests",
       "hearingRecordingRequests": "Request for Hearing Recording",
@@ -1135,6 +1135,7 @@
       "describeTheEvidence": "Rhowch ddisgrifiad o’r dystiolaeth",
       "breflyDescribeWhatAndWhy": "Disgrifiwch yn fyr beth ydych yn ei uwchlwytho a pham",
       "avEvidence": "Tystiolaeth Sain/Fideo",
+      "submitRequestToTribunal": "Cyflwyno",
       "type": {
         "Appellant": "Apelydd",
         "Appointee": "Penodai",
@@ -1658,7 +1659,22 @@
       "noEvidence": "Nid oes tystiolaeth sain/fideo gymeradwy yn gysylltiedig â’ch achos"
     },
     "requestTypeTab": {
-      "tabHeader": "Cais"
+      "tabHeader": "Ceisiadau",
+      "selectRequestHeader": "Dewiswch Cais",
+      "selectRequestOption": "--Dewiswch Cais--",
+      "hearingRecordingOption": "Recordiad o wrandawiad"
+    },
+    "hearingRecording": {
+      "hearingRecordings": "Recordiad o wrandawiadau",
+      "noRecordings": "Nid oes unrhyw recordiad o wrandawiad yn gysylltiedig â’ch achos",
+      "noReleasedRecordings": "Nid oes unrhyw recordiad o wrandawiad wedi ei ryddhau ichi",
+      "noOutstandingRecordings": "Nid oes gennych unrhyw geisiadau am recordiad o wrandawiad sydd dal yn weddill",
+      "noRequestableRecordings": "Nid oes unrhyw recordiad o wrandawiad ar gael ichi wneud cais amdano",
+      "noHearingIdSelected": "Dewiswch recordiad gwrandawiad llys",
+      "releasedHearingRecordings": "Recordiad o wrandawiad a ryddhawyd",
+      "outstandingHearingRecordings": "Ceisiadau am recordiad o wrandawiad sydd dal yn weddill",
+      "hearingRecordingRequests": "Cais am recordiad o wrandawiad",
+      "requestConfirmed": "Cais recordio Gwrandawiad Llys wedi'i gyflwyno"
     },
     "appealEvents": {
       "ADJOURNED": {
