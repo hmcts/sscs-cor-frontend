@@ -30,6 +30,7 @@ export class EvidenceService {
   async remove(hearingId: string, questionId: string, fileId: string, req: Request) {
     return RequestPromise.request({
       method: 'DELETE',
+      retry: httpRetries,
       headers: { 'Content-Length': '0' },
       url: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/${fileId}`
     }, req);
