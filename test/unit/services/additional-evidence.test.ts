@@ -41,6 +41,7 @@ describe('services/additional-evidence', () => {
         tya: 'wqiuvokQlD'
       },
       method: 'POST',
+      retry: 3,
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/statement`
     };
 
@@ -51,6 +52,7 @@ describe('services/additional-evidence', () => {
   it('should getCoversheet', async () => {
     const expectedRequestOptions = {
       method: 'GET',
+      retry: 3,
       encoding: 'binary',
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
@@ -66,6 +68,7 @@ describe('services/additional-evidence', () => {
     const description: string = 'An evidence description';
     const expectedRequestOptions = {
       method: 'POST',
+      retry: 3,
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/singleevidence`,
       headers: {
         'Content-type': 'application/json'

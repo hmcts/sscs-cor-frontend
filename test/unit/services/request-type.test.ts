@@ -38,6 +38,7 @@ describe('services/request-type', () => {
 
       const expectedOptions = {
         method: 'GET',
+        retry: 3,
         uri: `http://sscs-cor-backend.net/api/request/${caseId}/hearingrecording`
       };
 
@@ -82,6 +83,7 @@ describe('services/request-type', () => {
 
       const expectedOptions = {
         method: 'POST',
+        retry: 3,
         uri: `http://sscs-cor-backend.net/api/request/${caseId}/recordingrequest`,
         headers: { 'Content-type': 'application/json' },
         formData: {

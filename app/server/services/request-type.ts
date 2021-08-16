@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
+const httpRetries = 3;
 
 export interface HearingRecordingResponse {
   releasedHearingRecordings: CitizenHearingRecording[];
@@ -31,6 +32,7 @@ export class RequestTypeService {
   async getHearingRecording(identifier: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
+      retry: 3,
       uri: `${this.apiUrl}/api/request/${identifier}/hearingrecording`
     }, req);
   }
@@ -38,6 +40,7 @@ export class RequestTypeService {
   async submitHearingRecordingRequest(identifier: string, hearingIds: string[], req: Request) {
     return RequestPromise.request({
       method: 'POST',
+      retry: 3,
       uri: `${this.apiUrl}/api/request/${identifier}/recordingrequest`,
       headers: {
         'Content-type': 'application/json'

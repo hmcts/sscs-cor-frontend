@@ -26,6 +26,7 @@ describe('services/tyaService', () => {
     const appealId = 'appealNumber';
     const expectedRequestOptions = {
       method: 'GET',
+      retry: 3,
       uri: `${tribunalsApiUrl}/appeals?mya=true&caseId=${appealId}`
     };
     await trackYourAppealService.getAppeal(appealId, req);
@@ -36,6 +37,7 @@ describe('services/tyaService', () => {
     const url = 'http://test';
     const expectedRequestOptions = {
       method: 'GET',
+      retry: 3,
       encoding: 'binary',
       uri: `${tribunalsApiUrl}/document?url=${url}`,
       headers: {
@@ -50,6 +52,7 @@ describe('services/tyaService', () => {
     const url = 'http://test';
     const expectedRequestOptions = {
       method: 'GET',
+      retry: 3,
       encoding: 'binary',
       uri: `${tribunalsApiUrl}/document?url=${url}`,
       headers: {

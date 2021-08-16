@@ -54,6 +54,7 @@ describe('services/evidence', () => {
           }
         },
         method: 'POST',
+        retry: 3,
         resolveWithFullResponse: true,
         simple: false,
         url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`
@@ -100,6 +101,7 @@ describe('services/evidence', () => {
 
       const expectedOptions = {
         method: 'DELETE',
+        retry: 3,
         headers: { 'Content-Length': '0' },
         url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`
       };
