@@ -4,7 +4,6 @@ import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger('login.js');
 const i18next = require('i18next');
 const config = require('config');
-const httpRetries = 3;
 
 export interface TokenResponse {
   access_token: string;
@@ -30,7 +29,6 @@ export class IdamService {
 
     return RequestPromise.request({
       method: 'POST',
-      retry: httpRetries,
       uri: `${this.apiUrl}/oauth2/token`,
       auth: {
         user: 'sscs',
@@ -48,7 +46,6 @@ export class IdamService {
   async deleteToken(token: string): Promise<void> {
     return RequestPromise.request({
       method: 'DELETE',
-      retry: httpRetries,
       uri: `${this.apiUrl}/session/${token}`,
       auth: {
         user: 'sscs',
@@ -60,7 +57,6 @@ export class IdamService {
   async getUserDetails(token: string): Promise<UserDetails> {
     return RequestPromise.request({
       method: 'GET',
-      retry: httpRetries,
       uri: `${this.apiUrl}/details`,
       headers: {
         'Authorization': `Bearer ${token}`
