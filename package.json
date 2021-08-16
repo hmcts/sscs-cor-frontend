@@ -161,12 +161,13 @@
     "axios": "0.21.1",
     "lodash": "^4.17.21",
     "hosted-git-info": "4.0.0",
-    "url-parse": "1.5.0",
+    "url-parse": "1.5.2",
     "browserslist": "4.16.5",
     "ws": "7.4.6",
     "trim-newlines": "3.0.1",
     "normalize-url": "4.5.1",
-    "tar": "^6.1.1"
+    "tar": "^6.1.1",
+    "path-parse": "^1.0.7"
   }
 }
 
