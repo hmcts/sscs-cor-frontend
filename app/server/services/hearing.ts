@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
+const httpRetries = 3;
 
 interface OnlineHearingDecision {
   start_date: string;
@@ -37,6 +38,7 @@ export class HearingService {
   async getOnlineHearing(email: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
+      retry: httpRetries,
       uri: `${this.apiUrl}/api/continuous-online-hearings`,
       qs: { email },
       resolveWithFullResponse: true,
@@ -48,6 +50,7 @@ export class HearingService {
     const path = tya ? `/${tya}` : '';
     return RequestPromise.request({
       method: 'GET',
+      retry: httpRetries,
       uri: `${this.apiUrl}/api/citizen${path}`,
       qs: { email },
       resolveWithFullResponse: true,
@@ -58,6 +61,7 @@ export class HearingService {
   async assignOnlineHearingsToCitizen(email: string, tya: string, postcode: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
+      retry: httpRetries,
       uri: `${this.apiUrl}/api/citizen/${tya}`,
       body: { email, postcode },
       resolveWithFullResponse: true,

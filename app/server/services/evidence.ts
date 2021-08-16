@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
+const httpRetries = 3;
 export class EvidenceService {
   private apiUrl: string;
 
@@ -10,6 +11,7 @@ export class EvidenceService {
   async upload(hearingId: string, questionId: string, file, req: Request) {
     return RequestPromise.request({
       method: 'POST',
+      retry: httpRetries,
       simple: false,
       resolveWithFullResponse: true,
       url: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`,

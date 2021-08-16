@@ -92,7 +92,8 @@
     "request-promise": "^4.2.2",
     "serve-favicon": "^2.4.2",
     "shelljs": "^0.8.3",
-    "superagent": "^3.8.2"
+    "superagent": "^3.8.2",
+    "promise-request-retry": "^1.0.2"
   },
   "devDependencies": {
     "@hmcts/eslint-config": "^1.4.0",
@@ -129,7 +130,7 @@
     "jsdom": "^16.2.1",
     "jsdom-global": "^3.0.2",
     "memory-cache": "^0.2.0",
-    "mocha": "^6.2.3",
+    "mocha": "^8.0.1",
     "mocha-multi": "^1.1.3",
     "mochawesome": "^4.1.0",
     "nock": "^12.0.3",

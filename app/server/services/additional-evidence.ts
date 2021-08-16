@@ -1,6 +1,7 @@
 import { Request } from 'express';
-import { Response } from 'express-serve-static-core';
 import { RequestPromise } from './request-wrapper';
+
+const httpRetries = 3;
 
 export interface EvidenceDescriptor {
   created_date: string;
@@ -19,6 +20,7 @@ export class AdditionalEvidenceService {
   async saveStatement(identifier: string, statementText: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
+      retry: httpRetries,
       uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/statement`,
       body: {
         body: statementText,
@@ -30,6 +32,7 @@ export class AdditionalEvidenceService {
   async getCoversheet(caseId: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
+      retry: httpRetries,
       encoding: 'binary',
       uri: `${this.apiUrl}/api/continuous-online-hearings/${caseId}/evidence/coversheet`,
       headers: {
@@ -41,6 +44,7 @@ export class AdditionalEvidenceService {
   async submitEvidences(identifier: string, description: string, file: Express.Multer.File, req: Request) {
     return RequestPromise.request({
       method: 'POST',
+      retry: httpRetries,
       uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/singleevidence`,
       headers: {
         'Content-type': 'application/json'
