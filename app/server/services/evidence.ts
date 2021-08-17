@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
-const httpRetries = 3;
+import { CONST } from '../../constants';
+import HTTP_RETRIES = CONST.HTTP_RETRIES;
 export class EvidenceService {
   private apiUrl: string;
 
@@ -11,7 +12,7 @@ export class EvidenceService {
   async upload(hearingId: string, questionId: string, file, req: Request) {
     return RequestPromise.request({
       method: 'POST',
-      retry: httpRetries,
+      retry: HTTP_RETRIES,
       simple: false,
       resolveWithFullResponse: true,
       url: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`,
@@ -30,7 +31,7 @@ export class EvidenceService {
   async remove(hearingId: string, questionId: string, fileId: string, req: Request) {
     return RequestPromise.request({
       method: 'DELETE',
-      retry: httpRetries,
+      retry: HTTP_RETRIES,
       headers: { 'Content-Length': '0' },
       url: `${this.apiUrl}/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/${fileId}`
     }, req);

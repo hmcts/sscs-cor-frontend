@@ -2,6 +2,8 @@ const { expect, sinon } = require('test/chai-sinon');
 import * as config from 'config';
 import { TrackYourApealService } from 'app/server/services/tyaService';
 import { RequestPromise } from 'app/server/services/request-wrapper';
+import { CONST } from '../../../app/constants';
+import HTTP_RETRIES = CONST.HTTP_RETRIES;
 
 describe('services/tyaService', () => {
   let sandbox: sinon.SinonSandbox = sinon.sandbox.create();
@@ -37,7 +39,7 @@ describe('services/tyaService', () => {
     const url = 'http://test';
     const expectedRequestOptions = {
       method: 'GET',
-      retry: 3,
+      retry: HTTP_RETRIES,
       encoding: 'binary',
       uri: `${tribunalsApiUrl}/document?url=${url}`,
       headers: {
@@ -52,7 +54,7 @@ describe('services/tyaService', () => {
     const url = 'http://test';
     const expectedRequestOptions = {
       method: 'GET',
-      retry: 3,
+      retry: HTTP_RETRIES,
       encoding: 'binary',
       uri: `${tribunalsApiUrl}/document?url=${url}`,
       headers: {

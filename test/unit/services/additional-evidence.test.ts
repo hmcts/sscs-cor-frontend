@@ -4,6 +4,8 @@ const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
 import { AdditionalEvidenceService } from 'app/server/services/additional-evidence';
 import { RequestPromise } from 'app/server/services/request-wrapper';
+import { CONST } from '../../../app/constants';
+import HTTP_RETRIES = CONST.HTTP_RETRIES;
 
 describe('services/additional-evidence', () => {
   let rpStub: sinon.SinonStub;
@@ -41,7 +43,7 @@ describe('services/additional-evidence', () => {
         tya: 'wqiuvokQlD'
       },
       method: 'POST',
-      retry: 3,
+      retry: HTTP_RETRIES,
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/statement`
     };
 
@@ -52,7 +54,7 @@ describe('services/additional-evidence', () => {
   it('should getCoversheet', async () => {
     const expectedRequestOptions = {
       method: 'GET',
-      retry: 3,
+      retry: HTTP_RETRIES,
       encoding: 'binary',
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
@@ -68,7 +70,7 @@ describe('services/additional-evidence', () => {
     const description: string = 'An evidence description';
     const expectedRequestOptions = {
       method: 'POST',
-      retry: 3,
+      retry: HTTP_RETRIES,
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/singleevidence`,
       headers: {
         'Content-type': 'application/json'

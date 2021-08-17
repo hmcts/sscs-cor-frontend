@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
-const httpRetries = 3;
+import { CONST } from '../../constants';
+import HTTP_RETRIES = CONST.HTTP_RETRIES;
 
 export class TrackYourApealService {
   private tribunalApiUrl: string;
@@ -12,7 +13,7 @@ export class TrackYourApealService {
   async getAppeal(caseId: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      retry: httpRetries,
+      retry: HTTP_RETRIES,
       uri: `${this.tribunalApiUrl}/appeals?mya=true&caseId=${caseId}`
     }, req);
   }
@@ -20,7 +21,7 @@ export class TrackYourApealService {
   async validateSurname(appealNumber: string, surname: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      retry: httpRetries,
+      retry: HTTP_RETRIES,
       uri: `${this.tribunalApiUrl}/appeals/${appealNumber}/surname/${surname}`
     }, req);
   }
@@ -28,7 +29,7 @@ export class TrackYourApealService {
   async getDocument(url: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      retry: httpRetries,
+      retry: HTTP_RETRIES,
       encoding: 'binary',
       uri: `${this.tribunalApiUrl}/document?url=${url}`,
       headers: {
@@ -40,7 +41,7 @@ export class TrackYourApealService {
   async getMediaFile(url: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      retry: httpRetries,
+      retry: HTTP_RETRIES,
       encoding: 'binary',
       uri: `${this.tribunalApiUrl}/document?url=${url}`,
       headers: {

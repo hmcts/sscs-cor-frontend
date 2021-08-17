@@ -4,6 +4,8 @@ import * as fs from 'fs';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import { RequestPromise } from 'app/server/services/request-wrapper';
+import { CONST } from '../../../app/constants';
+import HTTP_RETRIES = CONST.HTTP_RETRIES;
 
 describe('services/evidence', () => {
   const hearingId = '121';
@@ -54,7 +56,7 @@ describe('services/evidence', () => {
           }
         },
         method: 'POST',
-        retry: 3,
+        retry: HTTP_RETRIES,
         resolveWithFullResponse: true,
         simple: false,
         url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`
@@ -101,7 +103,7 @@ describe('services/evidence', () => {
 
       const expectedOptions = {
         method: 'DELETE',
-        retry: 3,
+        retry: HTTP_RETRIES,
         headers: { 'Content-Length': '0' },
         url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`
       };
