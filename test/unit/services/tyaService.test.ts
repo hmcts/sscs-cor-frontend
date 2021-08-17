@@ -28,7 +28,7 @@ describe('services/tyaService', () => {
     const appealId = 'appealNumber';
     const expectedRequestOptions = {
       method: 'GET',
-      retry: 3,
+      retry: HTTP_RETRIES,
       uri: `${tribunalsApiUrl}/appeals?mya=true&caseId=${appealId}`
     };
     await trackYourAppealService.getAppeal(appealId, req);

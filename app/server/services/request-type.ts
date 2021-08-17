@@ -33,7 +33,7 @@ export class RequestTypeService {
   async getHearingRecording(identifier: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      retry: 3,
+      retry: HTTP_RETRIES,
       uri: `${this.apiUrl}/api/request/${identifier}/hearingrecording`
     }, req);
   }
