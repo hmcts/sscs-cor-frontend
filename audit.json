@@ -717,7 +717,11 @@
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js?lng=cy_GET" : "ignore",
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js?lng=cy_GET" : "ignore",
-	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js_GET" : "ignore"
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js_GET" : "ignore",
+	"10035_Strict-Transport-Security Header Not Set_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js_GET" : "ignore",
+	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js_GET" : "ignore",
+	"10027_Information Disclosure - Suspicious Comments_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QSVfgqrux_10223210811140219.js_GET" : "ignore"
 
 
 }
