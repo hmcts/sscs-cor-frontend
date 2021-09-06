@@ -449,7 +449,7 @@
          "incomesupport": "Return to your Income Support appeal",
          "bereavementsupportpaymentscheme": "Return to your Bereavement Support Payment Scheme benefit appeal",
          "industrialdeathbenefit": "Return to your Industrial Death Benefit appeal",
-         "pensioncredits": "Return to your Pension Credits appeal",
+         "pensioncredit": "Return to your Pension Credit appeal",
          "retirementpension": "Return to your Retirement Pension appeal"
         }
       },
@@ -838,7 +838,7 @@
       "jsa" : {
         "acronym": "JSA",
         "yourBenefitAppeal": "Your JSA Benefit appeal",
-        "fullDescription": "Job Seekers Allowance (JSA)",
+        "fullDescription": "Jobseeker’s Allowance (JSA)",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
@@ -883,10 +883,10 @@
         "agencyAcronym": "DWP",
         "panel": "a judge and up to 2 consultants doctors"
       },
-      "pensioncredits" : {
-        "acronym": "PENSION CREDITS",
-        "yourBenefitAppeal": "Your Pension Credits appeal",
-        "fullDescription": "Pension Credits",
+      "pensioncredit" : {
+        "acronym": "PENSION CREDIT",
+        "yourBenefitAppeal": "Your Pension Credit appeal",
+        "fullDescription": "Pension Credit",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
@@ -1546,7 +1546,7 @@
           "incomeSupport": "Dychwelyd i'ch apêl budd-dal Cymhorthdal Incwm",
           "bereavementsupportpaymentscheme": "Dychwelyd i'ch apêl budd-dal Cynllun Talu am Gymorth yng nghyswllt Profedigaeth",
           "industrialdeathbenefit": "Dychwelyd i'ch apêl budd-dal Marwolaeth Ddiwydiannol",
-          "pensioncredits": "Dychwelyd i'ch apêl budd-dal Credydau Pensiwn",
+          "pensioncredit": "Dychwelyd i'ch apêl budd-dal Credydau Pensiwn",
           "retirementpension": "Dychwelyd i'ch apêl budd-dal Pensiwn Ymddeol"
         }
       },
@@ -1980,7 +1980,7 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr a hyd at 2 feddyg ymgynghorol"
       },
-      "pensioncredits" : {
+      "pensioncredit" : {
         "acronym": "CREDYDAU PENSIWN",
         "yourBenefitAppeal": "Eich apêl Credydau Pensiwn",
         "fullDescription": "Credydau Pensiwn",
