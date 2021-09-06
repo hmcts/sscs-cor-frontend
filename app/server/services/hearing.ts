@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 import { CONST } from '../../constants';
 import HTTP_RETRIES = CONST.HTTP_RETRIES;
+import RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 
 interface OnlineHearingDecision {
   start_date: string;
@@ -40,6 +41,7 @@ export class HearingService {
     return RequestPromise.request({
       method: 'GET',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/continuous-online-hearings`,
       qs: { email },
       resolveWithFullResponse: true,
@@ -52,6 +54,7 @@ export class HearingService {
     return RequestPromise.request({
       method: 'GET',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/citizen${path}`,
       qs: { email },
       resolveWithFullResponse: true,
@@ -63,6 +66,7 @@ export class HearingService {
     return RequestPromise.request({
       method: 'POST',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/citizen/${tya}`,
       body: { email, postcode },
       resolveWithFullResponse: true,

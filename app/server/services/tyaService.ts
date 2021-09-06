@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 import { CONST } from '../../constants';
 import HTTP_RETRIES = CONST.HTTP_RETRIES;
+import RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 
 export class TrackYourApealService {
   private tribunalApiUrl: string;
@@ -14,6 +15,7 @@ export class TrackYourApealService {
     return RequestPromise.request({
       method: 'GET',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${this.tribunalApiUrl}/appeals?mya=true&caseId=${caseId}`
     }, req);
   }
@@ -22,6 +24,7 @@ export class TrackYourApealService {
     return RequestPromise.request({
       method: 'GET',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${this.tribunalApiUrl}/appeals/${appealNumber}/surname/${surname}`
     }, req);
   }
@@ -30,6 +33,7 @@ export class TrackYourApealService {
     return RequestPromise.request({
       method: 'GET',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       encoding: 'binary',
       uri: `${this.tribunalApiUrl}/document?url=${url}`,
       headers: {
@@ -42,6 +46,7 @@ export class TrackYourApealService {
     return RequestPromise.request({
       method: 'GET',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       encoding: 'binary',
       uri: `${this.tribunalApiUrl}/document?url=${url}`,
       headers: {

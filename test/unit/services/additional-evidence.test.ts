@@ -6,6 +6,7 @@ import { AdditionalEvidenceService } from 'app/server/services/additional-eviden
 import { RequestPromise } from 'app/server/services/request-wrapper';
 import { CONST } from '../../../app/constants';
 import HTTP_RETRIES = CONST.HTTP_RETRIES;
+import RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 
 describe('services/additional-evidence', () => {
   let rpStub: sinon.SinonStub;
@@ -44,6 +45,7 @@ describe('services/additional-evidence', () => {
       },
       method: 'POST',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/statement`
     };
 
@@ -55,6 +57,7 @@ describe('services/additional-evidence', () => {
     const expectedRequestOptions = {
       method: 'GET',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       encoding: 'binary',
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
@@ -71,6 +74,7 @@ describe('services/additional-evidence', () => {
     const expectedRequestOptions = {
       method: 'POST',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/singleevidence`,
       headers: {
         'Content-type': 'application/json'

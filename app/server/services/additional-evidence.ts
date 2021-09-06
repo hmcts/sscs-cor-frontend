@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 import { CONST } from '../../constants';
 import HTTP_RETRIES = CONST.HTTP_RETRIES;
+import RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 
 export interface EvidenceDescriptor {
   created_date: string;
@@ -21,6 +22,7 @@ export class AdditionalEvidenceService {
     return RequestPromise.request({
       method: 'POST',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/statement`,
       body: {
         body: statementText,
@@ -33,6 +35,7 @@ export class AdditionalEvidenceService {
     return RequestPromise.request({
       method: 'GET',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       encoding: 'binary',
       uri: `${this.apiUrl}/api/continuous-online-hearings/${caseId}/evidence/coversheet`,
       headers: {
@@ -45,6 +48,7 @@ export class AdditionalEvidenceService {
     return RequestPromise.request({
       method: 'POST',
       retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/singleevidence`,
       headers: {
         'Content-type': 'application/json'

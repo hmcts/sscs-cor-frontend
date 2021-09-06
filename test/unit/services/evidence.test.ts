@@ -6,6 +6,7 @@ const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import { RequestPromise } from 'app/server/services/request-wrapper';
 import { CONST } from '../../../app/constants';
 import HTTP_RETRIES = CONST.HTTP_RETRIES;
+import RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 
 describe('services/evidence', () => {
   const hearingId = '121';
@@ -104,6 +105,7 @@ describe('services/evidence', () => {
       const expectedOptions = {
         method: 'DELETE',
         retry: HTTP_RETRIES,
+        delay: RETRY_INTERVAL,
         headers: { 'Content-Length': '0' },
         url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`
       };
