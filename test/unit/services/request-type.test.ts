@@ -2,9 +2,6 @@ import { RequestTypeService } from 'app/server/services/request-type';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 import { RequestPromise } from 'app/server/services/request-wrapper';
-import { CONST } from '../../../app/constants';
-import HTTP_RETRIES = CONST.HTTP_RETRIES;
-import RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 
 describe('services/request-type', () => {
   const hearingId = '121';
@@ -41,8 +38,6 @@ describe('services/request-type', () => {
 
       const expectedOptions = {
         method: 'GET',
-        retry: HTTP_RETRIES,
-        delay: RETRY_INTERVAL,
         uri: `http://sscs-cor-backend.net/api/request/${caseId}/hearingrecording`
       };
 
@@ -87,8 +82,6 @@ describe('services/request-type', () => {
 
       const expectedOptions = {
         method: 'POST',
-        retry: HTTP_RETRIES,
-        delay: RETRY_INTERVAL,
         uri: `http://sscs-cor-backend.net/api/request/${caseId}/recordingrequest`,
         headers: { 'Content-type': 'application/json' },
         formData: {

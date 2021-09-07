@@ -40,8 +40,6 @@ export class HearingService {
   async getOnlineHearing(email: string, req: Request) {
     return RequestPromise.request({
       method: 'GET',
-      retry: HTTP_RETRIES,
-      delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/continuous-online-hearings`,
       qs: { email },
       resolveWithFullResponse: true,
@@ -65,8 +63,6 @@ export class HearingService {
   async assignOnlineHearingsToCitizen(email: string, tya: string, postcode: string, req: Request) {
     return RequestPromise.request({
       method: 'POST',
-      retry: HTTP_RETRIES,
-      delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/citizen/${tya}`,
       body: { email, postcode },
       resolveWithFullResponse: true,
