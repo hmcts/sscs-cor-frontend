@@ -44,6 +44,8 @@ describe('services/additional-evidence', () => {
         tya: 'wqiuvokQlD'
       },
       method: 'POST',
+      retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/statement`
     };
 
@@ -54,6 +56,8 @@ describe('services/additional-evidence', () => {
   it('should getCoversheet', async () => {
     const expectedRequestOptions = {
       method: 'GET',
+      retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       encoding: 'binary',
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
