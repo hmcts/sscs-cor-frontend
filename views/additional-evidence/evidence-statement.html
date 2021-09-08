@@ -1,4 +1,5 @@
 {% from "components/textarea/macro.njk" import govukTextarea %}
+{% from "components/spinner.html" import spinner %}
 
 <div class="govuk-grid-column-two-thirds">
     <form id="statement-form" action="/additional-evidence/statement" method="post">
@@ -29,6 +30,7 @@
         </div>
         {% include "includes/csrf-hidden-input.html" %}
         <div id="submit-buttons">
+            {{ spinner('Loading') }}
             <input id="submit-statement" type="submit" name="submit" value="{{ content[i18n.language].additionalEvidence.evidenceStatement.button | safe }}" class="govuk-button button-padding">
         </div>
     </form>

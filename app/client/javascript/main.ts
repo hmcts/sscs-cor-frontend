@@ -5,6 +5,7 @@ import { CheckCookies } from './check-cookies';
 import { SessionInactivity } from './session-inactivity';
 import { DetailsTabIndexToggle } from './detailsToggle';
 import { RequestType } from './request-type';
+import { EvidenceStatement } from './evidence-statement';
 
 const domready = require('domready');
 
@@ -19,6 +20,7 @@ const onReady = () => {
   const sessionInactivity = new SessionInactivity();
   const detailsToggle = new DetailsTabIndexToggle();
   const requestType = new RequestType();
+  const evidenceStatement = new EvidenceStatement();
 
   checkCookies.init();
   govUK.initAll();

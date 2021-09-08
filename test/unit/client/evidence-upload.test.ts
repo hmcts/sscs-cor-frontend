@@ -118,8 +118,8 @@ describe('evidence-upload', () => {
     });
   });
 
-  describe('#showSpinnerOnClick', () => {
-    it('hides submit button when clicked', () => {
+  describe('#showSpinnerOnSubmitEvidenceClick', () => {
+    it('hides submit evidence button when clicked', () => {
       const submitSpinner = document.getElementById('upload-spinner');
       const submitEvidence: HTMLElement = document.getElementById('submit-evidences');
       evidenceUpload.submitEvidenceEventListener();
