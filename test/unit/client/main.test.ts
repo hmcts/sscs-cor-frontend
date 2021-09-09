@@ -29,7 +29,7 @@ describe('client main js', () => {
     expect(detailsToggleMock).to.have.been.calledOnce;
     expect(govUKMock).to.have.been.calledOnce;
     expect(expandingTextBoxMock).to.have.been.calledOnce;
-    expect(initEvidenceStatementMock).to.have.been.calledOnce;
+    expect(initEvidenceStatementMock).to.have.been.calledTwice;
     expect(checkCookiesMock).to.have.been.calledOnce;
     expect(initEvidenceUploadMock).to.have.been.calledOnce;
     expect(sessionInactivityMock).to.have.been.calledOnce;
