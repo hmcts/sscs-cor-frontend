@@ -27,6 +27,7 @@ const onReady = () => {
   expandingTextBox.init();
   sessionInactivity.init();
   detailsToggle.init();
+  evidenceStatement.init();
 
   document.querySelectorAll('#buttonBack').forEach(element => element.addEventListener('click', goBack));
 };
