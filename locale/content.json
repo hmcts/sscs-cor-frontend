@@ -449,7 +449,7 @@
          "incomesupport": "Return to your Income Support appeal",
          "bereavementsupportpaymentscheme": "Return to your Bereavement Support Payment Scheme benefit appeal",
          "industrialdeathbenefit": "Return to your Industrial Death Benefit appeal",
-         "pensioncredits": "Return to your Pension Credits appeal",
+         "pensioncredit": "Return to your Pension Credit appeal",
          "retirementpension": "Return to your Retirement Pension appeal"
         }
       },
@@ -583,7 +583,7 @@
       "noReleasedRecordings": "No hearing recordings have been released to you",
       "noOutstandingRecordings": "You have no outstanding hearing recording requests",
       "noRequestableRecordings": "There are no hearing recordings available for you to request",
-      "noHearingIdSelected": "Please select hearing recording for you to request",
+      "noHearingIdSelected": "Please select hearing recording",
       "releasedHearingRecordings": "Released Hearing Recordings",
       "outstandingHearingRecordings": "Outstanding Hearing Recording Requests",
       "hearingRecordingRequests": "Request for Hearing Recording",
@@ -848,7 +848,7 @@
       "jsa" : {
         "acronym": "JSA",
         "yourBenefitAppeal": "Your JSA Benefit appeal",
-        "fullDescription": "Job Seekers Allowance (JSA)",
+        "fullDescription": "Jobseeker’s Allowance (JSA)",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
@@ -893,10 +893,10 @@
         "agencyAcronym": "DWP",
         "panel": "a judge and up to 2 consultants doctors"
       },
-      "pensioncredits" : {
-        "acronym": "PENSION CREDITS",
-        "yourBenefitAppeal": "Your Pension Credits appeal",
-        "fullDescription": "Pension Credits",
+      "pensioncredit" : {
+        "acronym": "PENSION CREDIT",
+        "yourBenefitAppeal": "Your Pension Credit appeal",
+        "fullDescription": "Pension Credit",
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
@@ -1145,6 +1145,7 @@
       "describeTheEvidence": "Rhowch ddisgrifiad o’r dystiolaeth",
       "breflyDescribeWhatAndWhy": "Disgrifiwch yn fyr beth ydych yn ei uwchlwytho a pham",
       "avEvidence": "Tystiolaeth Sain/Fideo",
+      "submitRequestToTribunal": "Cyflwyno",
       "type": {
         "Appellant": "Apelydd",
         "Appointee": "Penodai",
@@ -1555,7 +1556,7 @@
           "incomeSupport": "Dychwelyd i'ch apêl budd-dal Cymhorthdal Incwm",
           "bereavementsupportpaymentscheme": "Dychwelyd i'ch apêl budd-dal Cynllun Talu am Gymorth yng nghyswllt Profedigaeth",
           "industrialdeathbenefit": "Dychwelyd i'ch apêl budd-dal Marwolaeth Ddiwydiannol",
-          "pensioncredits": "Dychwelyd i'ch apêl budd-dal Credydau Pensiwn",
+          "pensioncredit": "Dychwelyd i'ch apêl budd-dal Credydau Pensiwn",
           "retirementpension": "Dychwelyd i'ch apêl budd-dal Pensiwn Ymddeol"
         }
       },
@@ -1678,7 +1679,22 @@
       "noEvidence": "Nid oes tystiolaeth sain/fideo gymeradwy yn gysylltiedig â’ch achos"
     },
     "requestTypeTab": {
-      "tabHeader": "Cais"
+      "tabHeader": "Ceisiadau",
+      "selectRequestHeader": "Dewiswch Cais",
+      "selectRequestOption": "--Dewiswch Cais--",
+      "hearingRecordingOption": "Recordiad o wrandawiad"
+    },
+    "hearingRecording": {
+      "hearingRecordings": "Recordiad o wrandawiadau",
+      "noRecordings": "Nid oes unrhyw recordiad o wrandawiad yn gysylltiedig â’ch achos",
+      "noReleasedRecordings": "Nid oes unrhyw recordiad o wrandawiad wedi ei ryddhau ichi",
+      "noOutstandingRecordings": "Nid oes gennych unrhyw geisiadau am recordiad o wrandawiad sydd dal yn weddill",
+      "noRequestableRecordings": "Nid oes unrhyw recordiad o wrandawiad ar gael ichi wneud cais amdano",
+      "noHearingIdSelected": "Dewiswch recordiad gwrandawiad llys",
+      "releasedHearingRecordings": "Recordiad o wrandawiad a ryddhawyd",
+      "outstandingHearingRecordings": "Ceisiadau am recordiad o wrandawiad sydd dal yn weddill",
+      "hearingRecordingRequests": "Cais am recordiad o wrandawiad",
+      "requestConfirmed": "Cais recordio Gwrandawiad Llys wedi'i gyflwyno"
     },
     "appealEvents": {
       "ADJOURNED": {
@@ -1984,7 +2000,7 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr a hyd at 2 feddyg ymgynghorol"
       },
-      "pensioncredits" : {
+      "pensioncredit" : {
         "acronym": "CREDYDAU PENSIWN",
         "yourBenefitAppeal": "Eich apêl Credydau Pensiwn",
         "fullDescription": "Credydau Pensiwn",
