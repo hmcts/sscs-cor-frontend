@@ -24,5 +24,11 @@
   "report-dir": "./test/coverage/html",
   "temp-directory": "./test/coverage/.nyc_output",
   "temp-dir": "./test/coverage/.nyc_output",
-  "all": true
+  "all": true,
+  {
+    "branches": 80,
+    "lines": 80,
+    "functions": 80,
+    "statements": 80
+  }
 }
