@@ -8,7 +8,8 @@
     "app/server/server.ts",
     "app/server/controllers/idam-stub.ts",
     "app/client/javascript/main.ts",
-    "app/server/app-configurations.ts"
+    "app/server/app-configurations.ts",
+    "app/server/controller/task-list.ts"
   ],
   "reporter": [
     "lcov",
