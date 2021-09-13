@@ -18,6 +18,8 @@
   "extension": [
     ".ts"
   ],
+  "check-coverage": true,
+  "excludeNodeModules": false,
   "report-dir": "./test/coverage/html",
   "temp-directory": "./test/coverage/.nyc_output",
   "temp-dir": "./test/coverage/.nyc_output",
