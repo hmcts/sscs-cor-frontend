@@ -4,12 +4,9 @@
   ],
   "exclude": [
     "**/*.d.ts",
-    "**/*.test.ts",
     "app/server/app.ts",
     "app/server/server.ts",
-    "app/server/controllers/idam-stub.ts",
-    "app/client/javascript/main.ts",
-    "app/server/app-configurations.ts"
+    "app/server/controllers/idam-stub.ts"
   ],
   "reporter": [
     "lcov",
@@ -19,14 +16,8 @@
   "extension": [
     ".ts"
   ],
-  "check-coverage": true,
-  "excludeNodeModules": true,
   "report-dir": "./test/coverage/html",
   "temp-directory": "./test/coverage/.nyc_output",
   "temp-dir": "./test/coverage/.nyc_output",
-  "all": true,
-  "lines": 50,
-  "statements": 50,
-  "functions": 50,
-  "branches": 50
+  "all": true
 }
