@@ -4,11 +4,8 @@ export class CheckCookies {
   public COOKIE_BANNER: string = 'app-cookie-banner';
   public cookieBannerElement: HTMLElement;
   init(): void {
-    const isCookieBanner = config.featureFlags.cookieBanner.enabled;
-    if (isCookieBanner === 'false') {
-      this.cookieBannerElement = document.getElementById('app-cookie-banner');
-      this.isCookiePrivacyMessageDisplayed();
-    }
+    this.cookieBannerElement = document.getElementById(this.COOKIE_BANNER);
+    this.isCookiePrivacyMessageDisplayed();
   }
 
   isCookiePrivacyMessageDisplayed(): void {

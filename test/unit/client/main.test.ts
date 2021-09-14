@@ -8,9 +8,13 @@ import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 
 describe('client main js', () => {
+  const html = `<div id="app-cookie-banner" >`;
   let sandbox;
+  let body;
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
+    body = document.querySelector('body');
+    body.innerHTML = html;
   });
   afterEach(function () {
     sandbox.restore();

@@ -13,6 +13,13 @@ function goBack() {
   return false;
 }
 
+function initCookieBanner() {
+  if (document.querySelector('#app-cookie-banner')) {
+    const checkCookies = new CheckCookies();
+    checkCookies.init();
+  }
+}
+
 const onReady = () => {
   const checkCookies = new CheckCookies();
   const evidence = new EvidenceUpload();
@@ -20,7 +27,7 @@ const onReady = () => {
   const detailsToggle = new DetailsTabIndexToggle();
   const requestType = new RequestType();
 
-  checkCookies.init();
+  initCookieBanner();
   govUK.initAll();
   expandingTextBox.init();
   sessionInactivity.init();

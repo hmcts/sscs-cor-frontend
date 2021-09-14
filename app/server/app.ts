@@ -79,6 +79,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     app.locals.contactUsWebFormEnabled = isFeatureEnabled(Feature.CONTACT_US_WEB_FORM_ENABLED, req.cookies);
     app.locals.contactUsTelephoneEnabled = isFeatureEnabled(Feature.CONTACT_US_TELEPHONE_ENABLED, req.cookies);
     app.locals.webChatEnabled = isFeatureEnabled(Feature.CONTACT_US_WEBCHAT_ENABLED, req.cookies);
+    app.locals.cookieBannerEnabled = isFeatureEnabled(Feature.ALLOW_COOKIE_BANNER_ENABLED, req.cookies);
     // fixme needed?
     app.locals.mediaFilesAllowed = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
     app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
