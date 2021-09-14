@@ -4,6 +4,7 @@
   ],
   "exclude": [
     "**/*.d.ts",
+    "**/*.test.ts",
     "app/server/app.ts",
     "app/server/server.ts",
     "app/server/controllers/idam-stub.ts",
