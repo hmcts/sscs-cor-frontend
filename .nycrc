@@ -8,8 +8,7 @@
     "app/server/server.ts",
     "app/server/controllers/idam-stub.ts",
     "app/client/javascript/main.ts",
-    "app/server/app-configurations.ts",
-    "app/server/controller/task-list.ts"
+    "app/server/app-configurations.ts"
   ],
   "reporter": [
     "lcov",
@@ -24,5 +23,9 @@
   "report-dir": "./test/coverage/html",
   "temp-directory": "./test/coverage/.nyc_output",
   "temp-dir": "./test/coverage/.nyc_output",
-  "all": true
+  "all": true,
+  "lines": 50,
+  "statements": 50,
+  "functions": 50,
+  "branches": 50
 }
