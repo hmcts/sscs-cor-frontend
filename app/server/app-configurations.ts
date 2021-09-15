@@ -31,10 +31,7 @@ function configureHelmet(app) {
         'www.google-analytics.com',
         'www.googletagmanager.com',
         'tagmanager.google.com',
-        'vcc-eu4.8x8.com',
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-        'https://code.jquery.com/ui/1.11.2/jquery-ui.js',
-        'https://code.jquery.com/jquery-1.10.2.js'
+        'vcc-eu4.8x8.com'
       ],
       styleSrc: [
         '\'self\'',
@@ -87,7 +84,6 @@ function configureNunjucks(app: express.Application) {
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
-  nunEnv.addGlobal('serviceName', `Manage your appeal`);
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
