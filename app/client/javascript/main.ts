@@ -21,7 +21,6 @@ function initCookieBanner() {
 }
 
 const onReady = () => {
-  const checkCookies = new CheckCookies();
   const evidence = new EvidenceUpload();
   const sessionInactivity = new SessionInactivity();
   const detailsToggle = new DetailsTabIndexToggle();
