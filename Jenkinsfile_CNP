@@ -35,6 +35,8 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
+def branchesToSync = ['demo', 'ithc', 'perftest']
+
 withPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
     after('checkout') {yarnBuilder.yarn('cache clean')}
@@ -42,6 +44,7 @@ withPipeline("nodejs", product, component) {
 
     enableAksStagingDeployment()
     disableLegacyDeployment()
+    syncBranchesWithMaster(branchesToSync)
     before('securitychecks') { yarnBuilder.yarn('test:audit') }
 
     before("functionalTest:preview") {
