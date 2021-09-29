@@ -4,6 +4,38 @@
 {% set pageHeader = content[i18n.language].cookiePrivacy.cookies.title | safe %}
 
 {% macro cookieTable(items, columnNames) %}
+<table class="govuk-table">
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        {% for columnName in columnNames %}
+        <th class="govuk-table__header" scope="col">{{ columnName | safe }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    {% for item in items %}
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">{{ item.name | safe }}</td>
+        <td class="govuk-table__cell">{{ item.purpose | safe }}</td>
+        <td class="govuk-table__cell">{{ item.expires | safe }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
+
+{% block beforeContent %}
+{{super()}}
+{{ govukBackLink({
+href: "#",
+text: content[i18n.language].general.back,
+attributes : {
+onclick: "history.go(-1); return false;"
+}
+}) }}
+{% endblock%}
+
+{% block content %}
 <div class="govuk-grid-row">
     <div class="group help-page cookie-settings govuk-grid-column-two-thirds">
         <div class="grid-row govuk-!-margin-top-8 govuk-!-margin-bottom-8">
