@@ -1,11 +1,9 @@
-import * as FeatureEnabled from '../../../app/server/utils/featureEnabled';
-
 const { expect, sinon } = require('test/chai-sinon');
-const { setupCookiePrivacyController, getCookiePrivacy } = require('app/server/controllers/policies.ts');
+const { setupCookiePrivacyController, getCookiePrivacy, getNewCookiePrivacy } = require('app/server/controllers/policies.ts');
 const express = require('express');
 import * as Paths from 'app/server/paths';
 
-describe('controllers/policies.js', () => {
+describe.only('controllers/policies.js', () => {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
@@ -27,24 +25,17 @@ describe('controllers/policies.js', () => {
   });
 
   describe('getCookiePrivacy', () => {
-    let isFeatureEnabledStub;
-    beforeEach(() => {
-      isFeatureEnabledStub = sandbox.stub(FeatureEnabled, 'isFeatureEnabled');
+    it('renders old Cookie Policy page', async() => {
+      await getCookiePrivacy(req, res);
+      expect(res.render).to.have.been.calledOnce.calledWith('policy-pages/cookie-privacy-old.html');
     });
+  });
 
-    const scenarios = [
-      { cookieBannerFeature: true, expected: 'policy-pages/cookie-privacy-new.html' },
-      { cookieBannerFeature: false, expected: 'policy-pages/cookie-privacy-old.html' }
-    ];
-
-    scenarios.forEach((scenario) => {
-      it('renders Cookie Policy page for cookieBanner.enabled = ' + scenario.cookieBannerFeature, () => {
-        isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.ALLOW_COOKIE_BANNER_ENABLED, sinon.match.object).returns(scenario.cookieBannerFeature);
-        getCookiePrivacy(req, res);
-        expect(res.render).to.have.been.calledOnce.calledWith(scenario.expected);
-      });
+  describe('getNewCookiePrivacy', () => {
+    it('renders new Cookie Policy page', async() => {
+      await getNewCookiePrivacy(req, res);
+      expect(res.render).to.have.been.calledOnce.calledWith('policy-pages/cookie-privacy-new.html');
     });
-
   });
 
   describe('setupCookiePrivacyController', () => {
