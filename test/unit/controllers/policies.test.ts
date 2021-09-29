@@ -3,7 +3,7 @@ const { setupCookiePrivacyController, getCookiePrivacy, getNewCookiePrivacy } = 
 const express = require('express');
 import * as Paths from 'app/server/paths';
 
-describe.only('controllers/policies.js', () => {
+describe('controllers/policies.js', () => {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
