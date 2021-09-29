@@ -154,6 +154,7 @@
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
     "webdriverio": "^4.14.4",
+    "underscore": "^1.13.1",
     "@stryker-mutator/api": "^3.3.1",
     "@stryker-mutator/core": "^3.3.1",
     "@stryker-mutator/javascript-mutator": "^3.3.1",
