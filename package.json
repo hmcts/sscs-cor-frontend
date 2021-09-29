@@ -63,7 +63,7 @@
     "@types/express-serve-static-core": "^4.16.0",
     "applicationinsights": "^1.6.0",
     "applicationinsights-native-metrics": "^0.0.5",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "body-parser": "^1.17.1",
     "chokidar": "^3.3.1",
     "computed-style": "^0.3.0",
@@ -157,7 +157,7 @@
   "resolutions": {
     "minimist": "^1.2.5",
     "elliptic": "^6.5.4",
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "lodash": "^4.17.21",
     "hosted-git-info": "4.0.0",
     "url-parse": "1.5.2",
