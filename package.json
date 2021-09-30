@@ -69,7 +69,7 @@
     "chokidar": "^3.3.1",
     "computed-style": "^0.3.0",
     "config": "3.2.5",
-    "connect-redis": "^6.0.0",
+    "connect-redis": "^3.4.2",
     "cookie-parser": "^1.4.3",
     "csurf": "^1.10.0",
     "express": "^4.17.1",
@@ -154,13 +154,9 @@
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
     "webdriverio": "^4.14.4",
-    "@stryker-mutator/api": "^3.3.1",
-    "@stryker-mutator/core": "^3.3.1",
-    "@stryker-mutator/javascript-mutator": "^3.3.1",
-    "@stryker-mutator/mocha-framework": "^3.3.1",
-    "@stryker-mutator/mocha-runner": "^3.3.1",
-    "@stryker-mutator/typescript": "^3.0.1",
-    "@stryker-mutator/html-reporter": "^3.0.1"
+    "@stryker-mutator/api": "^5.4.0",
+    "@stryker-mutator/core": "^5.4.0",
+    "@stryker-mutator/mocha-runner": "^5.4.0"
   },
   "resolutions": {
     "minimist": "^1.2.5",
