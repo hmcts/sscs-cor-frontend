@@ -18,7 +18,6 @@ import watch from './watch';
 import * as config from 'config';
 import { isFeatureEnabled, Feature } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
-const healthCheck = require('@hmcts/nodejs-healthcheck');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -74,10 +73,8 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   // Get Base url and contact us configuration
   app.use((req, res, next) => {
     const session = req.cookies['session'];
-    const connect = req.cookies['connect.sid'];
 
     res.cookie('session', session,{ secure: true, sameSite: 'strict' });
-    res.cookie('connect.sid', connect,{ secure: true, sameSite: 'strict' });
     app.locals.webChat = config.get('services.webChat');
     app.locals.webFormUrl = config.get('services.webForm.url');
     app.locals.allowContactUs = isFeatureEnabled(Feature.ALLOW_CONTACT_US, req.cookies);
