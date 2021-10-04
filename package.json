@@ -26,6 +26,7 @@
     "test:unit-client": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/client/tsconfig.json NODE_ENV=test mocha --require jsdom-global/register test/unit/client/**/*.ts",
     "test:browser": "NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/browser/**/*.ts --colors --reporter mochawesome  --reporter-options reportDir=functional-output/reports/functional,inlineAssets=true --exit",
     "test:integration": "cross-env NODE_PATH=. TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=test mocha test/integration/**/*.ts --exit",
+    "test:mutation": "NODE_CONFIG_DIR=./config stryker run test/mutation/stryker.conf.js",
     "test:functional": "yarn test:browser --grep @mya",
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
     "test:nightly": "yarn test:browser --grep @nightly",
@@ -152,7 +153,10 @@
     "uglify-js": "^3.8.0",
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
-    "webdriverio": "^4.14.4"
+    "webdriverio": "^4.14.4",
+    "@stryker-mutator/api": "^4.0.0",
+    "@stryker-mutator/core": "^4.0.0",
+    "@stryker-mutator/mocha-runner": "^4.0.0"
   },
   "resolutions": {
     "minimist": "^1.2.5",
