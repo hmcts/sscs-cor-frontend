@@ -1,7 +1,6 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
-import { HearingService } from '../services/hearing';
 import { Logger } from '@hmcts/nodejs-logging';
 
 const logger = Logger.getLogger('active-cases.js');
@@ -17,8 +16,13 @@ function getActiveCases(req: Request, res: Response) {
   }
 
   const hearingsByName = session['hearingsByName']!;
+  const activeCases = hearingsByName.filter(filterActiveCase);
 
-  return res.render('active-tab.html', { hearingsByName });
+  return res.render('active-tab.html', { activeCases });
+}
+
+function filterActiveCase(selectedHearing) {
+  return selectedHearing.appeal_details.state !== 'dormantAppealState' || selectedHearing.appeal_details.state !== 'voidState';
 }
 
 function setupActiveCasesController(deps: any) {
