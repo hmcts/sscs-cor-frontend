@@ -1743,11 +1743,11 @@
         "heading": "Ymateb {{appeal.benefitType | agencyAcronym}} ",
         "content": {
           "oral": [
-            "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl budd-dal {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi o’u hymateb atoch drwy’r post.",
+            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi o’u hymateb atoch drwy’r post.",
             "Nid oes angen ichi wneud unrhyw beth. Byddwch yn cael neges e-bost arall neu neges testun gyda diweddariad pan fydd eich gwrandawiad wedi’i drefnu. Yn anffodus ni allwn ddweud pryd y bydd hyn, ond gall fod ymhen sawl mis."
           ],
           "paper": [
-            "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi atoch drwy’r post. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
+            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi atoch drwy’r post. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
             "Bydd panel tribiwnlys sy’n cynnwys {{appeal.benefitType|panel}} yn cynnal gwrandawiad ar gyfer eich apêl. Rydych wedi dweud wrthym nad ydych eisiau mynychu, felly byddwch yn cael y penderfyniad drwy’r post, ar ôl i'r gwrandawiad gael ei gynnal. Yn anffodus ni allwn ddweud yn union pa bryd fydd hyn, ond gall fod ymhen sawl mis."
           ]
         }
@@ -1827,10 +1827,10 @@
         "heading": "Wrthi’n trefnu gwrandawiad",
         "content": {
           "oral": [
-            "Rydym dal wrthi’n trefnu dyddiad ar gyfer eich apêl budd-dal {{appeal.benefitType | benefitFullDescription}}. Ymddiheurwn am yr oedi. Mae’r ganolfan wrandawiadau yn brysurach na’r disgwyl. Byddwn yn cysylltu â chi unwaith y byddwn wedi trefnu dyddiad ar gyfer eich gwrandawiad."
+            "Rydym yn dal i drefnu dyddiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}}. Ymddiheurwn am yr oedi. Mae lleoliad y gwrandawiad yn brysurach na'r disgwyl. Byddwn yn cysylltu â chi cyn gynted ag y bydd gennym ddyddiad ar gyfer eich gwrandawiad."
           ],
           "paper": [
-            "Rydym dal wrthi’n trefnu dyddiad ar gyfer eich apêl budd-dal {{appeal.benefitType | benefitFullDescription}}. Ymddiheurwn am yr oedi. Mae’r ganolfan wrandawiadau yn brysurach na’r disgwyl. Byddwn yn cysylltu â chi unwaith y byddwn wedi trefnu dyddiad ar gyfer eich gwrandawiad."
+            "Rydym yn dal i drefnu dyddiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}}. Ymddiheurwn am yr oedi. Mae lleoliad y gwrandawiad yn brysurach na'r disgwyl. Byddwn yn cysylltu â chi cyn gynted ag y bydd gennym ddyddiad ar gyfer eich gwrandawiad."
           ]
         }
       },
