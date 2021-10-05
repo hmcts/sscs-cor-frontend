@@ -3,6 +3,7 @@
     <p>{{ content[i18n.language].additionalEvidence.evidenceConfirm.description | safe }}</p>
     {% if mediaFilesAllowed %}
       <p>{{ content[i18n.language].additionalEvidence.evidenceConfirm.review | safe }}</p>
+      <p>{{ content[i18n.language].additionalEvidence.evidenceConfirm.deleted | safe }}</p>
     {% endif %}
     <p>
         <a id="goToEvidenceUpload" href="/additional-evidence/upload" class="govuk-link">{{ content[i18n.language].additionalEvidence.evidenceConfirm.morelink | safe }}</a>
