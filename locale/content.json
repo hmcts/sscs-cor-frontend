@@ -631,7 +631,7 @@
         "heading": "Hearing took place",
         "content": {
           "oral": [
-            "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
             "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
           ],
           "paper": [
@@ -645,11 +645,11 @@
         "heading": "{{appeal.benefitType | agencyAcronym}} response",
         "content": {
           "oral": [
-            "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitAcronym}} benefit appeal. They should have sent you a copy of their response in the post.",
+            "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy of their response in the post.",
             "You do not need to do anything. You will receive another email or text message update when your hearing has been booked. Unfortunately we cannot say how long this will be but it may be several months."
           ],
           "paper": [
-            "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitAcronym}} appeal. They should have sent you a copy in the post. Read their response and send your comments to the tribunal, if you have any.",
+            "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy in the post. Read their response and send your comments to the tribunal, if you have any.",
             "A tribunal panel made up of {{appeal.benefitType|panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
           ]
         }
@@ -680,11 +680,11 @@
         "heading": "Hearing took place",
         "content": {
           "oral": [
-            "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
             "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
           ],
           "paper": [
-            "A hearing for your {{appeal.benefitType | benefitAcronym}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
             "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
           ]
         }
@@ -704,11 +704,11 @@
         "heading": "Change of decision",
         "content": {
           "oral": [
-            "{{appeal.benefitType | agencyAcronym}} have told us they changed their decision on your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal. If you don’t agree with their new decision you can start a new appeal.",
+            "{{appeal.benefitType | agencyAcronym}} have told us they changed their decision on your entitlement to {{appeal.benefitType | benefitFullDescription}} in your favour. We’ve therefore closed this appeal. If you don’t agree with their new decision you can start a new appeal.",
             "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
           ],
           "paper": [
-            "{{appeal.benefitType | agencyAcronym}} has told us they changed their decision about your entitlement to {{appeal.benefitType | benefitAcronym}} in your favour. We’ve therefore closed this appeal.",
+            "{{appeal.benefitType | agencyAcronym}} has told us they changed their decision about your entitlement to {{appeal.benefitType | benefitFullDescription}} in your favour. We’ve therefore closed this appeal.",
             "If you don’t agree with their new decision you can start a new appeal: <a href=\"https://www.gov.uk/appeal-benefit-decision\">https://www.gov.uk/appeal-benefit-decision</a>",
             "If you have any questions relating to your benefits, contact {{appeal.benefitType | agencyAcronym}}. You can find their contact details on any correspondence you’ve received from them."
           ]
@@ -729,10 +729,10 @@
         "heading": "Still booking a hearing",
         "content": {
           "oral": [
-            "We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."
+            "We are still booking a date for your {{appeal.benefitType | benefitFullDescription}} appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."
           ],
           "paper": [
-            "We are still booking a date for your {{appeal.benefitType | benefitAcronym}} benefit appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."
+            "We are still booking a date for your {{appeal.benefitType | benefitFullDescription}} appeal. We apologise for the delay. The hearing venue is busier than expected. We will contact you as soon as we have a date for your hearing."
           ]
         }
       },
@@ -740,11 +740,11 @@
         "heading": "Hearing postponed",
         "content": {
           "oral": [
-            "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
+            "The hearing for your {{appeal.benefitType | benefitFullDescription}} appeal has been postponed and will now take place on a different day.",
             "You do not need to do anything. We’ll now book a new hearing for your appeal as soon as we can."
           ],
           "paper": [
-            "The hearing for your {{appeal.benefitType | benefitAcronym}} appeal has been postponed and will now take place on a different day.",
+            "The hearing for your {{appeal.benefitType | benefitFullDescription}} appeal has been postponed and will now take place on a different day.",
             "You do not need to do anything. We’ll now book a new hearing for your appeal as soon as we can."
           ]
         }
@@ -1729,7 +1729,7 @@
         "heading": "Cynhaliwyd gwrandawiad",
         "content": {
           "oral": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ],
           "paper": [
@@ -1743,11 +1743,11 @@
         "heading": "Ymateb {{appeal.benefitType | agencyAcronym}} ",
         "content": {
           "oral": [
-            "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl budd-dal {{appeal.benefitType | benefitAcronym}}. Dylent fod wedi anfon copi o’u hymateb atoch drwy’r post.",
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl budd-dal {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi o’u hymateb atoch drwy’r post.",
             "Nid oes angen ichi wneud unrhyw beth. Byddwch yn cael neges e-bost arall neu neges testun gyda diweddariad pan fydd eich gwrandawiad wedi’i drefnu. Yn anffodus ni allwn ddweud pryd y bydd hyn, ond gall fod ymhen sawl mis."
           ],
           "paper": [
-            "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitAcronym}}. Dylent fod wedi anfon copi atoch drwy’r post. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi atoch drwy’r post. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
             "Bydd panel tribiwnlys sy’n cynnwys {{appeal.benefitType|panel}} yn cynnal gwrandawiad ar gyfer eich apêl. Rydych wedi dweud wrthym nad ydych eisiau mynychu, felly byddwch yn cael y penderfyniad drwy’r post, ar ôl i'r gwrandawiad gael ei gynnal. Yn anffodus ni allwn ddweud yn union pa bryd fydd hyn, ond gall fod ymhen sawl mis."
           ]
         }
@@ -1778,11 +1778,11 @@
         "heading": "Gwrandawiad wedi’i gynnal",
         "content": {
           "oral": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ],
           "paper": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ]
         }
@@ -1802,11 +1802,11 @@
         "heading": "Newid penderfyniad",
         "content": {
           "oral": [
-            "Mae {{appeal.benefitType | agencyAcronym}} wedi dweud wrthym eu bod wedi newid eu penderfyniad ynghylch eich hawl i gael {{appeal.benefitType | benefitAcronym}} i fod o’ch plaid. Rydym felly wedi cau’r apêl hon. Os nad ydych yn cytuno â’r penderfyniad newydd, gallwch ddechrau apêl newydd.",
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi dweud wrthym eu bod wedi newid eu penderfyniad ynghylch eich hawl i gael {{appeal.benefitType | benefitFullDescription}} i fod o’ch plaid. Rydym felly wedi cau’r apêl hon. Os nad ydych yn cytuno â’r penderfyniad newydd, gallwch ddechrau apêl newydd.",
             "Os oes gennych unrhyw gwestiynau ynglyn â’ch budd-daliadau, cysylltwch â {{appeal.benefitType | agencyAcronym}}. Gallwch ddod o hyd i’w manylion cyswllt ar unrhyw ohebiaeth rydych wedi’i chael ganddynt."
           ],
           "paper": [
-            "Mae {{appeal.benefitType | agencyAcronym}} wedi dweud wrthym eu bod wedi newid eu penderfyniad ynghylch eich hawl i gael {{appeal.benefitType | benefitAcronym}} i fod o’ch plaid. Rydym felly wedi cau’r apêl hon.",
+            "Mae {{appeal.benefitType | agencyAcronym}} wedi dweud wrthym eu bod wedi newid eu penderfyniad ynghylch eich hawl i gael {{appeal.benefitType | benefitFullDescription}} i fod o’ch plaid. Rydym felly wedi cau’r apêl hon.",
             "Os nad ydych yn cytuno â’r penderfyniad newydd, gallwch ddechrau apêl newydd: <a href=\"https://www.gov.uk/appeal-benefit-decision\">https://www.gov.uk/appeal-benefit-decision</a>",
             "Os oes gennych unrhyw gwestiynau ynglyn â’ch budd-daliadau, cysylltwch â {{appeal.benefitType | agencyAcronym}}. Gallwch ddod o hyd i’w manylion cyswllt ar unrhyw ohebiaeth rydych wedi’i chael ganddynt."
           ]
@@ -1827,10 +1827,10 @@
         "heading": "Wrthi’n trefnu gwrandawiad",
         "content": {
           "oral": [
-            "Rydym dal wrthi’n trefnu dyddiad ar gyfer eich apêl budd-dal {{appeal.benefitType | benefitAcronym}}. Ymddiheurwn am yr oedi. Mae’r ganolfan wrandawiadau yn brysurach na’r disgwyl. Byddwn yn cysylltu â chi unwaith y byddwn wedi trefnu dyddiad ar gyfer eich gwrandawiad."
+            "Rydym dal wrthi’n trefnu dyddiad ar gyfer eich apêl budd-dal {{appeal.benefitType | benefitFullDescription}}. Ymddiheurwn am yr oedi. Mae’r ganolfan wrandawiadau yn brysurach na’r disgwyl. Byddwn yn cysylltu â chi unwaith y byddwn wedi trefnu dyddiad ar gyfer eich gwrandawiad."
           ],
           "paper": [
-            "Rydym dal wrthi’n trefnu dyddiad ar gyfer eich apêl budd-dal {{appeal.benefitType | benefitAcronym}}. Ymddiheurwn am yr oedi. Mae’r ganolfan wrandawiadau yn brysurach na’r disgwyl. Byddwn yn cysylltu â chi unwaith y byddwn wedi trefnu dyddiad ar gyfer eich gwrandawiad."
+            "Rydym dal wrthi’n trefnu dyddiad ar gyfer eich apêl budd-dal {{appeal.benefitType | benefitFullDescription}}. Ymddiheurwn am yr oedi. Mae’r ganolfan wrandawiadau yn brysurach na’r disgwyl. Byddwn yn cysylltu â chi unwaith y byddwn wedi trefnu dyddiad ar gyfer eich gwrandawiad."
           ]
         }
       },
@@ -1838,11 +1838,11 @@
         "heading": "Gwrandawiad wedi’i ohirio",
         "content": {
           "oral": [
-            "Mae’r gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} wedi’i ohirio a bydd nawr yn cael ei gynnal ar ddiwrnod gwahanol.",
+            "Mae’r gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} wedi’i ohirio a bydd nawr yn cael ei gynnal ar ddiwrnod gwahanol.",
             "Nid oes angen ichi wneud unrhyw beth. Byddwn yn trefnu gwrandawiad newydd ar eich cyfer cyn gynted ag y gallwn."
           ],
           "paper": [
-            "Mae’r gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitAcronym}} wedi’i ohirio a bydd nawr yn cael ei gynnal ar ddiwrnod gwahanol.",
+            "Mae’r gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} wedi’i ohirio a bydd nawr yn cael ei gynnal ar ddiwrnod gwahanol.",
             "Nid oes angen ichi wneud unrhyw beth. Byddwn yn trefnu gwrandawiad newydd ar eich cyfer cyn gynted ag y gallwn."
           ]
         }
