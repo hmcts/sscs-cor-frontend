@@ -899,6 +899,14 @@
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
+      },
+      "childsupport" : {
+        "acronym": "CHILD SUPPORT",
+        "yourBenefitAppeal": "Your Child Support appeal",
+        "fullDescription": "Retirement Pension",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge"
       }
     },
     "helpGuides": {
@@ -1994,6 +2002,14 @@
         "acronym": "PENSIWN YMDDEOL",
         "yourBenefitAppeal": "Eich apêl Pensiwn Ymddeol",
         "fullDescription": "Pensiwn Ymddeol",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr"
+      },
+      "childsupport" : {
+        "acronym": "CYNNAL PLANT",
+        "yourBenefitAppeal": "Eich apêl Cynnal Plant",
+        "fullDescription": "Cynnal Plant",
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
