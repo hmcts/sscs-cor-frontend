@@ -41,6 +41,7 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
         <input id="add-file" name="add-file" type="submit" value="Add file" class="govuk-button secondary-button evidence-upload-nojs" style="display: none;">
     </div>
     <div id="upload-spinner"></div>
+     <input id="submit-evidences">
     <details id="sending-evidence-guide" class="govuk-details">
   <summary class="govuk-details__summary" role="button" aria-controls="details-content-00f525bb-889a-4507-af48-0eee2be4e967" aria-expanded="false">
     <span class="govuk-details__summary-text">
@@ -114,6 +115,17 @@ describe('evidence-upload', () => {
       expect(revealContainer.style.display).to.equal('none');
       checkbox.click();
       expect(revealContainer.style.display).to.equal('block');
+    });
+  });
+
+  describe('#showSpinnerOnSubmitEvidenceClick', () => {
+    it('hides submit evidence button when clicked', () => {
+      const submitSpinner = document.getElementById('upload-spinner');
+      const submitEvidence: HTMLElement = document.getElementById('submit-evidences');
+      evidenceUpload.submitEvidenceEventListener();
+      submitEvidence.click();
+      expect(submitSpinner.style.display).to.equal('block');
+      expect(submitEvidence.style.display).to.equal('none');
     });
   });
 

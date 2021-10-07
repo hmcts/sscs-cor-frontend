@@ -385,6 +385,7 @@
       }
     },
     "additionalEvidence": {
+      "loading": "Loading",
       "evidenceOptions": {
         "header": "How do you want to provide additional information?",
         "error": {
@@ -1491,6 +1492,7 @@
       }
     },
     "additionalEvidence": {
+      "loading": "Wrthi’n llwytho",
       "evidenceOptions": {
         "header": "Sut ydych chi eisiau darparu gwybodaeth ychwanegol?",
         "error": {
