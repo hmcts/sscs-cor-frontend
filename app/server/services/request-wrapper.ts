@@ -1,4 +1,4 @@
-import * as request from 'request-promise';
+import * as request from 'promise-request-retry';
 import { Request } from 'express';
 const timeout = require('config').get('apiCallTimeout');
 import * as AppInsights from '../app-insights';

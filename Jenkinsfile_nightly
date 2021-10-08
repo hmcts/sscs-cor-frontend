@@ -45,6 +45,7 @@ withNightlyPipeline("nodejs", product, component) {
     enableCrossBrowserTest()
     enableFullFunctionalTest(20)
     enableSlackNotifications('#sscs-tech')
+    enableMutationTest()
 
     after('fortify-scan') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'

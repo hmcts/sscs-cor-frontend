@@ -124,6 +124,9 @@ function configureNunjucks(app: express.Application) {
   nunEnv.addFilter('benefitAcronym', benefitType => {
     return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].acronym, this.ctx);
   });
+  nunEnv.addFilter('benefitFullDescription', benefitType => {
+    return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].fullDescription, this.ctx);
+  });
   nunEnv.addFilter('panel', benefitType => {
     return nunjucks.renderString(content[i18next.language].benefitTypes[benefitType].panel, this.ctx);
   });
