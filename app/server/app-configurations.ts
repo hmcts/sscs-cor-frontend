@@ -11,12 +11,11 @@ const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
 const config = require('config');
-const i18next = require('i18next');
+import i18next, { InitOptions } from 'i18next';
 
 function configureHelmet(app) {
   // by setting HTTP headers appropriately.
   app.use(helmet());
-
   // Helmet referrer policy
   app.use(helmet.referrerPolicy({ policy: 'origin' }));
 
@@ -31,7 +30,10 @@ function configureHelmet(app) {
         'www.google-analytics.com',
         'www.googletagmanager.com',
         'tagmanager.google.com',
-        'vcc-eu4.8x8.com'
+        'vcc-eu4.8x8.com',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
+        'https://code.jquery.com/ui/1.11.2/jquery-ui.js',
+        'https://code.jquery.com/jquery-1.10.2.js'
       ],
       styleSrc: [
         '\'self\'',
@@ -74,9 +76,11 @@ function configureHeaders(app) {
 function configureNunjucks(app: express.Application) {
   const nunEnv = nunjucks.configure([
     'views',
+    'app/main',
+    'cookie-banner/',
     'views/notifications',
-    'node_modules/govuk-frontend/',
-    'node_modules/govuk-frontend/components/'
+    'node_modules/govuk-frontend/govuk/',
+    'node_modules/govuk-frontend/govuk/components/'
   ], {
     autoescape: true,
     express: app,
@@ -84,12 +88,13 @@ function configureNunjucks(app: express.Application) {
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', process.env.FT_WELSH === 'true' || config.get(`featureFlags.welsh`) === 'true');
+  nunEnv.addGlobal('serviceName', `Manage your appeal`);
+  nunEnv.addGlobal('t', (key: string, options?: InitOptions): string => this.i18next.t(key, options));
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
     next();
   });
-
   nunEnv.addFilter('date', function (text) {
     if (!text) return '';
     const isoDateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;

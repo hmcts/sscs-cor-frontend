@@ -74,7 +74,7 @@
     "requestTabEnabled": "false",
     "welsh": "true",
     "cookieBanner": {
-      "enabled": "false"
+      "enabled": "true"
     }
   },
   "services": {
