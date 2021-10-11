@@ -4,7 +4,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
+    
     z-index: 2;
     max-width: 500px;
     box-sizing: border-box;
@@ -15,7 +15,7 @@
     text-align: left;
 
     &__title {
-        background: govuk-colour("red");
+        background: govuk-colour("bright-red");
         padding: 20px 30px;
 
         h2 {

@@ -7,7 +7,7 @@
     "app/server/app.ts",
     "app/server/server.ts",
     "app/server/controllers/idam-stub.ts"
-  ],
+  ],  
   "reporter": [
     "lcov",
     "text",
