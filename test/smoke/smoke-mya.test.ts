@@ -46,7 +46,7 @@ describe('Manage your appeal app @smoke', () => {
     it('should display navigation tabs and Status tab should be active', async() => {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be.null;
-      expect(await statusPage.getElementText('.navigation-tabs ul li.selected')).contain(content.en.statusTab.tabHeader);
+      expect(await statusPage.getElementText('.govuk-tabs__list-item--selected')).contain(content.en.statusTab.tabHeader);
     });
 
     it('should display subheading', async() => {
