@@ -4,10 +4,11 @@
 {% from "components/mya-contact-us.html" import contactUs with context %}
 {% from "components/footer/macro.njk" import govukFooter %}
 
-{% set assetPath = "/public/govuk-frontend" %}
+{% set assetPath = "/public/govuk-frontend/" %}
 
 {% block pageTitle %}
     {{ content[i18n.language].pageTitle | safe }}
+
 {% endblock %}
 
 {% block head %}
@@ -15,7 +16,13 @@
 {% endblock %}
 
 {% block header %}
-    {% include "includes/cookie-banner.html" %}
+    {% if cookieBannerEnabled %}
+        <div>
+            {% include "../cookie-banner/common/components/imported/cookie-manager/cookie-banner.njk" %}
+        </div>
+    {% else %}
+        {% include "includes/cookie-banner.html" %}
+    {% endif %}
     {% include "includes/header.html" %}
 {% endblock %}
 
@@ -87,10 +94,19 @@ text: "Cookies"
     {% if isDev %}
         <script src="/reload/reload.js"></script>
     {% endif %}
+
     <script src="/public/js/main.js"></script>
+
+    {% if cookieBannerEnabled %}
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="public/js/cookies-manager.js"></script>
+    {% endif %}
 
     {% if webChatEnabled and content.en.language == "en" %}
         <script src="/public/js/hmcts-webchat.js"></script>
+
         <script>
             /*
               * webchat_init() has been developed by CTSC and is defined in hmcts-webchat.js

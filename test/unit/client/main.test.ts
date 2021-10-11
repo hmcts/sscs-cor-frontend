@@ -8,10 +8,15 @@ import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 import { EvidenceStatement } from '../../../app/client/javascript/evidence-statement';
 
+const html = `<div id="app-cookie-banner" >`;
+
 describe('client main js', () => {
   let sandbox;
+  let body;
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
+    body = document.querySelector('body');
+    body.innerHTML = html;
   });
   afterEach(function () {
     sandbox.restore();
