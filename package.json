@@ -41,7 +41,7 @@
     "test:coverage": "nyc report",
     "test:a11y": "yarn -v it will run as part of functional test",
     "test:all": "yarn test && yarn test:coverage",
-    "sonar-scan": "sonar-scanner -Dsonar.exclusions=app/server/app.ts,app/server/controllers/content.js,app/core/contentLookup.js,app/server/controllers/notificationRedirect.js,app/server/controllers/validateEmail.js,app/server/controllers/question.ts,app/server/setLanguage.ts,app/core/tyaNunjucks.js,app/server/controllers/idam-stub.ts,app/server/middleware/health.ts",
+    "sonar-scan": "sonar-scanner -Dsonar.exclusions=app/server/app.ts,app/server/controllers/content.js,app/core/contentLookup.js,app/server/controllers/notificationRedirect.js,app/server/controllers/validateEmail.js,app/server/controllers/question.ts,app/server/setLanguage.ts,app/core/tyaNunjucks.js,app/server/controllers/idam-stub.ts,app/server/middleware/health.ts -Dsonar.javascript.lcov.reportPaths=test/coverage/html/lcov.info",
     "tslint": "tslint -p ./tsconfig.json",
     "lint": "eslint . && yarn tslint",
     "transpile": "yarn tsc -p ./app/server/tsconfig.json"
