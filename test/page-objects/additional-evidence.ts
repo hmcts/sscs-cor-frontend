@@ -8,7 +8,7 @@ export class AdditionalEvidencePage extends BasePage {
   }
 
   async selectStatementOption() {
-    await this.clickElement('#additional-evidence-option');
+    await this.clickElement('#additional-evidence-option-1');
   }
 
   async selectUploadOption() {

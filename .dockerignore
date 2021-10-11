@@ -7,7 +7,6 @@
 !locale/**
 !public/**
 !views/**
-!cookie-banner/**
 
 !tsconfig.json
 !server.js

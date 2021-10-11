@@ -11,7 +11,6 @@ const bodyParser = require('body-parser');
 import * as cookieParser from 'cookie-parser';
 const { fileTypes, fileTypesWithAudioVideo } = require('./utils/mimeTypeWhitelist');
 const i18next = require('i18next');
-const i18nextMiddleware = require('i18next-express-middleware');
 
 import * as screenReaderUtils from './utils/screenReaderUtils';
 import { configureHelmet, configureHeaders, configureNunjucks } from './app-configurations';
@@ -80,7 +79,6 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     app.locals.contactUsWebFormEnabled = isFeatureEnabled(Feature.CONTACT_US_WEB_FORM_ENABLED, req.cookies);
     app.locals.contactUsTelephoneEnabled = isFeatureEnabled(Feature.CONTACT_US_TELEPHONE_ENABLED, req.cookies);
     app.locals.webChatEnabled = isFeatureEnabled(Feature.CONTACT_US_WEBCHAT_ENABLED, req.cookies);
-    app.locals.cookieBannerEnabled = isFeatureEnabled(Feature.ALLOW_COOKIE_BANNER_ENABLED, req.cookies);
     // fixme needed?
     app.locals.mediaFilesAllowed = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
     app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
@@ -97,7 +95,6 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(routes);
   app.use(errors.pageNotFoundHandler);
   app.use(errors.coreErrorHandler);
-  app.use(i18nextMiddleware.handle(i18next));
   return app;
 }
 
