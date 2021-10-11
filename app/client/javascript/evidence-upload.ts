@@ -15,6 +15,7 @@ export class EvidenceUpload {
   public CANCEL_BUTTON: string = 'leave';
   public MODAL: string = 'file-dialog';
   public keyStrokeEventListener: any;
+  public SUBMIT_BUTTON: string = 'submit-evidences';
 
   constructor() {
     this.init();
@@ -35,6 +36,7 @@ export class EvidenceUpload {
     this.extend = document.getElementById(this.EXTEND_BUTTON);
     this.cancel = document.getElementById(this.CANCEL_BUTTON);
     this.additionalEvidenceAttachEventListeners();
+    this.submitEvidenceEventListener();
   }
 
   showHideRevealContainer(e: any): void {
@@ -95,6 +97,21 @@ export class EvidenceUpload {
     provideEvidence.addEventListener('click', this.showHideRevealContainer.bind(this));
     const fileUpload: HTMLElement = document.getElementById(this.FILE_UPLOAD_ID);
     fileUpload.addEventListener('change', this.uploadFile.bind(this));
+  }
+
+  submitEvidenceEventListener(): void {
+    const submitEvidence: HTMLElement = document.getElementById(this.SUBMIT_BUTTON);
+
+    if (submitEvidence != null) {
+      submitEvidence.addEventListener('click', this.submitPage.bind(this));
+    }
+  }
+
+  submitPage(): void {
+    const submitEvidence: HTMLElement = document.getElementById(this.SUBMIT_BUTTON);
+    submitEvidence.style.display = 'none';
+    const submitSpinner = document.getElementById('upload-spinner');
+    submitSpinner.style.display = 'block';
   }
 
   additionalEvidenceAttachEventListeners(): void {

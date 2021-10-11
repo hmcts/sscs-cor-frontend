@@ -44,6 +44,7 @@
     },
     "postBulkScan": "POST_BULK_SCAN",
     "hearingOutcomeTab": "HEARING_OUTCOME_TAB_ENABLED",
+    "requestTabEnabled": "REQUEST_TAB_ENABLED",
     "cookieBanner": {
       "enabled": "ALLOW_COOKIE_BANNER_ENABLED"
     }

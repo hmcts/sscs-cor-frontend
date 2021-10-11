@@ -1,53 +1,24 @@
 .navigation-tabs {
-    margin: 1rem 0;
-    @include govuk-media-query($from: tablet) {
-        margin: 2.5rem 0;
-        position: relative;
-        height: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-    &__list {
-        width: 100%;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        @include govuk-media-query($from: tablet) {
-            position: absolute;
-            border-bottom: 0.125rem solid #bfc1c3;
-        }
+    ul {
         li {
-            margin: 0 3px 0 0;
-            border-bottom: 0.125rem solid #bfc1c3;
-            @include govuk-media-query($from: tablet) {
-                float: left;
-                border-bottom: none;
-            }
-            a {
-                border: solid 2px #fff;
-                border-bottom: none;
-                height: 2.5rem;
-                line-height: 2.5rem;
-                margin-bottom: -2px;
-                @include govuk-media-query($from: tablet) {
-                    float: left;
-                    padding: 0 20px;
-                }
-
-                &:hover {
-                    background-color: #f8f8f8;
-                }
-            }
             &.selected {
+                text-decoration: none;
                 a {
-                    @include govuk-media-query($from: tablet) {
-                        border: 0.125rem solid #bfc1c3;
-                        border-bottom: none;
+                    text-decoration: underline;
+                    &.selected {
+                        @include govuk-media-query($from: tablet) {
+                            border-bottom: none;
+                            margin-bottom: -2px;
+                            background-color: white;
+                            border-color: lightgrey;
+                            border-style: solid;
+                            border-width: thin;
+                            border-bottom-color: white;
+                        }
+                        text-decoration: none;
+                        pointer-events: none;
+                        color: #0b0c0c;
                     }
-                    padding-bottom: 2px;
-                    background-color: white;
-                    pointer-events: none;
-                    text-decoration: none;
-                    color: #0b0c0c;
                 }
             }
         }

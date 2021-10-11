@@ -71,9 +71,10 @@
     "postBulkScan": "false",
     "historyTab": "false",
     "hearingOutcomeTab": "false",
+    "requestTabEnabled": "false",
     "welsh": "true",
     "cookieBanner": {
-      "enabled": "false"
+      "enabled": "true"
     }
   },
   "services": {
