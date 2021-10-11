@@ -1,8 +1,7 @@
 $govuk-global-styles: true;
 $govuk-assets-path: '/public/govuk-frontend/';
 
-@import "node_modules/govuk-frontend/govuk/all";
-@import "node_modules/govuk-frontend/govuk/base";
+@import "node_modules/govuk-frontend/all";
 @import "_question";
 @import "_task-list";
 @import "_contact-include";
@@ -42,7 +41,7 @@ body {
 }
 
 .secondary-button {
-  background-color: govuk-colour("mid-grey");
+  background-color: govuk-colour("grey-3");
   color: govuk-colour("black");
   -webkit-box-shadow: 0 2px 0 #b5babe;
   -moz-box-shadow: 0 2px 0 #b5babe;
@@ -56,7 +55,7 @@ body {
   }
   &:hover,
   &:focus {
-    background-color: darken(govuk-colour("mid-grey"), 5%);
+    background-color: darken(govuk-colour("grey-3"), 5%);
   }
 }
 
