@@ -181,6 +181,8 @@
     "normalize-url": "4.5.1",
     "tar": "^6.1.9",
     "path-parse": "^1.0.7",
-    "ansi-regex": "5.0.1"
+    "ansi-regex": "5.0.1",
+    "set-value": "^4.1.0",
+    "glob-parent": "^6.0.2"
   }
 }
