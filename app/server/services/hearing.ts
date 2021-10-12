@@ -1,5 +1,8 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
+import { CONST } from '../../constants';
+import HTTP_RETRIES = CONST.HTTP_RETRIES;
+import RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 
 interface OnlineHearingDecision {
   start_date: string;
@@ -48,6 +51,8 @@ export class HearingService {
     const path = tya ? `/${tya}` : '';
     return RequestPromise.request({
       method: 'GET',
+      retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/citizen${path}`,
       qs: { email },
       resolveWithFullResponse: true,

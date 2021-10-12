@@ -20,6 +20,7 @@ export const tribunalViewAccepted = '/tribunal-view-accepted';
 export const hearingConfirm = '/hearing-confirm';
 export const hearingWhy = '/hearing-why';
 export const cookiePrivacy = '/cookie-policy';
+export const cookiePrivacy2 = '/cookies';
 export const sessionExtension = '/session-extension';
 export const additionalEvidence = '/additional-evidence';
 export const aboutEvidence = '/about-evidence';

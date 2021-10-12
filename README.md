@@ -15,6 +15,10 @@ It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/s
 * yarn
 * redis running on the standard port (6379)
 
+```bash
+redis-server
+```
+
 Once you have those, you need to install the dependencies using:
 
 ```bash
@@ -120,7 +124,15 @@ HEADLESS=false SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-a
 Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
 
 ### Running app locally via terminal
-Open a terminal, go to the sscs-cor-frontend directory. Set env vars in a terminal
+Open a terminal, go to the sscs-cor-frontend directory. 
+
+Run redis in a terminal
+
+```bash
+redis-server
+```
+
+Open another terminal. Set env vars in the terminal
 
 ```
 export SSCS_API_URL=http://localhost:8080
@@ -148,6 +160,8 @@ and go to http://localhost:3000
 
 In order to log in as a citizen and be able to see your appeal you might need to use the link below:
 http://localhost:3000/sign-in?tya=[subscriptionCode]
+
+If you are using the idam simulator check the sscs-docker README for some config changes
 
 ### Creating test data in AAT
 

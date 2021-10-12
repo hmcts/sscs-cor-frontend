@@ -65,6 +65,7 @@
         <p id="no-evidence-file">{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.noFilesUploaded | safe }}</p>
 
         <div id="submit-buttons">
+            {{ spinner(content[i18n.language].additionalEvidence.loading | safe) }}
             <input id="submit-evidences" type="submit" name="buttonSubmit" value="{{ content[i18n.language].common.submitEvidenceToTribunal | safe }}" class="govuk-button">
         </div>
     </form>

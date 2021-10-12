@@ -75,7 +75,7 @@
     "welsh": "true",
     "myaPagination": "false",
     "cookieBanner": {
-      "enabled": "false"
+      "enabled": "true"
     }
   },
   "services": {
