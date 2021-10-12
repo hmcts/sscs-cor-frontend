@@ -1936,6 +1936,14 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr"
       },
+      "childsupport": {
+        "acronym": "CYNNAL PLANT",
+        "yourBenefitAppeal": "Cynnal Plant",
+        "fullDescription": "Budd-dal Profedigaeth",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr ac aelod panel cymwys yn ariannol (os yw'n berthnasol)"
+      },
       "industrialinjuriesdisablement": {
         "acronym": "BUDD-DAL ANABLEDD ANAFIADAU DIWYDIANNOL",
         "yourBenefitAppeal": "Eich apêl Budd-dal Anabledd Anafiadau Diwydiannol",
