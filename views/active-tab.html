@@ -4,13 +4,11 @@
 
 {% block corContent %}
     <h1 class="govuk-heading-xl">{{ content[i18n.language].selectCase.heading | safe }}</h1>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
         {{ navigationMainTabs("activeTab") }}
         <div class="task-list">
             <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].activeTab.header | safe }}</h2>
         </div>
-        {% for name, hearings in hearingsByName %}
+        {% for name, hearings in activeHearingsByName %}
             <h2 class="govuk-heading-m"><span id="appellant-name">{{ name | safe }}</span></h2>
                 <table class="govuk-table govuk-!-margin-bottom-9">
                     <thead class="govuk-table__head">
@@ -34,7 +32,5 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>
-        </div>
     {% endfor %}
 {% endblock %}

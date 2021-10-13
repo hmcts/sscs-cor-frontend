@@ -70,8 +70,8 @@ const supportWithdrawAppealController = supportControllers.setupSupportWithdrawA
 const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
 const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
 const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
-const activeCasesController = setupActiveCasesController({ prereqMiddleware: ensureAuthenticated });
-const dormantCasesController = setupDormantCasesController({ prereqMiddleware: ensureAuthenticated });
+const activeCasesController = setupActiveCasesController({ prereqMiddleware: ensureAuthenticated, setLocals });
+const dormantCasesController = setupDormantCasesController({ prereqMiddleware: ensureAuthenticated, setLocals });
 
 const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
 const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });

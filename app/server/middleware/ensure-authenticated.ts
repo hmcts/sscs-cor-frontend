@@ -33,8 +33,8 @@ function setLocals(req, res, next) {
   res.locals.featureFlags[Feature.MEDIA_FILES_ALLOWED_ENABLED] = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
 
   // Setting up Main Tabs to show on MYA;
-  if (req.session.hearingsByName) {
-    const myaPagination = isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies);
+  const myaPagination = isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies);
+  if (req.session.hearings && myaPagination) {
     res.locals.mainTabs = setMainTabNavigationItems();
   }
 

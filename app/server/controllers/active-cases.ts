@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
+import { getHearingsByName } from '../utils/fieldValidation';
 
 const logger = Logger.getLogger('active-cases.js');
 
@@ -15,10 +16,10 @@ function getActiveCases(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const hearingsByName = session['hearingsByName']!;
-  const activeCases = hearingsByName.filter(filterActiveCase);
-
-  return res.render('active-tab.html', { activeCases });
+  const hearings = session['hearings']!;
+  const activeCases = hearings.filter(filterActiveCase);
+  const activeHearingsByName = getHearingsByName(activeCases);
+  return res.render('active-tab.html', { activeHearingsByName });
 }
 
 function filterActiveCase(selectedHearing) {
@@ -27,7 +28,7 @@ function filterActiveCase(selectedHearing) {
 
 function setupActiveCasesController(deps: any) {
   const router = Router();
-  router.get(Paths.activeCases, deps.prereqMiddleware, getActiveCases);
+  router.get(Paths.activeCases, deps.prereqMiddleware, deps.setLocals, getActiveCases);
   return router;
 }
 

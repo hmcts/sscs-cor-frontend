@@ -517,7 +517,8 @@
     "dormantTab": {
       "tabHeader": "Dormant",
       "header": "Dormant cases",
-      "panelHeader": "Latest update"
+      "panelHeader": "Latest update",
+      "noDataMessage": "There are no dormant cases linked to your account"
     },
     "statusTab": {
       "tabHeader": "Status",
@@ -1626,7 +1627,8 @@
     "dormantTab": {
       "tabHeader": "Dormant",
       "header": "Dormant cases",
-      "panelHeader": "Latest update"
+      "panelHeader": "Latest update",
+      "noDataMessage": "There are no dormant cases linked to your account"
     },
     "statusTab": {
       "tabHeader": "Statws",
