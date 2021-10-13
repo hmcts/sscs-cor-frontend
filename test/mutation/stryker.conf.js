@@ -5,7 +5,6 @@ module.exports = config => {
     mutate:
        [
          'app/server/services/*.ts',
-         'app/server/*.ts',
          'app/server/utils/fieldValidation.ts',
          'app/server/utils/dateUtils.ts'
        ],
@@ -17,7 +16,6 @@ module.exports = config => {
       spec:
          [
            'test/unit/services/*.test.ts',
-           'test/unit/*.test.ts',
            'test/unit/utils/field-validation.test.ts',
            'test/unit/utils/dateUtils.test.ts'
          ]
