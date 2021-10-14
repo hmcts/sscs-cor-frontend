@@ -4,8 +4,8 @@ function uploadEvidence() {
   const I = this;
 
   I.amOnPage('/additional-evidence');
-  I.see(content.en.common.provideInformationOnline, "[for='additional-evidence-option-1']");
-  I.click('#additional-evidence-option-1');
+  I.see(content.en.common.provideInformationOnline, "[for='additional-evidence-option']");
+  I.click('#additional-evidence-option');
   I.click('[name="continue"]');
   I.wait(3);
   I.fillField('#question-field', 'this is a test');
@@ -16,8 +16,8 @@ function uploadWelshEvidence() {
   const I = this;
 
   I.amOnPage('/additional-evidence');
-  I.see(content.cy.common.provideInformationOnline, "[for='additional-evidence-option-1']");
-  I.click('#additional-evidence-option-1');
+  I.see(content.cy.common.provideInformationOnline, "[for='additional-evidence-option']");
+  I.click('#additional-evidence-option');
   I.click('Parhau');
   I.wait(3);
   I.fillField('#question-field', 'this is a welsh test');
