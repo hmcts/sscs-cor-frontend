@@ -22,8 +22,8 @@ function getActiveCases(req: Request, res: Response) {
   return res.render('active-tab.html', { activeHearingsByName });
 }
 
-function filterActiveCase(selectedHearing) {
-  return selectedHearing.appeal_details.state !== 'dormantAppealState' || selectedHearing.appeal_details.state !== 'voidState';
+function filterActiveCase(selectedHearing, index, array) {
+  return !(selectedHearing.appeal_details.state === 'dormantAppealState' || selectedHearing.appeal_details.state === 'voidState');
 }
 
 function setupActiveCasesController(deps: any) {

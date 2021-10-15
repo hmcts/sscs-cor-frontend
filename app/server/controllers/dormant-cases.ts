@@ -22,7 +22,7 @@ function getDormantCases(req: Request, res: Response) {
   return res.render('dormant-tab.html', { dormantHearingsByName });
 }
 
-function filterDormantCase(selectedHearing) {
+function filterDormantCase(selectedHearing, index, array) {
   return selectedHearing.appeal_details.state === 'dormantAppealState' || selectedHearing.appeal_details.state === 'voidState';
 }
 

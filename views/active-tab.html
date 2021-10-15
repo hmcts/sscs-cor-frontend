@@ -10,6 +10,7 @@
         </div>
         {% for name, hearings in activeHearingsByName %}
             <h2 class="govuk-heading-m"><span id="appellant-name">{{ name | safe }}</span></h2>
+            <div class="divider"></div>
                 <table class="govuk-table govuk-!-margin-bottom-9">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
@@ -23,11 +24,11 @@
                     <tbody class="govuk-table__body">
                         {% for hearing in hearings %}
                             <tr class="govuk-table__row">
-                                <td class="govuk-table__cell">{{ hearing.case_reference | safe }}</td>
-                                <td class="govuk-table__cell">{{ content[i18n.language].benefitTypes[hearing.appeal_details.benefit_type.toLowerCase()].acronym | safe }}</td>
-                                <td class="govuk-table__cell">{{ hearing.appeal_details.submitted_date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}</td>
-                                <td class="govuk-table__cell">{{ hearing.appeal_details.mrn_date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}</td>
-                                <td class="govuk-table__cell"><a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}">{{ content[i18n.language].selectCase.view | safe }}</a></td>
+                                <td class="govuk-table__cell govuk-!-width-one-quarter">{{ hearing.case_reference | safe }}</td>
+                                <td class="govuk-table__cell govuk-!-width-one-quarter">{{ content[i18n.language].benefitTypes[hearing.appeal_details.benefit_type.toLowerCase()].acronym | safe }}</td>
+                                <td class="govuk-table__cell govuk-!-width-one-quarter">{{ hearing.appeal_details.submitted_date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}</td>
+                                <td class="govuk-table__cell govuk-!-width-one-quarter">{{ hearing.appeal_details.mrn_date | dateFilter("locale", i18n.language) | dateFilter("DD MMMM YYYY") }}</td>
+                                <td class="govuk-table__cell govuk-!-width-one-quarter"><a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}">{{ content[i18n.language].selectCase.view | safe }}</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
