@@ -829,6 +829,14 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
+      "childsupport": {
+        "acronym": "CHILD SUPPORT",
+        "yourBenefitAppeal": "Your Child Support appeal",
+        "fullDescription": "Child Support",
+        "agency": "Department for Work and Pensions",
+        "agencyAcronym": "DWP",
+        "panel": "a judge and financially qualified panel member (if applicable)"
+      },
       "industrialinjuriesdisablement" : {
         "acronym": "INDUSTRIAL INJURIES DISABLEMENT BENEFIT",
         "yourBenefitAppeal": "Your Industrial Injuries Disablement Benefit appeal",
@@ -1927,6 +1935,14 @@
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
+      },
+      "childsupport": {
+        "acronym": "CYNNAL PLANT",
+        "yourBenefitAppeal": "Eich apêl Cynnal Plant",
+        "fullDescription": "Budd-dal Profedigaeth",
+        "agency": "Yr Adran Gwaith a Phensiynau",
+        "agencyAcronym": "DWP",
+        "panel": "barnwr ac aelod panel cymwys yn ariannol (os yw'n berthnasol)"
       },
       "industrialinjuriesdisablement": {
         "acronym": "BUDD-DAL ANABLEDD ANAFIADAU DIWYDIANNOL",
