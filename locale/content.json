@@ -512,7 +512,8 @@
     "activeTab": {
       "tabHeader": "Active",
       "header": "Active cases",
-      "panelHeader": "Latest update"
+      "panelHeader": "Latest update",
+      "noDataMessage": "There are no active cases linked to your account"
     },
     "dormantTab": {
       "tabHeader": "Dormant",
@@ -1622,7 +1623,8 @@
     "activeTab": {
       "tabHeader": "Active",
       "header": "Active cases",
-      "panelHeader": "Latest update"
+      "panelHeader": "Latest update",
+      "noDataMessage": "There are no active cases linked to your account"
     },
     "dormantTab": {
       "tabHeader": "Dormant",

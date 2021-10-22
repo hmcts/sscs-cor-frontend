@@ -5,6 +5,7 @@
 {% block corContent %}
     <h1 class="govuk-heading-xl">{{ content[i18n.language].selectCase.heading | safe }}</h1>
         {{ navigationMainTabs("activeTab") }}
+        {% if activeHearingsByName | length %}
         <div class="task-list">
             <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].activeTab.header | safe }}</h2>
         </div>
@@ -34,4 +35,9 @@
                     </tbody>
                 </table>
     {% endfor %}
+        {% else %}
+            <div class="task-list">
+                <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].activeTab.noDataMessage | safe }}</h2>
+            </div>
+        {% endif %}
 {% endblock %}
