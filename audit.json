@@ -886,7 +886,17 @@
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10227211007093412.js_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/cookies_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=en_GET" : "ignore",
-	"10031_User Controllable HTML Element Attribute (Potential XSS)_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=en_GET" : "ignore"
+	"10031_User Controllable HTML Element Attribute (Potential XSS)_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=en_GET" : "ignore",
+	"40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=cy_GET" : "ignore",
+	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/cookies_GET" : "ignore",
+	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=cy_GET" : "ignore",
+	"10108_Reverse Tabnabbing_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=en_GET" : "ignore",
+	"10017_Cross-Domain JavaScript Source File Inclusion_https://sscs-cor.aat.platform.hmcts.net/cookie-policy?lng=en_GET" : "ignore",
+	"10017_Cross-Domain JavaScript Source File Inclusion_https://sscs-cor.aat.platform.hmcts.net/support-evidence?lng=en_GET" : "ignore",
+	"10017_Cross-Domain JavaScript Source File Inclusion_https://sscs-cor.aat.platform.hmcts.net/support-hearing-expenses?lng=en_GET" : "ignore",
+	"10017_Cross-Domain JavaScript Source File Inclusion_https://sscs-cor.aat.platform.hmcts.net/support-withdraw-appeal?lng=en_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=cy_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=cy_GET" : "ignore"
 
 
 }
