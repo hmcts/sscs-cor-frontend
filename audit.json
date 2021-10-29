@@ -925,7 +925,8 @@
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10227211007093412.js?lng=cy_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10227211007093412.js?lng=en_GET" : "ignore",
 	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10227211007093412.js_GET" : "ignore",
-	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10227211007093412.js?lng=en_GET" : "ignore"
-
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10227211007093412.js?lng=en_GET" : "ignore",
+	"10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore",
+	"10017_Cross-Domain JavaScript Source File Inclusion_https://sscs-cor.aat.platform.hmcts.net/sitemap.xml?lng=en_GET" : "ignore"
 
 }
