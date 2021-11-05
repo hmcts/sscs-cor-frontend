@@ -8,7 +8,7 @@ import * as appealStagesUtils from 'app/server/utils/appealStages';
 import * as AppInsights from '../../../app/server/app-insights';
 const oralHearing = require('../../mock/tribunals/data/oral/hearing.json');
 
-describe.only('controllers/active-cases', () => {
+describe('controllers/active-cases', () => {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
