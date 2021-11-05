@@ -6,7 +6,6 @@ import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { HearingService } from 'app/server/services/hearing';
-import { Feature } from '../../../app/server/utils/featureEnabled';
 const config = require('config');
 const content = require('locale/content');
 
