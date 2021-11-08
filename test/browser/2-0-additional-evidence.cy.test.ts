@@ -167,7 +167,7 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-    await page.waitFor(4000);
+    await page.waitFor(5000);
     expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.cy.additionalEvidence.evidenceUpload.header);
 
     await additionalEvidenceUploadPage.selectFile('evidence.txt');

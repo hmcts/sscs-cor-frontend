@@ -11,6 +11,7 @@ enum Feature {
   HEARING_OUTCOME_TAB = 'hearingOutcomeTab',
   REQUEST_TAB_ENABLED = 'requestTabEnabled',
   MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed',
+  MYA_PAGINATION_ENABLED = 'myaPagination',
   ALLOW_COOKIE_BANNER_ENABLED = 'cookieBanner.enabled'
 }
 

@@ -32,6 +32,12 @@ function setLocals(req, res, next) {
   res.locals.featureFlags = {};
   res.locals.featureFlags[Feature.MEDIA_FILES_ALLOWED_ENABLED] = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
 
+  // Setting up Main Tabs to show on MYA;
+  const myaPagination = isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies);
+  if (req.session.hearings && myaPagination) {
+    res.locals.mainTabs = setMainTabNavigationItems();
+  }
+
   // Setting up Tabs to show on MYA;
   if (req.session.appeal) {
     const hearingOutcomeTab = isFeatureEnabled(Feature.HEARING_OUTCOME_TAB, req.cookies);
@@ -40,6 +46,22 @@ function setLocals(req, res, next) {
     res.locals.tabs = setTabNavigationItems(req.session.appeal, hearingOutcomeTab, avEvidenceTab, requestTab);
   }
   next();
+}
+
+function setMainTabNavigationItems() {
+  const tabs = [
+    {
+      'id': 'activeTab',
+      'title': content[i18next.language].activeTab.tabHeader,
+      'url': '/active-cases'
+    },
+    {
+      'id': 'dormantTab',
+      'title': content[i18next.language].dormantTab.tabHeader,
+      'url': '/dormant-cases'
+    }
+  ];
+  return tabs;
 }
 
 function setTabNavigationItems(appeal, hearingOutcomeTab, avEvidenceTab, requestTab) {

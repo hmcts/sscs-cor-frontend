@@ -509,6 +509,18 @@
       "mobile": "Appellant contact mobile number",
       "email": "Appellant contact email address"
     },
+    "activeTab": {
+      "tabHeader": "Active",
+      "header": "Active cases",
+      "panelHeader": "Latest update",
+      "noDataMessage": "There are no active cases linked to your account"
+    },
+    "dormantTab": {
+      "tabHeader": "Dormant",
+      "header": "Dormant cases",
+      "panelHeader": "Latest update",
+      "noDataMessage": "There are no dormant cases linked to your account"
+    },
     "statusTab": {
       "tabHeader": "Status",
       "header": "Status of your appeal",
@@ -1615,6 +1627,18 @@
       "phone": "Rhif ffôn cyswllt yr Apelydd",
       "mobile": "Rhif ffôn cyswllt yr Apelydd (ffôn symudol)",
       "email": "Cyfeiriad e-bost yr Apelydd"
+    },
+    "activeTab": {
+      "tabHeader": "Active",
+      "header": "Active cases",
+      "panelHeader": "Latest update",
+      "noDataMessage": "There are no active cases linked to your account"
+    },
+    "dormantTab": {
+      "tabHeader": "Dormant",
+      "header": "Dormant cases",
+      "panelHeader": "Latest update",
+      "noDataMessage": "There are no dormant cases linked to your account"
     },
     "statusTab": {
       "tabHeader": "Statws",
