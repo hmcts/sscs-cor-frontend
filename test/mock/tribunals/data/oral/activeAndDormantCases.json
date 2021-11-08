@@ -1,0 +1,91 @@
+[
+  {
+    "appellant_name": "User Test",
+    "case_reference": "1631715394587966",
+    "case_id": 1631715394587966,
+    "has_final_decision": false,
+    "hearing_arrangements": {
+      "language_interpreter": true,
+      "languages": null,
+      "sign_language_interpreter": false,
+      "sign_language_type": null,
+      "hearing_loop_required": false,
+      "disabled_access_required": false,
+      "other_arrangements": "No"
+    },
+    "appellant_details": {
+      "address_details": {
+        "line1": "1 Appellant Ave",
+        "town": "Appellanton",
+        "county": "Appellanty",
+        "postcode": "TS1 1ST"
+      },
+      "email": "test-mail@hmcts.net",
+      "phone": "01234567890"
+    },
+    "appeal_details": {
+      "benefit_type": "ESA",
+      "state": "dormantAppealState"
+    }
+  },
+  {
+    "appellant_name": "User Test",
+    "case_reference": "1631715329744302",
+    "case_id": 1631715329744302,
+    "has_final_decision": false,
+    "hearing_arrangements": {
+      "language_interpreter": true,
+      "languages": null,
+      "sign_language_interpreter": false,
+      "sign_language_type": null,
+      "hearing_loop_required": false,
+      "disabled_access_required": false,
+      "other_arrangements": "No"
+    },
+    "appellant_details": {
+      "address_details": {
+        "line1": "1 Appellant Ave",
+        "town": "Appellanton",
+        "county": "Appellanty",
+        "postcode": "TS1 1ST"
+      },
+      "email": "test-mail@hmcts.net",
+      "phone": "01234567890"
+    },
+    "appeal_details": {
+      "benefit_type": "ESA",
+      "state": "hearing"
+    }
+  },
+  {
+    "appellant_name": "S Test",
+    "case_reference": "1629905359234795",
+    "case_id": 1629905359234795,
+    "has_final_decision": false,
+    "hearing_arrangements": {
+      "language_interpreter": false,
+      "languages": null,
+      "sign_language_interpreter": false,
+      "sign_language_type": null,
+      "hearing_loop_required": false,
+      "disabled_access_required": false,
+      "other_arrangements": null
+    },
+    "appellant_details": {
+      "address_details": {
+        "line1": "LEMAN STREET",
+        "town": "LONDON",
+        "county": "Greater London",
+        "postcode": "TS1 1ST"
+      },
+      "email": "test@test.com",
+      "mobile": "07704244054"
+    },
+    "appeal_details": {
+      "submitted_date": "2021-08-25",
+      "mrn_date": "2021-08-24",
+      "benefit_type": "UC",
+      "state": "hearing"
+    }
+  }
+]
