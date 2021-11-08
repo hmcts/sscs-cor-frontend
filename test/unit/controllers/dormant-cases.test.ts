@@ -6,7 +6,7 @@ import * as Paths from 'app/server/paths';
 import * as AppInsights from '../../../app/server/app-insights';
 const oralActiveAndDormantCases = require('../../mock/tribunals/data/oral/activeAndDormantCases.json');
 
-describe.only('controllers/dormant-cases', () => {
+describe('controllers/dormant-cases', () => {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
