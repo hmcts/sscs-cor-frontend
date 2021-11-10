@@ -36,8 +36,8 @@ function getHealthConfigure() {
         AppInsights.trackTrace(`Health check failed on redis: ${error}`);
         return outputs.down(error);
       })),
-      'submit-your-appeal-api': healthCheck.web(`${config.api.url}/health`,
-              healthOptions('Health check failed on submit-your-appeal-api:')
+      'manage-your-appeal-api': healthCheck.web(`${config.api.url}/health`,
+              healthOptions('Health check failed on manage-your-appeal-api:')
       )
     },
     buildInfo: {
@@ -56,8 +56,8 @@ function getReadinessConfigure() {
         AppInsights.trackTrace(`Readiness check failed on redis: ${error}`);
         return outputs.down(error);
       })),
-      'submit-your-appeal-api': healthCheck.web(`${config.api.url}/health/readiness`,
-              healthOptions('Readiness check failed on submit-your-appeal-api:')
+      'mmanage-your-appeal-api': healthCheck.web(`${config.api.url}/health/readiness`,
+              healthOptions('Readiness check failed on manage-your-appeal-api:')
       )
     },
     buildInfo: {
