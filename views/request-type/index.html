@@ -51,7 +51,7 @@
                 </div>
             </form>
 
-        {% if action === "hearingRecording" %}
+        {% if action === "hearingRecording" or action === "formError" %}
             {% include "request-type/hearing-recording.html" %}
         {% elseif action === "confirm" %}
             {% include "request-type/request-confirm.html" %}

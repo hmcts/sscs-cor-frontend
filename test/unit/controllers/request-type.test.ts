@@ -72,7 +72,7 @@ describe('controllers/request-type', () => {
       req.cookies.manageYourAppeal = 'true';
       await requestType.getRequestType()(req,res, next);
       expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-          { action: '', requestOptions: {}, hearingRecordingsResponse: {} }
+          { action: '', requestOptions: {}, hearingRecordingsResponse: {}, pageTitleError: false, emptyHearingIdError: false }
       );
     });
   });
@@ -133,13 +133,7 @@ describe('controllers/request-type', () => {
 
       await requestType.submitHearingRecordingRequest(requestTypeService)(req,res, next);
 
-      expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-        { action: 'hearingRecording',
-          hearingRecordingsResponse: hearingRecording,
-          pageTitleError: true,
-          emptyHearingIdError: true
-        }
-      );
+      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/formError`);
     });
 
     it('should render confirm hearing request page for hearing ids', async() => {
