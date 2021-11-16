@@ -4,7 +4,6 @@ import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { HearingRecordingResponse, RequestTypeService } from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
-import {getAdditionalEvidence} from "./additional-evidence";
 const logger = Logger.getLogger('request-type.ts');
 
 const contentType = new Map([
