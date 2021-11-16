@@ -8,7 +8,7 @@ const html = `<div class="task-list">
                       <div class="govuk-form-group">
                           <label class="govuk-label --font-weight-b --margin-none" for="request-options">
                       </label>
-                      <select class="govuk-select" id="request-options" name="request-options">
+                      <select class="govuk-select" id="requestOptions" name="requestOptions">
                         <option value="select">--Select Request--</option>
                         <option value="hearingRecording">Hearing Recording</option>
                       </select>
@@ -28,11 +28,11 @@ describe('request-type', () => {
 
   describe('constructor', () => {
     before(() => {
-      document.querySelector<HTMLInputElement>('#request-options').addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>('#requestOptions').addEventListener = sinon.spy();
     });
     describe('initialize class', () => {
       it('should attach Event Listeners', () => {
-        const target = document.querySelector<HTMLSelectElement>('#request-options');
+        const target = document.querySelector<HTMLSelectElement>('#requestOptions');
         expect(target.addEventListener).to.have.not.been.called;
         requestType.init();
         expect(target.addEventListener).to.have.been.called;
@@ -52,7 +52,7 @@ describe('request-type', () => {
     });
     describe('select request type', () => {
       it('should submit form', () => {
-        const select = document.querySelector<HTMLSelectElement>('#request-options');
+        const select = document.querySelector<HTMLSelectElement>('#requestOptions');
         expect(select.addEventListener).to.have.been.called;
         select.value = 'hearingRecording';
         select.dispatchEvent(new Event('change'));
