@@ -88,7 +88,7 @@ function selectRequestType(requestTypeService: RequestTypeService) {
 function getHearingRecording(trackYourAppealService: TrackYourApealService) {
   return async (req: Request, res: Response) => {
     const evidence = await trackYourAppealService.getMediaFile(req.query.url as string, req);
-    res.header('content-type', contentType.get(req.query.fileType as string));
+    res.header('content-type', contentType.get(req.query.type as string));
     res.send(Buffer.from(evidence, 'binary'));
   };
 }

@@ -180,7 +180,7 @@ describe('controllers/request-type', () => {
       req = {
         query: {
           url: url,
-          fileType: type
+          type: type
         }
       } as any;
 
