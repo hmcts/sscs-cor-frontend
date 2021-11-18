@@ -33,8 +33,8 @@
             <form class="--padding-top-m" id="request-option-form" name="request-option-form" action="/request-type/select?_csrf={{csrfToken}}" method="POST">
                 <div>
                     {{ govukSelect({
-                        id: "request-options",
-                        name: "request-options",
+                        id: "requestOptions",
+                        name: "requestOptions",
                         label: {
                             text: content[i18n.language].requestTypeTab.selectRequest | safe,
                             classes: "--font-weight-b --margin-none"
@@ -54,7 +54,7 @@
                 </div>
             </form>
 
-        {% if action === "hearingRecording" %}
+        {% if action === "hearingRecording" or action === "formError" %}
             {% include "request-type/hearing-recording.html" %}
         {% endif %}
 

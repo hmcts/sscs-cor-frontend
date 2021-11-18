@@ -13,8 +13,33 @@ const contentType = new Map([
   ['MP4', 'video/mp4']
 ]);
 
-function getRequestType(req: Request, res: Response) {
-  return res.render('request-type/index.html', {});
+const allowedActions = [
+  'hearingRecording',
+  'confirm',
+  'formError'
+];
+
+function getRequestType() {
+  return async(req: Request, res: Response, next: NextFunction) => {
+    try {
+      const action: string = allowedActions.includes(req.params!.action) ? req.params.action : '';
+      const requestOptions = req!.session['requestOptions'];
+      const hearingRecordingsResponse = req!.session['hearingRecordingsResponse'];
+      const pageTitleError = 'formError' === action;
+      const emptyHearingIdError = 'formError' === action;
+
+      return res.render('request-type/index.html', {
+        action,
+        requestOptions,
+        hearingRecordingsResponse,
+        pageTitleError,
+        emptyHearingIdError
+      });
+    } catch (error) {
+      AppInsights.trackException(error);
+      return next(error);
+    }
+  };
 }
 
 function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
@@ -22,25 +47,15 @@ function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
     try {
       const caseId = req.session['hearing'].case_id;
       const hearingIds = req.body['hearingId'];
-      const emptyHearingIdError = hearingIds ? false : true;
+      const emptyHearingIdError = !hearingIds;
 
       if (emptyHearingIdError) {
-        const hearingRecordingsResponse = req.session['hearingRecordingsResponse'];
-        return res.render('request-type/index.html',
-          {
-            action: 'hearingRecording',
-            hearingRecordingsResponse: hearingRecordingsResponse,
-            pageTitleError: true,
-            emptyHearingIdError: emptyHearingIdError
-          }
-        );
+        return res.redirect(`${Paths.requestType}/formError`);
       }
 
       await requestTypeService.submitHearingRecordingRequest(caseId, hearingIds, req);
       req.session['hearingRecordingsResponse'] = '';
-      return res.render('request-type/index.html', {
-        action: 'confirm'
-      });
+      return res.redirect(`${Paths.requestType}/confirm`);
     } catch (error) {
       AppInsights.trackException(error);
       return next(error);
@@ -51,19 +66,17 @@ function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
 function selectRequestType(requestTypeService: RequestTypeService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     try {
-      const option = req.body['request-options'];
+      const option = req.body['requestOptions'];
       const caseId = req.session['hearing'].case_id;
 
       if ('hearingRecording' === option) {
+        req.session['requestOptions'] = 'hearingRecording';
         const hearingRecordingsResponse: HearingRecordingResponse = await requestTypeService.getHearingRecording(caseId, req);
         if (hearingRecordingsResponse) {
           req.session['hearingRecordingsResponse'] = hearingRecordingsResponse;
         }
 
-        return res.render('request-type/index.html', {
-          action: 'hearingRecording',
-          hearingRecordingsResponse: hearingRecordingsResponse
-        });
+        return res.redirect(`${Paths.requestType}/hearingRecording`);
       }
     } catch (error) {
       AppInsights.trackException(error);
@@ -75,17 +88,20 @@ function selectRequestType(requestTypeService: RequestTypeService) {
 function getHearingRecording(trackYourAppealService: TrackYourApealService) {
   return async (req: Request, res: Response) => {
     const evidence = await trackYourAppealService.getMediaFile(req.query.url as string, req);
-    res.header('content-type', contentType.get(req.query.fileType as string));
+    res.header('content-type', contentType.get(req.query.type as string));
     res.send(Buffer.from(evidence, 'binary'));
   };
 }
 
 function setupRequestTypeController(deps: any) {
   const router = Router();
-  router.get(Paths.requestType, deps.prereqMiddleware, getRequestType);
   router.get(`${Paths.requestType}/recording`,
       deps.prereqMiddleware,
       getHearingRecording(deps.trackYourApealService));
+  router.get(`${Paths.requestType}/:action?`,
+      deps.prereqMiddleware,
+      getRequestType()
+  );
   router.post(`${Paths.requestType}/select`,
     deps.prereqMiddleware,
     selectRequestType(deps.requestTypeService)

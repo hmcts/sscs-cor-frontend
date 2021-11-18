@@ -18,7 +18,6 @@ export interface HearingRecording {
   fileName: string;
   fileType: string;
   documentUrl: string;
-  documentBinaryUrl: string;
 }
 
 export class RequestTypeService {
