@@ -8,7 +8,7 @@ export class RequestTypePage extends BasePage {
   }
 
   async selectRequestOption() {
-    await this.selectOption('select#idOfSelect', 'optionValue');
+    await this.selectOption('select#requestOptions', 'hearingRecording');
   }
 
   async submit() {
