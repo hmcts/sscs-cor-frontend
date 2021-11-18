@@ -20,6 +20,7 @@ nodejs:
     MEDIA_FILES_ALLOWED_ENABLED: "true"
     POST_BULK_SCAN: "false"
     HEARING_OUTCOME_TAB_ENABLED: "false"
+    REQUEST_TAB_ENABLED: "false"
   keyVaults:
     sscs:
       secrets:

@@ -7,6 +7,7 @@ nodejs:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: "true"
     POST_BULK_SCAN: "true"
+    REQUEST_TAB_ENABLED: "true"
   keyVaults:
     sscs:
       secrets:
