@@ -32,7 +32,7 @@ describe('Hearing Recording request @mya @nightly', () => {
     requestTypePage = new RequestTypePage(page);
     taskListPage = new TaskListPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(sidamUser.email || 'sscs-citizen2@hmcts.net', sidamUser.password || 'Pa55word11');
+    await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
   });
 
   after(async () => {
@@ -60,7 +60,7 @@ describe('Hearing Recording request @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it.skip('checks /request-type page passes @pa11y', async () => {
+  it('checks /request-type page passes @pa11y', async () => {
     requestTypePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-request-type-page.png`;
     pa11yOpts.page = await requestTypePage.page;
