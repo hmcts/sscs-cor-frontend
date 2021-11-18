@@ -72,7 +72,7 @@ describe('Hearing Recording request @mya @nightly', () => {
   it('Select hearing recording option and shows list of hearing recording available', async () => {
     requestTypePage.verifyPage();
     await requestTypePage.selectRequestOption();
-
+    await page.waitFor(500);
     requestTypePage.verifyPage();
     expect(await requestTypePage.getElementText('#released-hearing-recording h3')).to.equal(content.en.hearingRecording.hearingRecording);
     expect(await requestTypePage.getElementText('#outstanding-hearing-recording h3')).to.equal(content.en.hearingRecording.outstandingHearingRecordings);
