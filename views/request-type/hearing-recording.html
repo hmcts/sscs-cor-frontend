@@ -2,7 +2,7 @@
     <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].hearingRecording.hearingRecordings }}</h2>
     <br/>
 
-    <div id="released-hearing-recording">
+    <div id="released-hearing-recording">{{ content[i18n.language].hearingRecording.releasedHearingRecordings | safe }}
         <h3 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].hearingRecording.releasedHearingRecordings | safe }}</h3>
         <br/>
         <table class="govuk-table" id="released-{{ released.hearingId }}">
