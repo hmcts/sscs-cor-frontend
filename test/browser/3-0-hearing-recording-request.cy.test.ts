@@ -71,7 +71,7 @@ describe('CY - Hearing Recording request @mya @nightly', () => {
     expect(result.issues.length).to.equal(1, JSON.stringify(result.issues, null, 2));
   });
 
-  it('CY - Select hearing recording option and shows list of hearing recording available', async () => {
+  it.skip('CY - Select hearing recording option and shows list of hearing recording available', async () => {
     requestTypePage.verifyPage();
     await requestTypePage.selectRequestOption();
     await page.waitFor(500);
