@@ -71,14 +71,14 @@ describe('CY - Hearing Recording request @mya @nightly', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
-  it.skip('CY - Select hearing recording option and shows list of hearing recording available', async () => {
+  it('CY - Select hearing recording option and shows list of hearing recording available', async () => {
     requestTypePage.verifyPage();
     await requestTypePage.selectRequestOption();
     await page.waitFor(500);
     requestTypePage.verifyPage();
-    expect(await requestTypePage.getElementText('#released-hearing-recording h3')).to.equal(content.cy.hearingRecording.hearingRecording);
-    // expect(await requestTypePage.getElementText('#outstanding-hearing-recording h3')).to.equal(content.cy.hearingRecording.outstandingHearingRecordings);
-    // expect(await requestTypePage.getElementText('#hearing-recording-request-submit-form h3')).to.equal(content.cy.hearingRecording.hearingRecordingRequests);
+    expect(await requestTypePage.getElementText('#released-hearing-recording h3')).to.equal(content.cy.hearingRecording.releasedHearingRecordings);
+    expect(await requestTypePage.getElementText('#outstanding-hearing-recording h3')).to.equal(content.cy.hearingRecording.outstandingHearingRecordings);
+    expect(await requestTypePage.getElementText('#hearing-recording-request-submit-form h3')).to.equal(content.cy.hearingRecording.hearingRecordingRequests);
   });
 
 });

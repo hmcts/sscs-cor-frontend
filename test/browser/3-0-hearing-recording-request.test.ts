@@ -75,7 +75,7 @@ describe('Hearing Recording request @mya @nightly', () => {
     await page.waitFor(500);
     requestTypePage.verifyPage();
 
-    expect(await requestTypePage.getElementText('#released-hearing-recording h3')).to.equal(content.en.hearingRecording.hearingRecordings);
+    expect(await requestTypePage.getElementText('#released-hearing-recording h3')).to.equal(content.en.hearingRecording.releasedHearingRecordings);
     expect(await requestTypePage.getElementText('#outstanding-hearing-recording h3')).to.equal(content.en.hearingRecording.outstandingHearingRecordings);
     expect(await requestTypePage.getElementText('#hearing-recording-request-submit-form h3')).to.equal(content.en.hearingRecording.hearingRecordingRequests);
   });
