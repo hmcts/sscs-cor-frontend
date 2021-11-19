@@ -26,12 +26,15 @@
     <div class="govuk-grid-column-two-thirds">
         {{ navigationTabs("requestType") }}
         <div class="task-list">
+            {% if action === "confirm" %}
+                {% include "request-type/request-confirm.html" %}
+            {% endif %}
             <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].requestTypeTab.selectRequestHeader | safe }}</h2>
             <form class="--padding-top-m" id="request-option-form" name="request-option-form" action="/request-type/select?_csrf={{csrfToken}}" method="POST">
                 <div>
                     {{ govukSelect({
-                        id: "request-options",
-                        name: "request-options",
+                        id: "requestOptions",
+                        name: "requestOptions",
                         label: {
                             text: content[i18n.language].requestTypeTab.selectRequest | safe,
                             classes: "--font-weight-b --margin-none"
@@ -51,10 +54,8 @@
                 </div>
             </form>
 
-        {% if action === "hearingRecording" %}
+        {% if action === "hearingRecording" or action === "formError" %}
             {% include "request-type/hearing-recording.html" %}
-        {% elseif action === "confirm" %}
-            {% include "request-type/request-confirm.html" %}
         {% endif %}
 
         </div>
