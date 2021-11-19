@@ -75,9 +75,6 @@ describe('Hearing Recording request @mya @nightly', () => {
     await page.waitFor(500);
     requestTypePage.verifyPage();
 
-    const filename = requestTypePage.getFileName();
-    await requestTypePage.screenshot(`hearing-recording-${filename}`);
-
     expect(await requestTypePage.getElementText('#released-hearing-recording')).to.equal(content.en.hearingRecording.hearingRecording);
     // expect(await requestTypePage.getElementText('#outstanding-hearing-recording h3')).to.equal(content.en.hearingRecording.outstandingHearingRecordings);
     // expect(await requestTypePage.getElementText('#hearing-recording-request-submit-form h3')).to.equal(content.en.hearingRecording.hearingRecordingRequests);
