@@ -184,6 +184,7 @@
     "ansi-regex": "5.0.1",
     "set-value": "^4.1.0",
     "glob-parent": "^6.0.2",
-    "validator": "13.7.0"
+    "validator": "13.7.0",
+    "json-schema": "0.4.0"
   }
 }
