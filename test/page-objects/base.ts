@@ -154,6 +154,16 @@ export class BasePage {
     }
   }
 
+  async selectOption(selector, value) {
+    try {
+      this.page.select(selector, value);
+    } catch (error) {
+      const filename = this.getFileName();
+      console.log(`Exception catched in selectOption with selector ${selector} for ${value}, taking screenshot failed-click-${selector}-${filename}.png. Error is: ${error}`);
+      await this.screenshot(`failed-click-${selector}-${filename}`);
+    }
+  }
+
   async screenshot(filename) {
     await this.page.screenshot({
       fullPage: true,
