@@ -36,7 +36,10 @@
         "Appellant": "Appellant",
         "Appointee": "Appointee",
         "Representative": "Representative",
-        "Supporter": "Supporter"
+        "Supporter": "Supporter",
+        "OtherParty": "Other Party",
+        "OtherPartyAppointee": "Appointee",
+        "OtherPartyRepresentative": "Representative"
       }
     },
     "pageTitle": "Manage your appeal",
@@ -585,9 +588,9 @@
       "notProvided": "Not provided"
     },
     "contact": {
-      "phone": "Appellant contact phone number",
-      "mobile": "Appellant contact mobile number",
-      "email": "Appellant contact email address"
+      "phone": "contact phone number",
+      "mobile": "contact mobile number",
+      "email": "contact email address"
     },
     "activeTab": {
       "tabHeader": "Active",
@@ -1242,7 +1245,10 @@
         "Appellant": "Apelydd",
         "Appointee": "Penodai",
         "Representative": "Cynrychiolydd",
-        "Supporter": "Cefnogwr"
+        "Supporter": "Cefnogwr",
+        "OtherParty": "Other Party",
+        "OtherPartyAppointee": "Penodai",
+        "OtherPartyRepresentative": "Cynrychiolydd"
       }
     },
     "pageTitle": "Rheoli eich apêl",
