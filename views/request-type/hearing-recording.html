@@ -13,7 +13,7 @@
                     <td class="govuk-table__cell">{{ released.venue | safe }} {{released.hearingDate}}</td>
                     {% for record in released.hearingRecordings %}
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><a href="/request-type/recording?type={{record.fileType}}&url={{record.documentBinaryUrl}}" target="_blank">{{record.fileName}}</a></td>
+                        <td class="govuk-table__cell"><a href="/request-type/recording?type={{record.fileType}}&url={{record.documentUrl}}" target="_blank">{{record.fileName}}</a></td>
                     </tr>
                     {% endfor %}
                 </tr>

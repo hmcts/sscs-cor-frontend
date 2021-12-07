@@ -115,10 +115,23 @@ function newHearingAcceptedValidation(newHearing) {
   return false;
 }
 
+function getHearingsByName(hearings) {
+  const hearingsByName = {};
+  hearings.forEach(hearing => {
+    const appellantName = hearing.appellant_name;
+    if (!hearingsByName[appellantName]) {
+      hearingsByName[appellantName] = [];
+    }
+    hearingsByName[appellantName].push(hearing);
+  });
+  return hearingsByName;
+}
+
 export {
   answerValidation,
   loginEmailAddressValidation,
   newHearingAcceptedValidation,
   hearingWhyValidation,
-  uploadDescriptionValidation
+  uploadDescriptionValidation,
+  getHearingsByName
 };

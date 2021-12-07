@@ -23,7 +23,7 @@
     }
   },
   "health": {
-    "timeout": 5000,
+    "timeout": 10000,
     "deadline": 15000
   },
   "idam": {
@@ -73,6 +73,7 @@
     "hearingOutcomeTab": "false",
     "requestTabEnabled": "false",
     "welsh": "true",
+    "myaPagination": "false",
     "cookieBanner": {
       "enabled": "true"
     }

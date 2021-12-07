@@ -13,6 +13,7 @@ import { IdamService, TokenResponse, UserDetails } from '../services/idam';
 import { HearingService } from '../services/hearing';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
+import { getHearingsByName } from '../utils/fieldValidation';
 
 const logger = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
@@ -73,18 +74,6 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
     AppInsights.trackEvent('MYA_REDIRECT_IDAM_LOGIN');
     return res.redirect(idamUrl.href);
   };
-}
-
-function getHearingsByName(hearings) {
-  const hearingsByName = {};
-  hearings.forEach(hearing => {
-    const appellantName = hearing.appellant_name;
-    if (!hearingsByName[appellantName]) {
-      hearingsByName[appellantName] = [];
-    }
-    hearingsByName[appellantName].push(hearing);
-  });
-  return hearingsByName;
 }
 
 function getIdamCallback(
@@ -164,7 +153,12 @@ function getIdamCallback(
       } else {
         const hearingsByName = getHearingsByName(hearings);
         AppInsights.trackTrace(`[Cases count ${hearings.length}] - User logged in successfully as ${email}`);
-        return res.render('select-case.html', { hearingsByName });
+        if (isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies)) {
+          req.session['hearings'] = hearings;
+          return res.redirect(Paths.activeCases);
+        } else {
+          return res.render('select-case.html', { hearingsByName });
+        }
       }
     } catch (error) {
       AppInsights.trackException(error);

@@ -4,6 +4,8 @@ properties([
         pipelineTriggers([cron('00 08 * * *')]),
         parameters([
                 string(name: 'URL_TO_TEST', defaultValue: 'https://sscs-cor.aat.platform.hmcts.net', description: 'The URL you want to run these tests against'),
+                string(name: 'TRIBUNALS_API_URI', defaultValue: 'http://sscs-tribunals-api-aat.service.core-compute-aat.internal', description: 'Tribunal URL to create test data'),
+                string(name: 'IDAM_API_URL', defaultValue: 'https://idam-api.aat.platform.hmcts.net', description: 'Idam URL you want to create test account'),
                 string(name: 'SecurityRules',
                  defaultValue: 'http://raw.githubusercontent.com/hmcts/security-test-rules/master/conf/security-rules.conf',
                  description: 'The URL you want to run these tests against'),
@@ -38,6 +40,8 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 withNightlyPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
     env.TEST_URL = params.URL_TO_TEST
+    env.TRIBUNALS_API_URL = params.TRIBUNALS_API_URI
+    env.IDAM_API_URL = params.IDAM_API_URL
 
     before('DependencyCheckNightly') {sh 'yarn test:audit'}
     enableSecurityScan()
