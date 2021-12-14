@@ -449,9 +449,6 @@
           "title": "Essential cookies",
           "description": "These essential cookies do things like making the service more secure. They always need to be on.",
           "link": "Find out more about essential cookies (opens in new tab)"
-        },
-        "button": {
-          "save": "Save"
         }
       }
     },
@@ -1651,9 +1648,6 @@
           "title": "Cwcis hanfodol",
           "description": "Mae’r cwcis hanfodol hyn yn gwneud pethau fel sicrhau bod y gwasanaeth yn ddiogel. Mae angen iddynt fod yn weithredol bob amser",
           "link": "Rhagor o wybodaeth am gwcis hanfodol (agor mewn tab newydd)"
-        },
-        "button": {
-          "save": "Cadw"
         }
       }
     },
