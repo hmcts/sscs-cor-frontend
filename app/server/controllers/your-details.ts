@@ -13,8 +13,7 @@ function getYourDetails(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  return res.render('your-details.html', { details: session['hearing'], subscriptions: session['subscriptions'],
-    contact: session['appeal']!.contact });
+  return res.render('your-details.html', { details: session['hearing'] });
 }
 
 function setupYourDetailsController(deps: any) {
