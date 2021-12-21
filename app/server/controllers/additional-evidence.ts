@@ -109,7 +109,7 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
           }
         );
       }
-      const benefitType = req.session['appeal'].benefitType;
+      const benefitType = req!.session['appeal']!.benefitType;
       return res.render('additional-evidence/index.html', {
         action,
         postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),

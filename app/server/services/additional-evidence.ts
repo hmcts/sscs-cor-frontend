@@ -85,6 +85,10 @@ export class AdditionalEvidenceService {
       retry: HTTP_RETRIES,
       delay: RETRY_INTERVAL,
       uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
+      body: {
+        body: description,
+        idamEmail: req.session['idamEmail']
+      },
       headers: {
         'Content-type': 'application/json'
       }
