@@ -31,6 +31,7 @@ describe('app-configuration', () => {
     };
     sandbox.stub(nunjucks, 'configure').returns(configNunjucks as nunjucks.Environment);
     const app = express();
+    const i18next = require('i18next');
     appConfigs.configureNunjucks(app, i18next);
 
     expect(nunjucks.configure([]).addFilter).to.have.been.callCount(11);
