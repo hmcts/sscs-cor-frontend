@@ -94,4 +94,27 @@ export class AdditionalEvidenceService {
       }
     }, req);
   }
+
+  async submitSingleEvidences(identifier: string, description: string, file: Express.Multer.File, req: Request) {
+    return RequestPromise.request({
+      method: 'POST',
+      retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
+      uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/singleevidence`,
+      headers: {
+        'Content-type': 'application/json'
+      },
+      formData: {
+        body: description,
+        idamEmail: req.session['idamEmail'],
+        file: {
+          value: file.buffer,
+          options: {
+            filename: file.originalname,
+            contentType: file.mimetype
+          }
+        }
+      }
+    }, req);
+  }
 }

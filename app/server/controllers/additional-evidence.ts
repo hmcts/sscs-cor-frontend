@@ -233,6 +233,13 @@ function setupadditionalEvidenceController(deps: any) {
     postFileUpload(deps.additionalEvidenceService)
   );
 
+  router.post(`${Paths.additionalEvidence}/uploadAudioVideo`,
+      deps.prereqMiddleware,
+      upload.single('additional-evidence-file'),
+      validateFileSize,
+      handleFileUploadErrors,
+      postFileUpload(deps.additionalEvidenceService)
+  );
   return router;
 }
 
