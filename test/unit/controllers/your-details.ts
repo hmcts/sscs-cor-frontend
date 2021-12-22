@@ -17,7 +17,7 @@ describe('controllers/your-details', () => {
       session: {
         appeal: {},
         hearing: {
-          appellant_details: {}
+          user_details: {}
         },
         subscriptions: {
           appellant: {}
@@ -61,8 +61,7 @@ describe('controllers/your-details', () => {
     it('should render your details page when mya feature enabled', async() => {
       yourDetails.getYourDetails(req, res);
 
-      expect(res.render).to.have.been.calledOnce.calledWith('your-details.html', { details: req.session.hearing,
-        subscriptions: req.session.subscriptions, contact: req.session.appeal.contact });
+      expect(res.render).to.have.been.calledOnce.calledWith('your-details.html', { details: req.session.hearing });
     });
 
     it('should throw error if no sessions', async() => {
