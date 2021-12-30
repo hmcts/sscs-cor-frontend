@@ -29,7 +29,7 @@
                     {% if not avEvidenceList %}
                         <div>{{ content[i18n.language].avEvidenceTab.noEvidence | safe }}</div>
                     {% else %}
-                        {% for avEvidence in avEvidenceList %}
+                        {% for avEvidence in appeal.audioVideoEvidence %}
                             <table class="govuk-table" id="av-evidence">
                                 <tbody class="govuk-table__body">
                                 <tr class="govuk-table__row">
