@@ -72,7 +72,7 @@ describe('controllers/request-type', () => {
       req.cookies.manageYourAppeal = 'true';
       await requestType.getRequestType()(req,res, next);
       expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-          { action: '', requestOptions: {}, hearingRecordingsResponse: {}, pageTitleError: false, emptyHearingIdError: false }
+          { action: '', requestOptions: {}, hearingRecordingsResponse: {}, pageTitleError: false, emptyHearingIdError: false, appeal: req.session.appeal }
       );
     });
   });
