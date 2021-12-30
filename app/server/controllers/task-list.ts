@@ -19,10 +19,11 @@ function getTaskList() {
     try {
       let deadlineDetails = null;
       let hearingType = req.session['appeal']!.hearingType;
-
+      let appeal = req.session['appeal']!;
       res.render('task-list.html', {
         deadlineExpiryDate: deadlineDetails,
-        hearingType
+        hearingType,
+        appeal
       });
     } catch (error) {
       AppInsights.trackException(error);

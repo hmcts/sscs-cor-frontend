@@ -22,8 +22,9 @@ function getAvEvidenceList(req: Request, res: Response) {
   }
 
   let avEvidenceList = session['appeal'].audioVideoEvidence;
+  let appeal = session['appeal']!;
   logger.info(`Number of audio video evidence: ${avEvidenceList ? avEvidenceList.size : 0}`);
-  return res.render('av-evidence-tab.html', { avEvidenceList });
+  return res.render('av-evidence-tab.html', { avEvidenceList, appeal });
 }
 
 function getAvEvidence(trackYourAppealService: TrackYourApealService) {

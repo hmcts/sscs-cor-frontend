@@ -3,7 +3,7 @@
 {% from "inset-text/macro.njk" import govukInsetText %}
 {% from "components/navigation-tabs.html" import navigationTabs with context %}
 
-{% set pageHeader = content[i18n.language].taskList.header | safe %}
+{% set pageHeader = content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %}
 
 {% block pageTitle %}
     {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].avEvidenceTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK | safe }}
@@ -12,7 +12,7 @@
 {% block corContent %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">{{ content[i18n.language].taskList.header | safe }}</h1>
+            <h1 class="govuk-heading-xl">{{ content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }}</h1>
             {% include "includes/appellant-details.html" %}
         </div>
     </div>
