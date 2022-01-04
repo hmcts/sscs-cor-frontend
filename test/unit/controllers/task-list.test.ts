@@ -84,7 +84,10 @@ describe('controllers/task-list', () => {
 
   describe('getTaskList', () => {
     it('should render task-list.html page', () => {
-      getTaskList();
+      req.session.appeal = {
+        hearingType: null
+      };
+      getTaskList(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith('task-list.html', { deadlineExpiryDate: null, hearingType: null, appeal: req.session.appeal });
     });
   });
