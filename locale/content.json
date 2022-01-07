@@ -378,7 +378,8 @@
     "new": {
       "cookies": {
         "title": "Cookies",
-        "description": "Cookies are files saved on your phone, tablet or computer when you visit a website. Most websites need cookies to work properly."
+        "description": "Cookies are files saved on your phone, tablet or computer when you visit a website. Most websites need cookies to work properly.",
+        "save": "Save"
       },
       "usedInService": {
         "uses": "This service uses cookies to:",
@@ -741,12 +742,12 @@
         "heading": "{{appeal.benefitType | agencyAcronym}} response",
         "content": {
           "oral": [
-            "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy of their response in the post.",
+            "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy of their response in the post, unless their response is late and a judge has directed that the appeal can proceed without one.",
             "You do not need to do anything. You will receive another email or text message update when your hearing has been booked. Unfortunately we cannot say how long this will be but it may be several months."
           ],
           "paper": [
-            "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy in the post. Read their response and send your comments to the tribunal, if you have any.",
-            "A tribunal panel made up of {{appeal.benefitType|panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
+            "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy of their response in the post, unless their response is late and a judge has directed that the appeal can proceed without one. Read their response and send your comments to the tribunal, if you have any.",
+            "A tribunal panel made up of {{appeal.benefitType | panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
           ]
         }
       },
@@ -1580,7 +1581,8 @@
     "new": {
       "cookies": {
         "title": "Cwcis",
-        "description": "Ffeiliau sy'n cael eu cadw ar eich ffôn, llechen neu gyfrifiadur pan fyddwch yn ymweld â gwefan yw cwcis. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio'n iawn."
+        "description": "Ffeiliau sy'n cael eu cadw ar eich ffôn, llechen neu gyfrifiadur pan fyddwch yn ymweld â gwefan yw cwcis. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio'n iawn.",
+        "save": "Cadw"
       },
       "usedInService": {
         "uses": "Mae’r gwasanaeth hwn yn defnyddio cwcis i:",
@@ -1943,11 +1945,11 @@
         "heading": "Ymateb {{appeal.benefitType | agencyAcronym}} ",
         "content": {
           "oral": [
-            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi o’u hymateb atoch drwy’r post.",
+            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}.  Dylent fod wedi anfon copi o’u hymateb atoch yn y post, oni bai bod eu hymateb yn hwyr a bod barnwr wedi cyfarwyddo y gall yr apêl barhau heb un.",
             "Nid oes angen ichi wneud unrhyw beth. Byddwch yn cael neges e-bost arall neu neges testun gyda diweddariad pan fydd eich gwrandawiad wedi’i drefnu. Yn anffodus ni allwn ddweud pryd y bydd hyn, ond gall fod ymhen sawl mis."
           ],
           "paper": [
-            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi atoch drwy’r post. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
+            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}.  Dylent fod wedi anfon copi o’u hymateb atoch yn y post, oni bai bod eu hymateb yn hwyr a bod barnwr wedi cyfarwyddo y gall yr apêl barhau heb un. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
             "Bydd panel tribiwnlys sy’n cynnwys {{appeal.benefitType|panel}} yn cynnal gwrandawiad ar gyfer eich apêl. Rydych wedi dweud wrthym nad ydych eisiau mynychu, felly byddwch yn cael y penderfyniad drwy’r post, ar ôl i'r gwrandawiad gael ei gynnal. Yn anffodus ni allwn ddweud yn union pa bryd fydd hyn, ond gall fod ymhen sawl mis."
           ]
         }
