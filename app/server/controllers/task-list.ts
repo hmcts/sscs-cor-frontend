@@ -14,21 +14,20 @@ function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
   return { status, expiryDate, extendable: true };
 }
 
-function getTaskList() {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      let deadlineDetails = null;
-      let hearingType = req.session['appeal']!.hearingType;
-
-      res.render('task-list.html', {
-        deadlineExpiryDate: deadlineDetails,
-        hearingType
-      });
-    } catch (error) {
-      AppInsights.trackException(error);
-      next(error);
-    }
-  };
+function getTaskList(req: Request, res: Response, next: NextFunction) {
+  try {
+    let deadlineDetails = null;
+    let hearingType = req.session['appeal']!.hearingType;
+    let appeal = req.session['appeal']!;
+    res.render('task-list.html', {
+      deadlineExpiryDate: deadlineDetails,
+      hearingType,
+      appeal
+    });
+  } catch (error) {
+    AppInsights.trackException(error);
+    next(error);
+  }
 }
 
 function getEvidencePost(req: Request, res: Response, next: NextFunction) {
@@ -63,7 +62,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
 
 function setupTaskListController(deps: any): Router {
   const router: Router = Router();
-  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList());
+  router.get(Paths.taskList, deps.prereqMiddleware, getTaskList);
   router.get(Paths.postEvidence, deps.prereqMiddleware, getEvidencePost);
   router.get(Paths.coversheet, deps.prereqMiddleware, getCoversheet(deps.additionalEvidenceService));
   return router;

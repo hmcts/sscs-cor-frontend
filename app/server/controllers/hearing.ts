@@ -27,11 +27,11 @@ function getHearing(req: Request, res: Response) {
   }
 
   let hearingArrangements = {};
-
+  let appeal = session['appeal']!;
   if (session['hearing'] && !session['hideHearing'] && session['hearing'].hearing_arrangements) {
     hearingArrangements = session['hearing'].hearing_arrangements;
   }
-  return res.render('hearing-tab.html', { hearingInfo, attending, hearingArrangements });
+  return res.render('hearing-tab.html', { hearingInfo, attending, hearingArrangements, appeal });
 }
 
 function setupHearingController(deps: any) {
