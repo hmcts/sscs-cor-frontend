@@ -11,7 +11,8 @@ const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
 const config = require('config');
-import i18next, { InitOptions } from 'i18next';
+import { InitOptions } from 'i18next';
+import { I18next } from 'i18next-express-middleware';
 
 function configureHelmet(app) {
   // by setting HTTP headers appropriately.
@@ -72,7 +73,7 @@ function configureHeaders(app) {
   });
 }
 
-function configureNunjucks(app: express.Application) {
+function configureNunjucks(app: express.Application, i18next: I18next) {
   const nunEnv = nunjucks.configure([
     'views',
     'app/main',

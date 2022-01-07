@@ -59,7 +59,7 @@ describe('controllers/hearing', () => {
       };
       req.session.hearing = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: oralHearing.appeal.historicalEvents[0], hearingArrangements });
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: oralHearing.appeal.historicalEvents[0], hearingArrangements, appeal: oralHearing.appeal });
     });
 
     it('should hide hearing info when appeal has hideHearing set to true', async() => {
@@ -68,13 +68,13 @@ describe('controllers/hearing', () => {
       const hearingArrangements = { };
       req.session.hearing = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: null, hearingArrangements });
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: true, hearingInfo: null, hearingArrangements, appeal: oralHearing.appeal });
     });
 
     it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async() => {
       req.session.appeal.hearingType = 'paper';
       hearing.getHearing(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: false, hearingArrangements: {}, hearingInfo: undefined });
+      expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.html', { attending: false, hearingArrangements: {}, hearingInfo: undefined, appeal: req.session.appeal });
     });
 
     it('should throw error if no sessions', async() => {
