@@ -492,6 +492,29 @@
           "para3": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx",
           "para3audioVideo": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, .mp4",
           "para4": "You can only submit one file at a time",
+          "para5": "Please ensure that the \"Submit evidence to the tribunal\" button is clicked, before leaving the page, failure to do so may mean your evidence won't be submitted.",
+          "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
+        },
+        "label": "Choose file",
+        "fileUploading": "File uploading",
+        "fileList": {
+          "uploadedFiles": "Uploaded file",
+          "noFilesUploaded": "No files uploaded"
+        },
+        "error": {
+          "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
+          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing",
+          "fileCannotBeUploaded": "Uploading is currently unavailable, please try again later."
+        }
+      },
+      "evidenceUploadAudioVideo": {
+        "header": "Upload additional evidence",
+        "description": {
+          "para1": "You can upload audio or videos.",
+          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
+          "para3": "Only files with the following file extensions are allowed: .mp3, .mp4",
+          "para4": "You can only submit one file at a time",
           "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
         },
         "label": "Choose file",
@@ -1708,6 +1731,28 @@
           "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau.",
           "regex": "Mae yna nod(au) arbennig yn y wybodaeth sydd wedi’i rhoi. Dilëwch y rhain cyn parhau",
           "fileCannotBeUploaded": "Nid yw’r cyfleuster uwchlwytho ar gael ar hyn o bryd, rhowch gynnig arall arni yn hwyrach ymlaen."
+        }
+      },
+      "evidenceUploadAudioVideo": {
+        "header": "Upload additional evidence",
+        "description": {
+          "para1": "You can upload audio or videos.",
+          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
+          "para3": "Only files with the following file extensions are allowed: .mp3, .mp4",
+          "para4": "You can only submit one file at a time",
+          "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
+        },
+        "label": "Choose file",
+        "fileUploading": "File uploading",
+        "fileList": {
+          "uploadedFiles": "Uploaded file",
+          "noFilesUploaded": "No files uploaded"
+        },
+        "error": {
+          "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
+          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing",
+          "fileCannotBeUploaded": "Uploading is currently unavailable, please try again later."
         }
       },
       "evidencePost": {
