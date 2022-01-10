@@ -24,6 +24,11 @@ const upload = multer({
   fileFilter: fileTypeInWhitelist
 });
 
+const uploadAudioVideo = multer({
+  limits: { fileSize:  maxFileSizeInMb * 1048576 },
+  fileFilter: fileTypeAudioVideoInWhitelist
+});
+
 const allowedActions = [
   'upload',
   'statement',
@@ -56,9 +61,19 @@ function isValidUrl(url) {
 
 function fileTypeInWhitelist(req, file, cb) {
   const fileExtension = (file.originalname || '').split('.').pop();
-  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies) && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
+  if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
-  } else if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
+  } else {
+    const caseId = req.session['hearing'].case_id;
+    logger.info(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    cb(new multer.MulterError(fileTypeError));
+  }
+}
+
+function fileTypeAudioVideoInWhitelist(req, file, cb) {
+  const fileExtension = (file.originalname || '').split('.').pop();
+  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies) && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
   } else {
     const caseId = req.session['hearing'].case_id;
@@ -266,7 +281,7 @@ function setupadditionalEvidenceController(deps: any) {
 
   router.post(`${Paths.additionalEvidence}/uploadAudioVideo`,
       deps.prereqMiddleware,
-      upload.single('additional-evidence-audio-video-file'),
+      uploadAudioVideo.single('additional-evidence-audio-video-file'),
       validateFileSize,
       handleFileUploadErrors,
       postFileUpload('uploadAudioVideo', deps.additionalEvidenceService)
@@ -282,5 +297,6 @@ export {
   getAdditionalEvidence,
   setupadditionalEvidenceController,
   postFileUpload,
-  fileTypeInWhitelist
+  fileTypeInWhitelist,
+  fileTypeAudioVideoInWhitelist
 };

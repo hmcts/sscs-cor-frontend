@@ -542,7 +542,8 @@
         "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
         "review": "Please note any audio or video evidence will be reviewed separately by a Judge to ensure it is suitable and relevant before adding it to your appeal. You will be notified of the outcome of that review.",
         "deleted": "If a Judge does not admit your audio or video evidence the upload will be deleted from your appeal. Please keep a copy for your own records.",
-        "morelink": "Upload additional letters, documents or photos, audio or video files",
+        "morelink": "Upload additional letters, documents or photos",
+        "morelinkAudioVideo": "Upload audio or video files",
         "link":{
          "pip":  "Return to Your PIP benefit appeal",
          "esa":  "Return to Your ESA benefit appeal",
@@ -1768,6 +1769,7 @@
         "review": "Dalier sylw, bydd unrhyw dystiolaeth glywedol neu dystiolaeth fideo yn cael ei hadolygu ar wahân gan Farnwr i sicrhau ei bod yn briodol ac yn berthnasol cyn iddi gael ei hychwanegu at eich apêl. Fe gewch wybod am ganlyniad yr adolygiad hwnnw.",
         "deleted": "Os nad yw Barnwr yn caniatáu eich tystiolaeth sain neu fideo, caiff y broses uwchlwytho ei dileu o'ch apêl. Cadwch gopi ar gyfer eich cofnodion eich hun.",
         "morelink": "Llwytho llythyrau ychwanegol, dogfennau neu luniau, ffeiliau sain neu fideos",
+        "morelinkAudioVideo": "Upload audio or video files",
         "link": {
           "pip": "Dychwelyd i'ch apêl budd-dal PIP",
           "esa": "Dychwelyd i'ch apêl budd-dal ESA",
