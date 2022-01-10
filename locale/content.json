@@ -1015,8 +1015,8 @@
       },
       "guardiansallowance" : {
         "acronym": "GUARDIANS ALLOWANCE",
-        "yourBenefitAppeal": "Your Guardians Allowance appeal",
-        "fullDescription": "Guardians Allowance",
+        "yourBenefitAppeal": "Your Guardian's Allowance appeal",
+        "fullDescription": "Guardian's Allowance",
         "agency": "Her Majesty's Revenue and Customs",
         "agencyAcronym": "HMRC",
         "panel": "a judge and Financially Qualified Panel Member (if applicable)"
@@ -2288,8 +2288,8 @@
         "agencyAcronym": "HMRC",
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
-      "taxFreechildcare" : {
-        "acronym": "GOFAL PLANT DI_DRETH",
+      "taxfreechildcare" : {
+        "acronym": "GOFAL PLANT DI-DRETH",
         "yourBenefitAppeal": "Eich apêl Gofal Plant Di-dreth",
         "fullDescription": "Gofal Plant Di-dreth",
         "agency": "Refeniw a Thollau Ei Mawrhydi",
@@ -2321,7 +2321,7 @@
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
       "guaranteedminimumpension" : {
-        "acronym": "ISAFSM PENSIWN GWARANTEDIG",
+        "acronym": "ISAFSWM PENSIWN GWARANTEDIG",
         "yourBenefitAppeal": "Eich apêl Isafswm Pensiwn Gwarantedig",
         "fullDescription": "Isafswm Pensiwn Gwarantedig",
         "agency": "Refeniw a Thollau Ei Mawrhydi",
