@@ -1004,6 +1004,70 @@
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
+      },
+      "taxcredit" : {
+        "acronym": "TAX CREDIT",
+        "yourBenefitAppeal": "Your Tax Credit appeal",
+        "fullDescription": "Tax Credit",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "guardiansallowance" : {
+        "acronym": "GUARDIANS ALLOWANCE",
+        "yourBenefitAppeal": "Your Guardian's Allowance appeal",
+        "fullDescription": "Guardian's Allowance",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "taxfreechildcare" : {
+        "acronym": "TAX-FREE CHILDCARE",
+        "yourBenefitAppeal": "Your Tax-Free Childcare appeal",
+        "fullDescription": "Tax-Free Childcare",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "homeresponsibilitiesprotection" : {
+        "acronym": "HOME RESPONSIBILITIES PROTECTION",
+        "yourBenefitAppeal": "Your Home Responsibilities Protection appeal",
+        "fullDescription": "Home Responsibilities Protection",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "childbenefit" : {
+        "acronym": "CHILD BENEFIT",
+        "yourBenefitAppeal": "Your Child Benefit appeal",
+        "fullDescription": "Child Benefit",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "thirtyhoursfreechildcare" : {
+        "acronym": "30 HOURS FREE CHILDCARE",
+        "yourBenefitAppeal": "Your 30 Hours Free Childcare appeal",
+        "fullDescription": "30 Hours Free Childcare",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "guaranteedminimumpension" : {
+        "acronym": "GUARANTEED MINIMUM PENSION",
+        "yourBenefitAppeal": "Your Guaranteed Minimum Pension appeal",
+        "fullDescription": "Guaranteed Minimum Pension",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "nationalinsurancecredits" : {
+        "acronym": "NATIONAL INSURANCE CREDITS",
+        "yourBenefitAppeal": "Your National Insurance Credits appeal",
+        "fullDescription": "National Insurance Credits",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       }
     },
     "helpGuides": {
@@ -2207,6 +2271,70 @@
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
+      },
+      "taxcredit" : {
+        "acronym": "CREDYD TRETH",
+        "yourBenefitAppeal": "Eich apêl Credyd Treth",
+        "fullDescription": "Credyd Treth",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "guardiansallowance" : {
+        "acronym": "LWFANS GWARCHEIDWAD",
+        "yourBenefitAppeal": "Eich apêl Lwfans Gwarcheidwad",
+        "fullDescription": "Lwfans Gwarcheidwad",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "taxfreechildcare" : {
+        "acronym": "GOFAL PLANT DI-DRETH",
+        "yourBenefitAppeal": "Eich apêl Gofal Plant Di-dreth",
+        "fullDescription": "Gofal Plant Di-dreth",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "homeresponsibilitiesprotection" : {
+        "acronym": "DIOGELU CYFRIFOLDEBAU CARTREF",
+        "yourBenefitAppeal": "Eich apêl Diogelu Cyfrifoldebau Cartref",
+        "fullDescription": "Diogelu Cyfrifoldebau Cartref",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "childbenefit" : {
+        "acronym": "BUDD-DAL PLANT",
+        "yourBenefitAppeal": "Eich apêl Budd-dal Plant",
+        "fullDescription": "Budd-dal Plant",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "thirtyhoursfreechildcare" : {
+        "acronym": "GOFAL PLANT AM DDIM - 30 AWR",
+        "yourBenefitAppeal": "Eich apêl Gofal Plant am ddim - 30 awr",
+        "fullDescription": "Gofal Plant am ddim - 30 awr",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "guaranteedminimumpension" : {
+        "acronym": "ISAFSWM PENSIWN GWARANTEDIG",
+        "yourBenefitAppeal": "Eich apêl Isafswm Pensiwn Gwarantedig",
+        "fullDescription": "Isafswm Pensiwn Gwarantedig",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "nationalinsurancecredits" : {
+        "acronym": "CREDYDAU YSWIRIANT GWLADOL",
+        "yourBenefitAppeal": "Eich apêl Credydau Yswiriant Gwladol",
+        "fullDescription": "Credydau Yswiriant Gwladol",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       }
     },
     "helpGuides": {
