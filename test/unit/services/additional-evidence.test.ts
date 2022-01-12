@@ -92,7 +92,7 @@ describe('services/additional-evidence', () => {
       }
     };
 
-    await additionalEvidenceService.submitEvidences(hearingId, description, file as Express.Multer.File, req);
+    await additionalEvidenceService.submitEvidences(hearingId, description, req);
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 });

@@ -513,7 +513,7 @@
         "description": {
           "para1": "You can upload audio or videos.",
           "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
-          "para3": "Only files with the following file extensions are allowed: .mp3, .mp4",
+          "para3": "Only files with the following file extensions are allowed: .mp3 for audio, .mp4 for video.",
           "para4": "You can only submit one file at a time",
           "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
         },
@@ -1739,7 +1739,7 @@
         "description": {
           "para1": "You can upload audio or videos.",
           "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
-          "para3": "Only files with the following file extensions are allowed: .mp3, .mp4",
+          "para3": "Only files with the following file extensions are allowed: .mp3 for audio, .mp4 for video.",
           "para4": "You can only submit one file at a time",
           "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
         },
