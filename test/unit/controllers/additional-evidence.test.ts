@@ -1,7 +1,7 @@
 
 const multer = require('multer');
 import * as config from 'config';
-import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdditionalEvidence, postFileUpload, fileTypeInWhitelist } from 'app/server/controllers/additional-evidence';
+import { getAboutEvidence, getAdditionalEvidence, postEvidenceStatement, postAdditionalEvidence, postFileUpload, fileTypeInWhitelist, fileTypeAudioVideoInWhitelist } from 'app/server/controllers/additional-evidence';
 import * as Paths from 'app/server/paths';
 const { expect, sinon } = require('test/chai-sinon');
 import * as AppInsights from 'app/server/app-insights';
@@ -9,6 +9,7 @@ import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
 const content = require('locale/content');
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
+const maxAudioVideoFileSizeInMb: number = config.get('evidenceUpload.maxAudioVideoFileSizeInMb');
 
 describe('controllers/additional-evidence.js', () => {
   let req;
@@ -46,6 +47,7 @@ describe('controllers/additional-evidence.js', () => {
       cookies: {}
     } as any;
 
+    req.cookies[Feature.POST_BULK_SCAN] = 'false';
     res = {
       render: sandbox.spy(),
       redirect: sandbox.spy(),
@@ -72,11 +74,10 @@ describe('controllers/additional-evidence.js', () => {
 
   it('should pass "options" as argument to view if param action empty', async () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
-
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'options',
-      postBulkScan: false,
-      benefitType: 'UC'
+      benefitType: 'UC',
+      postBulkScan: false
     });
   });
 
@@ -93,8 +94,7 @@ describe('controllers/additional-evidence.js', () => {
     expect(res.render).to.have.been.calledOnce.calledWith('additional-evidence/index.html', {
       action: 'upload',
       description,
-      evidences: [],
-      hasAudioVideoFile: false
+      evidences: []
     });
   });
 
@@ -169,7 +169,7 @@ describe('controllers/additional-evidence.js', () => {
       const caseId = '1234567890';
       req.session.hearing.case_id = caseId;
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
-      expect(additionalEvidenceService.saveStatement).to.have.been.calledOnce.calledWith(caseId, req.body['question-field']);
+      expect(additionalEvidenceService.saveStatement).to.have.been.calledOnce.calledWith(caseId, req.body['question-field'], req);
       expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[${caseId}] - User has provided a statement`);
       expect(res.redirect).to.have.been.calledWith(`${Paths.additionalEvidence}/confirm`);
     });
@@ -369,6 +369,55 @@ describe('controllers/additional-evidence.js', () => {
       file.mimetype = 'audio/mp3';
       req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
       fileTypeInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_UNEXPECTED_FILE'));
+    });
+  });
+
+  describe('#fileTypeAudioVideoInWhitelist', () => {
+    const cb = sinon.stub();
+    const file = {
+      mimetype: 'audio/mp3',
+      originalname: 'someImage.mp3'
+    };
+
+    beforeEach(() => {
+      cb.reset();
+    });
+
+    it('file is in whitelist', () => {
+      fileTypeAudioVideoInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWith(null, true);
+    });
+
+    it('file mime type is not in whitelist', () => {
+      file.mimetype = 'plain/disallowed';
+      fileTypeAudioVideoInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file extension type is not in whitelist', () => {
+      file.originalname = 'disallowed.file';
+      fileTypeAudioVideoInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file does not have an extension ', () => {
+      file.originalname = 'disallowedfile';
+      fileTypeAudioVideoInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file is audio ', () => {
+      file.originalname = 'audio.MP3';
+      fileTypeAudioVideoInWhitelist(req, file, cb);
+      expect(cb).to.have.been.calledOnce.calledWithMatch(new multer.MulterError('LIMIT_FILE_TYPE'));
+    });
+
+    it('file is audio with feature flag on', () => {
+      file.originalname = 'audio.MP3';
+      file.mimetype = 'audio/mp3';
+      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
+      fileTypeAudioVideoInWhitelist(req, file, cb);
       expect(cb).to.have.been.calledOnce.calledWith(null, true);
     });
   });

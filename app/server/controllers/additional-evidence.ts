@@ -96,7 +96,6 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
 
     try {
       const validationMessage = answerValidation(statementText, req);
-
       if (!validationMessage) {
         const caseId = req.session['hearing'].case_id;
         await additionalEvidenceService.saveStatement(caseId, statementText, req);
@@ -129,12 +128,7 @@ function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceServ
           }
         );
       } else if (action === 'uploadAudioVideo') {
-        const benefitType = req!.session['appeal']!.benefitType;
-        return res.render('additional-evidence/index.html', {
-          action,
-          postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
-          benefitType
-        });
+        // do nothing
       }
       const benefitType = req!.session['appeal']!.benefitType;
       return res.render('additional-evidence/index.html', {
