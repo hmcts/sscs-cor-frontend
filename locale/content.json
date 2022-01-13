@@ -131,7 +131,8 @@
         "fileCannotBeUploaded": "File cannot be uploaded",
         "empty": "You have not selected a file.",
         "tooLarge": "The file you have uploaded is too big. Please upload a file under",
-        "invalidFileType": "The type of file you have uploaded is not accepted. Please convert it to a common file format and try again."
+        "invalidFileType": "The type of file you have uploaded is not accepted. Please convert it to a common file format and try again.",
+        "limitOnlyDocument": "You can only upload letter, document or photo evidence on this page"
       }
     },
     "tribunalDecision": {
@@ -1429,7 +1430,8 @@
         "fileCannotBeUploaded": "Ni ellir llwytho’r ffeil",
         "empty": "Nid ydych wedi dewis ffeil.",
         "tooLarge": "Mae’r ffeil rydych wedi’i llwytho yn rhy fawr. Llwythwch ffeil sy’n llai na ",
-        "invalidFileType": "Nid yw’r math o ffeil rydych wedi’i llwytho yn dderbyniol. Ceisiwch drosi’r ffeil i fformat ffeil cyffredin a rhowch gynnig arall arni."
+        "invalidFileType": "Nid yw’r math o ffeil rydych wedi’i llwytho yn dderbyniol. Ceisiwch drosi’r ffeil i fformat ffeil cyffredin a rhowch gynnig arall arni.",
+        "limitOnlyDocument": "You can only upload letter, document or photo evidence on this page"
       }
     },
     "tribunalDecision": {
