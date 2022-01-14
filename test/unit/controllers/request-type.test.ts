@@ -18,15 +18,21 @@ describe('controllers/request-type', () => {
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
     req = {
+      params: {
+        action: ''
+      },
       session: {
-        hearing: {}
+        hearing: {},
+        requestOptions: {},
+        hearingRecordingsResponse: {}
       },
       body: {},
       cookies: {}
     } as any;
 
     res = {
-      render: sandbox.stub()
+      render: sandbox.stub(),
+      redirect: sandbox.spy()
     };
 
     next = sandbox.stub();
@@ -54,7 +60,7 @@ describe('controllers/request-type', () => {
 
     it('should call Router', () => {
       requestType.setupRequestTypeController({});
-      expect(getStub).to.have.been.calledWith(`${Paths.requestType}`);
+      expect(getStub).to.have.been.calledWith(`${Paths.requestType}/:action?`);
       expect(getStub).to.have.been.calledWith(`${Paths.requestType}/recording`);
       expect(postStub).to.have.been.calledWith(`${Paths.requestType}/select`);
       expect(postStub).to.have.been.calledWith(`${Paths.requestType}/hearing-recording-request`);
@@ -64,8 +70,10 @@ describe('controllers/request-type', () => {
   describe('getRequestType', () => {
     it('should render request type select page', async() => {
       req.cookies.manageYourAppeal = 'true';
-      requestType.getRequestType(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html', { });
+      await requestType.getRequestType()(req,res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
+          { action: '', requestOptions: {}, hearingRecordingsResponse: {}, pageTitleError: false, emptyHearingIdError: false, appeal: req.session.appeal }
+      );
     });
   });
 
@@ -74,7 +82,7 @@ describe('controllers/request-type', () => {
     it('should render request type select page with hearing recordings', async() => {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
-      req.body['request-options'] = 'hearingRecording';
+      req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
         getHearingRecording: sandbox.stub().resolves(hearingRecording)
@@ -82,16 +90,14 @@ describe('controllers/request-type', () => {
 
       await requestType.selectRequestType(requestTypeService)(req,res, next);
       expect(requestTypeService.getHearingRecording).to.have.been.calledOnce.calledWith('case_id_1', req);
-      expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-          { action: 'hearingRecording', hearingRecordingsResponse: hearingRecording }
-          );
+      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/hearingRecording`);
       expect(req.session.hearingRecordingsResponse).to.equal(hearingRecording);
     });
 
     it('should render request type select page without hearing recordings', async() => {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
-      req.body['request-options'] = 'hearingRecording';
+      req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
         getHearingRecording: sandbox.stub().resolves(null)
@@ -99,15 +105,13 @@ describe('controllers/request-type', () => {
 
       await requestType.selectRequestType(requestTypeService)(req,res, next);
       expect(requestTypeService.getHearingRecording).to.have.been.calledOnce.calledWith('case_id_1', req);
-      expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-          { action: 'hearingRecording', hearingRecordingsResponse: null }
-      );
+      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/hearingRecording`);
     });
 
     it('should catch error and track Excepction with AppInsights', async () => {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
-      req.body['request-options'] = 'hearingRecording';
+      req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
         getHearingRecording: sandbox.stub().rejects(error)
@@ -129,13 +133,7 @@ describe('controllers/request-type', () => {
 
       await requestType.submitHearingRecordingRequest(requestTypeService)(req,res, next);
 
-      expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-        { action: 'hearingRecording',
-          hearingRecordingsResponse: hearingRecording,
-          pageTitleError: true,
-          emptyHearingIdError: true
-        }
-      );
+      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/formError`);
     });
 
     it('should render confirm hearing request page for hearing ids', async() => {
@@ -149,10 +147,7 @@ describe('controllers/request-type', () => {
       };
 
       await requestType.submitHearingRecordingRequest(requestTypeService)(req,res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html', {
-        action: 'confirm'
-      }
-      );
+      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/confirm`);
       expect(requestTypeService.submitHearingRecordingRequest).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
       expect(req.session.hearingRecordingsResponse).to.equal('');
     });
@@ -185,7 +180,7 @@ describe('controllers/request-type', () => {
       req = {
         query: {
           url: url,
-          fileType: type
+          type: type
         }
       } as any;
 

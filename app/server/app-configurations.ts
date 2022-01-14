@@ -11,7 +11,8 @@ const content = require('../../locale/content');
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app-configuration.ts');
 const config = require('config');
-import i18next, { InitOptions } from 'i18next';
+import { InitOptions } from 'i18next';
+import { I18next } from 'i18next-express-middleware';
 
 function configureHelmet(app) {
   // by setting HTTP headers appropriately.
@@ -31,9 +32,9 @@ function configureHelmet(app) {
         'www.googletagmanager.com',
         'tagmanager.google.com',
         'vcc-eu4.8x8.com',
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-        'https://code.jquery.com/ui/1.11.2/jquery-ui.js',
-        'https://code.jquery.com/jquery-1.10.2.js'
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
+        'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
+        'https://code.jquery.com/jquery-3.6.0.js'
       ],
       styleSrc: [
         '\'self\'',
@@ -72,7 +73,7 @@ function configureHeaders(app) {
   });
 }
 
-function configureNunjucks(app: express.Application) {
+function configureNunjucks(app: express.Application, i18next: I18next) {
   const nunEnv = nunjucks.configure([
     'views',
     'app/main',

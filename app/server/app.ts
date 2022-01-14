@@ -65,7 +65,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     app.locals.isDev = true;
   }
 
-  configureNunjucks(app);
+  configureNunjucks(app, i18next);
 
   app.use(bodyParser.urlencoded({
     extended: true

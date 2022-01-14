@@ -23,7 +23,7 @@
     }
   },
   "health": {
-    "timeout": 5000,
+    "timeout": 10000,
     "deadline": 15000
   },
   "idam": {

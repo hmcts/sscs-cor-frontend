@@ -13,7 +13,7 @@
       "disabled_access_required": false,
       "other_arrangements": "No"
     },
-    "appellant_details": {
+    "user_details": {
       "address_details": {
         "line1": "1 Appellant Ave",
         "town": "Appellanton",
@@ -42,7 +42,7 @@
       "disabled_access_required": false,
       "other_arrangements": "No"
     },
-    "appellant_details": {
+    "user_details": {
       "address_details": {
         "line1": "1 Appellant Ave",
         "town": "Appellanton",
@@ -71,7 +71,7 @@
       "disabled_access_required": false,
       "other_arrangements": null
     },
-    "appellant_details": {
+    "user_details": {
       "address_details": {
         "line1": "LEMAN STREET",
         "town": "LONDON",
