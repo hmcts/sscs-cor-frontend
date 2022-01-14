@@ -385,6 +385,7 @@ describe('controllers/additional-evidence.js', () => {
     });
 
     it('file is in whitelist', () => {
+      file.mimetype = 'audio/mp3';
       req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
       fileTypeAudioVideoInWhitelist(req, file, cb);
       expect(cb).to.have.been.calledOnce.calledWith(null, true);
