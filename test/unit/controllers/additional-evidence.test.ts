@@ -56,6 +56,7 @@ describe('controllers/additional-evidence.js', () => {
     additionalEvidenceService = {
       getEvidences: sandbox.stub().resolves([]),
       uploadEvidence: sandbox.stub().resolves(),
+      submitSingleEvidences: sandbox.stub().resolves(),
       removeEvidence: sandbox.stub().resolves()
     };
     next = sandbox.stub();
@@ -318,9 +319,39 @@ describe('controllers/additional-evidence.js', () => {
       });
     });
 
+    it('should show errors when audio/video file size is bigger than certain limit', async () => {
+      const fileSizeErrorMsg = `${content.en.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
+      res.locals.multerError = fileSizeErrorMsg;
+      await postFileUpload('uploadAudioVideo', additionalEvidenceService)(req, res, next);
+
+      expect(res.render).to.have.been.calledOnce.calledWith(`additional-evidence/index.html`, {
+        action: 'uploadAudioVideo',
+        pageTitleError: true,
+        description: '',
+        fileUploadError: fileSizeErrorMsg
+      });
+    });
+
     it('should redirect to Task List if no file to upload or delete', async () => {
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
+    });
+
+    it('should submit audio/video evidences and description and redirect to confirmation page', async () => {
+      req.body.buttonSubmit = 'there';
+      const caseId = req.session.hearing.case_id;
+      req.file = { name: 'myfile.mp3' };
+      additionalEvidenceService = {
+        submitSingleEvidences: sandbox.stub().resolves()
+      };
+      const description: string = 'this is a description for the files to be upload';
+      req.body['additional-evidence-description'] = description;
+
+      await postFileUpload('uploadAudioVideo', additionalEvidenceService)(req, res, next);
+
+      expect(additionalEvidenceService.submitSingleEvidences).to.have.been.calledOnce.calledWith(caseId, description, req.file, req);
+      expect(req.session.additional_evidence.description).to.equal('');
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(`[${caseId}] - User has uploaded a file`);
     });
   });
 
