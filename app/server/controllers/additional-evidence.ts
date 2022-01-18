@@ -154,8 +154,8 @@ function postFileUpload(action: String, additionalEvidenceService: AdditionalEvi
         if (evidence && evidence.statusCode === 200) {
           const buffer: Buffer = req.file.buffer;
           // NOSONAR
-          const md5Hash: String = crypto.createHash('md5').update(buffer).digest('hex');
-          const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${md5Hash}]`;
+          const sha512Hash: String = crypto.createHash('sha512').update(buffer).digest('hex');
+          const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${sha512Hash}]`;
           AppInsights.trackTrace(logMsg);
           logger.info(logMsg);
           return res.redirect(`${Paths.additionalEvidence}/upload`);

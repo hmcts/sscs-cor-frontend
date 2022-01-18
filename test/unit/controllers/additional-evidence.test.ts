@@ -11,7 +11,7 @@ const content = require('locale/content');
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 const maxAudioVideoFileSizeInMb: number = config.get('evidenceUpload.maxAudioVideoFileSizeInMb');
 
-describe('controllers/additional-evidence.js', () => {
+describe.only('controllers/additional-evidence.js', () => {
   let req;
   let res;
   let next;
