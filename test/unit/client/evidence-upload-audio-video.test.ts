@@ -1,9 +1,12 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { EvidenceUploadAudioVideo } from 'app/client/javascript/evidence-upload-audio-video';
+import { stub } from 'sinon';
 
 const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="post">
     <input type="text" id="question-field" name="question-field"/>
 </form>
+<a class="govuk-header__link govuk-header__link--signout" id="header-sign-out" href="/sign-out"></a>
+<a class="sign-out" id="sign-out" href="/sign-out"></a>
 <div id="evidence-upload-audio-video">
 <div class="govuk-form-group">
   <div class="govuk-checkboxes evidence-upload-audio-video-js" style="display: block;">
@@ -22,7 +25,7 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
   <label class="govuk-button secondary-button" for="file-upload-1" style="">
     Choose file
   </label>
-  <input class="govuk-file-upload evidence-upload-audio-video-js" id="file-upload-1" name="file-upload-1" type="file" accept=".jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .doc, .dot, .docx, .dotx, .xls, .xlt, .xla, .xlsx, .xltx, .xlsb, .ppt, .pot, .pps, .ppa, .pptx, .potx, .ppsx" style="display: none;">
+  <input class="govuk-file-upload evidence-upload-audio-video-js" id="file-upload-1" name="file-upload-1" type="file" accept=".mp3, .mp4" style="display: none;">
 </div>
         <table class="govuk-table" id="files-uploaded">
   <thead class="govuk-table__head">
@@ -42,6 +45,10 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
     </div>
     <div id="upload-spinner"></div>
      <input id="submit-evidences">
+     <div id="av-content-warning" style="display: none"></div>
+     <p id="additional-evidence-audio-video-file"></p>
+     <p id="selected-evidence-file"></p>
+     <p id="no-evidence-file"></p>
     <details id="sending-evidence-guide" class="govuk-details">
   <summary class="govuk-details__summary" role="button" aria-controls="details-content-00f525bb-889a-4507-af48-0eee2be4e967" aria-expanded="false">
     <span class="govuk-details__summary-text">
@@ -128,7 +135,59 @@ describe('evidence-upload-audio-video', () => {
       expect(submitEvidence.style.display).to.equal('none');
     });
   });
-
+  describe('#additionalEvidenceAttachEventListeners', () => {
+    let submitStub: sinon.SinonStub;
+    let additionalEvidence: HTMLElement;
+    let selectedFile: HTMLElement;
+    let noSelectedFile: HTMLElement;
+    let contentWarningPara: HTMLElement;
+    beforeEach(() => {
+      additionalEvidence = document.querySelector<HTMLInputElement>(`#additional-evidence-audio-video-file`);
+      selectedFile = document.getElementById('selected-evidence-file');
+      noSelectedFile = document.getElementById('no-evidence-file');
+      contentWarningPara = document.getElementById('av-content-warning');
+    });
+    afterEach(() => {
+      submitStub.restore();
+    });
+    it('set files array with audio files', () => {
+      let input = { currentTarget: { files: [
+            { name: 'file1.mp3' },
+            { name: 'file2.mp3' } ] } };
+      submitStub = stub(additionalEvidence,'addEventListener').callsArgWith(1, input);
+      evidenceUpload.additionalEvidenceAttachEventListeners();
+      expect(selectedFile.innerText).to.equal('file1.mp3');
+      expect(noSelectedFile.style.display).to.equal('none');
+      expect(contentWarningPara.style.display).to.equal('block');
+    });
+    it('set files array with video files', () => {
+      let input = { currentTarget: { files: [
+            { name: 'file1.mp4' },
+            { name: 'file2.mp4' } ] } };
+      submitStub = stub(additionalEvidence,'addEventListener').callsArgWith(1, input);
+      evidenceUpload.additionalEvidenceAttachEventListeners();
+      expect(selectedFile.innerText).to.equal('file1.mp4');
+      expect(noSelectedFile.style.display).to.equal('none');
+      expect(contentWarningPara.style.display).to.equal('block');
+    });
+    it('set files array with no audio or video files', () => {
+      let input = { currentTarget: { files: [
+            { name: 'file1.txt' },
+            { name: 'file2.txt' } ] } };
+      submitStub = stub(additionalEvidence,'addEventListener').callsArgWith(1, input);
+      evidenceUpload.additionalEvidenceAttachEventListeners();
+      expect(selectedFile.innerText).to.equal('file1.txt');
+      expect(noSelectedFile.style.display).to.equal('none');
+      expect(contentWarningPara.style.display).to.equal('none');
+    });
+    it('set empty files array', () => {
+      let input = { currentTarget: { files: [] } };
+      submitStub = stub(additionalEvidence,'addEventListener').callsArgWith(1, input);
+      evidenceUpload.additionalEvidenceAttachEventListeners();
+      expect(selectedFile.innerText).to.equal('');
+      expect(noSelectedFile.style.display).to.equal('block');
+    });
+  });
   describe('#setRevealStartState', () => {
     let revealContainer: HTMLElement;
     before(() => {
@@ -165,13 +224,28 @@ describe('evidence-upload-audio-video', () => {
   });
 
   describe('upload media file', () => {
+    let selectedEvidenceFile: HTMLElement;
+    let noEvidenceFile: HTMLElement;
     before(() => {
       document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`).addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>(`#header-sign-out`).addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>(`#sign-out`).addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>(`#additional-evidence-audio-video-file`).addEventListener = sinon.spy();
     });
     describe('initialize class', () => {
       it('should attach Event Listeners', () => {
         const target = document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`);
         expect(target.addEventListener).to.have.not.been.called;
+        evidenceUpload.init();
+        expect(target.addEventListener).to.have.been.called;
+      });
+      it('should attach Event Listeners to stop sign out', () => {
+        const target = document.querySelector<HTMLInputElement>(`#sign-out`);
+        evidenceUpload.init();
+        expect(target.addEventListener).to.have.been.called;
+      });
+      it('should attach Event Listeners to stop header sign out', () => {
+        const target = document.querySelector<HTMLInputElement>(`#header-sign-out`);
         evidenceUpload.init();
         expect(target.addEventListener).to.have.been.called;
       });
