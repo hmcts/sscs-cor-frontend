@@ -59,7 +59,7 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
       </div>
     </div>`;
 
-describe.only('evidence-upload-helper', () => {
+describe('evidence-upload-helper', () => {
   let evidenceUploadHelper: EvidenceUploadHelper;
   let body;
   before(() => {
