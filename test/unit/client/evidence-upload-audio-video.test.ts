@@ -1,6 +1,7 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { EvidenceUploadAudioVideo } from 'app/client/javascript/evidence-upload-audio-video';
 import { stub } from 'sinon';
+import { EvidenceUploadHelper } from 'app/client/javascript/evidence-upload-helper';
 
 const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="post">
     <input type="text" id="question-field" name="question-field"/>
@@ -74,6 +75,7 @@ describe('evidence-upload-audio-video', () => {
     body = document.querySelector('body');
     body.innerHTML = html;
     evidenceUpload = new EvidenceUploadAudioVideo();
+    evidenceUpload.evidenceUploadHelper = new EvidenceUploadHelper();
   });
 
   describe('#constructor', () => {
@@ -96,32 +98,6 @@ describe('evidence-upload-audio-video', () => {
       expect(fileUpload.className).to.equal('file-display-none');
       expect(fileUploadLabel.style.display).to.equal('');
       expect(fileUploadLabel.className).to.equal('govuk-button secondary-button');
-    });
-  });
-
-  describe('#showHideRevealContainer', () => {
-    let revealContainer: HTMLElement;
-    before(() => {
-      revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
-    });
-    it('hides if checkbox is not checked', () => {
-      const target = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
-      target.checked = false;
-      evidenceUpload.showHideRevealContainer({ target });
-      expect(revealContainer.style.display).to.equal('none');
-    });
-    it('shows if checkbox is checked', () => {
-      const target = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
-      target.checked = true;
-      evidenceUpload.showHideRevealContainer({ target });
-      expect(revealContainer.style.display).to.equal('block');
-    });
-    it('clicking the tickbox shows/hides the reveal', () => {
-      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
-      checkbox.click();
-      expect(revealContainer.style.display).to.equal('none');
-      checkbox.click();
-      expect(revealContainer.style.display).to.equal('block');
     });
   });
 
@@ -186,40 +162,6 @@ describe('evidence-upload-audio-video', () => {
       evidenceUpload.additionalEvidenceAttachEventListeners();
       expect(selectedFile.innerText).to.equal('');
       expect(noSelectedFile.style.display).to.equal('block');
-    });
-  });
-  describe('#setRevealStartState', () => {
-    let revealContainer: HTMLElement;
-    before(() => {
-      revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
-    });
-    it('starts hidden if no uploaded files exist and no upload errors', () => {
-      evidenceUpload.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
-      expect(revealContainer.style.display).to.equal('none');
-      expect(checkbox.checked).to.equal(false);
-    });
-    it('starts revealed if uploaded files exist', () => {
-      document.querySelector('#files-uploaded tbody').innerHTML = `
-        <tr class="govuk-table__row evidence">
-          <td class="govuk-table__cell">My file.png</td>
-          <td class="govuk-table__cell">
-            <input type="hidden" name="id" value="147e9118-24bc-4e33-9586-053c341469f8">
-            <input type="submit" name="delete" value="Delete" class="govuk-link">
-          </td>
-        </tr>`;
-      evidenceUpload.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
-      expect(revealContainer.style.display).to.equal('block');
-      expect(checkbox.checked).to.equal(true);
-    });
-    it('starts revealed if uploaded errors exist', () => {
-      document.querySelector('#files-uploaded tbody').innerHTML =
-          `<span id="file-upload-1-error" class="govuk-error-message">some error</span>`;
-      evidenceUpload.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
-      expect(revealContainer.style.display).to.equal('block');
-      expect(checkbox.checked).to.equal(true);
     });
   });
 

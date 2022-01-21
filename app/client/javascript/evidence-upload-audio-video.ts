@@ -1,3 +1,4 @@
+import { EvidenceUploadHelper } from './evidence-upload-helper';
 export class EvidenceUploadAudioVideo {
   public NOJS_ELEMENT_SELECTOR: string = '.evidence-upload-audio-video-nojs';
   public JS_ELEMENT_SELECTOR: string = '.evidence-upload-audio-video-js';
@@ -16,17 +17,19 @@ export class EvidenceUploadAudioVideo {
   public MODAL: string = 'file-dialog';
   public keyStrokeEventListener: any;
   public SUBMIT_BUTTON: string = 'submit-evidences';
-
+  private evidenceUploadHelper: EvidenceUploadHelper;
   constructor() {
     this.init();
   }
 
   init() {
+    this.evidenceUploadHelper = new EvidenceUploadHelper();
     if (document.getElementById('evidence-upload-audio-video')) {
       this.revealContainer = document.getElementById(this.REVEAL_CONTAINER_ID);
-      this.showHideElements();
-      this.setRevealStartState();
-      this.setFileUploadState();
+      this.evidenceUploadHelper.revealContainer = this.revealContainer;
+      this.evidenceUploadHelper.showHideElements(this.NOJS_ELEMENT_SELECTOR, this.JS_ELEMENT_SELECTOR);
+      this.evidenceUploadHelper.setRevealStartState();
+      this.evidenceUploadHelper.setFileUploadState();
       this.attachEventListeners();
     }
     this.answerFormElement = document.getElementById(this.ANSWER_FORM);
@@ -37,15 +40,6 @@ export class EvidenceUploadAudioVideo {
     this.cancel = document.getElementById(this.CANCEL_BUTTON);
     this.additionalEvidenceAttachEventListeners();
     this.submitEvidenceEventListener();
-  }
-
-  showHideRevealContainer(e: any): void {
-    const checkbox = e.target as HTMLInputElement;
-    if (checkbox.checked) {
-      this.revealContainer.style.display = 'block';
-    } else {
-      this.revealContainer.style.display = 'none';
-    }
   }
 
   uploadFile(): void {
@@ -94,7 +88,7 @@ export class EvidenceUploadAudioVideo {
 
   attachEventListeners(): void {
     const provideEvidence: HTMLElement = document.getElementById(this.CHECKBOX_ID);
-    provideEvidence.addEventListener('click', this.showHideRevealContainer.bind(this));
+    provideEvidence.addEventListener('click', this.evidenceUploadHelper.showHideRevealContainer.bind(this));
     const fileUpload: HTMLElement = document.getElementById(this.FILE_UPLOAD_ID);
     fileUpload.addEventListener('change', this.uploadFile.bind(this));
   }
@@ -146,33 +140,6 @@ export class EvidenceUploadAudioVideo {
         }
       });
     }
-  }
-
-  setFileUploadState(): void {
-    document.getElementById(this.FILE_UPLOAD_ID).className = 'file-display-none';
-    const fileUploadLabel: HTMLElement = document.querySelector(this.FILE_UPLOAD_LABEL_SELECTOR);
-    fileUploadLabel.style.display = '';
-    fileUploadLabel.className = 'govuk-button secondary-button';
-  }
-
-  setRevealStartState(): void {
-    const uploadedFiles = document.querySelectorAll('#files-uploaded tr.evidence');
-    const uploadError = document.querySelectorAll('#file-upload-1-error');
-    const provideEvidence = document.getElementById(this.CHECKBOX_ID) as HTMLInputElement;
-    if (uploadedFiles.length === 0 && uploadError.length === 0) {
-      provideEvidence.checked = false;
-      this.revealContainer.style.display = 'none';
-    } else {
-      provideEvidence.checked = true;
-      this.revealContainer.style.display = 'block';
-    }
-  }
-
-  showHideElements(): void {
-    const noJsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.NOJS_ELEMENT_SELECTOR);
-    const jsElements: NodeListOf<HTMLElement> = document.querySelectorAll(this.JS_ELEMENT_SELECTOR);
-    Array.from(noJsElements).forEach(e => e.style.display = 'none');
-    Array.from(jsElements).forEach(e => e.style.display = 'block');
   }
 
   bindModalButtonListeners() {
