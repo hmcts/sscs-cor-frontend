@@ -20,7 +20,7 @@ const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
 // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-describe('CY - Additional Evidence @mya @nightly99', () => {
+describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
@@ -141,7 +141,7 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-  it.skip('CY - shows an error if no file to upload and no description', async () => {
+  it('CY - shows an error if no file to upload and no description', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -153,7 +153,7 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-  it.skip('CY - shows an error if no file to upload', async () => {
+  it('CY - shows an error if no file to upload', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -165,7 +165,7 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-  it.skip('CY - uploads a file and shows file list and check evidence confirmation page @pally', async () => {
+  it('CY - uploads a file and shows file list and check evidence confirmation page @pally', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
