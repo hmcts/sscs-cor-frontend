@@ -19,6 +19,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
+// FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
 describe('CY - Additional Evidence @mya @nightly99', () => {
   let page: Page;
   let taskListPage: TaskListPage;
@@ -139,7 +140,8 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
-  it('CY - shows an error if no file to upload and no description', async () => {
+  // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
+  it.skip('CY - shows an error if no file to upload and no description', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -150,7 +152,8 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('CY - shows an error if no file to upload', async () => {
+  // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
+  it.skip('CY - shows an error if no file to upload', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -161,7 +164,8 @@ describe('CY - Additional Evidence @mya @nightly99', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  it('CY - uploads a file and shows file list and check evidence confirmation page @pally', async () => {
+  // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
+  it.skip('CY - uploads a file and shows file list and check evidence confirmation page @pally', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
