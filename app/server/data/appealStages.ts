@@ -20,8 +20,8 @@ const oralAppealStages = [
   {
     status: 'DWP_RESPOND',
     title: {
-      en: 'DWP response',
-      cy: 'Ymateb DWP'
+      en: '{{appeal.benefitType | agencyAcronym}} response',
+      cy: 'Ymateb {{appeal.benefitType | agencyAcronym}}'
     },
     latestUpdateText: 'text',
     showOnBar: true
@@ -89,8 +89,8 @@ const paperAppealStages = [
   {
     status: 'DWP_RESPOND',
     title: {
-      en: 'DWP response',
-      cy: 'Ymateb DWP'
+      en: '{{appeal.benefitType | agencyAcronym}} response',
+      cy: 'Ymateb {{appeal.benefitType | agencyAcronym}}'
     },
     latestUpdateText: 'text',
     showOnBar: true
