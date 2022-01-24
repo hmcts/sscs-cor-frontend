@@ -26,7 +26,7 @@
             <div class="task-list">
                 <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].statusTab.header | safe }}</h2>
                 {% if stages | length %}
-                    {{ statusBar(stages) }}
+                    {{ statusBar(appeal, stages) }}
                 {% endif %}
                 {% if appeal.hearingType == "cor" %}
                     {% set latestUpdate = "TBC" %}
