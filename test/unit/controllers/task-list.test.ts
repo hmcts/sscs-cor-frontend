@@ -37,6 +37,7 @@ describe('controllers/task-list', () => {
       },
       cookies: {}
     };
+    req.cookies[Feature.POST_BULK_SCAN] = 'false';
     res = {
       render: sandbox.stub(),
       send: sandbox.stub(),

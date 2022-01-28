@@ -18,6 +18,8 @@ function handleFileUploadErrors(err: any, req: Request, res: Response, next: Nex
       error = `${content[i18next.language].questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
     } else if (err.code === 'LIMIT_FILE_TYPE') {
       error = content[i18next.language].questionUploadEvidence.error.invalidFileType;
+    } else if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+      error = content[i18next.language].questionUploadEvidence.error.limitOnlyDocument;
     } else {
       error = content[i18next.language].questionUploadEvidence.error.fileCannotBeUploaded;
     }

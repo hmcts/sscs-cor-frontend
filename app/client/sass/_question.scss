@@ -58,6 +58,31 @@ table#files-uploaded {
 
 }
 
+#evidence-upload-audio-video {
+  .evidence-upload-audio-video-js {
+    display: none;
+  }
+  .panel-indent {
+    border-left: 5px solid $govuk-border-colour;
+    padding-top: 15px;
+    padding-left: 15px;
+  }
+  [for=file-upload-1] {
+    margin-bottom: 0;
+  }
+  #file-upload-1-error {
+    margin-top: 15px;
+  }
+  .file-display-none {
+    z-index: -1;
+    position: relative;
+    width: 116px;
+    height: 40px;
+    top: -36px;
+  }
+
+}
+
 #upload-spinner{
   display: none;
 }
