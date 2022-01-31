@@ -6,11 +6,7 @@
 
 <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l question-header">{{ content[i18n.language].additionalEvidence.evidenceUpload.header | safe }}</h1>
-    {% if mediaFilesAllowed %}
-      <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para1audioVideo | safe }}</p>
-    {% else %}
-      <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para1 | safe }}</p>
-    {% endif %}
+    <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para1 | safe }}</p>
 
     <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para2  | eval | safe }}.</p>
     <form class="--padding-top-m" id="additional-evidence-form" name="additional-evidence-form" action="/additional-evidence/upload?_csrf={{csrfToken}}" method="POST" enctype="multipart/form-data">
@@ -30,17 +26,11 @@
             } if error
           }) }}
 
-          {% if mediaFilesAllowed %}
-            <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para3audioVideo  | eval | safe }}.</p>
-          {% else %}
-            <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para3  | eval | safe }}.</p>
-          {% endif %}
+          <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para3  | eval | safe }}.</p>
+          <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para5  | eval | safe }}.</p>
 
-          <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.para4  | eval | safe }}.</p>
 
-        <div id="av-content-warning" style="display: none">
-            <p>{{ content[i18n.language].additionalEvidence.evidenceUpload.description.contentWarningPara1 | eval | safe }}</p>
-        </div>
+
 
 <!--        https://design-system.service.gov.uk/components/file-upload/-->
         {{ govukFileUpload({
@@ -60,10 +50,7 @@
             } if fileUploadError
         }) }}
 
-        <p class="govuk-table__header" >{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.uploadedFiles | safe }}</p>
-        <p id="selected-evidence-file"></p>
-        <p id="no-evidence-file">{{ content[i18n.language].additionalEvidence.evidenceUpload.fileList.noFilesUploaded | safe }}</p>
-
+        {{ evidenceList(evidences) }}
         <div id="submit-buttons">
             {{ spinner(content[i18n.language].additionalEvidence.loading | safe) }}
             <input id="submit-evidences" type="submit" name="buttonSubmit" value="{{ content[i18n.language].common.submitEvidenceToTribunal | safe }}" class="govuk-button">

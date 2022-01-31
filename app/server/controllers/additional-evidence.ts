@@ -13,20 +13,28 @@ const { Logger } = require('@hmcts/nodejs-logging');
 
 const logger = Logger.getLogger('additional-evidence');
 const fileTypeError = 'LIMIT_FILE_TYPE';
+const limitOnlyDocument = 'LIMIT_UNEXPECTED_FILE';
 const content = require('../../../locale/content');
 const crypto = require('crypto');
 const mediaFilesAllowed = config.get('featureFlags.mediaFilesAllowed') === 'true';
 
-const maxFileSizeInMb: number = (mediaFilesAllowed ? config.get('evidenceUpload.maxAudioVideoFileSizeInMb') : config.get('evidenceUpload.maxFileSizeInMb'));
+const maxDocumentFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
+const maxAudioVideoFileSizeInMb: number = config.get('evidenceUpload.maxAudioVideoFileSizeInMb');
 
 const upload = multer({
-  limits: { fileSize:  maxFileSizeInMb * 1048576 },
+  limits: { fileSize:  maxDocumentFileSizeInMb * 1048576 },
   fileFilter: fileTypeInWhitelist
+});
+
+const uploadAudioVideo = multer({
+  limits: { fileSize:  maxAudioVideoFileSizeInMb * 1048576 },
+  fileFilter: fileTypeAudioVideoInWhitelist
 });
 
 const allowedActions = [
   'upload',
   'statement',
+  'uploadAudioVideo',
   'post',
   'confirm'
 ];
@@ -55,9 +63,24 @@ function isValidUrl(url) {
 
 function fileTypeInWhitelist(req, file, cb) {
   const fileExtension = (file.originalname || '').split('.').pop();
-  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies) && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
+  if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
-  } else if (mimeTypeWhitelist.mimeTypes.includes(file.mimetype) && mimeTypeWhitelist.fileTypes.includes(fileExtension.toLocaleLowerCase())) {
+  } else if (mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
+    const caseId = req.session['hearing'].case_id;
+    logger.info(`[${caseId}] Allowed only upload letter, document or photo evidence on this page, file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    AppInsights.trackTrace(`[${caseId}] Allowed only upload letter, document or photo evidence on this page, file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    cb(new multer.MulterError(limitOnlyDocument));
+  } else {
+    const caseId = req.session['hearing'].case_id;
+    logger.info(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    AppInsights.trackTrace(`[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`);
+    cb(new multer.MulterError(fileTypeError));
+  }
+}
+
+function fileTypeAudioVideoInWhitelist(req, file, cb) {
+  const fileExtension = (file.originalname || '').split('.').pop();
+  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies) && mimeTypeWhitelist.mimeTypesWithAudioVideo.includes(file.mimetype) && mimeTypeWhitelist.fileTypesWithAudioVideo.includes(fileExtension.toLocaleLowerCase())) {
     cb(null, true);
   } else {
     const caseId = req.session['hearing'].case_id;
@@ -73,7 +96,6 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
 
     try {
       const validationMessage = answerValidation(statementText, req);
-
       if (!validationMessage) {
         const caseId = req.session['hearing'].case_id;
         await additionalEvidenceService.saveStatement(caseId, statementText, req);
@@ -89,10 +111,25 @@ function postEvidenceStatement(additionalEvidenceService: AdditionalEvidenceServ
   };
 }
 
-function getAdditionalEvidence() {
+function getAdditionalEvidence(additionalEvidenceService: AdditionalEvidenceService) {
   return async(req: Request, res: Response, next: NextFunction) => {
     try {
       const action: string = (!allowedActions.includes(req.params.action) || !req.params.action) ? 'options' : req.params.action;
+      if (action === 'upload') {
+        const { description } = req.session['additional_evidence'] || '';
+        const caseId = req.session['hearing'].case_id;
+        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
+
+        return res.render('additional-evidence/index.html',
+          {
+            action,
+            evidences: evidences ? evidences.reverse() : [],
+            description
+          }
+        );
+      } else if (action === 'uploadAudioVideo') {
+        // do nothing
+      }
       const benefitType = req!.session['appeal']!.benefitType;
       return res.render('additional-evidence/index.html', {
         action,
@@ -106,23 +143,61 @@ function getAdditionalEvidence() {
   };
 }
 
-function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
+function postFileUpload(action: String, additionalEvidenceService: AdditionalEvidenceService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const caseId = req.session['hearing'].case_id;
       const description = req.body['additional-evidence-description'] || '';
       req.session['additional_evidence'] = { description };
+      if (action === 'upload' && req.file) {
+        let evidence = await additionalEvidenceService.uploadEvidence(caseId, req.file, req);
+        if (evidence && evidence.statusCode === 200) {
+          const buffer: Buffer = req.file.buffer;
+          // NOSONAR
+          const sha512Hash: String = crypto.createHash('sha512').update(buffer).digest('hex');
+          const logMsg = `For case Id [${caseId}]  - User has uploaded this file [${req.file.originalname}] with a checksum of [${sha512Hash}]`;
+          AppInsights.trackTrace(logMsg);
+          logger.info(logMsg);
+          return res.redirect(`${Paths.additionalEvidence}/upload`);
+        } else {
+          logger.info('Error while uploading evidence');
+          const evidenceUploadErrorMsg = content[i18next.language].additionalEvidence.evidenceUpload.error.fileCannotBeUploaded;
+          return res.render('additional-evidence/index.html',
+            {
+              action: 'upload',
+              pageTitleError: true,
+              description,
+              fileUploadError: evidenceUploadErrorMsg
+            }
+          );
+        }
+      } else if (action === 'upload' && req.body.delete) {
+        const fileId = Object.keys(req.body.delete)[0];
+        await additionalEvidenceService.removeEvidence(caseId, fileId, req);
+        return res.redirect(`${Paths.additionalEvidence}/upload`);
+      } else if (action === 'upload' && req.body.buttonSubmit) {
+        const evidenceDescription = req.session['additional_evidence'].description;
+        const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
+        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
+        const evidencesValidationMsg = evidences.length ? false : content[i18next.language].additionalEvidence.evidenceUpload.error.noFilesUploaded;
 
-      if (res.locals.multerError) {
-        return res.render('additional-evidence/index.html',
-          {
-            action: 'upload',
-            pageTitleError: true,
-            description,
-            fileUploadError: res.locals.multerError
-          }
-        );
-      } else if (req.body.buttonSubmit) {
+        if (descriptionValidationMsg || evidencesValidationMsg) {
+          return res.render('additional-evidence/index.html',
+            {
+              action: 'upload',
+              pageTitleError: true,
+              evidences: evidences ? evidences.reverse() : [],
+              description,
+              error: descriptionValidationMsg,
+              fileUploadError: evidencesValidationMsg
+            }
+          );
+        }
+        await additionalEvidenceService.submitEvidences(caseId, evidenceDescription, req);
+        req.session['additional_evidence'].description = '';
+        AppInsights.trackTrace(`[${caseId}] - User has uploaded a total of ${evidences.length} file(s)`);
+        return res.redirect(`${Paths.additionalEvidence}/confirm`);
+      } else if (action === 'uploadAudioVideo' && req.body.buttonSubmit) {
         const evidenceDescription = req.session['additional_evidence'].description;
         const descriptionValidationMsg = uploadDescriptionValidation(evidenceDescription);
         const evidencesValidationMsg = req.file ? false : content[i18next.language].additionalEvidence.evidenceUpload.error.noFilesUploaded;
@@ -130,7 +205,7 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
         if (descriptionValidationMsg || evidencesValidationMsg) {
           return res.render('additional-evidence/index.html',
             {
-              action: 'upload',
+              action: 'uploadAudioVideo',
               pageTitleError: true,
               description,
               error: descriptionValidationMsg,
@@ -139,10 +214,30 @@ function postFileUpload(additionalEvidenceService: AdditionalEvidenceService) {
           );
         }
 
-        await additionalEvidenceService.submitEvidences(caseId, evidenceDescription, req.file, req);
+        await additionalEvidenceService.submitSingleEvidences(caseId, evidenceDescription, req.file, req);
         req.session['additional_evidence'].description = '';
         AppInsights.trackTrace(`[${caseId}] - User has uploaded a file`);
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
+      } else if (action === 'upload' && res.locals.multerError) {
+        const evidences: EvidenceDescriptor[] = await additionalEvidenceService.getEvidences(caseId, req);
+        return res.render('additional-evidence/index.html',
+          {
+            action: 'upload',
+            pageTitleError: true,
+            evidences: evidences ? evidences.reverse() : [],
+            description,
+            fileUploadError: res.locals.multerError
+          }
+        );
+      } else if (action === 'uploadAudioVideo' && res.locals.multerError) {
+        return res.render('additional-evidence/index.html',
+          {
+            action: 'uploadAudioVideo',
+            pageTitleError: true,
+            description,
+            fileUploadError: res.locals.multerError
+          }
+        );
       } else {
         return res.redirect(Paths.taskList);
       }
@@ -158,7 +253,7 @@ function setupadditionalEvidenceController(deps: any) {
   router.get(Paths.aboutEvidence, deps.prereqMiddleware, getAboutEvidence);
   router.get(`${Paths.additionalEvidence}/:action?`,
     deps.prereqMiddleware,
-    getAdditionalEvidence()
+    getAdditionalEvidence(deps.additionalEvidenceService)
   );
 
   const url = `${Paths.additionalEvidence}`;
@@ -175,9 +270,16 @@ function setupadditionalEvidenceController(deps: any) {
     upload.single('additional-evidence-file'),
     validateFileSize,
     handleFileUploadErrors,
-    postFileUpload(deps.additionalEvidenceService)
+    postFileUpload('upload', deps.additionalEvidenceService)
   );
 
+  router.post(`${Paths.additionalEvidence}/uploadAudioVideo`,
+      deps.prereqMiddleware,
+      uploadAudioVideo.single('additional-evidence-audio-video-file'),
+      validateFileSize,
+      handleFileUploadErrors,
+      postFileUpload('uploadAudioVideo', deps.additionalEvidenceService)
+  );
   return router;
 }
 
@@ -189,5 +291,6 @@ export {
   getAdditionalEvidence,
   setupadditionalEvidenceController,
   postFileUpload,
-  fileTypeInWhitelist
+  fileTypeInWhitelist,
+  fileTypeAudioVideoInWhitelist
 };
