@@ -1,5 +1,4 @@
 import { expect, sinon } from 'test/chai-sinon';
-import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 import { EvidenceUploadHelper } from 'app/client/javascript/evidence-upload-helper';
 
 const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="post">
@@ -60,73 +59,51 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
       </div>
     </div>`;
 
-describe('evidence-upload', () => {
-  let evidenceUpload: EvidenceUpload;
+describe('evidence-upload-helper', () => {
+  let evidenceUploadHelper: EvidenceUploadHelper;
   let body;
   before(() => {
     body = document.querySelector('body');
     body.innerHTML = html;
-    evidenceUpload = new EvidenceUpload();
-    evidenceUpload.evidenceUploadHelper = new EvidenceUploadHelper();
+    evidenceUploadHelper = new EvidenceUploadHelper();
   });
-
-  describe('#constructor', () => {
-    it('hide no-JS elements', () => {
-      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(evidenceUpload.NOJS_ELEMENT_SELECTOR);
+  describe('#showHideElements', () => {
+    it('hide no-JS and JS elements', () => {
+      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll('.evidence-upload-nojs');
+      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll('.evidence-upload-js');
+      evidenceUploadHelper.showHideElements('.evidence-upload-nojs','.evidence-upload-js');
       noJsElements.forEach(e => expect(e.style.display).to.equal('none'));
-    });
-    it('shows JS elements with expection of file input', () => {
-      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(`${evidenceUpload.JS_ELEMENT_SELECTOR}:not(#${evidenceUpload.FILE_UPLOAD_ID})`);
       jsElements.forEach(e => expect(e.style.display).to.equal('block'));
     });
-    it('hide reveal container by default', () => {
-      const revealContainer: HTMLElement = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
-      expect(revealContainer.style.display).to.equal('none');
-      expect(revealContainer.className).to.equal('govuk-details__text --margin-bottom-m');
-    });
-    it('sets file upload state', () => {
-      const fileUpload: HTMLElement = document.getElementById(evidenceUpload.FILE_UPLOAD_ID);
-      const fileUploadLabel: HTMLElement = body.querySelector(evidenceUpload.FILE_UPLOAD_LABEL_SELECTOR);
-      expect(fileUpload.className).to.equal('file-display-none');
-      expect(fileUploadLabel.style.display).to.equal('');
-      expect(fileUploadLabel.className).to.equal('govuk-button secondary-button');
-    });
   });
-
-  /*describe('#showHideRevealContainer', () => {
+  describe('#showHideRevealContainer', () => {
     let revealContainer: HTMLElement;
     before(() => {
-      revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
+      revealContainer = document.getElementById('evidence-upload-reveal-container');
+      evidenceUploadHelper.revealContainer = revealContainer;
     });
     it('hides if checkbox is not checked', () => {
-      const target = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
+      const target = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
       target.checked = false;
-      evidenceUpload.showHideRevealContainer({ target });
+      evidenceUploadHelper.showHideRevealContainer({ target });
       expect(revealContainer.style.display).to.equal('none');
     });
     it('shows if checkbox is checked', () => {
-      const target = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
+      const target = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
       target.checked = true;
-      evidenceUpload.showHideRevealContainer({ target });
+      evidenceUploadHelper.showHideRevealContainer({ target });
       expect(revealContainer.style.display).to.equal('block');
     });
-    it('clicking the tickbox shows/hides the reveal', () => {
-      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
-      checkbox.click();
-      expect(revealContainer.style.display).to.equal('none');
-      checkbox.click();
-      expect(revealContainer.style.display).to.equal('block');
-    });
-  });*/
+  });
 
-  /*describe('#setRevealStartState', () => {
+  describe('#setRevealStartState', () => {
     let revealContainer: HTMLElement;
     before(() => {
-      revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
+      revealContainer = document.getElementById('evidence-upload-reveal-container');
     });
     it('starts hidden if no uploaded files exist and no upload errors', () => {
-      evidenceUpload.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
+      evidenceUploadHelper.setRevealStartState();
+      const checkbox = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
       expect(revealContainer.style.display).to.equal('none');
       expect(checkbox.checked).to.equal(false);
     });
@@ -139,62 +116,18 @@ describe('evidence-upload', () => {
             <input type="submit" name="delete" value="Delete" class="govuk-link">
           </td>
         </tr>`;
-      evidenceUpload.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
+      evidenceUploadHelper.setRevealStartState();
+      const checkbox = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
       expect(revealContainer.style.display).to.equal('block');
       expect(checkbox.checked).to.equal(true);
     });
     it('starts revealed if uploaded errors exist', () => {
       document.querySelector('#files-uploaded tbody').innerHTML =
         `<span id="file-upload-1-error" class="govuk-error-message">some error</span>`;
-      evidenceUpload.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUpload.CHECKBOX_ID) as HTMLInputElement;
+      evidenceUploadHelper.setRevealStartState();
+      const checkbox = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
       expect(revealContainer.style.display).to.equal('block');
       expect(checkbox.checked).to.equal(true);
-    });
-  });*/
-
-  describe('upload media file', () => {
-    before(() => {
-      document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`).addEventListener = sinon.spy();
-    });
-    describe('initialize class', () => {
-      it('should attach Event Listeners', () => {
-        const target = document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`);
-        expect(target.addEventListener).to.have.not.been.called;
-        evidenceUpload.init();
-        expect(target.addEventListener).to.have.been.called;
-      });
-    });
-  });
-
-  describe('#uploadFile', () => {
-    let submitStub: sinon.SinonStub;
-    beforeEach(() => {
-      submitStub = sinon.stub(HTMLFormElement.prototype, 'submit');
-    });
-    afterEach(() => {
-      submitStub.restore();
-    });
-    it('creates a form element appended to the body', () => {
-      expect(document.forms.length).to.equal(1);
-      evidenceUpload.uploadFile();
-      expect(document.forms.length).to.equal(2);
-      const form = document.forms['js-upload-form'];
-      expect(form.action).to.equal('/question/1?_csrf=12323#evidence-upload');
-      expect(form.method).to.equal('post');
-      expect(form.enctype).to.equal('multipart/form-data');
-    });
-    it('shows the spinner and hides the file upload', () => {
-      evidenceUpload.uploadFile();
-      const uploadSpinner = document.getElementById('upload-spinner');
-      expect(uploadSpinner.style.display).to.equal('block');
-      const uploadFileButton = document.getElementById('uploadFileButton');
-      expect(uploadFileButton.style.display).to.equal('none');
-    });
-    it('submits the form', () => {
-      evidenceUpload.uploadFile();
-      expect(submitStub).to.have.been.calledOnce;
     });
   });
 });

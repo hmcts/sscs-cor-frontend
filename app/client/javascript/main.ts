@@ -1,6 +1,7 @@
 import * as govUK from 'govuk-frontend';
 import * as expandingTextBox from './expanding-textbox';
 import { EvidenceUpload } from './evidence-upload';
+import { EvidenceUploadAudioVideo } from './evidence-upload-audio-video';
 import { CheckCookies } from './check-cookies';
 import { SessionInactivity } from './session-inactivity';
 import { DetailsTabIndexToggle } from './detailsToggle';
@@ -23,6 +24,7 @@ function initCookieBanner() {
 
 const onReady = () => {
   const evidence = new EvidenceUpload();
+  const evidenceAudioVideo = new EvidenceUploadAudioVideo();
   const sessionInactivity = new SessionInactivity();
   const detailsToggle = new DetailsTabIndexToggle();
   const requestType = new RequestType();

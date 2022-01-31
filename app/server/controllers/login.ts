@@ -69,7 +69,6 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
     } else if (req.query.state) {
       idamUrl.searchParams.append('state', req.query.state as string);
     }
-
     logger.log(`Redirecting to [${idamUrl.href}]`);
     AppInsights.trackEvent('MYA_REDIRECT_IDAM_LOGIN');
     return res.redirect(idamUrl.href);

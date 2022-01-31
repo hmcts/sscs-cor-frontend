@@ -19,7 +19,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Additional Evidence @mya @nightly', () => {
+describe.skip('Additional Evidence @mya @nightly', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
