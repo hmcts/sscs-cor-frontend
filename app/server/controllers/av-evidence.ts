@@ -20,8 +20,9 @@ function getAvEvidenceList(req: Request, res: Response) {
     AppInsights.trackException(missingCaseIdError);
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
+
   let appeal = session['appeal']!;
-  logger.info(`Number of audio video evidence: ${appeal.audioVideoEvidence ? appeal.audioVideoEvidence.size : 0}`);
+  logger.info(`Number of audio video evidence: ${appeal.audioVideoEvidence ? appeal.audioVideoEvidence.length : 0}`);
   return res.render('av-evidence-tab.html', { appeal });
 }
 

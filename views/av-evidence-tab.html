@@ -26,7 +26,7 @@
                 <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].common.avEvidence | safe }}</h2>
                 <br/>
                 <div>
-                    {% if not avEvidenceList %}
+                    {% if not appeal.audioVideoEvidence %}
                         <div>{{ content[i18n.language].avEvidenceTab.noEvidence | safe }}</div>
                     {% else %}
                         {% for avEvidence in appeal.audioVideoEvidence %}
