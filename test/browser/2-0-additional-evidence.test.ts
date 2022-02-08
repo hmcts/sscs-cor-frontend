@@ -8,6 +8,7 @@ import { allowedActions } from 'app/server/controllers/additional-evidence';
 import { AdditionalEvidenceStatementPage } from 'test/page-objects/additional-evidence-statement';
 import { AdditionalEvidenceConfirmationPage } from 'test/page-objects/additional-evidence-confirmation';
 import { AdditionalEvidenceUploadPage } from 'test/page-objects/additional-evidence-upload';
+import { AdditionalEvidenceUploadAudioVideoPage } from 'test/page-objects/additional-evidence-upload-audio';
 import { AdditionalEvidencePostPage } from 'test/page-objects/additional-evidence-post';
 import { AdditionalEvidenceCoversheetPage } from 'test/page-objects/additional-evidence-coversheet';
 import { LoginPage } from 'test/page-objects/login';
@@ -19,13 +20,14 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-describe.skip('Additional Evidence @mya @nightly', () => {
+describe('Additional Evidence @mya @nightly', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
   let additionalEvidenceStatementPage: AdditionalEvidenceStatementPage;
   let additionalEvidenceConfirmationPage: AdditionalEvidenceConfirmationPage;
   let additionalEvidenceUploadPage: AdditionalEvidenceUploadPage;
+  let additionalEvidenceUploadAudioVideoPage: AdditionalEvidenceUploadAudioVideoPage;
   let additionalEvidencePostPage: AdditionalEvidencePostPage;
   let additionalEvidenceCoversheetPage: AdditionalEvidenceCoversheetPage;
   let loginPage: LoginPage;
@@ -44,6 +46,7 @@ describe.skip('Additional Evidence @mya @nightly', () => {
     additionalEvidenceStatementPage = new AdditionalEvidenceStatementPage(page);
     additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
     additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
+    additionalEvidenceUploadAudioVideoPage = new AdditionalEvidenceUploadAudioVideoPage(page);
     additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
     additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(page);
     taskListPage = new TaskListPage(page);
@@ -121,6 +124,15 @@ describe.skip('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
+  it('checks /additional-evidence-upload-audio-video page path passes @pa11y', async () => {
+    await additionalEvidenceUploadAudioVideoPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-audio-video-page.png`;
+    pa11yOpts.page = await additionalEvidenceUploadAudioVideoPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
   it('checks /additional-evidence/statement page path passes @pa11y', async () => {
     await additionalEvidenceStatementPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-statement-page.png`;
@@ -166,15 +178,14 @@ describe.skip('Additional Evidence @mya @nightly', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-    await page.waitFor(4000);
     expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
 
     await additionalEvidenceUploadPage.selectFile('evidence.txt');
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+    await page.waitFor(10000);
 
     await additionalEvidenceUploadPage.addDescription('The evidence description');
     await additionalEvidenceUploadPage.submit();
-    await page.waitFor(4000);
+    await page.waitFor(6000);
 
     /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();
@@ -189,18 +200,18 @@ describe.skip('Additional Evidence @mya @nightly', () => {
 
   it('uploads an audio file and shows file list and check evidence confirmation page', async () => {
     await additionalEvidencePage.visitPage();
-    await additionalEvidencePage.selectUploadOption();
+    await additionalEvidencePage.selectUploadAudioVideoOption();
     await additionalEvidencePage.submit();
 
-    additionalEvidenceUploadPage.verifyPage();
+    additionalEvidenceUploadAudioVideoPage.verifyPage();
     await page.waitFor(4000);
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+    expect(await additionalEvidenceUploadAudioVideoPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
 
-    await additionalEvidenceUploadPage.selectFile('test_audio.mp3');
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+    await additionalEvidenceUploadAudioVideoPage.selectFile('test_audio.mp3');
+    await page.waitFor(5000);
 
-    await additionalEvidenceUploadPage.addDescription('The evidence description for AV file');
-    await additionalEvidenceUploadPage.submit();
+    await additionalEvidenceUploadAudioVideoPage.addDescription('The evidence description for AV file');
+    await additionalEvidenceUploadAudioVideoPage.submit();
     await page.waitFor(4000);
 
     additionalEvidenceConfirmationPage.verifyPage();
