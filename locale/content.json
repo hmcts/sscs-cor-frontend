@@ -473,6 +473,7 @@
       "loading": "Loading",
       "evidenceOptions": {
         "header": "How do you want to provide additional information?",
+        "title": "Upload additional evidence",
         "error": {
           "noButtonSelected": "Select how you would like to provide additional information"
         }
