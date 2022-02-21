@@ -1315,7 +1315,7 @@
       "location": "Lleoliad",
       "provideInformationOnline": "Darparu eich gwybodaeth ar-lein",
       "uploadLettersDocumentPhotos": "Uwchlwytho llythyrau, dogfennau neu luniau",
-      "uploadAudioVideo": "Upload audio or video files",
+      "uploadAudioVideo": "Lanlwytho ffeiliau sain neu fideo",
       "sendByPost": "Anfon drwy’r post",
       "submitEvidenceToTribunal": "Cyflwyno tystiolaeth i’r tribiwnlys",
       "loading": "Yn llwytho",
@@ -1432,7 +1432,7 @@
         "empty": "Nid ydych wedi dewis ffeil.",
         "tooLarge": "Mae’r ffeil rydych wedi’i llwytho yn rhy fawr. Llwythwch ffeil sy’n llai na ",
         "invalidFileType": "Nid yw’r math o ffeil rydych wedi’i llwytho yn dderbyniol. Ceisiwch drosi’r ffeil i fformat ffeil cyffredin a rhowch gynnig arall arni.",
-        "limitOnlyDocument": "You can only upload letter, document or photo evidence on this page"
+        "limitOnlyDocument": "Gallwch ond llwytho tystiolaeth sydd ar ffurf llythyr, dogfen neu lun ar y dudalen hon"
       }
     },
     "tribunalDecision": {
@@ -1786,6 +1786,7 @@
           "para3": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .rtf, .doc, .docx",
           "para3audioVideo": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .jpg, .jpeg, .bmp, .tif, .tiff, .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, mp4",
           "para4": "Gallwch ond cyflwyno un ffeil ar unrhyw adeg",
+          "para5": "Sicrhewch fod y botwm \"Cyflwyno tystiolaeth i’r tribiwnlys\" wedi ei glicio, cyn gadael y dudalen os gwelwch yn dda. Gall methu â gwneud hyn olygu na chyflwynir eich tystiolaeth",
           "contentWarningPara1": "Os yw eich recordiad yn cynnwys sain neu fideo o unigolyn arall, sicrhewch eich bod yn cael  caniatâd ganddynt cyn cynnwys y recordiad yn eich apêl."
         },
         "label": "Dewis ffeil",
@@ -1802,25 +1803,25 @@
         }
       },
       "evidenceUploadAudioVideo": {
-        "header": "Upload additional evidence",
+        "header": "Llwytho tystiolaeth ychwanegol",
         "description": {
-          "para1": "You can upload audio or videos.",
-          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
-          "para3": "Only files with the following file extensions are allowed: .mp3 for audio, .mp4 for video.",
-          "para4": "You can only submit one file at a time",
-          "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
+          "para1": "Gallwch lanlwytho sain neu fideos.",
+          "para2": "Mae tystiolaeth ddefnyddiol yn disgrifio neu’n dangos sut mae eich cyflwr yn effeithio ar eich bywyd. <a href=\"/about-evidence\"><br>Darllenwch fwy am ba fath o dystiolaeth sy’n ddefnyddiol i'r tribiwnlys.</a>",
+          "para3": "Dim ond ffeiliau gyda'r estyniadau ffeil canlynol a ganiateir: .mp3 ar gyfer sain, mp4 ar gyfer fideo.",
+          "para4": "Gallwch ond cyflwyno un ffeil ar unrhyw adeg.",
+          "contentWarningPara1": "Os yw eich recordiad yn cynnwys sain neu fideo o unigolyn arall, gwnewch yn siŵr fod gennych ganiatâd yr unigolyn hwnnw cyn cadw’r recordiad ar eich apêl."
         },
-        "label": "Choose file",
-        "fileUploading": "File uploading",
+        "label": "Dewis ffeil",
+        "fileUploading": "Ffeil yn llwytho",
         "fileList": {
-          "uploadedFiles": "Uploaded file",
-          "noFilesUploaded": "No files uploaded"
+          "uploadedFiles": "Ffeilia sydd wedi cael eu llwytho",
+          "noFilesUploaded": "Nid oes ffeiliau wedi cael eu llwytho"
         },
         "error": {
-          "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
-          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading.",
-          "regex": "There are special character(s) in the text entered. Please remove these before continuing",
-          "fileCannotBeUploaded": "Uploading is currently unavailable, please try again later."
+          "emptyDescription": "Nid ydych wedi rhoi disgrifiad. Rhowch ddisgrifiad bras o’r dystiolaeth rydych eisiau ei llwytho.",
+          "noFilesUploaded": "Nid ydych wedi dewis ffeil. Dewiswch o leiaf un ffeil cyn parhau.",
+          "regex": "Mae yna nod(au) arbennig yn y wybodaeth sydd wedi’i rhoi. Dilëwch y rhain cyn parhau",
+          "fileCannotBeUploaded": "Nid yw’r cyfleuster uwchlwytho ar gael ar hyn o bryd, rhowch gynnig arall arni yn hwyrach ymlaen."
         }
       },
       "evidencePost": {
@@ -1836,7 +1837,7 @@
         "review": "Dalier sylw, bydd unrhyw dystiolaeth glywedol neu dystiolaeth fideo yn cael ei hadolygu ar wahân gan Farnwr i sicrhau ei bod yn briodol ac yn berthnasol cyn iddi gael ei hychwanegu at eich apêl. Fe gewch wybod am ganlyniad yr adolygiad hwnnw.",
         "deleted": "Os nad yw Barnwr yn caniatáu eich tystiolaeth sain neu fideo, caiff y broses uwchlwytho ei dileu o'ch apêl. Cadwch gopi ar gyfer eich cofnodion eich hun.",
         "morelink": "Llwytho llythyrau ychwanegol, dogfennau neu luniau, ffeiliau sain neu fideos",
-        "morelinkAudioVideo": "Upload audio or video files",
+        "morelinkAudioVideo": "Lanlwytho ffeiliau sain neu fideo",
         "link": {
           "pip": "Dychwelyd i'ch apêl budd-dal PIP",
           "esa": "Dychwelyd i'ch apêl budd-dal ESA",

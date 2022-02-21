@@ -8,6 +8,7 @@ import { allowedActions } from 'app/server/controllers/additional-evidence';
 import { AdditionalEvidenceStatementPage } from 'test/page-objects/additional-evidence-statement';
 import { AdditionalEvidenceConfirmationPage } from 'test/page-objects/additional-evidence-confirmation';
 import { AdditionalEvidenceUploadPage } from 'test/page-objects/additional-evidence-upload';
+import { AdditionalEvidenceUploadAudioVideoPage } from 'test/page-objects/additional-evidence-upload-audio';
 import { AdditionalEvidencePostPage } from 'test/page-objects/additional-evidence-post';
 import { AdditionalEvidenceCoversheetPage } from 'test/page-objects/additional-evidence-coversheet';
 import { LoginPage } from 'test/page-objects/login';
@@ -19,14 +20,14 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 let pa11yOpts = _.clone(config.get('pa11y'));
 
-// FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-describe.skip('CY - Additional Evidence @mya @nightly99', () => {
+describe('CY - Additional Evidence @mya @nightly99', () => {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
   let additionalEvidenceStatementPage: AdditionalEvidenceStatementPage;
   let additionalEvidenceConfirmationPage: AdditionalEvidenceConfirmationPage;
   let additionalEvidenceUploadPage: AdditionalEvidenceUploadPage;
+  let additionalEvidenceUploadAudioVideoPage: AdditionalEvidenceUploadAudioVideoPage;
   let additionalEvidencePostPage: AdditionalEvidencePostPage;
   let additionalEvidenceCoversheetPage: AdditionalEvidenceCoversheetPage;
   let loginPage: LoginPage;
@@ -45,6 +46,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     additionalEvidenceStatementPage = new AdditionalEvidenceStatementPage(page);
     additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
     additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
+    additionalEvidenceUploadAudioVideoPage = new AdditionalEvidenceUploadAudioVideoPage(page);
     additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
     additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(page);
     taskListPage = new TaskListPage(page);
@@ -123,6 +125,15 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   /* PA11Y */
+  it('checks /additional-evidence-upload-audio-video page path passes @pa11y', async () => {
+    await additionalEvidenceUploadAudioVideoPage.visitPage();
+    pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-upload-audio-video-page.png`;
+    pa11yOpts.page = await additionalEvidenceUploadAudioVideoPage.page;
+    const result = await pa11y(pa11yOpts);
+    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+  });
+
+  /* PA11Y */
   it('CY - checks /additional-evidence/statement page path passes @pa11y', async () => {
     await additionalEvidenceStatementPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-statement-page.png`;
@@ -140,7 +151,6 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
   });
 
-  // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
   it('CY - shows an error if no file to upload and no description', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
@@ -152,7 +162,6 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
   it('CY - shows an error if no file to upload', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
@@ -164,7 +173,6 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
   });
 
-  // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
   it('CY - uploads a file and shows file list and check evidence confirmation page @pally', async () => {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
@@ -190,6 +198,25 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
 
     await additionalEvidenceConfirmationPage.returnToAppealPage();
     taskListPage.verifyPage();
+  });
+
+  it('uploads an audio file and shows file list and check evidence confirmation page', async () => {
+    await additionalEvidencePage.visitPage();
+    await additionalEvidencePage.selectUploadAudioVideoOption();
+    await additionalEvidencePage.submit();
+
+    additionalEvidenceUploadAudioVideoPage.verifyPage();
+    await page.waitFor(4000);
+    expect(await additionalEvidenceUploadAudioVideoPage.getHeading()).to.equal(content.cy.additionalEvidence.evidenceUpload.header);
+
+    await additionalEvidenceUploadAudioVideoPage.selectFile('test_audio.mp3');
+    await page.waitFor(5000);
+
+    await additionalEvidenceUploadAudioVideoPage.addDescription('The evidence description for AV file');
+    await additionalEvidenceUploadAudioVideoPage.submit();
+    await page.waitFor(4000);
+
+    additionalEvidenceConfirmationPage.verifyPage();
   });
 
   it('CY - shows additional evidence post page', async () => {
