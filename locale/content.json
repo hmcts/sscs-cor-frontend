@@ -230,7 +230,13 @@
         "textAllAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.",
         "textChatClosed": "The web chat is now closed. Come back Monday to Friday 8:30am to 5pm. Or contact us using one of the ways below.",
         "textChatAlreadyOpen": "A web chat window is already open.",
-        "textAdditional": "Monday to Friday, 8.30am to 5pm"
+        "textAdditional": "Monday to Friday, 8.30am to 5pm",
+        "offerSurvey": "Send me a feedback survey",
+        "survey": 
+          {"propose": "would you like to take part in an Email survey at the end of your Webchat?", 
+            "yes": "Yes", 
+            "no": "No"
+          }
       },
       "telephone": {
         "title": "Telephone",
