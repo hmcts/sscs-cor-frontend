@@ -21,9 +21,9 @@ function getAvEvidenceList(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  let avEvidenceList = session['appeal'].audioVideoEvidence;
-  logger.info(`Number of audio video evidence: ${avEvidenceList ? avEvidenceList.size : 0}`);
-  return res.render('av-evidence-tab.html', { avEvidenceList });
+  let appeal = session['appeal']!;
+  logger.info(`Number of audio video evidence: ${appeal.audioVideoEvidence ? appeal.audioVideoEvidence.length : 0}`);
+  return res.render('av-evidence-tab.html', { appeal });
 }
 
 function getAvEvidence(trackYourAppealService: TrackYourApealService) {

@@ -51,10 +51,11 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.locals.content = content;
 
   if (config.get('featureFlags.mediaFilesAllowed') === 'true') {
-    app.locals.fileTypeWhiteList = fileTypesWithAudioVideo;
+    app.locals.fileTypAudioVideoWhiteList = fileTypesWithAudioVideo;
   } else {
-    app.locals.fileTypeWhiteList = fileTypes;
+    app.locals.fileTypAudioVideoWhiteList = '';
   }
+  app.locals.fileTypeWhiteList = fileTypes;
 
   app.locals.screenReaderUtils = screenReaderUtils;
 
@@ -65,7 +66,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     app.locals.isDev = true;
   }
 
-  configureNunjucks(app);
+  configureNunjucks(app, i18next);
 
   app.use(bodyParser.urlencoded({
     extended: true

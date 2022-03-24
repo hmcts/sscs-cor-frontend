@@ -14,7 +14,7 @@
       "location": "Location",
       "provideInformationOnline": "Provide your information online",
       "uploadLettersDocumentPhotos": "Upload letters, documents or photos",
-      "uploadLettersDocumentPhotosAudioVideo": "Upload letters, documents or photos, audio or video files",
+      "uploadAudioVideo": "Upload audio or video files",
       "sendByPost": "Send by post",
       "submitEvidenceToTribunal": "Submit evidence to the tribunal",
       "loading": "Loading",
@@ -36,7 +36,10 @@
         "Appellant": "Appellant",
         "Appointee": "Appointee",
         "Representative": "Representative",
-        "Supporter": "Supporter"
+        "Supporter": "Supporter",
+        "OtherParty": "Other Party",
+        "OtherPartyAppointee": "Appointee",
+        "OtherPartyRepresentative": "Representative"
       }
     },
     "pageTitle": "Manage your appeal",
@@ -128,7 +131,8 @@
         "fileCannotBeUploaded": "File cannot be uploaded",
         "empty": "You have not selected a file.",
         "tooLarge": "The file you have uploaded is too big. Please upload a file under",
-        "invalidFileType": "The type of file you have uploaded is not accepted. Please convert it to a common file format and try again."
+        "invalidFileType": "The type of file you have uploaded is not accepted. Please convert it to a common file format and try again.",
+        "limitOnlyDocument": "You can only upload letter, document or photo evidence on this page"
       }
     },
     "tribunalDecision": {
@@ -375,7 +379,8 @@
     "new": {
       "cookies": {
         "title": "Cookies",
-        "description": "Cookies are files saved on your phone, tablet or computer when you visit a website. Most websites need cookies to work properly."
+        "description": "Cookies are files saved on your phone, tablet or computer when you visit a website. Most websites need cookies to work properly.",
+        "save": "Save"
       },
       "usedInService": {
         "uses": "This service uses cookies to:",
@@ -468,6 +473,7 @@
       "loading": "Loading",
       "evidenceOptions": {
         "header": "How do you want to provide additional information?",
+        "title": "Upload additional evidence",
         "error": {
           "noButtonSelected": "Select how you would like to provide additional information"
         }
@@ -487,6 +493,29 @@
           "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
           "para3": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx",
           "para3audioVideo": "Only files with the following file extensions are allowed: .jpg, .jpeg, .bmp, .tif, .tiff,  .png, .pdf, .txt, .rtf, .doc, .docx, .mp3, .mp4",
+          "para4": "You can only submit one file at a time",
+          "para5": "Please ensure that the \"Submit evidence to the tribunal\" button is clicked, before leaving the page, failure to do so may mean your evidence won't be submitted.",
+          "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
+        },
+        "label": "Choose file",
+        "fileUploading": "File uploading",
+        "fileList": {
+          "uploadedFiles": "Uploaded file",
+          "noFilesUploaded": "No files uploaded"
+        },
+        "error": {
+          "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
+          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing",
+          "fileCannotBeUploaded": "Uploading is currently unavailable, please try again later."
+        }
+      },
+      "evidenceUploadAudioVideo": {
+        "header": "Upload additional evidence",
+        "description": {
+          "para1": "You can upload audio or videos.",
+          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
+          "para3": "Only files with the following file extensions are allowed: .mp3 for audio, .mp4 for video.",
           "para4": "You can only submit one file at a time",
           "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
         },
@@ -515,7 +544,8 @@
         "description": "It will be reviewed by the tribunal and considered as part of your appeal.",
         "review": "Please note any audio or video evidence will be reviewed separately by a Judge to ensure it is suitable and relevant before adding it to your appeal. You will be notified of the outcome of that review.",
         "deleted": "If a Judge does not admit your audio or video evidence the upload will be deleted from your appeal. Please keep a copy for your own records.",
-        "morelink": "Upload additional letters, documents or photos, audio or video files",
+        "morelink": "Upload additional letters, documents or photos",
+        "morelinkAudioVideo": "Upload audio or video files",
         "link":{
          "pip":  "Return to Your PIP benefit appeal",
          "esa":  "Return to Your ESA benefit appeal",
@@ -585,9 +615,9 @@
       "notProvided": "Not provided"
     },
     "contact": {
-      "phone": "Appellant contact phone number",
-      "mobile": "Appellant contact mobile number",
-      "email": "Appellant contact email address"
+      "phone": "contact phone number",
+      "mobile": "contact mobile number",
+      "email": "contact email address"
     },
     "activeTab": {
       "tabHeader": "Active",
@@ -738,12 +768,12 @@
         "heading": "{{appeal.benefitType | agencyAcronym}} response",
         "content": {
           "oral": [
-            "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy of their response in the post.",
+            "{{appeal.benefitType | agencyAcronym}} have responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy of their response in the post, unless their response is late and a judge has directed that the appeal can proceed without one.",
             "You do not need to do anything. You will receive another email or text message update when your hearing has been booked. Unfortunately we cannot say how long this will be but it may be several months."
           ],
           "paper": [
-            "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy in the post. Read their response and send your comments to the tribunal, if you have any.",
-            "A tribunal panel made up of {{appeal.benefitType|panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
+            "{{appeal.benefitType | agencyAcronym}} has responded to your {{appeal.benefitType | benefitFullDescription}} appeal. They should have sent you a copy of their response in the post, unless their response is late and a judge has directed that the appeal can proceed without one. Read their response and send your comments to the tribunal, if you have any.",
+            "A tribunal panel made up of {{appeal.benefitType | panel}} will hold a hearing for your appeal. You have told us you do not want to attend so you will receive the decision in the post, after the hearing has taken place. Unfortunately we cannot say how long this will be but it could be several months."
           ]
         }
       },
@@ -1000,6 +1030,70 @@
         "agency": "Department for Work and Pensions",
         "agencyAcronym": "DWP",
         "panel": "a judge"
+      },
+      "taxcredit" : {
+        "acronym": "TAX CREDIT",
+        "yourBenefitAppeal": "Your Tax Credit appeal",
+        "fullDescription": "Tax Credit",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "guardiansallowance" : {
+        "acronym": "GUARDIANS ALLOWANCE",
+        "yourBenefitAppeal": "Your Guardian's Allowance appeal",
+        "fullDescription": "Guardian's Allowance",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "taxfreechildcare" : {
+        "acronym": "TAX-FREE CHILDCARE",
+        "yourBenefitAppeal": "Your Tax-Free Childcare appeal",
+        "fullDescription": "Tax-Free Childcare",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "homeresponsibilitiesprotection" : {
+        "acronym": "HOME RESPONSIBILITIES PROTECTION",
+        "yourBenefitAppeal": "Your Home Responsibilities Protection appeal",
+        "fullDescription": "Home Responsibilities Protection",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "childbenefit" : {
+        "acronym": "CHILD BENEFIT",
+        "yourBenefitAppeal": "Your Child Benefit appeal",
+        "fullDescription": "Child Benefit",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "thirtyhoursfreechildcare" : {
+        "acronym": "30 HOURS FREE CHILDCARE",
+        "yourBenefitAppeal": "Your 30 Hours Free Childcare appeal",
+        "fullDescription": "30 Hours Free Childcare",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "guaranteedminimumpension" : {
+        "acronym": "GUARANTEED MINIMUM PENSION",
+        "yourBenefitAppeal": "Your Guaranteed Minimum Pension appeal",
+        "fullDescription": "Guaranteed Minimum Pension",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
+      },
+      "nationalinsurancecredits" : {
+        "acronym": "NATIONAL INSURANCE CREDITS",
+        "yourBenefitAppeal": "Your National Insurance Credits appeal",
+        "fullDescription": "National Insurance Credits",
+        "agency": "Her Majesty's Revenue and Customs",
+        "agencyAcronym": "HMRC",
+        "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       }
     },
     "helpGuides": {
@@ -1221,7 +1315,7 @@
       "location": "Lleoliad",
       "provideInformationOnline": "Darparu eich gwybodaeth ar-lein",
       "uploadLettersDocumentPhotos": "Uwchlwytho llythyrau, dogfennau neu luniau",
-      "uploadLettersDocumentPhotosAudioVideo": "Uwchlwytho llythyrau, dogfennau neu ffeiliau llun, sain neu fideo",
+      "uploadAudioVideo": "Upload audio or video files",
       "sendByPost": "Anfon drwy’r post",
       "submitEvidenceToTribunal": "Cyflwyno tystiolaeth i’r tribiwnlys",
       "loading": "Yn llwytho",
@@ -1242,7 +1336,10 @@
         "Appellant": "Apelydd",
         "Appointee": "Penodai",
         "Representative": "Cynrychiolydd",
-        "Supporter": "Cefnogwr"
+        "Supporter": "Cefnogwr",
+        "OtherParty": "Parti arall",
+        "OtherPartyAppointee": "Penodai",
+        "OtherPartyRepresentative": "Cynrychiolydd"
       }
     },
     "pageTitle": "Rheoli eich apêl",
@@ -1334,7 +1431,8 @@
         "fileCannotBeUploaded": "Ni ellir llwytho’r ffeil",
         "empty": "Nid ydych wedi dewis ffeil.",
         "tooLarge": "Mae’r ffeil rydych wedi’i llwytho yn rhy fawr. Llwythwch ffeil sy’n llai na ",
-        "invalidFileType": "Nid yw’r math o ffeil rydych wedi’i llwytho yn dderbyniol. Ceisiwch drosi’r ffeil i fformat ffeil cyffredin a rhowch gynnig arall arni."
+        "invalidFileType": "Nid yw’r math o ffeil rydych wedi’i llwytho yn dderbyniol. Ceisiwch drosi’r ffeil i fformat ffeil cyffredin a rhowch gynnig arall arni.",
+        "limitOnlyDocument": "You can only upload letter, document or photo evidence on this page"
       }
     },
     "tribunalDecision": {
@@ -1574,7 +1672,8 @@
     "new": {
       "cookies": {
         "title": "Cwcis",
-        "description": "Ffeiliau sy'n cael eu cadw ar eich ffôn, llechen neu gyfrifiadur pan fyddwch yn ymweld â gwefan yw cwcis. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio'n iawn."
+        "description": "Ffeiliau sy'n cael eu cadw ar eich ffôn, llechen neu gyfrifiadur pan fyddwch yn ymweld â gwefan yw cwcis. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio'n iawn.",
+        "save": "Cadw"
       },
       "usedInService": {
         "uses": "Mae’r gwasanaeth hwn yn defnyddio cwcis i:",
@@ -1702,6 +1801,28 @@
           "fileCannotBeUploaded": "Nid yw’r cyfleuster uwchlwytho ar gael ar hyn o bryd, rhowch gynnig arall arni yn hwyrach ymlaen."
         }
       },
+      "evidenceUploadAudioVideo": {
+        "header": "Upload additional evidence",
+        "description": {
+          "para1": "You can upload audio or videos.",
+          "para2": "Useful evidence describes or shows how your condition affects your life. <a href=\"/about-evidence\"><br>Read more about what evidence the tribunal finds useful.</a>",
+          "para3": "Only files with the following file extensions are allowed: .mp3 for audio, .mp4 for video.",
+          "para4": "You can only submit one file at a time",
+          "contentWarningPara1": "If your recording includes sound or video of another person, make sure that you get their permission before saving the recording to your appeal."
+        },
+        "label": "Choose file",
+        "fileUploading": "File uploading",
+        "fileList": {
+          "uploadedFiles": "Uploaded file",
+          "noFilesUploaded": "No files uploaded"
+        },
+        "error": {
+          "emptyDescription": "You have not entered a description. Enter a brief description of the evidence you want to upload.",
+          "noFilesUploaded": "You have not chosen a file. Choose at least one file before uploading.",
+          "regex": "There are special character(s) in the text entered. Please remove these before continuing",
+          "fileCannotBeUploaded": "Uploading is currently unavailable, please try again later."
+        }
+      },
       "evidencePost": {
         "header": "Postio tystiolaeth i'r tribiwnlys",
         "subtitle": "Postiwch eich tystiolaeth i’r cyfeiriad a nodir isod cyn gynted ag sy’n bosibl. Mae hyn er mwyn caniatáu amser i'r tribiwnlys ei darllen cyn iddynt wneud penderfyniad ynghylch eich apêl.",
@@ -1715,6 +1836,7 @@
         "review": "Dalier sylw, bydd unrhyw dystiolaeth glywedol neu dystiolaeth fideo yn cael ei hadolygu ar wahân gan Farnwr i sicrhau ei bod yn briodol ac yn berthnasol cyn iddi gael ei hychwanegu at eich apêl. Fe gewch wybod am ganlyniad yr adolygiad hwnnw.",
         "deleted": "Os nad yw Barnwr yn caniatáu eich tystiolaeth sain neu fideo, caiff y broses uwchlwytho ei dileu o'ch apêl. Cadwch gopi ar gyfer eich cofnodion eich hun.",
         "morelink": "Llwytho llythyrau ychwanegol, dogfennau neu luniau, ffeiliau sain neu fideos",
+        "morelinkAudioVideo": "Upload audio or video files",
         "link": {
           "pip": "Dychwelyd i'ch apêl budd-dal PIP",
           "esa": "Dychwelyd i'ch apêl budd-dal ESA",
@@ -1937,11 +2059,11 @@
         "heading": "Ymateb {{appeal.benefitType | agencyAcronym}} ",
         "content": {
           "oral": [
-            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi o’u hymateb atoch drwy’r post.",
+            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}.  Dylent fod wedi anfon copi o’u hymateb atoch yn y post, oni bai bod eu hymateb yn hwyr a bod barnwr wedi cyfarwyddo y gall yr apêl barhau heb un.",
             "Nid oes angen ichi wneud unrhyw beth. Byddwch yn cael neges e-bost arall neu neges testun gyda diweddariad pan fydd eich gwrandawiad wedi’i drefnu. Yn anffodus ni allwn ddweud pryd y bydd hyn, ond gall fod ymhen sawl mis."
           ],
           "paper": [
-            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}. Dylent fod wedi anfon copi atoch drwy’r post. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
+            "Mae'r {{appeal.benefitType | agencyAcronym}} wedi ymateb i'ch apêl {{appeal.benefitType | benefitFullDescription}}.  Dylent fod wedi anfon copi o’u hymateb atoch yn y post, oni bai bod eu hymateb yn hwyr a bod barnwr wedi cyfarwyddo y gall yr apêl barhau heb un. Darllenwch eu hymateb ac anfonwch eich sylwadau i'r tribiwnlys, os oes gennych rai.",
             "Bydd panel tribiwnlys sy’n cynnwys {{appeal.benefitType|panel}} yn cynnal gwrandawiad ar gyfer eich apêl. Rydych wedi dweud wrthym nad ydych eisiau mynychu, felly byddwch yn cael y penderfyniad drwy’r post, ar ôl i'r gwrandawiad gael ei gynnal. Yn anffodus ni allwn ddweud yn union pa bryd fydd hyn, ond gall fod ymhen sawl mis."
           ]
         }
@@ -2199,6 +2321,70 @@
         "agency": "Yr Adran Gwaith a Phensiynau",
         "agencyAcronym": "DWP",
         "panel": "barnwr"
+      },
+      "taxcredit" : {
+        "acronym": "CREDYD TRETH",
+        "yourBenefitAppeal": "Eich apêl Credyd Treth",
+        "fullDescription": "Credyd Treth",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "guardiansallowance" : {
+        "acronym": "LWFANS GWARCHEIDWAD",
+        "yourBenefitAppeal": "Eich apêl Lwfans Gwarcheidwad",
+        "fullDescription": "Lwfans Gwarcheidwad",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "taxfreechildcare" : {
+        "acronym": "GOFAL PLANT DI-DRETH",
+        "yourBenefitAppeal": "Eich apêl Gofal Plant Di-dreth",
+        "fullDescription": "Gofal Plant Di-dreth",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "homeresponsibilitiesprotection" : {
+        "acronym": "DIOGELU CYFRIFOLDEBAU CARTREF",
+        "yourBenefitAppeal": "Eich apêl Diogelu Cyfrifoldebau Cartref",
+        "fullDescription": "Diogelu Cyfrifoldebau Cartref",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "childbenefit" : {
+        "acronym": "BUDD-DAL PLANT",
+        "yourBenefitAppeal": "Eich apêl Budd-dal Plant",
+        "fullDescription": "Budd-dal Plant",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "thirtyhoursfreechildcare" : {
+        "acronym": "GOFAL PLANT AM DDIM - 30 AWR",
+        "yourBenefitAppeal": "Eich apêl Gofal Plant am ddim - 30 awr",
+        "fullDescription": "Gofal Plant am ddim - 30 awr",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "guaranteedminimumpension" : {
+        "acronym": "ISAFSWM PENSIWN GWARANTEDIG",
+        "yourBenefitAppeal": "Eich apêl Isafswm Pensiwn Gwarantedig",
+        "fullDescription": "Isafswm Pensiwn Gwarantedig",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
+      },
+      "nationalinsurancecredits" : {
+        "acronym": "CREDYDAU YSWIRIANT GWLADOL",
+        "yourBenefitAppeal": "Eich apêl Credydau Yswiriant Gwladol",
+        "fullDescription": "Credydau Yswiriant Gwladol",
+        "agency": "Refeniw a Thollau Ei Mawrhydi",
+        "agencyAcronym": "HMRC",
+        "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       }
     },
     "helpGuides": {

@@ -27,7 +27,7 @@ module.exports = {
       decision: (params, query) => createDecision(query.email),
       final_decision: (params, query) => createFinalDecision(query.email),
       has_final_decision: (params, query) => hasFinalDecision(query.email),
-      appellant_details: (params, query) => getApellantDetails(query.email),
+      user_details: (params, query) => getApellantDetails(query.email),
       hearing_arrangements: () => getHearingArrangements()
     }
   ]

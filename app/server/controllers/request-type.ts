@@ -27,13 +27,15 @@ function getRequestType() {
       const hearingRecordingsResponse = req!.session['hearingRecordingsResponse'];
       const pageTitleError = 'formError' === action;
       const emptyHearingIdError = 'formError' === action;
+      const appeal = req.session['appeal']!;
 
       return res.render('request-type/index.html', {
         action,
         requestOptions,
         hearingRecordingsResponse,
         pageTitleError,
-        emptyHearingIdError
+        emptyHearingIdError,
+        appeal
       });
     } catch (error) {
       AppInsights.trackException(error);
@@ -68,14 +70,12 @@ function selectRequestType(requestTypeService: RequestTypeService) {
     try {
       const option = req.body['requestOptions'];
       const caseId = req.session['hearing'].case_id;
-
       if ('hearingRecording' === option) {
         req.session['requestOptions'] = 'hearingRecording';
         const hearingRecordingsResponse: HearingRecordingResponse = await requestTypeService.getHearingRecording(caseId, req);
         if (hearingRecordingsResponse) {
           req.session['hearingRecordingsResponse'] = hearingRecordingsResponse;
         }
-
         return res.redirect(`${Paths.requestType}/hearingRecording`);
       }
     } catch (error) {

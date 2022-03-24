@@ -4,19 +4,19 @@ import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
 const content = require('locale/content');
 
-export class AdditionalEvidenceUploadPage extends BasePage {
+export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
   constructor(page) {
     super(page);
-    this.pagePath = `${additionalEvidence}/upload`;
+    this.pagePath = `${additionalEvidence}/uploadAudioVideo`;
   }
 
   async verifyPages() {
     const headerText = this.page.getHeading();
-    expect(headerText).to.equal(content.en.additionalEvidence.evidenceUpload.title);
+    expect(headerText).to.equal(content.en.additionalEvidence.evidenceUpload.header);
   }
 
   async selectFile(filename: string) {
-    const fileInput = await this.getElement('#additional-evidence-file');
+    const fileInput = await this.getElement('#additional-evidence-audio-video-file');
     const filePath = path.join(__dirname, `/../fixtures/evidence/${filename}`);
     await fileInput.uploadFile(filePath);
   }

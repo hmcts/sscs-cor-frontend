@@ -68,8 +68,10 @@ describe('controllers/av-evidence-list', () => {
           url: 'http://dbed7988-4ed5-4970-b1b4-50e5582770f3/binary'
         }
       ];
+      req.session.appeal.audioVideoEvidence = avEvidenceList;
+      const appeal = req.session.appeal;
       avEvidence.getAvEvidenceList(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('av-evidence-tab.html', { avEvidenceList });
+      expect(res.render).to.have.been.calledOnce.calledWith('av-evidence-tab.html', { appeal });
     });
   });
 

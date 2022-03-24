@@ -32,10 +32,12 @@ describe('controllers/task-list', () => {
     sandbox = sinon.sandbox.create();
     req = {
       session: {
-        hearing: hearingDetails
+        hearing: hearingDetails,
+        appeal: {}
       },
       cookies: {}
     };
+    req.cookies[Feature.POST_BULK_SCAN] = 'false';
     res = {
       render: sandbox.stub(),
       send: sandbox.stub(),
@@ -78,6 +80,16 @@ describe('controllers/task-list', () => {
       const error = new Error('Unable to retrieve session from session store');
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
       expect(AppInsights.trackEvent).to.have.been.calledTwice;
+    });
+  });
+
+  describe('getTaskList', () => {
+    it('should render task-list.html page', () => {
+      req.session.appeal = {
+        hearingType: null
+      };
+      getTaskList(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith('task-list.html', { deadlineExpiryDate: null, hearingType: null, appeal: req.session.appeal });
     });
   });
 

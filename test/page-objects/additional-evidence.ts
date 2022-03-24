@@ -15,8 +15,12 @@ export class AdditionalEvidencePage extends BasePage {
     await this.clickElement('#additional-evidence-option-2');
   }
 
-  async selectPostOption() {
+  async selectUploadAudioVideoOption() {
     await this.clickElement('#additional-evidence-option-3');
+  }
+
+  async selectPostOption() {
+    await this.clickElement('#additional-evidence-option-4');
   }
 
   async submit() {
