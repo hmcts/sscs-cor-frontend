@@ -174,7 +174,7 @@
     "axios": "0.21.2",
     "lodash": "^4.17.21",
     "hosted-git-info": "4.0.0",
-    "url-parse": "^1.5.9",
+    "url-parse": "^1.5.8",
     "browserslist": "4.16.5",
     "ws": "7.4.6",
     "trim-newlines": "3.0.1",
