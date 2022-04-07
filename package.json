@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -169,7 +169,7 @@
     "@stryker-mutator/mocha-runner": "^4.0.0"
   },
   "resolutions": {
-    "minimist": "^1.2.6",
+    "minimist": "^1.2.5",
     "elliptic": "^6.5.4",
     "axios": "0.21.2",
     "lodash": "^4.17.21",
