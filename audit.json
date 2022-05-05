@@ -1045,6 +1045,14 @@
 	"10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/public/images/hearing-formal-2panel.jpg?lng=cy_GET" : "ignore",
 	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public/images/hearing-formal-2panel.jpg?lng=cy_GET" : "ignore",
 	"10015_Re-examine Cache-control Directives_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
-	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore"
-	
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=cy_GET" : "ignore",
+	"10055_CSP: Wildcard Directive_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
+	"10055_CSP: script-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
+	"10055_CSP: style-src unsafe-inline_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore", 
+	"10055_CSP: Notices_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
+	"10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
+	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
+	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore"
+
 	}
