@@ -1053,6 +1053,9 @@
 	"10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
 	"10011_Cookie Without Secure Flag_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
 	"10054_Cookie without SameSite Attribute_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
-	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore"
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10237220328075400.js_GET" : "ignore",
+	"10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/task-list?lng=en_GET" : "ignore",
+	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/task-list?lng=en_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/task-list?lng=en_GET" : "ignore"
 
 	}
