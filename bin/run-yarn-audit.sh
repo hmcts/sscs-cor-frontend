@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set +e
-yarn audit --groups dependencies --level high
+yarn audit --groups dependencies
 result=$?
 
 yarn audit --groups dependencies --json > yarn-audit-issues-result
