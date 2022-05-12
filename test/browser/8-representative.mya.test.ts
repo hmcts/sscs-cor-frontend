@@ -98,7 +98,7 @@ describe('Representative - Manage your appeal app @mya @nightly', () => {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(610);
+      expect(heightOpen).to.equal(585);
     });
   });
 });
