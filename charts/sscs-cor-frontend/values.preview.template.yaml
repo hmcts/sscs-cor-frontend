@@ -1,6 +1,8 @@
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  autoscaling:
+    enabled: false
   environment:
     REDIS_URL: redis://${SERVICE_NAME}-redis-master
     SESSION_SECRET:
@@ -15,6 +17,9 @@ nodejs:
         - sscs-s2s-secret
 redis:
   enabled: true
+  architecture: standalone
+  auth:
+    enabled: false
 idam-pr:
   enabled: true
   redirect_uris:
