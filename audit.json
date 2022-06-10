@@ -1075,5 +1075,9 @@
 	"90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10239220408103229.js_GET" : "ignore",
 	"10027_Information Disclosure - Suspicious Comments_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10239220408103229.js_GET" : "ignore",
 	"10109_Modern Web Application_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10239220408103229.js_GET" : "ignore",
-	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10239220408103229.js_GET" : "ignore"
-	}
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10239220408103229.js_GET" : "ignore",
+	"40019_SQL Injection - MySQL_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=en_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA27QVfgqrux_10241220422021336.js_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA27QVfgqrux_10241220422021336.js_GET" : "ignore",
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10241220422021336.js_GET" : "ignore"
+}
