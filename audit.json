@@ -1132,5 +1132,6 @@
 	"10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10245220704125537.js_GET" : "ignore",
 	"10021_X-Content-Type-Options Header Missing_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA27QVfgqrux_10245220704125537.js_GET" : "ignore",
 	"10015_Re-examine Cache-control Directives_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore",
-	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore"
+	"10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/health/liveness?lng=en_GET" : "ignore",
+	"10095_Backup File Disclosure_https://sscs-cor.aat.platform.hmcts.net/Copy%20(2)%20of%20ruxitagentjs_ICA27QVfgqrux_10245220704125537.js_GET" : "ignore"
 }
