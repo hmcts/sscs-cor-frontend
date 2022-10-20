@@ -21,3 +21,8 @@ test/chai-sinon.js
 cookie-banner/
 ./yarn-audit-issues
 .terraform.lock.hcl
+
+# Terraform
+infrastructure/.terraform/**
+infrastructure/.terraform.lock.hcl
+infrastructure/override.tf
