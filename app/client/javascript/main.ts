@@ -2,34 +2,32 @@ import * as govUK from 'govuk-frontend';
 import * as expandingTextBox from './expanding-textbox';
 import { EvidenceUpload } from './evidence-upload';
 import { EvidenceUploadAudioVideo } from './evidence-upload-audio-video';
-import { CheckCookies } from './check-cookies';
 import { SessionInactivity } from './session-inactivity';
 import { DetailsTabIndexToggle } from './detailsToggle';
 import { RequestType } from './request-type';
 import { EvidenceStatement } from './evidence-statement';
+import * as CookiesManager from './cookie-manager';
 import domready from 'domready';
 
-function goBack() {
+declare global {
+  interface Window {
+    dataLayer: any;
+    dtrum: any;
+  }
+}
+
+function goBack(): boolean {
   window.history.go(-1);
   return false;
 }
 
-function initCookieBanner() {
-  if (document.querySelector('#app-cookie-banner')) {
-    const checkCookies = new CheckCookies();
-    checkCookies.init();
-  }
-}
-
-const onReady = () => {
+function onReady(): void {
   const evidence = new EvidenceUpload();
   const evidenceAudioVideo = new EvidenceUploadAudioVideo();
   const sessionInactivity = new SessionInactivity();
   const detailsToggle = new DetailsTabIndexToggle();
   const requestType = new RequestType();
   const evidenceStatement = new EvidenceStatement();
-
-  initCookieBanner();
   govUK.initAll();
   expandingTextBox.init();
   sessionInactivity.init();
@@ -39,7 +37,8 @@ const onReady = () => {
   document
     .querySelectorAll('#buttonBack')
     .forEach((element) => element.addEventListener('click', goBack));
-};
+  CookiesManager.init();
+}
 
 domready(onReady);
 

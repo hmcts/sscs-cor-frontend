@@ -20,8 +20,6 @@ Happy linting! 💖
   "extends": [
     "@hmcts",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:mocha/recommended",
     "plugin:prettier/recommended"
   ],
@@ -33,28 +31,13 @@ Happy linting! 💖
     "dist",
     "cookie-banner/"
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": ["./tsconfig.json"], // Specify it only for TypeScript files
-    "sourceType": "module",
-    "ecmaVersion": 2020
-  },
   "plugins": [
     "eslint-plugin-import",
-    "eslint-plugin-jsdoc",
-    "@typescript-eslint"
+    "eslint-plugin-jsdoc"
   ],
   "root": true,
   "rules": {
-    "@typescript-eslint/strict-boolean-expressions": "warn",
-    "@typescript-eslint/explicit-function-return-type": "warn",
-    "@typescript-eslint/no-unsafe-assignment": "warn",
-    "@typescript-eslint/no-unsafe-call": "warn",
-    "@typescript-eslint/no-unsafe-member-access": "warn",
-    "@typescript-eslint/no-unsafe-argument": "warn",
-    "@typescript-eslint/no-unsafe-return": "warn",
-    "@typescript-eslint/restrict-template-expressions": "warn",
-    "@typescript-eslint/unbound-method": "warn",
+
     "no-process-env": "warn",
     "line-comment-position": "warn",
     "global-require": "warn",
@@ -73,5 +56,39 @@ Happy linting! 💖
     "no-await-in-loop": "warn",
     "complexity": "warn",
     "no-warning-comments": "warn"
-  }
+  },
+  "overrides": [
+      {
+      "files": [
+        "*.ts", "*.tsx"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": ["./tsconfig.json"], // Specify it only for TypeScript files
+        "sourceType": "module",
+        "ecmaVersion": 2020
+      },
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:mocha/recommended",
+        "plugin:prettier/recommended"
+      ],
+      "plugins": [
+        "@typescript-eslint"
+      ],
+      "rules": {
+        // rules you want for ts/tsx files
+        "@typescript-eslint/strict-boolean-expressions": "warn",
+        "@typescript-eslint/explicit-function-return-type": "warn",
+        "@typescript-eslint/no-unsafe-assignment": "warn",
+        "@typescript-eslint/no-unsafe-call": "warn",
+        "@typescript-eslint/no-unsafe-member-access": "warn",
+        "@typescript-eslint/no-unsafe-argument": "warn",
+        "@typescript-eslint/no-unsafe-return": "warn",
+        "@typescript-eslint/restrict-template-expressions": "warn",
+        "@typescript-eslint/unbound-method": "warn"
+      }
+    }
+  ]
 }

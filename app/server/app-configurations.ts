@@ -104,18 +104,11 @@ function flattenArray(text: string | Array<string>): string {
 export function configureNunjucks(app: Application): void {
   const i18next: i18n = app.locals.i18n;
 
-  const nunEnv = nunjucks.configure(
-    [
-      'views',
-      'node_modules/cmc-cookies-manager/shared-component/components',
-      'node_modules/govuk-frontend',
-    ],
-    {
-      autoescape: true,
-      express: app,
-      noCache: true,
-    }
-  );
+  const nunEnv = nunjucks.configure(['views', 'node_modules/govuk-frontend'], {
+    autoescape: true,
+    express: app,
+    noCache: true,
+  });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', config.get(`featureFlags.welsh`) === 'true');
   nunEnv.addGlobal('serviceName', `Manage your appeal`);
@@ -229,17 +222,6 @@ const ctscCssPath = path.join(
   'assets',
   'css'
 );
-const cookieManagerJsPath = path.join(
-  __dirname,
-  '..',
-  '..',
-  'node_modules',
-  'cmc-cookies-manager',
-  'shared-component',
-  'components',
-  'cookie-manager',
-  'cookies-manager.js'
-);
 
 export function configureStaticRoutes(app: Application): void {
   logger.info(`'/public' routes to ${publicPath}`);
@@ -254,9 +236,4 @@ export function configureStaticRoutes(app: Application): void {
   app.use('/public/js', express.static(ctscJsPath));
   logger.info(`'/public/css' routes to ${ctscCssPath}`);
   app.use('/public/css', express.static(ctscCssPath));
-
-  logger.info(
-    `'/public/js/cookies-manager.js' routes to ${cookieManagerJsPath}`
-  );
-  app.use('/public/js/cookies-manager.js', express.static(cookieManagerJsPath));
 }

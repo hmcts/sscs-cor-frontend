@@ -18,5 +18,5 @@
     ],
     "lib": ["dom", "es7", "es2020"]
   },
-  "exclude": ["dist"]
+  "exclude": ["./dist"]
 }

@@ -1,10 +1,14 @@
 import moment from 'moment';
 import axios, { AxiosResponse } from 'axios';
-import { sessionExtension } from '../../server/paths';
-import { ExtendSessionResponse } from '../../server/controllers/session';
 import content from '../../common/locale/content.json';
 
 import i18next from 'i18next';
+
+export interface ExtendSessionResponse {
+  expireInSeconds?: number;
+}
+
+const sessionExtension = '/session-extension';
 
 export class SessionInactivity {
   public sessionExtendBuffer: number = 2 * 60 * 1000;
