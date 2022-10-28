@@ -5,7 +5,9 @@ const config = require('config');
 
 function extendSession(req: Request, res: Response) {
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ expireInSeconds: config.get('session.cookie.maxAgeInMs') }));
+  res.send(
+    JSON.stringify({ expireInSeconds: config.get('session.cookie.maxAgeInMs') })
+  );
 }
 
 function setupSessionController(deps: any): Router {
@@ -14,7 +16,4 @@ function setupSessionController(deps: any): Router {
   return router;
 }
 
-export {
-  setupSessionController,
-  extendSession
-};
+export { setupSessionController, extendSession };

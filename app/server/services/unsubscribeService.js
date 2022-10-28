@@ -17,11 +17,14 @@ const changeEmailAddress = (req, res, next) => {
 
   const body = { subscription: { email: req.body.email } };
 
-  request.post(endpoint).send(body)
+  request
+    .post(endpoint)
+    .send(body)
     .then(() => {
       logger.info(`POST ${endpoint} ${HttpStatus.OK}`);
       next();
-    }).catch(error => {
+    })
+    .catch((error) => {
       // appInsights.trackException(error);
       next(error);
     });
@@ -37,11 +40,13 @@ const stopReceivingEmails = (req, res, next) => {
     return;
   }
 
-  request.delete(endpoint)
+  request
+    .delete(endpoint)
     .then(() => {
       logger.info(`DELETE ${endpoint} ${HttpStatus.OK}`);
       next();
-    }).catch(error => {
+    })
+    .catch((error) => {
       // appInsights.trackException(error);
       next(error);
     });

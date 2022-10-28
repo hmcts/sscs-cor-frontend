@@ -1,7 +1,8 @@
 import * as path from 'path';
-const { expect } = require('test/chai-sinon');
+
 import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
+const { expect } = require('test/chai-sinon');
 const content = require('locale/content');
 
 export class AdditionalEvidenceUploadPage extends BasePage {
@@ -12,7 +13,9 @@ export class AdditionalEvidenceUploadPage extends BasePage {
 
   async verifyPages() {
     const headerText = this.page.getHeading();
-    expect(headerText).to.equal(content.en.additionalEvidence.evidenceUpload.title);
+    expect(headerText).to.equal(
+      content.en.additionalEvidence.evidenceUpload.title
+    );
   }
 
   async selectFile(filename: string) {
@@ -28,7 +31,7 @@ export class AdditionalEvidenceUploadPage extends BasePage {
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#submit-evidences')
+      this.clickElement('#submit-evidences'),
     ]);
   }
 }

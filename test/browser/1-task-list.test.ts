@@ -1,12 +1,15 @@
 import * as moment from 'moment';
 import * as _ from 'lodash';
-const { expect } = require('test/chai-sinon');
+
 import { Page } from 'puppeteer';
 import { startServices } from 'test/browser/common';
-const mockDataHearing = require('test/mock/cor-backend/services/hearing').template;
+
 import { TaskListPage } from 'test/page-objects/task-list';
 import { LoginPage } from 'test/page-objects/login';
 import * as Paths from 'app/server/paths';
+const { expect } = require('test/chai-sinon');
+const mockDataHearing =
+  require('test/mock/cor-backend/services/hearing').template;
 const content = require('locale/content');
 const config = require('config');
 
@@ -17,7 +20,8 @@ const sampleQuestionId = '001';
 const sampleQuestionOrdinal = '1';
 
 const pa11y = require('pa11y');
-let pa11yOpts = _.clone(config.get('pa11y'));
+
+const pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
 describe('Task list page', () => {
@@ -28,11 +32,15 @@ describe('Task list page', () => {
   let caseReference;
 
   before('start services and bootstrap data in CCD/COH', async () => {
-    const res = await startServices({ bootstrapData: true, performLogin: true });
+    const res = await startServices({
+      bootstrapData: true,
+      performLogin: true,
+    });
     page = res.page;
     pa11yOpts.browser = res.browser;
     hearingId = sampleHearingId;
-    caseReference = res.ccdCase.case_reference || mockDataHearing.case_reference;
+    caseReference =
+      res.ccdCase.case_reference || mockDataHearing.case_reference;
     taskListPage = new TaskListPage(page);
     loginPage = new LoginPage(page);
     await taskListPage.screenshot('task-list');
@@ -40,15 +48,15 @@ describe('Task list page', () => {
 
   afterEach(function () {
     if (this.currentTest.state !== 'passed') {
-      const testName = this.currentTest.title.replace(/[ \/]/g, '_');
-      taskListPage.screenshot('failed-' + testName).catch(err => {
+      const testName = this.currentTest.title.replace(/[ /]/g, '_');
+      taskListPage.screenshot(`failed-${testName}`).catch((err) => {
         console.log(err);
       });
     }
   });
 
   after(async () => {
-    if (page && page.close) {
+    if (page?.close) {
       await page.close();
     }
   });
@@ -62,17 +70,26 @@ describe('Task list page', () => {
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/task-list.png`;
     const result = await pa11y(`${testUrl}${taskListPage.pagePath}`, pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   it('displays the appellant case reference', async () => {
-    const displayedCaseRef = await taskListPage.getElementText('#case-reference');
+    const displayedCaseRef = await taskListPage.getElementText(
+      '#case-reference'
+    );
     expect(displayedCaseRef).to.equal(caseReference);
   });
 
   it('displays Providing additional evidence link', async () => {
-    const evidenceUploadLink = await taskListPage.getElementText('#evidence-options-link');
-    expect(evidenceUploadLink).to.equal(content.en.taskList.sendingEvidence.anchorText);
+    const evidenceUploadLink = await taskListPage.getElementText(
+      '#evidence-options-link'
+    );
+    expect(evidenceUploadLink).to.equal(
+      content.en.taskList.sendingEvidence.anchorText
+    );
   });
 
   it('signs out and prevents access to pages', async () => {
@@ -83,4 +100,4 @@ describe('Task list page', () => {
   });
 });
 
-export { };
+export {};

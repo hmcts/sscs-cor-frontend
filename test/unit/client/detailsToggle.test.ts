@@ -45,16 +45,24 @@ describe('detailsTabIndexToggle', () => {
   });
 
   it('should add tabindex to aria-hidden child element on load', () => {
-    const attachListernersMock = sandbox.stub(DetailsTabIndexToggle.prototype, 'attachListeners');
+    const attachListernersMock = sandbox.stub(
+      DetailsTabIndexToggle.prototype,
+      'attachListeners'
+    );
     detailsToggle = new DetailsTabIndexToggle();
     detailsToggle.init();
     expect(attachListernersMock).to.have.been.called;
-    const value = document.querySelector('.govuk-details__text a').getAttribute('tabindex');
+    const value = document
+      .querySelector('.govuk-details__text a')
+      .getAttribute('tabindex');
     expect(value).to.equal('-1');
   });
 
   it('should remove tabindex attribute on init', () => {
-    const removeAttributeMock = sandbox.stub(document.querySelector('.govuk-details__text a'), 'removeAttribute');
+    const removeAttributeMock = sandbox.stub(
+      document.querySelector('.govuk-details__text a'),
+      'removeAttribute'
+    );
     document.querySelector('details').open = true;
     detailsToggle.init();
 
@@ -62,17 +70,27 @@ describe('detailsTabIndexToggle', () => {
   });
 
   it('should attach listeners', () => {
-    const addEventListenerStub: sinon.SinonStub = sandbox.stub(document.querySelector('details.govuk-details'), 'addEventListener');
+    const addEventListenerStub: sinon.SinonStub = sandbox.stub(
+      document.querySelector('details.govuk-details'),
+      'addEventListener'
+    );
     detailsToggle.attachListeners();
 
     expect(addEventListenerStub).to.have.been.called.calledWith('toggle');
   });
 
   it('should toggle tabindex attribute', () => {
-    const selector: HTMLDetailsElement = document.querySelector('.govuk-details');
+    const selector: HTMLDetailsElement =
+      document.querySelector('.govuk-details');
     const target = document.querySelector('.govuk-details__text');
-    const removeAttributeMock = sandbox.stub(target.querySelector('a'), 'removeAttribute');
-    const setAttributeMock = sandbox.stub(target.querySelector('a'), 'setAttribute');
+    const removeAttributeMock = sandbox.stub(
+      target.querySelector('a'),
+      'removeAttribute'
+    );
+    const setAttributeMock = sandbox.stub(
+      target.querySelector('a'),
+      'setAttribute'
+    );
     detailsToggle.toggleAttribute(selector, target);
 
     expect(removeAttributeMock).to.have.been.called;

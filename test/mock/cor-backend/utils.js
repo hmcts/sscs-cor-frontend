@@ -1,4 +1,8 @@
-const { NOT_FOUND, UNPROCESSABLE_ENTITY, CONFLICT } = require('http-status-codes');
+const {
+  NOT_FOUND,
+  UNPROCESSABLE_ENTITY,
+  CONFLICT,
+} = require('http-status-codes');
 const cache = require('memory-cache');
 const moment = require('moment');
 
@@ -11,7 +15,7 @@ const emailHearingIdMap = {
   'view.issued.accepted@example.com': '4a-view-issued',
   'view.issued.rejected@example.com': '4b-view-issued',
   'appeal.upheld@example.com': '5-appeal-upheld',
-  'appeal.denied@example.com': '6-appeal-denied'
+  'appeal.denied@example.com': '6-appeal-denied',
 };
 
 const emailToCaseIdMap = {
@@ -25,19 +29,19 @@ const emailToCaseIdMap = {
   'oral.withdrawn@example.com': '8',
   'oral.lapsed@example.com': '9',
   'paper.appealReceived@example.com': '10',
-  'paper.dwpRespond@example': '11'
+  'paper.dwpRespond@example': '11',
 };
 
 const emailToResCodeMap = {
   'not.found@example.com': NOT_FOUND,
   'multiple@example.com': UNPROCESSABLE_ENTITY,
-  'not.cor@example.com': CONFLICT
+  'not.cor@example.com': CONFLICT,
 };
 
-const createFinalDecision = email => {
+const createFinalDecision = (email) => {
   const finalDecisionEmails = [
     'appeal.upheld@example.com',
-    'appeal.denied@example.com'
+    'appeal.denied@example.com',
   ];
 
   if (finalDecisionEmails.includes(email)) {
@@ -46,16 +50,16 @@ const createFinalDecision = email => {
   return {};
 };
 
-const hasFinalDecision = email => {
+const hasFinalDecision = (email) => {
   const finalDecisionEmails = [
     'appeal.upheld@example.com',
-    'appeal.denied@example.com'
+    'appeal.denied@example.com',
   ];
 
   return finalDecisionEmails.includes(email);
 };
 
-const createDecision = email => {
+const createDecision = (email) => {
   const decisionIssued = cache.get('decisionIssued');
   const tribunalViewReply = cache.get('tribunalViewReply');
   const decisionEmails = [
@@ -63,7 +67,7 @@ const createDecision = email => {
     'view.issued.accepted@example.com',
     'view.issued.rejected@example.com',
     'appeal.upheld@example.com',
-    'appeal.denied@example.com'
+    'appeal.denied@example.com',
   ];
   if (decisionIssued || decisionEmails.includes(email)) {
     let decisionState = 'decision_issued';
@@ -77,49 +81,55 @@ const createDecision = email => {
     if (tribunalViewReply) {
       appellantReply = {
         appellant_reply: tribunalViewReply,
-        appellant_reply_datetime: moment.utc()
+        appellant_reply_datetime: moment.utc(),
       };
     }
     if (email === 'view.issued.accepted@example.com') {
       appellantReply = {
         appellant_reply: 'decision_accepted',
-        appellant_reply_datetime: moment.utc().subtract(1, 'day')
+        appellant_reply_datetime: moment.utc().subtract(1, 'day'),
       };
     }
     if (email === 'view.issued.rejected@example.com') {
       appellantReply = {
         appellant_reply: 'decision_rejected',
-        appellant_reply_datetime: moment.utc().subtract(1, 'day')
+        appellant_reply_datetime: moment.utc().subtract(1, 'day'),
       };
     }
     return {
-      decision_award: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
-      decision_header: email === 'appeal.denied@example.com' ? 'appeal-denied' : 'appeal-upheld',
+      decision_award:
+        email === 'appeal.denied@example.com'
+          ? 'appeal-denied'
+          : 'appeal-upheld',
+      decision_header:
+        email === 'appeal.denied@example.com'
+          ? 'appeal-denied'
+          : 'appeal-upheld',
       decision_reason: 'The final decision is this.',
       decision_rates: {
         compared_to_dwp: 'Higher',
         daily_living: 'noAward',
-        mobility: 'noAward'
+        mobility: 'noAward',
       },
       activities: {
         daily_living: [
           { activity: 'preparingFood', selection_key: '8' },
-          { activity: 'washingBathing', selection_key: '2.0' }
+          { activity: 'washingBathing', selection_key: '2.0' },
         ],
-        mobility: [{ activity: 'movingAround', selection_key: '12.1' }]
+        mobility: [{ activity: 'movingAround', selection_key: '12.1' }],
       },
       start_date: '2017-01-05',
       end_date: '2018-10-05',
       reason: 'The final decision is this.',
       decision_state: decisionState,
       decision_state_datetime: moment.utc().format(),
-      ...appellantReply
+      ...appellantReply,
     };
   }
   return null;
 };
 
-const getApellantDetails = email => {
+const getApellantDetails = (email) => {
   return {
     email,
     phone: '07972438178',
@@ -129,8 +139,8 @@ const getApellantDetails = email => {
       line2: 'Hastings',
       town: 'East Sussex',
       county: 'Sussex',
-      postcode: 'TN38 6EW'
-    }
+      postcode: 'TN38 6EW',
+    },
   };
 };
 
@@ -142,7 +152,7 @@ const getHearingArrangements = () => {
     languages: 'English French',
     other_arrangements: 'Hearing room near to a toilet',
     sign_language_interpreter: true,
-    sign_language_type: 'BSL ASL'
+    sign_language_type: 'BSL ASL',
   };
 };
 
@@ -154,5 +164,5 @@ module.exports = {
   hasFinalDecision,
   createDecision,
   getApellantDetails,
-  getHearingArrangements
+  getHearingArrangements,
 };

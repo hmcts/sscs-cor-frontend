@@ -10,7 +10,7 @@ export class AdditionalEvidenceConfirmationPage extends BasePage {
   async returnToAppealPage() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#goToTaskList')
+      this.clickElement('#goToTaskList'),
     ]);
   }
 }

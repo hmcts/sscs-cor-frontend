@@ -7,5 +7,5 @@ module.exports = {
     cache.put('decisionIssued', true);
     cache.del('tribunalViewReply');
     next();
-  }
+  },
 };

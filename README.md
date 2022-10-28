@@ -3,7 +3,7 @@
 This application is the public facing service for Manage Your Appeal (MYA).
 
 MYA was adapted from the Continuous Online Resolution (COR) service. There are still many configuration references to
-COR and SSCS-COR  as to change these to MYA would require building it as a new service and migrating over which is non-trivial engineering effort for low benefit.
+COR and SSCS-COR as to change these to MYA would require building it as a new service and migrating over which is non-trivial engineering effort for low benefit.
 
 It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/sscs-tribunals-case-api)
 
@@ -11,9 +11,9 @@ It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/s
 
 ##### Prereqs
 
-* node.js v8 or higher
-* yarn
-* redis running on the standard port (6379)
+- node.js v8 or higher
+- yarn
+- redis running on the standard port (6379)
 
 ```bash
 redis-server
@@ -59,13 +59,13 @@ yarn test:browser // just browser tests
 
 ### Pa11y Accessibility Tests
 
-The pa11y tests are a subset of the browser tests, simply tagged @pa11y.  
+The pa11y tests are a subset of the browser tests, simply tagged @pa11y.
 
 ```bash
 yarn test:a11y
 ```
 
-These tests generate screenshots of all pages tested and can be found in ```./functional-output/pa11y-screenshots```
+These tests generate screenshots of all pages tested and can be found in `./functional-output/pa11y-screenshots`
 
 On Jenkins, when viewing a build, the screenshots are available as Build Artifacts.
 
@@ -77,18 +77,18 @@ The same browser test suite is used for running locally and when running against
 
 Points to note when running the tests against your local environment:
 
-* backend API is stubbed using Dyson
-* the stubbed service has a basic way of storing state, such as answers to questions etc
-* the "state" will be reset when the stub is restarted
+- backend API is stubbed using Dyson
+- the stubbed service has a basic way of storing state, such as answers to questions etc
+- the "state" will be reset when the stub is restarted
 
 ##### Integrated environments
 
 Integrated environments include `preview` and `AAT`. Please note the following:
 
-* COH API is bootstrapped with an Online Hearing and question
-* real backend API service is used
-* real COH API service is used
-* by default preview is integrated with other services in AAT
+- COH API is bootstrapped with an Online Hearing and question
+- real backend API service is used
+- real COH API service is used
+- by default preview is integrated with other services in AAT
 
 ### Smoke Tests
 
@@ -102,18 +102,18 @@ If a functional/smoke test run is failing in AAT (or other integrated environmen
 
 To do this you must set some extra environment variables locally:
 
-* SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
-* COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
-* TEST_URL - this is the URL you are testing e.g. https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
-* HEADLESS - optionally choose to show the browser by setting this to false
-* IDAM_URL - Used to check the user returns to idam when logged out (currently https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub when using stub)
-* IDAM_API_URL - Used to create a user in idam that can login to the system (not currently used with idam stub)
-* S2S_SECRET - used to provide auth for connecting to backend services
-* S2S_URL - the service-2-service application for generating access tokens
-* IDAM_SSCS_SYSTEMUPDATE_USER - The user to to get s2s token
-* IDAM_SSCS_SYSTEMUPDATE_PASSWORD - Password for the user
-* IDAM_OAUTH2_CLIENT_SECRET - Client secret to get auth token
-* S2S_OAUTH2_URL - Url to get token and auth_token from
+- SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
+- COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
+- TEST_URL - this is the URL you are testing e.g. https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
+- HEADLESS - optionally choose to show the browser by setting this to false
+- IDAM_URL - Used to check the user returns to idam when logged out (currently https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub when using stub)
+- IDAM_API_URL - Used to create a user in idam that can login to the system (not currently used with idam stub)
+- S2S_SECRET - used to provide auth for connecting to backend services
+- S2S_URL - the service-2-service application for generating access tokens
+- IDAM_SSCS_SYSTEMUPDATE_USER - The user to to get s2s token
+- IDAM_SSCS_SYSTEMUPDATE_PASSWORD - Password for the user
+- IDAM_OAUTH2_CLIENT_SECRET - Client secret to get auth token
+- S2S_OAUTH2_URL - Url to get token and auth_token from
 
 Put these together with the required `yarn` command in one line like this:
 
@@ -124,7 +124,8 @@ HEADLESS=false SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-a
 Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
 
 ### Running app locally via terminal
-Open a terminal, go to the sscs-cor-frontend directory. 
+
+Open a terminal, go to the sscs-cor-frontend directory.
 
 Run redis in a terminal
 
@@ -151,11 +152,14 @@ export EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED=false
 export ADDITIONAL_EVIDENCE_FEATURE_FLAG=true
 export POST_BULK_SCAN=true
 ```
+
 then do
+
 ```
 yarn build
 yarn start
 ```
+
 and go to http://localhost:3000
 
 In order to log in as a citizen and be able to see your appeal you might need to use the link below:
@@ -223,11 +227,11 @@ If you visit https://sscs-cor-frontend-aat.service.core-compute-aat.internal/ an
 
 If you need to run against different environments, you can set the following environment variables:
 
-* SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
-* COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
-* S2S_SECRET - used to provide auth for connecting to backend services
-* S2S_URL - the service-2-service application for generating access tokens
-* IDAM_API_URL - Used to create a user in idam that can login to the system
+- SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
+- COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
+- S2S_SECRET - used to provide auth for connecting to backend services
+- S2S_URL - the service-2-service application for generating access tokens
+- IDAM_API_URL - Used to create a user in idam that can login to the system
 
 And use the command:
 
@@ -250,24 +254,24 @@ If you wish to also issue a decision then add the environment variable ISSUE_DEC
 
 Analytics are tracking using Google Tag Manager (GTM) and Google Analytics (GA), all managed under the SSCS account.
 
-* one GTM code is used across all environments and Tag Manager is configured to track page view events using different GA settings per environment
-* page views with AAT type hostnames eg. sscs-cor-frontend-aat-staging.service.core-compute-aat.internal are sent to one GA account
-* page views with PROD hostnames are sent to another
-* prod hostnames are configured but will need amending when domains have been decided
+- one GTM code is used across all environments and Tag Manager is configured to track page view events using different GA settings per environment
+- page views with AAT type hostnames eg. sscs-cor-frontend-aat-staging.service.core-compute-aat.internal are sent to one GA account
+- page views with PROD hostnames are sent to another
+- prod hostnames are configured but will need amending when domains have been decided
 
 ### Feature flags
 
 Feature flags are used to show or hide certain features.
 
-* they are defined in the JSON config files within the `config` directory
-* specify an environment variable which can be used to override the setting in `config/custom-environment-variables`
-* these env vars are then configured using terraform, set the variable to the desired value in the `[env].tfvars` representing the desired environment
-* this is then set on the app in via the `app_settings` in `main.tf`
+- they are defined in the JSON config files within the `config` directory
+- specify an environment variable which can be used to override the setting in `config/custom-environment-variables`
+- these env vars are then configured using terraform, set the variable to the desired value in the `[env].tfvars` representing the desired environment
+- this is then set on the app in via the `app_settings` in `main.tf`
 
 **Current feature flags**
 
-| Name                     | Config path                           | Environment variable                    | Notes |
-|--------------------------|---------------------------------------|-----------------------------------------|-------|
+| Name                     | Config path                           | Environment variable                    | Notes                                        |
+| ------------------------ | ------------------------------------- | --------------------------------------- | -------------------------------------------- |
 | Question evidence upload | `evidenceUpload.questionPage.enabled` | `EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED` | Enables evidence upload on the question page |
 
 **Overrides for testing**
@@ -275,7 +279,7 @@ Feature flags are used to show or hide certain features.
 It's possible to override a setting and temporarily enable a feature for testing purposes, includeing automated and manual tests. This is done by setting a different property in the config to allow the override to happen, then also setting a cookie on the client. Both must be present for the feature to be enabled.
 
 | Feature name             | Override config path                          | Override environment variable                    | Override cookie               |
-|--------------------------|-----------------------------------------------|--------------------------------------------------|-------------------------------|
+| ------------------------ | --------------------------------------------- | ------------------------------------------------ | ----------------------------- |
 | Question evidence upload | `evidenceUpload.questionPage.overrideAllowed` | `EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED` | `evidenceUploadOverride=true` |
 
 ### SIDAM
@@ -288,12 +292,14 @@ The SIDAM stub makes use of redis to track the username associated with code/tok
 This means that 2 SIDAM stubs currently exist, as follows:
 
 _Dyson SIDAM stub_
-* found under `test/mock/idam`
-* uses `memory-cache` module to keep track of username associated with code/token
-* used when running functional tests locally and on the pipeline "Test" stage (note: not "Functional Test")
+
+- found under `test/mock/idam`
+- uses `memory-cache` module to keep track of username associated with code/token
+- used when running functional tests locally and on the pipeline "Test" stage (note: not "Functional Test")
 
 _Application mounted SIDAM stub_
-* found at `app/server/controller/idam-stub.ts`
-* uses Redis to keep track of username associated with code/token
-* used when running functional tests as part of the "Functional Test" stages on the pipeline
-* also used when signing into the service on preview or AAT environments
+
+- found at `app/server/controller/idam-stub.ts`
+- uses Redis to keep track of username associated with code/token
+- used when running functional tests as part of the "Functional Test" stages on the pipeline
+- also used when signing into the service on preview or AAT environments

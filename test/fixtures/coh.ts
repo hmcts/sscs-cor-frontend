@@ -1,8 +1,10 @@
+import { generateToken, generateOauth2 } from './s2s';
+
 const rp = require('request-promise');
 const moment = require('moment');
 const mockData = require('test/mock/cor-backend/services/question').template;
-import { generateToken, generateOauth2 } from './s2s';
 const { Logger } = require('@hmcts/nodejs-logging');
+
 const logger = Logger.getLogger('coh.ts');
 const cohUrl = require('config').get('cohUrl');
 
@@ -15,6 +17,7 @@ const QUESTION_OWNER_REF = 'SSCS-COR';
 const QUESTION_ROUND = '1';
 
 const timeout = require('config').get('apiCallTimeout');
+
 async function getHeaders() {
   const token = await generateToken();
   const oauthToken: string = await generateOauth2();
@@ -22,36 +25,41 @@ async function getHeaders() {
   return {
     Authorization: `Bearer ${oauthToken}`,
     ServiceAuthorization: `Bearer ${token}`,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   };
 }
 
-const onlineHearingBody = caseId => {
+const onlineHearingBody = (caseId) => {
   return {
     case_id: caseId,
     jurisdiction: JURISDICTION,
     panel: [
       {
         identity_token: PANEL_IDENTITY_TOKEN,
-        name: PANEL_NAME
-      }
+        name: PANEL_NAME,
+      },
     ],
     start_date: moment.utc().format(),
-    state: HEARING_STATUS
+    state: HEARING_STATUS,
   };
 };
 
 const questionBody = (mockQuestionRef, ordinal) => {
   return {
     owner_reference: QUESTION_OWNER_REF,
-    question_body_text: mockData.question_body_text({ questionId: mockQuestionRef }),
-    question_header_text: mockData.question_header_text({ questionId: mockQuestionRef }),
+    question_body_text: mockData.question_body_text({
+      questionId: mockQuestionRef,
+    }),
+    question_header_text: mockData.question_header_text({
+      questionId: mockQuestionRef,
+    }),
     question_ordinal: ordinal,
-    question_round: QUESTION_ROUND
+    question_round: QUESTION_ROUND,
   };
 };
 
-const decisionText = '{\"decisions_SSCS_benefit_{case_id}\":{\"preliminaryView\":\"yes\",\"visitedPages\":{\"create\":true,\"preliminary-advanced\":true,\"set-award-dates\":true,\"scores\":true,\"budgeting-decisions\":true,\"planning-journeys\":true},\"forDailyLiving\":\"noAward\",\"forMobility\":\"enhancedRate\",\"compareToDWPAward\":\"Higher\",\"awardEndDateDay\":\"11\",\"awardEndDateMonth\":\"12\",\"awardEndDateYear\":\"2018\",\"endDateRadio\":\"indefinite\",\"preparingFood\":false,\"takingNutrition\":false,\"managingTherapy\":false,\"washingBathing\":false,\"managingToilet\":false,\"dressingUndressing\":false,\"communicatingVerbally\":false,\"readingAndUnderstanding\":false,\"engagingWithOtherPeople\":false,\"makingBudgetingDecisions\":true,\"planningFollowingJourneys\":true,\"movingAround\":false,\"dailyLivingMakingBudgetDecisions\":\"6\",\"MobilityPlanningJourneys\":\"12\",\"reasonsTribunalView\":\"There was a reason!\",\"awardStartDateDay\":\"1\",\"awardStartDateMonth\":\"4\",\"awardStartDateYear\":\"2017\"}}';
+const decisionText =
+  '{"decisions_SSCS_benefit_{case_id}":{"preliminaryView":"yes","visitedPages":{"create":true,"preliminary-advanced":true,"set-award-dates":true,"scores":true,"budgeting-decisions":true,"planning-journeys":true},"forDailyLiving":"noAward","forMobility":"enhancedRate","compareToDWPAward":"Higher","awardEndDateDay":"11","awardEndDateMonth":"12","awardEndDateYear":"2018","endDateRadio":"indefinite","preparingFood":false,"takingNutrition":false,"managingTherapy":false,"washingBathing":false,"managingToilet":false,"dressingUndressing":false,"communicatingVerbally":false,"readingAndUnderstanding":false,"engagingWithOtherPeople":false,"makingBudgetingDecisions":true,"planningFollowingJourneys":true,"movingAround":false,"dailyLivingMakingBudgetDecisions":"6","MobilityPlanningJourneys":"12","reasonsTribunalView":"There was a reason!","awardStartDateDay":"1","awardStartDateMonth":"4","awardStartDateYear":"2017"}}';
 
 async function createOnlineHearing(caseId) {
   const headers = await getHeaders();
@@ -60,7 +68,7 @@ async function createOnlineHearing(caseId) {
     headers,
     body: onlineHearingBody(caseId),
     json: true,
-    timeout
+    timeout,
   };
 
   let body;
@@ -81,7 +89,7 @@ async function createQuestion(hearingId, mockQuestionRef, ordinal) {
     headers,
     body: questionBody(mockQuestionRef, ordinal),
     json: true,
-    timeout
+    timeout,
   };
   let body;
   try {
@@ -108,13 +116,13 @@ async function setQuestionRoundToIssued(hearingId) {
     headers,
     body: { state_name: 'question_issue_pending' },
     json: true,
-    timeout
+    timeout,
   };
 
   try {
     await rp.put(options);
   } catch (error) {
-    logger.error('Error setQuestionRoundToIssued',error);
+    logger.error('Error setQuestionRoundToIssued', error);
   }
   console.log('Question round issued, status pending');
 }
@@ -125,13 +133,13 @@ async function getQuestionRound(hearingId, roundNum) {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/questionrounds/${roundNum}`,
     headers,
     json: true,
-    timeout
+    timeout,
   };
   let body;
   try {
     body = await rp.get(options);
   } catch (error) {
-    logger.error('Error getQuestionRound',error);
+    logger.error('Error getQuestionRound', error);
   }
   return body;
 }
@@ -142,13 +150,13 @@ async function getDecision(hearingId) {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
     json: true,
-    timeout
+    timeout,
   };
   let body;
   try {
     body = await rp.get(options);
   } catch (error) {
-    logger.error('Error getDecision' , error);
+    logger.error('Error getDecision', error);
   }
   return body;
 }
@@ -158,7 +166,7 @@ function decisionBody(caseId) {
     decision_award: 'appeal-upheld',
     decision_header: 'appeal-upheld',
     decision_reason: 'This is the decision.',
-    decision_text: decisionText.replace('{case_id}', caseId)
+    decision_text: decisionText.replace('{case_id}', caseId),
   };
 }
 
@@ -169,13 +177,16 @@ async function createDecision(hearingId, caseId) {
     headers,
     body: decisionBody(caseId),
     json: true,
-    timeout
+    timeout,
   };
   let body;
   try {
     body = await rp.post(options);
   } catch (error) {
-    logger.error('Error Created decision with ID', `Code: ${error.statusCode} \nError: ${error.error}`);
+    logger.error(
+      'Error Created decision with ID',
+      `Code: ${error.statusCode} \nError: ${error.error}`
+    );
   }
   console.log('Created decision with ID', body.decision_id);
   return body;
@@ -183,19 +194,22 @@ async function createDecision(hearingId, caseId) {
 
 async function issueDecision(hearingId, caseId) {
   const headers = await getHeaders();
-  const body = { ...decisionBody(caseId), decision_state: 'decision_issue_pending' };
+  const body = {
+    ...decisionBody(caseId),
+    decision_state: 'decision_issue_pending',
+  };
   const options = {
     url: `${cohUrl}/continuous-online-hearings/${hearingId}/decisions`,
     headers,
     body,
     json: true,
-    timeout
+    timeout,
   };
 
   try {
     await rp.put(options);
   } catch (error) {
-    logger.error('Error Decision issued, status pending',error);
+    logger.error('Error Decision issued, status pending', error);
   }
   console.log('Decision issued, status pending');
 }
@@ -208,5 +222,5 @@ export {
   getDecision,
   createDecision,
   issueDecision,
-  getHeaders
+  getHeaders,
 };

@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = () => {
   const dysonOptions = {
     configDir: path.resolve(__dirname, './services/'),
-    port: 8082
+    port: 8082,
   };
   const configs = dyson.getConfigurations(dysonOptions);
   const appBefore = dyson.createServer(dysonOptions);

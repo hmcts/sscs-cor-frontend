@@ -8,16 +8,14 @@ function createSession(store?: session.Store) {
     cookie: {
       httpOnly: true,
       maxAge: config.get('session.cookie.maxAgeInMs'),
-      secure: isSecure
+      secure: isSecure,
     },
     resave: true,
     saveUninitialized: true,
     secret: config.get('session.redis.secret'),
     rolling: true,
-    store
+    store,
   });
 }
 
-export {
-  createSession
-};
+export { createSession };

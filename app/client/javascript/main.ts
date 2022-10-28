@@ -37,11 +37,11 @@ const onReady = () => {
   detailsToggle.init();
   evidenceStatement.init();
 
-  document.querySelectorAll('#buttonBack').forEach(element => element.addEventListener('click', goBack));
+  document
+    .querySelectorAll('#buttonBack')
+    .forEach((element) => element.addEventListener('click', goBack));
 };
 
 domready(onReady);
 
-export {
-  onReady
-};
+export { onReady };

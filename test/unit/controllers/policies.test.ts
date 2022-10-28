@@ -1,9 +1,13 @@
 import * as FeatureEnabled from '../../../app/server/utils/featureEnabled';
 
-const { expect, sinon } = require('test/chai-sinon');
-const { setupCookiePrivacyController, getCookiePrivacy } = require('app/server/controllers/policies.ts');
-const express = require('express');
 import * as Paths from 'app/server/paths';
+
+const { expect, sinon } = require('test/chai-sinon');
+const {
+  setupCookiePrivacyController,
+  getCookiePrivacy,
+} = require('app/server/controllers/policies.ts');
+const express = require('express');
 
 describe('controllers/policies.js', () => {
   let req: any;
@@ -14,11 +18,11 @@ describe('controllers/policies.js', () => {
     sandbox = sinon.sandbox.create();
     req = {
       session: {},
-      cookies: {}
+      cookies: {},
     } as any;
     res = {
       render: sinon.spy(),
-      redirect: sinon.spy()
+      redirect: sinon.spy(),
     } as any;
   });
 
@@ -33,24 +37,36 @@ describe('controllers/policies.js', () => {
     });
 
     const scenarios = [
-      { cookieBannerFeature: true, expected: 'policy-pages/cookie-privacy-new.html' },
-      { cookieBannerFeature: false, expected: 'policy-pages/cookie-privacy-old.html' }
+      {
+        cookieBannerFeature: true,
+        expected: 'policy-pages/cookie-privacy-new.html',
+      },
+      {
+        cookieBannerFeature: false,
+        expected: 'policy-pages/cookie-privacy-old.html',
+      },
     ];
 
     scenarios.forEach((scenario) => {
-      it('renders Cookie Policy page for cookieBanner.enabled = ' + scenario.cookieBannerFeature, () => {
-        isFeatureEnabledStub.withArgs(FeatureEnabled.Feature.ALLOW_COOKIE_BANNER_ENABLED, sinon.match.object).returns(scenario.cookieBannerFeature);
+      it(`renders Cookie Policy page for cookieBanner.enabled = ${scenario.cookieBannerFeature}`, () => {
+        isFeatureEnabledStub
+          .withArgs(
+            FeatureEnabled.Feature.ALLOW_COOKIE_BANNER_ENABLED,
+            sinon.match.object
+          )
+          .returns(scenario.cookieBannerFeature);
         getCookiePrivacy(req, res);
-        expect(res.render).to.have.been.calledOnce.calledWith(scenario.expected);
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          scenario.expected
+        );
       });
     });
-
   });
 
   describe('setupCookiePrivacyController', () => {
     beforeEach(() => {
       sinon.stub(express, 'Router').returns({
-        get: sinon.stub()
+        get: sinon.stub(),
       });
     });
 
@@ -62,7 +78,9 @@ describe('controllers/policies.js', () => {
       setupCookiePrivacyController();
       // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(Paths.cookiePrivacy);
-      expect(express.Router().get).to.have.been.calledWith(Paths.cookiePrivacy2);
+      expect(express.Router().get).to.have.been.calledWith(
+        Paths.cookiePrivacy2
+      );
     });
   });
 });

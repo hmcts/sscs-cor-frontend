@@ -5,11 +5,12 @@ const config = require('config');
 const { Logger } = require('@hmcts/nodejs-logging');
 const Redis = require('ioredis');
 const multer = require('multer');
+
 const multipart = multer({
   storage: diskStorage,
   limits: {
-    fileSize: 8000000 // Compliant: 8MB
-  }
+    fileSize: 8000000, // Compliant: 8MB
+  },
 });
 
 const logger = Logger.getLogger('idam-stub');
@@ -26,17 +27,21 @@ function generateRandomNumber() {
 function getLogin(req: Request, res: Response) {
   res.append('Content-Type', 'text/html');
   // use the redirect url in request for the final redirect
-  const { redirect_uri, state } = req.query;
-  res.render('login.html', { redirect_uri, state });
+  const { redirectUri, state } = req.query;
+  res.render('login.html', { redirectUri, state });
 }
 
 async function postLogin(req: Request, res: Response) {
   const code = generateRandomNumber();
   logger.info('postLogin generating code', code);
   redis.set(`idamStub.code.${code}`, req.body.username, 'ex', 60);
-  logger.info('postLogin adding username to redis under code', req.body.username, await redis.get(`idamStub.code.${code}`));
+  logger.info(
+    'postLogin adding username to redis under code',
+    req.body.username,
+    await redis.get(`idamStub.code.${code}`)
+  );
   const stateParam = req.body.state ? `&state=${req.body.state}` : '';
-  res.redirect(`${req.body.redirect_uri}?code=${code}${stateParam}`);
+  res.redirect(`${req.body.redirectUri}?code=${code}${stateParam}`);
 }
 
 async function getToken(req: Request, res: Response) {
@@ -47,13 +52,21 @@ async function getToken(req: Request, res: Response) {
   const token = generateRandomNumber();
   logger.info('getToken generating token', token);
   redis.set(`idamStub.token.${token}`, username, 'ex', 60);
-  logger.info('getToken adding username to redis under token', username, await redis.get(`idamStub.token.${token}`));
+  logger.info(
+    'getToken adding username to redis under token',
+    username,
+    await redis.get(`idamStub.token.${token}`)
+  );
   res.json({ access_token: token });
 }
 
 async function getDetails(req: Request, res: Response) {
   const token = req.headers.authorization.replace('Bearer ', '');
-  logger.info('getDetails retrieveing token from header', req.headers.authorization, token);
+  logger.info(
+    'getDetails retrieveing token from header',
+    req.headers.authorization,
+    token
+  );
   const username = await redis.get(`idamStub.token.${token}`);
   logger.info('getDetails getting username from redis', username);
   res.json({ email: username });
@@ -61,7 +74,6 @@ async function getDetails(req: Request, res: Response) {
 
 function deleteToken(req: Request, res: Response) {
   res.status(NO_CONTENT).send();
-
 }
 
 function setupIdamStubController(): Router {
@@ -78,6 +90,4 @@ function setupIdamStubController(): Router {
   return router;
 }
 
-export {
-  setupIdamStubController
-};
+export { setupIdamStubController };

@@ -12,6 +12,7 @@ const clientSecret = config.get('s2s.oauth2.client.secret');
 const redirectUrl = config.get('s2s.oauth2.redirectUrl');
 
 const { Logger } = require('@hmcts/nodejs-logging');
+
 const logger = Logger.getLogger('question.ts');
 const timeout = require('config').get('apiCallTimeout');
 
@@ -27,15 +28,15 @@ async function generateToken(): Promise<string> {
   const oneTimePassword = otp({ secret: s2sSecret }).totp();
   const options = {
     headers: {
-      'Content-Type' : 'application/json'
+      'Content-Type': 'application/json',
     },
     url: `${s2sUrl}/lease`,
     json: true,
     body: {
       microservice,
-      oneTimePassword
+      oneTimePassword,
     },
-    timeout
+    timeout,
   };
   let body;
   try {
@@ -54,31 +55,30 @@ async function generateOauth2(): Promise<string> {
 }
 
 async function authorize(): Promise<AuthorizeResponse> {
-
   let body;
   try {
     body = await rp.post({
       uri: `${s2sOauthUrl}/oauth2/authorize`,
       json: true,
       headers: {
-        'Accept': 'application/json'
+        Accept: 'application/json',
       },
       auth: {
         user: systemUpdateUser,
-        pass: systemUpdatePassword
+        pass: systemUpdatePassword,
       },
       form: {
         response_type: 'code',
         client_id: microservice,
-        redirect_uri: redirectUrl
+        redirect_uri: redirectUrl,
       },
-      timeout
+      timeout,
     });
   } catch (error) {
     logger.error('Error authorize', error);
   }
 
-  return Promise.resolve(body);
+  return await Promise.resolve(body);
 }
 
 async function getToken(code: string): Promise<TokenResponse> {
@@ -92,18 +92,15 @@ async function getToken(code: string): Promise<TokenResponse> {
         grant_type: 'authorization_code',
         redirect_uri: redirectUrl,
         client_id: microservice,
-        client_secret: clientSecret
+        client_secret: clientSecret,
       },
-      timeout
+      timeout,
     });
   } catch (error) {
     logger.error('Error getToken', error);
   }
 
-  return Promise.resolve(body);
+  return await Promise.resolve(body);
 }
 
-export {
-  generateToken,
-  generateOauth2
-};
+export { generateToken, generateOauth2 };

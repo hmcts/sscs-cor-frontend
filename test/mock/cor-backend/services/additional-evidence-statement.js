@@ -11,5 +11,5 @@ module.exports = {
   status: (req, res, next) => {
     cacheStatementState(req.body.statementText);
     next();
-  }
+  },
 };

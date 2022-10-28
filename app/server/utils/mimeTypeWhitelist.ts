@@ -16,14 +16,11 @@ module.exports = {
     'application/vnd.ms-powerpoint',
     'application/vnd.openxmlformats-officedocument.presentationml.presentation',
     'application/vnd.openxmlformats-officedocument.presentationml.template',
-    'application/vnd.openxmlformats-officedocument.presentationml.slideshow'
+    'application/vnd.openxmlformats-officedocument.presentationml.slideshow',
   ],
-  mimeTypesWithAudioVideo: [
-    'audio/mp3',
-    'audio/mpeg',
-    'video/mp4'
-  ],
-  fileTypes: '.jpg, ' +
+  mimeTypesWithAudioVideo: ['audio/mp3', 'audio/mpeg', 'video/mp4'],
+  fileTypes:
+    '.jpg, ' +
     '.jpeg, ' +
     '.bmp, ' +
     '.tif, ' +
@@ -49,6 +46,5 @@ module.exports = {
     '.pptx, ' +
     '.potx, ' +
     '.ppsx, ',
-  fileTypesWithAudioVideo: '.mp3, ' +
-    '.mp4'
+  fileTypesWithAudioVideo: '.mp3, .mp4',
 };

@@ -1,13 +1,14 @@
 import * as AppInsights from '../../../app/server/app-insights';
 
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
-const oralHearing = require('../../mock/tribunals/data/oral/outcome');
 import { TrackYourApealService } from '../../../app/server/services/tyaService';
 
 import * as Paths from 'app/server/paths';
 import * as outcome from 'app/server/controllers/outcome';
 import { OK } from 'http-status-codes';
+
+const express = require('express');
+const { expect, sinon } = require('test/chai-sinon');
+const oralHearing = require('../../mock/tribunals/data/oral/outcome');
 
 describe('controllers/outcome', () => {
   let req: any;
@@ -18,13 +19,13 @@ describe('controllers/outcome', () => {
     sandbox = sinon.sandbox.create();
     req = {
       session: {
-        appeal: {}
+        appeal: {},
       },
-      cookies: {}
+      cookies: {},
     } as any;
 
     res = {
-      render: sandbox.stub()
+      render: sandbox.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -55,17 +56,20 @@ describe('controllers/outcome', () => {
   });
 
   describe('getOutcome', () => {
-    it('should render outcome page when mya feature enabled for oral (APPEAL_RECEIVED)', async() => {
+    it('should render outcome page when mya feature enabled for oral (APPEAL_RECEIVED)', async () => {
       req.session.appeal = oralHearing.appeal;
       const outcomes = [
         {
           name: 'Adjournment.pdf',
           date: '20-11-2019',
-          url: 'http://dbed7988-4ed5-4965-b1b4-50e5582770f3/binary'
-        }
+          url: 'http://dbed7988-4ed5-4965-b1b4-50e5582770f3/binary',
+        },
       ];
       outcome.getOutcome(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('outcome-tab.html', { outcomes });
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'outcome-tab.html',
+        { outcomes }
+      );
     });
   });
 
@@ -76,17 +80,17 @@ describe('controllers/outcome', () => {
     beforeEach(() => {
       req = {
         session: {
-          appeal: {}
+          appeal: {},
         },
         cookies: {},
         query: {
-          url: url
-        }
+          url,
+        },
       } as any;
 
       res = {
         header: sandbox.stub(),
-        send: sandbox.stub()
+        send: sandbox.stub(),
       };
 
       trackYourAppealService = {};
@@ -94,9 +98,13 @@ describe('controllers/outcome', () => {
 
     it('should return pdf document for the document url', async () => {
       const pdf = 'PDF';
-      trackYourAppealService.getDocument = () => Promise.resolve(pdf);
+      trackYourAppealService.getDocument = async () =>
+        await Promise.resolve(pdf);
       await outcome.getDocument(trackYourAppealService)(req, res);
-      expect(res.header).to.have.called.calledWith('content-type', 'application/pdf');
+      expect(res.header).to.have.called.calledWith(
+        'content-type',
+        'application/pdf'
+      );
       expect(res.send).to.have.called.calledWith(Buffer.from(pdf, 'binary'));
     });
   });

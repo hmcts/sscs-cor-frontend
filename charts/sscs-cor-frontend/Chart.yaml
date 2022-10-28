@@ -13,5 +13,5 @@ dependencies:
     condition: idam-pr.enabled
   - name: redis
     version: 16.11.3
-    repository: "https://charts.bitnami.com/bitnami"
+    repository: 'https://charts.bitnami.com/bitnami'
     condition: redis.enabled

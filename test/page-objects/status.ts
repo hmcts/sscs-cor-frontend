@@ -10,14 +10,14 @@ export class StatusPage extends BasePage {
   async provideEvidence() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#tab-questions')
+      this.clickElement('#tab-questions'),
     ]);
   }
 
   async navigateToAppealDetailsPage() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('a[href="/your-details"]')
+      this.clickElement('a[href="/your-details"]'),
     ]);
   }
 }

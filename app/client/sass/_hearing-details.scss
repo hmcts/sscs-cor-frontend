@@ -1,13 +1,13 @@
 .hearing-details {
-    background-color: #dee0e2;
-    margin-top: 20px;
-    padding: 30px 20px 20px 25px;
+  background-color: #dee0e2;
+  margin-top: 20px;
+  padding: 30px 20px 20px 25px;
 
-    .govuk-summary-list__key,
-    .govuk-summary-list__value {
-        border-bottom: none;
-        @include govuk-media-query($from: tablet) {
-            width: 50%;
-        }
+  .govuk-summary-list__key,
+  .govuk-summary-list__value {
+    border-bottom: none;
+    @include govuk-media-query($from: tablet) {
+      width: 50%;
     }
+  }
 }

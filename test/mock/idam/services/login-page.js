@@ -15,5 +15,5 @@ module.exports = {
       <input type="submit" name="save" value="login"/>
       </form>
       </body></html>`);
-  }
+  },
 };

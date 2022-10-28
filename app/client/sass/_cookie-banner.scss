@@ -1,19 +1,17 @@
 #app-cookie-banner {
-    display:none;
+  display: none;
 
-    .app-cookie-banner__message {
-        font-weight: 400;
-        font-size: 16px;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        line-height: 1.14286;
-        color: #0b0c0c;
-        box-sizing: border-box;
-        width: 100%;
-        padding: 15px;
-        background-color: #d5e8f3;
-        margin:0;
-    }
+  .app-cookie-banner__message {
+    font-weight: 400;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.14286;
+    color: #0b0c0c;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 15px;
+    background-color: #d5e8f3;
+    margin: 0;
+  }
 }
-
-

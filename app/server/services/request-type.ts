@@ -21,29 +21,39 @@ export interface HearingRecording {
 }
 
 export class RequestTypeService {
-  private apiUrl: string;
+  private readonly apiUrl: string;
 
   constructor(apiUrl: string) {
     this.apiUrl = apiUrl;
   }
 
   async getHearingRecording(identifier: string, req: Request) {
-    return RequestPromise.request({
-      method: 'GET',
-      uri: `${this.apiUrl}/api/request/${identifier}/hearingrecording`
-    }, req);
+    return await RequestPromise.request(
+      {
+        method: 'GET',
+        uri: `${this.apiUrl}/api/request/${identifier}/hearingrecording`,
+      },
+      req
+    );
   }
 
-  async submitHearingRecordingRequest(identifier: string, hearingIds: string[], req: Request) {
-    return RequestPromise.request({
-      method: 'POST',
-      uri: `${this.apiUrl}/api/request/${identifier}/recordingrequest`,
-      headers: {
-        'Content-type': 'application/json'
+  async submitHearingRecordingRequest(
+    identifier: string,
+    hearingIds: string[],
+    req: Request
+  ) {
+    return await RequestPromise.request(
+      {
+        method: 'POST',
+        uri: `${this.apiUrl}/api/request/${identifier}/recordingrequest`,
+        headers: {
+          'Content-type': 'application/json',
+        },
+        formData: {
+          hearingIds,
+        },
       },
-      formData: {
-        hearingIds: hearingIds
-      }
-    }, req);
+      req
+    );
   }
 }

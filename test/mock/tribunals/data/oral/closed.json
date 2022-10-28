@@ -3,11 +3,12 @@
     "caseReference": "SC285/18/00006",
     "appealNumber": "D8dg4cGLHZ",
     "benefitType": "esa",
-    "hearingType" : "oral",
+    "hearingType": "oral",
     "name": "Mrs. AN Test",
     "surname": "Test",
     "status": "CLOSED",
-    "latestEvents": [{
+    "latestEvents": [
+      {
         "date": "2016-12-11T12:50:11.437Z",
         "type": "CLOSED",
         "contentKey": "status.closed"
