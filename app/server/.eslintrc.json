@@ -1,0 +1,21 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "parserOptions": {
+    "project": ["./tsconfig.json"], // Specify it only for TypeScript files
+    "sourceType": "module",
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    "@typescript-eslint/no-misused-promises": "warn",
+    "@typescript-eslint/no-extraneous-class": "warn",
+    "@typescript-eslint/no-base-to-string": "warn",
+    "prefer-promise-reject-errors": "warn",
+    "init-declarations": "warn",
+    "array-callback-return": "warn",
+    "max-lines": "warn",
+    "no-invalid-this": "warn",
+    "no-param-reassign": "warn",
+    "new-cap": "warn",
+    "no-use-before-define": "warn"
+  }
+}
