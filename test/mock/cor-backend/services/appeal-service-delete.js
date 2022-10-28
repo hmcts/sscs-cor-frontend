@@ -11,5 +11,5 @@ module.exports = {
   status: (req, res, next) => {
     cacheChangeEmailAddress(res.locals.token);
     next();
-  }
+  },
 };

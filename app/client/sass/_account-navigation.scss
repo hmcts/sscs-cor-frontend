@@ -1,42 +1,42 @@
 .account-navigation {
+  display: flex;
+  justify-content: space-between;
+  &__home {
+    margin-top: 2px;
+    a {
+      display: flex;
+      flex-basis: 65%;
+
+      :first-child {
+        margin-right: 0.125rem;
+      }
+      :last-child {
+        margin-left: 0.125rem;
+      }
+      img {
+        height: 1rem;
+      }
+
+      &.--not-active {
+        pointer-events: none;
+        text-decoration: none;
+        color: #0b0c0c;
+      }
+    }
+  }
+
+  &__links {
     display: flex;
-    justify-content: space-between;
-    &__home {
-        margin-top:2px;
-        a {
-            display: flex;
-            flex-basis: 65%;
-    
-            :first-child {
-                margin-right: 0.125rem;
-            }
-            :last-child {
-                margin-left: 0.125rem;
-            }
-            img {
-                height: 1rem;
-            }
-
-            &.--not-active {
-                pointer-events: none;
-                text-decoration: none;
-                color: #0b0c0c;
-            }
-        }
+    flex-direction: column;
+    @include govuk-media-query($from: tablet) {
+      flex-direction: row;
+      justify-content: space-between;
+      a {
+        margin-left: 20px;
+      }
     }
-
-    &__links {
-        display: flex;
-        flex-direction: column;
-        @include govuk-media-query($from: tablet) {
-            flex-direction: row;
-            justify-content: space-between;
-            a {
-                margin-left: 20px;
-            }
-        }
-        a {
-            line-height: 1.5rem;
-        }
+    a {
+      line-height: 1.5rem;
     }
+  }
 }

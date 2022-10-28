@@ -18,7 +18,8 @@ describe('evidence-statement', () => {
   describe('#showSpinnerOnSubmitStatementClick', () => {
     it('hides submit statement button when clicked', () => {
       const submitSpinner = document.getElementById('upload-spinner');
-      const submitStatement: HTMLElement = document.getElementById('submit-statement');
+      const submitStatement: HTMLElement =
+        document.getElementById('submit-statement');
       evidenceStatement.submitStatementEventListener();
       submitStatement.click();
       expect(submitSpinner.style.display).to.equal('block');

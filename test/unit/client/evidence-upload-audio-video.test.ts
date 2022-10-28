@@ -80,31 +80,46 @@ describe('evidence-upload-audio-video', () => {
 
   describe('#constructor', () => {
     it('hide no-JS elements', () => {
-      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(evidenceUpload.NOJS_ELEMENT_SELECTOR);
-      noJsElements.forEach(e => expect(e.style.display).to.equal('none'));
+      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
+        evidenceUpload.NOJS_ELEMENT_SELECTOR
+      );
+      noJsElements.forEach((e) => expect(e.style.display).to.equal('none'));
     });
     it('shows JS elements with expection of file input', () => {
-      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(`${evidenceUpload.JS_ELEMENT_SELECTOR}:not(#${evidenceUpload.FILE_UPLOAD_ID})`);
-      jsElements.forEach(e => expect(e.style.display).to.equal('block'));
+      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
+        `${evidenceUpload.JS_ELEMENT_SELECTOR}:not(#${evidenceUpload.FILE_UPLOAD_ID})`
+      );
+      jsElements.forEach((e) => expect(e.style.display).to.equal('block'));
     });
     it('hide reveal container by default', () => {
-      const revealContainer: HTMLElement = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
+      const revealContainer: HTMLElement = document.getElementById(
+        evidenceUpload.REVEAL_CONTAINER_ID
+      );
       expect(revealContainer.style.display).to.equal('none');
-      expect(revealContainer.className).to.equal('govuk-details__text --margin-bottom-m');
+      expect(revealContainer.className).to.equal(
+        'govuk-details__text --margin-bottom-m'
+      );
     });
     it('sets file upload state', () => {
-      const fileUpload: HTMLElement = document.getElementById(evidenceUpload.FILE_UPLOAD_ID);
-      const fileUploadLabel: HTMLElement = body.querySelector(evidenceUpload.FILE_UPLOAD_LABEL_SELECTOR);
+      const fileUpload: HTMLElement = document.getElementById(
+        evidenceUpload.FILE_UPLOAD_ID
+      );
+      const fileUploadLabel: HTMLElement = body.querySelector(
+        evidenceUpload.FILE_UPLOAD_LABEL_SELECTOR
+      );
       expect(fileUpload.className).to.equal('file-display-none');
       expect(fileUploadLabel.style.display).to.equal('');
-      expect(fileUploadLabel.className).to.equal('govuk-button secondary-button');
+      expect(fileUploadLabel.className).to.equal(
+        'govuk-button secondary-button'
+      );
     });
   });
 
   describe('#showSpinnerOnSubmitEvidenceClick', () => {
     it('hides submit evidence button when clicked', () => {
       const submitSpinner = document.getElementById('upload-spinner');
-      const submitEvidence: HTMLElement = document.getElementById('submit-evidences');
+      const submitEvidence: HTMLElement =
+        document.getElementById('submit-evidences');
       evidenceUpload.submitEvidenceEventListener();
       submitEvidence.click();
       expect(submitSpinner.style.display).to.equal('block');
@@ -118,7 +133,9 @@ describe('evidence-upload-audio-video', () => {
     let noSelectedFile: HTMLElement;
     let contentWarningPara: HTMLElement;
     beforeEach(() => {
-      additionalEvidence = document.querySelector<HTMLInputElement>(`#additional-evidence-audio-video-file`);
+      additionalEvidence = document.querySelector<HTMLInputElement>(
+        `#additional-evidence-audio-video-file`
+      );
       selectedFile = document.getElementById('selected-evidence-file');
       noSelectedFile = document.getElementById('no-evidence-file');
       contentWarningPara = document.getElementById('av-content-warning');
@@ -127,38 +144,56 @@ describe('evidence-upload-audio-video', () => {
       submitStub.restore();
     });
     it('set files array with audio files', () => {
-      let input = { currentTarget: { files: [
-            { name: 'file1.mp3' },
-            { name: 'file2.mp3' } ] } };
-      submitStub = stub(additionalEvidence,'addEventListener').callsArgWith(1, input);
+      const input = {
+        currentTarget: {
+          files: [{ name: 'file1.mp3' }, { name: 'file2.mp3' }],
+        },
+      };
+      submitStub = stub(additionalEvidence, 'addEventListener').callsArgWith(
+        1,
+        input
+      );
       evidenceUpload.additionalEvidenceAttachEventListeners();
       expect(selectedFile.innerText).to.equal('file1.mp3');
       expect(noSelectedFile.style.display).to.equal('none');
       expect(contentWarningPara.style.display).to.equal('block');
     });
     it('set files array with video files', () => {
-      let input = { currentTarget: { files: [
-            { name: 'file1.mp4' },
-            { name: 'file2.mp4' } ] } };
-      submitStub = stub(additionalEvidence,'addEventListener').callsArgWith(1, input);
+      const input = {
+        currentTarget: {
+          files: [{ name: 'file1.mp4' }, { name: 'file2.mp4' }],
+        },
+      };
+      submitStub = stub(additionalEvidence, 'addEventListener').callsArgWith(
+        1,
+        input
+      );
       evidenceUpload.additionalEvidenceAttachEventListeners();
       expect(selectedFile.innerText).to.equal('file1.mp4');
       expect(noSelectedFile.style.display).to.equal('none');
       expect(contentWarningPara.style.display).to.equal('block');
     });
     it('set files array with no audio or video files', () => {
-      let input = { currentTarget: { files: [
-            { name: 'file1.txt' },
-            { name: 'file2.txt' } ] } };
-      submitStub = stub(additionalEvidence,'addEventListener').callsArgWith(1, input);
+      const input = {
+        currentTarget: {
+          files: [{ name: 'file1.txt' }, { name: 'file2.txt' }],
+        },
+      };
+      submitStub = stub(additionalEvidence, 'addEventListener').callsArgWith(
+        1,
+        input
+      );
       evidenceUpload.additionalEvidenceAttachEventListeners();
       expect(selectedFile.innerText).to.equal('file1.txt');
       expect(noSelectedFile.style.display).to.equal('none');
       expect(contentWarningPara.style.display).to.equal('none');
     });
     it('set empty files array', () => {
-      let input = { currentTarget: { files: [] } };
-      submitStub = stub(additionalEvidence,'addEventListener').callsArgWith(1, input);
+      const input = { currentTarget: { files: [] } };
+      submitStub = stub(additionalEvidence, 'addEventListener').callsArgWith(
+        1,
+        input
+      );
       evidenceUpload.additionalEvidenceAttachEventListeners();
       expect(selectedFile.innerText).to.equal('');
       expect(noSelectedFile.style.display).to.equal('block');
@@ -169,14 +204,23 @@ describe('evidence-upload-audio-video', () => {
     let selectedEvidenceFile: HTMLElement;
     let noEvidenceFile: HTMLElement;
     before(() => {
-      document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`).addEventListener = sinon.spy();
-      document.querySelector<HTMLInputElement>(`#header-sign-out`).addEventListener = sinon.spy();
-      document.querySelector<HTMLInputElement>(`#sign-out`).addEventListener = sinon.spy();
-      document.querySelector<HTMLInputElement>(`#additional-evidence-audio-video-file`).addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>(
+        `#${evidenceUpload.FILE_UPLOAD_ID}`
+      ).addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>(
+        `#header-sign-out`
+      ).addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>(`#sign-out`).addEventListener =
+        sinon.spy();
+      document.querySelector<HTMLInputElement>(
+        `#additional-evidence-audio-video-file`
+      ).addEventListener = sinon.spy();
     });
     describe('initialize class', () => {
       it('should attach Event Listeners', () => {
-        const target = document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`);
+        const target = document.querySelector<HTMLInputElement>(
+          `#${evidenceUpload.FILE_UPLOAD_ID}`
+        );
         expect(target.addEventListener).to.have.not.been.called;
         evidenceUpload.init();
         expect(target.addEventListener).to.have.been.called;
@@ -187,7 +231,8 @@ describe('evidence-upload-audio-video', () => {
         expect(target.addEventListener).to.have.been.called;
       });
       it('should attach Event Listeners to stop header sign out', () => {
-        const target = document.querySelector<HTMLInputElement>(`#header-sign-out`);
+        const target =
+          document.querySelector<HTMLInputElement>(`#header-sign-out`);
         evidenceUpload.init();
         expect(target.addEventListener).to.have.been.called;
       });
@@ -207,7 +252,9 @@ describe('evidence-upload-audio-video', () => {
       evidenceUpload.uploadFile();
       expect(document.forms.length).to.equal(2);
       const form = document.forms['js-upload-form'];
-      expect(form.action).to.equal('/question/1?_csrf=12323#evidence-upload-audio-video');
+      expect(form.action).to.equal(
+        '/question/1?_csrf=12323#evidence-upload-audio-video'
+      );
       expect(form.method).to.equal('post');
       expect(form.enctype).to.equal('multipart/form-data');
     });

@@ -7,7 +7,7 @@ const {
   hasFinalDecision,
   createDecision,
   getApellantDetails,
-  getHearingArrangements
+  getHearingArrangements,
 } = require('../utils');
 
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
       final_decision: (params, query) => createFinalDecision(query.email),
       has_final_decision: (params, query) => hasFinalDecision(query.email),
       user_details: (params, query) => getApellantDetails(query.email),
-      hearing_arrangements: () => getHearingArrangements()
-    }
-  ]
+      hearing_arrangements: () => getHearingArrangements(),
+    },
+  ],
 };

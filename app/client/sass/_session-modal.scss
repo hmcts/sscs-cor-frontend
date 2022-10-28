@@ -1,43 +1,43 @@
 .modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-    z-index: 2;
-    max-width: 500px;
-    box-sizing: border-box;
-    width: 90%;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #000;
-    text-align: left;
+  z-index: 2;
+  max-width: 500px;
+  box-sizing: border-box;
+  width: 90%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #000;
+  text-align: left;
 
-    &__title {
-        background: govuk-colour("red");
-        padding: 20px 30px;
+  &__title {
+    background: govuk-colour('red');
+    padding: 20px 30px;
 
-        h2 {
-            color: govuk-colour("white");
-            margin-bottom: 0px;
+    h2 {
+      color: govuk-colour('white');
+      margin-bottom: 0px;
 
-            background-image: url('/public/images/icon-important-red-inverse.png');
-            background-repeat: no-repeat;
-            padding-left: 45px;
-            line-height: 35px;
-        }
+      background-image: url('/public/images/icon-important-red-inverse.png');
+      background-repeat: no-repeat;
+      padding-left: 45px;
+      line-height: 35px;
     }
+  }
 
-    &__content {
-        padding: 20px 30px;
-    }
+  &__content {
+    padding: 20px 30px;
+  }
 
-    &__buttons {
-        display: flex;
-    }
+  &__buttons {
+    display: flex;
+  }
 
-    &--open {
-        display: block;
-    }
+  &--open {
+    display: block;
+  }
 }

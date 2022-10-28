@@ -7,8 +7,8 @@ nodejs:
     REDIS_URL: redis://${SERVICE_NAME}-redis-master
     SESSION_SECRET:
     NODE_ENV: preview
-    MYA_FEATURE_FLAG: "true"
-    POST_BULK_SCAN: "true"
+    MYA_FEATURE_FLAG: 'true'
+    POST_BULK_SCAN: 'true'
   keyVaults:
     sscs:
       secrets:

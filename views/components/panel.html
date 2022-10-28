@@ -1,12 +1,10 @@
 {% macro panel(title, text) %}
-    <div class="panel">
-        <h2 class="govuk-heading-s">{{ title }}</h2>
-        {% if (text | isArray) %}
-            {% for para in text%}
-                <p>{{ para | eval }}</p>
-            {% endfor %}
-        {% else %}
-            <p>{{ text | eval }}</p>
-        {% endif %}
-    </div>
+<div class="panel">
+  <h2 class="govuk-heading-s">{{ title }}</h2>
+  {% if (text | isArray) %} {% for para in text%}
+  <p>{{ para | eval }}</p>
+  {% endfor %} {% else %}
+  <p>{{ text | eval }}</p>
+  {% endif %}
+</div>
 {% endmacro %}

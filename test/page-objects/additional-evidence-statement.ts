@@ -14,7 +14,7 @@ export class AdditionalEvidenceStatementPage extends BasePage {
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#submit-statement')
+      this.clickElement('#submit-statement'),
     ]);
   }
 }

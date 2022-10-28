@@ -1,8 +1,8 @@
 interface IAppealStage {
   status: string;
   title?: {
-    en: string,
-    cy: string
+    en: string;
+    cy: string;
   };
   latestUpdateText?: string;
   active?: boolean;
@@ -10,14 +10,13 @@ interface IAppealStage {
 }
 
 function getActiveStages(status: string, stages: IAppealStage[]) {
-  const statusIdx = stages.findIndex(stage => stage.status === status);
-  return stages.map((stage, idx) => {
-    if (idx <= statusIdx) return { ...stage, active: true };
-    else return { ...stage, active: false };
-  }).filter(stage => stage.showOnBar);
+  const statusIdx = stages.findIndex((stage) => stage.status === status);
+  return stages
+    .map((stage, idx) => {
+      if (idx <= statusIdx) return { ...stage, active: true };
+      return { ...stage, active: false };
+    })
+    .filter((stage) => stage.showOnBar);
 }
 
-export {
-  IAppealStage,
-  getActiveStages
-};
+export { IAppealStage, getActiveStages };

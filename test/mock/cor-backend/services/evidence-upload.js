@@ -16,19 +16,22 @@ function cacheEvidence(questionId, file) {
 module.exports = {
   path: '/api/continuous-online-hearings/:onlineHearingId/questions/:questionId/evidence',
   method: 'POST',
-  status: async(req, res, next) => {
+  status: async (req, res, next) => {
     const uploadedFile = req.files[0];
 
-    await writeFile(`./public/files/${uploadedFile.originalname}`, uploadedFile.buffer);
+    await writeFile(
+      `./public/files/${uploadedFile.originalname}`,
+      uploadedFile.buffer
+    );
 
     res.body = {
       id: uuid(),
       file_name: uploadedFile.originalname,
-      created_date: moment.utc().format()
+      created_date: moment.utc().format(),
     };
 
     cacheEvidence(req.params.questionId, res.body);
 
     next();
-  }
+  },
 };
