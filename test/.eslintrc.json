@@ -1,6 +1,30 @@
 {
+  "env": {
+    "mocha": true
+  },
+  "parserOptions": {
+    "project": ["./tsconfig.json"], // Specify it only for TypeScript files
+    "sourceType": "module",
+    "ecmaVersion": 2018
+  },
+  "extends": ["@hmcts/eslint-config/test", "../.eslintrc.json"],
   "rules": {
-    "init-declarations": "off",
-    "max-nested-callbacks": "off"
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/require-await": "warn",
+    "@typescript-eslint/consistent-type-assertions": "warn",
+    "@typescript-eslint/naming-convention": "warn",
+    "no-unused-expressions": "warn",
+    "no-invalid-this": "warn",
+    "init-declarations": "warn",
+    "max-nested-callbacks": "warn",
+    "new-cap": "warn",
+    "no-use-before-define": "warn"
+  },
+  "globals": {
+    "After": true,
+    "Before": true,
+    "Feature": true,
+    "Scenario": true,
+    "xScenario": true
   }
 }

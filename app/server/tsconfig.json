@@ -2,6 +2,9 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "allowJs": true,
-    "outDir": "../../dist"
-  }
+    "outDir": "../../dist",
+  },
+  "exclude": [
+    "../../dist/*"
+  ]
 }
