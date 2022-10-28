@@ -17,7 +17,4 @@ function setupCookiePrivacyController(): Router {
   return router;
 }
 
-export {
-    setupCookiePrivacyController,
-    getCookiePrivacy
-};
+export { setupCookiePrivacyController, getCookiePrivacy };

@@ -1,7 +1,8 @@
 import * as path from 'path';
-const { expect } = require('test/chai-sinon');
+
 import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
+const { expect } = require('test/chai-sinon');
 const content = require('locale/content');
 
 export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
@@ -12,11 +13,15 @@ export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
 
   async verifyPages() {
     const headerText = this.page.getHeading();
-    expect(headerText).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+    expect(headerText).to.equal(
+      content.en.additionalEvidence.evidenceUpload.header
+    );
   }
 
   async selectFile(filename: string) {
-    const fileInput = await this.getElement('#additional-evidence-audio-video-file');
+    const fileInput = await this.getElement(
+      '#additional-evidence-audio-video-file'
+    );
     const filePath = path.join(__dirname, `/../fixtures/evidence/${filename}`);
     await fileInput.uploadFile(filePath);
   }
@@ -28,7 +33,7 @@ export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#submit-evidences')
+      this.clickElement('#submit-evidences'),
     ]);
   }
 }

@@ -1,32 +1,32 @@
 {
-    "appeal": {
-      "caseId": "1562067305585215",
-      "caseReference": "SC285/17/6052010000",
-      "appealNumber": "59c6b46a-d1aa-48d9-9757-efe367b115f0",
-      "status": "SYA_APPEAL_CREATED",
-      "benefitType": "pip",
-      "hearingType": "cor",
-      "name": "Mr Joe Bloggs",
-      "surname": "Bloggs",
-      "latestEvents": [
-        {
-          "date": "2017-05-24T13:01:18.243Z",
-          "type": "SYA_APPEAL_CREATED",
-          "contentKey": "status.null"
-        }
-      ],
-      "regionalProcessingCenter": {
-        "name": "BIRMINGHAM",
-        "addressLines": [
-          "HM Courts & Tribunals Service",
-          "Social Security & Child Support Appeals",
-          "Administrative Support Centre",
-          "PO Box 14620"
-        ],
-        "city": "BIRMINGHAM",
-        "postcode": "B16 6FR",
-        "phoneNumber": "0300 123 1142",
-        "faxNumber": "0126 434 7983"
+  "appeal": {
+    "caseId": "1562067305585215",
+    "caseReference": "SC285/17/6052010000",
+    "appealNumber": "59c6b46a-d1aa-48d9-9757-efe367b115f0",
+    "status": "SYA_APPEAL_CREATED",
+    "benefitType": "pip",
+    "hearingType": "cor",
+    "name": "Mr Joe Bloggs",
+    "surname": "Bloggs",
+    "latestEvents": [
+      {
+        "date": "2017-05-24T13:01:18.243Z",
+        "type": "SYA_APPEAL_CREATED",
+        "contentKey": "status.null"
       }
+    ],
+    "regionalProcessingCenter": {
+      "name": "BIRMINGHAM",
+      "addressLines": [
+        "HM Courts & Tribunals Service",
+        "Social Security & Child Support Appeals",
+        "Administrative Support Centre",
+        "PO Box 14620"
+      ],
+      "city": "BIRMINGHAM",
+      "postcode": "B16 6FR",
+      "phoneNumber": "0300 123 1142",
+      "faxNumber": "0126 434 7983"
     }
   }
+}

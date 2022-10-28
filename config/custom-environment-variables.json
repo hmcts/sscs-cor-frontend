@@ -63,10 +63,10 @@
       }
     }
   },
-  "apiCallTimeout" : "API_CALL_TIMEOUT",
-  "navigationTimeout" : "NAVIGATION_TIMEOUT",
+  "apiCallTimeout": "API_CALL_TIMEOUT",
+  "navigationTimeout": "NAVIGATION_TIMEOUT",
   "services": {
-    "webForm" : {
+    "webForm": {
       "url": "SERVICES_WEB_FORM"
     },
     "webChat": {

@@ -1,7 +1,8 @@
 import { IdamService } from 'app/server/services/idam';
 import { RequestPromise } from 'app/server/services/request-wrapper';
-const { expect, sinon } = require('test/chai-sinon');
+
 import { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } from 'http-status-codes';
+const { expect, sinon } = require('test/chai-sinon');
 const timeout = require('config').get('apiCallTimeout');
 const nock = require('nock');
 const config = require('config');
@@ -46,32 +47,30 @@ describe('services/idam', () => {
     const token = 'someToken';
 
     describe('resolving the promise', () => {
-      let apiResponse = { 'email': 'someEmail@example.com' };
+      const apiResponse = { email: 'someEmail@example.com' };
 
       beforeEach(() => {
         nock(apiUrl)
-          .matchHeader('Authorization', 'Bearer ' + token)
+          .matchHeader('Authorization', `Bearer ${token}`)
           .get(path)
           .reply(OK, apiResponse);
       });
 
-      it('resolves with the response', async () => (
-        expect(idamService.getUserDetails(token)).to.eventually.eql(apiResponse)
-      ));
+      it('resolves with the response', async () =>
+        expect(idamService.getUserDetails(token)).to.eventually.eql(
+          apiResponse
+        ));
     });
 
     describe('rejecting the promise', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
       beforeEach(() => {
-        nock(apiUrl)
-          .get(path)
-          .replyWithError(error);
+        nock(apiUrl).get(path).replyWithError(error);
       });
 
-      it('with the error', async () => (
-        expect(idamService.getUserDetails(token)).to.be.rejectedWith(error)
-      ));
+      it('with the error', async () =>
+        expect(idamService.getUserDetails(token)).to.be.rejectedWith(error));
     });
   });
 
@@ -93,14 +92,14 @@ describe('services/idam', () => {
     });
 
     describe('resolving the promise', () => {
-      let apiResponse = { 'email': 'someEmail@example.com' };
+      const apiResponse = { email: 'someEmail@example.com' };
 
       beforeEach(() => {
         nock(apiUrl)
           .post(path)
           .basicAuth({
             user: 'sscs',
-            pass: appSecret
+            pass: appSecret,
           })
           .reply(OK, apiResponse);
       });
@@ -112,38 +111,38 @@ describe('services/idam', () => {
           form: {
             code: 'someCode',
             grant_type: 'authorization_code',
-            redirect_uri: 'http://example.com/sign-in'
+            redirect_uri: 'http://example.com/sign-in',
           },
           json: true,
           uri: 'http://localhost:8082/oauth2/token',
           method: 'POST',
-          timeout: timeout
+          timeout,
         });
       });
 
-      it('resolves the promise with the response', () => (
-        expect(idamService.getToken(code, protocol, host)).to.eventually.eql(apiResponse)
-      ));
+      it('resolves the promise with the response', () =>
+        expect(idamService.getToken(code, protocol, host)).to.eventually.eql(
+          apiResponse
+        ));
     });
 
     describe('rejecting the promise', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
       beforeEach(() => {
-        nock(apiUrl)
-          .post(path)
-          .replyWithError(error);
+        nock(apiUrl).post(path).replyWithError(error);
       });
 
-      it('rejects the promise with the error', () => (
-        expect(idamService.getToken(code, protocol, host)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(idamService.getToken(code, protocol, host)).to.be.rejectedWith(
+          error
+        ));
     });
   });
 
   describe('deleteToken', () => {
-    const token: string = 'someToken';
-    const path: string = `/session/${token}`;
+    const token = 'someToken';
+    const path = `/session/${token}`;
 
     describe('resolving the promise', () => {
       beforeEach(() => {
@@ -151,28 +150,24 @@ describe('services/idam', () => {
           .delete(path)
           .basicAuth({
             user: 'sscs',
-            pass: appSecret
+            pass: appSecret,
           })
           .reply(NO_CONTENT);
       });
 
-      it('resolves the promise', () => (
-        expect(idamService.deleteToken(token)).to.be.fulfilled
-      ));
+      it('resolves the promise', () =>
+        expect(idamService.deleteToken(token)).to.be.fulfilled);
     });
 
     describe('rejecting the promise', () => {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
       beforeEach(() => {
-        nock(apiUrl)
-          .delete(path)
-          .replyWithError(error);
+        nock(apiUrl).delete(path).replyWithError(error);
       });
 
-      it('rejects the promise with the error', () => (
-        expect(idamService.deleteToken(token)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(idamService.deleteToken(token)).to.be.rejectedWith(error));
     });
   });
 });

@@ -4,6 +4,7 @@ const sidamApiUrl = require('config').get('idam.api-url');
 const testUrl = require('config').get('testUrl');
 
 const { Logger } = require('@hmcts/nodejs-logging');
+
 const logger = Logger.getLogger('sidam.ts');
 const timeout = require('config').get('apiCallTimeout');
 
@@ -13,12 +14,14 @@ async function manageRedirectUri(operation) {
     const options = {
       url: `${sidamApiUrl}/testing-support/services/sscs`,
       json: true,
-      body: [{
-        operation: operation,
-        field: 'redirect_uri',
-        value: redirectUri
-      }],
-      timeout
+      body: [
+        {
+          operation,
+          field: 'redirect_uri',
+          value: redirectUri,
+        },
+      ],
+      timeout,
     };
 
     try {
@@ -44,7 +47,7 @@ async function unregisterRedirectUri() {
 }
 
 async function createUser(ccdCase) {
-// eslint-disable-next-line no-magic-numbers
+  // eslint-disable-next-line no-magic-numbers
   logger.info(`Creating user [${ccdCase.email}] on [${sidamApiUrl}]`);
   const password = 'Apassword123';
   const options = {
@@ -53,21 +56,23 @@ async function createUser(ccdCase) {
     body: {
       email: ccdCase.email,
       forename: 'ATestForename',
-      password: password,
+      password,
       surname: 'ATestSurname',
       roles: [
         {
-          code: 'citizen'
-        }
-      ]
+          code: 'citizen',
+        },
+      ],
     },
     insecure: true,
-    timeout
+    timeout,
   };
 
   try {
     await rp.post(options);
-    console.log(`Created idam user for ${ccdCase.email} with password ${password}`);
+    console.log(
+      `Created idam user for ${ccdCase.email} with password ${password}`
+    );
     return { email: ccdCase.email, password };
   } catch (error) {
     logger.error('Error createUser', error.message);
@@ -79,7 +84,7 @@ async function deleteUser(sidamUser) {
   const options = {
     url: `${sidamApiUrl}/testing-support/accounts/${email}`,
     insecure: true,
-    timeout
+    timeout,
   };
 
   try {
@@ -91,9 +96,4 @@ async function deleteUser(sidamUser) {
   console.log(`Deleted SIDAM user for ${sidamUser.email}`);
 }
 
-export {
-  createUser,
-  deleteUser,
-  registerRedirectUri,
-  unregisterRedirectUri
-};
+export { createUser, deleteUser, registerRedirectUri, unregisterRedirectUri };

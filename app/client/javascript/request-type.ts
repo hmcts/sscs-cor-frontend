@@ -1,5 +1,4 @@
 export class RequestType {
-
   constructor() {
     this.init();
   }

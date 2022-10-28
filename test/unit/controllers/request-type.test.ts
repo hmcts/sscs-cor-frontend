@@ -1,12 +1,12 @@
 import * as AppInsights from '../../../app/server/app-insights';
 
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
-const hearingRecording = require('../../mock/tribunals/data/oral/hearing-recording.json');
-
 import * as Paths from 'app/server/paths';
 import * as requestType from 'app/server/controllers/request-type';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+
+const express = require('express');
+const { expect, sinon } = require('test/chai-sinon');
+const hearingRecording = require('../../mock/tribunals/data/oral/hearing-recording.json');
 
 describe('controllers/request-type', () => {
   let req: any;
@@ -19,20 +19,20 @@ describe('controllers/request-type', () => {
     sandbox = sinon.sandbox.create();
     req = {
       params: {
-        action: ''
+        action: '',
       },
       session: {
         hearing: {},
         requestOptions: {},
-        hearingRecordingsResponse: {}
+        hearingRecordingsResponse: {},
       },
       body: {},
-      cookies: {}
+      cookies: {},
     } as any;
 
     res = {
       render: sandbox.stub(),
-      redirect: sandbox.spy()
+      redirect: sandbox.spy(),
     };
 
     next = sandbox.stub();
@@ -63,49 +63,67 @@ describe('controllers/request-type', () => {
       expect(getStub).to.have.been.calledWith(`${Paths.requestType}/:action?`);
       expect(getStub).to.have.been.calledWith(`${Paths.requestType}/recording`);
       expect(postStub).to.have.been.calledWith(`${Paths.requestType}/select`);
-      expect(postStub).to.have.been.calledWith(`${Paths.requestType}/hearing-recording-request`);
+      expect(postStub).to.have.been.calledWith(
+        `${Paths.requestType}/hearing-recording-request`
+      );
     });
   });
 
   describe('getRequestType', () => {
-    it('should render request type select page', async() => {
+    it('should render request type select page', async () => {
       req.cookies.manageYourAppeal = 'true';
-      await requestType.getRequestType()(req,res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith('request-type/index.html',
-          { action: '', requestOptions: {}, hearingRecordingsResponse: {}, pageTitleError: false, emptyHearingIdError: false, appeal: req.session.appeal }
+      await requestType.getRequestType()(req, res, next);
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'request-type/index.html',
+        {
+          action: '',
+          requestOptions: {},
+          hearingRecordingsResponse: {},
+          pageTitleError: false,
+          emptyHearingIdError: false,
+          appeal: req.session.appeal,
+        }
       );
     });
   });
 
   describe('selectRequestType', () => {
     let requestTypeService;
-    it('should render request type select page with hearing recordings', async() => {
+    it('should render request type select page with hearing recordings', async () => {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
       req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
-        getHearingRecording: sandbox.stub().resolves(hearingRecording)
+        getHearingRecording: sandbox.stub().resolves(hearingRecording),
       };
 
-      await requestType.selectRequestType(requestTypeService)(req,res, next);
-      expect(requestTypeService.getHearingRecording).to.have.been.calledOnce.calledWith('case_id_1', req);
-      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/hearingRecording`);
+      await requestType.selectRequestType(requestTypeService)(req, res, next);
+      expect(
+        requestTypeService.getHearingRecording
+      ).to.have.been.calledOnce.calledWith('case_id_1', req);
+      expect(res.redirect).to.have.been.calledWith(
+        `${Paths.requestType}/hearingRecording`
+      );
       expect(req.session.hearingRecordingsResponse).to.equal(hearingRecording);
     });
 
-    it('should render request type select page without hearing recordings', async() => {
+    it('should render request type select page without hearing recordings', async () => {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
       req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
-        getHearingRecording: sandbox.stub().resolves(null)
+        getHearingRecording: sandbox.stub().resolves(null),
       };
 
-      await requestType.selectRequestType(requestTypeService)(req,res, next);
-      expect(requestTypeService.getHearingRecording).to.have.been.calledOnce.calledWith('case_id_1', req);
-      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/hearingRecording`);
+      await requestType.selectRequestType(requestTypeService)(req, res, next);
+      expect(
+        requestTypeService.getHearingRecording
+      ).to.have.been.calledOnce.calledWith('case_id_1', req);
+      expect(res.redirect).to.have.been.calledWith(
+        `${Paths.requestType}/hearingRecording`
+      );
     });
 
     it('should catch error and track Excepction with AppInsights', async () => {
@@ -114,41 +132,59 @@ describe('controllers/request-type', () => {
       req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
-        getHearingRecording: sandbox.stub().rejects(error)
+        getHearingRecording: sandbox.stub().rejects(error),
       };
 
-      await requestType.selectRequestType(requestTypeService)(req,res, next);
+      await requestType.selectRequestType(requestTypeService)(req, res, next);
 
-      expect(requestTypeService.getHearingRecording).to.have.been.calledOnce.calledWith('case_id_1', req);
-      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(
+        requestTypeService.getHearingRecording
+      ).to.have.been.calledOnce.calledWith('case_id_1', req);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        error
+      );
       expect(next).to.have.been.calledOnce.calledWith(error);
     });
   });
 
   describe('submitHearingRecordingRequest', () => {
     let requestTypeService;
-    it('should render error message for request with empty hearing ids', async() => {
+    it('should render error message for request with empty hearing ids', async () => {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearingRecordingsResponse = hearingRecording;
 
-      await requestType.submitHearingRecordingRequest(requestTypeService)(req,res, next);
+      await requestType.submitHearingRecordingRequest(requestTypeService)(
+        req,
+        res,
+        next
+      );
 
-      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/formError`);
+      expect(res.redirect).to.have.been.calledWith(
+        `${Paths.requestType}/formError`
+      );
     });
 
-    it('should render confirm hearing request page for hearing ids', async() => {
+    it('should render confirm hearing request page for hearing ids', async () => {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
       req.session.hearingRecordingsResponse = hearingRecording;
       req.body['hearingId'] = ['hearing_id_1'];
 
       requestTypeService = {
-        submitHearingRecordingRequest: sandbox.stub().resolves()
+        submitHearingRecordingRequest: sandbox.stub().resolves(),
       };
 
-      await requestType.submitHearingRecordingRequest(requestTypeService)(req,res, next);
-      expect(res.redirect).to.have.been.calledWith(`${Paths.requestType}/confirm`);
-      expect(requestTypeService.submitHearingRecordingRequest).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
+      await requestType.submitHearingRecordingRequest(requestTypeService)(
+        req,
+        res,
+        next
+      );
+      expect(res.redirect).to.have.been.calledWith(
+        `${Paths.requestType}/confirm`
+      );
+      expect(
+        requestTypeService.submitHearingRecordingRequest
+      ).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
       expect(req.session.hearingRecordingsResponse).to.equal('');
     });
 
@@ -159,13 +195,21 @@ describe('controllers/request-type', () => {
       req.body['hearingId'] = ['hearing_id_1'];
 
       requestTypeService = {
-        submitHearingRecordingRequest: sandbox.stub().rejects(error)
+        submitHearingRecordingRequest: sandbox.stub().rejects(error),
       };
 
-      await requestType.submitHearingRecordingRequest(requestTypeService)(req,res, next);
+      await requestType.submitHearingRecordingRequest(requestTypeService)(
+        req,
+        res,
+        next
+      );
 
-      expect(requestTypeService.submitHearingRecordingRequest).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
-      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(
+        requestTypeService.submitHearingRecordingRequest
+      ).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        error
+      );
       expect(next).to.have.been.calledOnce.calledWith(error);
     });
   });
@@ -179,21 +223,22 @@ describe('controllers/request-type', () => {
     beforeEach(() => {
       req = {
         query: {
-          url: url,
-          type: type
-        }
+          url,
+          type,
+        },
       } as any;
 
       res = {
         header: sandbox.stub(),
-        send: sandbox.stub()
+        send: sandbox.stub(),
       };
 
       trackYourAppealService = {};
     });
 
     it('should return hearing recording for the document url', async () => {
-      trackYourAppealService.getMediaFile = () => Promise.resolve(mp3);
+      trackYourAppealService.getMediaFile = async () =>
+        await Promise.resolve(mp3);
       await requestType.getHearingRecording(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith('content-type', 'audio/mp3');
       expect(res.send).to.have.called.calledWith(Buffer.from(mp3, 'binary'));

@@ -1,6 +1,7 @@
+import * as chai from 'chai';
+
 const sinonChai = require('sinon-chai');
 const sinon = require('sinon');
-import * as chai from 'chai';
 const chaiAsPromised = require('chai-as-promised');
 const chaiString = require('chai-string');
 

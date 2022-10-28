@@ -69,27 +69,40 @@ describe('evidence-upload-helper', () => {
   });
   describe('#showHideElements', () => {
     it('hide no-JS and JS elements', () => {
-      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll('.evidence-upload-nojs');
-      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll('.evidence-upload-js');
-      evidenceUploadHelper.showHideElements('.evidence-upload-nojs','.evidence-upload-js');
-      noJsElements.forEach(e => expect(e.style.display).to.equal('none'));
-      jsElements.forEach(e => expect(e.style.display).to.equal('block'));
+      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
+        '.evidence-upload-nojs'
+      );
+      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
+        '.evidence-upload-js'
+      );
+      evidenceUploadHelper.showHideElements(
+        '.evidence-upload-nojs',
+        '.evidence-upload-js'
+      );
+      noJsElements.forEach((e) => expect(e.style.display).to.equal('none'));
+      jsElements.forEach((e) => expect(e.style.display).to.equal('block'));
     });
   });
   describe('#showHideRevealContainer', () => {
     let revealContainer: HTMLElement;
     before(() => {
-      revealContainer = document.getElementById('evidence-upload-reveal-container');
+      revealContainer = document.getElementById(
+        'evidence-upload-reveal-container'
+      );
       evidenceUploadHelper.revealContainer = revealContainer;
     });
     it('hides if checkbox is not checked', () => {
-      const target = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
+      const target = document.getElementById(
+        evidenceUploadHelper.CHECKBOX_ID
+      ) as HTMLInputElement;
       target.checked = false;
       evidenceUploadHelper.showHideRevealContainer({ target });
       expect(revealContainer.style.display).to.equal('none');
     });
     it('shows if checkbox is checked', () => {
-      const target = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
+      const target = document.getElementById(
+        evidenceUploadHelper.CHECKBOX_ID
+      ) as HTMLInputElement;
       target.checked = true;
       evidenceUploadHelper.showHideRevealContainer({ target });
       expect(revealContainer.style.display).to.equal('block');
@@ -99,11 +112,15 @@ describe('evidence-upload-helper', () => {
   describe('#setRevealStartState', () => {
     let revealContainer: HTMLElement;
     before(() => {
-      revealContainer = document.getElementById('evidence-upload-reveal-container');
+      revealContainer = document.getElementById(
+        'evidence-upload-reveal-container'
+      );
     });
     it('starts hidden if no uploaded files exist and no upload errors', () => {
       evidenceUploadHelper.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
+      const checkbox = document.getElementById(
+        evidenceUploadHelper.CHECKBOX_ID
+      ) as HTMLInputElement;
       expect(revealContainer.style.display).to.equal('none');
       expect(checkbox.checked).to.equal(false);
     });
@@ -117,15 +134,20 @@ describe('evidence-upload-helper', () => {
           </td>
         </tr>`;
       evidenceUploadHelper.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
+      const checkbox = document.getElementById(
+        evidenceUploadHelper.CHECKBOX_ID
+      ) as HTMLInputElement;
       expect(revealContainer.style.display).to.equal('block');
       expect(checkbox.checked).to.equal(true);
     });
     it('starts revealed if uploaded errors exist', () => {
-      document.querySelector('#files-uploaded tbody').innerHTML =
-        `<span id="file-upload-1-error" class="govuk-error-message">some error</span>`;
+      document.querySelector(
+        '#files-uploaded tbody'
+      ).innerHTML = `<span id="file-upload-1-error" class="govuk-error-message">some error</span>`;
       evidenceUploadHelper.setRevealStartState();
-      const checkbox = document.getElementById(evidenceUploadHelper.CHECKBOX_ID) as HTMLInputElement;
+      const checkbox = document.getElementById(
+        evidenceUploadHelper.CHECKBOX_ID
+      ) as HTMLInputElement;
       expect(revealContainer.style.display).to.equal('block');
       expect(checkbox.checked).to.equal(true);
     });

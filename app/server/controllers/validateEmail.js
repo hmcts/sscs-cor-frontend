@@ -5,18 +5,19 @@ const Joi = require('joi');
 const i18next = require('i18next');
 
 const validateFields = (email, confirmEmail, errors) => {
-  const schema = Joi.string().email({ minDomainAtoms: 2 })
+  const schema = Joi.string()
+    .email({ minDomainAtoms: 2 })
     .options({
       language: {
         any: { empty: `!!${errors.emptyStringEmailField}` },
-        string: { email: `!!${errors.notValidField}` }
-      }
+        string: { email: `!!${errors.notValidField}` },
+      },
     });
 
   let fields = {
     error: false,
     email: { value: email },
-    confirmEmail: { value: confirmEmail }
+    confirmEmail: { value: confirmEmail },
   };
 
   const emailResult = schema.validate(email);
@@ -52,7 +53,10 @@ const validateEmail = (req, res, next) => {
   const fields = validateFields(email, confirmEmail, errors);
   if (fields.error) {
     res.status(HttpStatus.BAD_REQUEST);
-    res.render('email-address-change', { mactoken: req.params.mactoken, fields });
+    res.render('email-address-change', {
+      mactoken: req.params.mactoken,
+      fields,
+    });
   } else {
     next();
   }

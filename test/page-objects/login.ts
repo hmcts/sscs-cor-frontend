@@ -15,7 +15,9 @@ export class LoginPage extends BasePage {
 
   verifyPage() {
     const url = new URL(this.page.url());
-    expect(`${url.protocol}//${url.host}${url.pathname}`).to.equal(`${idamUrl}${idamSignInPagePath}`);
+    expect(`${url.protocol}//${url.host}${url.pathname}`).to.equal(
+      `${idamUrl}${idamSignInPagePath}`
+    );
   }
 
   async login(email, password) {
@@ -23,7 +25,7 @@ export class LoginPage extends BasePage {
     await this.enterTextintoField('#password', password);
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('[type=submit]')
+      this.clickElement('[type=submit]'),
     ]);
   }
 }

@@ -25,10 +25,22 @@ describe('client main js', () => {
     const govUKMock = sandbox.stub(govUK, 'initAll');
     const expandingTextBoxMock = sandbox.stub(expandingTextBox, 'init');
     const checkCookiesMock = sandbox.stub(CheckCookies.prototype, 'init');
-    const initEvidenceUploadMock = sandbox.stub(EvidenceUpload.prototype, 'init');
-    const initEvidenceStatementMock = sandbox.stub(EvidenceStatement.prototype, 'init');
-    const sessionInactivityMock = sandbox.stub(SessionInactivity.prototype, 'init');
-    const detailsToggleMock = sandbox.stub(DetailsTabIndexToggle.prototype, 'init');
+    const initEvidenceUploadMock = sandbox.stub(
+      EvidenceUpload.prototype,
+      'init'
+    );
+    const initEvidenceStatementMock = sandbox.stub(
+      EvidenceStatement.prototype,
+      'init'
+    );
+    const sessionInactivityMock = sandbox.stub(
+      SessionInactivity.prototype,
+      'init'
+    );
+    const detailsToggleMock = sandbox.stub(
+      DetailsTabIndexToggle.prototype,
+      'init'
+    );
 
     main.onReady();
     expect(detailsToggleMock).to.have.been.calledOnce;

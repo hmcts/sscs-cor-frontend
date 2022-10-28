@@ -14,7 +14,7 @@ export class RequestTypePage extends BasePage {
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#submit-buttons button')
+      this.clickElement('#submit-buttons button'),
     ]);
   }
 }

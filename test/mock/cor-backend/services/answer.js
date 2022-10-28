@@ -14,5 +14,5 @@ module.exports = {
     cacheAnswerState(req.params.questionId, req.body.answer);
     res.status(NO_CONTENT);
     next();
-  }
+  },
 };

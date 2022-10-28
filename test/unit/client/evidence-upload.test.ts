@@ -72,28 +72,42 @@ describe('evidence-upload', () => {
 
   describe('#constructor', () => {
     it('hide no-JS elements', () => {
-      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(evidenceUpload.NOJS_ELEMENT_SELECTOR);
-      noJsElements.forEach(e => expect(e.style.display).to.equal('none'));
+      const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
+        evidenceUpload.NOJS_ELEMENT_SELECTOR
+      );
+      noJsElements.forEach((e) => expect(e.style.display).to.equal('none'));
     });
     it('shows JS elements with expection of file input', () => {
-      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(`${evidenceUpload.JS_ELEMENT_SELECTOR}:not(#${evidenceUpload.FILE_UPLOAD_ID})`);
-      jsElements.forEach(e => expect(e.style.display).to.equal('block'));
+      const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
+        `${evidenceUpload.JS_ELEMENT_SELECTOR}:not(#${evidenceUpload.FILE_UPLOAD_ID})`
+      );
+      jsElements.forEach((e) => expect(e.style.display).to.equal('block'));
     });
     it('hide reveal container by default', () => {
-      const revealContainer: HTMLElement = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
+      const revealContainer: HTMLElement = document.getElementById(
+        evidenceUpload.REVEAL_CONTAINER_ID
+      );
       expect(revealContainer.style.display).to.equal('none');
-      expect(revealContainer.className).to.equal('govuk-details__text --margin-bottom-m');
+      expect(revealContainer.className).to.equal(
+        'govuk-details__text --margin-bottom-m'
+      );
     });
     it('sets file upload state', () => {
-      const fileUpload: HTMLElement = document.getElementById(evidenceUpload.FILE_UPLOAD_ID);
-      const fileUploadLabel: HTMLElement = body.querySelector(evidenceUpload.FILE_UPLOAD_LABEL_SELECTOR);
+      const fileUpload: HTMLElement = document.getElementById(
+        evidenceUpload.FILE_UPLOAD_ID
+      );
+      const fileUploadLabel: HTMLElement = body.querySelector(
+        evidenceUpload.FILE_UPLOAD_LABEL_SELECTOR
+      );
       expect(fileUpload.className).to.equal('file-display-none');
       expect(fileUploadLabel.style.display).to.equal('');
-      expect(fileUploadLabel.className).to.equal('govuk-button secondary-button');
+      expect(fileUploadLabel.className).to.equal(
+        'govuk-button secondary-button'
+      );
     });
   });
 
-  /*describe('#showHideRevealContainer', () => {
+  /* describe('#showHideRevealContainer', () => {
     let revealContainer: HTMLElement;
     before(() => {
       revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
@@ -117,9 +131,9 @@ describe('evidence-upload', () => {
       checkbox.click();
       expect(revealContainer.style.display).to.equal('block');
     });
-  });*/
+  }); */
 
-  /*describe('#setRevealStartState', () => {
+  /* describe('#setRevealStartState', () => {
     let revealContainer: HTMLElement;
     before(() => {
       revealContainer = document.getElementById(evidenceUpload.REVEAL_CONTAINER_ID);
@@ -152,15 +166,19 @@ describe('evidence-upload', () => {
       expect(revealContainer.style.display).to.equal('block');
       expect(checkbox.checked).to.equal(true);
     });
-  });*/
+  }); */
 
   describe('upload media file', () => {
     before(() => {
-      document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`).addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>(
+        `#${evidenceUpload.FILE_UPLOAD_ID}`
+      ).addEventListener = sinon.spy();
     });
     describe('initialize class', () => {
       it('should attach Event Listeners', () => {
-        const target = document.querySelector<HTMLInputElement>(`#${evidenceUpload.FILE_UPLOAD_ID}`);
+        const target = document.querySelector<HTMLInputElement>(
+          `#${evidenceUpload.FILE_UPLOAD_ID}`
+        );
         expect(target.addEventListener).to.have.not.been.called;
         evidenceUpload.init();
         expect(target.addEventListener).to.have.been.called;

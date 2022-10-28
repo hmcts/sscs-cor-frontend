@@ -1,7 +1,8 @@
-const express = require('express');
 import { expect, sinon } from 'test/chai-sinon';
 import * as nunjucks from 'nunjucks';
 import * as appConfigs from '../../app/server/app-configurations';
+
+const express = require('express');
 
 describe('app-configuration', () => {
   let sandbox: sinon.SinonSandbox;
@@ -14,7 +15,7 @@ describe('app-configuration', () => {
   });
 
   it('configureNunjucks', () => {
-    let configNunjucks: object = {
+    const configNunjucks: object = {
       addFilter: sandbox.stub(),
       options: { autoescape: true },
       render: sandbox.stub(),
@@ -27,11 +28,14 @@ describe('app-configuration', () => {
       addGlobal: sandbox.stub(),
       getTemplate: sandbox.stub(),
       express: sandbox.stub(),
-      tyaNunjucks: sandbox.stub()
+      tyaNunjucks: sandbox.stub(),
     };
-    sandbox.stub(nunjucks, 'configure').returns(configNunjucks as nunjucks.Environment);
+    sandbox
+      .stub(nunjucks, 'configure')
+      .returns(configNunjucks as nunjucks.Environment);
     const app = express();
     const i18next = require('i18next');
+
     appConfigs.configureNunjucks(app, i18next);
 
     expect(nunjucks.configure([]).addFilter).to.have.been.callCount(11);

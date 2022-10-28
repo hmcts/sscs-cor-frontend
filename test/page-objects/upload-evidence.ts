@@ -1,6 +1,7 @@
-const { question } = require('app/server/paths');
 import { BasePage } from 'test/page-objects/base';
 import * as path from 'path';
+
+const { question } = require('app/server/paths');
 
 export class UploadEvidencePage extends BasePage {
   constructor(page, questionOrdinal) {
@@ -11,7 +12,7 @@ export class UploadEvidencePage extends BasePage {
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#submit-button button')
+      this.clickElement('#submit-button button'),
     ]);
   }
 

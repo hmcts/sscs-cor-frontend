@@ -4,5 +4,5 @@ module.exports = {
   render: (req, res) => {
     res.append('Content-Type', 'text/plain');
     res.send('{ code: "code1234"}');
-  }
+  },
 };

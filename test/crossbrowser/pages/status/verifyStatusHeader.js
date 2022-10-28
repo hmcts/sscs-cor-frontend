@@ -9,7 +9,10 @@ function verifyStatusHeader() {
   I.see(content.en.statusTab.header, '.task-list h2');
   I.see(content.en.statusTab.panelHeader, '.panel');
   I.see(content.en.helpGuides.header, '.mya-contact__content h2');
-  I.see(content.en.helpGuides.representatives.linkHeader, '.mya-contact__content .govuk-list');
+  I.see(
+    content.en.helpGuides.representatives.linkHeader,
+    '.mya-contact__content .govuk-list'
+  );
   I.see(content.en.contactUs.title, '.govuk-details.contact-us');
 }
 

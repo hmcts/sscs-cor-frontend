@@ -6,68 +6,78 @@ const healthCheck = require('@hmcts/nodejs-healthcheck');
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
 const config = require('config');
 
-const client = ioRedis.createClient(
-        config.session.redis.url,
-        { enableOfflineQueue: false }
-);
+const client = ioRedis.createClient(config.session.redis.url, {
+  enableOfflineQueue: false,
+});
 
-client.on('error', error => {
+client.on('error', (error) => {
   AppInsights.trackTrace(`Health check failed on redis: ${error}`);
 });
 
-const healthOptions = message => {
+const healthOptions = (message) => {
   return {
-    callback: (error, res) => { // eslint-disable-line id-blacklist
+    callback: (error, res) => {
+      // eslint-disable-line id-blacklist
       if (error) {
-        AppInsights.trackTrace(`health_check_error: ${message} and error: ${error}`);
+        AppInsights.trackTrace(
+          `health_check_error: ${message} and error: ${error}`
+        );
       }
       return !error && res.status === OK ? outputs.up() : outputs.down(error);
     },
     timeout: config.health.timeout,
-    deadline: config.health.deadline
+    deadline: config.health.deadline,
   };
 };
 
 function getHealthConfigure() {
   return healthCheck.configure({
     checks: {
-      redis: healthCheck.raw(() => client.ping().then(_ => healthCheck.status(_ === 'PONG'))
-      .catch(error => {
-        AppInsights.trackTrace(`Health check failed on redis: ${error}`);
-        return outputs.down(error);
-      })),
-      'manage-your-appeal-api': healthCheck.web(`${config.api.url}/health`,
-              healthOptions('Health check failed on manage-your-appeal-api:')
-      )
+      redis: healthCheck.raw(() =>
+        client
+          .ping()
+          .then((_) => healthCheck.status(_ === 'PONG'))
+          .catch((error) => {
+            AppInsights.trackTrace(`Health check failed on redis: ${error}`);
+            return outputs.down(error);
+          })
+      ),
+      'manage-your-appeal-api': healthCheck.web(
+        `${config.api.url}/health`,
+        healthOptions('Health check failed on manage-your-appeal-api:')
+      ),
     },
     buildInfo: {
       name: 'Manage Your Appeal',
       host: os.hostname(),
-      uptime: process.uptime()
-    }
+      uptime: process.uptime(),
+    },
   });
 }
 
 function getReadinessConfigure() {
   return healthCheck.configure({
     readinessChecks: {
-      redis: healthCheck.raw(() => client.ping().then(_ => healthCheck.status(_ === 'PONG'))
-      .catch(error => {
-        AppInsights.trackTrace(`Readiness check failed on redis: ${error}`);
-        return outputs.down(error);
-      })),
-      'mmanage-your-appeal-api': healthCheck.web(`${config.api.url}/health/readiness`,
-              healthOptions('Readiness check failed on manage-your-appeal-api:')
-      )
+      redis: healthCheck.raw(() =>
+        client
+          .ping()
+          .then((_) => healthCheck.status(_ === 'PONG'))
+          .catch((error) => {
+            AppInsights.trackTrace(`Readiness check failed on redis: ${error}`);
+            return outputs.down(error);
+          })
+      ),
+      'mmanage-your-appeal-api': healthCheck.web(
+        `${config.api.url}/health/readiness`,
+        healthOptions('Readiness check failed on manage-your-appeal-api:')
+      ),
     },
     buildInfo: {
       name: 'Manage Your Appeal',
       host: os.hostname(),
-      uptime: process.uptime()
-    }
+      uptime: process.uptime(),
+    },
   });
 }
 
-export {
-  getHealthConfigure, getReadinessConfigure
-};
+export { getHealthConfigure, getReadinessConfigure };

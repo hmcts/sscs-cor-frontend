@@ -6,5 +6,5 @@ module.exports = {
   status: (req, res, next) => {
     res.status(NO_CONTENT);
     next();
-  }
+  },
 };
