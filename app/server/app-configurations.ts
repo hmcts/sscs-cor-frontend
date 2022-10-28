@@ -9,6 +9,8 @@ import helmet from 'helmet';
 import * as config from 'config';
 import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
+import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';
+import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
 
 const content = require('../../locale/content');
 
@@ -16,56 +18,59 @@ const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 
 const DecisionReceivedDaysAfterHearing = 5;
 
+// Helmet referrer policy
+const referrerPolicy: ReferrerPolicyOptions = { policy: 'origin' };
+
+// Helmet content security policy (CSP) to allow only assets from same domain.
+const contentSecurityPolicy: ContentSecurityPolicyOptions = {
+  directives: {
+    defaultSrc: ["'self'"],
+    fontSrc: ["'self' data:"],
+    scriptSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'www.google-analytics.com',
+      'www.googletagmanager.com',
+      'tagmanager.google.com',
+      'vcc-eu4.8x8.com',
+      'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
+      'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
+      'https://code.jquery.com/jquery-3.6.0.js',
+    ],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'tagmanager.google.com',
+      'fonts.googleapis.com/',
+    ],
+    connectSrc: [
+      "'self'",
+      'www.gov.uk',
+      '//localhost:9856/',
+      'www.google-analytics.com',
+      'www.googletagmanager.com',
+    ],
+    mediaSrc: ["'self'"],
+    frameSrc: ["'self'", 'www.googletagmanager.com', 'vcc-eu4.8x8.com'],
+    frameAncestors: ["'self'", 'www.googletagmanager.com'],
+    imgSrc: [
+      "'self'",
+      "'self' data:",
+      'www.google-analytics.com',
+      'www.googletagmanager.com',
+      'tagmanager.google.com',
+      'vcc-eu4.8x8.com',
+    ],
+  },
+};
+
 function configureHelmet(app: Application): void {
   // by setting HTTP headers appropriately.
   app.use(helmet());
-  // Helmet referrer policy
-  app.use(helmet.referrerPolicy({ policy: 'origin' }));
 
-  // Helmet content security policy (CSP) to allow only assets from same domain.
-  app.use(
-    helmet.contentSecurityPolicy({
-      directives: {
-        defaultSrc: ["'self'"],
-        fontSrc: ["'self' data:"],
-        scriptSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          'www.google-analytics.com',
-          'www.googletagmanager.com',
-          'tagmanager.google.com',
-          'vcc-eu4.8x8.com',
-          'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
-          'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
-          'https://code.jquery.com/jquery-3.6.0.js',
-        ],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          'tagmanager.google.com',
-          'fonts.googleapis.com/',
-        ],
-        connectSrc: [
-          "'self'",
-          'www.gov.uk',
-          '//localhost:9856/',
-          'www.google-analytics.com',
-          'www.googletagmanager.com',
-        ],
-        mediaSrc: ["'self'"],
-        frameSrc: ["'self'", 'www.googletagmanager.com', 'vcc-eu4.8x8.com'],
-        frameAncestors: ["'self'", 'www.googletagmanager.com'],
-        imgSrc: [
-          "'self'",
-          "'self' data:",
-          'www.google-analytics.com',
-          'www.googletagmanager.com',
-          'tagmanager.google.com',
-          'vcc-eu4.8x8.com',
-        ],
-      },
-    })
-  );
+  app.use(helmet.referrerPolicy(referrerPolicy));
+
+  app.use(helmet.contentSecurityPolicy(contentSecurityPolicy));
 }
 
 function configureHeaders(app: Application): void {
