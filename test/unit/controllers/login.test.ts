@@ -7,7 +7,7 @@ import {
   setupLoginController,
   redirectToLogin,
   redirectToIdam,
-} from 'app/server/controllers/login.ts';
+} from 'app/server/controllers/login';
 import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
