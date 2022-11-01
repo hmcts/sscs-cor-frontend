@@ -4,5 +4,5 @@
     "allowJs": true,
     "outDir": "../../dist"
   },
-  "exclude": ["../../dist/*"]
+  "exclude": ["dist"]
 }
