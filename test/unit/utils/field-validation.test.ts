@@ -4,7 +4,7 @@ import {
   newHearingAcceptedValidation,
   hearingWhyValidation,
   uploadDescriptionValidation,
-} from 'app/server/utils/fieldValidation.ts';
+} from 'app/server/utils/fieldValidation';
 
 const { expect } = require('test/chai-sinon');
 const content = require('locale/content');
