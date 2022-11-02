@@ -55,10 +55,10 @@
     }
   },
   "dependencies": {
-    "@hmcts/ctsc-web-chat": "^0.2.4",
-    "@hmcts/nodejs-healthcheck": "^1.7.0",
-    "@hmcts/nodejs-logging": "^3.0.0",
-    "@hmcts/properties-volume": "0.0.13",
+    "@hmcts/ctsc-web-chat": "^0.3.12",
+    "@hmcts/nodejs-healthcheck": "^1.8.0",
+    "@hmcts/nodejs-logging": "^4.0.4",
+    "@hmcts/properties-volume": "^0.0.14",
     "@types/express": "^4.16.0",
     "@types/express-serve-static-core": "^4.16.0",
     "applicationinsights": "^1.6.0",
