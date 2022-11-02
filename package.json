@@ -155,7 +155,7 @@
     "nock": "^12.0.3",
     "nodemon": "^2.0.4",
     "nyc": "^15.0.1",
-    "pa11y": "https://github.com/chrisgrimble/pa11y/tarball/v5.1.0-HMCTS-BUG-FIX",
+    "pa11y": "5.2.1",
     "prettier": "2.7.1",
     "puppeteer": "^3.1.0",
     "sinon": "^2.1.0",
