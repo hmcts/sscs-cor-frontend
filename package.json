@@ -112,7 +112,7 @@
     "@types/chai": "^4.3.3",
     "@types/cli-color": "^0.3.29",
     "@types/config": "0.0.34",
-    "@types/connect-redis": "0.0.15",
+    "@types/connect-redis": "0.0.19",
     "@types/cookie-parser": "^1.4.1",
     "@types/jquery": "^3.3.6",
     "@types/mocha": "^5.2.5",
