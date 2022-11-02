@@ -2278,7 +2278,7 @@ chai@^4.3.6:
     pathval "^1.1.1"
     type-detect "^4.0.5"
 
-chalk@2.4.2, chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.1, chalk@^2.4.2:
+chalk@2.4.2, chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -3488,10 +3488,15 @@ diff@3.5.0, diff@^3.1.0:
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
 
-diff@4.0.2, diff@^4.0.1:
+diff@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
+
+diff@^5.0.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-5.1.0.tgz#bc52d298c5ea8df9194800224445ed43ffc87e40"
+  integrity sha512-D+mk+qE8VC/PAUrlAU34N+VfXev0ghe5ywmpqrawphmVZc1bEfn56uo9qpyGp1p4xpzOHkSW4ztBd6L7Xx4ACw==
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -3850,7 +3855,7 @@ escape-goat@^2.0.0:
   resolved "https://registry.yarnpkg.com/escape-goat/-/escape-goat-2.1.1.tgz#1b2dc77003676c457ec760b2dc68edb648188675"
   integrity sha512-8/uIhbG12Csjy2JEW7D9pHbreaVaS/OpN3ycnyvElTdwM5n6GY6W6e2IPemfvGZeUMqZ9A/3GqIZMgKnBhAw/Q==
 
-escape-html@~1.0.3:
+escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
@@ -7004,7 +7009,7 @@ lolex@^1.6.0:
   resolved "https://registry.yarnpkg.com/lolex/-/lolex-1.6.0.tgz#3a9a0283452a47d7439e72731b9e07d7386e49f6"
   integrity sha1-OpoCg0UqR9dDnnJzG54H1zhuSfY=
 
-loose-envify@^1.1.0, loose-envify@^1.4.0:
+loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -7425,40 +7430,39 @@ mocha@8.1.3:
     yargs-parser "13.1.2"
     yargs-unparser "1.6.1"
 
-mochawesome-report-generator@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/mochawesome-report-generator/-/mochawesome-report-generator-4.1.0.tgz#f303e6acb5b30fd900f2ed8a0ba2054a034c9c39"
-  integrity sha512-8diUnfzLqMPybIsq3aw3Zc4Npw9W2ZCx8/fMR0ShAXfDTtPH4t2mRykXEWBhsBA5+jM74mjWpwEqY6Pmz+pCsw==
+mochawesome-report-generator@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/mochawesome-report-generator/-/mochawesome-report-generator-5.2.0.tgz#ffd29f8d610863e48e63c15c4e83b5689d8dbd04"
+  integrity sha512-DDY/3jSkM/VrWy0vJtdYOf6qBLdaPaLcI7rQmBVbnclIX7AKniE1Rhz3T/cMT/7u54W5EHNo1z84z7efotq/Eg==
   dependencies:
     chalk "^2.4.2"
     dateformat "^3.0.2"
+    escape-html "^1.0.3"
     fs-extra "^7.0.0"
     fsu "^1.0.2"
     lodash.isfunction "^3.0.8"
-    opener "^1.4.2"
+    opener "^1.5.2"
     prop-types "^15.7.2"
-    react "^16.8.5"
-    react-dom "^16.8.5"
     tcomb "^3.2.17"
     tcomb-validation "^3.3.0"
     validator "^10.11.0"
     yargs "^13.2.2"
 
-mochawesome@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/mochawesome/-/mochawesome-4.1.0.tgz#57cdb9509a9fc54790884ec867e109644ba949ee"
-  integrity sha512-U23K19mLqmuBqFyIBl7FVkcIuG/2JYStCj+91WmxK1/psLgHlWBEZsNe25U0x4t1Eqgu55aHv+0utLwzfhnupw==
+mochawesome@^6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/mochawesome/-/mochawesome-6.3.1.tgz#9dc1e73165f4686a6f29c382d36b8cf3cd6a6e9c"
+  integrity sha512-G2J7Le8ap+0222otJQEUVFs7RYzphiIk21NzaBZE2dbyHJ2+9aai+V2cV7lreEKigDpwQ+SXeiiBH9KQlrkaAQ==
   dependencies:
-    chalk "^2.4.1"
-    diff "^4.0.1"
+    chalk "^4.1.0"
+    diff "^5.0.0"
     json-stringify-safe "^5.0.1"
     lodash.isempty "^4.4.0"
     lodash.isfunction "^3.0.9"
     lodash.isobject "^3.0.2"
     lodash.isstring "^4.0.1"
-    mochawesome-report-generator "^4.0.0"
-    strip-ansi "^5.0.0"
-    uuid "^3.3.2"
+    mochawesome-report-generator "^5.2.0"
+    strip-ansi "^6.0.0"
+    uuid "^8.3.2"
 
 module-deps@^6.2.3:
   version "6.2.3"
@@ -8053,7 +8057,7 @@ onetime@^5.1.0, onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-opener@^1.4.2:
+opener@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.2.tgz#5d37e1f35077b9dcac4301372271afdeb2a13598"
   integrity sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==
@@ -8628,7 +8632,7 @@ promise.allsettled@1.0.2:
     function-bind "^1.1.1"
     iterate-value "^1.0.0"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -8860,29 +8864,10 @@ rc@^1.2.8, rc@~1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.8.5:
-  version "16.14.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
-  integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.19.1"
-
 react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
-
-react@^16.8.5:
-  version "16.14.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
-  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
 
 read-only-stream@^2.0.0:
   version "2.0.0"
@@ -9488,14 +9473,6 @@ saxes@^5.0.1:
   integrity sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==
   dependencies:
     xmlchars "^2.2.0"
-
-scheduler@^0.19.1:
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
-  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 scss-tokenizer@0.4.3, scss-tokenizer@^0.2.3:
   version "0.4.3"
