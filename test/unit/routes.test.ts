@@ -74,7 +74,7 @@ describe('Routes', () => {
     });
   });
 
-  describe.skip('/manage-email-notifications/mactoken', () => {
+  describe('/manage-email-notifications/mactoken', () => {
     const url = '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=';
 
     it('should respond with a HTTP 200 when performing a GET', (done) => {
@@ -89,7 +89,7 @@ describe('Routes', () => {
     });
   });
 
-  describe.skip('/manage-email-notifications/mactoken/stop', () => {
+  describe('/manage-email-notifications/mactoken/stop', () => {
     it('should respond with a HTTP 200 when performing a GET', (done) => {
       request(app)
         .get(
@@ -99,7 +99,7 @@ describe('Routes', () => {
     });
   });
 
-  describe.skip('/manage-email-notifications/mactoken/stopconfirm', () => {
+  describe('/manage-email-notifications/mactoken/stopconfirm', () => {
     it('should respond with a HTTP 200 when performing a GET', (done) => {
       request(app)
         .get(
@@ -109,7 +109,7 @@ describe('Routes', () => {
     });
   });
 
-  describe.skip('/validate-surname/tya/trackyourappeal', () => {
+  describe('/validate-surname/tya/trackyourappeal', () => {
     it('should respond with a HTTP 200 when performing a GET', (done) => {
       request(app)
         .get('/validate-surname/67sC1UvHy3/trackyourappeal')
