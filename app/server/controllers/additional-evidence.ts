@@ -225,7 +225,6 @@ function postFileUpload(
         );
         if (evidence && evidence.statusCode === 200) {
           const buffer: Buffer = req.file.buffer;
-          // NOSONAR
           const sha512Hash: string = crypto
             .createHash('sha512')
             .update(buffer)
