@@ -74,7 +74,6 @@ Happy linting! 💖
     "func-names": "warn",
     "no-shadow": "warn",
     "no-buffer-constructor": "warn",
-    "no-return-await": "warn",
     "prefer-const": "warn",
     "id-blacklist": "warn",
     "no-prototype-builtins": "warn",

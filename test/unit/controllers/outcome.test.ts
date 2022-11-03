@@ -16,7 +16,7 @@ describe('controllers/outcome', () => {
   let sandbox: sinon.SinonSandbox;
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req = {
       session: {
         appeal: {},
@@ -98,8 +98,7 @@ describe('controllers/outcome', () => {
 
     it('should return pdf document for the document url', async () => {
       const pdf = 'PDF';
-      trackYourAppealService.getDocument = async () =>
-        await Promise.resolve(pdf);
+      trackYourAppealService.getDocument = async () => Promise.resolve(pdf);
       await outcome.getDocument(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith(
         'content-type',

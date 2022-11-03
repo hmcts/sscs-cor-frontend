@@ -13,9 +13,10 @@ import * as Paths from 'app/server/paths';
 import * as AppInsights from 'app/server/app-insights';
 import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
+import { NextFunction, Response } from 'express';
+import { expect, sinon } from '../../chai-sinon';
 
 const multer = require('multer');
-const { expect, sinon } = require('test/chai-sinon');
 const content = require('locale/content');
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
@@ -25,8 +26,8 @@ const maxAudioVideoFileSizeInMb: number = config.get(
 
 describe('controllers/additional-evidence.js', () => {
   let req;
-  let res;
-  let next;
+  let res: Response;
+  let next: NextFunction;
   let additionalEvidenceService;
   let sandbox: sinon.SinonSandbox;
 
@@ -36,7 +37,7 @@ describe('controllers/additional-evidence.js', () => {
   const serviceToken = 'serviceToken';
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req = {
       params: {
         action: '',
@@ -72,7 +73,7 @@ describe('controllers/additional-evidence.js', () => {
       submitSingleEvidences: sandbox.stub().resolves(),
       removeEvidence: sandbox.stub().resolves(),
     };
-    next = sandbox.stub();
+    next = sandbox.stub().resolves();
     sandbox.stub(AppInsights, 'trackException');
     sandbox.stub(AppInsights, 'trackTrace');
   });
@@ -475,7 +476,7 @@ describe('controllers/additional-evidence.js', () => {
     };
 
     beforeEach(() => {
-      cb.reset();
+      cb.resetHistory();
     });
 
     it('file is in whitelist', () => {
@@ -534,7 +535,7 @@ describe('controllers/additional-evidence.js', () => {
     };
 
     beforeEach(() => {
-      cb.reset();
+      cb.resetHistory();
     });
 
     it('file is in whitelist', () => {

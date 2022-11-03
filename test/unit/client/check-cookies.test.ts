@@ -1,9 +1,10 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { CheckCookies } from 'app/client/javascript/check-cookies';
+import { SinonSpy } from 'sinon';
 
 describe('Client/check-cookies', () => {
   let checkCookies: CheckCookies;
-  let toggleBannerSpy: any;
+  let toggleBannerSpy: SinonSpy;
 
   function deleteAllCookies() {
     const cookies = document.cookie.split(';');
@@ -28,7 +29,7 @@ describe('Client/check-cookies', () => {
     });
 
     beforeEach(() => {
-      toggleBannerSpy.reset();
+      toggleBannerSpy.resetHistory();
     });
 
     it('should initialize', () => {
@@ -43,7 +44,7 @@ describe('Client/check-cookies', () => {
     });
 
     beforeEach(() => {
-      toggleBannerSpy.reset();
+      toggleBannerSpy.resetHistory();
     });
 
     it('isCookiePrivacyMessageDisplayed First Visit', () => {
@@ -61,7 +62,7 @@ describe('Client/check-cookies', () => {
 
   describe('Banner toggle', () => {
     beforeEach(() => {
-      toggleBannerSpy.reset();
+      toggleBannerSpy.resetHistory();
     });
 
     it('Cookie banner toggle', () => {

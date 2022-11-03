@@ -1,5 +1,6 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { RequestType } from 'app/client/javascript/request-type';
+import { SinonSpy } from 'sinon';
 
 const html = `<div class="task-list">
               <h2 class="govuk-heading-m --margin-bottom-s">Select Request</h2>
@@ -44,7 +45,7 @@ describe('request-type', () => {
   });
 
   describe('select request type', () => {
-    let submitSpy;
+    let submitSpy: SinonSpy;
     before(() => {
       const form = document.querySelector<HTMLFormElement>(
         '#request-option-form'

@@ -5,7 +5,7 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 const { expect, sinon } = require('test/chai-sinon');
 
 describe('services/tyaService', () => {
-  const sandbox: sinon.SinonSandbox = sinon.sandbox.create();
+  const sandbox: sinon.SinonSandbox = sinon.createSandbox();
   let rpStub: sinon.SinonStub;
   const tribunalsApiUrl: string = config.get('tribunals.api-url');
   const trackYourAppealService = new TrackYourApealService(tribunalsApiUrl);

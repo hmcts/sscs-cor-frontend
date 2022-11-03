@@ -12,10 +12,8 @@ export class AdditionalEvidenceUploadPage extends BasePage {
   }
 
   async verifyPages() {
-    const headerText = this.page.getHeading();
-    expect(headerText).to.equal(
-      content.en.additionalEvidence.evidenceUpload.title
-    );
+    const title = this.page.title();
+    expect(title).to.equal(content.en.additionalEvidence.evidenceUpload.title);
   }
 
   async selectFile(filename: string) {

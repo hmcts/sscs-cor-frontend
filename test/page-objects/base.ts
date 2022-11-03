@@ -1,10 +1,12 @@
+import { Page } from 'puppeteer';
+
 const { expect } = require('test/chai-sinon');
 const config = require('config');
 
 const testUrl = config.get('testUrl');
 const navigationTimeout = config.get('navigationTimeout');
 export class BasePage {
-  public page: any;
+  public page: Page;
   public pagePath: string;
 
   constructor(page) {
@@ -39,6 +41,10 @@ export class BasePage {
 
   verifyPage() {
     expect(this.page.url()).to.contain(`${testUrl}${this.pagePath}`);
+  }
+
+  verifyLanguage(language: string) {
+    expect(this.page.url()).to.contain(`lng=${language}`);
   }
 
   getCurrentUrl() {
@@ -90,7 +96,10 @@ export class BasePage {
 
   async getElementText(selector) {
     try {
-      const element = await this.page.$eval(selector, (el) => el.innerText);
+      const element = await this.page.$eval(
+        selector,
+        (el: HTMLElement) => el.innerText
+      );
       return element;
     } catch (error) {
       const filename = this.getFileName();
@@ -103,8 +112,9 @@ export class BasePage {
 
   async getElementsText(selector) {
     try {
-      const elements = await this.page.$$eval(selector, (nodes) =>
-        nodes.map((n) => n.innerText)
+      const elements = await this.page.$$eval(
+        selector,
+        (nodes: HTMLElement[]) => nodes.map((n) => n.innerText)
       );
       return elements;
     } catch (error) {
@@ -118,7 +128,10 @@ export class BasePage {
 
   async getElementValue(selector) {
     try {
-      const element = await this.page.$eval(selector, (el) => el.value);
+      const element = await this.page.$eval(
+        selector,
+        (el: HTMLInputElement) => el.value
+      );
       return element;
     } catch (error) {
       const filename = this.getFileName();
@@ -130,8 +143,9 @@ export class BasePage {
   }
 
   async getElementsValues(selector) {
-    const divsCounts = await this.page.$$eval(selector, (divs) =>
-      divs.map((div) => div.value)
+    const divsCounts = await this.page.$$eval(
+      selector,
+      (divs: HTMLInputElement[]) => divs.map((div) => div.value)
     );
     return divsCounts;
   }
@@ -148,8 +162,8 @@ export class BasePage {
 
   async setTextintoField(selector, text) {
     await this.page.evaluate(
-      (data) => {
-        return (document.querySelector(data.selector).value = data.text);
+      (args) => {
+        return (document.querySelector(args.selector).value = args.text);
       },
       { selector, text }
     );
@@ -157,7 +171,7 @@ export class BasePage {
 
   async enterTextintoField(selector, text) {
     try {
-      await this.page.$eval(selector, (el) => {
+      await this.page.$eval(selector, (el: HTMLInputElement) => {
         el.value = '';
       });
       await this.page.type(selector, text);
@@ -184,7 +198,7 @@ export class BasePage {
 
   async selectOption(selector, value) {
     try {
-      this.page.select(selector, value);
+      await this.page.select(selector, value);
     } catch (error) {
       const filename = this.getFileName();
       console.log(

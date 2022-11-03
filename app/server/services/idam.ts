@@ -31,7 +31,7 @@ export class IdamService {
   ): Promise<TokenResponse> {
     const redirectUri: string = this.getRedirectUrl(protocol, host);
 
-    return await RequestPromise.request({
+    return RequestPromise.request({
       method: 'POST',
       uri: `${this.apiUrl}/oauth2/token`,
       auth: {
@@ -48,7 +48,7 @@ export class IdamService {
   }
 
   async deleteToken(token: string): Promise<void> {
-    return await RequestPromise.request({
+    return RequestPromise.request({
       method: 'DELETE',
       uri: `${this.apiUrl}/session/${token}`,
       auth: {
@@ -59,7 +59,7 @@ export class IdamService {
   }
 
   async getUserDetails(token: string): Promise<UserDetails> {
-    return await RequestPromise.request({
+    return RequestPromise.request({
       method: 'GET',
       uri: `${this.apiUrl}/details`,
       headers: {
