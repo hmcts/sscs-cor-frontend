@@ -6,9 +6,9 @@ import {
 } from 'app/server/middleware/file-upload-validation';
 import * as config from 'config';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
+import { expect, sinon } from '../../chai-sinon';
 
 const multer = require('multer');
-const { expect, sinon } = require('test/chai-sinon');
 const content = require('locale/content');
 
 describe('#handleFileUploadErrors middleware', () => {
@@ -23,7 +23,7 @@ describe('#handleFileUploadErrors middleware', () => {
     res = {
       locals: {},
     } as any;
-    next = sandbox.stub();
+    next = sandbox.stub().resolves();
   });
 
   it('should catch multer LIMIT_FILE_SIZE error', () => {
@@ -102,7 +102,7 @@ describe('#validateFileSize middleware', () => {
     res = {
       locals: {},
     } as any;
-    next = sandbox.stub();
+    next = sandbox.stub().resolves();
   });
 
   it('should catch custom multer LIMIT_FILE_SIZE error', () => {
