@@ -12,10 +12,8 @@ export class AdditionalEvidencePostPage extends BasePage {
   }
 
   async verifyPages() {
-    const headerText = this.page.getHeading();
-    expect(headerText).to.equal(
-      content.en.additionalEvidence.evidencePost.header
-    );
+    const title = this.page.title();
+    expect(title).to.equal(content.en.additionalEvidence.evidencePost.header);
   }
 
   async returnToAppealPage() {
