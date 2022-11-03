@@ -180,12 +180,16 @@ function getAdditionalEvidence(
       if (action === 'upload') {
         const { description } = req.session['additional_evidence'] || '';
         const caseId = req.session['hearing'].case_id;
-        const evidences: EvidenceDescriptor[] =
+        let evidences: EvidenceDescriptor[] =
           await additionalEvidenceService.getEvidences(caseId, req);
-
+        if (evidences) {
+          evidences = evidences.reverse();
+        } else {
+          evidences = [];
+        }
         return res.render('additional-evidence/index.html', {
           action,
-          evidences: evidences ? evidences.reverse() : [],
+          evidences,
           description,
         });
       } else if (action === 'uploadAudioVideo') {
@@ -250,19 +254,23 @@ function postFileUpload(
           req.session['additional_evidence'].description;
         const descriptionValidationMsg =
           uploadDescriptionValidation(evidenceDescription);
-        const evidences: EvidenceDescriptor[] =
+        let evidences: EvidenceDescriptor[] =
           await additionalEvidenceService.getEvidences(caseId, req);
         const evidencesValidationMsg =
           evidences.length > 0
             ? false
             : content[i18next.language].additionalEvidence.evidenceUpload.error
                 .noFilesUploaded;
-
+        if (evidences) {
+          evidences = evidences.reverse();
+        } else {
+          evidences = [];
+        }
         if (descriptionValidationMsg || evidencesValidationMsg) {
           return res.render('additional-evidence/index.html', {
             action: 'upload',
             pageTitleError: true,
-            evidences: evidences ? evidences.reverse() : [],
+            evidences,
             description,
             error: descriptionValidationMsg,
             fileUploadError: evidencesValidationMsg,
@@ -308,12 +316,17 @@ function postFileUpload(
         AppInsights.trackTrace(`[${caseId}] - User has uploaded a file`);
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else if (action === 'upload' && res.locals.multerError) {
-        const evidences: EvidenceDescriptor[] =
+        let evidences: EvidenceDescriptor[] =
           await additionalEvidenceService.getEvidences(caseId, req);
+        if (evidences) {
+          evidences.reverse();
+        } else {
+          evidences = [];
+        }
         return res.render('additional-evidence/index.html', {
           action: 'upload',
           pageTitleError: true,
-          evidences: evidences ? evidences.reverse() : [],
+          evidences,
           description,
           fileUploadError: res.locals.multerError,
         });
