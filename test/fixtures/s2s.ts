@@ -78,7 +78,7 @@ async function authorize(): Promise<AuthorizeResponse> {
     logger.error('Error authorize', error);
   }
 
-  return await Promise.resolve(body);
+  return Promise.resolve(body);
 }
 
 async function getToken(code: string): Promise<TokenResponse> {
@@ -100,7 +100,7 @@ async function getToken(code: string): Promise<TokenResponse> {
     logger.error('Error getToken', error);
   }
 
-  return await Promise.resolve(body);
+  return Promise.resolve(body);
 }
 
 export { generateToken, generateOauth2 };

@@ -2,6 +2,7 @@ import { IdamService } from 'app/server/services/idam';
 import { RequestPromise } from 'app/server/services/request-wrapper';
 
 import { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } from 'http-status-codes';
+import { SinonSpy } from 'sinon';
 const { expect, sinon } = require('test/chai-sinon');
 const timeout = require('config').get('apiCallTimeout');
 const nock = require('nock');
@@ -80,7 +81,7 @@ describe('services/idam', () => {
     const protocol = 'http';
     const host = 'example.com';
     let redirectUrl;
-    let requestSpy: sinon.SinonSpy;
+    let requestSpy: SinonSpy;
 
     beforeEach(() => {
       requestSpy = sinon.spy(RequestPromise, 'request');

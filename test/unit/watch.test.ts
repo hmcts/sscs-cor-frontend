@@ -7,7 +7,7 @@ const shell = require('shelljs');
 const { Logger } = require('@hmcts/nodejs-logging');
 
 describe('watch.ts', () => {
-  const sb = sinon.sandbox.create();
+  const sb = sinon.createSandbox();
   let chokidaySpy;
   let shellSpy;
   let loggerSpy;

@@ -11,7 +11,7 @@ const config = require('config');
 
 describe('services/additional-evidence', () => {
   let rpStub: sinon.SinonStub;
-  const sandbox: sinon.SinonSandbox = sinon.sandbox.create();
+  const sandbox: sinon.SinonSandbox = sinon.createSandbox();
   const req: any = {};
   const apiUrl = config.get('api.url');
   const additionalEvidenceService = new AdditionalEvidenceService(apiUrl);

@@ -6,7 +6,7 @@ const config = require('config');
 
 describe('app-insights.js', () => {
   describe('enable', () => {
-    const sb = sinon.sandbox.create();
+    const sb = sinon.createSandbox();
 
     beforeEach(() => {
       sb.stub(applicationInsights, 'start');
