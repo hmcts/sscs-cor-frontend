@@ -131,7 +131,7 @@ describe('Client/session-inactivity', () => {
     let sandbox;
     let clock;
     beforeEach(() => {
-      sandbox = sinon.sandbox.create();
+      sandbox = sinon.createSandbox();
       clock = sinon.useFakeTimers();
     });
 

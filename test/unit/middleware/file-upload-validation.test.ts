@@ -19,7 +19,7 @@ describe('#handleFileUploadErrors middleware', () => {
   const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     res = {
       locals: {},
     } as any;
@@ -92,7 +92,7 @@ describe('#validateFileSize middleware', () => {
   );
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req.file = {
       originalname: 'word.docx',
       mimetype: 'application/msword',

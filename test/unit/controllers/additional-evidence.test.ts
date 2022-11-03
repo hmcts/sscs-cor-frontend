@@ -36,7 +36,7 @@ describe('controllers/additional-evidence.js', () => {
   const serviceToken = 'serviceToken';
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req = {
       params: {
         action: '',

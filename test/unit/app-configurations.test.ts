@@ -7,7 +7,7 @@ const express = require('express');
 describe('app-configuration', () => {
   let sandbox: sinon.SinonSandbox;
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
   });
 
   afterEach(() => {

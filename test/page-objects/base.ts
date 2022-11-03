@@ -162,8 +162,8 @@ export class BasePage {
 
   async setTextintoField(selector, text) {
     await this.page.evaluate(
-      (data) => {
-        return (document.querySelector(data.selector).value = data.text);
+      (args) => {
+        return (document.querySelector(args.selector).value = args.text);
       },
       { selector, text }
     );

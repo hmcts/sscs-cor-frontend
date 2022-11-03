@@ -31,7 +31,7 @@ describe('controllers/task-list', () => {
   };
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req = {
       session: {
         hearing: hearingDetails,

@@ -156,7 +156,7 @@
     "pa11y": "^6.2.3",
     "prettier": "2.7.1",
     "puppeteer": "9.1.1",
-    "sinon": "^2.1.0",
+    "sinon": "3.3.0",
     "sinon-chai": "^2.9.0",
     "sonar-scanner": "^3.0.3",
     "source-map-support": "^0.5.9",
