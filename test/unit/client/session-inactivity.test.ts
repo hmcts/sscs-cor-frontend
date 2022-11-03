@@ -3,6 +3,7 @@ import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 import * as moment from 'moment';
 import axios from 'axios';
 import { Session } from 'inspector';
+import { SinonSpy, SinonStub } from 'sinon';
 
 describe('Client/session-inactivity', () => {
   let sessionInactivity: SessionInactivity;
@@ -10,10 +11,10 @@ describe('Client/session-inactivity', () => {
   let modal: HTMLElement;
   let extendButton: HTMLElement;
   let cancelButton: HTMLElement;
-  let extendSessionMock: any;
-  let bindModalMock: any;
-  let addListernersMock: sinon.SinonStub;
-  let axiosSpy: any;
+  let extendSessionMock: SinonStub;
+  let bindModalMock: SinonStub;
+  let addListernersMock: SinonStub;
+  let axiosSpy: SinonSpy;
 
   before(() => {
     sessionInactivity = new SessionInactivity();
@@ -56,7 +57,7 @@ describe('Client/session-inactivity', () => {
   describe('extendSession', () => {
     beforeEach(() => {
       extendSessionMock.restore();
-      axiosSpy.reset();
+      axiosSpy.resetHistory();
     });
 
     it('should extendSession if first time', () => {

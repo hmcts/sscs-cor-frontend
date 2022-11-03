@@ -475,7 +475,7 @@ describe('controllers/additional-evidence.js', () => {
     };
 
     beforeEach(() => {
-      cb.reset();
+      cb.resetHistory();
     });
 
     it('file is in whitelist', () => {
@@ -534,7 +534,7 @@ describe('controllers/additional-evidence.js', () => {
     };
 
     beforeEach(() => {
-      cb.reset();
+      cb.resetHistory();
     });
 
     it('file is in whitelist', () => {
