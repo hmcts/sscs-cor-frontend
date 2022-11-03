@@ -33,7 +33,7 @@ export class RequestPromise {
       AppInsights.trackException(
         `error is: ${error.message} calling ${options.uri}`
       );
-      return await Promise.reject(
+      return Promise.reject(
         `error is: ${error.message} calling ${options.uri}`
       );
     }

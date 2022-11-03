@@ -131,7 +131,7 @@ describe('Additional Evidence @mya @nightly', () => {
   it('checks /additional-evidence page path passes @pa11y', async () => {
     await additionalEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-page.png`;
-    pa11yOpts.page = await additionalEvidencePage.page;
+    pa11yOpts.page = additionalEvidencePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -143,7 +143,7 @@ describe('Additional Evidence @mya @nightly', () => {
   it('checks /additional-evidence-upload page path passes @pa11y', async () => {
     await additionalEvidenceUploadPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-page.png`;
-    pa11yOpts.page = await additionalEvidenceUploadPage.page;
+    pa11yOpts.page = additionalEvidenceUploadPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -155,7 +155,7 @@ describe('Additional Evidence @mya @nightly', () => {
   it('checks /additional-evidence-upload-audio-video page path passes @pa11y', async () => {
     await additionalEvidenceUploadAudioVideoPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-audio-video-page.png`;
-    pa11yOpts.page = await additionalEvidenceUploadAudioVideoPage.page;
+    pa11yOpts.page = additionalEvidenceUploadAudioVideoPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -240,18 +240,18 @@ describe('Additional Evidence @mya @nightly', () => {
     );
 
     await additionalEvidenceUploadPage.selectFile('evidence.txt');
-    await page.waitFor(10000);
+    await page.waitForTimeout(10000);
 
     await additionalEvidenceUploadPage.addDescription(
       'The evidence description'
     );
     await additionalEvidenceUploadPage.submit();
-    await page.waitFor(6000);
+    await page.waitForTimeout(6000);
 
     /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-confirmation-page.png`;
-    pa11yOpts.page = await additionalEvidenceConfirmationPage.page;
+    pa11yOpts.page = additionalEvidenceConfirmationPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -268,19 +268,19 @@ describe('Additional Evidence @mya @nightly', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadAudioVideoPage.verifyPage();
-    await page.waitFor(4000);
+    await page.waitForTimeout(4000);
     expect(await additionalEvidenceUploadAudioVideoPage.getHeading()).to.equal(
       content.en.additionalEvidence.evidenceUpload.header
     );
 
     await additionalEvidenceUploadAudioVideoPage.selectFile('test_audio.mp3');
-    await page.waitFor(5000);
+    await page.waitForTimeout(5000);
 
     await additionalEvidenceUploadAudioVideoPage.addDescription(
       'The evidence description for AV file'
     );
     await additionalEvidenceUploadAudioVideoPage.submit();
-    await page.waitFor(4000);
+    await page.waitForTimeout(4000);
 
     additionalEvidenceConfirmationPage.verifyPage();
   });

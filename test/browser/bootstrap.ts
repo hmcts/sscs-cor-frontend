@@ -7,7 +7,7 @@ async function bootstrapCcdCase(hearingType) {
     return ccdCase;
   } catch (error) {
     console.log('Error bootstrapping CCD with test case', error);
-    return await Promise.reject(error);
+    return Promise.reject(error);
   }
 }
 
@@ -17,7 +17,7 @@ async function bootstrapSidamUser(ccdCase) {
     return await sidam.createUser(ccdCase);
   } catch (error) {
     console.log('Error bootstrapping SIDAM user', error);
-    return await Promise.reject(error);
+    return Promise.reject(error);
   }
 }
 
@@ -27,6 +27,6 @@ export async function bootstrap(hearingType = 'oral') {
     const sidamUser = await bootstrapSidamUser(ccdCase);
     return { ccdCase, sidamUser };
   } catch (error) {
-    return await Promise.reject(error);
+    return Promise.reject(error);
   }
 }

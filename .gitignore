@@ -10,6 +10,7 @@ dump.rdb
 .vscode
 .DS_Store
 dist
+app/client/javascript/*.js
 test/accessibility/**/*.js
 test/browser/**/*.js
 test/integration/**/*.js

@@ -11,7 +11,7 @@ describe('controllers/assign-case.js', () => {
   let res;
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     res = {
       render: sandbox.spy(),
       redirect: sandbox.spy(),

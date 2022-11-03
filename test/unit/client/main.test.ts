@@ -14,7 +14,7 @@ describe('client main js', () => {
   let sandbox;
   let body;
   beforeEach(function () {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     body = document.querySelector('body');
     body.innerHTML = html;
   });

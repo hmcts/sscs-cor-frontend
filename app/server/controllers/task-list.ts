@@ -60,7 +60,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
         req
       );
       res.header('content-type', 'application/pdf');
-      res.send(new Buffer(coversheet, 'binary'));
+      res.send(Buffer.from(coversheet, 'binary'));
     } catch (error) {
       AppInsights.trackException(error);
       next(error);

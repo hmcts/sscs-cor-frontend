@@ -65,9 +65,7 @@ describe('services/evidence', () => {
         url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`,
       };
 
-      expect(rpStub).to.have.been.calledOnce.calledWith(
-        sinon.match(expectedOptions, req)
-      );
+      expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
     describe('on success', () => {

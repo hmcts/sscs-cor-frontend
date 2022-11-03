@@ -8,7 +8,7 @@ const s2sUrl = config.get('s2s.url');
 
 async function generateToken(): Promise<string> {
   const oneTimePassword = otp({ secret: s2sSecret }).totp();
-  return await RequestPromise.request({
+  return RequestPromise.request({
     method: 'POST',
     url: `${s2sUrl}/lease`,
     body: {

@@ -66,13 +66,13 @@ async function startAppServer(): Promise<void> {
         console.log(
           `Unable to start server on port ${port} because of ${error.message}`
         );
-        return await Promise.reject(error);
+        return Promise.reject(error);
       }
       console.log(`Starting server on port ${port}`);
-      return await Promise.resolve();
+      return Promise.resolve();
     });
   }
-  return await Promise.resolve();
+  return Promise.resolve();
 }
 
 export async function login(page, force?, assignCase?) {

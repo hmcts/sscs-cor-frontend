@@ -3,20 +3,21 @@ import * as AppInsights from '../../../app/server/app-insights';
 import * as Paths from 'app/server/paths';
 import * as requestType from 'app/server/controllers/request-type';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import { NextFunction } from 'express';
+import { expect, sinon } from '../../chai-sinon';
 
 const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
 const hearingRecording = require('../../mock/tribunals/data/oral/hearing-recording.json');
 
 describe('controllers/request-type', () => {
   let req: any;
   let res: any;
-  let next: any;
+  let next: NextFunction;
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   let sandbox: sinon.SinonSandbox;
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req = {
       params: {
         action: '',
@@ -35,7 +36,7 @@ describe('controllers/request-type', () => {
       redirect: sandbox.spy(),
     };
 
-    next = sandbox.stub();
+    next = sandbox.stub().resolves();
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackEvent');
   });
@@ -237,8 +238,7 @@ describe('controllers/request-type', () => {
     });
 
     it('should return hearing recording for the document url', async () => {
-      trackYourAppealService.getMediaFile = async () =>
-        await Promise.resolve(mp3);
+      trackYourAppealService.getMediaFile = async () => Promise.resolve(mp3);
       await requestType.getHearingRecording(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith('content-type', 'audio/mp3');
       expect(res.send).to.have.called.calledWith(Buffer.from(mp3, 'binary'));

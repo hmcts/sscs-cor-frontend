@@ -10,8 +10,7 @@ import * as AppInsights from '../app-insights';
 const i18next = require('i18next');
 const content = require('../../../locale/content');
 
-const postcodeRegex =
-  /^((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])|([Gg][Ii][Rr]))))\s?([0-9][A-Za-z]{2})|(0[Aa]{2}))$/;
+const postcodeRegex = /^([A-Z][A-HJ-Y]?\d[A-Z\d]?\s?\d[A-Z]{2}|GIR ?0A{2})$/gi;
 
 const logger = Logger.getLogger('login.js');
 
@@ -28,7 +27,7 @@ function postIndex(
       return res.render('assign-case/index.html', {
         error: content[i18next.language].assignCase.errors.noPostcode,
       });
-    } else if (!req.body.postcode.replace(/ /g, '').match(postcodeRegex)) {
+    } else if (!req.body.postcode.replace(/\s/g, '').match(postcodeRegex)) {
       return res.render('assign-case/index.html', {
         error: content[i18next.language].assignCase.errors.invalidPostcode,
       });

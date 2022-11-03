@@ -42,9 +42,7 @@ describe('services/request-type', () => {
         uri: `http://sscs-cor-backend.net/api/request/${caseId}/hearingrecording`,
       };
 
-      expect(rpStub).to.have.been.calledOnce.calledWith(
-        sinon.match(expectedOptions, req)
-      );
+      expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
     describe('on success', () => {

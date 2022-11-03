@@ -77,6 +77,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
+    assignCasePage.verifyLanguage('cy');
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
@@ -130,7 +131,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   it('CY - checks /additional-evidence page path passes @pa11y', async () => {
     await additionalEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-page.png`;
-    pa11yOpts.page = await additionalEvidencePage.page;
+    pa11yOpts.page = additionalEvidencePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -142,7 +143,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   it('CY - checks /additional-evidence-upload page path passes @pa11y', async () => {
     await additionalEvidenceUploadPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-upload-page.png`;
-    pa11yOpts.page = await additionalEvidenceUploadPage.page;
+    pa11yOpts.page = additionalEvidenceUploadPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -225,7 +226,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-    await page.waitFor(5000);
+    await page.waitForTimeout(5000);
     expect(await additionalEvidenceUploadPage.getHeading()).to.equal(
       content.cy.additionalEvidence.evidenceUpload.header
     );
@@ -239,12 +240,12 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
       'The evidence description'
     );
     await additionalEvidenceUploadPage.submit();
-    await page.waitFor(4000);
+    await page.waitForTimeout(4000);
 
     /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-confirmation-page.png`;
-    pa11yOpts.page = await additionalEvidenceConfirmationPage.page;
+    pa11yOpts.page = additionalEvidenceConfirmationPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
