@@ -105,8 +105,7 @@ describe('controllers/av-evidence-list', () => {
 
     it('should return audio/video evidence for the document url', async () => {
       const mp3 = '29312380';
-      trackYourAppealService.getMediaFile = async () =>
-        await Promise.resolve(mp3);
+      trackYourAppealService.getMediaFile = async () => Promise.resolve(mp3);
       await avEvidence.getAvEvidence(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith('content-type', 'audio/mp3');
       expect(res.send).to.have.called.calledWith(Buffer.from(mp3, 'binary'));

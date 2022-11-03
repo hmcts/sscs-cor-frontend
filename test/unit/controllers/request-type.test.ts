@@ -237,8 +237,7 @@ describe('controllers/request-type', () => {
     });
 
     it('should return hearing recording for the document url', async () => {
-      trackYourAppealService.getMediaFile = async () =>
-        await Promise.resolve(mp3);
+      trackYourAppealService.getMediaFile = async () => Promise.resolve(mp3);
       await requestType.getHearingRecording(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith('content-type', 'audio/mp3');
       expect(res.send).to.have.called.calledWith(Buffer.from(mp3, 'binary'));

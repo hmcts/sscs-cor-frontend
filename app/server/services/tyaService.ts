@@ -9,7 +9,7 @@ export class TrackYourApealService {
   }
 
   async getAppeal(caseId: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         uri: `${this.tribunalApiUrl}/appeals?mya=true&caseId=${caseId}`,
@@ -19,7 +19,7 @@ export class TrackYourApealService {
   }
 
   async validateSurname(appealNumber: string, surname: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         uri: `${this.tribunalApiUrl}/appeals/${appealNumber}/surname/${surname}`,
@@ -29,7 +29,7 @@ export class TrackYourApealService {
   }
 
   async getDocument(url: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         encoding: 'binary',
@@ -43,7 +43,7 @@ export class TrackYourApealService {
   }
 
   async getMediaFile(url: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         encoding: 'binary',

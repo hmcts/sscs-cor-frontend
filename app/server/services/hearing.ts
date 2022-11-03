@@ -38,7 +38,7 @@ export class HearingService {
   }
 
   async getOnlineHearing(email: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         uri: `${this.apiUrl}/api/continuous-online-hearings`,
@@ -52,7 +52,7 @@ export class HearingService {
 
   async getOnlineHearingsForCitizen(email: string, tya: string, req: Request) {
     const path = tya ? `/${tya}` : '';
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         retry: HTTP_RETRIES,
@@ -71,7 +71,7 @@ export class HearingService {
     caseType: string,
     req: Request
   ) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         uri: `${this.apiUrl}/api/citizen/cases/${caseType}`,
@@ -85,7 +85,7 @@ export class HearingService {
 
   async getDormantCasesForCitizen(email: string, req: Request) {
     const path = 'active';
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         uri: `${this.apiUrl}/api/citizen${path}`,
@@ -103,7 +103,7 @@ export class HearingService {
     postcode: string,
     req: Request
   ) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'POST',
         uri: `${this.apiUrl}/api/citizen/${tya}`,
