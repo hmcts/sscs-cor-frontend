@@ -1,18 +1,26 @@
 import { OK } from 'http-status-codes';
 import * as AppInsights from '../app-insights';
-const ioRedis = require('ioredis');
+import IoRedis, { RedisOptions } from 'ioredis';
 const os = require('os');
 const healthCheck = require('@hmcts/nodejs-healthcheck');
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
 const config = require('config');
 
-const client = ioRedis.createClient(config.session.redis.url, {
-  enableOfflineQueue: false,
-});
+const redisConnectionString: string = config.get('session.redis.url');
+
+const redisOptions: RedisOptions = { enableOfflineQueue: false };
+const client = new IoRedis(redisConnectionString, redisOptions);
 
 client.on('error', (error) => {
   AppInsights.trackTrace(`Health check failed on redis: ${error}`);
 });
+
+const healthTimeout: number = config.get('health.timeout');
+const healthDeadline: number = config.get('health.deadline');
+
+const apiUrl: string = config.get('api.url');
+const apiHealthUrl = `${apiUrl}/health`;
+const apiReadinessUrl = `${apiHealthUrl}/readiness`;
 
 const healthOptions = (message) => {
   return {
@@ -25,8 +33,8 @@ const healthOptions = (message) => {
       }
       return !error && res.status === OK ? outputs.up() : outputs.down(error);
     },
-    timeout: config.health.timeout,
-    deadline: config.health.deadline,
+    timeout: healthTimeout,
+    deadline: healthDeadline,
   };
 };
 
@@ -43,7 +51,7 @@ function getHealthConfigure() {
           })
       ),
       'manage-your-appeal-api': healthCheck.web(
-        `${config.api.url}/health`,
+        apiHealthUrl,
         healthOptions('Health check failed on manage-your-appeal-api:')
       ),
     },
@@ -68,7 +76,7 @@ function getReadinessConfigure() {
           })
       ),
       'mmanage-your-appeal-api': healthCheck.web(
-        `${config.api.url}/health/readiness`,
+        apiReadinessUrl,
         healthOptions('Readiness check failed on manage-your-appeal-api:')
       ),
     },
