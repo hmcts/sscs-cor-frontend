@@ -167,7 +167,7 @@
     "uglify-js": "^3.8.0",
     "uglifyjs": "^2.4.11",
     "uuid": "^3.3.2",
-    "webdriverio": "^4.14.4"
+    "webdriverio": "^7.25.4"
   },
   "resolutions": {
     "minimist": "^1.2.6",
