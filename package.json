@@ -192,7 +192,8 @@
     "cached-path-relative": "1.1.0",
     "scss-tokenizer": "0.4.3",
     "async": "2.6.4",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "codeceptjs/**/mocha": "^9.2.2"
   },
   "typeScriptVersion": "4.8"
 }
