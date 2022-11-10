@@ -1,7 +1,8 @@
 import * as AppInsights from './app-insights';
 
-import { RequestHandler } from 'express';
-import express = require('express');
+import * as express from 'express';
+import { Application, RequestHandler } from 'express';
+
 import { router as routes } from './routes';
 
 import * as health from './middleware/health';
@@ -12,15 +13,16 @@ import * as cookieParser from 'cookie-parser';
 
 import * as screenReaderUtils from './utils/screenReaderUtils';
 import {
-  configureHelmet,
   configureHeaders,
+  configureHelmet,
   configureNunjucks,
 } from './app-configurations';
 import watch from './watch';
 import * as config from 'config';
-import { isFeatureEnabled, Feature } from './utils/featureEnabled';
+import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
 import * as path from 'path';
+
 const { Express } = require('@hmcts/nodejs-logging');
 const errors = require('./middleware/error-handler');
 const content = require('../../locale/content');
@@ -50,7 +52,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     AppInsights.enable();
   }
 
-  const app: express.Application = express();
+  const app: Application = express();
 
   if (!isDevelopment) {
     // Protect against some well known web vulnerabilities
@@ -72,7 +74,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.locals.screenReaderUtils = screenReaderUtils;
 
   if (isDevelopment) {
-    watch(app);
+    void watch(app);
     app.locals.isDev = true;
   } else {
     app.set('trust proxy', 1);
