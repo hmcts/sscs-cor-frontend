@@ -1,11 +1,12 @@
 import * as CONST from '../constants';
 import nunjucks = require('nunjucks');
-
 import * as moment from 'moment';
 import express = require('express');
-
 import { InitOptions } from 'i18next';
 import { I18next } from 'i18next-express-middleware';
+import { Logger } from '@hmcts/nodejs-logging';
+import { LoggerInstance } from 'winston';
+import { Application } from 'express';
 
 const helmet = require('helmet');
 const { tyaNunjucks } = require('../core/tyaNunjucks');
@@ -13,9 +14,8 @@ const dateFilter = require('nunjucks-date-filter');
 const { getContentAsString } = require('../core/contentLookup');
 const { lowerCase } = require('lodash');
 const content = require('../../locale/content');
-const { Logger } = require('@hmcts/nodejs-logging');
 
-const logger = Logger.getLogger('app-configuration.ts');
+const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 const config = require('config');
 
 function configureHelmet(app) {
@@ -69,7 +69,8 @@ function configureHelmet(app) {
     })
   );
 }
-function configureHeaders(app) {
+
+function configureHeaders(app: Application): void {
   // Disallow search index indexing
   app.use((req, res, next) => {
     // Setting headers stops pages being indexed even if indexed pages link to them
@@ -78,7 +79,27 @@ function configureHeaders(app) {
   });
 }
 
-function configureNunjucks(app: express.Application, i18next: I18next) {
+function dateRegex(text: string): string {
+  if (!text) return '';
+  const isoDateRegex =
+    /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
+  return text.replace(isoDateRegex, (date) =>
+    moment.utc(date).format(CONST.DATE_FORMAT)
+  );
+}
+
+function acronym(benefitType: string): string {
+  return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
+}
+
+function dateForDecisionReceived(utcDateTimeStr: string): string {
+  const howManyDaysAfterHearing = 5;
+  return moment(utcDateTimeStr)
+    .add(howManyDaysAfterHearing, 'days')
+    .format('DD MMMM YYYY');
+}
+
+function configureNunjucks(app: express.Application, i18next: I18next): void {
   const nunEnv = nunjucks.configure(
     [
       'views',
@@ -109,72 +130,68 @@ function configureNunjucks(app: express.Application, i18next: I18next) {
     nunEnv.addGlobal('currentUrl', req.url);
     next();
   });
-  nunEnv.addFilter('date', function (text) {
-    if (!text) return '';
-    const isoDateRegex =
-      /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
-    return text.replace(isoDateRegex, (date) =>
-      moment.utc(date).format(CONST.DATE_FORMAT)
-    );
-  });
-  nunEnv.addFilter('eval', function (text) {
+
+  nunEnv.addFilter('date', dateRegex);
+  nunEnv.addFilter('eval', function textEval(this, text) {
     try {
       if (Array.isArray(text)) {
         text = text.join(' ');
       }
       return nunjucks.renderString(text, this.ctx);
     } catch (error) {
-      logger.error(
-        `Error rendering text eval: ${JSON.stringify(error)} : ${text}`
-      );
+      logger.error(`Error rendering text eval: '${text}', error:`, error);
       return 'Error rendering text';
     }
   });
-  nunEnv.addFilter('isArray', function (input) {
-    return Array.isArray(input);
-  });
+  nunEnv.addFilter('isArray', Array.isArray);
   nunEnv.addFilter('dateFilter', dateFilter);
-  nunEnv.addFilter('agencyAcronym', (benefitType) => {
-    return nunjucks.renderString(
-      content[i18next.language].benefitTypes[benefitType].agencyAcronym,
-      this.ctx
-    );
-  });
-  nunEnv.addFilter('acronym', (benefitType) => {
-    return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
-  });
-  nunEnv.addFilter('benefitAcronym', (benefitType) => {
-    return nunjucks.renderString(
-      content[i18next.language].benefitTypes[benefitType].acronym,
-      this.ctx
-    );
-  });
-  nunEnv.addFilter('benefitFullDescription', (benefitType) => {
-    return nunjucks.renderString(
-      content[i18next.language].benefitTypes[benefitType].fullDescription,
-      this.ctx
-    );
-  });
-  nunEnv.addFilter('panel', (benefitType) => {
+  nunEnv.addFilter(
+    'agencyAcronym',
+    function agencyAcronym(this, benefitType: string) {
+      return nunjucks.renderString(
+        content[i18next.language].benefitTypes[benefitType].agencyAcronym,
+        this.ctx
+      );
+    }
+  );
+  nunEnv.addFilter('acronym', acronym);
+  nunEnv.addFilter(
+    'benefitAcronym',
+    function benefitAcronym(this, benefitType: string) {
+      return nunjucks.renderString(
+        content[i18next.language].benefitTypes[benefitType].acronym,
+        this.ctx
+      );
+    }
+  );
+  nunEnv.addFilter(
+    'benefitFullDescription',
+    function benefitFullDescription(
+      this,
+      benefitType: string,
+      i18next: I18next
+    ) {
+      return nunjucks.renderString(
+        content[i18next.language].benefitTypes[benefitType].fullDescription,
+        this.ctx
+      );
+    }
+  );
+  nunEnv.addFilter('panel', function panel(this, benefitType: string) {
     return nunjucks.renderString(
       content[i18next.language].benefitTypes[benefitType].panel,
       this.ctx
     );
   });
-  nunEnv.addFilter('dateForDecisionReceived', (utcDateTimeStr) => {
-    const howManyDaysAfterHearing = 5;
-    return moment(utcDateTimeStr)
-      .add(howManyDaysAfterHearing, 'days')
-      .format('DD MMMM YYYY');
-  });
-  nunEnv.addFilter('evalStatus', function (text) {
+  nunEnv.addFilter('dateForDecisionReceived', dateForDecisionReceived);
+  nunEnv.addFilter('evalStatus', function evalStatus(this, text) {
     try {
       if (Array.isArray(text)) {
         text = text.join(' ');
       }
       return nunjucks.renderString(text, this.ctx);
     } catch (error) {
-      logger.error(`Error rendering latest update text`);
+      logger.error(`Error rendering evalStatus: '${text}', error:`, error);
       return 'We are unable to provide a status update at present. Please contact us on the number below if you have any queries.';
     }
   });
