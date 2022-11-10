@@ -72,7 +72,7 @@ describe('controllers/av-evidence-list', () => {
       const appeal = req.session.appeal;
       avEvidence.getAvEvidenceList(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'av-evidence-tab.html',
+        'av-evidence-tab.njk',
         { appeal }
       );
     });

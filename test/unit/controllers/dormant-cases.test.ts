@@ -55,7 +55,7 @@ describe('controllers/dormant-cases', () => {
     it('should render dormant cases page', async () => {
       req.session['hearings'] = oralActiveAndDormantCases;
       dormantCases.getDormantCases(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('dormant-tab.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('dormant-tab.njk');
     });
 
     it('should throw error if no sessions', async () => {

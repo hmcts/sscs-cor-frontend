@@ -1,0 +1,15 @@
+{% extends "layout.njk" %} {% set pageHeader = errorHeader | safe %} {% block
+corContent %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ errorHeader | safe }}</h1>
+    {{ errorBody | eval | safe }} {% if registerUrl %}
+    <p>
+      <a class="govuk-link" href="{{ registerUrl }}"
+        >{{ registerUrl | safe }}</a
+      >
+    </p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

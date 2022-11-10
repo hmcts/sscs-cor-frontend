@@ -1,0 +1,114 @@
+{% extends "template.njk" %} {% from "components/phase-banner/macro.njk" import
+govukPhaseBanner %} {% from "components/mya-contact-us.njk" import contactUs
+with context %} {% from "components/footer/macro.njk" import govukFooter %} {%
+set assetPath = "/public/govuk-frontend/" %} {% block pageTitle %} {{
+content[i18n.language].pageTitle | safe }} {% endblock %} {% block head %} {%
+include "includes/head.njk" %} {% endblock %} {% block header %} {% if
+cookieBannerEnabled %}
+<div>
+  {% include
+  "../cookie-banner/common/components/imported/cookie-manager/cookie-banner.njk"
+  %}
+</div>
+{% else %} {% include "includes/cookie-banner.njk" %} {% endif %} {% include
+"includes/header.njk" %} {% endblock %} {% block bodyStart %}
+<!-- Google Tag Manager (noscript) -->
+<noscript
+  ><iframe
+    src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM"
+    height="0"
+    width="0"
+    style="display: none; visibility: hidden"
+    title="GTM"
+  ></iframe
+></noscript>
+<!-- End Google Tag Manager (noscript) -->
+{% endblock %} {% block beforeContent %} {% set phaseBarHtml =
+content[i18n.language].phaseBanner.new + '<a
+  class="govuk-link"
+  href="'+ content[i18n.language].general.exitLink + pageHeader + '"
+  target="_blank"
+  >' + content[i18n.language].phaseBanner.report + "</a
+>
+" + content[i18n.language].phaseBanner.improve %} {% if welshEnabled %} {% set
+queryStringConcat = "" %} {% if "lng=" in currentUrl %} {% set currentUrl =
+currentUrl | replace("?lng=en", "") | replace("&lng=en", "") |
+replace("?lng=cy", "") | replace("&lng=cy", "") %} {% endif %} {% if "?" not in
+currentUrl %} {% set queryStringConcat = "?" %} {% else %} {% set
+queryStringConcat = "&" %} {% endif %} {% set languageFlag = "" %} {% if
+i18n.language == "en" %} {% set languageFlag = queryStringConcat + "lng=cy" %}
+{% else %} {% set languageFlag = queryStringConcat + "lng=en" %} {% endif %} {%
+set phaseBarHtml = phaseBarHtml +
+(content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}",
+currentUrl) | replace("{languageFlag}", languageFlag)) %} {% endif %} {{
+govukPhaseBanner({ tag: { text: "beta" }, html: phaseBarHtml }) }} {% include
+"includes/account-navigation.njk" %} {% endblock %} {% block content %} {%
+block corContent %}{% endblock %} {% if showSignOut %} {% include
+"file-selected-modal.njk" %} {% include "session-inactivity-modal.njk" %} {%
+endif %} {% if allowContactUs %} {{ contactUs() }} {% endif %} {% endblock %} {%
+block footer %} {{ govukFooter({ meta: { items: [ { href: "/cookie-policy",
+text: "Cookies" } ] } }) }} {% endblock %} {% block bodyEnd %} {% if isDev %}
+<script src="/reload/reload.js"></script>
+{% endif %}
+
+<script src="/public/js/main.js"></script>
+
+{% if cookieBannerEnabled %}
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+  integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+  crossorigin="anonymous"
+></script>
+<script src="public/js/cookies-manager.js"></script>
+{% endif %} {% if webChatEnabled and content.en.language == "en" %}
+<script src="/public/js/hmcts-webchat.js"></script>
+
+<script>
+  /*
+   * webchat_init() has been developed by CTSC and is defined in hmcts-webchat.js
+   * uuid, tenant, channel and other parameters can be passed into it as below to configure
+   * and customise the web-chat experience,
+   * busHandlerURL: is another jQuery javascript that further customises the web-chat journey
+   *
+   * NOTE: URLs must be https and not behind a VPN for 8x8 to work with web-chat
+   */
+  webchat_init({
+    uuid: '{{ webChat.uuid }}',
+    tenant: '{{ webChat.tenant }}',
+    channel: '{{ webChat.channel }}',
+    buttonContainerId: 'ctsc-web-chat',
+    textChatDown:
+      '{{ content[i18n.language].contactUs.webchat.textChatDown | safe }}',
+    textChatWithAnAgent:
+      '{{ content[i18n.language].contactUs.webchat.textChatWithAnAgent | safe }}',
+    textNoAgentsAvailable:
+      '{{ content[i18n.language].contactUs.webchat.textNoAgentsAvailable | safe }}',
+    textAllAgentsBusy:
+      '{{ content[i18n.language].contactUs.webchat.textAllAgentsBusy | safe }}',
+    textChatClosed:
+      '{{ content[i18n.language].contactUs.webchat.textChatClosed | safe }}',
+    textChatAlreadyOpen:
+      '{{ content[i18n.language].contactUs.webchat.textChatAlreadyOpen | safe }}',
+    textAdditional:
+      '{{ content[i18n.language].contactUs.webchat.textAdditional | safe }}',
+    stylesheetURL: '{{ baseUrl }}/public/css/hmcts-webchat.css',
+    busHandlerURL: '{{ baseUrl }}/public/js/hmcts-webchat-busHandler.js',
+    btnNoAgents:
+      '/{{ webChat.tenant }}/button_7732814745cac6f4603c4d1.53357933/img/logo',
+    btnAgentsBusy:
+      '/{{ webChat.tenant }}/button_2042157415cc19c95669039.65793052/img/logo',
+    btnServiceClosed:
+      '/{{ webChat.tenant }}/button_20199488815cc1a89e0861d5.73103009/img/logo',
+  });
+</script>
+{% endif %} {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layout.njk" %} {% from "inset-text/macro.njk" import govukInsetText
+%} {% set pageHeader =
+content[i18n.language].notifications.email.stopConfirmation.tab | safe %} {%
+block content %}
+<main id="content" class="confirm-emails-stop" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        {{ content[i18n.language].redirectMya.title | safe }}
+      </h1>
+      <p class="govuk-body">
+        {{ content[i18n.language].redirectMya.para1 | safe }}
+      </p>
+      <p class="govuk-body">
+        {{ content[i18n.language].redirectMya.para2 | eval | safe }}
+      </p>
+      <p class="govuk-body">
+        {{ content[i18n.language].redirectMya.para3 | eval | safe }}
+      </p>
+    </div>
+  </div>
+  <input type="hidden" name="state" value="{{ state | safe }}" />
+</main>
+{% endblock %}

@@ -51,8 +51,8 @@ describe('controllers/history', () => {
     });
 
     const scenarios = [
-      { historyTabFeature: true, expected: 'history.html' },
-      { historyTabFeature: false, expected: 'errors/404.html' },
+      { historyTabFeature: true, expected: 'history.njk' },
+      { historyTabFeature: false, expected: 'errors/404.njk' },
     ];
     scenarios.forEach((scenario) => {
       it(`should render ${scenario.expected} view when history tab feature is ${scenario.historyTabFeature}`, () => {

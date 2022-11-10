@@ -53,7 +53,7 @@ const validateEmail = (req, res, next) => {
   const fields = validateFields(email, confirmEmail, errors);
   if (fields.error) {
     res.status(HttpStatus.BAD_REQUEST);
-    res.render('email-address-change', {
+    res.render('email-address-change.njk', {
       mactoken: req.params.mactoken,
       fields,
     });

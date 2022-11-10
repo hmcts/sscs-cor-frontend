@@ -44,7 +44,7 @@ describe('controllers/decision.js', () => {
   describe('getDecision', () => {
     it('renders decision page when have final decision', async () => {
       await getDecision(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('decision.html', {
+      expect(res.render).to.have.been.calledOnce.calledWith('decision.njk', {
         decision: hearingDetails.decision,
         final_decision: hearingDetails.final_decision.reason,
       });

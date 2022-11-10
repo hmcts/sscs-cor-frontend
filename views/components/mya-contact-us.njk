@@ -1,0 +1,174 @@
+{% macro contactUs(showSupport = true) %} {% if showSupport %} {% include
+"includes/divider.njk" %} {% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="mya-contact__content">
+      {% if showSupport %}
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+        {{ content[i18n.language].helpGuides.header | safe }}
+      </h2>
+      <ul class="govuk-list">
+        <li>
+          <a href="/support-evidence"
+            >{{ content[i18n.language].helpGuides.relatedLinks.supportEvidence |
+            safe }}</a
+          >
+        </li>
+        <li>
+          <a href="/support-representatives"
+            >{{ content[i18n.language].helpGuides.representatives.linkHeader |
+            safe }}</a
+          >
+        </li>
+        <li>
+          <a href="/support-hearing"
+            >{{ content[i18n.language].helpGuides.relatedLinks.supportHearing |
+            safe }}</a
+          >
+        </li>
+        <li>
+          <a href="/support-hearing-expenses"
+            >{{
+            content[i18n.language].helpGuides.relatedLinks.supportHearingExpenses
+            | safe }}</a
+          >
+        </li>
+        <li>
+          <a href="/support-withdraw-appeal"
+            >{{ content[i18n.language].helpGuides.withdrawAppeal.linkHeader |
+            safe }}</a
+          >
+        </li>
+      </ul>
+      {% endif %}
+      <details class="govuk-details contact-us">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text"
+            >{{ content[i18n.language].contactUs.title | safe }}</span
+          >
+        </summary>
+
+        {% if webChatEnabled and i18n.language == "en" %}
+        <div class="govuk-details__text">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.webchat.title | safe }}
+          </h2>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.webchat.desc | safe }}
+          </p>
+          <div id="ctsc-web-chat">
+            {{ content[i18n.language].common.loading | safe }}
+          </div>
+        </div>
+        {% endif %} {% if contactUsWebFormEnabled %}
+        <div class="govuk-details__text">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.webform.title | safe }}
+          </h2>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.webform.desc | safe }}
+          </p>
+          <p class="govuk-body">
+            <a class="govuk-link" href="{{webFormUrl}}" target="_blank"
+              >{{ content[i18n.language].contactUs.webform.link | safe }}</a
+            >
+          </p>
+        </div>
+        {% endif %} {% if contactUsTelephoneEnabled %}
+        <div class="govuk-details__text">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.title }}
+          </h2>
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            {{ content[i18n.language].contactUs.telephone.desc }}
+          </p>
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.England.desc }}
+          </h3>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.England.phone }}
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.England.availability
+            }}
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.England.availability2
+            }}
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            <a
+              class="govuk-link"
+              href="https://www.gov.uk/call-charges"
+              target="_blank"
+              >{{ content[i18n.language].contactUs.telephone.England.charges
+              }}</a
+            >
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            {{ content[i18n.language].contactUs.telephone.England.emailText }}
+            <a href="mailto:Contactsscs@justice.gov.uk"
+              >{{
+              content[i18n.language].contactUs.telephone.England.emailAddress
+              }}</a
+            >
+          </p>
+
+          {% if i18n.language == "en" %}
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.WelshSpeakers.desc }}
+          </h3>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.WelshSpeakers.phone }}
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            {{
+            content[i18n.language].contactUs.telephone.WelshSpeakers.availability
+            }}
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            <a
+              class="govuk-link"
+              href="https://www.gov.uk/call-charges"
+              target="_blank"
+              >{{
+              content[i18n.language].contactUs.telephone.WelshSpeakers.charges
+              }}</a
+            >
+          </p>
+          {% endif %}
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.Scotland.desc }}
+          </h3>
+          <p class="govuk-body govuk-!-margin-bottom-0">
+            {{ content[i18n.language].contactUs.telephone.Scotland.phone }}
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            {{ content[i18n.language].contactUs.telephone.Scotland.availability
+            }}
+          </p>
+          <p class="govuk-body">
+            <a
+              class="govuk-link"
+              href="https://www.gov.uk/call-charges"
+              target="_blank"
+              >{{ content[i18n.language].contactUs.telephone.Scotland.charges
+              }}</a
+            >
+          </p>
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            {{ content[i18n.language].contactUs.telephone.Scotland.emailText }}
+            <a href="mailto:SSCSA-Glasgow@justice.gov.uk"
+              >{{
+              content[i18n.language].contactUs.telephone.Scotland.emailAddress
+              }}</a
+            >
+          </p>
+        </div>
+        {% endif %}
+      </details>
+    </div>
+  </div>
+</div>
+{% endmacro %}

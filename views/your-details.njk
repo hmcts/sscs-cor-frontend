@@ -1,0 +1,128 @@
+{% extends "layout.njk" %} {% from "inset-text/macro.njk" import govukInsetText
+%} {% from "back-link/macro.njk" import govukBackLink %} {% set pageHeader =
+content[i18n.language].taskList.header | safe %} {% block beforeContent %}
+{{super()}} {% endblock%} {% block pageTitle %} {{
+content[i18n.language].yourDetails.header | safe }} - {{
+content[i18n.language].general.serviceTitle | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% endblock %} {% block
+corContent %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      {{ content[i18n.language].yourDetails.header | safe }}
+    </h1>
+    <table class="govuk-table">
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header --vertical-align-top" scope="row">
+            {{ content[i18n.language].yourDetails.nameLabel | safe }}
+          </th>
+          <td class="govuk-table__cell">{{ details.user_details.name }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <th
+            class="govuk-table__header --vertical-align-top --width-50"
+            scope="row"
+          >
+            {{ content[i18n.language].yourDetails.addressLabel | safe }}
+          </th>
+          <td class="govuk-table__cell">
+            <address
+              aria-label="{{ content[i18n.language].guidance.sendingEvidence.screenReaderPostalAddress | safe }}"
+            >
+              {{ details.user_details.address_details.line1 }}<br />
+              {% if details.user_details.address_details.line2 %} {{
+              details.user_details.address_details.line2 }}<br />
+              {% endif %} {{ details.user_details.address_details.town }}<br />
+              {{ details.user_details.address_details.county }}<br />
+              {{ details.user_details.address_details.postcode }}<br />
+            </address>
+          </td>
+        </tr>
+        {% for value in details.user_details.subscriptions %} {% set
+        hideBottomBorder %} {% if not loop.last %}hide-bottom-border{% endif %}
+        {% endset %}
+        <tr class="govuk-table__row">
+          <th
+            class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}"
+            scope="row"
+          >
+            {% if i18n.language == "en" %} {{
+            content[i18n.language].common.type[value.type] | safe }} {{
+            content[i18n.language].yourDetails.emailLabel | safe }} {% else %}
+            {{ content[i18n.language].yourDetails.emailLabelCy1 | safe }} {{
+            content[i18n.language].common.type[type] | safe }} {{
+            content[i18n.language].yourDetails.emailLabelCy2 | safe }} {% endif
+            %}
+          </th>
+          <td class="govuk-table__cell {{ hideBottomBorder }}">
+            {{ (value.email if value.email else
+            content[i18n.language].yourDetails.notProvided) | safe }}
+          </td>
+        </tr>
+        {% endfor %} {% for value in details.user_details.subscriptions %} {%
+        set hideBottomBorder %} {% if not loop.last %}hide-bottom-border{% endif
+        %} {% endset %}
+        <tr class="govuk-table__row">
+          <th
+            class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}"
+            scope="row"
+          >
+            {{ content[i18n.language].common.type[value.type] | safe }} {{
+            content[i18n.language].yourDetails.mobileLabel | safe }}
+          </th>
+          <td class="govuk-table__cell {{ hideBottomBorder }}">
+            {{ value.mobile if value.mobile else
+            content[i18n.language].yourDetails.notProvided | safe }}
+          </td>
+        </tr>
+        {% endfor %} {% if details.user_details.phone %}
+        <tr class="govuk-table__row">
+          <th
+            class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}"
+            scope="row"
+          >
+            {{ content[i18n.language].common.type[details.user_details.type] |
+            safe }} {{ content[i18n.language].contact.phone | safe }}
+          </th>
+          <td class="govuk-table__cell {{ hideBottomBorder }}">
+            {{ details.user_details.phone if details.user_details.phone else
+            content[i18n.language].yourDetails.notProvided | safe}}
+          </td>
+        </tr>
+        {% endif %} {% if details.user_details.mobile %}
+        <tr class="govuk-table__row">
+          <th
+            class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}"
+            scope="row"
+          >
+            {{ content[i18n.language].common.type[details.user_details.type] |
+            safe }} {{ content[i18n.language].contact.mobile | safe }}
+          </th>
+          <td class="govuk-table__cell {{ hideBottomBorder }}">
+            {{ details.user_details.mobile if details.user_details.mobile else
+            content[i18n.language].yourDetails.notProvided | safe }}
+          </td>
+        </tr>
+        {% endif %} {% if details.user_details.email %}
+        <tr class="govuk-table__row">
+          <th
+            class="govuk-table__header --vertical-align-top {{ hideBottomBorder }}"
+            scope="row"
+          >
+            {{ content[i18n.language].common.type[details.user_details.type] |
+            safe }} {{ content[i18n.language].contact.email | safe }}
+          </th>
+          <td class="govuk-table__cell {{ hideBottomBorder }}">
+            {{ details.user_details.email if details.user_details.email else
+            content[i18n.language].yourDetails.notProvided | safe }}
+          </td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+    {{ govukInsetText({ html: content[i18n.language].yourDetails.contact | eval
+    | safe, classes: "govuk-!-margin-top-7 govuk-!-margin-bottom-7" }) }}
+  </div>
+</div>
+{% endblock %}

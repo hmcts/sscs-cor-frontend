@@ -184,7 +184,7 @@ router.get(
   '/manage-email-notifications/:mactoken',
   validateToken,
   (req, res, next) => {
-    res.render('manage-emails', { mactoken: req.params.mactoken });
+    res.render('manage-emails.njk', { mactoken: req.params.mactoken });
   }
 );
 
@@ -202,7 +202,7 @@ router.get(
   validateToken,
   emailNotifications,
   (req, res) => {
-    res.render('emails-stop', { mactoken: req.params.mactoken });
+    res.render('emails-stop.njk', { mactoken: req.params.mactoken });
   }
 );
 
@@ -212,7 +212,7 @@ router.get(
   stopReceivingEmails,
   emailNotifications,
   (req, res, next) => {
-    res.render('emails-stop-confirmed', {
+    res.render('emails-stop-confirmed.njk', {
       data: { appealNumber: res.locals.token.appealId },
       mactoken: req.params.mactoken,
     });
@@ -223,7 +223,7 @@ router.get(
   '/manage-email-notifications/:mactoken/change',
   validateToken,
   (req, res) => {
-    res.render('email-address-change', { mactoken: req.params.mactoken });
+    res.render('email-address-change.njk', { mactoken: req.params.mactoken });
   }
 );
 
@@ -234,7 +234,7 @@ router.post(
   changeEmailAddress,
   emailNotifications,
   (req, res, next) => {
-    res.render('email-address-change-confirmed', {
+    res.render('email-address-change-confirmed.njk', {
       data: { email: req.body.email },
       mactoken: req.params.mactoken,
     });
@@ -245,7 +245,7 @@ router.get(
   '/validate-surname/:tya/trackyourappeal',
   loginController,
   (req, res, next) => {
-    res.render('redirect-mya', { tyaNumber: req.query.tya });
+    res.render('redirect-mya.njk', { tyaNumber: req.query.tya });
   }
 );
 

@@ -1,0 +1,45 @@
+{% extends "layout.njk" %} {% from "components/error-summary/macro.njk" import
+govukErrorSummary %} {% if action === "options" %} {% set pageHeader, pageTitle
+= content[i18n.language].additionalEvidence.evidenceOptions.header | safe %} {%
+elseif action === "post" %} {% set pageHeader, pageTitle =
+content[i18n.language].additionalEvidence.evidencePost.header | safe %} {%
+elseif action === "upload" %} {% set pageHeader, pageTitle =
+content[i18n.language].additionalEvidence.evidenceUpload.header | safe %} {%
+elseif action === "uploadAudioVideo" %} {% set pageHeader, pageTitle =
+content[i18n.language].additionalEvidence.evidenceUpload.header | safe %} {%
+elseif action === "statement" %} {% set pageHeader, pageTitle =
+content[i18n.language].additionalEvidence.evidenceStatement.header | safe %} {%
+elseif action === "confirm" %} {% set pageHeader, pageTitle =
+content[i18n.language].additionalEvidence.evidenceConfirm.header | safe %} {%
+endif %} {% block pageTitle %} {% if pageTitleError %} {{
+content[i18n.language].errorSummary.errorPageTitle | safe }} {{ pageTitle | safe
+}} - {{ content[i18n.language].general.serviceTitle | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% else %} {{ pageTitle | safe }}
+- {{ content[i18n.language].general.serviceTitle | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% endif %} {% endblock %} {%
+block beforeContent %} {{ super() }} {% if action === "options" %}
+<a href="/task-list" class="govuk-back-link"
+  >{{ content[i18n.language].general.back | safe }}</a
+>
+{% elseif action !== "confirm" %}
+<a href="/additional-evidence" class="govuk-back-link"
+  >{{ content[i18n.language].general.back | safe }}</a
+>
+{% endif %} {% endblock %} {% block corContent %}
+<div class="govuk-grid-row">
+  {% if error or fileUploadError %} {{ govukErrorSummary({ titleText:
+  content[i18n.language].errorSummary.titleText, descriptionText:
+  content[i18n.language].errorSummary.descriptionText, errorList: [ { text:
+  error, href: "#question-field" } if error, { text: fileUploadError, href:
+  "#file-field" } if fileUploadError ] }) }} {% endif %} {% if action ===
+  "options" %} {% include "additional-evidence/evidence-options.njk" %} {%
+  elseif action === "post" %} {% include "includes/post-evidence.njk" %} {%
+  elseif action === "upload" %} {% include
+  "additional-evidence/evidence-upload.njk" %} {% elseif action ===
+  "uploadAudioVideo" %} {% include
+  "additional-evidence/evidence-upload-audio-video.njk" %} {% elseif action ===
+  "statement" %} {% include "additional-evidence/evidence-statement.njk" %} {%
+  elseif action === "confirm" %} {% include
+  "additional-evidence/evidence-confirm.njk" %} {% endif %}
+</div>
+{% endblock %}

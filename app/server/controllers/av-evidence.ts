@@ -29,7 +29,7 @@ function getAvEvidenceList(req: Request, res: Response) {
       appeal.audioVideoEvidence ? appeal.audioVideoEvidence.length : 0
     }`
   );
-  return res.render('av-evidence-tab.html', { appeal });
+  return res.render('av-evidence-tab.njk', { appeal });
 }
 
 function getAvEvidence(trackYourAppealService: TrackYourApealService) {

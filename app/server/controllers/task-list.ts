@@ -22,7 +22,7 @@ function getTaskList(req: Request, res: Response, next: NextFunction) {
     const deadlineDetails = null;
     const hearingType = req.session['appeal']!.hearingType;
     const appeal = req.session['appeal']!;
-    res.render('task-list.html', {
+    res.render('task-list.njk', {
       deadlineExpiryDate: deadlineDetails,
       hearingType,
       appeal,
@@ -35,7 +35,7 @@ function getTaskList(req: Request, res: Response, next: NextFunction) {
 
 function getEvidencePost(req: Request, res: Response, next: NextFunction) {
   try {
-    res.render('post-evidence.html', {
+    res.render('post-evidence.njk', {
       postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
     });
   } catch (error) {

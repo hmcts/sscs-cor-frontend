@@ -13,7 +13,7 @@ const notificationRedirect = (req, res, next) => {
       break;
     default:
       res.status(HttpStatus.BAD_REQUEST);
-      res.render('manage-emails', {
+      res.render('manage-emails.njk', {
         mactoken: req.params.mactoken,
         fields: {
           error: true,

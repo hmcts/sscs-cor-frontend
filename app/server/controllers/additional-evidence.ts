@@ -56,7 +56,7 @@ const allowedActions = [
 ];
 
 function getAboutEvidence(req: Request, res: Response) {
-  return res.render('additional-evidence/about-evidence.html');
+  return res.render('additional-evidence/about-evidence.njk');
 }
 
 function postAdditionalEvidence(req: Request, res: Response) {
@@ -68,7 +68,7 @@ function postAdditionalEvidence(req: Request, res: Response) {
   const errorMessage =
     content[i18next.language].additionalEvidence.evidenceOptions.error
       .noButtonSelected;
-  res.render('additional-evidence/index.html', {
+  res.render('additional-evidence/index.njk', {
     action: 'options',
     pageTitleError: true,
     error: errorMessage,
@@ -146,7 +146,7 @@ function postEvidenceStatement(
     try {
       const validationMessage = answerValidation(statementText, req);
       if (validationMessage) {
-        res.render('additional-evidence/index.html', {
+        res.render('additional-evidence/index.njk', {
           action: 'statement',
           pageTitleError: true,
           error: validationMessage,
@@ -187,7 +187,7 @@ function getAdditionalEvidence(
         } else {
           evidences = [];
         }
-        return res.render('additional-evidence/index.html', {
+        return res.render('additional-evidence/index.njk', {
           action,
           evidences,
           description,
@@ -196,7 +196,7 @@ function getAdditionalEvidence(
         // do nothing
       }
       const benefitType = req.session['appeal']!.benefitType;
-      return res.render('additional-evidence/index.html', {
+      return res.render('additional-evidence/index.njk', {
         action,
         postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
         benefitType,
@@ -238,7 +238,7 @@ function postFileUpload(
         const evidenceUploadErrorMsg =
           content[i18next.language].additionalEvidence.evidenceUpload.error
             .fileCannotBeUploaded;
-        return res.render('additional-evidence/index.html', {
+        return res.render('additional-evidence/index.njk', {
           action: 'upload',
           pageTitleError: true,
           description,
@@ -266,7 +266,7 @@ function postFileUpload(
           evidences = [];
         }
         if (descriptionValidationMsg || evidencesValidationMsg) {
-          return res.render('additional-evidence/index.html', {
+          return res.render('additional-evidence/index.njk', {
             action: 'upload',
             pageTitleError: true,
             evidences,
@@ -296,7 +296,7 @@ function postFileUpload(
               .noFilesUploaded;
 
         if (descriptionValidationMsg || evidencesValidationMsg) {
-          return res.render('additional-evidence/index.html', {
+          return res.render('additional-evidence/index.njk', {
             action: 'uploadAudioVideo',
             pageTitleError: true,
             description,
@@ -322,7 +322,7 @@ function postFileUpload(
         } else {
           evidences = [];
         }
-        return res.render('additional-evidence/index.html', {
+        return res.render('additional-evidence/index.njk', {
           action: 'upload',
           pageTitleError: true,
           evidences,
@@ -330,7 +330,7 @@ function postFileUpload(
           fileUploadError: res.locals.multerError,
         });
       } else if (action === 'uploadAudioVideo' && res.locals.multerError) {
-        return res.render('additional-evidence/index.html', {
+        return res.render('additional-evidence/index.njk', {
           action: 'uploadAudioVideo',
           pageTitleError: true,
           description,

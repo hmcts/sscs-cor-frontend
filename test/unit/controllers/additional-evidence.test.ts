@@ -85,14 +85,14 @@ describe('controllers/additional-evidence.js', () => {
   it('should render about evidence page', () => {
     getAboutEvidence(req, res);
     expect(res.render).to.have.been.calledOnce.calledWith(
-      'additional-evidence/about-evidence.html'
+      'additional-evidence/about-evidence.njk'
     );
   });
 
   it('should pass "options" as argument to view if param action empty', async () => {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
-      'additional-evidence/index.html',
+      'additional-evidence/index.njk',
       {
         action: 'options',
         benefitType: 'UC',
@@ -114,7 +114,7 @@ describe('controllers/additional-evidence.js', () => {
       additionalEvidenceService.getEvidences
     ).to.have.been.calledOnce.calledWith(caseId);
     expect(res.render).to.have.been.calledOnce.calledWith(
-      'additional-evidence/index.html',
+      'additional-evidence/index.njk',
       {
         action: 'upload',
         description,
@@ -146,7 +146,7 @@ describe('controllers/additional-evidence.js', () => {
     req.params.action = 'statement';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
-      'additional-evidence/index.html',
+      'additional-evidence/index.njk',
       {
         action: 'statement',
         postBulkScan: false,
@@ -159,7 +159,7 @@ describe('controllers/additional-evidence.js', () => {
     req.params.action = 'post';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
-      'additional-evidence/index.html',
+      'additional-evidence/index.njk',
       {
         action: 'post',
         postBulkScan: false,
@@ -172,7 +172,7 @@ describe('controllers/additional-evidence.js', () => {
     req.params.action = 'no-valid-argument';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
-      'additional-evidence/index.html',
+      'additional-evidence/index.njk',
       {
         action: 'options',
         postBulkScan: false,
@@ -229,7 +229,7 @@ describe('controllers/additional-evidence.js', () => {
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
       expect(additionalEvidenceService.saveStatement).not.to.have.been.called;
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'additional-evidence/index.html',
+        'additional-evidence/index.njk',
         {
           action: 'statement',
           pageTitleError: true,
@@ -287,7 +287,7 @@ describe('controllers/additional-evidence.js', () => {
         req.file
       );
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'additional-evidence/index.html',
+        'additional-evidence/index.njk',
         {
           action: 'upload',
           pageTitleError: true,
@@ -359,7 +359,7 @@ describe('controllers/additional-evidence.js', () => {
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
 
       expect(res.render).to.have.been.calledOnce.calledWith(
-        `additional-evidence/index.html`,
+        `additional-evidence/index.njk`,
         {
           action: 'upload',
           pageTitleError: true,
@@ -406,7 +406,7 @@ describe('controllers/additional-evidence.js', () => {
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
 
       expect(res.render).to.have.been.calledOnce.calledWith(
-        `additional-evidence/index.html`,
+        `additional-evidence/index.njk`,
         {
           action: 'upload',
           pageTitleError: true,
@@ -427,7 +427,7 @@ describe('controllers/additional-evidence.js', () => {
       );
 
       expect(res.render).to.have.been.calledOnce.calledWith(
-        `additional-evidence/index.html`,
+        `additional-evidence/index.njk`,
         {
           action: 'uploadAudioVideo',
           pageTitleError: true,

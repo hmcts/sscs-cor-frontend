@@ -191,7 +191,7 @@ function getIdamCallback(
         req.session['hearings'] = hearings;
         return res.redirect(Paths.activeCases);
       }
-      return res.render('select-case.html', { hearingsByName });
+      return res.render('select-case.njk', { hearingsByName });
     } catch (error) {
       AppInsights.trackException(error);
       AppInsights.trackEvent('MYA_LOGIN_FAIL');
@@ -225,7 +225,7 @@ function renderErrorPage(
     options['errorHeader'] = content.en.login.failed.cannotUseService.header;
     options['errorBody'] = content.en.login.failed.cannotUseService.body;
   }
-  return res.render('load-case-error.html', { ...options });
+  return res.render('load-case-error.njk', { ...options });
 }
 
 function setupLoginController(deps) {

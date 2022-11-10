@@ -20,7 +20,7 @@ function getActiveCases(req: Request, res: Response) {
   const hearings = session['hearings']!;
   const activeCases = hearings.filter(filterActiveCase);
   const activeHearingsByName = getHearingsByName(activeCases);
-  return res.render('active-tab.html', { activeHearingsByName });
+  return res.render('active-tab.njk', { activeHearingsByName });
 }
 
 function filterActiveCase(selectedHearing, index, array) {

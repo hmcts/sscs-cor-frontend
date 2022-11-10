@@ -15,7 +15,7 @@ const postcodeRegex = /^([A-Z][A-HJ-Y]?\d[A-Z\d]?\s?\d[A-Z]{2}|GIR ?0A{2})$/gi;
 const logger = Logger.getLogger('login.js');
 
 function getIndex(req: Request, res: Response) {
-  return res.render('assign-case/index.html', {});
+  return res.render('assign-case/index.njk', {});
 }
 
 function postIndex(
@@ -30,14 +30,14 @@ function postIndex(
       logger.error(
         `No postcode for postcode: ${postcode}, TYA: ${tya} and email:${email}`
       );
-      return res.render('assign-case/index.html', {
+      return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.noPostcode,
       });
     } else if (!postcode.replace(/\s/g, '').match(postcodeRegex)) {
       logger.error(
         `Invalid for postcode: ${postcode}, TYA: ${tya} and email:${email}`
       );
-      return res.render('assign-case/index.html', {
+      return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.invalidPostcode,
       });
     }
@@ -45,7 +45,7 @@ function postIndex(
       logger.error(
         `tyaNotProvided postcode: ${req?.body?.postcode}, TYA: ${tya} and email:${email}`
       );
-      return res.render('assign-case/index.html', {
+      return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.tyaNotProvided,
       });
     }
@@ -68,7 +68,7 @@ function postIndex(
       AppInsights.trackTrace(
         `assign-case: Failed finding case to assign for tya [${tya}] email [${email}] postcode [${postcode}]`
       );
-      return res.render('assign-case/index.html', {
+      return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.postcodeDoesNotMatch,
       });
     }

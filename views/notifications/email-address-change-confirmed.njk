@@ -1,0 +1,29 @@
+{% extends "layout.njk" %} {% set pageHeader =
+content[i18n.language].notifications.email.addressChangeConfirmed.tab | safe %}
+{% block content %}
+<main id="content" class="email-change-confirmed" role="main">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div class="govuk-box-highlight">
+        <h1 class="bold-small">
+          {{
+          content[i18n.language].notifications.email.addressChangeConfirmed.title
+          | safe }}
+        </h1>
+        <br />
+        <p class="bold-large">{{ data.email }}</p>
+      </div>
+      <p>
+        {{
+        content[i18n.language].notifications.email.addressChangeConfirmed.content
+        | safe }}
+      </p>
+      <a href="/manage-email-notifications/{{ mactoken }}/change"
+        >{{
+        content[i18n.language].notifications.email.addressChangeConfirmed.link |
+        safe }}</a
+      >
+    </div>
+  </div>
+</main>
+{% endblock %}

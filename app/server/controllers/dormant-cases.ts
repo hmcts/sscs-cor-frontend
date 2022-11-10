@@ -20,7 +20,7 @@ function getDormantCases(req: Request, res: Response) {
   const hearings = session['hearings']!;
   const dormantCases = hearings.filter(filterDormantCase);
   const dormantHearingsByName = getHearingsByName(dormantCases);
-  return res.render('dormant-tab.html', { dormantHearingsByName });
+  return res.render('dormant-tab.njk', { dormantHearingsByName });
 }
 
 function filterDormantCase(selectedHearing, index, array) {

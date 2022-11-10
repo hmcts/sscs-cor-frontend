@@ -7,7 +7,7 @@ const logger = Logger.getLogger('error-handler.js');
 
 function pageNotFoundHandler(req, res) {
   res.status(NOT_FOUND);
-  res.render('errors/404.html');
+  res.render('errors/404.njk');
 }
 
 function sessionNotFoundHandler(req, res, next) {
@@ -26,7 +26,7 @@ function coreErrorHandler(error, req, res, next) {
   );
   AppInsights.trackException(error);
   res.status(INTERNAL_SERVER_ERROR);
-  res.render('errors/500.html');
+  res.render('errors/500.njk');
 }
 /* eslint-enable no-unused-vars */
 

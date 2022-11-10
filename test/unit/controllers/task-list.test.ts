@@ -94,12 +94,12 @@ describe('controllers/task-list', () => {
   });
 
   describe('getTaskList', () => {
-    it('should render task-list.html page', () => {
+    it('should render task-list.njk page', () => {
       req.session.appeal = {
         hearingType: null,
       };
       getTaskList(req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith('task-list.html', {
+      expect(res.render).to.have.been.calledOnce.calledWith('task-list.njk', {
         deadlineExpiryDate: null,
         hearingType: null,
         appeal: req.session.appeal,
@@ -108,10 +108,10 @@ describe('controllers/task-list', () => {
   });
 
   describe('getEvidencePost', () => {
-    it('should render post-evidence.html page', () => {
+    it('should render post-evidence.njk page', () => {
       getEvidencePost(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'post-evidence.html',
+        'post-evidence.njk',
         { postBulkScan: false }
       );
     });

@@ -25,7 +25,7 @@ describe('middleware/error-handler', () => {
     it('gives 404 page', () => {
       errorHandler.pageNotFoundHandler(req, res);
       expect(res.status).to.have.been.calledOnce.calledWith(NOT_FOUND);
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/404.njk');
     });
   });
 
@@ -55,7 +55,7 @@ describe('middleware/error-handler', () => {
       expect(res.status).to.have.been.calledOnce.calledWith(
         INTERNAL_SERVER_ERROR
       );
-      expect(res.render).to.have.been.calledOnce.calledWith('errors/500.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/500.njk');
     });
 
     it('sends error to app-insights', () => {

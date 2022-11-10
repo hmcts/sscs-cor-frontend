@@ -65,7 +65,7 @@ describe('controllers/status', () => {
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(
         oralAppealReceived.appeal.status
       );
-      expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', {
+      expect(res.render).to.have.been.calledOnce.calledWith('status-tab.njk', {
         stages: [],
         appeal: oralAppealReceived.appeal,
       });
@@ -80,7 +80,7 @@ describe('controllers/status', () => {
       expect(getActiveStagesStub).to.have.been.calledOnce.calledWith(
         paperAppealReceived.appeal.status
       );
-      expect(res.render).to.have.been.calledOnce.calledWith('status-tab.html', {
+      expect(res.render).to.have.been.calledOnce.calledWith('status-tab.njk', {
         stages: [],
         appeal: paperAppealReceived.appeal,
       });
