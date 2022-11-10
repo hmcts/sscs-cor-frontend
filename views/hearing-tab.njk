@@ -1,0 +1,159 @@
+{% extends "layout.njk" %} {% from "inset-text/macro.njk" import govukInsetText
+%} {% from "components/navigation-tabs.njk" import navigationTabs with context
+%} {% set pageHeader =
+content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %} {%
+block pageTitle %} {{ content[i18n.language].taskList.header | safe }} - {{
+content[i18n.language].hearingTab.tabHeader | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% endblock %} {% block
+corContent %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      {{
+      content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal
+      }}
+    </h1>
+    {% include "includes/appellant-details.njk" %}
+  </div>
+</div>
+
+{% include "includes/divider.njk" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ navigationTabs("hearing") }}
+    <div class="task-list">
+      <h2 class="govuk-heading-m --margin-bottom-s">
+        {{ content[i18n.language].common.hearingForYourAppeal | safe }}
+      </h2>
+      {% if attending %} {% if not hearingInfo.hearingDateTime %}
+      <div>{{ content[i18n.language].hearingTab.noHearingDate | safe }}</div>
+      {% endif %}
+      <div class="hearing-details">
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ content[i18n.language].common.date | safe }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if hearingInfo.hearingDateTime %} {{
+              hearingInfo.hearingDateTime | dateFormat('DD MMMM YYYY', i18n.language) if hearingInfo else
+              content[i18n.language].hearingTab.toBeConfirmed }} {% else %} {{
+              content[i18n.language].hearingTab.toBeConfirmed | safe }} {% endif
+              %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ content[i18n.language].common.time | safe }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if hearingInfo.hearingDateTime %} {{
+              hearingInfo.hearingDateTime | dateFormat("HH:mm", i18n.language) if hearingInfo
+              else content[i18n.language].hearingTab.toBeConfirmed }} {% else %}
+              {{ content[i18n.language].hearingTab.toBeConfirmed | safe }} {%
+              endif %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ content[i18n.language].common.location | safe }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if hearingInfo.venueName %} {{ hearingInfo.venueName | safe
+              }}<br />
+              {{ hearingInfo.addressLine1 | safe }}<br />
+              {{ hearingInfo.addressLine2 | safe }}<br />
+              {{ hearingInfo.addressLine3 | safe }}<br />
+              {{ hearingInfo.postcode | safe }}<br />
+              <a href="{{ hearingInfo.googleMapUrl }}"
+                >{{ content[i18n.language].hearingTab.mapsAndDirections | safe
+                }}</a
+              >
+              {% else %} {{ content[i18n.language].hearingTab.toBeConfirmed |
+              safe }} {% endif %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ content[i18n.language].hearingTab.languageInterpreter | safe }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if hearingArrangements.language_interpreter %} {{
+              hearingArrangements.languages | safe }} {% else %} {{
+              content[i18n.language].hearingTab.notRequired | safe }} {% endif
+              %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ content[i18n.language].hearingTab.signInterpreter | safe }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if hearingArrangements.sign_language_interpreter %} {{
+              hearingArrangements.sign_language_type | safe }} {% else %} {{
+              content[i18n.language].hearingTab.notRequired | safe }} {% endif
+              %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ content[i18n.language].hearingTab.hearingLoop | safe }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if hearingArrangements.hearing_loop_required %} {{
+              content[i18n.language].hearingTab.required | safe }} {% else %} {{
+              content[i18n.language].hearingTab.notRequired | safe }} {% endif
+              %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ content[i18n.language].hearingTab.disableAccess | safe }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if hearingArrangements.disabled_access_required %} {{
+              content[i18n.language].hearingTab.required | safe }} {% else %} {{
+              content[i18n.language].hearingTab.notRequired | safe }} {% endif
+              %}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ content[i18n.language].hearingTab.otherArrangements | safe }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if hearingArrangements.other_arrangements %} {{
+              hearingArrangements.other_arrangements | safe }} {% else %} {{
+              content[i18n.language].hearingTab.notRequired | safe }} {% endif
+              %}
+            </dd>
+          </div>
+        </dl>
+        <div>
+          <a style="color: #1265ad" ; href="/support-hearing"
+            >{{ content[i18n.language].hearingTab.tribunalLookLike | safe }}</a
+          >
+        </div>
+      </div>
+      {{ govukInsetText({ html:
+      content[i18n.language].hearingTab.contactIfChanges | eval }) }} {% else %}
+      {{ govukInsetText({ text:
+      content[i18n.language].hearingTab.notAttending.info }) }}
+      <p>
+        {{ content[i18n.language].hearingTab.notAttending.description | safe }}
+      </p>
+      <p>
+        <a href="/support-hearing"
+          >{{ content[i18n.language].hearingTab.tribunalLookLike | safe }}</a
+        >
+      </p>
+      <p>
+        {{ content[i18n.language].hearingTab.notAttending.contactToAttend | eval
+        | safe }}
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

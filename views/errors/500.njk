@@ -1,0 +1,12 @@
+{% extends "layout.njk" %} {% set pageHeader =
+content[i18n.language].error.error500.header | safe %} {% block corContent %}
+<h1 class="govuk-heading-l">
+  {{ content[i18n.language].error.error500.header | safe }}
+</h1>
+<p>
+  <a id="buttonBack" href="#"
+    >{{ content[i18n.language].error.error500.content | safe }}</a
+  >
+</p>
+<p>{{ content[i18n.language].common.contactIfProblemContinues | safe }}</p>
+{% endblock %}

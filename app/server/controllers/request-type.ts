@@ -32,7 +32,7 @@ function getRequestType() {
       const emptyHearingIdError = action === 'formError';
       const appeal = req.session['appeal']!;
 
-      return res.render('request-type/index.html', {
+      return res.render('request-type/index.njk', {
         action,
         requestOptions,
         hearingRecordingsResponse,

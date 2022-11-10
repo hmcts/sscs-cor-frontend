@@ -1,0 +1,11 @@
+{% extends "layout.njk" %} {% block pageTitle %} {{
+content[i18n.language].postEvidence.header | safe }} - {{
+content[i18n.language].general.serviceTitle | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% endblock %} {% block
+beforeContent %} {{ super() }}
+<a href="/task-list" class="govuk-back-link"
+  >{{ content[i18n.language].general.back | safe }}</a
+>
+{% endblock %} {% set pageHeader = content[i18n.language].postEvidence.header |
+safe %} {% block corContent %} {% include "includes/post-evidence.njk" %} {%
+endblock %}

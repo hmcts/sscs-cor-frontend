@@ -26,7 +26,7 @@ describe('controllers/assign-case.js', () => {
 
       getIndex(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'assign-case/index.html',
+        'assign-case/index.njk',
         {}
       );
     });
@@ -163,7 +163,7 @@ describe('controllers/assign-case.js', () => {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.html',
+          'assign-case/index.njk',
           { error: content.en.assignCase.errors.noPostcode }
         );
       });
@@ -185,7 +185,7 @@ describe('controllers/assign-case.js', () => {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.html',
+          'assign-case/index.njk',
           { error: content.en.assignCase.errors.invalidPostcode }
         );
       });
@@ -207,7 +207,7 @@ describe('controllers/assign-case.js', () => {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.html',
+          'assign-case/index.njk',
           { error: content.en.assignCase.errors.tyaNotProvided }
         );
       });

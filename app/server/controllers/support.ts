@@ -7,7 +7,7 @@ function setupSupportEvidenceController(deps: any): Router {
     Paths.supportEvidence,
     deps.setLocals,
     (req: Request, res: Response) =>
-      res.render('help-guides/support-evidence.html', { req })
+      res.render('help-guides/support-evidence.njk', { req })
   );
   return router;
 }
@@ -18,7 +18,7 @@ function setupSupportHearingExpensesController(deps: any): Router {
     Paths.supportHearingExpenses,
     deps.setLocals,
     (req: Request, res: Response) =>
-      res.render('help-guides/support-hearing-expenses.html', { req })
+      res.render('help-guides/support-hearing-expenses.njk', { req })
   );
   return router;
 }
@@ -29,7 +29,7 @@ function setupSupportHearingController(deps: any): Router {
     Paths.supportHearing,
     deps.setLocals,
     (req: Request, res: Response) =>
-      res.render('help-guides/support-hearing.html', { req })
+      res.render('help-guides/support-hearing.njk', { req })
   );
   return router;
 }
@@ -40,7 +40,7 @@ function setupSupportRepresentativesController(deps: any): Router {
     Paths.supportRepresentatives,
     deps.setLocals,
     (req: Request, res: Response) =>
-      res.render('help-guides/support-representatives.html', { req })
+      res.render('help-guides/support-representatives.njk', { req })
   );
   return router;
 }
@@ -51,7 +51,7 @@ function setupSupportWithdrawAppealController(deps: any): Router {
     Paths.supportWithdrawAppeal,
     deps.setLocals,
     (req: Request, res: Response) =>
-      res.render('help-guides/support-withdraw-appeal.html', { req })
+      res.render('help-guides/support-withdraw-appeal.njk', { req })
   );
   return router;
 }

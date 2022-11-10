@@ -1,0 +1,58 @@
+{% extends "layout.njk" %} {% from "inset-text/macro.njk" import govukInsetText
+%} {% from "components/navigation-tabs.njk" import navigationTabs with context
+%} {% set pageHeader = content[i18n.language].taskList.header | safe %} {% block
+pageTitle %} {{ content[i18n.language].taskList.header | safe }} - {{
+content[i18n.language].outcomeTab.tabHeader | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% endblock %} {% block
+corContent %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      {{ content[i18n.language].taskList.header | safe }}
+    </h1>
+    {% include "includes/appellant-details.njk" %}
+  </div>
+</div>
+
+{% include "includes/divider.njk" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ navigationTabs("outcome") }}
+    <div class="task-list">
+      <h2 class="govuk-heading-m --margin-bottom-s">
+        {{ content[i18n.language].common.hearingOutcome | safe }}
+      </h2>
+      <br />
+      <div>
+        {% for outcome in outcomes %}
+        <h2 class="govuk-heading-s">
+          {{ content[i18n.language].outcomeTab.outcomeFrom | safe }}
+          {{outcome.date}}
+        </h2>
+        <table class="govuk-table" id="hearing-outcome">
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                {{ content[i18n.language].outcomeTab.document | safe }}
+              </td>
+              <td class="govuk-table__cell">
+                <a href="/document?url={{outcome.url}}" target="_blank"
+                  >{{outcome.name}}</a
+                >
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                {{ content[i18n.language].outcomeTab.hearingDate | safe }}
+              </td>
+              <td class="govuk-table__cell">{{outcome.date}}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

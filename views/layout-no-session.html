@@ -1,9 +1,0 @@
-{% extends "template.njk" %} {% from "components/phase-banner/macro.njk" import
-govukPhaseBanner %} {% from "components/mya-contact-us.html" import contactUs
-with context %} {% set assetPath = "/public/govuk-frontend" %} {% block
-pageTitle %} {{ contact.pageTitle | safe }} {% endblock %} {% block head %} {%
-include "includes/head.html" %} {% endblock %} {% block header %} {% include
-"includes/cookie-banner.html" %} {% include "includes/header.html" %} {%
-endblock %} {% block content %} {% endblock %} {% block body_end %}
-<script src="/public/js/main.js"></script>
-{% endblock %}

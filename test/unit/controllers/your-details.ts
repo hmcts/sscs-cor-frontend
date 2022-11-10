@@ -63,7 +63,7 @@ describe('controllers/your-details', () => {
       yourDetails.getYourDetails(req, res);
 
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'your-details.html',
+        'your-details.njk',
         { details: req.session.hearing }
       );
     });

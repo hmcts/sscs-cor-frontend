@@ -465,7 +465,7 @@ describe('controllers/login', () => {
       });
 
       it('loads select case page', () => {
-        expect(res.render).to.have.been.calledWith('select-case.html', {
+        expect(res.render).to.have.been.calledWith('select-case.njk', {
           hearingsByName: {
             'John Smith': [
               {

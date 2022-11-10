@@ -15,7 +15,7 @@ const postcodeRegex = /^([A-Z][A-HJ-Y]?\d[A-Z\d]?\s?\d[A-Z]{2}|GIR ?0A{2})$/gi;
 const logger = Logger.getLogger('login.js');
 
 function getIndex(req: Request, res: Response) {
-  return res.render('assign-case/index.html', {});
+  return res.render('assign-case/index.njk', {});
 }
 
 function postIndex(
@@ -24,16 +24,16 @@ function postIndex(
 ) {
   return async (req: Request, res: Response) => {
     if (!req.body.postcode || !req.body.postcode.trim()) {
-      return res.render('assign-case/index.html', {
+      return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.noPostcode,
       });
     } else if (!req.body.postcode.replace(/\s/g, '').match(postcodeRegex)) {
-      return res.render('assign-case/index.html', {
+      return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.invalidPostcode,
       });
     }
     if (!req.session['tya']) {
-      return res.render('assign-case/index.html', {
+      return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.tyaNotProvided,
       });
     }
@@ -49,7 +49,7 @@ function postIndex(
       );
 
     if (statusCode !== OK) {
-      return res.render('assign-case/index.html', {
+      return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.postcodeDoesNotMatch,
       });
     }

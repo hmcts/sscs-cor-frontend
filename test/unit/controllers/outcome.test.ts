@@ -66,10 +66,9 @@ describe('controllers/outcome', () => {
         },
       ];
       outcome.getOutcome(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-        'outcome-tab.html',
-        { outcomes }
-      );
+      expect(res.render).to.have.been.calledOnce.calledWith('outcome-tab.njk', {
+        outcomes,
+      });
     });
   });
 

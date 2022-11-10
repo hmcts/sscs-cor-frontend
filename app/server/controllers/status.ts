@@ -39,7 +39,7 @@ function getStatus(req: Request, res: Response) {
   } else if (hearingType === 'cor') {
     stages = getActiveStages(status, corAppealStages);
   }
-  return res.render('status-tab.html', { stages, appeal });
+  return res.render('status-tab.njk', { stages, appeal });
 }
 
 function setupStatusController(deps: any) {

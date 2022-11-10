@@ -1,0 +1,116 @@
+{% extends "layout.njk" %} {% from "back-link/macro.njk" import govukBackLink
+%} {% set pageHeader = content[i18n.language].cookiePrivacy.cookies.title | safe
+%} {% macro cookieTable(items, columnNames) %}
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      {% for columnName in columnNames %}
+      <th class="govuk-table__header" scope="col">{{ columnName | safe }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for item in items %}
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{ item.name | safe }}</td>
+      <td class="govuk-table__cell">{{ item.purpose | safe }}</td>
+      <td class="govuk-table__cell">{{ item.expires | safe }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endmacro %} {% block beforeContent %} {{super()}} {{ govukBackLink({ href:
+"#", text: content[i18n.language].general.back, attributes : { onclick:
+"history.go(-1); return false;" } }) }} {% endblock%} {% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      {{ content[i18n.language].cookiePrivacy.cookies.title | safe }}
+    </h1>
+    <p>{{ content[i18n.language].cookiePrivacy.cookies.description | safe }}</p>
+
+    <h2 class="govuk-heading-m">
+      {{ content[i18n.language].cookiePrivacy.usedInService.title | safe }}
+    </h2>
+    <p>{{ content[i18n.language].cookiePrivacy.usedInService.uses | safe }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for use in content[i18n.language].cookiePrivacy.usedInService.usesList
+      %}
+      <li>{{ use | safe }}</li>
+      {% endfor %}
+    </ul>
+    <p>
+      {{ usedInService.more | safe }}
+      <a href="http://www.aboutcookies.org/"
+        >{{ content[i18n.language].cookiePrivacy.usedInService.manage | safe
+        }}</a
+      >
+    </p>
+
+    <h2 class="govuk-heading-m">
+      {{ content[i18n.language].cookiePrivacy.howAreTheyUsed.title | safe }}
+    </h2>
+    <p>
+      {{ content[i18n.language].cookiePrivacy.howAreTheyUsed.description | safe
+      }}
+    </p>
+    <p>{{ content[i18n.language].cookiePrivacy.howAreTheyUsed.info | safe }}</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      {% for info in
+      content[i18n.language].cookiePrivacy.howAreTheyUsed.infoList %}
+      <li>{{ info | safe }}</li>
+      {% endfor %}
+    </ul>
+    <p>
+      {{ content[i18n.language].cookiePrivacy.howAreTheyUsed.googleShare | safe
+      }}
+      <a href="https://policies.google.com/privacy/partners?hl=en-GB&gl=uk"
+        >{{
+        content[i18n.language].cookiePrivacy.howAreTheyUsed.googlePrivacyPolicy
+        | safe }}</a
+      >
+    </p>
+    <p>
+      {{ content[i18n.language].cookiePrivacy.howAreTheyUsed.optOut.youCan |
+      safe }}
+      <a href="https://policies.google.com/privacy/partners?hl=en-GB&gl=uk"
+        >{{ content[i18n.language].cookiePrivacy.howAreTheyUsed.optOut.google |
+        safe }}</a
+      >
+      {{ content[i18n.language].cookiePrivacy.howAreTheyUsed.optOut.access |
+      safe }}
+    </p>
+
+    <p>
+      {{ content[i18n.language].cookiePrivacy.howAreTheyUsed.googleCookies |
+      safe }}
+    </p>
+    {{ cookieTable(
+    content[i18n.language].cookiePrivacy.howAreTheyUsed.cookieTable.items,
+    content[i18n.language].cookiePrivacy.howAreTheyUsed.cookieTable.columnNames
+    ) }}
+
+    <h2 class="govuk-heading-m">{{ introMessage.title | safe }}</h2>
+    <p>
+      {{ content[i18n.language].cookiePrivacy.introMessage.description | safe }}
+    </p>
+    {{ cookieTable(
+    content[i18n.language].cookiePrivacy.introMessage.cookieTable.items,
+    content[i18n.language].cookiePrivacy.introMessage.cookieTable.columnNames )
+    }}
+
+    <h2 class="govuk-heading-m">
+      {{ content[i18n.language].cookiePrivacy.sessionCookie.title | safe }}
+    </h2>
+    <p>
+      {{ content[i18n.language].cookiePrivacy.sessionCookie.description | safe
+      }}
+    </p>
+    {{ cookieTable(
+    content[i18n.language].cookiePrivacy.sessionCookie.cookieTable.items,
+    content[i18n.language].cookiePrivacy.sessionCookie.cookieTable.columnNames )
+    }}
+  </div>
+</div>
+{% endblock %}

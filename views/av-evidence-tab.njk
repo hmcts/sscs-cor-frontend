@@ -1,0 +1,52 @@
+{% extends "layout.njk" %} {% from "inset-text/macro.njk" import govukInsetText
+%} {% from "components/navigation-tabs.njk" import navigationTabs with context
+%} {% set pageHeader =
+content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %} {%
+block pageTitle %} {{ content[i18n.language].taskList.header | safe }} - {{
+content[i18n.language].avEvidenceTab.tabHeader | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% endblock %} {% block
+corContent %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      {{
+      content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal
+      }}
+    </h1>
+    {% include "includes/appellant-details.njk" %}
+  </div>
+</div>
+
+{% include "includes/divider.njk" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ navigationTabs("avEvidence") }}
+    <div class="task-list">
+      <h2 class="govuk-heading-m --margin-bottom-s">
+        {{ content[i18n.language].common.avEvidence | safe }}
+      </h2>
+      <br />
+      <div>
+        {% if not appeal.audioVideoEvidence %}
+        <div>{{ content[i18n.language].avEvidenceTab.noEvidence | safe }}</div>
+        {% else %} {% for avEvidence in appeal.audioVideoEvidence %}
+        <table class="govuk-table" id="av-evidence">
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                <a
+                  href="/av-evidence?type={{avEvidence.type}}&url={{avEvidence.url}}"
+                  target="_blank"
+                  >{{avEvidence.name}}</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

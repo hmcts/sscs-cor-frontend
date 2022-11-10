@@ -1,0 +1,59 @@
+{% extends "layout.njk" %} {% from "select/macro.njk" import govukSelect %} {%
+from "components/navigation-tabs.njk" import navigationTabs with context %} {%
+set pageHeader =
+content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %} {%
+block pageTitle %} {% if pageTitleError %} {{
+content[i18n.language].errorSummary.errorPageTitle | safe }} {{ pageTitle | safe
+}} - {{ content[i18n.language].requestTypeTab.tabHeader | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% else %} {{
+content[i18n.language].taskList.header | safe }} - {{
+content[i18n.language].requestTypeTab.tabHeader | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% endif %} {% endblock %} {%
+block corContent %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      {{
+      content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal
+      }}
+    </h1>
+    {% include "includes/appellant-details.njk" %}
+  </div>
+</div>
+
+{% include "includes/divider.njk" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ navigationTabs("requestType") }}
+    <div class="task-list">
+      {% if action === "confirm" %} {% include
+      "request-type/request-confirm.njk" %} {% endif %}
+      <h2 class="govuk-heading-m --margin-bottom-s">
+        {{ content[i18n.language].requestTypeTab.selectRequestHeader | safe }}
+      </h2>
+      <form
+        class="--padding-top-m"
+        id="request-option-form"
+        name="request-option-form"
+        action="/request-type/select?_csrf={{csrfToken}}"
+        method="POST"
+      >
+        <div>
+          {{ govukSelect({ id: "requestOptions", name: "requestOptions", label:
+          { text: content[i18n.language].requestTypeTab.selectRequest | safe,
+          classes: "--font-weight-b --margin-none" }, items: [ { value:
+          "select", text:
+          content[i18n.language].requestTypeTab.selectRequestOption | safe }, {
+          value: "hearingRecording", text:
+          content[i18n.language].requestTypeTab.hearingRecordingOption | safe }
+          ] }) }}
+        </div>
+      </form>
+
+      {% if action === "hearingRecording" or action === "formError" %} {%
+      include "request-type/hearing-recording.njk" %} {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

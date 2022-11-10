@@ -39,11 +39,11 @@ describe('controllers/policies.js', () => {
     const scenarios = [
       {
         cookieBannerFeature: true,
-        expected: 'policy-pages/cookie-privacy-new.html',
+        expected: 'policy-pages/cookie-privacy-new.njk',
       },
       {
         cookieBannerFeature: false,
-        expected: 'policy-pages/cookie-privacy-old.html',
+        expected: 'policy-pages/cookie-privacy-old.njk',
       },
     ];
 

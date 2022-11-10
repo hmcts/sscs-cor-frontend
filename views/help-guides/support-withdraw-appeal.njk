@@ -1,0 +1,14 @@
+{% extends "help-guides/support-layout.njk" %} {% set pageHeader =
+content[i18n.language].helpGuides.withdrawAppeal.title | safe %} {% block
+pageTitle %} {{ content[i18n.language].helpGuides.withdrawAppeal.title | safe }}
+- {{ content[i18n.language].general.serviceTitle | safe }} - {{
+content[i18n.language].general.govUK | safe }} {% endblock %} {% block
+supportTitle %} {{ content[i18n.language].helpGuides.withdrawAppeal.title | safe
+}} {% endblock%} {% block supportContent %}
+<p class="govuk-!-font-size-24">
+  {{ content[i18n.language].helpGuides.withdrawAppeal.entry | safe }}
+</p>
+<p>{{ content[i18n.language].helpGuides.withdrawAppeal.para1 | safe }}</p>
+<p>{{ content[i18n.language].helpGuides.withdrawAppeal.para2 | safe }}</p>
+<p>{{ content[i18n.language].helpGuides.withdrawAppeal.para3 | safe }}</p>
+{% endblock%}

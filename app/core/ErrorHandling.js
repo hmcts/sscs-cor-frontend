@@ -16,7 +16,7 @@ class ErrorHandling {
     logger.error('Unhandled error', error);
     res.status(status);
     res.render(
-      status === HttpStatus.NOT_FOUND ? 'errors/404.html' : 'errors/500.html'
+      status === HttpStatus.NOT_FOUND ? 'errors/404.njk' : 'errors/500.njk'
     );
   }
 

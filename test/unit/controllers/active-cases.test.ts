@@ -55,7 +55,7 @@ describe('controllers/active-cases', () => {
     it('should render active cases page', async () => {
       req.session['hearings'] = oralActiveAndDormantCases;
       activeCases.getActiveCases(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('active-tab.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('active-tab.njk');
     });
 
     it('should throw error if no sessions', async () => {

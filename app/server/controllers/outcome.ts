@@ -29,7 +29,7 @@ function getOutcome(req: Request, res: Response) {
     );
     outcome.date = dateFormat(outcome.date, 'YYYY-MM-DD');
   });
-  return res.render('outcome-tab.html', { outcomes });
+  return res.render('outcome-tab.njk', { outcomes });
 }
 
 function getDocument(trackYourAppealService: TrackYourApealService) {

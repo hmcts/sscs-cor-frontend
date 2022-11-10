@@ -75,7 +75,7 @@ describe('controllers/request-type', () => {
       req.cookies.manageYourAppeal = 'true';
       await requestType.getRequestType()(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'request-type/index.html',
+        'request-type/index.njk',
         {
           action: '',
           requestOptions: {},

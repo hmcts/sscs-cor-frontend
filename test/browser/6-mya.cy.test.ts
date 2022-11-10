@@ -247,9 +247,10 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       statusPage.verifyPage();
       await statusPage.clickElement('#tab-hearing');
       await page.waitForTimeout(500);
-      expect(
-        await statusPage.getElementText('.govuk-tabs__list-item--selected')
-      ).contain(content.cy.hearingTab.tabHeader);
+      const selectedTab: string = await statusPage.getElementText(
+        '.govuk-tabs__list-item--selected'
+      );
+      expect(selectedTab).contain(content.cy.hearingTab.tabHeader);
     });
     /* PA11Y */
     it('CY - checks /hearing page passes @pa11y', async () => {

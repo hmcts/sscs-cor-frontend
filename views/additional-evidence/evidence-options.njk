@@ -1,0 +1,35 @@
+{% from "button/macro.njk" import govukButton %} {% from "radios/macro.njk"
+import govukRadios %}
+
+<div class="govuk-grid-column-two-thirds">
+  <form action="/additional-evidence" , method="post">
+    {% if mediaFilesAllowed %} {{ govukRadios({ idPrefix:
+    "additional-evidence-option", name: "additional-evidence-option", fieldset:
+    { legend: { text:
+    content[i18n.language].additionalEvidence.evidenceOptions.header,
+    isPageHeading: true, classes: "govuk-fieldset__legend--xl" } },
+    errorMessage: { text:
+    content[i18n.language].additionalEvidence.evidenceOptions.error.noButtonSelected
+    } if error, items: [ { value: "statement", text:
+    content[i18n.language].common.provideInformationOnline }, { value: "upload",
+    text: content[i18n.language].common.uploadLettersDocumentPhotos }, { value:
+    "uploadAudioVideo", text: content[i18n.language].common.uploadAudioVideo },
+    { value: "post", text: content[i18n.language].common.sendByPost } ] }) }} {%
+    else %} {{ govukRadios({ idPrefix: "additional-evidence-option", name:
+    "additional-evidence-option", fieldset: { legend: { text:
+    content[i18n.language].additionalEvidence.evidenceOptions.header,
+    isPageHeading: true, classes: "govuk-fieldset__legend--xl" } },
+    errorMessage: { text:
+    content[i18n.language].additionalEvidence.evidenceOptions.error.noButtonSelected
+    } if error, items: [ { value: "statement", text:
+    content[i18n.language].common.provideInformationOnline }, { value: "upload",
+    text: content[i18n.language].common.uploadLettersDocumentPhotos }, { value:
+    "uploadAudioVideo", text: content[i18n.language].common.uploadAudioVideo },
+    { value: "post", text: content[i18n.language].common.sendByPost } ] }) }} {%
+    endif %} {% include "includes/csrf-hidden-input.njk" %}
+    <div id="submit-buttons">
+      {{ govukButton({ name: "continue", text:
+      content[i18n.language].general.continue }) }}
+    </div>
+  </form>
+</div>

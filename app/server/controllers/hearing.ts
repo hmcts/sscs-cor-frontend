@@ -42,7 +42,7 @@ function getHearing(req: Request, res: Response) {
   ) {
     hearingArrangements = session['hearing'].hearing_arrangements;
   }
-  return res.render('hearing-tab.html', {
+  return res.render('hearing-tab.njk', {
     hearingInfo,
     attending,
     hearingArrangements,
