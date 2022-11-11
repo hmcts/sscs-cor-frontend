@@ -2,6 +2,7 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "target": "es5",
+    "skipLibCheck": true,
     "lib": ["es5", "es6", "dom"]
   }
 }
