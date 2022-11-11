@@ -135,10 +135,19 @@ function configureNunjucks(app: express.Application, i18next: I18next) {
   });
   nunEnv.addFilter('dateFilter', dateFilter);
   nunEnv.addFilter('agencyAcronym', (benefitType) => {
-    return nunjucks.renderString(
-      content[i18next.language].benefitTypes[benefitType].agencyAcronym,
-      this.ctx
-    );
+    try {
+      logger.info(`agencyAcronym benefitType: ${benefitType}`, this.ctx);
+      return nunjucks.renderString(
+        content[i18next.language].benefitTypes[benefitType].agencyAcronym,
+        this.ctx
+      );
+    } catch (error) {
+      logger.error(
+        `Error rendering agencyAcronym from benefitType: ${benefitType}`,
+        error
+      );
+      return 'Error rendering agencyAcronym from benefitType.';
+    }
   });
   nunEnv.addFilter('acronym', (benefitType) => {
     return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
@@ -169,14 +178,10 @@ function configureNunjucks(app: express.Application, i18next: I18next) {
   });
   nunEnv.addFilter('evalStatus', function (text) {
     try {
+      logger.info(`evalStatus: ${text}`, this.ctx);
       if (Array.isArray(text)) {
         text = text.join(' ');
       }
-      logger.info(
-        `Error rendering latest update text evalStatus, text: ${text}`,
-        this,
-        this.ctx
-      );
       return nunjucks.renderString(text, this.ctx);
     } catch (error) {
       logger.error(
