@@ -1,16 +1,15 @@
 import * as CONST from '../constants';
 import nunjucks = require('nunjucks');
-import * as moment from 'moment';
 import express = require('express');
 import { InitOptions } from 'i18next';
 import { I18next } from 'i18next-express-middleware';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 import { Application } from 'express';
+import { Moment, utc } from 'moment';
 
 const helmet = require('helmet');
 const { tyaNunjucks } = require('../core/tyaNunjucks');
-const dateFilter = require('nunjucks-date-filter');
 const { getContentAsString } = require('../core/contentLookup');
 const { lowerCase } = require('lodash');
 const content = require('../../locale/content');
@@ -18,7 +17,9 @@ const content = require('../../locale/content');
 const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 const config = require('config');
 
-function configureHelmet(app) {
+const DecisionReceivedDaysAfterHearing = 5;
+
+function configureHelmet(app: Application) {
   // by setting HTTP headers appropriately.
   app.use(helmet());
   // Helmet referrer policy
@@ -79,24 +80,38 @@ function configureHeaders(app: Application): void {
   });
 }
 
-function dateRegex(text: string): string {
-  if (!text) return '';
-  const isoDateRegex =
-    /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/g;
-  return text.replace(isoDateRegex, (date) =>
-    moment.utc(date).format(CONST.DATE_FORMAT)
-  );
+function dateFormat(
+  date: string | Moment,
+  format: string = CONST.DATE_FORMAT,
+  locale = 'en'
+): string {
+  try {
+    const momentDate: Moment = typeof date === 'string' ? utc(date) : date;
+    if (momentDate) {
+      return momentDate.locale(locale).format(format);
+    }
+  } catch (error) {
+    logger.error(
+      `Error formatting date '${date}' with format '${format}', error:`,
+      error
+    );
+  }
+  return typeof date === 'string' ? date : date?.format();
 }
 
 function acronym(benefitType: string): string {
   return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
 }
 
-function dateForDecisionReceived(utcDateTimeStr: string): string {
-  const howManyDaysAfterHearing = 5;
-  return moment(utcDateTimeStr)
-    .add(howManyDaysAfterHearing, 'days')
-    .format('DD MMMM YYYY');
+function dateForDecisionReceived(
+  utcDateTimeStr: string,
+  locale: string
+): string {
+  const decisionReceivedDate = utc(utcDateTimeStr).add(
+    DecisionReceivedDaysAfterHearing,
+    'days'
+  );
+  return dateFormat(decisionReceivedDate, CONST.DATE_FORMAT, locale);
 }
 
 function configureNunjucks(app: express.Application, i18next: I18next): void {
@@ -131,7 +146,6 @@ function configureNunjucks(app: express.Application, i18next: I18next): void {
     next();
   });
 
-  nunEnv.addFilter('date', dateRegex);
   nunEnv.addFilter('eval', function textEval(this, text) {
     try {
       if (Array.isArray(text)) {
@@ -144,7 +158,7 @@ function configureNunjucks(app: express.Application, i18next: I18next): void {
     }
   });
   nunEnv.addFilter('isArray', Array.isArray);
-  nunEnv.addFilter('dateFilter', dateFilter);
+  nunEnv.addFilter('dateFormat', dateFormat);
   nunEnv.addFilter(
     'agencyAcronym',
     function agencyAcronym(this, benefitType: string) {

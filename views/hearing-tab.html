@@ -37,8 +37,7 @@ corContent %}
             </dt>
             <dd class="govuk-summary-list__value">
               {% if hearingInfo.hearingDateTime %} {{
-              hearingInfo.hearingDateTime | dateFilter("locale", i18n.language)
-              | dateFilter("DD MMMM YYYY") if hearingInfo else
+              hearingInfo.hearingDateTime | dateFormat('DD MMMM YYYY', i18n.language) if hearingInfo else
               content[i18n.language].hearingTab.toBeConfirmed }} {% else %} {{
               content[i18n.language].hearingTab.toBeConfirmed | safe }} {% endif
               %}
@@ -50,7 +49,7 @@ corContent %}
             </dt>
             <dd class="govuk-summary-list__value">
               {% if hearingInfo.hearingDateTime %} {{
-              hearingInfo.hearingDateTime | dateFilter("HH:mm") if hearingInfo
+              hearingInfo.hearingDateTime | dateFormat("HH:mm", i18n.language) if hearingInfo
               else content[i18n.language].hearingTab.toBeConfirmed }} {% else %}
               {{ content[i18n.language].hearingTab.toBeConfirmed | safe }} {%
               endif %}
