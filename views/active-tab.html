@@ -47,12 +47,10 @@ content[i18n.language].selectCase.title | safe %} {% block corContent %}
         | safe }}
       </td>
       <td class="govuk-table__cell govuk-!-width-one-quarter">
-        {{ hearing.appeal_details.submitted_date | dateFilter("locale",
-        i18n.language) | dateFilter("DD MMMM YYYY") }}
+        {{ hearing.appeal_details.submitted_date | dateFormat('DD MMMM YYYY', i18n.language) }}
       </td>
       <td class="govuk-table__cell govuk-!-width-one-quarter">
-        {{ hearing.appeal_details.mrn_date | dateFilter("locale", i18n.language)
-        | dateFilter("DD MMMM YYYY") }}
+        {{ hearing.appeal_details.mrn_date | dateFormat('DD MMMM YYYY', i18n.language) }}
       </td>
       <td class="govuk-table__cell govuk-!-width-one-quarter">
         <a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}"

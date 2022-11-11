@@ -720,10 +720,10 @@
         "heading": "Appeal Received",
         "content": {
           "oral": [
-            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."
+            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. We’ll contact you and explain the next steps when they’ve replied."
           ],
           "paper": [
-            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFilter('DD MMMM YYYY')}}. We’ll contact you and explain the next steps when they’ve replied."
+            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. We’ll contact you and explain the next steps when they’ve replied."
           ]
         }
       },
@@ -753,12 +753,12 @@
         "heading": "Hearing took place",
         "content": {
           "oral": [
-            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFormat('DD MMMM YYYY', i18n.language)}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
             "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
           ],
           "paper": [
             "The tribunal have reviewed all the information you and {{appeal.benefitType | agencyAcronym}} have provided and have reached a decision on your {{appeal.benefitType}} appeal.",
-            "The decision notice has been posted to you. This has the tribunal’s decision and their reasons. You should receive it by {{date|dateForDecisionReceived}}.",
+            "The decision notice has been posted to you. This has the tribunal’s decision and their reasons. You should receive it by {{date|dateForDecisionReceived(i18n.language)}}.",
             "Please note we cannot give you your decision over the phone. This is to protect your personal information."
           ]
         }
@@ -791,10 +791,10 @@
         "heading": "Evidence received",
         "content": {
           "oral": [
-            "The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."
+            "The evidence you sent was received by us on {{date|dateFormat('DD MMMM YYYY', i18n.language)}}."
           ],
           "paper": [
-            "The evidence you sent was received by us on {{date|dateFilter('DD MMMM YYYY')}}."
+            "The evidence you sent was received by us on {{date|dateFormat('DD MMMM YYYY', i18n.language)}}."
           ]
         }
       },
@@ -802,11 +802,11 @@
         "heading": "Hearing took place",
         "content": {
           "oral": [
-            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFormat('DD MMMM YYYY', i18n.language)}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
             "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
           ],
           "paper": [
-            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFilter('DD MMMM YYYY')}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
+            "A hearing for your {{appeal.benefitType | benefitFullDescription}} appeal took place on {{date|dateFormat('DD MMMM YYYY', i18n.language)}} and a decision was made. You should receive the decision by post within 7 working days of the hearing.",
             "We can’t publish the decision online or tell you over the phone. This is to protect your personal information."
           ]
         }
@@ -1985,10 +1985,10 @@
         "heading": "Apêl wedi cyrraedd",
         "content": {
           "oral": [
-            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
           ],
           "paper": [
-            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
+            "Rydym wedi dweud wrth {{appeal.benefitType | agencyAcronym}} eich bod wedi apelio yn erbyn eu penderfyniad. Dylent ymateb cyn {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. Byddwn yn cysylltu â chi i egluro’r camau nesaf pan fyddant wedi ymateb."
           ]
         }
       },
@@ -2018,12 +2018,12 @@
         "heading": "Cynhaliwyd gwrandawiad",
         "content": {
           "oral": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFormat('DD MMMM YYYY', i18n.language)}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ],
           "paper": [
             "Mae’r tribiwnlys wedi adolygu’r holl wybodaeth rydych chi a {{appeal.benefitType | agencyAcronym}} wedi’i darparu ac wedi gwneud penderfyniad ynghylch eich apêl {{appeal.benefitType}}.",
-            "Mae’r hysbysiad o benderfyniad wedi cael ei anfon atoch drwy'r post. Mae’n cynnwys penderfyniad y tribiwnlys a’u rhesymau. Dylech ei gael erbyn {{date|dateForDecisionReceived}}.",
+            "Mae’r hysbysiad o benderfyniad wedi cael ei anfon atoch drwy'r post. Mae’n cynnwys penderfyniad y tribiwnlys a’u rhesymau. Dylech ei gael erbyn {{date|dateForDecisionReceived(i18n.language)}}.",
             "Sylwch, ni allwn roi’r penderfyniad ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol."
           ]
         }
@@ -2056,10 +2056,10 @@
         "heading": "Tystiolaeth wedi cyrraedd",
         "content": {
           "oral": [
-            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}."
+            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFormat('DD MMMM YYYY', i18n.language)}}."
           ],
           "paper": [
-            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}}."
+            "Mi wnaeth y dystiolaeth y bu ichi ei hanfon atom ein cyrraedd ar {{date|dateFormat('DD MMMM YYYY', i18n.language)}}."
           ]
         }
       },
@@ -2067,11 +2067,11 @@
         "heading": "Gwrandawiad wedi’i gynnal",
         "content": {
           "oral": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFormat('DD MMMM YYYY', i18n.language)}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ],
           "paper": [
-            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFilter('locale', i18n.language)|dateFilter('DD MMMM YYYY')}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
+            "Cynhaliwyd gwrandawiad ar gyfer eich apêl {{appeal.benefitType | benefitFullDescription}} ar {{date|dateFormat('DD MMMM YYYY', i18n.language)}} a gwnaethpwyd penderfyniad. Dylech gael y penderfyniad drwy’r post o fewn 7 diwrnod gwaith o’r dyddiad y cynhaliwyd y gwrandawiad.",
             "Ni allwn gyhoeddi’r penderfyniad ar-lein na’i roi ichi dros y ffôn. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.  "
           ]
         }
