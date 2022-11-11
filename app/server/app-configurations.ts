@@ -10,8 +10,6 @@ import { Moment, utc } from 'moment';
 
 const helmet = require('helmet');
 const { tyaNunjucks } = require('../core/tyaNunjucks');
-const { getContentAsString } = require('../core/contentLookup');
-const { lowerCase } = require('lodash');
 const content = require('../../locale/content');
 
 const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
@@ -99,10 +97,6 @@ function dateFormat(
   return typeof date === 'string' ? date : date?.format();
 }
 
-function acronym(benefitType: string): string {
-  return getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
-}
-
 function dateForDecisionReceived(
   utcDateTimeStr: string,
   locale: string
@@ -170,7 +164,6 @@ function configureNunjucks(app: express.Application): void {
       );
     }
   );
-  nunEnv.addFilter('acronym', acronym);
   nunEnv.addFilter(
     'benefitAcronym',
     function benefitAcronym(this, benefitType: string) {
