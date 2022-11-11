@@ -136,6 +136,7 @@ function configureNunjucks(app: express.Application, i18next: I18next) {
   nunEnv.addFilter('dateFilter', dateFilter);
   nunEnv.addFilter('agencyAcronym', function (benefitType) {
     try {
+      logger.info(`agencyAcronym benefitType: ${benefitType}`);
       return nunjucks.renderString(
         content[i18next.language].benefitTypes[benefitType].agencyAcronym,
         this.ctx
