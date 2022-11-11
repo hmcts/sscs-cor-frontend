@@ -153,7 +153,6 @@ function configureNunjucks(app: express.Application): void {
       return 'Error rendering text';
     }
   });
-  nunEnv.addFilter('isArray', Array.isArray);
   nunEnv.addFilter('dateFormat', dateFormat);
   nunEnv.addFilter(
     'agencyAcronym',

@@ -38,6 +38,6 @@ describe('app-configuration', () => {
 
     appConfigs.configureNunjucks(app);
 
-    expect(nunjucks.configure([]).addFilter).to.have.been.callCount(9);
+    expect(nunjucks.configure([]).addFilter).to.have.been.callCount(8);
   });
 });
