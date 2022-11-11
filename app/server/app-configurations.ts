@@ -7,13 +7,13 @@ import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 import { Application } from 'express';
 import { Moment, utc } from 'moment';
+import * as helmet from 'helmet';
+import * as config from 'config';
+import { tyaNunjucks } from '../core/tyaNunjucks';
 
-const helmet = require('helmet');
-const { tyaNunjucks } = require('../core/tyaNunjucks');
 const content = require('../../locale/content');
 
 const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
-const config = require('config');
 
 const DecisionReceivedDaysAfterHearing = 5;
 
