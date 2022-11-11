@@ -1242,14 +1242,14 @@
         },
         "stop": {
           "tab": "Stop receiving email updates",
-          "title": "You’ll stop receiving email updates and reminders about your {{benefitType|acronym}} benefit appeal.",
+          "title": "You’ll stop receiving email updates and reminders about your {{benefitType|benefitAcronym}} benefit appeal.",
           "confirm": "Confirm",
           "link": "Cancel"
         },
         "stopConfirmation": {
           "tab": "Email notifications stopped",
           "title": "You’ve stopped email notifications",
-          "content": "You won’t receive any more emails about your {{benefitType|acronym}} benefit appeal.",
+          "content": "You won’t receive any more emails about your {{benefitType|benefitAcronym}} benefit appeal.",
           "exitFeedbackSurveyPreLink": "Please provide some",
           "exitFeedbackSurveyLink": "feedback to help us improve this service.",
           "linkPre": "You can still",
@@ -1268,7 +1268,7 @@
         },
         "addressChangeConfirmed": {
           "tab": "Email address change confirmation",
-          "title": "Emails about your {{benefitType|acronym}} benefit appeal will now be sent to",
+          "title": "Emails about your {{benefitType|benefitAcronym}} benefit appeal will now be sent to",
           "content": "We’ve sent a confirmation email to that address. Check it in a few minutes.",
           "link": "Change your email address"
         },
@@ -2507,14 +2507,14 @@
         },
         "stop": {
           "tab": "Stopio cael diweddariadau ar ffurf e-bost",
-          "title": "Ni fyddwch yn cael diweddariadau ar ffurf e-bost neu negeseuon atgoffa am eich apêl budd-dal {{benefitType|acronym}}.",
+          "title": "Ni fyddwch yn cael diweddariadau ar ffurf e-bost neu negeseuon atgoffa am eich apêl budd-dal {{benefitType|benefitAcronym}}.",
           "confirm": "Cadarnhau",
           "link": "Canslo"
         },
         "stopConfirmation": {
           "tab": "Hysbysiadau e-bost wedi stopio ",
           "title": "Rydych wedi dewis stopio cael hysbysiadau ar ffurf e-bost",
-          "content": "Ni fyddwch yn cael rhagor o negeseuon e-bost am eich apêl budd-dal {{benefitType|acronym}}.",
+          "content": "Ni fyddwch yn cael rhagor o negeseuon e-bost am eich apêl budd-dal {{benefitType|benefitAcronym}}.",
           "exitFeedbackSurveyPreLink": "Rhowch ychydig o",
           "exitFeedbackSurveyLink": "adborth os gwelwch yn dda i’n helpu ni i wella'r gwasanaeth hwn.",
           "linkPre": "Gallwch dal",
@@ -2533,7 +2533,7 @@
         },
         "addressChangeConfirmed": {
           "tab": "Cadarnhad eich bod wedi newid eich cyfeiriad e-bost",
-          "title": "Bydd negeseuon e-bost am eich apêl budd-dal {{benefitType|acronym}} nawr yn cael eu hanfon i",
+          "title": "Bydd negeseuon e-bost am eich apêl budd-dal {{benefitType|benefitAcronym}} nawr yn cael eu hanfon i",
           "content": "Rydym wedi anfon neges e-bost yn cadarnhau hyn i'r cyfeiriad hwnnw.  Edrychwch os ydyw wedi cyrraedd ymhen ychydig o funudau. ",
           "link": "Newid eich cyfeiriad e-bost"
         },
