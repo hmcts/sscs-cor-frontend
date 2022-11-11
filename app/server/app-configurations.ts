@@ -114,7 +114,9 @@ function dateForDecisionReceived(
   return dateFormat(decisionReceivedDate, CONST.DATE_FORMAT, locale);
 }
 
-function configureNunjucks(app: express.Application, i18next: I18next): void {
+function configureNunjucks(app: express.Application): void {
+  const i18next: I18next = app.locals.i18n;
+
   const nunEnv = nunjucks.configure(
     [
       'views',
