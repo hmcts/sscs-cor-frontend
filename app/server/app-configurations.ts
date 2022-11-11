@@ -172,9 +172,18 @@ function configureNunjucks(app: express.Application, i18next: I18next) {
       if (Array.isArray(text)) {
         text = text.join(' ');
       }
+      logger.info(
+        `Error rendering latest update text evalStatus, text: ${text} \n this: \n ${JSON.stringify(
+          this
+        )} \n ctx: \n${JSON.stringify(this.ctx)}`
+      );
       return nunjucks.renderString(text, this.ctx);
     } catch (error) {
-      logger.error(`Error rendering latest update text`);
+      logger.error(
+        `Error rendering latest update text evalStatus: ${JSON.stringify(
+          error
+        )} : ${text}`
+      );
       return 'We are unable to provide a status update at present. Please contact us on the number below if you have any queries.';
     }
   });
