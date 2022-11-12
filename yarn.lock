@@ -1060,10 +1060,10 @@
   resolved "https://registry.yarnpkg.com/@types/joi/-/joi-13.6.3.tgz#79364839a9cc2c6d4d915ef8822e1f703e28648f"
   integrity sha512-n5tDa0/3MUtHsA2fVH+emDfGQkPramIpWaOvWS+7C/Yq7bn2j979RAIy9pbl4F4hSE5lwjgBXhJN019DP+3ofg==
 
-"@types/jquery@^3.3.6":
-  version "3.5.5"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.5.tgz#2c63f47c9c8d96693d272f5453602afd8338c903"
-  integrity sha512-6RXU9Xzpc6vxNrS6FPPapN1SxSHgQ336WC6Jj/N8q30OiaBZ00l1GBgeP7usjVZPivSkGUfL1z/WW6TX989M+w==
+"@types/jquery@^3.5.14":
+  version "3.5.14"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.14.tgz#ac8e11ee591e94d4d58da602cb3a5a8320dee577"
+  integrity sha512-X1gtMRMbziVQkErhTQmSe2jFwwENA/Zr+PprCkF63vFq+Yt5PZ4AlKqgmeNlwgn7dhsXEK888eIW2520EpC+xg==
   dependencies:
     "@types/sizzle" "*"
 
