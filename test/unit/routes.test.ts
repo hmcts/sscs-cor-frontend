@@ -1,24 +1,24 @@
 import * as request from 'supertest';
 import * as session from 'express-session';
-import express = require('express');
 import { setup } from '../../app/server/app';
 import { expect } from 'test/chai-sinon';
+import * as config from 'config';
+import { BAD_REQUEST, OK } from 'http-status-codes';
+import * as nock from 'nock';
+import * as express from 'express';
+import { Application } from 'express';
 
-import * as CONST from '../../app/constants';
-import moment = require('moment');
-const content = require('locale/content');
 const { createSession } = require('../../app/server/middleware/session');
-const HttpStatus = require('http-status-codes');
-const tribunalApiUrl = require('config').get('tribunals.api-url');
-const nock = require('nock');
-
 const dysonSetupCorBackend = require('../mock/cor-backend/dysonSetup');
 const dysonSetupCoh = require('../mock/coh/dysonSetup');
 const dysonSetupIdam = require('../mock/idam/dysonSetup');
 const dysonSetupS2s = require('../mock/s2s/dysonSetup');
 
+const tribunalApiUrl: string = config.get('tribunals.api-url');
+
 describe('Routes', () => {
-  let app;
+  let app: Application = null;
+
   before(() => {
     app = setup(createSession(), { disableAppInsights: true });
     dysonSetupCorBackend();
@@ -30,7 +30,7 @@ describe('Routes', () => {
     nock(tribunalApiUrl)
       .persist()
       .get('/tokens/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=')
-      .reply(HttpStatus.OK, {
+      .reply(OK, {
         token: {
           appealId: 'md005',
           subscriptionId: 1,
@@ -44,12 +44,10 @@ describe('Routes', () => {
       .post('/appeals/md005/subscriptions/1', {
         subscription: { email: 'person@example.com' },
       })
-      .reply(HttpStatus.OK);
+      .reply(OK);
 
     // Mock DELETE /appeals/id/subscriptions/id
-    nock(tribunalApiUrl)
-      .delete('/appeals/md005/subscriptions/1')
-      .reply(HttpStatus.OK);
+    nock(tribunalApiUrl).delete('/appeals/md005/subscriptions/1').reply(OK);
   });
 
   describe('Non secured routes', () => {
@@ -78,14 +76,14 @@ describe('Routes', () => {
     const url = '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=';
 
     it('should respond with a HTTP 200 when performing a GET', (done) => {
-      request(app).get(url).expect(HttpStatus.OK, done);
+      request(app).get(url).expect(OK, done);
     });
 
     it("should respond with a HTTP 400 when POSTing an 'unknown' type", (done) => {
       request(app)
         .post(url)
         .send({ type: 'unknown' })
-        .expect(HttpStatus.BAD_REQUEST, done);
+        .expect(BAD_REQUEST, done);
     });
   });
 
@@ -95,7 +93,7 @@ describe('Routes', () => {
         .get(
           '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=/stop'
         )
-        .expect(HttpStatus.OK, done);
+        .expect(OK, done);
     });
   });
 
@@ -105,7 +103,7 @@ describe('Routes', () => {
         .get(
           '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=/stopconfirm'
         )
-        .expect(HttpStatus.OK, done);
+        .expect(OK, done);
     });
   });
 
@@ -113,7 +111,7 @@ describe('Routes', () => {
     it('should respond with a HTTP 200 when performing a GET', (done) => {
       request(app)
         .get('/validate-surname/67sC1UvHy3/trackyourappeal')
-        .expect(HttpStatus.OK, done);
+        .expect(OK, done);
     });
   });
 
@@ -128,7 +126,7 @@ describe('Routes', () => {
           email: 'person@example.com',
           confirmEmail: 'person@example.com',
         })
-        .expect(HttpStatus.OK, done);
+        .expect(OK, done);
     });
 
     it('should respond with a HTTP 400 when POSTing empty strings', (done) => {
@@ -138,7 +136,7 @@ describe('Routes', () => {
           email: '',
           confirmEmail: '',
         })
-        .expect(HttpStatus.BAD_REQUEST, done);
+        .expect(BAD_REQUEST, done);
     });
 
     it('should respond with a HTTP 400 when POSTing non email addresses', (done) => {
@@ -148,7 +146,7 @@ describe('Routes', () => {
           email: 'rubb@ish',
           confirmEmail: 'rubb@ish',
         })
-        .expect(HttpStatus.BAD_REQUEST, done);
+        .expect(BAD_REQUEST, done);
     });
 
     it('should respond with a 400 when POSTing email address that do not match', (done) => {
@@ -158,7 +156,7 @@ describe('Routes', () => {
           email: 'person@example.com',
           confirmEmail: 'person@example.net',
         })
-        .expect(HttpStatus.BAD_REQUEST, done);
+        .expect(BAD_REQUEST, done);
     });
   });
 
