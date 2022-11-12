@@ -40,7 +40,10 @@ interface Options {
   disableAppInsights?: boolean;
 }
 
-function setup(sessionHandler: RequestHandler, options: Options) {
+export function setup(
+  sessionHandler: RequestHandler,
+  options: Options
+): Application {
   i18next.init({
     resources: content,
     supportedLngs: config.get('languages'),
@@ -179,5 +182,3 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(i18nextMiddleware.handle(i18next));
   return app;
 }
-
-export { setup };
