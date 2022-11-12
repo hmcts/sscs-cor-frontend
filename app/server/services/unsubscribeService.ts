@@ -1,3 +1,5 @@
+import { NextFunction, Request, Response } from 'express';
+
 const apiUrl = require('config').get('tribunals.api-url');
 const HttpStatus = require('http-status-codes');
 const request = require('superagent');
@@ -5,7 +7,11 @@ const { Logger } = require('@hmcts/nodejs-logging');
 
 const logger = Logger.getLogger('UnsubscribeService.js');
 
-const changeEmailAddress = (req, res, next) => {
+export function changeEmailAddress(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
   const token = res.locals.token;
 
   const endpoint = `${apiUrl}/appeals/${token.appealId}/subscriptions/${token.subscriptionId}`;
@@ -28,9 +34,13 @@ const changeEmailAddress = (req, res, next) => {
       // appInsights.trackException(error);
       next(error);
     });
-};
+}
 
-const stopReceivingEmails = (req, res, next) => {
+export function stopReceivingEmails(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
   const token = res.locals.token;
 
   const endpoint = `${apiUrl}/appeals/${token.appealId}/subscriptions/${token.subscriptionId}`;
@@ -50,6 +60,4 @@ const stopReceivingEmails = (req, res, next) => {
       // appInsights.trackException(error);
       next(error);
     });
-};
-
-module.exports = { changeEmailAddress, stopReceivingEmails };
+}

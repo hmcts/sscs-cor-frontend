@@ -1,5 +1,6 @@
 const i18next = require('i18next');
 const Joi = require('joi');
+
 const content = require('../../../locale/content');
 
 const maxCharacters = 20000;

@@ -1,11 +1,27 @@
-const { setErrorFields } = require('../../core/fieldErrors');
+import { NextFunction, Response, Request } from 'express';
+import { StringSchema, ValidationResult } from 'joi';
+
 const content = require('../../../locale/content');
 const HttpStatus = require('http-status-codes');
 const Joi = require('joi');
 const i18next = require('i18next');
 
-const validateFields = (email, confirmEmail, errors) => {
-  const schema = Joi.string()
+function setErrorFields(field, fields, result, errors) {
+  fields.error = true;
+  fields[field].error = true;
+  fields[field].errorMessage = result.error.message;
+
+  const type = result.error.details[0].type;
+  if (type === 'any.empty') {
+    fields[field].errorHeading = errors.emptyStringHeading;
+  } else {
+    fields[field].errorHeading = errors.notValidHeading;
+  }
+  return fields;
+}
+
+const validateFields = (email: string, confirmEmail: string, errors) => {
+  const schema: StringSchema = Joi.string()
     .email({ minDomainAtoms: 2 })
     .options({
       language: {
@@ -16,16 +32,22 @@ const validateFields = (email, confirmEmail, errors) => {
 
   let fields = {
     error: false,
-    email: { value: email },
-    confirmEmail: { value: confirmEmail },
+    email: {
+      value: email,
+      error: null,
+      errorHeading: null,
+      errorMessage: null,
+    },
+    confirmEmail: { value: confirmEmail, error: null, errorMessage: null },
   };
 
-  const emailResult = schema.validate(email);
+  const emailResult: ValidationResult<string> = schema.validate(email);
   if (emailResult.error) {
     fields = setErrorFields('email', fields, emailResult, errors);
   }
 
-  const emailConfirmResult = schema.validate(confirmEmail);
+  const emailConfirmResult: ValidationResult<string> =
+    schema.validate(confirmEmail);
   if (emailConfirmResult.error) {
     fields = setErrorFields('confirmEmail', fields, emailConfirmResult, errors);
   }
@@ -46,9 +68,13 @@ const validateFields = (email, confirmEmail, errors) => {
   return fields;
 };
 
-const validateEmail = (req, res, next) => {
-  const email = req.body.email.trim();
-  const confirmEmail = req.body.confirmEmail.trim();
+export function validateEmail(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  const email: string = req.body.email.trim();
+  const confirmEmail: string = req.body.confirmEmail.trim();
   const errors = content[i18next.language].notifications.email.errors;
   const fields = validateFields(email, confirmEmail, errors);
   if (fields.error) {
@@ -60,6 +86,4 @@ const validateEmail = (req, res, next) => {
   } else {
     next();
   }
-};
-
-module.exports = { validateEmail };
+}

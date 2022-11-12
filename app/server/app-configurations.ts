@@ -9,7 +9,7 @@ import { Application } from 'express';
 import { Moment, utc } from 'moment';
 import helmet from 'helmet';
 import * as config from 'config';
-import { tyaNunjucks } from '../core/tyaNunjucks';
+import { tyaNunjucks } from './controllers/content';
 
 const content = require('../../locale/content');
 

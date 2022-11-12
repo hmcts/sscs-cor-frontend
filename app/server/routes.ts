@@ -30,11 +30,11 @@ import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
 import { RequestTypeService } from './services/request-type';
+import { NextFunction, Request, Response, Router } from 'express';
 
-const express = require('express');
 const setLanguage = require('./setLanguage');
 
-const router = express.Router();
+const router = Router();
 
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
@@ -140,13 +140,13 @@ const requestTypeController = setupRequestTypeController({
   trackYourApealService: trackYourAppealService,
 });
 
-router.use((req, res, next) => {
+router.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader(
     'Cache-Control',
     'no-cache, max-age=0, must-revalidate, no-store'
   );
   res.header('Pragma', 'no-cache');
-  res.header('Expires', 0);
+  res.header('Expires', '0');
   next();
 });
 
@@ -183,7 +183,7 @@ router.get('/robots.txt', (req, res) => {
 router.get(
   '/manage-email-notifications/:mactoken',
   validateToken,
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     res.render('manage-emails.njk', { mactoken: req.params.mactoken });
   }
 );
@@ -192,7 +192,7 @@ router.post(
   '/manage-email-notifications/:mactoken',
   validateToken,
   notificationRedirect,
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     // reload page
   }
 );
@@ -201,7 +201,7 @@ router.get(
   '/manage-email-notifications/:mactoken/stop',
   validateToken,
   emailNotifications,
-  (req, res) => {
+  (req: Request, res: Response) => {
     res.render('emails-stop.njk', { mactoken: req.params.mactoken });
   }
 );
@@ -211,7 +211,7 @@ router.get(
   validateToken,
   stopReceivingEmails,
   emailNotifications,
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     res.render('emails-stop-confirmed.njk', {
       data: { appealNumber: res.locals.token.appealId },
       mactoken: req.params.mactoken,
@@ -222,7 +222,7 @@ router.get(
 router.get(
   '/manage-email-notifications/:mactoken/change',
   validateToken,
-  (req, res) => {
+  (req: Request, res: Response) => {
     res.render('email-address-change.njk', { mactoken: req.params.mactoken });
   }
 );
@@ -233,7 +233,7 @@ router.post(
   validateEmail,
   changeEmailAddress,
   emailNotifications,
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     res.render('email-address-change-confirmed.njk', {
       data: { email: req.body.email },
       mactoken: req.params.mactoken,
@@ -244,7 +244,7 @@ router.post(
 router.get(
   '/validate-surname/:tya/trackyourappeal',
   loginController,
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     res.render('redirect-mya.njk', { tyaNumber: req.query.tya });
   }
 );

@@ -1,6 +1,9 @@
-const { getContentAsString } = require('../core/contentLookup');
+import { NextFunction, Request, Response } from 'express';
 
-const tyaNunjucks = {
+const content = require('../../../locale/content');
+const i18next = require('i18next');
+
+export const tyaNunjucks = {
   nunjucksEnv: null,
 
   get env() {
@@ -15,7 +18,7 @@ const tyaNunjucks = {
   },
 };
 
-const renderContent = (content, placeholder) => {
+export function renderContent(content, placeholder) {
   if (Array.isArray(content)) {
     content.forEach((str) => renderContent(str, placeholder));
   }
@@ -29,6 +32,20 @@ const renderContent = (content, placeholder) => {
     return tyaNunjucks.env.renderString(content, placeholder);
   }
   return null;
-};
+}
 
-module.exports = { tyaNunjucks, renderContent };
+export function emailNotifications(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  const token = res.locals.token;
+  const placeholder = { benefitType: token.benefitType };
+  const notificationsContent = content[i18next.language].notifications;
+  content[i18next.language].notifications = renderContent(
+    notificationsContent,
+    placeholder
+  );
+
+  next();
+}
