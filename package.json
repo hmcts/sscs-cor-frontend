@@ -113,6 +113,7 @@
     "@types/connect-redis": "^0.0.19",
     "@types/cookie-parser": "^1.4.1",
     "@types/jquery": "^3.3.6",
+    "@types/joi": "^13.5.2",
     "@types/mocha": "^9.1.1",
     "@types/multer": "^1.4.2",
     "@types/node": "^14.18.33",
