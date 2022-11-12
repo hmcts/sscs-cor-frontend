@@ -7,7 +7,6 @@ const minCharecters = 1;
 const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
 
 function uploadDescriptionValidation(description) {
-  let error = false;
   const schema = Joi.string()
     .required()
     .max(maxCharacters)
@@ -34,9 +33,9 @@ function uploadDescriptionValidation(description) {
   const result = schema.validate(description);
 
   if (result.error) {
-    error = result.error.details[0].message;
+    return result.error.details[0].message;
   }
-  return error;
+  return false;
 }
 
 function answerValidation(answer, req?) {
@@ -71,13 +70,12 @@ function answerValidation(answer, req?) {
     });
 
   const result = schema.validate(answer);
-  let error = false;
 
   if (result.error) {
-    error = result.error.details[0].message;
+    return result.error.details[0].message;
   }
 
-  return error;
+  return false;
 }
 
 function hearingWhyValidation(answer) {
@@ -93,13 +91,12 @@ function hearingWhyValidation(answer) {
     });
 
   const result = schema.validate(answer);
-  let error = false;
 
   if (result.error) {
-    error = result.error.details[0].message;
+    return result.error.details[0].message;
   }
 
-  return error;
+  return false;
 }
 
 function loginEmailAddressValidation(email) {
@@ -121,11 +118,11 @@ function loginEmailAddressValidation(email) {
       },
     });
   const result = schema.validate(email);
-  let error = false;
+
   if (result.error) {
-    error = result.error.details[0].message;
+    return result.error.details[0].message;
   }
-  return error;
+  return false;
 }
 
 function newHearingAcceptedValidation(newHearing) {
