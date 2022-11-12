@@ -7,16 +7,14 @@ import { BAD_REQUEST, OK } from 'http-status-codes';
 import * as nock from 'nock';
 import * as express from 'express';
 import { Application } from 'express';
-
-const { createSession } = require('../../app/server/middleware/session');
-const dysonSetupCorBackend = require('../mock/cor-backend/dysonSetup');
-const dysonSetupCoh = require('../mock/coh/dysonSetup');
-const dysonSetupIdam = require('../mock/idam/dysonSetup');
-const dysonSetupS2s = require('../mock/s2s/dysonSetup');
-
-const tribunalApiUrl: string = config.get('tribunals.api-url');
+import { createSession } from '../../app/server/middleware/session';
+import { dysonSetupCorBackend } from '../mock/cor-backend/dysonSetup';
+import { dysonSetupCoh } from '../mock/coh/dysonSetup';
+import { dysonSetupIdam } from '../mock/idam/dysonSetup';
+import { dysonSetupS2s } from '../mock/s2s/dysonSetup';
 
 describe('Routes', () => {
+  const tribunalApiUrl: string = config.get('tribunals.api-url');
   let app: Application = null;
 
   before(() => {
