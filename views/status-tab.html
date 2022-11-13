@@ -10,9 +10,7 @@ content[i18n.language].general.govUK }} {% endblock %} {% block corContent %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">
-      {{
-      content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal
-      }}
+      {{ content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }}
     </h1>
     {% include "includes/appellant-details.html" %}
     <p class="govuk-body-s">
@@ -29,12 +27,13 @@ content[i18n.language].general.govUK }} {% endblock %} {% block corContent %}
         <h2 class="govuk-heading-m --margin-bottom-s">
           {{ content[i18n.language].statusTab.header | safe }}
         </h2>
-        {% if stages | length %} {{ statusBar(appeal, stages) }} {% endif %} {%
-        if appeal.hearingType == "cor" %} {% set latestUpdate = "TBC" %} {% else
-        %} {% set latestUpdate =
-        content[i18n.language].appealEvents[appeal.status]["content"][appeal.hearingType]
-        %} {% endif %} {{ panel(content[i18n.language].statusTab.panelHeader,
-        latestUpdate | evalStatus) }}
+        {% if stages | length %} {{ statusBar(appeal, stages) }} {% endif %}
+        {% if appeal.hearingType == "cor" %}
+          {% set latestUpdate = [ "TBC" ] %}
+        {% else %}
+          {% set latestUpdate = content[i18n.language].appealEvents[appeal.status]["content"][appeal.hearingType] %}
+        {% endif %}
+        {{ panel(content[i18n.language].statusTab.panelHeader, latestUpdate | evalStatus) }}
       </div>
     </div>
   </div>
