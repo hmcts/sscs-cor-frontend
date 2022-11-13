@@ -108,6 +108,13 @@ function dateForDecisionReceived(
   return dateFormat(decisionReceivedDate, CONST.DATE_FORMAT, locale);
 }
 
+function flattenArray(text: string | Array<string>): string {
+  if (Array.isArray(text)) {
+    return text.join(' ');
+  }
+  return text;
+}
+
 function configureNunjucks(app: express.Application): void {
   const i18next: I18next = app.locals.i18n;
 
@@ -142,17 +149,17 @@ function configureNunjucks(app: express.Application): void {
     next();
   });
 
-  nunEnv.addFilter('eval', function textEval(this, text) {
-    try {
-      if (Array.isArray(text)) {
-        text = text.join(' ');
+  nunEnv.addFilter(
+    'eval',
+    function textEval(this, text: string | Array<string>) {
+      try {
+        return nunjucks.renderString(flattenArray(text), this.ctx);
+      } catch (error) {
+        logger.error(`Error rendering text eval: '${text}', error:`, error);
+        return 'Error rendering text';
       }
-      return nunjucks.renderString(text, this.ctx);
-    } catch (error) {
-      logger.error(`Error rendering text eval: '${text}', error:`, error);
-      return 'Error rendering text';
     }
-  });
+  );
   nunEnv.addFilter('dateFormat', dateFormat);
   nunEnv.addFilter(
     'agencyAcronym',
@@ -192,17 +199,26 @@ function configureNunjucks(app: express.Application): void {
     );
   });
   nunEnv.addFilter('dateForDecisionReceived', dateForDecisionReceived);
-  nunEnv.addFilter('evalStatus', function evalStatus(this, text) {
-    try {
-      if (Array.isArray(text)) {
-        text = text.join(' ');
+  nunEnv.addFilter(
+    'evalStatus',
+    function evalStatus(this, text): Array<string> {
+      try {
+        if (Array.isArray(text)) {
+          const renderedArray: Array<string> = Array<string>();
+          text.forEach((item: string) => {
+            renderedArray.push(nunjucks.renderString(item, this.ctx));
+          });
+          return renderedArray;
+        }
+        return [nunjucks.renderString(text, this.ctx)];
+      } catch (error) {
+        logger.error(`Error rendering evalStatus: '${text}', error:`, error);
+        return [
+          'We are unable to provide a status update at present. Please contact us on the number below if you have any queries.',
+        ];
       }
-      return nunjucks.renderString(text, this.ctx);
-    } catch (error) {
-      logger.error(`Error rendering evalStatus: '${text}', error:`, error);
-      return 'We are unable to provide a status update at present. Please contact us on the number below if you have any queries.';
     }
-  });
+  );
 
   tyaNunjucks.env = nunEnv;
 }
