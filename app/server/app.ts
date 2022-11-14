@@ -124,6 +124,48 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     next();
   });
   app.use('/public', express.static(path.join(__dirname, '/../../public')));
+  app.use(
+    '/public/govuk-frontend',
+    express.static(
+      path.join(
+        __dirname,
+        '/../../node_modules',
+        'govuk-frontend',
+        'govuk',
+        'assets'
+      )
+    )
+  );
+  app.use(
+    '/public/images',
+    express.static(path.join(__dirname, '/../../app', 'client', 'images'))
+  );
+  app.use(
+    '/public/js',
+    express.static(
+      path.join(
+        __dirname,
+        '/../../node_modules',
+        '@hmcts',
+        'ctsc-web-chat',
+        'assets',
+        'javascript'
+      )
+    )
+  );
+  app.use(
+    '/public/css',
+    express.static(
+      path.join(
+        __dirname,
+        '/../../node_modules',
+        '@hmcts',
+        'ctsc-web-chat',
+        'assets',
+        'css'
+      )
+    )
+  );
   app.use(Express.accessLogger());
   app.use(sessionHandler);
   app.use(csrfToken);
