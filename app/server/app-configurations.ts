@@ -7,7 +7,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 import { Application } from 'express';
 import { Moment, utc } from 'moment';
-import helmet from 'helmet';
+import * as helmet from 'helmet';
 import * as config from 'config';
 import { tyaNunjucks } from '../core/tyaNunjucks';
 
@@ -17,7 +17,7 @@ const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 
 const DecisionReceivedDaysAfterHearing = 5;
 
-function configureHelmet(app: Application): void {
+function configureHelmet(app: Application) {
   // by setting HTTP headers appropriately.
   app.use(helmet());
   // Helmet referrer policy
