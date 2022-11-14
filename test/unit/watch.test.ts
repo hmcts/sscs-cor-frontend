@@ -3,20 +3,24 @@ import watch from 'app/server/watch';
 import { setup } from '../../app/server/app';
 import chokidar = require('chokidar');
 import { Application } from 'express';
+import { LoggerInstance } from 'winston';
 const { createSession } = require('../../app/server/middleware/session');
 const shell = require('shelljs');
 const { Logger } = require('@hmcts/nodejs-logging');
 
-describe('watch.ts', () => {
-  const sb = sinon.createSandbox();
-  let chokidaySpy;
-  let shellSpy;
-  let loggerSpy;
-  let app: Application;
-  let watchInstances;
-  const logger = Logger.getLogger('watch.js');
+describe('watch.ts', function () {
+  let sb: sinon.SinonSandbox = null;
+  let chokidaySpy = null;
+  let shellSpy = null;
+  let loggerSpy = null;
+  let app: Application = null;
+  let watchInstances = null;
+  let logger: LoggerInstance = null;
 
-  before(async () => {
+  before(async function () {
+    sb = sinon.createSandbox();
+    logger = Logger.getLogger('watch.js');
+    // eslint-disable-next-line mocha/no-nested-tests
     app = setup(createSession(), { disableAppInsights: true });
     chokidaySpy = sb.spy(chokidar, 'watch');
     shellSpy = sb.spy(shell, 'exec');
@@ -27,19 +31,19 @@ describe('watch.ts', () => {
     watchInstances.public.emit('all', './public');
   });
 
-  after(() => {
+  after(function () {
     sb.restore();
   });
 
-  it('Expect chokidar watch to be called', () => {
+  it('Expect chokidar watch to be called', function () {
     expect(chokidaySpy.callCount).to.equal(3);
   });
 
-  it('Expect logger  to be called', () => {
+  it('Expect logger  to be called', function () {
     expect(loggerSpy.callCount).to.equal(2);
   });
 
-  it('Expect shell  to be called', () => {
+  it('Expect shell  to be called', function () {
     expect(shellSpy.callCount).to.equal(2);
   });
 });

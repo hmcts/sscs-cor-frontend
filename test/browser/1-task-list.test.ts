@@ -24,14 +24,14 @@ const pa11y = require('pa11y');
 const pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 
-describe('Task list page', () => {
+describe('Task list page', function () {
   let page: Page;
   let taskListPage: TaskListPage;
   let loginPage: LoginPage;
   let hearingId;
   let caseReference;
 
-  before('start services and bootstrap data in CCD/COH', async () => {
+  before('start services and bootstrap data in CCD/COH', async function () {
     const res = await startServices({
       bootstrapData: true,
       performLogin: true,
@@ -55,18 +55,18 @@ describe('Task list page', () => {
     }
   });
 
-  after(async () => {
+  after(async function () {
     if (page?.close) {
       await page.close();
     }
   });
 
-  it('is on the /task-list path', async () => {
+  it('is on the /task-list path', async function () {
     await page.waitForTimeout(4000);
     taskListPage.verifyPage();
   });
 
-  it('checks /task-list passes @pa11y', async () => {
+  it('checks /task-list passes @pa11y', async function () {
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/task-list.png`;
     const result = await pa11y(`${testUrl}${taskListPage.pagePath}`, pa11yOpts);
@@ -76,14 +76,14 @@ describe('Task list page', () => {
     );
   });
 
-  it('displays the appellant case reference', async () => {
+  it('displays the appellant case reference', async function () {
     const displayedCaseRef = await taskListPage.getElementText(
       '#case-reference'
     );
     expect(displayedCaseRef).to.equal(caseReference);
   });
 
-  it('displays Providing additional evidence link', async () => {
+  it('displays Providing additional evidence link', async function () {
     const evidenceUploadLink = await taskListPage.getElementText(
       '#evidence-options-link'
     );
@@ -92,12 +92,10 @@ describe('Task list page', () => {
     );
   });
 
-  it('signs out and prevents access to pages', async () => {
+  it('signs out and prevents access to pages', async function () {
     await taskListPage.signOut();
     loginPage.verifyPage();
     await taskListPage.visitPage();
     loginPage.verifyPage();
   });
 });
-
-export {};

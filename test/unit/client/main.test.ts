@@ -10,7 +10,7 @@ import { EvidenceStatement } from '../../../app/client/javascript/evidence-state
 
 const html = `<div id="app-cookie-banner" >`;
 
-describe('client main js', () => {
+describe('client main js', function () {
   let sandbox;
   let body;
   beforeEach(function () {
@@ -21,7 +21,7 @@ describe('client main js', () => {
   afterEach(function () {
     sandbox.restore();
   });
-  it('onReady', () => {
+  it('onReady', function () {
     const govUKMock = sandbox.stub(govUK, 'initAll');
     const expandingTextBoxMock = sandbox.stub(expandingTextBox, 'init');
     const checkCookiesMock = sandbox.stub(CheckCookies.prototype, 'init');

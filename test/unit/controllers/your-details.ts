@@ -7,12 +7,12 @@ import * as AppInsights from '../../../app/server/app-insights';
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 
-describe('controllers/your-details', () => {
+describe('controllers/your-details', function () {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -36,30 +36,30 @@ describe('controllers/your-details', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('setupYourDetailsController', () => {
+  describe('setupYourDetailsController', function () {
     let getStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       yourDetails.setupYourDetailsController({});
       expect(getStub).to.have.been.calledWith(Paths.yourDetails);
     });
   });
 
-  describe('getYourDetails', () => {
-    it('should render your details page when mya feature enabled', async () => {
+  describe('getYourDetails', function () {
+    it('should render your details page when mya feature enabled', async function () {
       yourDetails.getYourDetails(req, res);
 
       expect(res.render).to.have.been.calledOnce.calledWith(
@@ -68,7 +68,7 @@ describe('controllers/your-details', () => {
       );
     });
 
-    it('should throw error if no sessions', async () => {
+    it('should throw error if no sessions', async function () {
       req.session = null;
 
       expect(() => yourDetails.getYourDetails(req, res)).to.throw(TypeError);

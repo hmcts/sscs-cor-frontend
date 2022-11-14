@@ -13,69 +13,73 @@ const appUser: string = config.get('idam.client.id');
 const appSecret = config.get('idam.client.secret');
 const appPort = config.get('node.port');
 
-describe('services/idam', () => {
+describe('services/idam', function () {
   let idamService;
-  before(() => {
+  before(function () {
     idamService = new IdamService(apiUrl, appPort, appSecret);
   });
 
-  describe('getRedirectUrl', () => {
-    it('adds port for localhost', () => {
+  describe('getRedirectUrl', function () {
+    it('adds port for localhost', function () {
       const redirectUrl = idamService.getRedirectUrl('http', 'localhost');
       expect(redirectUrl).to.be.eql(`http://localhost:${appPort}/sign-in`);
     });
 
-    it('does not add port for remote host', () => {
+    it('does not add port for remote host', function () {
       const redirectUrl = idamService.getRedirectUrl('http', 'example.com');
       expect(redirectUrl).to.be.eql('http://example.com/sign-in');
     });
   });
 
-  describe('getRegisterUrl', () => {
-    it('adds port for localhost', () => {
+  describe('getRegisterUrl', function () {
+    it('adds port for localhost', function () {
       const redirectUrl = idamService.getRegisterUrl('http', 'localhost');
       expect(redirectUrl).to.be.eql(`http://localhost:${appPort}/register`);
     });
 
-    it('does not add port for remote host', () => {
+    it('does not add port for remote host', function () {
       const redirectUrl = idamService.getRegisterUrl('http', 'example.com');
       expect(redirectUrl).to.be.eql('http://example.com/register');
     });
   });
 
-  describe('getUserDetails', () => {
+  describe('getUserDetails', function () {
     const path = '/details';
     const token = 'someToken';
 
-    describe('resolving the promise', () => {
+    describe('resolving the promise', function () {
       const apiResponse = { email: 'someEmail@example.com' };
 
-      beforeEach(() => {
+      beforeEach(function () {
         nock(apiUrl)
           .matchHeader('Authorization', `Bearer ${token}`)
           .get(path)
           .reply(OK, apiResponse);
       });
 
-      it('resolves with the response', async () =>
-        expect(idamService.getUserDetails(token)).to.eventually.eql(
+      it('resolves with the response', async function () {
+        return expect(idamService.getUserDetails(token)).to.eventually.eql(
           apiResponse
-        ));
+        );
+      });
     });
 
-    describe('rejecting the promise', () => {
+    describe('rejecting the promise', function () {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
-      beforeEach(() => {
+      beforeEach(function () {
         nock(apiUrl).get(path).replyWithError(error);
       });
 
-      it('with the error', async () =>
-        expect(idamService.getUserDetails(token)).to.be.rejectedWith(error));
+      it('with the error', async function () {
+        return expect(idamService.getUserDetails(token)).to.be.rejectedWith(
+          error
+        );
+      });
     });
   });
 
-  describe('getToken', () => {
+  describe('getToken', function () {
     const path = '/oauth2/token';
     const code = 'someCode';
     const protocol = 'http';
@@ -83,19 +87,19 @@ describe('services/idam', () => {
     let redirectUrl;
     let requestSpy: SinonSpy;
 
-    beforeEach(() => {
+    beforeEach(function () {
       requestSpy = sinon.spy(RequestPromise, 'request');
       redirectUrl = encodeURI(idamService.getRedirectUrl(protocol, host));
     });
 
-    afterEach(() => {
+    afterEach(function () {
       requestSpy.restore();
     });
 
-    describe('resolving the promise', () => {
+    describe('resolving the promise', function () {
       const apiResponse = { email: 'someEmail@example.com' };
 
-      beforeEach(() => {
+      beforeEach(function () {
         nock(apiUrl)
           .post(path)
           .basicAuth({
@@ -105,7 +109,7 @@ describe('services/idam', () => {
           .reply(OK, apiResponse);
       });
 
-      it.skip('makes correct post request', async () => {
+      it.skip('makes correct post request', async function () {
         await idamService.getToken(code, protocol, host);
         expect(requestSpy).to.have.been.calledOnce.calledWith({
           auth: { pass: 'QM5RQQ53LZFOSIXJ', user: 'sscs' },
@@ -121,32 +125,34 @@ describe('services/idam', () => {
         });
       });
 
-      it('resolves the promise with the response', () =>
-        expect(idamService.getToken(code, protocol, host)).to.eventually.eql(
-          apiResponse
-        ));
+      it('resolves the promise with the response', function () {
+        return expect(
+          idamService.getToken(code, protocol, host)
+        ).to.eventually.eql(apiResponse);
+      });
     });
 
-    describe('rejecting the promise', () => {
+    describe('rejecting the promise', function () {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
-      beforeEach(() => {
+      beforeEach(function () {
         nock(apiUrl).post(path).replyWithError(error);
       });
 
-      it('rejects the promise with the error', () =>
-        expect(idamService.getToken(code, protocol, host)).to.be.rejectedWith(
-          error
-        ));
+      it('rejects the promise with the error', function () {
+        return expect(
+          idamService.getToken(code, protocol, host)
+        ).to.be.rejectedWith(error);
+      });
     });
   });
 
-  describe('deleteToken', () => {
+  describe('deleteToken', function () {
     const token = 'someToken';
     const path = `/session/${token}`;
 
-    describe('resolving the promise', () => {
-      beforeEach(() => {
+    describe('resolving the promise', function () {
+      beforeEach(function () {
         nock(apiUrl)
           .delete(path)
           .basicAuth({
@@ -156,19 +162,21 @@ describe('services/idam', () => {
           .reply(NO_CONTENT);
       });
 
-      it('resolves the promise', () =>
-        expect(idamService.deleteToken(token)).to.be.fulfilled);
+      it('resolves the promise', function () {
+        return expect(idamService.deleteToken(token)).to.be.fulfilled;
+      });
     });
 
-    describe('rejecting the promise', () => {
+    describe('rejecting the promise', function () {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
 
-      beforeEach(() => {
+      beforeEach(function () {
         nock(apiUrl).delete(path).replyWithError(error);
       });
 
-      it('rejects the promise with the error', () =>
-        expect(idamService.deleteToken(token)).to.be.rejectedWith(error));
+      it('rejects the promise with the error', function () {
+        return expect(idamService.deleteToken(token)).to.be.rejectedWith(error);
+      });
     });
   });
 });

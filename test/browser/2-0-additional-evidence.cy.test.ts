@@ -22,7 +22,7 @@ const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
 
 // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-describe.skip('CY - Additional Evidence @mya @nightly99', () => {
+describe.skip('CY - Additional Evidence @mya @nightly99', function () {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
@@ -36,7 +36,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   let statusPage: StatusPage;
   let ccdCase;
   let sidamUser;
-  before('start services and bootstrap data in CCD/COH', async () => {
+  before('start services and bootstrap data in CCD/COH', async function () {
     ({
       ccdCase,
       page,
@@ -67,13 +67,13 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     );
   });
 
-  after(async () => {
+  after(async function () {
     if (page?.close) {
       await page.close();
     }
   });
 
-  it('CY - navigate to additional evidence page', async () => {
+  it('CY - navigate to additional evidence page', async function () {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
@@ -86,7 +86,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     await additionalEvidencePage.visitPage();
   });
 
-  it('CY - Verify additional evidence options', async () => {
+  it('CY - Verify additional evidence options', async function () {
     additionalEvidencePage.verifyPage();
 
     const header = await additionalEvidencePage.getElementText('h1');
@@ -101,7 +101,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     });
   });
 
-  it('CY - fills a statement and submit and shows confirmation page and returns to appeal page', async () => {
+  it('CY - fills a statement and submit and shows confirmation page and returns to appeal page', async function () {
     additionalEvidencePage.verifyPage();
     await additionalEvidencePage.selectStatementOption();
     await additionalEvidencePage.submit();
@@ -116,7 +116,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   /* PA11Y */
-  it('CY - checks /task-list passes @pa11y', async () => {
+  it('CY - checks /task-list passes @pa11y', async function () {
     await taskListPage.visitPage();
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-task-list.png`;
@@ -128,7 +128,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   /* PA11Y */
-  it('CY - checks /additional-evidence page path passes @pa11y', async () => {
+  it('CY - checks /additional-evidence page path passes @pa11y', async function () {
     await additionalEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-page.png`;
     pa11yOpts.page = additionalEvidencePage.page;
@@ -140,7 +140,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   /* PA11Y */
-  it('CY - checks /additional-evidence-upload page path passes @pa11y', async () => {
+  it('CY - checks /additional-evidence-upload page path passes @pa11y', async function () {
     await additionalEvidenceUploadPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-upload-page.png`;
     pa11yOpts.page = additionalEvidenceUploadPage.page;
@@ -152,7 +152,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   /* PA11Y */
-  it('CY - checks /additional-evidence/statement page path passes @pa11y', async () => {
+  it('CY - checks /additional-evidence/statement page path passes @pa11y', async function () {
     await additionalEvidenceStatementPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-statement-page.png`;
     pa11yOpts.page = additionalEvidenceStatementPage.page;
@@ -164,7 +164,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   /* PA11Y */
-  it('CY - checks /additional-evidence/post page path passes @pa11y', async () => {
+  it('CY - checks /additional-evidence/post page path passes @pa11y', async function () {
     await additionalEvidencePostPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-post-page.png`;
     pa11yOpts.page = additionalEvidencePostPage.page;
@@ -176,7 +176,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-  it('CY - shows an error if no file to upload and no description', async () => {
+  it('CY - shows an error if no file to upload and no description', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -200,7 +200,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-  it('CY - shows an error if no file to upload', async () => {
+  it('CY - shows an error if no file to upload', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -220,7 +220,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
-  it('CY - uploads a file and shows file list and check evidence confirmation page @pally', async () => {
+  it('CY - uploads a file and shows file list and check evidence confirmation page @pally', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -256,7 +256,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     taskListPage.verifyPage();
   });
 
-  it('CY - shows additional evidence post page', async () => {
+  it('CY - shows additional evidence post page', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectPostOption();
     await additionalEvidencePage.submit();

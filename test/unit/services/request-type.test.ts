@@ -4,13 +4,13 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 
-describe('services/request-type', () => {
+describe('services/request-type', function () {
   const hearingId = '121';
   const caseId = '62';
   let requestTypeService;
   const req: any = {};
   let rpStub: sinon.SinonStub;
-  before(() => {
+  before(function () {
     requestTypeService = new RequestTypeService('http://sscs-cor-backend.net');
     req.session = {
       accessToken: 'someUserToken',
@@ -18,11 +18,11 @@ describe('services/request-type', () => {
     };
   });
 
-  beforeEach(() => {
+  beforeEach(function () {
     rpStub = sinon.stub(RequestPromise, 'request');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     rpStub.restore();
   });
 
@@ -33,8 +33,8 @@ describe('services/request-type', () => {
     statusCode: 200,
   };
 
-  describe('getHearingRecording', () => {
-    it('calls out to service', async () => {
+  describe('getHearingRecording', function () {
+    it('calls out to service', async function () {
       await requestTypeService.getHearingRecording(caseId, req);
 
       const expectedOptions = {
@@ -45,40 +45,41 @@ describe('services/request-type', () => {
       expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
-    describe('on success', () => {
-      beforeEach(() => {
+    describe('on success', function () {
+      beforeEach(function () {
         rpStub.resolves(apiResponse);
       });
 
-      afterEach(() => {
+      afterEach(function () {
         rpStub.restore();
       });
 
-      it('resolves with the response body', async () => {
+      it('resolves with the response body', async function () {
         const body = await requestTypeService.getHearingRecording(caseId, req);
         expect(body).to.deep.equal(apiResponse);
       });
     });
 
-    describe('on failure', () => {
+    describe('on failure', function () {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      beforeEach(() => {
+      beforeEach(function () {
         rpStub.rejects(error);
       });
 
-      afterEach(() => {
+      afterEach(function () {
         rpStub.restore();
       });
 
-      it('rejects the promise with the error', () =>
-        expect(
+      it('rejects the promise with the error', function () {
+        return expect(
           requestTypeService.getHearingRecording(caseId, req)
-        ).to.be.rejectedWith(error));
+        ).to.be.rejectedWith(error);
+      });
     });
   });
 
-  describe('submitHearingRecordingRequest', () => {
-    it('calls out to service', async () => {
+  describe('submitHearingRecordingRequest', function () {
+    it('calls out to service', async function () {
       await requestTypeService.submitHearingRecordingRequest(
         caseId,
         [hearingId],
@@ -97,16 +98,16 @@ describe('services/request-type', () => {
       expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
-    describe('on success', () => {
-      beforeEach(() => {
+    describe('on success', function () {
+      beforeEach(function () {
         rpStub.resolves(true);
       });
 
-      afterEach(() => {
+      afterEach(function () {
         rpStub.restore();
       });
 
-      it('resolves', async () => {
+      it('resolves', async function () {
         const result = await requestTypeService.submitHearingRecordingRequest(
           caseId,
           [hearingId],
@@ -116,24 +117,25 @@ describe('services/request-type', () => {
       });
     });
 
-    describe('on failure', () => {
+    describe('on failure', function () {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      beforeEach(() => {
+      beforeEach(function () {
         rpStub.rejects(error);
       });
 
-      afterEach(() => {
+      afterEach(function () {
         rpStub.restore();
       });
 
-      it('rejects the promise with the error', () =>
-        expect(
+      it('rejects the promise with the error', function () {
+        return expect(
           requestTypeService.submitHearingRecordingRequest(
             caseId,
             [hearingId],
             req
           )
-        ).to.be.rejectedWith(error));
+        ).to.be.rejectedWith(error);
+      });
     });
   });
 });

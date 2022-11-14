@@ -6,12 +6,12 @@ const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 const oralActiveAndDormantCases = require('../../mock/tribunals/data/oral/activeAndDormantCases.json');
 
-describe('controllers/dormant-cases', () => {
+describe('controllers/dormant-cases', function () {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -29,36 +29,36 @@ describe('controllers/dormant-cases', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('setupDormantCasesController', () => {
+  describe('setupDormantCasesController', function () {
     let getStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       dormantCases.setupDormantCasesController({});
       expect(getStub).to.have.been.calledWith(Paths.dormantCases);
     });
   });
 
-  describe('getDormantCases', () => {
-    it('should render dormant cases page', async () => {
+  describe('getDormantCases', function () {
+    it('should render dormant cases page', async function () {
       req.session['hearings'] = oralActiveAndDormantCases;
       dormantCases.getDormantCases(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('dormant-tab.njk');
     });
 
-    it('should throw error if no sessions', async () => {
+    it('should throw error if no sessions', async function () {
       req.session = null;
 
       expect(() => dormantCases.getDormantCases(req, res)).to.throw(TypeError);

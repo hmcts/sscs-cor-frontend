@@ -7,12 +7,12 @@ const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 const caseData = require('../../mock/tribunals/data/oral/av-evidence.json');
 
-describe('controllers/av-evidence-list', () => {
+describe('controllers/av-evidence-list', function () {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -29,31 +29,31 @@ describe('controllers/av-evidence-list', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('setupAvEvidenceController', () => {
+  describe('setupAvEvidenceController', function () {
     let getStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       avEvidence.setupAvEvidenceController({});
       expect(getStub).to.have.been.calledWith(Paths.avEvidenceList);
       expect(getStub).to.have.been.calledWith(Paths.avEvidence);
     });
   });
 
-  describe('getAvEvidenceList', () => {
-    it('should render audio video evidence list when mya feature enabled for (MEDIA_FILES_ALLOWED_ENABLED)', async () => {
+  describe('getAvEvidenceList', function () {
+    it('should render audio video evidence list when mya feature enabled for (MEDIA_FILES_ALLOWED_ENABLED)', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.appeal = caseData.appeal;
       const avEvidenceList = [
@@ -78,12 +78,12 @@ describe('controllers/av-evidence-list', () => {
     });
   });
 
-  describe('getDocument', () => {
+  describe('getDocument', function () {
     let trackYourAppealService;
     const url = 'http://test';
     const type = 'audioDocument';
 
-    beforeEach(() => {
+    beforeEach(function () {
       req = {
         session: {
           appeal: {},
@@ -103,7 +103,7 @@ describe('controllers/av-evidence-list', () => {
       trackYourAppealService = {};
     });
 
-    it('should return audio/video evidence for the document url', async () => {
+    it('should return audio/video evidence for the document url', async function () {
       const mp3 = '29312380';
       trackYourAppealService.getMediaFile = async () => Promise.resolve(mp3);
       await avEvidence.getAvEvidence(trackYourAppealService)(req, res);

@@ -4,26 +4,33 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 
 const { expect, sinon } = require('test/chai-sinon');
 
-describe('services/tyaService', () => {
-  const sandbox: sinon.SinonSandbox = sinon.createSandbox();
-  let rpStub: sinon.SinonStub;
-  const tribunalsApiUrl: string = config.get('tribunals.api-url');
-  const trackYourAppealService = new TrackYourApealService(tribunalsApiUrl);
-  const req: any = {};
-  req.session = {
-    accessToken: 'someUserToken',
-    serviceToken: 'someServiceToken',
+describe('services/tyaService', function () {
+  let sandbox: sinon.SinonSandbox = null;
+  let rpStub: sinon.SinonStub = null;
+  let tribunalsApiUrl: string = null;
+  let trackYourAppealService = null;
+  const req = {
+    session: {
+      accessToken: 'someUserToken',
+      serviceToken: 'someServiceToken',
+    },
   };
 
-  beforeEach(() => {
+  before(function () {
+    sandbox = sinon.createSandbox();
+    tribunalsApiUrl = config.get('tribunals.api-url');
+    trackYourAppealService = new TrackYourApealService(tribunalsApiUrl);
+  });
+
+  beforeEach(function () {
     rpStub = sandbox.stub(RequestPromise, 'request');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
   });
 
-  it('should getAppeal', async () => {
+  it('should getAppeal', async function () {
     const appealId = 'appealNumber';
     const expectedRequestOptions = {
       method: 'GET',
@@ -33,7 +40,7 @@ describe('services/tyaService', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should validateSurname', async () => {
+  it('should validateSurname', async function () {
     const appealId = 'appealNumber';
     const surname = 'burgers';
     const expectedRequestOptions = {
@@ -44,7 +51,7 @@ describe('services/tyaService', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should getDocument', async () => {
+  it('should getDocument', async function () {
     const url = 'http://test';
     const expectedRequestOptions = {
       method: 'GET',
@@ -58,7 +65,7 @@ describe('services/tyaService', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should getMediaFile', async () => {
+  it('should getMediaFile', async function () {
     const url = 'http://test';
     const expectedRequestOptions = {
       method: 'GET',

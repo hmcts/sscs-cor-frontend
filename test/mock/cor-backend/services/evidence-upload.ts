@@ -1,6 +1,7 @@
+import * as moment from 'moment';
+
 const { promisify } = require('util');
 const fs = require('fs');
-const moment = require('moment');
 const cache = require('memory-cache');
 const uuid = require('uuid/v4');
 

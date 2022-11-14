@@ -1,0 +1,39 @@
+import { setupLoginController } from 'app/server/controllers/login';
+import * as express from 'express';
+import * as Paths from 'app/server/paths';
+const { expect, sinon } = require('test/chai-sinon');
+
+describe('#setupLoginController', function () {
+  const deps = {};
+
+  beforeEach(function () {
+    sinon.stub(express, 'Router').returns({
+      get: sinon.stub(),
+      post: sinon.stub(),
+    });
+  });
+
+  afterEach(function () {
+    (express.Router as sinon.SinonStub).restore();
+  });
+
+  it('sets up GET login', function () {
+    setupLoginController(deps);
+    expect(express.Router().get).to.have.been.calledWith(Paths.login);
+  });
+
+  it('sets up GET logout', function () {
+    setupLoginController(deps);
+    expect(express.Router().get).to.have.been.calledWith(Paths.logout);
+  });
+
+  it('sets up GET register', function () {
+    setupLoginController(deps);
+    expect(express.Router().get).to.have.been.calledWith(Paths.register);
+  });
+
+  it('returns the router', function () {
+    const controller = setupLoginController(deps);
+    expect(controller).to.equal(express.Router());
+  });
+});

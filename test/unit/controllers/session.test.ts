@@ -7,11 +7,11 @@ const {
 } = require('app/server/controllers/session.ts');
 const express = require('express');
 
-describe('controllers/session.ts', () => {
+describe('controllers/session.ts', function () {
   let req: any;
   let res: any;
 
-  beforeEach(() => {
+  beforeEach(function () {
     req = {
       session: { cookie: { expires: new Date() } },
     } as any;
@@ -21,27 +21,27 @@ describe('controllers/session.ts', () => {
     } as any;
   });
 
-  describe('extendSession', () => {
-    it('renders Cookie Policy page', async () => {
+  describe('extendSession', function () {
+    it('renders Cookie Policy page', async function () {
       await extendSession(req, res);
       expect(res.send).to.have.been.calledOnce;
     });
   });
 
-  describe('setupSessionController', () => {
+  describe('setupSessionController', function () {
     let deps: any;
-    beforeEach(() => {
+    beforeEach(function () {
       deps = {};
       sinon.stub(express, 'Router').returns({
         get: sinon.stub(),
       });
     });
 
-    afterEach(() => {
+    afterEach(function () {
       express.Router.restore();
     });
 
-    it('calls router.get with the path and middleware', () => {
+    it('calls router.get with the path and middleware', function () {
       setupSessionController(deps);
       // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(

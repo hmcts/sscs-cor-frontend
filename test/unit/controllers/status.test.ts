@@ -10,12 +10,12 @@ const { expect, sinon } = require('test/chai-sinon');
 const oralAppealReceived = require('../../mock/tribunals/data/oral/appealReceived');
 const paperAppealReceived = require('../../mock/tribunals/data/paper/appealReceived');
 
-describe('controllers/status', () => {
+describe('controllers/status', function () {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -33,30 +33,30 @@ describe('controllers/status', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('setupStatusController', () => {
+  describe('setupStatusController', function () {
     let getStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       status.setupStatusController({});
       expect(getStub).to.have.been.calledWith(Paths.status);
     });
   });
 
-  describe('getStatus', () => {
-    it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async () => {
+  describe('getStatus', function () {
+    it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async function () {
       req.session = oralAppealReceived;
       const getActiveStagesStub = sandbox
         .stub(appealStagesUtils, 'getActiveStages')
@@ -71,7 +71,7 @@ describe('controllers/status', () => {
       });
     });
 
-    it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async () => {
+    it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async function () {
       req.session = paperAppealReceived;
       const getActiveStagesStub = sandbox
         .stub(appealStagesUtils, 'getActiveStages')
@@ -86,7 +86,7 @@ describe('controllers/status', () => {
       });
     });
 
-    it('should throw error if no sessions', async () => {
+    it('should throw error if no sessions', async function () {
       req.session = null;
 
       expect(() => status.getStatus(req, res)).to.throw(TypeError);

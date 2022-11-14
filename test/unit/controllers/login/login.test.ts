@@ -4,24 +4,22 @@ import * as Service2Service from 'app/server/services/s2s';
 import {
   getLogout,
   getIdamCallback,
-  setupLoginController,
   redirectToLogin,
   redirectToIdam,
 } from 'app/server/controllers/login';
 import * as AppInsights from 'app/server/app-insights';
-import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { HearingService } from 'app/server/services/hearing';
+import { NextFunction, Response } from 'express';
 const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
-const content = require('locale/content');
 
 const idamUrl = config.get('idam.url');
 
-describe('controllers/login', () => {
-  let next;
+describe('controllers/login', function () {
   let req;
   let res;
+  let next: NextFunction;
   const hearingDetails = {
     case_id: 12345,
     online_hearing_id: '1',
@@ -29,7 +27,7 @@ describe('controllers/login', () => {
     appellant_name: 'John Smith',
   };
 
-  beforeEach(() => {
+  beforeEach(function () {
     req = {
       session: {
         question: {},
@@ -53,21 +51,21 @@ describe('controllers/login', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackTrace as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('#redirectToLogin', () => {
-    it('redirect to login page', () => {
+  describe('#redirectToLogin', function () {
+    it('redirect to login page', function () {
       redirectToLogin(req, res);
       expect(res.redirect).to.have.been.calledOnce.calledWith('/sign-in');
     });
   });
 
-  describe('#getLogout', () => {
-    it('destroys the session and redirects to login when access token is present', async () => {
+  describe('#getLogout', function () {
+    it('destroys the session and redirects to login when access token is present', async function () {
       req.session.accessToken = 'accessToken';
       const idamServiceStub = {
         deleteToken: sinon
@@ -84,7 +82,7 @@ describe('controllers/login', () => {
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
     });
 
-    it('does NOT destroy the session but redirects to login when access token is NOT present', async () => {
+    it('does NOT destroy the session but redirects to login when access token is NOT present', async function () {
       const idamServiceStub = {
         deleteToken: sinon
           .stub()
@@ -100,8 +98,8 @@ describe('controllers/login', () => {
     });
   });
 
-  describe.skip('#getLogout with redirectUrl Parameter', () => {
-    it('destroys the session and redirects to custom url with redirectUrl parameter.', async () => {
+  describe.skip('#getLogout with redirectUrl Parameter', function () {
+    it('destroys the session and redirects to custom url with redirectUrl parameter.', async function () {
       req.session.accessToken = 'accessToken';
       req.query.redirectUrl = Paths.taskList;
       const idamServiceStub = {
@@ -120,8 +118,8 @@ describe('controllers/login', () => {
     });
   });
 
-  describe('#redirectToIdam', () => {
-    it('builds correct url', () => {
+  describe('#redirectToIdam', function () {
+    it('builds correct url', function () {
       const idamServiceStub = {
         getRedirectUrl: sinon
           .stub()
@@ -135,7 +133,7 @@ describe('controllers/login', () => {
       );
     });
 
-    it('builds correct sign in url', () => {
+    it('builds correct sign in url', function () {
       const idamServiceStub = {
         getRedirectUrl: sinon
           .stub()
@@ -152,9 +150,9 @@ describe('controllers/login', () => {
     });
   });
 
-  describe('#getIdamCallback', () => {
-    describe('called without code', () => {
-      it('redirects to idam login', async () => {
+  describe('#getIdamCallback', function () {
+    describe('called without code', function () {
+      it('redirects to idam login', async function () {
         req.query = {};
 
         const redirectToIdam = sinon.stub();
@@ -166,8 +164,8 @@ describe('controllers/login', () => {
 
     const accessToken = 'someAccessToken';
 
-    describe('throw exception because idam 400', () => {
-      it('throw error', async () => {
+    describe('throw exception because idam 400', function () {
+      it('throw error', async function () {
         const error400 = new Error('400 Not Authorised');
 
         let hearingServiceStub;
@@ -198,8 +196,8 @@ describe('controllers/login', () => {
       });
     });
 
-    describe('throw exception because no caseId', () => {
-      it('throw error', async () => {
+    describe('throw exception because no caseId', function () {
+      it('throw error', async function () {
         sinon.stub(Service2Service, 'generateToken').returns(3);
         const accessToken = 'someAccessToken';
         let hearingServiceStub;
@@ -251,10 +249,10 @@ describe('controllers/login', () => {
       });
     });
 
-    describe('on success with MYA enabled', () => {
+    describe('on success with MYA enabled', function () {
       let hearingServiceStub;
       let trackYourAppealService;
-      beforeEach(async () => {
+      beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
@@ -287,7 +285,7 @@ describe('controllers/login', () => {
         expect(req.session.tya).to.be.eql('tya-number');
       });
 
-      it('calls the online hearing service', () => {
+      it('calls the online hearing service', function () {
         expect(
           hearingServiceStub.getOnlineHearingsForCitizen
         ).to.have.been.calledOnce.calledWith(
@@ -297,29 +295,29 @@ describe('controllers/login', () => {
         );
       });
 
-      it('logs AppInsights trace log', () => {
+      it('logs AppInsights trace log', function () {
         expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(
           `[12345] - User logged in successfully as someEmail@example.com`
         );
       });
 
-      it('publishes AppInsights event', () => {
+      it('publishes AppInsights event', function () {
         expect(AppInsights.trackEvent).to.have.been.calledOnce.calledWith(
           `MYA_LOGIN_SUCCESS`
         );
       });
 
-      it('redirects to task list page', () => {
+      it('redirects to task list page', function () {
         expect(res.redirect).to.have.been.calledWith(Paths.status);
       });
     });
 
-    describe('check hideHearing flag with MYA enabled', () => {
+    describe('check hideHearing flag with MYA enabled', function () {
       let hearingServiceStub;
       let trackYourAppealService;
       let redirectToIdam;
       let idamServiceStub;
-      beforeEach(async () => {
+      beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
         redirectToIdam = sinon.stub();
         idamServiceStub = {
@@ -339,7 +337,7 @@ describe('controllers/login', () => {
         } as HearingService;
       });
 
-      it('sets the hideHearing false', async () => {
+      it('sets the hideHearing false', async function () {
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
         };
@@ -352,7 +350,7 @@ describe('controllers/login', () => {
         expect(req.session.hideHearing).to.be.eql(false);
       });
 
-      it('sets the hideHearing true', async () => {
+      it('sets the hideHearing true', async function () {
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: { hideHearing: true } }),
         };
@@ -366,10 +364,10 @@ describe('controllers/login', () => {
       });
     });
 
-    describe('cannot find case with MYA enabled', () => {
+    describe('cannot find case with MYA enabled', function () {
       let hearingServiceStub;
       let trackYourAppealService;
-      beforeEach(async () => {
+      beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
@@ -402,7 +400,7 @@ describe('controllers/login', () => {
         expect(req.session.tya).to.be.eql('tya-number');
       });
 
-      it('calls the online hearing service', () => {
+      it('calls the online hearing service', function () {
         expect(
           hearingServiceStub.getOnlineHearingsForCitizen
         ).to.have.been.calledOnce.calledWith(
@@ -412,15 +410,15 @@ describe('controllers/login', () => {
         );
       });
 
-      it('redirects to assign case page', () => {
+      it('redirects to assign case page', function () {
         expect(res.redirect).to.have.been.calledWith(Paths.assignCase);
       });
     });
 
-    describe('finds multiple cases with MYA enabled', () => {
+    describe('finds multiple cases with MYA enabled', function () {
       let hearingServiceStub;
       let trackYourAppealService;
-      beforeEach(async () => {
+      beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
@@ -454,7 +452,7 @@ describe('controllers/login', () => {
         expect(req.session.tya).to.be.eql('tya-number');
       });
 
-      it('calls the online hearing service', () => {
+      it('calls the online hearing service', function () {
         expect(
           hearingServiceStub.getOnlineHearingsForCitizen
         ).to.have.been.calledOnce.calledWith(
@@ -464,7 +462,7 @@ describe('controllers/login', () => {
         );
       });
 
-      it('loads select case page', () => {
+      it('loads select case page', function () {
         expect(res.render).to.have.been.calledWith('select-case.njk', {
           hearingsByName: {
             'John Smith': [
@@ -486,10 +484,10 @@ describe('controllers/login', () => {
       });
     });
 
-    describe('selects a case by case id with MYA enabled', () => {
+    describe('selects a case by case id with MYA enabled', function () {
       let hearingServiceStub;
       let trackYourAppealService;
-      beforeEach(async () => {
+      beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number', caseId: '11111' };
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
@@ -536,7 +534,7 @@ describe('controllers/login', () => {
         expect(req.session.tya).to.be.eql('tya-number');
       });
 
-      it('calls the online hearing service', () => {
+      it('calls the online hearing service', function () {
         expect(
           hearingServiceStub.getOnlineHearingsForCitizen
         ).to.have.been.calledOnce.calledWith(
@@ -546,7 +544,7 @@ describe('controllers/login', () => {
         );
       });
 
-      it('sets the hearing', () => {
+      it('sets the hearing', function () {
         expect(req.session.hearing).to.be.eql({
           case_id: 11111,
           online_hearing_id: '1',
@@ -555,44 +553,9 @@ describe('controllers/login', () => {
         });
       });
 
-      it('redirects to task list page', () => {
+      it('redirects to task list page', function () {
         expect(res.redirect).to.have.been.calledWith(Paths.status);
       });
     });
-  });
-});
-
-describe('#setupLoginController', () => {
-  const deps = {};
-
-  beforeEach(() => {
-    sinon.stub(express, 'Router').returns({
-      get: sinon.stub(),
-      post: sinon.stub(),
-    });
-  });
-
-  afterEach(() => {
-    (express.Router as sinon.SinonStub).restore();
-  });
-
-  it('sets up GET login', () => {
-    setupLoginController(deps);
-    expect(express.Router().get).to.have.been.calledWith(Paths.login);
-  });
-
-  it('sets up GET logout', () => {
-    setupLoginController(deps);
-    expect(express.Router().get).to.have.been.calledWith(Paths.logout);
-  });
-
-  it('sets up GET register', () => {
-    setupLoginController(deps);
-    expect(express.Router().get).to.have.been.calledWith(Paths.register);
-  });
-
-  it('returns the router', () => {
-    const controller = setupLoginController(deps);
-    expect(controller).to.equal(express.Router());
   });
 });

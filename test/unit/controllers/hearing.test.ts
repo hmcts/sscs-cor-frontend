@@ -7,12 +7,12 @@ const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 const oralHearing = require('../../mock/tribunals/data/oral/hearing');
 
-describe('controllers/hearing', () => {
+describe('controllers/hearing', function () {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -30,30 +30,30 @@ describe('controllers/hearing', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('setupHearingController', () => {
+  describe('setupHearingController', function () {
     let getStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       hearing.setupHearingController({});
       expect(getStub).to.have.been.calledWith(Paths.hearing);
     });
   });
 
-  describe('getStatus', () => {
-    it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async () => {
+  describe('getStatus', function () {
+    it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async function () {
       req.session.appeal = oralHearing.appeal;
       const hearingArrangements = {
         disabled_access_required: true,
@@ -68,7 +68,7 @@ describe('controllers/hearing', () => {
       });
     });
 
-    it('should hide hearing info when appeal has hideHearing set to true', async () => {
+    it('should hide hearing info when appeal has hideHearing set to true', async function () {
       req.session.appeal = oralHearing.appeal;
       req.session.hideHearing = true;
       const hearingArrangements = {};
@@ -82,7 +82,7 @@ describe('controllers/hearing', () => {
       });
     });
 
-    it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async () => {
+    it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async function () {
       req.session.appeal.hearingType = 'paper';
       hearing.getHearing(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.njk', {
@@ -93,7 +93,7 @@ describe('controllers/hearing', () => {
       });
     });
 
-    it('should throw error if no sessions', async () => {
+    it('should throw error if no sessions', async function () {
       req.session = null;
 
       expect(() => hearing.getHearing(req, res)).to.throw(TypeError);

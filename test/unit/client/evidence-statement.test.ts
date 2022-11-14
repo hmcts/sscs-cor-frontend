@@ -6,17 +6,17 @@ const html = `
      <input id="submit-statement">
     </div>`;
 
-describe('evidence-statement', () => {
+describe('evidence-statement', function () {
   let evidenceStatement;
   let body;
-  before(() => {
+  before(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
     evidenceStatement = new EvidenceStatement();
   });
 
-  describe('#showSpinnerOnSubmitStatementClick', () => {
-    it('hides submit statement button when clicked', () => {
+  describe('#showSpinnerOnSubmitStatementClick', function () {
+    it('hides submit statement button when clicked', function () {
       const submitSpinner = document.getElementById('upload-spinner');
       const submitStatement: HTMLElement =
         document.getElementById('submit-statement');

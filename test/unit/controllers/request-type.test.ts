@@ -9,14 +9,14 @@ import { expect, sinon } from '../../chai-sinon';
 const express = require('express');
 const hearingRecording = require('../../mock/tribunals/data/oral/hearing-recording.json');
 
-describe('controllers/request-type', () => {
+describe('controllers/request-type', function () {
   let req: any;
   let res: any;
   let next: NextFunction;
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       params: {
@@ -41,25 +41,25 @@ describe('controllers/request-type', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('setupRequestTypeController', () => {
+  describe('setupRequestTypeController', function () {
     let getStub;
     let postStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
       postStub = sandbox.stub(express.Router, 'post');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       requestType.setupRequestTypeController({});
       expect(getStub).to.have.been.calledWith(`${Paths.requestType}/:action?`);
       expect(getStub).to.have.been.calledWith(`${Paths.requestType}/recording`);
@@ -70,8 +70,8 @@ describe('controllers/request-type', () => {
     });
   });
 
-  describe('getRequestType', () => {
-    it('should render request type select page', async () => {
+  describe('getRequestType', function () {
+    it('should render request type select page', async function () {
       req.cookies.manageYourAppeal = 'true';
       await requestType.getRequestType()(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
@@ -88,9 +88,9 @@ describe('controllers/request-type', () => {
     });
   });
 
-  describe('selectRequestType', () => {
+  describe('selectRequestType', function () {
     let requestTypeService;
-    it('should render request type select page with hearing recordings', async () => {
+    it('should render request type select page with hearing recordings', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
       req.body['requestOptions'] = 'hearingRecording';
@@ -109,7 +109,7 @@ describe('controllers/request-type', () => {
       expect(req.session.hearingRecordingsResponse).to.equal(hearingRecording);
     });
 
-    it('should render request type select page without hearing recordings', async () => {
+    it('should render request type select page without hearing recordings', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
       req.body['requestOptions'] = 'hearingRecording';
@@ -127,7 +127,7 @@ describe('controllers/request-type', () => {
       );
     });
 
-    it('should catch error and track Excepction with AppInsights', async () => {
+    it('should catch error and track Excepction with AppInsights', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
       req.body['requestOptions'] = 'hearingRecording';
@@ -148,9 +148,9 @@ describe('controllers/request-type', () => {
     });
   });
 
-  describe('submitHearingRecordingRequest', () => {
+  describe('submitHearingRecordingRequest', function () {
     let requestTypeService;
-    it('should render error message for request with empty hearing ids', async () => {
+    it('should render error message for request with empty hearing ids', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearingRecordingsResponse = hearingRecording;
 
@@ -165,7 +165,7 @@ describe('controllers/request-type', () => {
       );
     });
 
-    it('should render confirm hearing request page for hearing ids', async () => {
+    it('should render confirm hearing request page for hearing ids', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
       req.session.hearingRecordingsResponse = hearingRecording;
@@ -189,7 +189,7 @@ describe('controllers/request-type', () => {
       expect(req.session.hearingRecordingsResponse).to.equal('');
     });
 
-    it('should catch error and track Excepction with AppInsights', async () => {
+    it('should catch error and track Excepction with AppInsights', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearing = { case_id: 'case_id_1' };
       req.session.hearingRecordingsResponse = hearingRecording;
@@ -215,13 +215,13 @@ describe('controllers/request-type', () => {
     });
   });
 
-  describe('getHearingRecording', () => {
+  describe('getHearingRecording', function () {
     const mp3 = '29312380';
     let trackYourAppealService;
     const url = 'http://test';
     const type = 'mp3';
 
-    beforeEach(() => {
+    beforeEach(function () {
       req = {
         query: {
           url,
@@ -237,7 +237,7 @@ describe('controllers/request-type', () => {
       trackYourAppealService = {};
     });
 
-    it('should return hearing recording for the document url', async () => {
+    it('should return hearing recording for the document url', async function () {
       trackYourAppealService.getMediaFile = async () => Promise.resolve(mp3);
       await requestType.getHearingRecording(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith('content-type', 'audio/mp3');

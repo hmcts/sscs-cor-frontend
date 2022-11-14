@@ -3,8 +3,8 @@ import { getActiveStages } from 'app/server/utils/appealStages';
 
 const { expect, sinon } = require('test/chai-sinon');
 
-describe('getActiveStatus', () => {
-  it('should return stages array with states', () => {
+describe('getActiveStatus', function () {
+  it('should return stages array with states', function () {
     const oralStages = oralAppealStages
       .map((stage) => {
         if (stage.status === 'APPEAL_RECEIVED')

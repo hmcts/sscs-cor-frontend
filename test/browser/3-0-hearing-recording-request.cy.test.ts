@@ -15,7 +15,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('CY - Hearing Recording request @mya @nightly', () => {
+describe('CY - Hearing Recording request @mya @nightly', function () {
   let page: Page;
   let taskListPage: TaskListPage;
   let requestTypePage: RequestTypePage;
@@ -24,7 +24,7 @@ describe('CY - Hearing Recording request @mya @nightly', () => {
   let statusPage: StatusPage;
   let ccdCase;
   let sidamUser;
-  before('start services and bootstrap data in CCD/COH', async () => {
+  before('start services and bootstrap data in CCD/COH', async function () {
     ({
       ccdCase,
       page,
@@ -46,13 +46,13 @@ describe('CY - Hearing Recording request @mya @nightly', () => {
     );
   });
 
-  after(async () => {
+  after(async function () {
     if (page?.close) {
       await page.close();
     }
   });
 
-  it('CY - Navigate to request page', async () => {
+  it('CY - Navigate to request page', async function () {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
@@ -65,7 +65,7 @@ describe('CY - Hearing Recording request @mya @nightly', () => {
     await requestTypePage.visitPage();
   });
 
-  it('CY - Navigate to Request Type tab', async () => {
+  it('CY - Navigate to Request Type tab', async function () {
     await statusPage.clickElement('#tab-requestType');
     await page.waitForTimeout(500);
 
@@ -78,7 +78,7 @@ describe('CY - Hearing Recording request @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it.skip('checks /request-type page passes @pa11y', async () => {
+  it.skip('checks /request-type page passes @pa11y', async function () {
     requestTypePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-request-type-page.png`;
     pa11yOpts.page = requestTypePage.page;
@@ -90,7 +90,7 @@ describe('CY - Hearing Recording request @mya @nightly', () => {
     );
   });
 
-  it('CY - Select hearing recording option and shows list of hearing recording available', async () => {
+  it('CY - Select hearing recording option and shows list of hearing recording available', async function () {
     requestTypePage.verifyPage();
     await requestTypePage.selectRequestOption();
     await page.waitForTimeout(2000);

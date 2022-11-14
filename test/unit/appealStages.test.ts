@@ -5,16 +5,16 @@ import {
   paperAppealStages,
 } from '../../app/server/data/appealStages';
 
-describe('Appeal stages', () => {
-  it('should contain oral appeal stages', () => {
+describe('Appeal stages', function () {
+  it('Oral Appeal Stages should contain oral appeal stages', function () {
     expect(oralAppealStages).to.be.an('array');
   });
 
-  it('should contain paper appeal stages', () => {
+  it('Paper Appeal Stages should contain paper appeal stages', function () {
     expect(paperAppealStages).to.be.an('array');
   });
 
-  it('should contain paper appeal stages', () => {
+  it('COR Appeal Stages should contain paper appeal stages', function () {
     expect(corAppealStages).to.be.an('array');
   });
 });

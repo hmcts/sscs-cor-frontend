@@ -6,47 +6,50 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
 
-describe('services/evidence', () => {
+describe('services/evidence', function () {
   const hearingId = '121';
   const questionId = '62';
-  let evidenceService;
-  const req: any = {};
-  let rpStub: sinon.SinonStub;
-  before(() => {
-    evidenceService = new EvidenceService('http://sscs-cor-backend.net');
-    req.session = {
+  let evidenceService = null;
+  const req = {
+    session: {
       accessToken: 'someUserToken',
       serviceToken: 'someServiceToken',
+    },
+  };
+  let rpStub: sinon.SinonStub = null;
+  let apiResponse = null;
+  let file = null;
+
+  before(function () {
+    evidenceService = new EvidenceService('http://sscs-cor-backend.net');
+    apiResponse = {
+      body: {
+        id: '5425f1eb-92bd-4784-83df-9afa348fd1b3',
+        file_name: 'some_file_name.txt',
+      },
+      statusCode: 200,
+    };
+
+    file = {
+      fieldname: 'file-upload-1',
+      originalname: 'some_evidence.txt',
+      mimetype: 'text/plain',
+      buffer: fs.readFileSync(
+        path.join(__dirname, '/../../fixtures/evidence/evidence.txt')
+      ),
     };
   });
 
-  beforeEach(() => {
+  beforeEach(function () {
     rpStub = sinon.stub(RequestPromise, 'request');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     rpStub.restore();
   });
 
-  const apiResponse = {
-    body: {
-      id: '5425f1eb-92bd-4784-83df-9afa348fd1b3',
-      file_name: 'some_file_name.txt',
-    },
-    statusCode: 200,
-  };
-
-  const file = {
-    fieldname: 'file-upload-1',
-    originalname: 'some_evidence.txt',
-    mimetype: 'text/plain',
-    buffer: fs.readFileSync(
-      path.join(__dirname, '/../../fixtures/evidence/evidence.txt')
-    ),
-  };
-
-  describe('#upload', () => {
-    it('calls out to service', async () => {
+  describe('#upload', function () {
+    it('calls out to service', async function () {
       await evidenceService.upload(hearingId, questionId, file, req);
 
       const expectedOptions = {
@@ -68,16 +71,16 @@ describe('services/evidence', () => {
       expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
-    describe('on success', () => {
-      beforeEach(() => {
+    describe('on success', function () {
+      beforeEach(function () {
         rpStub.resolves(apiResponse);
       });
 
-      afterEach(() => {
+      afterEach(function () {
         rpStub.restore();
       });
 
-      it('resolves with the response body', async () => {
+      it('resolves with the response body', async function () {
         const body = await evidenceService.upload(
           hearingId,
           questionId,
@@ -88,25 +91,26 @@ describe('services/evidence', () => {
       });
     });
 
-    describe('on failure', () => {
+    describe('on failure', function () {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      beforeEach(() => {
+      beforeEach(function () {
         rpStub.rejects(error);
       });
 
-      afterEach(() => {
+      afterEach(function () {
         rpStub.restore();
       });
 
-      it('rejects the promise with the error', () =>
-        expect(
+      it('rejects the promise with the error', function () {
+        return expect(
           evidenceService.upload(hearingId, questionId, {}, req)
-        ).to.be.rejectedWith(error));
+        ).to.be.rejectedWith(error);
+      });
     });
   });
 
-  describe('#remove', () => {
-    it('calls out to service', async () => {
+  describe('#remove', function () {
+    it('calls out to service', async function () {
       await evidenceService.remove(hearingId, questionId, '123', req);
 
       const expectedOptions = {
@@ -118,16 +122,16 @@ describe('services/evidence', () => {
       expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
-    describe('on success', () => {
-      beforeEach(() => {
+    describe('on success', function () {
+      beforeEach(function () {
         rpStub.resolves(apiResponse);
       });
 
-      afterEach(() => {
+      afterEach(function () {
         rpStub.restore();
       });
 
-      it('resolves', async () => {
+      it('resolves', async function () {
         const result = await evidenceService.remove(
           hearingId,
           questionId,
@@ -138,20 +142,21 @@ describe('services/evidence', () => {
       });
     });
 
-    describe('on failure', () => {
+    describe('on failure', function () {
       const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-      beforeEach(() => {
+      beforeEach(function () {
         rpStub.rejects(error);
       });
 
-      afterEach(() => {
+      afterEach(function () {
         rpStub.restore();
       });
 
-      it('rejects the promise with the error', () =>
-        expect(
+      it('rejects the promise with the error', function () {
+        return expect(
           evidenceService.remove(hearingId, questionId, '123', req)
-        ).to.be.rejectedWith(error));
+        ).to.be.rejectedWith(error);
+      });
     });
   });
 });

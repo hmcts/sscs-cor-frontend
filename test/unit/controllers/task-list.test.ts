@@ -16,7 +16,7 @@ import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import moment from 'moment';
 
-describe('controllers/task-list', () => {
+describe('controllers/task-list', function () {
   let req;
   let res;
   let next: NextFunction;
@@ -30,7 +30,7 @@ describe('controllers/task-list', () => {
     case_id: 12345,
   };
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -53,21 +53,21 @@ describe('controllers/task-list', () => {
     };
   });
 
-  afterEach(() => {
+  afterEach(function () {
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
     sandbox.restore();
   });
 
-  describe.skip('getCoversheet', () => {
-    it('should return a pdf file', async () => {
+  describe.skip('getCoversheet', function () {
+    it('should return a pdf file', async function () {
       await getCoversheet(additionalEvidenceService)(req, res, next);
       expect(res.send).to.have.been.calledOnce.calledWith(
         new Buffer('file', 'binary')
       );
     });
 
-    it('should track Exception with AppInsights and call next(error)', async () => {
+    it('should track Exception with AppInsights and call next(error)', async function () {
       additionalEvidenceService = {
         getCoversheet: sandbox.stub().rejects(error),
       };
@@ -78,7 +78,7 @@ describe('controllers/task-list', () => {
       expect(next).to.have.been.calledWith(error);
     });
 
-    it('should throw error and event if no sessions', async () => {
+    it('should throw error and event if no sessions', async function () {
       req.session = null;
 
       expect(
@@ -93,8 +93,8 @@ describe('controllers/task-list', () => {
     });
   });
 
-  describe('getTaskList', () => {
-    it('should render task-list.njk page', () => {
+  describe('getTaskList', function () {
+    it('should render task-list.njk page', function () {
       req.session.appeal = {
         hearingType: null,
       };
@@ -107,8 +107,8 @@ describe('controllers/task-list', () => {
     });
   });
 
-  describe('getEvidencePost', () => {
-    it('should render post-evidence.njk page', () => {
+  describe('getEvidencePost', function () {
+    it('should render post-evidence.njk page', function () {
       getEvidencePost(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
         'post-evidence.njk',
@@ -117,34 +117,32 @@ describe('controllers/task-list', () => {
     });
   });
 
-  describe('setupTaskListController', () => {
+  describe('setupTaskListController', function () {
     const deps = {
       getAllQuestionsService: {},
     };
 
-    beforeEach(() => {
+    beforeEach(function () {
       sinon.stub(express, 'Router').returns({
         get: sinon.stub(),
         post: sinon.stub(),
       });
     });
 
-    afterEach(() => {
+    afterEach(function () {
       (express.Router as sinon.SinonStub).restore();
     });
 
-    it('calls router.get with the path and middleware', () => {
+    it('calls router.get with the path and middleware', function () {
       setupTaskListController(deps);
       // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(Paths.taskList);
     });
 
-    it('returns the router', () => {
+    it('returns the router', function () {
       const controller = setupTaskListController(deps);
       // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
     });
   });
 });
-
-export {};

@@ -15,28 +15,27 @@ import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
 import { NextFunction, Response } from 'express';
 import { expect, sinon } from '../../chai-sinon';
+import { before } from 'mocha';
+import { SinonStub } from 'sinon';
 
 const multer = require('multer');
 const content = require('locale/content');
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
-const maxAudioVideoFileSizeInMb: number = config.get(
-  'evidenceUpload.maxAudioVideoFileSizeInMb'
-);
 
-describe('controllers/additional-evidence.js', () => {
+const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
+
+describe('controllers/additional-evidence.js', function () {
   let req;
   let res: Response;
   let next: NextFunction;
   let additionalEvidenceService;
   let sandbox: sinon.SinonSandbox;
 
-  const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
-
   const accessToken = 'accessToken';
   const serviceToken = 'serviceToken';
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       params: {
@@ -78,18 +77,18 @@ describe('controllers/additional-evidence.js', () => {
     sandbox.stub(AppInsights, 'trackTrace');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
   });
 
-  it('should render about evidence page', () => {
+  it('should render about evidence page', function () {
     getAboutEvidence(req, res);
     expect(res.render).to.have.been.calledOnce.calledWith(
       'additional-evidence/about-evidence.njk'
     );
   });
 
-  it('should pass "options" as argument to view if param action empty', async () => {
+  it('should pass "options" as argument to view if param action empty', async function () {
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
       'additional-evidence/index.njk',
@@ -101,7 +100,7 @@ describe('controllers/additional-evidence.js', () => {
     );
   });
 
-  it('should pass "upload" as argument to view if param action is "upload"', async () => {
+  it('should pass "upload" as argument to view if param action is "upload"', async function () {
     const description = 'this is a description for the files to be upload';
     req.params.action = 'upload';
     req.session.hearing.online_hearing_id = 'hearingId';
@@ -123,7 +122,7 @@ describe('controllers/additional-evidence.js', () => {
     );
   });
 
-  it('should catch error and track Excepction with AppInsights', async () => {
+  it('should catch error and track Excepction with AppInsights', async function () {
     additionalEvidenceService = {
       getEvidences: sandbox.stub().rejects(error),
     };
@@ -142,7 +141,7 @@ describe('controllers/additional-evidence.js', () => {
     expect(next).to.have.been.calledOnce.calledWith(error);
   });
 
-  it('should pass "statement" as argument to view if param action is "statement"', async () => {
+  it('should pass "statement" as argument to view if param action is "statement"', async function () {
     req.params.action = 'statement';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
@@ -155,7 +154,7 @@ describe('controllers/additional-evidence.js', () => {
     );
   });
 
-  it('should pass "post" as argument to view if param action is "post"', async () => {
+  it('should pass "post" as argument to view if param action is "post"', async function () {
     req.params.action = 'post';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
@@ -168,7 +167,7 @@ describe('controllers/additional-evidence.js', () => {
     );
   });
 
-  it('should pass "options" as argument to view if param action is other', async () => {
+  it('should pass "options" as argument to view if param action is other', async function () {
     req.params.action = 'no-valid-argument';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
@@ -181,8 +180,8 @@ describe('controllers/additional-evidence.js', () => {
     );
   });
 
-  describe('#postAdditionalEvidence', () => {
-    it('should render the send by post additional evidence page', () => {
+  describe('#postAdditionalEvidence', function () {
+    it('should render the send by post additional evidence page', function () {
       req.body['additional-evidence-option'] = 'post';
       postAdditionalEvidence(req, res);
       expect(res.redirect).to.have.been.calledWith(
@@ -191,19 +190,19 @@ describe('controllers/additional-evidence.js', () => {
     });
   });
 
-  describe('#postEvidenceStatement', () => {
+  describe('#postEvidenceStatement', function () {
     let additionalEvidenceService;
-    beforeEach(() => {
+    beforeEach(function () {
       additionalEvidenceService = {
         saveStatement: sandbox.stub().resolves(),
       };
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should save statement and redirect to confirmation page', async () => {
+    it('should save statement and redirect to confirmation page', async function () {
       req.body['question-field'] = 'My amazing statement';
       req.session.hearing.online_hearing_id = 'hearingId';
       const caseId = '1234567890';
@@ -224,7 +223,7 @@ describe('controllers/additional-evidence.js', () => {
       );
     });
 
-    it('should not save statement and render index page with validation error', async () => {
+    it('should not save statement and render index page with validation error', async function () {
       req.body['question-field'] = '';
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
       expect(additionalEvidenceService.saveStatement).not.to.have.been.called;
@@ -238,7 +237,7 @@ describe('controllers/additional-evidence.js', () => {
       );
     });
 
-    it('should call next and appInsights with the error when there is one', async () => {
+    it('should call next and appInsights with the error when there is one', async function () {
       req.body['question-field'] = 'My amazing answer';
       additionalEvidenceService.saveStatement.rejects(error);
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
@@ -249,8 +248,8 @@ describe('controllers/additional-evidence.js', () => {
     });
   });
 
-  describe('#postFileUpload', () => {
-    it('should catch error and track Excepction with AppInsights', async () => {
+  describe('#postFileUpload', function () {
+    it('should catch error and track Excepction with AppInsights', async function () {
       req.file = { name: 'myfile.txt' };
       additionalEvidenceService = {
         uploadEvidence: sandbox.stub().rejects(error),
@@ -269,7 +268,7 @@ describe('controllers/additional-evidence.js', () => {
       expect(next).to.have.been.calledOnce.calledWith(error);
     });
 
-    it('should send error message for file upload error', async () => {
+    it('should send error message for file upload error', async function () {
       req.file = { name: 'myfile.txt' };
       additionalEvidenceService = {
         uploadEvidence: sandbox.stub().resolves({
@@ -299,7 +298,7 @@ describe('controllers/additional-evidence.js', () => {
       );
     });
 
-    it('should upload file and render upload page', async () => {
+    it('should upload file and render upload page', async function () {
       req.file = {
         name: 'myfile.txt',
         buffer: new Buffer('some content'),
@@ -324,7 +323,7 @@ describe('controllers/additional-evidence.js', () => {
       expect(AppInsights.trackTrace).to.have.been.calledOnce;
     });
 
-    it('should delete file and render upload page', async () => {
+    it('should delete file and render upload page', async function () {
       req.body.delete = { fileId1: 'Delete' };
       const fileId = 'fileId1';
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
@@ -337,7 +336,7 @@ describe('controllers/additional-evidence.js', () => {
       );
     });
 
-    it('should catch error trying to delete file and track Exception with AppInsights', async () => {
+    it('should catch error trying to delete file and track Exception with AppInsights', async function () {
       req.body.delete = { fileId1: 'Delete' };
       const fileId = 'fileId1';
       additionalEvidenceService = {
@@ -354,7 +353,7 @@ describe('controllers/additional-evidence.js', () => {
       expect(next).to.have.been.calledOnce.calledWith(error);
     });
 
-    it('should show errors when no files submitted and missing descr', async () => {
+    it('should show errors when no files submitted and missing descr', async function () {
       req.body.buttonSubmit = 'there';
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
 
@@ -373,7 +372,7 @@ describe('controllers/additional-evidence.js', () => {
       );
     });
 
-    it('should submit evidences and description and redirect to confirmation page', async () => {
+    it('should submit evidences and description and redirect to confirmation page', async function () {
       req.body.buttonSubmit = 'there';
       const caseId = req.session.hearing.case_id;
       const evidence: EvidenceDescriptor = {
@@ -400,7 +399,7 @@ describe('controllers/additional-evidence.js', () => {
       );
     });
 
-    it('should show errors when file size is bigger than certain limit', async () => {
+    it('should show errors when file size is bigger than certain limit', async function () {
       const fileSizeErrorMsg = `${content.en.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
       res.locals.multerError = fileSizeErrorMsg;
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
@@ -417,7 +416,7 @@ describe('controllers/additional-evidence.js', () => {
       );
     });
 
-    it('should show errors when audio/video file size is bigger than certain limit', async () => {
+    it('should show errors when audio/video file size is bigger than certain limit', async function () {
       const fileSizeErrorMsg = `${content.en.questionUploadEvidence.error.tooLarge} ${maxFileSizeInMb}MB.`;
       res.locals.multerError = fileSizeErrorMsg;
       await postFileUpload('uploadAudioVideo', additionalEvidenceService)(
@@ -437,12 +436,12 @@ describe('controllers/additional-evidence.js', () => {
       );
     });
 
-    it('should redirect to Task List if no file to upload or delete', async () => {
+    it('should redirect to Task List if no file to upload or delete', async function () {
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
     });
 
-    it('should submit audio/video evidences and description and redirect to confirmation page', async () => {
+    it('should submit audio/video evidences and description and redirect to confirmation page', async function () {
       req.body.buttonSubmit = 'there';
       const caseId = req.session.hearing.case_id;
       req.file = { name: 'myfile.mp3' };
@@ -468,121 +467,129 @@ describe('controllers/additional-evidence.js', () => {
     });
   });
 
-  describe('#fileTypeInWhitelist', () => {
-    const cb = sinon.stub();
+  describe('#fileTypeInWhitelist', function () {
+    let sb: SinonStub = null;
     const file = {
       mimetype: 'image/png',
       originalname: 'someImage.png',
     };
 
-    beforeEach(() => {
-      cb.resetHistory();
+    before(function () {
+      sb = sinon.stub();
     });
 
-    it('file is in whitelist', () => {
-      fileTypeInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWith(null, true);
+    beforeEach(function () {
+      sb.resetHistory();
     });
 
-    it('file mime type is not in whitelist', () => {
+    it('file is in whitelist', function () {
+      fileTypeInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWith(null, true);
+    });
+
+    it('file mime type is not in whitelist', function () {
       file.mimetype = 'plain/disallowed';
-      fileTypeInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_FILE_TYPE')
       );
     });
 
-    it('file extension type is not in whitelist', () => {
+    it('file extension type is not in whitelist', function () {
       file.originalname = 'disallowed.file';
-      fileTypeInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_FILE_TYPE')
       );
     });
 
-    it('file does not have an extension ', () => {
+    it('file does not have an extension ', function () {
       file.originalname = 'disallowedfile';
-      fileTypeInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_FILE_TYPE')
       );
     });
 
-    it('file is audio ', () => {
+    it('file is audio ', function () {
       file.originalname = 'audio.MP3';
-      fileTypeInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_FILE_TYPE')
       );
     });
 
-    it('file is audio with feature flag on', () => {
+    it('file is audio with feature flag on', function () {
       file.originalname = 'audio.MP3';
       file.mimetype = 'audio/mp3';
       req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
-      fileTypeInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_UNEXPECTED_FILE')
       );
     });
   });
 
-  describe('#fileTypeAudioVideoInWhitelist', () => {
-    const cb = sinon.stub();
+  describe('#fileTypeAudioVideoInWhitelist', function () {
+    let sb: SinonStub = null;
     const file = {
       mimetype: 'audio/mp3',
       originalname: 'someImage.mp3',
     };
 
-    beforeEach(() => {
-      cb.resetHistory();
+    before(function () {
+      sb = sinon.stub();
     });
 
-    it('file is in whitelist', () => {
+    beforeEach(function () {
+      sb.resetHistory();
+    });
+
+    it('file is in whitelist', function () {
       file.mimetype = 'audio/mp3';
       req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
-      fileTypeAudioVideoInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWith(null, true);
+      fileTypeAudioVideoInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWith(null, true);
     });
 
-    it('file mime type is not in whitelist', () => {
+    it('file mime type is not in whitelist', function () {
       file.mimetype = 'plain/disallowed';
-      fileTypeAudioVideoInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeAudioVideoInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_FILE_TYPE')
       );
     });
 
-    it('file extension type is not in whitelist', () => {
+    it('file extension type is not in whitelist', function () {
       file.originalname = 'disallowed.file';
-      fileTypeAudioVideoInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeAudioVideoInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_FILE_TYPE')
       );
     });
 
-    it('file does not have an extension ', () => {
+    it('file does not have an extension ', function () {
       file.originalname = 'disallowedfile';
-      fileTypeAudioVideoInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeAudioVideoInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_FILE_TYPE')
       );
     });
 
-    it('file is audio ', () => {
+    it('file is audio ', function () {
       file.originalname = 'audio.MP3';
-      fileTypeAudioVideoInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWithMatch(
+      fileTypeAudioVideoInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWithMatch(
         new multer.MulterError('LIMIT_FILE_TYPE')
       );
     });
 
-    it('file is audio with feature flag on', () => {
+    it('file is audio with feature flag on', function () {
       file.originalname = 'audio.MP3';
       file.mimetype = 'audio/mp3';
       req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
-      fileTypeAudioVideoInWhitelist(req, file, cb);
-      expect(cb).to.have.been.calledOnce.calledWith(null, true);
+      fileTypeAudioVideoInWhitelist(req, file, sb);
+      expect(sb).to.have.been.calledOnce.calledWith(null, true);
     });
   });
 });

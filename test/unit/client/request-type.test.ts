@@ -18,23 +18,23 @@ const html = `<div class="task-list">
               </form>
               </div>`;
 
-describe('request-type', () => {
+describe('request-type', function () {
   let requestType;
   let body;
-  before(() => {
+  before(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
     requestType = new RequestType();
   });
 
-  describe('constructor', () => {
-    before(() => {
+  describe('constructor', function () {
+    before(function () {
       document.querySelector<HTMLInputElement>(
         '#requestOptions'
       ).addEventListener = sinon.spy();
     });
-    describe('initialize class', () => {
-      it('should attach Event Listeners', () => {
+    describe('initialize class', function () {
+      it('should attach Event Listeners', function () {
         const target =
           document.querySelector<HTMLSelectElement>('#requestOptions');
         expect(target.addEventListener).to.have.not.been.called;
@@ -44,20 +44,20 @@ describe('request-type', () => {
     });
   });
 
-  describe('select request type', () => {
+  describe('select request type', function () {
     let submitSpy: SinonSpy;
-    before(() => {
+    before(function () {
       const form = document.querySelector<HTMLFormElement>(
         '#request-option-form'
       );
       submitSpy = sinon.spy(form, 'submit');
       requestType.init();
     });
-    afterEach(() => {
+    afterEach(function () {
       submitSpy.restore();
     });
-    describe('select request type', () => {
-      it('should submit form', () => {
+    describe('select request type', function () {
+      it('should submit form', function () {
         const select =
           document.querySelector<HTMLSelectElement>('#requestOptions');
         expect(select.addEventListener).to.have.been.called;

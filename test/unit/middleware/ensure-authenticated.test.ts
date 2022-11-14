@@ -7,7 +7,7 @@ const {
   ensureAuthenticated,
 } = require('app/server/middleware/ensure-authenticated.ts');
 
-describe('middleware/ensure-authenticated', () => {
+describe('middleware/ensure-authenticated', function () {
   let req;
   let res;
   let next;
@@ -17,7 +17,7 @@ describe('middleware/ensure-authenticated', () => {
     appellant_name: 'John Smith',
   };
 
-  beforeEach(() => {
+  beforeEach(function () {
     req = {
       session: {
         accessToken: 'xxxxxxxxxxxxx',
@@ -37,36 +37,38 @@ describe('middleware/ensure-authenticated', () => {
     next = sinon.spy();
   });
 
-  describe('#checkAccessToken', () => {
-    it('calls next when accessToken exists in the session', () => {
+  describe('#checkAccessToken', function () {
+    it('calls next when accessToken exists in the session', function () {
       checkAccessToken(req, res, next);
       expect(next).to.have.been.calledOnce.calledWith();
     });
 
-    describe('when noaccessToken exists', () => {
-      beforeEach(() => {
+    describe('when noaccessToken exists', function () {
+      beforeEach(function () {
         delete req.session.accessToken;
         checkAccessToken(req, res, next);
       });
 
-      it('destroys the session and redirects to login', () => {
+      it('destroys the session and redirects to login', function () {
         expect(req.session.destroy).to.have.been.calledOnce.calledWith();
         expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
       });
 
-      it('does not call next', () => expect(next).to.not.have.been.called);
+      it('does not call next', function () {
+        return expect(next).to.not.have.been.called;
+      });
     });
   });
 
-  describe('#setLocals', () => {
-    it('sets hearing data on the locals', () => {
+  describe('#setLocals', function () {
+    it('sets hearing data on the locals', function () {
       req.session.appeal = undefined;
       setLocals(req, res, next);
       expect(res.locals).to.have.property('hearing');
       expect(res.locals).to.not.have.property('tabs');
       expect(res.locals.hearing).to.deep.equal(hearingDetails);
     });
-    it('also sets tabs data on the locals', () => {
+    it('also sets tabs data on the locals', function () {
       req.cookies = {
         hearingOutcomeTab: 'true',
         mediaFilesAllowed: 'true',
@@ -91,7 +93,7 @@ describe('middleware/ensure-authenticated', () => {
         'requestType',
       ]);
     });
-    it('also remove outcome tab if hearingOutcome not present', () => {
+    it('also remove outcome tab if hearingOutcome not present', function () {
       req.cookies = {
         hearingOutcomeTab: 'true',
         mediaFilesAllowed: 'true',
@@ -109,7 +111,7 @@ describe('middleware/ensure-authenticated', () => {
       });
       expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
     });
-    it('also remove outcome tab if hearingOutcomeTab flag is false', () => {
+    it('also remove outcome tab if hearingOutcomeTab flag is false', function () {
       req.cookies = {
         hearingOutcomeTab: 'false',
         mediaFilesAllowed: 'true',
@@ -128,7 +130,7 @@ describe('middleware/ensure-authenticated', () => {
       });
       expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
     });
-    it('remove audio/video tab if mediaFilesAllowed flag is false', () => {
+    it('remove audio/video tab if mediaFilesAllowed flag is false', function () {
       req.cookies = {
         manageYourAppeal: 'true',
         mediaFilesAllowed: 'false',
@@ -146,7 +148,7 @@ describe('middleware/ensure-authenticated', () => {
       });
       expect(members).to.have.members(['status', 'hearing']);
     });
-    it('remove request tab if requestTabEnabled flag is false', () => {
+    it('remove request tab if requestTabEnabled flag is false', function () {
       req.cookies = {
         requestTabEnabled: 'false',
       };
@@ -163,19 +165,17 @@ describe('middleware/ensure-authenticated', () => {
       });
       expect(members).to.have.members(['status', 'hearing']);
     });
-    it('sets showSignOut on the locals', () => {
+    it('sets showSignOut on the locals', function () {
       setLocals(req, res, next);
       expect(res.locals).to.have.property('showSignOut', true);
     });
   });
 
-  describe('#ensureAuthenicated', () => {
-    it('is an array of middleware functions', () => {
+  describe('#ensureAuthenicated', function () {
+    it('is an array of middleware functions', function () {
       expect(ensureAuthenticated).to.be.an('array');
       /* eslint-disable-next-line no-magic-numbers */
       expect(ensureAuthenticated).to.have.lengthOf(2);
     });
   });
 });
-
-export {};
