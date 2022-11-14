@@ -1,7 +1,7 @@
 {% from "button/macro.njk" import govukButton %} {% from "radios/macro.njk"
 import govukRadios %}
 
-<div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-column-full">
   <form action="/additional-evidence" , method="post">
     {% if mediaFilesAllowed %} {{ govukRadios({ idPrefix:
     "additional-evidence-option", name: "additional-evidence-option", fieldset:

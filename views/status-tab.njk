@@ -7,21 +7,22 @@ block pageTitle %} {{
 content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }} -
 {{ content[i18n.language].statusTab.tabHeader }} - {{
 content[i18n.language].general.govUK }} {% endblock %} {% block corContent %}
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">
-      {{ content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }}
-    </h1>
-    {% include "includes/appellant-details.njk" %}
-    <p class="govuk-body-s">
-      {{ content[i18n.language].general.sessionExpiryWarning | safe }}
-    </p>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-xl">
+        {{ content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }}
+      </h1>
+      {% include "includes/appellant-details.njk" %}
+      <p class="govuk-body-s">
+        {{ content[i18n.language].general.sessionExpiryWarning | safe }}
+      </p>
+    </div>
   </div>
 
   {% include "includes/divider.njk" %}
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
       {{ navigationTabs("status") }}
       <div class="task-list">
         <h2 class="govuk-heading-m --margin-bottom-s">
@@ -37,5 +38,4 @@ content[i18n.language].general.govUK }} {% endblock %} {% block corContent %}
       </div>
     </div>
   </div>
-  {% endblock %}
-</div>
+{% endblock %}

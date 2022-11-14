@@ -37,7 +37,7 @@ onclick: "history.go(-1); return false;"
 
 {% block content %}
 <div class="govuk-grid-row">
-    <div class="group help-page cookie-settings govuk-grid-column-two-thirds">
+    <div class="group help-page cookie-settings govuk-grid-column-full">
         <div class="grid-row govuk-!-margin-top-8 govuk-!-margin-bottom-8">
             {% include "./cookie-success-banner.njk" %}
             <h1 class="govuk-heading-xl">{{ content[i18n.language].new.cookies.title | safe }}</h1>

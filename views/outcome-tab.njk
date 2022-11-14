@@ -6,7 +6,7 @@ content[i18n.language].outcomeTab.tabHeader | safe }} - {{
 content[i18n.language].general.govUK | safe }} {% endblock %} {% block
 corContent %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl">
       {{ content[i18n.language].taskList.header | safe }}
     </h1>
@@ -17,7 +17,7 @@ corContent %}
 {% include "includes/divider.njk" %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     {{ navigationTabs("outcome") }}
     <div class="task-list">
       <h2 class="govuk-heading-m --margin-bottom-s">

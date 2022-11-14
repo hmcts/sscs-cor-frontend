@@ -1,6 +1,6 @@
 {% if postBulkScan %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">
       {{ content[i18n.language].postEvidence.header | safe }}
     </h1>
@@ -20,7 +20,7 @@
   </div>
 </div>
 {% else %}
-<div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-column-full">
   <h1 class="govuk-heading-l">
     {{ content[i18n.language].additionalEvidence.evidencePost.header | safe }}
   </h1>

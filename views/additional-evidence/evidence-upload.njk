@@ -3,7 +3,7 @@ import govukFileUpload %} {% from "textarea/macro.njk" import govukTextarea %}
 {% from "components/spinner.njk" import spinner %} {% from
 "components/evidence-list.njk" import evidenceList with context %}
 
-<div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-column-full">
   <h1 class="govuk-heading-l question-header">
     {{ content[i18n.language].additionalEvidence.evidenceUpload.header | safe }}
   </h1>

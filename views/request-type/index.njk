@@ -11,7 +11,7 @@ content[i18n.language].requestTypeTab.tabHeader | safe }} - {{
 content[i18n.language].general.govUK | safe }} {% endif %} {% endblock %} {%
 block corContent %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl">
       {{
       content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal
@@ -24,7 +24,7 @@ block corContent %}
 {% include "includes/divider.njk" %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     {{ navigationTabs("requestType") }}
     <div class="task-list">
       {% if action === "confirm" %} {% include
