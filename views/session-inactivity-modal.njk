@@ -1,27 +1,18 @@
 <div id="timeout-dialog" class="modal">
-  <div class="modal__title" role="dialog" aria-labelledby="aria-timeout-label">
-    <h2 class="govuk-heading-m">
-      {{ content[i18n.language].cookieTimeOut.modal.title | safe }}
-    </h2>
+  <div class="modal__title"
+       role="dialog"
+       aria-labelledby="aria-timeout-label">
+    <h2 class="govuk-heading-m">{{ content[i18n.language].cookieTimeOut.modal.title | safe }}</h2>
   </div>
   <div class="modal__content">
-    <p id="expiring-in-message">
-      {{ content[i18n.language].cookieTimeOut.modal.body[0] | safe }} {{
-      content[i18n.language].cookieTimeOut.modal.body[1] | safe }}
-    </p>
+    <p id="expiring-in-message">{{ content[i18n.language].cookieTimeOut.modal.body[0] | safe }} {{ content[i18n.language].cookieTimeOut.modal.body[1] | safe }}</p>
     <p>{{ content[i18n.language].cookieTimeOut.modal.info | safe }}</p>
     <div class="modals__buttons">
-      <button
-        class="govuk-button button-padding"
-        id="extend"
-        href="#"
-        rel="modal:close"
-      >
-        {{ content[i18n.language].cookieTimeOut.modal.extend | safe }}
-      </button>
-      <button class="govuk-button secondary-button" id="cancel" href="#">
-        {{ content[i18n.language].cookieTimeOut.modal.cancel | safe }}
-      </button>
+      <button class="govuk-button button-padding"
+              id="extend"
+              href="#"
+              rel="modal:close">{{ content[i18n.language].cookieTimeOut.modal.extend | safe }}</button>
+      <button class="govuk-button secondary-button" id="cancel" href="#">{{ content[i18n.language].cookieTimeOut.modal.cancel | safe }}</button>
     </div>
   </div>
 </div>

@@ -4,10 +4,8 @@
   </h2>
   <p tabindex="0">
     {{ content[i18n.language].common.appealReference | safe }}:
-    <span
-      id="case-reference"
-      aria-label="{{ screenReaderUtils.spellNumbersOut(hearing.case_reference) }}"
-      >{{ hearing.case_reference | safe }}</span
-    >
+    <span id="case-reference" aria-label="{{ screenReaderUtils.spellNumbersOut(hearing.case_reference) }}">
+      {{ hearing.case_reference | safe }}
+    </span>
   </p>
 </div>

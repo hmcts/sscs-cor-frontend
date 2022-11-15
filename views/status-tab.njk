@@ -1,34 +1,26 @@
-{% extends "layout.njk" %} {% from "components/navigation-tabs.njk" import
-navigationTabs with context %} {% from "components/status-bar.njk" import
-statusBar with context %} {% from "components/panel.njk" import panel with
-context %} {% set pageHeader =
-content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %} {%
-block pageTitle %} {{
-content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }} -
-{{ content[i18n.language].statusTab.tabHeader }} - {{
-content[i18n.language].general.govUK }} {% endblock %} {% block corContent %}
+{% extends "layout.njk" %}
+{% from "components/navigation-tabs.njk" import navigationTabs with context %}
+{% from "components/status-bar.njk" import statusBar with context %}
+{% from "components/panel.njk" import panel with context %}
+{% set pageHeader = content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %}
+{% block pageTitle %}
+  {{ content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }} - {{ content[i18n.language].statusTab.tabHeader }} - {{ content[i18n.language].general.govUK }}
+{% endblock pageTitle %}
+{% block corContent %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <h1 class="govuk-heading-xl">
-        {{ content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }}
-      </h1>
+      <h1 class="govuk-heading-xl">{{ content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal }}</h1>
       {% include "includes/appellant-details.njk" %}
-      <p class="govuk-body-s">
-        {{ content[i18n.language].general.sessionExpiryWarning | safe }}
-      </p>
+      <p class="govuk-body-s">{{ content[i18n.language].general.sessionExpiryWarning | safe }}</p>
     </div>
   </div>
-
   {% include "includes/divider.njk" %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       {{ navigationTabs("status") }}
       <div class="task-list">
-        <h2 class="govuk-heading-m --margin-bottom-s">
-          {{ content[i18n.language].statusTab.header | safe }}
-        </h2>
-        {% if stages | length %} {{ statusBar(appeal, stages) }} {% endif %}
+        <h2 class="govuk-heading-m --margin-bottom-s">{{ content[i18n.language].statusTab.header | safe }}</h2>
+        {% if stages | length %}{{ statusBar(appeal, stages) }}{% endif %}
         {% if appeal.hearingType == "cor" %}
           {% set latestUpdate = [ "TBC" ] %}
         {% else %}
@@ -38,4 +30,4 @@ content[i18n.language].general.govUK }} {% endblock %} {% block corContent %}
       </div>
     </div>
   </div>
-{% endblock %}
+{% endblock corContent %}
