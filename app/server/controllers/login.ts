@@ -16,7 +16,6 @@ import { IdamService, TokenResponse, UserDetails } from '../services/idam';
 import { CaseService } from '../services/cases';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
-import { getCasesByName } from '../utils/fieldValidation';
 import { Dependencies } from '../routes';
 const content = require('../../../locale/content');
 const config = require('config');
@@ -182,15 +181,16 @@ function getIdamCallback(
         }
         return res.redirect(Paths.status);
       }
-      const casesByName = getCasesByName(cases);
       AppInsights.trackTrace(
         `[Cases count ${cases.length}] - User logged in successfully as ${email}`
       );
+
+      req.session['cases'] = cases;
+
       if (isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies)) {
-        req.session['cases'] = cases;
         return res.redirect(Paths.activeCases);
       }
-      return res.render('select-case.njk', { casesByName });
+      return res.redirect(Paths.selectCase);
     } catch (error) {
       AppInsights.trackException(error);
       AppInsights.trackEvent('MYA_LOGIN_FAIL');

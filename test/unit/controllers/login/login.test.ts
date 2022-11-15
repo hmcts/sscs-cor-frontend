@@ -467,24 +467,7 @@ describe('controllers/login', function () {
       });
 
       it('loads select case page', function () {
-        expect(res.render).to.have.been.calledWith('select-case.njk', {
-          casesByName: {
-            'John Smith': [
-              {
-                appellant_name: 'John Smith',
-                case_id: 12345,
-                case_reference: '12345',
-                online_hearing_id: '1',
-              },
-              {
-                appellant_name: 'John Smith',
-                case_id: 12345,
-                case_reference: '12345',
-                online_hearing_id: '1',
-              },
-            ],
-          },
-        });
+        expect(res.redirect).to.have.been.calledWith(Paths.selectCase);
       });
     });
 

@@ -23,6 +23,7 @@ import { setupHearingController } from './controllers/hearing';
 import { setupOutcomeController } from './controllers/outcome';
 import { setupAvEvidenceController } from './controllers/av-evidence';
 import { setupRequestTypeController } from './controllers/request-type';
+import { setupCasesController } from './controllers/cases';
 
 import { CaseService } from './services/cases';
 import { IdamService } from './services/idam';
@@ -115,6 +116,10 @@ const evidenceOptionsController = setupadditionalEvidenceController({
 const statusController = setupStatusController({
   prereqMiddleware: ensureAuthenticated,
 });
+const casesController = setupCasesController({
+  prereqMiddleware: ensureAuthenticated,
+  setLocals,
+});
 const activeCasesController = setupActiveCasesController({
   prereqMiddleware: ensureAuthenticated,
   setLocals,
@@ -176,6 +181,7 @@ router.use(supportWithdrawAppealController);
 router.use(sessionController);
 router.use(evidenceOptionsController);
 router.use(statusController);
+router.use(casesController);
 router.use(activeCasesController);
 router.use(dormantCasesController);
 router.use(yourDetailsController);
