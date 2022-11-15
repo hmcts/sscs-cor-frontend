@@ -1,5 +1,5 @@
-{% extends "layout.njk" %} {% from "input/macro.njk" import govukInput %} {%
-from "button/macro.njk" import govukButton %} {% set pageHeader =
+{% extends "layout.njk" %} {% from "govuk/components/input/macro.njk" import govukInput %} {%
+from "govuk/components/button/macro.njk" import govukButton %} {% set pageHeader =
 content[i18n.language].notifications.email.addressChange.tab | safe %} {% block
 content %}
 <main id="content" class="confirm-email-address-change" role="main">

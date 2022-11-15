@@ -1,4 +1,4 @@
-{% extends "layout.njk" %} {% from "components/input/macro.njk" import
+{% extends "layout.njk" %} {% from "govuk/components/input/macro.njk" import
 govukInput %} {% set pageHeader = "Login" %} {% block content %}
 <form action="/idam-stub/login" method="post">
   {{ govukInput({ label: { text: "Username" }, id: "username", name: "username",

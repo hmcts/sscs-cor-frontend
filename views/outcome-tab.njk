@@ -1,4 +1,4 @@
-{% extends "layout.njk" %} {% from "inset-text/macro.njk" import govukInsetText
+{% extends "layout.njk" %} {% from "govuk/components/inset-text/macro.njk" import govukInsetText
 %} {% from "components/navigation-tabs.njk" import navigationTabs with context
 %} {% set pageHeader = content[i18n.language].taskList.header | safe %} {% block
 pageTitle %} {{ content[i18n.language].taskList.header | safe }} - {{

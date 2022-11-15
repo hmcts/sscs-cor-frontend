@@ -1,4 +1,4 @@
-{% extends "layout.njk" %} {% from "back-link/macro.njk" import govukBackLink
+{% extends "layout.njk" %} {% from "govuk/components/back-link/macro.njk" import govukBackLink
 %} {% from "components/mya-contact-us.njk" import contactUs with context %} {%
 block beforeContent %} {{super()}} {{ govukBackLink({ href: "#", text:
 content[i18n.language].general.back, attributes : { onclick: "history.go(-1);

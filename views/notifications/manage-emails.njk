@@ -1,6 +1,6 @@
-{% extends "layout.njk" %} {% from "radios/macro.njk" import govukRadios %} {%
-from "button/macro.njk" import govukButton %} {% from
-"components/error-summary/macro.njk" import govukErrorSummary %} {% set
+{% extends "layout.njk" %} {% from "govuk/components/radios/macro.njk" import govukRadios %} {%
+from "govuk/components/button/macro.njk" import govukButton %} {% from
+"govuk/components/error-summary/macro.njk" import govukErrorSummary %} {% set
 pageHeader = content[i18n.language].notifications.email.manage.tab | safe %} {%
 block content %}
 <main id="content" class="manage-email-notifications" role="main">

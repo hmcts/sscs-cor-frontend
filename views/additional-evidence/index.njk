@@ -1,4 +1,4 @@
-{% extends "layout.njk" %} {% from "components/error-summary/macro.njk" import
+{% extends "layout.njk" %} {% from "govuk/components/error-summary/macro.njk" import
 govukErrorSummary %} {% if action === "options" %} {% set pageHeader, pageTitle
 = content[i18n.language].additionalEvidence.evidenceOptions.header | safe %} {%
 elseif action === "post" %} {% set pageHeader, pageTitle =

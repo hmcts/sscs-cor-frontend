@@ -1,4 +1,4 @@
-{% extends "layout.njk" %} {% from "button/macro.njk" import govukButton %} {%
+{% extends "layout.njk" %} {% from "govuk/components/button/macro.njk" import govukButton %} {%
 set pageHeader = content[i18n.language].notifications.email.stop.tab | safe %}
 {% block content %}
 <main id="content" class="confirm-emails-stop" role="main">

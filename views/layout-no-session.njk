@@ -1,4 +1,4 @@
-{% extends "template.njk" %} {% from "components/phase-banner/macro.njk" import
+{% extends "govuk/template.njk" %} {% from "govuk/components/phase-banner/macro.njk" import
 govukPhaseBanner %} {% from "components/mya-contact-us.njk" import contactUs
 with context %} {% set assetPath = "/public/govuk-frontend" %} {% block
 pageTitle %} {{ contact.pageTitle | safe }} {% endblock %} {% block head %} {%

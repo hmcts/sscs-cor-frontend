@@ -1,4 +1,4 @@
-{% extends "layout.njk" %} {% from "select/macro.njk" import govukSelect %} {%
+{% extends "layout.njk" %} {% from "govuk/components/select/macro.njk" import govukSelect %} {%
 from "components/navigation-tabs.njk" import navigationTabs with context %} {%
 set pageHeader =
 content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %} {%

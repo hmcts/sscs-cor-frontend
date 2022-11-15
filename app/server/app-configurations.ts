@@ -124,8 +124,7 @@ function configureNunjucks(app: express.Application): void {
       'app/main',
       'cookie-banner/',
       'views/notifications',
-      'node_modules/govuk-frontend/govuk/',
-      'node_modules/govuk-frontend/govuk/components/',
+      'node_modules/govuk-frontend/',
     ],
     {
       autoescape: true,

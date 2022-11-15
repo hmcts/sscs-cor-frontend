@@ -1,5 +1,5 @@
-{% extends "layout.njk" %} {% from "inset-text/macro.njk" import govukInsetText
-%} {% from "back-link/macro.njk" import govukBackLink %} {% set pageHeader =
+{% extends "layout.njk" %} {% from "govuk/components/inset-text/macro.njk" import govukInsetText
+%} {% from "govuk/components/back-link/macro.njk" import govukBackLink %} {% set pageHeader =
 content[i18n.language].taskList.header | safe %} {% block beforeContent %}
 {{super()}} {% endblock%} {% block pageTitle %} {{
 content[i18n.language].yourDetails.header | safe }} - {{
