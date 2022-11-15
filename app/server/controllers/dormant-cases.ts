@@ -8,7 +8,14 @@ import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('dormant-cases.js');
 
-function getDormantCases(req: Request, res: Response) {
+function filterDormantCase(selectedHearing, index, array): boolean {
+  return (
+    selectedHearing.appeal_details.state === 'dormantAppealState' ||
+    selectedHearing.appeal_details.state === 'voidState'
+  );
+}
+
+export function getDormantCases(req: Request, res: Response): void {
   const session = req.session;
 
   if (!session) {
@@ -27,14 +34,7 @@ function getDormantCases(req: Request, res: Response) {
   return res.render('dormant-tab.njk', { dormantCasesByName });
 }
 
-function filterDormantCase(selectedHearing, index, array) {
-  return (
-    selectedHearing.appeal_details.state === 'dormantAppealState' ||
-    selectedHearing.appeal_details.state === 'voidState'
-  );
-}
-
-function setupDormantCasesController(deps: Dependencies) {
+export function setupDormantCasesController(deps: Dependencies): Router {
   const router = Router();
   router.get(
     Paths.dormantCases,
@@ -44,5 +44,3 @@ function setupDormantCasesController(deps: Dependencies) {
   );
   return router;
 }
-
-export { getDormantCases, setupDormantCasesController };

@@ -8,7 +8,14 @@ import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('active-cases.js');
 
-function getActiveCases(req: Request, res: Response) {
+function filterActiveCase(selectedHearing, index, array): boolean {
+  return !(
+    selectedHearing.appeal_details.state === 'dormantAppealState' ||
+    selectedHearing.appeal_details.state === 'voidState'
+  );
+}
+
+export function getActiveCases(req: Request, res: Response): void {
   const session = req.session;
 
   if (!session) {
@@ -27,14 +34,7 @@ function getActiveCases(req: Request, res: Response) {
   return res.render('active-tab.njk', { activeCasesByName });
 }
 
-function filterActiveCase(selectedHearing, index, array) {
-  return !(
-    selectedHearing.appeal_details.state === 'dormantAppealState' ||
-    selectedHearing.appeal_details.state === 'voidState'
-  );
-}
-
-function setupActiveCasesController(deps: Dependencies) {
+export function setupActiveCasesController(deps: Dependencies): Router {
   const router = Router();
   router.get(
     Paths.activeCases,
@@ -44,5 +44,3 @@ function setupActiveCasesController(deps: Dependencies) {
   );
   return router;
 }
-
-export { getActiveCases, setupActiveCasesController };
