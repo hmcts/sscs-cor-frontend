@@ -2,7 +2,7 @@
 {% set pageHeader = content[i18n.language].selectCase.title | safe %}
 {% block corContent %}
   <h1 class="govuk-heading-xl">{{ content[i18n.language].selectCase.heading | safe }}</h1>
-  {% for name, hearings in hearingsByName %}
+  {% for name, cases in casesByName %}
     <h2 class="govuk-heading-m">
       <span id="appellant-name">{{ name | safe }}</span>
     </h2>
@@ -18,14 +18,14 @@
         </tr>
       </thead>
       <tbody class="govuk-table__body">
-        {% for hearing in hearings %}
+        {% for case in cases %}
           <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ hearing.case_reference | safe }}</td>
-            <td class="govuk-table__cell">{{ content[i18n.language].benefitTypes[hearing.appeal_details.benefit_type.toLowerCase()].acronym | safe }}</td>
-            <td class="govuk-table__cell">{{ hearing.appeal_details.submitted_date | dateFormat('DD MMMM YYYY', i18n.language) }}</td>
-            <td class="govuk-table__cell">{{ hearing.appeal_details.mrn_date | dateFormat('DD MMMM YYYY', i18n.language) }}</td>
+            <td class="govuk-table__cell">{{ case.case_reference | safe }}</td>
+            <td class="govuk-table__cell">{{ content[i18n.language].benefitTypes[case.appeal_details.benefit_type.toLowerCase()].acronym | safe }}</td>
+            <td class="govuk-table__cell">{{ case.appeal_details.submitted_date | dateFormat('DD MMMM YYYY', i18n.language) }}</td>
+            <td class="govuk-table__cell">{{ case.appeal_details.mrn_date | dateFormat('DD MMMM YYYY', i18n.language) }}</td>
             <td class="govuk-table__cell">
-              <a href="/sign-in?code=dummy&caseId={{ hearing.case_id }}">{{ content[i18n.language].selectCase.view | safe }}</a>
+              <a href="/sign-in?code=dummy&caseId={{ case.case_id }}">{{ content[i18n.language].selectCase.view | safe }}</a>
             </td>
           </tr>
         {% endfor %}

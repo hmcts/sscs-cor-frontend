@@ -1,13 +1,13 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import { OnlineHearing } from '../services/hearing';
+import { CaseDetails } from '../services/cases';
 
 function getDecision(req: Request, res: Response) {
-  const hearing: OnlineHearing = req.session['hearing'];
-  if (hearing.has_final_decision) {
+  const caseDetails: CaseDetails = req.session['case'];
+  if (caseDetails.has_final_decision) {
     return res.render('decision.njk', {
-      decision: hearing.decision,
-      final_decision: hearing.final_decision.reason,
+      decision: caseDetails.decision,
+      final_decision: caseDetails.final_decision.reason,
     });
   }
   return res.redirect(Paths.logout);

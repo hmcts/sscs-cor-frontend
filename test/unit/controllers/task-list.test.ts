@@ -15,6 +15,7 @@ import { NextFunction } from 'express';
 import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import moment from 'moment';
+import { CaseDetails } from '../../../app/server/services/cases';
 
 describe('controllers/task-list', function () {
   let req;
@@ -23,7 +24,7 @@ describe('controllers/task-list', function () {
   let additionalEvidenceService;
   let sandbox: sinon.SinonSandbox;
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-  const hearingDetails = {
+  const caseDetails: CaseDetails = {
     online_hearing_id: '1',
     case_reference: '12345',
     appellant_name: 'John Smith',
@@ -34,7 +35,7 @@ describe('controllers/task-list', function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
-        hearing: hearingDetails,
+        case: caseDetails,
         appeal: {},
       },
       cookies: {},

@@ -1,6 +1,6 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import { Request, Response, Router } from 'express';
-import { HearingService } from '../services/hearing';
+import { CaseService } from '../services/cases';
 import * as Paths from '../paths';
 import * as rp from 'request-promise';
 import { OK } from 'http-status-codes';
@@ -19,7 +19,7 @@ function getIndex(req: Request, res: Response) {
 }
 
 function postIndex(
-  hearingService: HearingService,
+  caseService: CaseService,
   trackYourAppealService: TrackYourApealService
 ) {
   return async (req: Request, res: Response) => {
@@ -53,7 +53,7 @@ function postIndex(
       `assign-case: Finding case to assign for tya [${tya}] email [${email}] postcode [${postcode}]`
     );
     const { statusCode, body }: rp.Response =
-      await hearingService.assignOnlineHearingsToCitizen(
+      await caseService.assignOnlineHearingsToCitizen(
         email,
         tya,
         postcode,
@@ -73,12 +73,12 @@ function postIndex(
       });
     }
 
-    req.session['hearing'] = body;
+    req.session['case'] = body;
 
     logger.info(`Assigned ${tya} to ${email}`);
 
     const { appeal } = await trackYourAppealService.getAppeal(
-      req.session['hearing'].case_id,
+      req.session['case'].case_id,
       req
     );
 
@@ -86,8 +86,8 @@ function postIndex(
     req.session['hideHearing'] =
       // eslint-disable-next-line no-eq-null,eqeqeq
       appeal.hideHearing == null ? false : appeal.hideHearing;
-    req.session['hearing'].case_reference = req.session['hearing'].case_id
-      ? req.session['hearing'].case_id.toString()
+    req.session['case'].case_reference = req.session['case'].case_id
+      ? req.session['case'].case_id.toString()
       : '';
     return res.redirect(Paths.status);
   };
@@ -99,7 +99,7 @@ function setupAssignCaseController(deps) {
   router.post(
     Paths.assignCase,
     deps.prereqMiddleware,
-    postIndex(deps.hearingService, deps.trackYourApealService)
+    postIndex(deps.caseService, deps.trackYourApealService)
   );
 
   return router;

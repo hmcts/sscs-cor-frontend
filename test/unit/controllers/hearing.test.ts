@@ -58,7 +58,7 @@ describe('controllers/hearing', function () {
       const hearingArrangements = {
         disabled_access_required: true,
       };
-      req.session.hearing = { hearing_arrangements: hearingArrangements };
+      req.session.case = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.njk', {
         attending: true,
@@ -72,7 +72,7 @@ describe('controllers/hearing', function () {
       req.session.appeal = oralHearing.appeal;
       req.session.hideHearing = true;
       const hearingArrangements = {};
-      req.session.hearing = { hearing_arrangements: hearingArrangements };
+      req.session.case = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('hearing-tab.njk', {
         attending: true,

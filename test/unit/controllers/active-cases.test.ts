@@ -53,7 +53,7 @@ describe('controllers/active-cases', function () {
 
   describe('getActiveCases', function () {
     it('should render active cases page', async function () {
-      req.session['hearings'] = oralActiveAndDormantCases;
+      req.session['cases'] = oralActiveAndDormantCases;
       activeCases.getActiveCases(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('active-tab.njk');
     });

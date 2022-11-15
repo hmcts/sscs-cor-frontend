@@ -19,8 +19,8 @@ const html = `<div class="task-list">
               </div>`;
 
 describe('request-type', function () {
-  let requestType;
-  let body;
+  let requestType: RequestType = null;
+  let body: HTMLBodyElement = null;
   before(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
@@ -29,17 +29,17 @@ describe('request-type', function () {
 
   describe('constructor', function () {
     before(function () {
-      document.querySelector<HTMLInputElement>(
-        '#requestOptions'
-      ).addEventListener = sinon.spy();
+      const select: HTMLSelectElement =
+        document.querySelector<HTMLSelectElement>('#requestOptions');
+      select.addEventListener = sinon.spy();
     });
     describe('initialize class', function () {
       it('should attach Event Listeners', function () {
-        const target =
+        const select: HTMLSelectElement =
           document.querySelector<HTMLSelectElement>('#requestOptions');
-        expect(target.addEventListener).to.have.not.been.called;
+        expect(select.addEventListener).to.have.not.been.called;
         requestType.init();
-        expect(target.addEventListener).to.have.been.called;
+        expect(select.addEventListener).to.have.been.called;
       });
     });
   });
@@ -58,7 +58,7 @@ describe('request-type', function () {
     });
     describe('select request type', function () {
       it('should submit form', function () {
-        const select =
+        const select: HTMLSelectElement =
           document.querySelector<HTMLSelectElement>('#requestOptions');
         expect(select.addEventListener).to.have.been.called;
         select.value = 'hearingRecording';

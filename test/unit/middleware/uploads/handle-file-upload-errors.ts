@@ -8,7 +8,7 @@ const multer = require('multer');
 const content = require('locale/content');
 
 describe('#handleFileUploadErrors middleware', function () {
-  let req: Request = null;
+  const req: Request = null;
   let res: Response = null;
   let next: NextFunction = null;
   let sandbox: sinon.SinonSandbox = null;

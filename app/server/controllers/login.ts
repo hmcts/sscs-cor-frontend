@@ -13,10 +13,10 @@ import { generateToken } from '../services/s2s';
 
 import * as rp from 'request-promise';
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
-import { HearingService } from '../services/hearing';
+import { CaseService } from '../services/cases';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
-import { getHearingsByName } from '../utils/fieldValidation';
+import { getCasesByName } from '../utils/fieldValidation';
 const content = require('../../../locale/content');
 const config = require('config');
 
@@ -86,7 +86,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
 function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   idamService: IdamService,
-  hearingService: HearingService,
+  caseService: CaseService,
   trackYourApealService: TrackYourApealService
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -132,22 +132,20 @@ function getIdamCallback(
       req.session['idamEmail'] = email;
 
       const { statusCode, body }: rp.Response =
-        await hearingService.getOnlineHearingsForCitizen(
-          email,
-          req.session['tya'],
-          req
-        );
+        await caseService.getCasesForCitizen(email, req.session['tya'], req);
 
       if (statusCode !== OK)
         return renderErrorPage(email, statusCode, idamService, req, res);
 
-      const hearings = req.query.caseId
+      const cases = req.query.caseId
         ? body.filter((hearing) => `${hearing.case_id}` === req.query.caseId)
         : body;
 
-      hearings.forEach((value) => {
-        value.case_reference = value.case_id ? value.case_id.toString() : '';
-        if (value.case_reference === '') {
+      cases.forEach((value) => {
+        const caseId: string = value?.case_id?.toString();
+        if (caseId?.length > 0) {
+          value.case_reference = caseId;
+        } else {
           const missingHearingIdError = new Error(
             'Case ID cannot be empty from hearing in session'
           );
@@ -157,12 +155,12 @@ function getIdamCallback(
       });
 
       AppInsights.trackEvent('MYA_LOGIN_SUCCESS');
-      if (hearings.length === 0) {
+      if (cases.length === 0) {
         return res.redirect(Paths.assignCase);
-      } else if (hearings.length === 1) {
-        req.session['hearing'] = hearings[0];
+      } else if (cases.length === 1) {
+        req.session['case'] = cases[0];
         const { appeal, subscriptions } = await trackYourApealService.getAppeal(
-          req.session['hearing'].case_id,
+          req.session['case'].case_id,
           req
         );
         req.session['appeal'] = appeal;
@@ -175,7 +173,7 @@ function getIdamCallback(
           `Logging in ${email} for benefit type ${appeal.benefitType}`
         );
         AppInsights.trackTrace(
-          `[${req.session['hearing']?.case_id}] - User logged in successfully as ${email}`
+          `[${req.session['case']?.case_id}] - User logged in successfully as ${email}`
         );
 
         if (req.session['appeal'].hearingType === 'cor') {
@@ -183,15 +181,15 @@ function getIdamCallback(
         }
         return res.redirect(Paths.status);
       }
-      const hearingsByName = getHearingsByName(hearings);
+      const casesByName = getCasesByName(cases);
       AppInsights.trackTrace(
-        `[Cases count ${hearings.length}] - User logged in successfully as ${email}`
+        `[Cases count ${cases.length}] - User logged in successfully as ${email}`
       );
       if (isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies)) {
-        req.session['hearings'] = hearings;
+        req.session['cases'] = cases;
         return res.redirect(Paths.activeCases);
       }
-      return res.render('select-case.njk', { hearingsByName });
+      return res.render('select-case.njk', { casesByName });
     } catch (error) {
       AppInsights.trackException(error);
       AppInsights.trackEvent('MYA_LOGIN_FAIL');
@@ -235,7 +233,7 @@ function setupLoginController(deps) {
     getIdamCallback(
       redirectToIdam('/login', deps.idamService),
       deps.idamService,
-      deps.hearingService,
+      deps.caseService,
       deps.trackYourApealService
     )
   );

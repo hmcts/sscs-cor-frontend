@@ -3,6 +3,7 @@ import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
+import { CaseDetails } from '../services/cases';
 
 const logger = Logger.getLogger('hearing.js');
 
@@ -35,12 +36,13 @@ function getHearing(req: Request, res: Response) {
 
   let hearingArrangements = {};
   const appeal = session['appeal']!;
+  const caseDetails: CaseDetails = session['case'];
   if (
-    session['hearing'] &&
+    caseDetails &&
     !session['hideHearing'] &&
-    session['hearing'].hearing_arrangements
+    caseDetails.hearing_arrangements
   ) {
-    hearingArrangements = session['hearing'].hearing_arrangements;
+    hearingArrangements = caseDetails.hearing_arrangements;
   }
   return res.render('hearing-tab.njk', {
     hearingInfo,

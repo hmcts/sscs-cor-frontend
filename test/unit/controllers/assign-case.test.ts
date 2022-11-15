@@ -1,7 +1,7 @@
 import { getIndex, postIndex } from 'app/server/controllers/assign-case';
 import { expect, sinon } from '../../chai-sinon';
 import { OK } from 'http-status-codes';
-import { HearingService } from '../../../app/server/services/hearing';
+import { CaseService } from '../../../app/server/services/cases';
 import { TrackYourApealService } from '../../../app/server/services/tyaService';
 const content = require('locale/content');
 
@@ -38,7 +38,7 @@ describe('controllers/assign-case.js', function () {
     const caseId = 'caseId';
     let onlineHearing;
     let appeal;
-    let hearingService: HearingService;
+    let caseService: CaseService = null;
     let trackYourAppealService: TrackYourApealService;
     let underTest;
 
@@ -51,7 +51,7 @@ describe('controllers/assign-case.js', function () {
         hearingType: 'paper',
       };
 
-      hearingService = {
+      caseService = {
         assignOnlineHearingsToCitizen: sandbox.stub().resolves({
           statusCode: OK,
           body: onlineHearing,
@@ -74,14 +74,14 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
       it('assigns user to case', async function () {
         await underTest(req, res);
 
         expect(
-          hearingService.assignOnlineHearingsToCitizen
+          caseService.assignOnlineHearingsToCitizen
         ).to.have.been.calledOnce.calledWith(idamEmail, tya, postcode, req);
       });
 
@@ -102,7 +102,7 @@ describe('controllers/assign-case.js', function () {
       it('sets hearing in session', async function () {
         await underTest(req, res);
 
-        expect(req.session.hearing).to.be.eql(onlineHearing);
+        expect(req.session.case).to.be.eql(onlineHearing);
       });
 
       it('sets appeal in session', async function () {
@@ -137,7 +137,7 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
       it('sets hideHearing true in session', async function () {
@@ -156,7 +156,7 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
       it('redirects to task-list', async function () {
@@ -178,7 +178,7 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
       it('redirects to task-list', async function () {
@@ -200,7 +200,7 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
       it('redirects to task-list', async function () {

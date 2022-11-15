@@ -56,7 +56,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
       }
 
       const coversheet = await additionalEvidenceService.getCoversheet(
-        session['hearing'].case_id,
+        session['case'].case_id,
         req
       );
       res.header('content-type', 'application/pdf');

@@ -1,4 +1,4 @@
-import { OnlineHearing } from 'app/server/services/hearing';
+import { CaseDetails } from '../../../app/server/services/cases';
 
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
@@ -10,12 +10,12 @@ const {
 const express = require('express');
 
 describe('controllers/decision.js', function () {
-  let req: any;
-  let res: any;
-  let hearingDetails: OnlineHearing;
+  let req: any = null;
+  let res: any = null;
+  let caseDetails: CaseDetails = null;
 
   beforeEach(function () {
-    hearingDetails = {
+    caseDetails = {
       online_hearing_id: '1',
       case_reference: '12345',
       appellant_name: 'John Smith',
@@ -32,7 +32,7 @@ describe('controllers/decision.js', function () {
     };
     req = {
       session: {
-        hearing: hearingDetails,
+        case: caseDetails,
       },
     } as any;
     res = {
@@ -45,13 +45,13 @@ describe('controllers/decision.js', function () {
     it('renders decision page when have final decision', async function () {
       await getDecision(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('decision.njk', {
-        decision: hearingDetails.decision,
-        final_decision: hearingDetails.final_decision.reason,
+        decision: caseDetails.decision,
+        final_decision: caseDetails.final_decision.reason,
       });
     });
 
     it('redirects to /sign-out if final decision is not issued', async function () {
-      req.session.hearing.has_final_decision = false;
+      req.session.case.has_final_decision = false;
       await getDecision(req, res);
       expect(res.redirect).to.have.been.calledWith(Paths.logout);
     });

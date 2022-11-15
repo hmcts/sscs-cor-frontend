@@ -24,7 +24,7 @@ import { setupOutcomeController } from './controllers/outcome';
 import { setupAvEvidenceController } from './controllers/av-evidence';
 import { setupRequestTypeController } from './controllers/request-type';
 
-import { HearingService } from './services/hearing';
+import { CaseService } from './services/cases';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
@@ -57,7 +57,7 @@ const idamService: IdamService = new IdamService(
   appPort,
   appSecret
 );
-const hearingService: HearingService = new HearingService(apiUrl);
+const caseService: CaseService = new CaseService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService =
   new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(
@@ -77,7 +77,7 @@ const decisionController = setupDecisionController({
   prereqMiddleware: ensureAuthenticated,
 });
 const loginController = setupLoginController({
-  hearingService,
+  caseService,
   idamService,
   trackYourApealService: trackYourAppealService,
 });
@@ -119,7 +119,7 @@ const historyController = setupHistoryController({
   prereqMiddleware: ensureAuthenticated,
 });
 const assignCaseController = setupAssignCaseController({
-  hearingService,
+  caseService,
   trackYourApealService: trackYourAppealService,
   prereqMiddleware: ensureAuthenticated,
 });

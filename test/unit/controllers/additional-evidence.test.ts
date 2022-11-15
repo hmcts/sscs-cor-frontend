@@ -44,7 +44,7 @@ describe('controllers/additional-evidence.js', function () {
       session: {
         accessToken,
         serviceToken,
-        hearing: {
+        case: {
           online_hearing_id: '',
           case_reference: 'mockedCaseRef',
           case_id: '1234567890',
@@ -103,9 +103,9 @@ describe('controllers/additional-evidence.js', function () {
   it('should pass "upload" as argument to view if param action is "upload"', async function () {
     const description = 'this is a description for the files to be upload';
     req.params.action = 'upload';
-    req.session.hearing.online_hearing_id = 'hearingId';
+    req.session.case.online_hearing_id = 'hearingId';
     const caseId = '1234567890';
-    req.session.hearing.case_id = caseId;
+    req.session.case.case_id = caseId;
     req.session.additional_evidence.description = description;
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
 
@@ -127,9 +127,9 @@ describe('controllers/additional-evidence.js', function () {
       getEvidences: sandbox.stub().rejects(error),
     };
     req.params.action = 'upload';
-    req.session.hearing.online_hearing_id = 'hearingId';
+    req.session.case.online_hearing_id = 'hearingId';
     const caseId = '1234567890';
-    req.session.hearing.case_id = caseId;
+    req.session.case.case_id = caseId;
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
 
     expect(
@@ -204,9 +204,9 @@ describe('controllers/additional-evidence.js', function () {
 
     it('should save statement and redirect to confirmation page', async function () {
       req.body['question-field'] = 'My amazing statement';
-      req.session.hearing.online_hearing_id = 'hearingId';
+      req.session.case.online_hearing_id = 'hearingId';
       const caseId = '1234567890';
-      req.session.hearing.case_id = caseId;
+      req.session.case.case_id = caseId;
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
       expect(
         additionalEvidenceService.saveStatement
@@ -258,10 +258,7 @@ describe('controllers/additional-evidence.js', function () {
 
       expect(
         additionalEvidenceService.uploadEvidence
-      ).to.have.been.calledOnce.calledWith(
-        req.session.hearing.case_id,
-        req.file
-      );
+      ).to.have.been.calledOnce.calledWith(req.session.case.case_id, req.file);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
         error
       );
@@ -281,10 +278,7 @@ describe('controllers/additional-evidence.js', function () {
 
       expect(
         additionalEvidenceService.uploadEvidence
-      ).to.have.been.calledOnce.calledWith(
-        req.session.hearing.case_id,
-        req.file
-      );
+      ).to.have.been.calledOnce.calledWith(req.session.case.case_id, req.file);
       expect(res.render).to.have.been.calledOnce.calledWith(
         'additional-evidence/index.njk',
         {
@@ -313,10 +307,7 @@ describe('controllers/additional-evidence.js', function () {
 
       expect(
         additionalEvidenceService.uploadEvidence
-      ).to.have.been.calledOnce.calledWith(
-        req.session.hearing.case_id,
-        req.file
-      );
+      ).to.have.been.calledOnce.calledWith(req.session.case.case_id, req.file);
       expect(res.redirect).to.have.been.calledOnce.calledWith(
         `${Paths.additionalEvidence}/upload`
       );
@@ -330,7 +321,7 @@ describe('controllers/additional-evidence.js', function () {
 
       expect(
         additionalEvidenceService.removeEvidence
-      ).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, fileId);
+      ).to.have.been.calledOnce.calledWith(req.session.case.case_id, fileId);
       expect(res.redirect).to.have.been.calledOnce.calledWith(
         `${Paths.additionalEvidence}/upload`
       );
@@ -346,7 +337,7 @@ describe('controllers/additional-evidence.js', function () {
 
       expect(
         additionalEvidenceService.removeEvidence
-      ).to.have.been.calledOnce.calledWith(req.session.hearing.case_id, fileId);
+      ).to.have.been.calledOnce.calledWith(req.session.case.case_id, fileId);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
         error
       );
@@ -374,7 +365,7 @@ describe('controllers/additional-evidence.js', function () {
 
     it('should submit evidences and description and redirect to confirmation page', async function () {
       req.body.buttonSubmit = 'there';
-      const caseId = req.session.hearing.case_id;
+      const caseId = req.session.case.case_id;
       const evidence: EvidenceDescriptor = {
         created_date: "2018-10-24'T'12:11:21Z",
         file_name: 'some_file_name.txt',
@@ -443,7 +434,7 @@ describe('controllers/additional-evidence.js', function () {
 
     it('should submit audio/video evidences and description and redirect to confirmation page', async function () {
       req.body.buttonSubmit = 'there';
-      const caseId = req.session.hearing.case_id;
+      const caseId = req.session.case.case_id;
       req.file = { name: 'myfile.mp3' };
       additionalEvidenceService = {
         submitSingleEvidences: sandbox.stub().resolves(),

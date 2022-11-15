@@ -1,4 +1,4 @@
-import { HearingService } from 'app/server/services/hearing';
+import { CaseService } from '../../../app/server/services/cases';
 import * as moment from 'moment';
 const { expect } = require('test/chai-sinon');
 const {
@@ -16,10 +16,10 @@ const apiUrl = config.get('api.url');
 describe('services/hearing', function () {
   const email = 'test@example.com';
   const path = '/api/continuous-online-hearings';
-  let hearingService;
+  let caseService: CaseService = null;
   const req: any = {};
   before(function () {
-    hearingService = new HearingService(apiUrl);
+    caseService = new CaseService(apiUrl);
     req.session = {
       accessToken: 'someUserToken',
       serviceToken: 'someServiceToken',
@@ -47,12 +47,11 @@ describe('services/hearing', function () {
       });
 
       it('resolves the promise', function () {
-        return expect(hearingService.getOnlineHearing(email, req)).to.be
-          .fulfilled;
+        return expect(caseService.getOnlineHearing(email, req)).to.be.fulfilled;
       });
 
       it('resolves the promise with the response', async function () {
-        const response = await hearingService.getOnlineHearing(email, req);
+        const response = await caseService.getOnlineHearing(email, req);
         expect(response.body).to.deep.equal(apiResponseBody);
       });
     });
@@ -72,7 +71,7 @@ describe('services/hearing', function () {
 
       it('rejects the promise with the error', function () {
         return expect(
-          hearingService.getOnlineHearing(email, req)
+          caseService.getOnlineHearing(email, req)
         ).to.be.rejectedWith(error);
       });
     });
@@ -89,7 +88,7 @@ describe('services/hearing', function () {
       });
 
       it('resolves the promise with 404 status', async function () {
-        const response = await hearingService.getOnlineHearing(email, req);
+        const response = await caseService.getOnlineHearing(email, req);
         expect(response.statusCode).to.equal(NOT_FOUND);
       });
     });
@@ -106,13 +105,13 @@ describe('services/hearing', function () {
       });
 
       it('resolves the promise with 422 status', async function () {
-        const response = await hearingService.getOnlineHearing(email, req);
+        const response = await caseService.getOnlineHearing(email, req);
         expect(response.statusCode).to.equal(UNPROCESSABLE_ENTITY);
       });
     });
   });
 
-  describe('#getOnlineHearingsForCitizen', function () {
+  describe('#getCasesForCitizen', function () {
     const tya = 'someTyaNumber';
     const apiResponseBody = [
       {
@@ -136,17 +135,12 @@ describe('services/hearing', function () {
       });
 
       it('resolves the promise', function () {
-        return expect(
-          hearingService.getOnlineHearingsForCitizen(email, tya, req)
-        ).to.be.fulfilled;
+        return expect(caseService.getCasesForCitizen(email, tya, req)).to.be
+          .fulfilled;
       });
 
       it('resolves the promise with the response', async function () {
-        const response = await hearingService.getOnlineHearingsForCitizen(
-          email,
-          tya,
-          req
-        );
+        const response = await caseService.getCasesForCitizen(email, tya, req);
         expect(response.body).to.deep.equal(apiResponseBody);
       });
     });
@@ -166,7 +160,7 @@ describe('services/hearing', function () {
 
       it('rejects the promise with the error', function () {
         return expect(
-          hearingService.getOnlineHearingsForCitizen(email, tya, req)
+          caseService.getCasesForCitizen(email, tya, req)
         ).to.be.rejectedWith(error);
       });
     });
@@ -195,17 +189,12 @@ describe('services/hearing', function () {
 
       it('resolves the promise', function () {
         return expect(
-          hearingService.assignOnlineHearingsToCitizen(
-            email,
-            tya,
-            postcode,
-            req
-          )
+          caseService.assignOnlineHearingsToCitizen(email, tya, postcode, req)
         ).to.be.fulfilled;
       });
 
       it('resolves the promise with the response', async function () {
-        const response = await hearingService.assignOnlineHearingsToCitizen(
+        const response = await caseService.assignOnlineHearingsToCitizen(
           email,
           tya,
           postcode,
@@ -229,12 +218,7 @@ describe('services/hearing', function () {
 
       it('rejects the promise with the error', function () {
         return expect(
-          hearingService.assignOnlineHearingsToCitizen(
-            email,
-            tya,
-            postcode,
-            req
-          )
+          caseService.assignOnlineHearingsToCitizen(email, tya, postcode, req)
         ).to.be.rejectedWith(error);
       });
     });

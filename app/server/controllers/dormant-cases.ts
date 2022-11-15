@@ -2,7 +2,8 @@ import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
-import { getHearingsByName } from '../utils/fieldValidation';
+import { getCasesByName } from '../utils/fieldValidation';
+import { CaseDetails } from '../services/cases';
 
 const logger = Logger.getLogger('dormant-cases.js');
 
@@ -17,10 +18,12 @@ function getDormantCases(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const hearings = session['hearings']!;
-  const dormantCases = hearings.filter(filterDormantCase);
-  const dormantHearingsByName = getHearingsByName(dormantCases);
-  return res.render('dormant-tab.njk', { dormantHearingsByName });
+  const cases: Array<CaseDetails> = session['cases']
+    ? new Array<CaseDetails>()
+    : session['cases'];
+  const dormantCases = cases.filter(filterDormantCase);
+  const dormantCasesByName = getCasesByName(dormantCases);
+  return res.render('dormant-tab.njk', { dormantCasesByName });
 }
 
 function filterDormantCase(selectedHearing, index, array) {

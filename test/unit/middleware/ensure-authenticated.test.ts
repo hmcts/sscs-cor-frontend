@@ -1,4 +1,5 @@
 import * as Paths from 'app/server/paths';
+import { CaseDetails } from '../../../app/server/services/cases';
 
 const { expect, sinon } = require('test/chai-sinon');
 const {
@@ -11,7 +12,7 @@ describe('middleware/ensure-authenticated', function () {
   let req;
   let res;
   let next;
-  const hearingDetails = {
+  const caseDetails: CaseDetails = {
     online_hearing_id: '1',
     case_reference: '12345',
     appellant_name: 'John Smith',
@@ -22,7 +23,7 @@ describe('middleware/ensure-authenticated', function () {
       session: {
         accessToken: 'xxxxxxxxxxxxx',
         id: '123',
-        hearing: hearingDetails,
+        case: caseDetails,
         appeal: {
           hearingType: 'oral',
         },
@@ -64,9 +65,9 @@ describe('middleware/ensure-authenticated', function () {
     it('sets hearing data on the locals', function () {
       req.session.appeal = undefined;
       setLocals(req, res, next);
-      expect(res.locals).to.have.property('hearing');
+      expect(res.locals).to.have.property('case');
       expect(res.locals).to.not.have.property('tabs');
-      expect(res.locals.hearing).to.deep.equal(hearingDetails);
+      expect(res.locals.case).to.deep.equal(caseDetails);
     });
     it('also sets tabs data on the locals', function () {
       req.cookies = {

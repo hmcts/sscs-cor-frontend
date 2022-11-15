@@ -23,7 +23,7 @@ describe('controllers/request-type', function () {
         action: '',
       },
       session: {
-        hearing: {},
+        case: {},
         requestOptions: {},
         hearingRecordingsResponse: {},
       },
@@ -92,7 +92,7 @@ describe('controllers/request-type', function () {
     let requestTypeService;
     it('should render request type select page with hearing recordings', async function () {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1' };
+      req.session.case = { case_id: 'case_id_1' };
       req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
@@ -111,7 +111,7 @@ describe('controllers/request-type', function () {
 
     it('should render request type select page without hearing recordings', async function () {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1' };
+      req.session.case = { case_id: 'case_id_1' };
       req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
@@ -129,7 +129,7 @@ describe('controllers/request-type', function () {
 
     it('should catch error and track Excepction with AppInsights', async function () {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1' };
+      req.session.case = { case_id: 'case_id_1' };
       req.body['requestOptions'] = 'hearingRecording';
 
       requestTypeService = {
@@ -167,7 +167,7 @@ describe('controllers/request-type', function () {
 
     it('should render confirm hearing request page for hearing ids', async function () {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1' };
+      req.session.case = { case_id: 'case_id_1' };
       req.session.hearingRecordingsResponse = hearingRecording;
       req.body['hearingId'] = ['hearing_id_1'];
 
@@ -191,7 +191,7 @@ describe('controllers/request-type', function () {
 
     it('should catch error and track Excepction with AppInsights', async function () {
       req.cookies.manageYourAppeal = 'true';
-      req.session.hearing = { case_id: 'case_id_1' };
+      req.session.case = { case_id: 'case_id_1' };
       req.session.hearingRecordingsResponse = hearingRecording;
       req.body['hearingId'] = ['hearing_id_1'];
 

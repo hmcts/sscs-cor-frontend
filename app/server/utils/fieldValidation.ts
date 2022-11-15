@@ -134,16 +134,16 @@ function newHearingAcceptedValidation(newHearing) {
   return false;
 }
 
-function getHearingsByName(hearings) {
-  const hearingsByName = {};
-  hearings.forEach((hearing) => {
-    const appellantName = hearing.appellant_name;
-    if (!hearingsByName[appellantName]) {
-      hearingsByName[appellantName] = [];
+function getCasesByName(cases) {
+  const casesByName = {};
+  cases.forEach((value) => {
+    const appellantName: string = value.appellant_name;
+    if (!casesByName[appellantName]) {
+      casesByName[appellantName] = [];
     }
-    hearingsByName[appellantName].push(hearing);
+    casesByName[appellantName].push(value);
   });
-  return hearingsByName;
+  return casesByName;
 }
 
 export {
@@ -152,5 +152,5 @@ export {
   newHearingAcceptedValidation,
   hearingWhyValidation,
   uploadDescriptionValidation,
-  getHearingsByName,
+  getCasesByName,
 };

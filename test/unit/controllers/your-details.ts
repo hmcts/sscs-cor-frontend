@@ -17,7 +17,7 @@ describe('controllers/your-details', function () {
     req = {
       session: {
         appeal: {},
-        hearing: {
+        case: {
           user_details: {},
         },
         subscriptions: {
@@ -64,7 +64,7 @@ describe('controllers/your-details', function () {
 
       expect(res.render).to.have.been.calledOnce.calledWith(
         'your-details.njk',
-        { details: req.session.hearing }
+        { details: req.session.case }
       );
     });
 

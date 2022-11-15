@@ -53,7 +53,7 @@ describe('controllers/dormant-cases', function () {
 
   describe('getDormantCases', function () {
     it('should render dormant cases page', async function () {
-      req.session['hearings'] = oralActiveAndDormantCases;
+      req.session['cases'] = oralActiveAndDormantCases;
       dormantCases.getDormantCases(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('dormant-tab.njk');
     });
