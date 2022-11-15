@@ -16,6 +16,7 @@ import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import moment from 'moment';
 import { CaseDetails } from '../../../app/server/services/cases';
+import { Dependencies } from '../../../app/server/routes';
 
 describe('controllers/task-list', function () {
   let req;
@@ -119,9 +120,7 @@ describe('controllers/task-list', function () {
   });
 
   describe('setupTaskListController', function () {
-    const deps = {
-      getAllQuestionsService: {},
-    };
+    const deps: Dependencies = {};
 
     beforeEach(function () {
       sinon.stub(express, 'Router').returns({

@@ -2,6 +2,7 @@ import { CaseDetails } from '../../../app/server/services/cases';
 
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';
+import { Dependencies } from '../../../app/server/routes';
 const { expect, sinon } = require('test/chai-sinon');
 const {
   setupDecisionController,
@@ -58,7 +59,7 @@ describe('controllers/decision.js', function () {
   });
 
   describe('setupDecisionController', function () {
-    let deps;
+    let deps: Dependencies = null;
     beforeEach(function () {
       deps = {};
       sinon.stub(express, 'Router').returns({

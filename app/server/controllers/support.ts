@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
+import { Dependencies } from '../routes';
 
-function setupSupportEvidenceController(deps: any): Router {
+export function setupSupportEvidenceController(deps: Dependencies): Router {
   const router = Router();
   router.get(
     Paths.supportEvidence,
@@ -12,7 +13,9 @@ function setupSupportEvidenceController(deps: any): Router {
   return router;
 }
 
-function setupSupportHearingExpensesController(deps: any): Router {
+export function setupSupportHearingExpensesController(
+  deps: Dependencies
+): Router {
   const router = Router();
   router.get(
     Paths.supportHearingExpenses,
@@ -23,7 +26,7 @@ function setupSupportHearingExpensesController(deps: any): Router {
   return router;
 }
 
-function setupSupportHearingController(deps: any): Router {
+export function setupSupportHearingController(deps: Dependencies): Router {
   const router = Router();
   router.get(
     Paths.supportHearing,
@@ -34,7 +37,9 @@ function setupSupportHearingController(deps: any): Router {
   return router;
 }
 
-function setupSupportRepresentativesController(deps: any): Router {
+export function setupSupportRepresentativesController(
+  deps: Dependencies
+): Router {
   const router = Router();
   router.get(
     Paths.supportRepresentatives,
@@ -45,7 +50,9 @@ function setupSupportRepresentativesController(deps: any): Router {
   return router;
 }
 
-function setupSupportWithdrawAppealController(deps: any): Router {
+export function setupSupportWithdrawAppealController(
+  deps: Dependencies
+): Router {
   const router = Router();
   router.get(
     Paths.supportWithdrawAppeal,
@@ -55,13 +62,3 @@ function setupSupportWithdrawAppealController(deps: any): Router {
   );
   return router;
 }
-
-const supportControllers = {
-  setupSupportEvidenceController,
-  setupSupportHearingExpensesController,
-  setupSupportHearingController,
-  setupSupportRepresentativesController,
-  setupSupportWithdrawAppealController,
-};
-
-export { supportControllers };

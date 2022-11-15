@@ -1,4 +1,5 @@
 import * as Paths from 'app/server/paths';
+import { Dependencies } from '../../../app/server/routes';
 
 const { expect, sinon } = require('test/chai-sinon');
 const {
@@ -29,7 +30,7 @@ describe('controllers/session.ts', function () {
   });
 
   describe('setupSessionController', function () {
-    let deps: any;
+    let deps: Dependencies = null;
     beforeEach(function () {
       deps = {};
       sinon.stub(express, 'Router').returns({

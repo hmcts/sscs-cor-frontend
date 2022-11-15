@@ -7,6 +7,7 @@ import {
   RequestTypeService,
 } from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
+import { Dependencies } from '../routes';
 const logger = Logger.getLogger('request-type.ts');
 
 const contentType = new Map([
@@ -104,7 +105,7 @@ function getHearingRecording(trackYourAppealService: TrackYourApealService) {
   };
 }
 
-function setupRequestTypeController(deps: any) {
+function setupRequestTypeController(deps: Dependencies) {
   const router = Router();
   router.get(
     `${Paths.requestType}/recording`,

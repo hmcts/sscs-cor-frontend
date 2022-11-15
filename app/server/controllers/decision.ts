@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import { CaseDetails } from '../services/cases';
+import { Dependencies } from '../routes';
 
 function getDecision(req: Request, res: Response) {
   const caseDetails: CaseDetails = req.session['case'];
@@ -13,7 +14,7 @@ function getDecision(req: Request, res: Response) {
   return res.redirect(Paths.logout);
 }
 
-function setupDecisionController(deps: any) {
+function setupDecisionController(deps: Dependencies) {
   // eslint-disable-next-line new-cap
   const router = Router();
   router.get(Paths.decision, deps.prereqMiddleware, getDecision);

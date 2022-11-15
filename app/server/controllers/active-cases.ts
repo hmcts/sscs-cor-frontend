@@ -4,6 +4,7 @@ import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { getCasesByName } from '../utils/fieldValidation';
 import { CaseDetails } from '../services/cases';
+import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('active-cases.js');
 
@@ -33,7 +34,7 @@ function filterActiveCase(selectedHearing, index, array) {
   );
 }
 
-function setupActiveCasesController(deps: any) {
+function setupActiveCasesController(deps: Dependencies) {
   const router = Router();
   router.get(
     Paths.activeCases,

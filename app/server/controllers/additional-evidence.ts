@@ -16,6 +16,7 @@ import {
   validateFileSize,
 } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+import { Dependencies } from '../routes';
 const multer = require('multer');
 const i18next = require('i18next');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
@@ -345,7 +346,7 @@ function postFileUpload(
   };
 }
 
-function setupadditionalEvidenceController(deps: any) {
+function setupadditionalEvidenceController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.aboutEvidence, deps.prereqMiddleware, getAboutEvidence);
   router.get(

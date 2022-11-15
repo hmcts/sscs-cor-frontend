@@ -10,7 +10,7 @@ import { setupLoginController, redirectToLogin } from './controllers/login';
 import { setupDecisionController } from './controllers/decision';
 import { setupIdamStubController } from './controllers/idam-stub';
 import { setupCookiePrivacyController } from './controllers/policies';
-import { supportControllers } from './controllers/support';
+import * as supportControllers from './controllers/support';
 import { setupSessionController } from './controllers/session';
 import { setupadditionalEvidenceController } from './controllers/additional-evidence';
 import { setupYourDetailsController } from './controllers/your-details';
@@ -31,6 +31,20 @@ import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
 import { RequestTypeService } from './services/request-type';
 import { NextFunction, Request, Response, Router } from 'express';
+
+export interface Dependencies {
+  setLocals?: (req: Request, res: Response, next: NextFunction) => void;
+  requestTypeService?: RequestTypeService;
+  prereqMiddleware?: ((
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => void)[];
+  additionalEvidenceService?: AdditionalEvidenceService;
+  trackYourApealService?: TrackYourApealService;
+  caseService?: CaseService;
+  idamService?: IdamService;
+}
 
 const setLanguage = require('./setLanguage');
 
@@ -67,11 +81,9 @@ const requestTypeService: RequestTypeService = new RequestTypeService(
   tribunalsApiUrl
 );
 
-const prereqMiddleware = [ensureAuthenticated];
-
 const taskListController = setupTaskListController({
   additionalEvidenceService,
-  prereqMiddleware,
+  prereqMiddleware: ensureAuthenticated,
 });
 const decisionController = setupDecisionController({
   prereqMiddleware: ensureAuthenticated,

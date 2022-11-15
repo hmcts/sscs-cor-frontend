@@ -5,6 +5,7 @@ import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { TrackYourApealService } from '../services/tyaService';
 import { dateFormat } from '../utils/dateUtils';
+import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('av-evidence.js');
 const contentType = new Map([
@@ -43,7 +44,7 @@ function getAvEvidence(trackYourAppealService: TrackYourApealService) {
   };
 }
 
-function setupAvEvidenceController(deps: any) {
+function setupAvEvidenceController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.avEvidenceList, deps.prereqMiddleware, getAvEvidenceList);
   router.get(

@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+import { Dependencies } from '../routes';
 
 function getHistory(req: Request, res: Response) {
   if (!isFeatureEnabled(Feature.HISTORY_TAB, req.cookies))
@@ -13,7 +14,7 @@ function getHistory(req: Request, res: Response) {
   return res.render('history.njk', { events, appeal: req.session['appeal'] });
 }
 
-function setupHistoryController(deps: any) {
+function setupHistoryController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.history, deps.prereqMiddleware, getHistory);
   return router;

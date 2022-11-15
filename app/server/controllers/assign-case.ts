@@ -6,6 +6,7 @@ import * as rp from 'request-promise';
 import { OK } from 'http-status-codes';
 import { TrackYourApealService } from '../services/tyaService';
 import * as AppInsights from '../app-insights';
+import { Dependencies } from '../routes';
 
 const i18next = require('i18next');
 const content = require('../../../locale/content');
@@ -93,7 +94,7 @@ function postIndex(
   };
 }
 
-function setupAssignCaseController(deps) {
+function setupAssignCaseController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.assignCase, deps.prereqMiddleware, getIndex);
   router.post(

@@ -1,10 +1,11 @@
 import { setupLoginController } from 'app/server/controllers/login';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
+import { Dependencies } from '../../../../app/server/routes';
 const { expect, sinon } = require('test/chai-sinon');
 
 describe('#setupLoginController', function () {
-  const deps = {};
+  const deps: Dependencies = {};
 
   beforeEach(function () {
     sinon.stub(express, 'Router').returns({

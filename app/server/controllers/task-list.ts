@@ -4,6 +4,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService } from '../services/additional-evidence';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+import { Dependencies } from '../routes';
 
 function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
   if (allQuestionsSubmitted)
@@ -68,7 +69,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
   };
 }
 
-function setupTaskListController(deps: any): Router {
+function setupTaskListController(deps: Dependencies): Router {
   const router: Router = Router();
   router.get(Paths.taskList, deps.prereqMiddleware, getTaskList);
   router.get(Paths.postEvidence, deps.prereqMiddleware, getEvidencePost);

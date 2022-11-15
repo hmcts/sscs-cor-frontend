@@ -17,6 +17,7 @@ import { CaseService } from '../services/cases';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 import { getCasesByName } from '../utils/fieldValidation';
+import { Dependencies } from '../routes';
 const content = require('../../../locale/content');
 const config = require('config');
 
@@ -226,7 +227,7 @@ function renderErrorPage(
   return res.render('load-case-error.njk', { ...options });
 }
 
-function setupLoginController(deps) {
+function setupLoginController(deps: Dependencies) {
   const router = Router();
   router.get(
     Paths.login,

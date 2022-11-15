@@ -4,6 +4,7 @@ import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { CaseDetails } from '../services/cases';
+import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('hearing.js');
 
@@ -52,7 +53,7 @@ function getHearing(req: Request, res: Response) {
   });
 }
 
-function setupHearingController(deps: any) {
+function setupHearingController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.hearing, deps.prereqMiddleware, getHearing);
   return router;

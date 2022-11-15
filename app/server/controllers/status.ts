@@ -10,10 +10,11 @@ import {
 } from '../data/appealStages';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
+import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('status.js');
 
-function getStatus(req: Request, res: Response) {
+export function getStatus(req: Request, res: Response) {
   let stages: IAppealStage[] = [];
 
   const session = req.session;
@@ -42,10 +43,8 @@ function getStatus(req: Request, res: Response) {
   return res.render('status-tab.njk', { stages, appeal });
 }
 
-function setupStatusController(deps: any) {
+export function setupStatusController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.status, deps.prereqMiddleware, getStatus);
   return router;
 }
-
-export { getStatus, setupStatusController };

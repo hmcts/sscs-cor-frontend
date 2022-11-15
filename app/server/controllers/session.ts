@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import * as moment from 'moment';
+import { Dependencies } from '../routes';
 const config = require('config');
 
 function extendSession(req: Request, res: Response) {
@@ -10,7 +11,7 @@ function extendSession(req: Request, res: Response) {
   );
 }
 
-function setupSessionController(deps: any): Router {
+function setupSessionController(deps: Dependencies): Router {
   const router = Router();
   router.get(Paths.sessionExtension, deps.prereqMiddleware, extendSession);
   return router;

@@ -5,6 +5,7 @@ import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { TrackYourApealService } from '../services/tyaService';
 import { dateFormat } from '../utils/dateUtils';
+import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('outcome.js');
 
@@ -43,7 +44,7 @@ function getDocument(trackYourAppealService: TrackYourApealService) {
   };
 }
 
-function setupOutcomeController(deps: any) {
+function setupOutcomeController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.outcome, deps.prereqMiddleware, getOutcome);
   router.get(
