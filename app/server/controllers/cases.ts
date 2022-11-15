@@ -2,10 +2,11 @@ import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
-import { getCasesByName } from '../utils/fieldValidation';
+import { getCasesByNameAndRow } from '../utils/fieldValidation';
 import { Dependencies } from '../routes';
+import { CaseDetails } from '../services/cases';
 
-const logger = Logger.getLogger('active-cases.js');
+const logger = Logger.getLogger('cases');
 
 export function getCases(req: Request, res: Response): void {
   const session = req.session;
@@ -18,9 +19,9 @@ export function getCases(req: Request, res: Response): void {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const cases = session['cases'] ? {} : session['cases'];
-  const casesByName = getCasesByName(cases);
-  return res.render('cases.njk', { casesByName });
+  const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
+  const casesByNameAndRow = getCasesByNameAndRow(cases);
+  return res.render('cases.njk', { casesByNameAndRow });
 }
 
 export function setupCasesController(deps: Dependencies): Router {

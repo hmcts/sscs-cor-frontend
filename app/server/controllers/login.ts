@@ -13,7 +13,7 @@ import { generateToken } from '../services/s2s';
 
 import * as rp from 'request-promise';
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
-import { CaseService } from '../services/cases';
+import { CaseDetails, CaseService } from '../services/cases';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 import { Dependencies } from '../routes';
@@ -87,7 +87,7 @@ function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   idamService: IdamService,
   caseService: CaseService,
-  trackYourApealService: TrackYourApealService
+  trackYourAppealService: TrackYourApealService
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const code: string = req.query.code as string;
@@ -131,14 +131,22 @@ function getIdamCallback(
       );
       req.session['idamEmail'] = email;
 
-      const { statusCode, body }: rp.Response =
-        await caseService.getCasesForCitizen(email, req.session['tya'], req);
+      let statusCode: number = null;
+      let body: Array<CaseDetails> = null;
+      ({ statusCode, body } = await caseService.getCasesForCitizen(
+        email,
+        req.session['tya'],
+        req
+      ));
 
       if (statusCode !== OK)
         return renderErrorPage(email, statusCode, idamService, req, res);
 
-      const cases = req.query.caseId
-        ? body.filter((hearing) => `${hearing.case_id}` === req.query.caseId)
+      const cases: Array<CaseDetails> = req.query.caseId
+        ? body.filter(
+            (caseDetails: CaseDetails) =>
+              `${caseDetails.case_id}` === req.query.caseId
+          )
         : body;
 
       cases.forEach((value) => {
@@ -159,10 +167,11 @@ function getIdamCallback(
         return res.redirect(Paths.assignCase);
       } else if (cases.length === 1) {
         req.session['case'] = cases[0];
-        const { appeal, subscriptions } = await trackYourApealService.getAppeal(
-          req.session['case'].case_id,
-          req
-        );
+        const { appeal, subscriptions } =
+          await trackYourAppealService.getAppeal(
+            req.session['case'].case_id,
+            req
+          );
         req.session['appeal'] = appeal;
         req.session['subscriptions'] = subscriptions;
         req.session['hideHearing'] =
@@ -181,11 +190,14 @@ function getIdamCallback(
         }
         return res.redirect(Paths.status);
       }
+      logger.info(`Logging in ${email} for Cases count ${cases.length}`);
       AppInsights.trackTrace(
         `[Cases count ${cases.length}] - User logged in successfully as ${email}`
       );
 
       req.session['cases'] = cases;
+
+      logger.info(`Cases stored: ${req.session['cases']?.length}`);
 
       if (isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies)) {
         return res.redirect(Paths.activeCases);

@@ -10,6 +10,7 @@ import { Moment, utc } from 'moment';
 import helmet from 'helmet';
 import * as config from 'config';
 import { tyaNunjucks } from './controllers/content';
+import { dateFormat } from './utils/dateUtils';
 
 const content = require('../../locale/content');
 
@@ -76,25 +77,6 @@ function configureHeaders(app: Application): void {
     res.setHeader('X-Robots-Tag', 'noindex');
     next();
   });
-}
-
-function dateFormat(
-  date: string | Moment,
-  format: string = CONST.DATE_FORMAT,
-  locale = 'en'
-): string {
-  try {
-    const momentDate: Moment = typeof date === 'string' ? utc(date) : date;
-    if (momentDate) {
-      return momentDate.locale(locale).format(format);
-    }
-  } catch (error) {
-    logger.error(
-      `Error formatting date '${date}' with format '${format}', error:`,
-      error
-    );
-  }
-  return typeof date === 'string' ? date : date?.format();
 }
 
 function dateForDecisionReceived(

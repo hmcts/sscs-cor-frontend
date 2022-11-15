@@ -26,9 +26,7 @@ export function getActiveCases(req: Request, res: Response): void {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const cases: Array<CaseDetails> = session['cases']
-    ? new Array<CaseDetails>()
-    : session['cases'];
+  const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
   const activeCases = cases.filter(filterActiveCase);
   const activeCasesByName = getCasesByName(activeCases);
   return res.render('active-tab.njk', { activeCasesByName });

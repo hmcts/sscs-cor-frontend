@@ -1,6 +1,5 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { TrackYourApealService } from '../services/tyaService';
@@ -8,6 +7,14 @@ import { dateFormat } from '../utils/dateUtils';
 import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('outcome.js');
+
+function reformatOutcomeDates(outcomes): void {
+  outcomes.forEach((outcome) => {
+    const outcomeDate = dateFormat(outcome.date, 'DD-MM-YYYY');
+    logger.info(`Date converted from ${outcome.date} to ${outcomeDate}`);
+    outcome.date = outcomeDate;
+  });
+}
 
 function getOutcome(req: Request, res: Response) {
   const session = req.session;
@@ -21,15 +28,7 @@ function getOutcome(req: Request, res: Response) {
   }
 
   const outcomes = session['appeal'].hearingOutcome;
-  outcomes.forEach((outcome) => {
-    logger.info(
-      `Date converted from ${outcome.date} to ${dateFormat(
-        outcome.date,
-        'YYYY-MM-DD'
-      )}`
-    );
-    outcome.date = dateFormat(outcome.date, 'YYYY-MM-DD');
-  });
+  reformatOutcomeDates(outcomes);
   return res.render('outcome-tab.njk', { outcomes });
 }
 

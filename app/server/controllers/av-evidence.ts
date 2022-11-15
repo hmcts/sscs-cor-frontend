@@ -1,10 +1,8 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { TrackYourApealService } from '../services/tyaService';
-import { dateFormat } from '../utils/dateUtils';
 import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('av-evidence.js');

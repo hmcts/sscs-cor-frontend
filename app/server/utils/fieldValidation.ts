@@ -1,3 +1,6 @@
+import { CaseDetails } from '../services/cases';
+import { dateFormat } from './dateUtils';
+
 const i18next = require('i18next');
 const Joi = require('joi');
 
@@ -6,6 +9,21 @@ const content = require('../../../locale/content');
 const maxCharacters = 20000;
 const minCharecters = 1;
 const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
+
+export interface Attribute {
+  attribute: string;
+  value: string;
+}
+
+export interface GovTableRow {
+  text?: string;
+  html?: string;
+  format?: string;
+  classes?: string;
+  colspan?: number;
+  rowspan?: number;
+  attributes?: Array<Attribute>;
+}
 
 function uploadDescriptionValidation(description) {
   const schema = Joi.string()
@@ -134,14 +152,51 @@ function newHearingAcceptedValidation(newHearing) {
   return false;
 }
 
-function getCasesByName(cases) {
+function getCasesByName(cases: Array<CaseDetails>) {
   const casesByName = {};
-  cases.forEach((value) => {
+  cases?.forEach((value) => {
     const appellantName: string = value.appellant_name;
     if (!casesByName[appellantName]) {
       casesByName[appellantName] = [];
     }
     casesByName[appellantName].push(value);
+  });
+  return casesByName;
+}
+
+function getCasesRow(casedetails: CaseDetails): Array<GovTableRow> {
+  const caseReference: string = casedetails.case_reference;
+  const benefitType: string =
+    casedetails?.appeal_details?.benefit_type?.toLowerCase();
+  const language: string = i18next.language;
+  const benefitAcronym: string =
+    content[language]?.benefitTypes[benefitType]?.acronym;
+  const submittedDate: string = casedetails?.appeal_details?.submitted_date;
+  const mrnDate: string = casedetails?.appeal_details?.mrn_date;
+  const viewLabel: string = content[language]?.selectCase?.view;
+
+  return [
+    { text: caseReference },
+    { text: benefitAcronym },
+    { text: dateFormat(submittedDate, 'DD MMMM YYYY', language) },
+    { text: dateFormat(mrnDate, 'DD MMMM YYYY', language) },
+    {
+      html: `<a href="/sign-in?code=dummy&caseId=${casedetails.case_id}">${viewLabel}</a>`,
+    },
+  ];
+}
+
+function getCasesByNameAndRow(cases: Array<CaseDetails>): {
+  [key: string]: Array<Array<GovTableRow>>;
+} {
+  const casesByName: { [key: string]: Array<Array<GovTableRow>> } = {};
+  cases?.forEach((value) => {
+    const appellantName: string = value.appellant_name;
+    if (!casesByName[appellantName]) {
+      casesByName[appellantName] = [];
+    }
+    const row: Array<GovTableRow> = getCasesRow(value);
+    casesByName[appellantName].push(row);
   });
   return casesByName;
 }
@@ -153,4 +208,5 @@ export {
   hearingWhyValidation,
   uploadDescriptionValidation,
   getCasesByName,
+  getCasesByNameAndRow,
 };
