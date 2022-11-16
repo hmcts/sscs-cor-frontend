@@ -1,9 +1,5 @@
 {
-  "session": {
-    "redis": {
-      "url": "redis://redis:6379",
-      "secret": "defaultsecret",
-      "ttlInSeconds": 1200
-    }
+  "redis": {
+    "host": "redis"
   }
 }

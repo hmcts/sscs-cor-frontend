@@ -169,7 +169,7 @@ describe('Routes', () => {
         session({
           resave: true,
           saveUninitialized: true,
-          secret: 'session.redis.secret',
+          secret: 'session.cookie.secret',
         })
       );
     });

@@ -12,16 +12,14 @@
     "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
   },
   "session": {
-    "redis": {
-      "url": "REDIS_URL",
-      "secret": "SESSION_SECRET",
-      "timeout": "SESSION_TIME_OUT"
-    },
     "cookie": {
-      "secret": "SESSION_COOKIE_SECRET",
       "maxAgeInMs": "SESSION_COOKIE_MAX_AGE",
       "secure": "SECURE_SESSION"
     }
+  },
+  "redis": {
+    "host": "REDIS_HOST",
+    "port": "REDIS_PORT"
   },
   "idam": {
     "url": "IDAM_URL",

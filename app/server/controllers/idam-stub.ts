@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { NO_CONTENT } from 'http-status-codes';
 import { diskStorage } from 'multer';
+import { createRedisClient } from '../middleware/redis';
 const config = require('config');
 const { Logger } = require('@hmcts/nodejs-logging');
 const Redis = require('ioredis');
@@ -16,7 +17,6 @@ const multipart = multer({
 const logger = Logger.getLogger('idam-stub');
 
 const enableStub = config.get('idam.enableStub') === 'true';
-const redisUrl = config.get('session.redis.url');
 
 let redis;
 
@@ -78,8 +78,10 @@ function deleteToken(req: Request, res: Response) {
 
 function setupIdamStubController(): Router {
   const router: Router = Router();
+  logger.info(`Idam stub enabled: ${enableStub}`);
   if (enableStub) {
-    redis = new Redis(redisUrl);
+    logger.info(`Using Idam stub`);
+    redis = createRedisClient();
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
     router.get('/idam-stub/login', getLogin);
     router.post('/idam-stub/login', postLogin);
