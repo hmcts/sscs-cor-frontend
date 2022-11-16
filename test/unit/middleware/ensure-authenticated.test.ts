@@ -166,9 +166,9 @@ describe('middleware/ensure-authenticated', function () {
       });
       expect(members).to.have.members(['status', 'hearing']);
     });
-    it('sets showSignOut on the locals', function () {
+    it('sets signedIn on the locals', function () {
       setLocals(req, res, next);
-      expect(res.locals).to.have.property('showSignOut', true);
+      expect(res.locals).to.have.property('signedIn', true);
     });
   });
 

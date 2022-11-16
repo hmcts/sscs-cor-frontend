@@ -10,12 +10,16 @@
       </a>
     </div>
     <div class="account-navigation__links">
-      {% if showSignOut %}
+      {% if caseSelected %}
         <a href="/your-details">{{ content[i18n.language].common.appealDetails | safe }}</a>
+      {% endif %}
+      {% if signedIn %}
+        <a href="/cases">{{ content[i18n.language].selectCase.title | safe }}</a>
         <a class="sign-out" id="sign-out" href="/sign-out">{{ content[i18n.language].common.signOut | safe }}</a>
       {% else %}
         <a href="/">{{ content[i18n.language].common.signIn | safe }}</a>
       {% endif %}
+
     </div>
   </div>
 </div>

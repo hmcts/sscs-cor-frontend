@@ -8,7 +8,7 @@
     </div>
     <div class="govuk-header__content">
       <a href="/" class="govuk-header__link govuk-header__link--service-name">{{ content[i18n.language].general.serviceTitle | safe }}</a>
-      {% if showSignOut and not featureFlags.manageYourAppeal %}
+      {% if signedIn and not featureFlags.manageYourAppeal %}
         <a class="govuk-header__link govuk-header__link--signout"
            id="header-sign-out"
            href="/sign-out">{{ content[i18n.language].general.signOut | safe }}</a>

@@ -23,8 +23,13 @@ function checkAccessToken(req, res, next) {
 
 function setLocals(req, res, next) {
   if (req.session.accessToken) {
-    res.locals.case = req.session.case;
-    res.locals.showSignOut = true;
+    if (req.session.case) {
+      res.locals.case = req.session.case;
+      res.locals.caseSelected = true;
+    } else {
+      res.locals.caseSelected = false;
+    }
+    res.locals.signedIn = true;
   }
 
   res.locals.inDashboard = [

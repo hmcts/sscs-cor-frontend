@@ -32,7 +32,7 @@
 {% block beforeContent %}
   {% set phaseBarHtml = content[i18n.language].phaseBanner.new
     + '<a class="govuk-link" href="' + content[i18n.language].general.exitLink + pageHeader + '" target="_blank">'
-    + content[i18n.language].phaseBanner.report + "</a>"
+    + content[i18n.language].phaseBanner.report + "</a> "
     + content[i18n.language].phaseBanner.improve %}
   {% if welshEnabled %}
     {% set queryStringConcat = "" %}
@@ -58,7 +58,7 @@
 {% block content %}
   {% block corContent %}
   {% endblock corContent %}
-  {% if showSignOut %}
+  {% if signedIn %}
     {% include "file-selected-modal.njk" %}
     {% include "session-inactivity-modal.njk" %}
   {% endif %}
