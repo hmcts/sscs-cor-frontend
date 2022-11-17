@@ -22,7 +22,8 @@ export function getDormantCases(req: Request, res: Response): void {
 
   const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
   const dormantCases = cases.filter(isCaseDormant);
-  const dormantCasesByName = getCasesByName(dormantCases);
+  const dormantCasesByName: { [key: string]: Array<CaseDetails> } =
+    getCasesByName(dormantCases);
   return res.render('dormant-tab.njk', { dormantCasesByName });
 }
 

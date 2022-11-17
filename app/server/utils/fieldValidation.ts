@@ -152,8 +152,10 @@ function newHearingAcceptedValidation(newHearing) {
   return false;
 }
 
-function getCasesByName(cases: Array<CaseDetails>) {
-  const casesByName = {};
+function getCasesByName(cases: Array<CaseDetails>): {
+  [key: string]: Array<CaseDetails>;
+} {
+  const casesByName: { [key: string]: Array<CaseDetails> } = {};
   cases?.forEach((value) => {
     const appellantName: string = value.appellant_name;
     if (!casesByName[appellantName]) {

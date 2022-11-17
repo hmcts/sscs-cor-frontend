@@ -22,7 +22,8 @@ export function getActiveCases(req: Request, res: Response): void {
 
   const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
   const activeCases = cases.filter(isCaseActive);
-  const activeCasesByName = getCasesByName(activeCases);
+  const activeCasesByName: { [key: string]: Array<CaseDetails> } =
+    getCasesByName(activeCases);
   return res.render('active-tab.njk', { activeCasesByName });
 }
 
