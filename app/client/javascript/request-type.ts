@@ -12,8 +12,7 @@ export class RequestType {
       document.querySelector('#requestOptions');
     if (requestOptions) {
       requestOptions.addEventListener('change', (input: any) => {
-        const forms: HTMLCollectionOf<HTMLFormElement> = document.forms;
-        forms.namedItem('request-option-form').submit();
+        document.forms.namedItem('request-option-form').submit();
       });
     }
   }

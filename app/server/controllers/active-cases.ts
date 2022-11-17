@@ -5,15 +5,9 @@ import { Logger } from '@hmcts/nodejs-logging';
 import { getCasesByName } from '../utils/fieldValidation';
 import { CaseDetails } from '../services/cases';
 import { Dependencies } from '../routes';
+import { isCaseActive } from './cases';
 
-const logger = Logger.getLogger('active-cases.js');
-
-function filterActiveCase(selectedHearing, index, array): boolean {
-  return !(
-    selectedHearing.appeal_details.state === 'dormantAppealState' ||
-    selectedHearing.appeal_details.state === 'voidState'
-  );
-}
+const logger = Logger.getLogger('active-cases');
 
 export function getActiveCases(req: Request, res: Response): void {
   const session = req.session;
@@ -27,7 +21,7 @@ export function getActiveCases(req: Request, res: Response): void {
   }
 
   const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
-  const activeCases = cases.filter(filterActiveCase);
+  const activeCases = cases.filter(isCaseActive);
   const activeCasesByName = getCasesByName(activeCases);
   return res.render('active-tab.njk', { activeCasesByName });
 }

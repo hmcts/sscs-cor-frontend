@@ -23,7 +23,7 @@
           {% for outcome in outcomes %}
             <h2 class="govuk-heading-s">
               {{ content[i18n.language].outcomeTab.outcomeFrom | safe }}
-              {{ outcome.date }}
+              {{ outcome.date | dateFormat('DD-MM-YYYY', i18n.language) }}
             </h2>
             <table class="govuk-table" id="hearing-outcome">
               <tbody class="govuk-table__body">

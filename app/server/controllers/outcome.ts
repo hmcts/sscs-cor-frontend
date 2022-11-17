@@ -8,14 +8,6 @@ import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('outcome.js');
 
-function reformatOutcomeDates(outcomes): void {
-  outcomes.forEach((outcome) => {
-    const outcomeDate = dateFormat(outcome.date, 'DD-MM-YYYY');
-    logger.info(`Date converted from ${outcome.date} to ${outcomeDate}`);
-    outcome.date = outcomeDate;
-  });
-}
-
 function getOutcome(req: Request, res: Response) {
   const session = req.session;
 
@@ -28,7 +20,6 @@ function getOutcome(req: Request, res: Response) {
   }
 
   const outcomes = session['appeal'].hearingOutcome;
-  reformatOutcomeDates(outcomes);
   return res.render('outcome-tab.njk', { outcomes });
 }
 

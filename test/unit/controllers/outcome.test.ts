@@ -61,7 +61,7 @@ describe('controllers/outcome', function () {
       const outcomes = [
         {
           name: 'Adjournment.pdf',
-          date: '20-11-2019',
+          date: '2019-11-20',
           url: 'http://dbed7988-4ed5-4965-b1b4-50e5582770f3/binary',
         },
       ];

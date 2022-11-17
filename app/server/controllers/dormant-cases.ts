@@ -5,15 +5,9 @@ import { Logger } from '@hmcts/nodejs-logging';
 import { getCasesByName } from '../utils/fieldValidation';
 import { CaseDetails } from '../services/cases';
 import { Dependencies } from '../routes';
+import { isCaseDormant } from './cases';
 
-const logger = Logger.getLogger('dormant-cases.js');
-
-function filterDormantCase(selectedHearing, index, array): boolean {
-  return (
-    selectedHearing.appeal_details.state === 'dormantAppealState' ||
-    selectedHearing.appeal_details.state === 'voidState'
-  );
-}
+const logger = Logger.getLogger('dormant-cases');
 
 export function getDormantCases(req: Request, res: Response): void {
   const session = req.session;
@@ -27,7 +21,7 @@ export function getDormantCases(req: Request, res: Response): void {
   }
 
   const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
-  const dormantCases = cases.filter(filterDormantCase);
+  const dormantCases = cases.filter(isCaseDormant);
   const dormantCasesByName = getCasesByName(dormantCases);
   return res.render('dormant-tab.njk', { dormantCasesByName });
 }

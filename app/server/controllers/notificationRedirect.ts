@@ -4,9 +4,10 @@ const HttpStatus = require('http-status-codes');
 const content = require('../../../locale/content');
 const i18next = require('i18next');
 
-export const CHANGE_EMAIL = 'changeEmail';
-export const STOP_EMAIL = 'stopEmail';
-export const UNKNOWN = 'unknown';
+enum requestType {
+  changeEmail,
+  stopEmail,
+}
 
 export function notificationRedirect(
   req: Request,
@@ -14,10 +15,10 @@ export function notificationRedirect(
   next: NextFunction
 ): void {
   switch (req.body.type) {
-    case CHANGE_EMAIL:
+    case requestType.changeEmail:
       res.redirect(`/manage-email-notifications/${req.params.mactoken}/change`);
       break;
-    case STOP_EMAIL:
+    case requestType.stopEmail:
       res.redirect(`/manage-email-notifications/${req.params.mactoken}/stop`);
       break;
     default:

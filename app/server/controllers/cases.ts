@@ -8,6 +8,15 @@ import { CaseDetails } from '../services/cases';
 
 const logger = Logger.getLogger('cases');
 
+export function isCaseDormant(caseDetails: CaseDetails): boolean {
+  const state = caseDetails.appeal_details.state;
+  return state === 'dormantAppealState' || state === 'voidState';
+}
+
+export function isCaseActive(caseDetails: CaseDetails): boolean {
+  return !isCaseDormant(caseDetails);
+}
+
 export function getCases(req: Request, res: Response): void {
   const session = req.session;
 
