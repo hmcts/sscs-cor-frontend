@@ -2,8 +2,11 @@
   "session": {
     "redis": {
       "url": "redis://redis:6379",
+      "host": "redis",
+      "port": "6379",
       "secret": "defaultsecret",
-      "ttlInSeconds": 1200
+      "ttlInSeconds": 1200,
+      "tls": false
     }
   }
 }

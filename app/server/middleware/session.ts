@@ -1,34 +1,29 @@
 import * as session from 'express-session';
 import { Store } from 'express-session';
-import * as ConnectRedis from 'connect-redis';
-import { RedisStoreOptions } from 'connect-redis';
 import * as config from 'config';
-import IoRedis from 'ioredis';
 import { RequestHandler } from 'express';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+import { createRedisStore } from './redis';
 
-function createRedisStore(): Store {
-  const redisConnectionString: string = config.get('session.redis.url');
-
-  const client = new IoRedis(redisConnectionString);
-
-  const ttl: string = config.get('session.redis.ttlInSeconds');
-  const redisOpts: RedisStoreOptions = { client, ttl };
-
-  const ConnectRedisStore = ConnectRedis(session);
-
-  return new ConnectRedisStore(redisOpts);
-}
+const logger: LoggerInstance = Logger.getLogger('session');
 
 function createSession(useRedisStore = false): RequestHandler {
-  const isSecure = config.get('session.cookie.secure') === 'true';
+  const secure: boolean = config.get('session.cookie.secure') === 'true';
 
   const store: Store = useRedisStore ? createRedisStore() : null;
+
+  const secret: string = config.get('session.redis.secret');
+
+  logger.info(
+    `Using redis store with secure cooke: ${secure} secret length: ${secret?.length}`
+  );
 
   return session({
     cookie: {
       httpOnly: true,
       maxAge: config.get('session.cookie.maxAgeInMs'),
-      secure: isSecure,
+      secure,
     },
     resave: true,
     saveUninitialized: true,

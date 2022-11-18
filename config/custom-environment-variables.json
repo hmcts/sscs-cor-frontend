@@ -14,8 +14,11 @@
   "session": {
     "redis": {
       "url": "REDIS_URL",
+      "host": "REDIS_HOST",
+      "port": "REDIS_PORT",
       "secret": "SESSION_SECRET",
-      "timeout": "SESSION_TIME_OUT"
+      "timeout": "SESSION_TIME_OUT",
+      "tls": "REDIS_TLS"
     },
     "cookie": {
       "secret": "SESSION_COOKIE_SECRET",

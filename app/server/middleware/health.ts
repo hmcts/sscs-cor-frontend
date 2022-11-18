@@ -1,17 +1,19 @@
 import { OK } from 'http-status-codes';
 import * as AppInsights from '../app-insights';
-import IoRedis, { RedisOptions } from 'ioredis';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+import { createRedisClient } from './redis';
 const os = require('os');
 const healthCheck = require('@hmcts/nodejs-healthcheck');
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
 const config = require('config');
 
-const redisConnectionString: string = config.get('session.redis.url');
+const logger: LoggerInstance = Logger.getLogger('health');
 
-const redisOptions: RedisOptions = { enableOfflineQueue: false };
-const client = new IoRedis(redisConnectionString, redisOptions);
+const client = createRedisClient(false);
 
 client.on('error', (error) => {
+  logger.error(`Health check failed on redis: ${error}`);
   AppInsights.trackTrace(`Health check failed on redis: ${error}`);
 });
 
