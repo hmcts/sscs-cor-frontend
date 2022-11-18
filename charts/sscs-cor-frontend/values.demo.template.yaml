@@ -2,7 +2,9 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    NODE_ENV: preprod
+    NODE_ENV: demo
+    REDIS_HOST: 'sscs-cor-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
+    REDIS_PORT: 6380
     MYA_FEATURE_FLAG: 'true'
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: 'false'
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: 'true'

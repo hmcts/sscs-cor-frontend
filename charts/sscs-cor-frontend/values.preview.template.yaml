@@ -5,6 +5,9 @@ nodejs:
     enabled: false
   environment:
     REDIS_URL: redis://${SERVICE_NAME}-redis-master
+    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    REDIS_PORT: 6379
+    REDIS_TLS: false
     SESSION_SECRET:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
