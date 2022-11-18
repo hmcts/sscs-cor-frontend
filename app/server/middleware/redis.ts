@@ -7,6 +7,7 @@ import IoRedis, { RedisOptions } from 'ioredis';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 import * as AppInsights from '../app-insights';
+import { ConnectionOptions } from 'tls';
 
 const logger: LoggerInstance = Logger.getLogger('redis');
 
@@ -20,25 +21,17 @@ export function createRedisClient(enableOfflineQueue = true): IoRedis {
     `Creating redis using host: ${host}, redisPort: ${port}, tls: ${tlsEnabled}, secret length: ${secret?.length}`
   );
 
-  let redisOptions: RedisOptions = {
+  const tls: ConnectionOptions = {
+    host,
+  };
+
+  const redisOptions: RedisOptions = {
     host,
     port,
     password: secret,
+    tls: tlsEnabled === true ? tls : null,
     enableOfflineQueue,
   };
-
-  if (tlsEnabled) {
-    logger.info(`Using tls settings`);
-    redisOptions = {
-      host,
-      port,
-      password: secret,
-      tls: {
-        host,
-      },
-      enableOfflineQueue,
-    };
-  }
 
   const client = new IoRedis(redisOptions);
 
