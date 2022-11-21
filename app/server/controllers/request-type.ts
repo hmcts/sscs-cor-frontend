@@ -24,12 +24,11 @@ function getRequestType() {
       const action: string = allowedActions.includes(req.params.action)
         ? req.params.action
         : '';
-      const requestOptions = req.session['requestOptions'];
-      const hearingRecordingsResponse =
-        req.session['hearingRecordingsResponse'];
+      const requestOptions = req.session.requestOptions;
+      const hearingRecordingsResponse = req.session.hearingRecordingsResponse;
       const pageTitleError = action === 'formError';
       const emptyHearingIdError = action === 'formError';
-      const appeal = req.session['appeal']!;
+      const appeal = req.session.appeal;
 
       return res.render('request-type/index.njk', {
         action,
@@ -49,8 +48,8 @@ function getRequestType() {
 function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const caseId = req.session['case'].case_id;
-      const hearingIds = req.body['hearingId'];
+      const caseId = req.session.case.case_id;
+      const hearingIds = req.body.hearingId;
       const emptyHearingIdError = !hearingIds;
 
       if (emptyHearingIdError) {
@@ -74,14 +73,14 @@ function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
 function selectRequestType(requestTypeService: RequestTypeService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const option = req.body['requestOptions'];
-      const caseId = req.session['case'].case_id;
+      const option = req.body.requestOptions;
+      const caseId = req.session.case.case_id;
       if (option === 'hearingRecording') {
-        req.session['requestOptions'] = 'hearingRecording';
+        req.session.requestOptions = 'hearingRecording';
         const hearingRecordingsResponse: HearingRecordings =
           await requestTypeService.getHearingRecording(caseId, req);
         if (hearingRecordingsResponse) {
-          req.session['hearingRecordingsResponse'] = hearingRecordingsResponse;
+          req.session.hearingRecordingsResponse = hearingRecordingsResponse;
         }
         return res.redirect(`${Paths.requestType}/hearingRecording`);
       }

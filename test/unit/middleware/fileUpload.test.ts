@@ -176,7 +176,10 @@ describe('fileUpload middleware', function () {
     } as Partial<Express.Multer.File> as Express.Multer.File;
 
     beforeEach(function () {
-      session['case'] = {
+      session.case = {
+        appellant_name: '',
+        case_reference: '',
+        online_hearing_id: '',
         case_id: caseId,
       };
       filterCallbackStub.resetHistory();
@@ -220,7 +223,7 @@ describe('fileUpload middleware', function () {
     });
 
     it('returns correct LIMIT_FILE_TYPE error when case is null', function () {
-      session['case'] = null;
+      session.case = null;
       file.originalname = 'audio.MP3';
       fileTypeInWhitelist(req, file, filterCallbackStub);
       expect(filterCallbackStub).to.have.been.calledOnce.calledWithMatch({
@@ -239,7 +242,7 @@ describe('fileUpload middleware', function () {
     });
 
     it('returns correct LIMIT_UNEXPECTED_FILE error when case is null', function () {
-      session['case'] = null;
+      session.case = null;
       file.originalname = 'audio.MP3';
       file.mimetype = 'audio/mp3';
       fileTypeInWhitelist(req, file, filterCallbackStub);
@@ -256,7 +259,10 @@ describe('fileUpload middleware', function () {
     } as Partial<Express.Multer.File> as Express.Multer.File;
 
     beforeEach(function () {
-      session['case'] = {
+      session.case = {
+        appellant_name: '',
+        case_reference: '',
+        online_hearing_id: '',
         case_id: caseId,
       };
       filterCallbackStub.resetHistory();
@@ -303,7 +309,7 @@ describe('fileUpload middleware', function () {
 
     it('returns correct LIMIT_FILE_TYPE error when case is null', function () {
       file.originalname = 'audio.MP3';
-      session['case'] = null;
+      session.case = null;
       fileTypeAudioVideoInWhitelist(req, file, filterCallbackStub);
       expect(filterCallbackStub).to.have.been.calledOnce.calledWithMatch({
         code: FileTypeErrorCode,

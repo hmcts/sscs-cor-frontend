@@ -10,7 +10,6 @@ import {
 } from 'http-status-codes';
 import { Session, SessionData } from 'express-session';
 import { expect, sinon } from 'test/chai-sinon';
-import HttpException from 'app/server/exceptions/HttpException';
 
 const i18next = require('i18next');
 
@@ -23,9 +22,10 @@ describe('controllers/login renderErrorPage', function () {
     language: 'en',
   } as SessionData as Session;
 
+  const appPort = 123;
   const idamService: IdamService = new IdamService(
     'test.com',
-    '123',
+    appPort,
     'testsecret'
   );
 

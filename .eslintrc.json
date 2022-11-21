@@ -64,7 +64,6 @@ Happy linting! 💖
     "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/restrict-template-expressions": "warn",
     "@typescript-eslint/unbound-method": "warn",
-    "dot-notation": "off",
     "no-process-env": "warn",
     "line-comment-position": "warn",
     "global-require": "warn",

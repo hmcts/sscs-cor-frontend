@@ -25,8 +25,8 @@ function postIndex(
 ) {
   return async (req: Request, res: Response) => {
     const postcode = req.body.postcode;
-    const tya = req.session['tya'];
-    const email = req.session['idamEmail'];
+    const tya = req.session.tya;
+    const email = req.session.idamEmail;
     if (!postcode || !postcode.trim()) {
       logger.error(
         `No postcode for postcode: ${postcode}, TYA: ${tya} and email:${email}`
@@ -74,18 +74,18 @@ function postIndex(
       });
     }
 
-    req.session['case'] = body;
+    req.session.case = body;
 
     logger.info(`Assigned ${tya} to ${email}`);
 
     const { appeal } = await trackYourAppealService.getAppeal(
-      req.session['case'].case_id,
+      req.session.case.case_id,
       req
     );
 
-    req.session['appeal'] = appeal;
-    req.session['case'].case_reference = req.session['case'].case_id
-      ? req.session['case'].case_id.toString()
+    req.session.appeal = appeal;
+    req.session.case.case_reference = req.session.case.case_id
+      ? req.session.case.case_id.toString()
       : '';
     return res.redirect(Paths.status);
   };

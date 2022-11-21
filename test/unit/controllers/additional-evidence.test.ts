@@ -480,14 +480,14 @@ describe('controllers/additional-evidence.js', function () {
 
   describe('#getCaseId', function () {
     it('should return case id when case is not null', function () {
-      req.session['case'] = {
+      req.session.case = {
         case_id: caseId,
       };
       expect(getCaseId(req)).to.equal(caseId);
     });
 
     it('should throw an error when case is null', function () {
-      req.session['case'] = null;
+      req.session.case = null;
       expect(() => {
         getCaseId(req);
       }).to.throw(`No Case for session ${sessionID}`);

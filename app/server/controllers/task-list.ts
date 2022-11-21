@@ -20,7 +20,7 @@ function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
 
 function getTaskList(req: Request, res: Response, next: NextFunction) {
   try {
-    const appeal = req.session['appeal']!;
+    const appeal = req.session.appeal;
     res.render('task-list.njk', {
       appeal,
     });
@@ -53,7 +53,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
       }
 
       const coversheet = await additionalEvidenceService.getCoversheet(
-        String(session['case'].case_id),
+        String(session.case.case_id),
         req
       );
       res.header('content-type', 'application/pdf');

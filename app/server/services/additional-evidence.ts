@@ -27,7 +27,7 @@ export class AdditionalEvidenceService {
         uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/statement`,
         body: {
           body: statementText,
-          tya: req.session['tya'],
+          tya: req.session.tya,
         },
       },
       req
@@ -110,7 +110,7 @@ export class AdditionalEvidenceService {
         uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
         body: {
           body: description,
-          idamEmail: req.session['idamEmail'],
+          idamEmail: req.session.idamEmail,
         },
         headers: {
           'Content-type': 'application/json',
@@ -137,7 +137,7 @@ export class AdditionalEvidenceService {
         },
         formData: {
           body: description,
-          idamEmail: req.session['idamEmail'],
+          idamEmail: req.session.idamEmail,
           file: {
             value: file.buffer,
             options: {

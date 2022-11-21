@@ -20,7 +20,7 @@ export function getDormantCases(req: Request, res: Response): void {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
+  const cases: Array<CaseDetails> = session.cases ? session.cases : [];
   const dormantCases = cases.filter(isCaseDormant);
   const dormantCasesByName: { [key: string]: Array<CaseDetails> } =
     getCasesByName(dormantCases);

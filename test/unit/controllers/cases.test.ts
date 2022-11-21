@@ -53,7 +53,7 @@ describe('controllers/cases', function () {
 
   describe('getCases', function () {
     it('should render cases page', async function () {
-      req.session['cases'] = oralCases;
+      req.session.cases = oralCases;
       cases.getCases(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('cases.njk');
     });

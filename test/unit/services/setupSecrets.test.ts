@@ -33,7 +33,7 @@ describe(modulePath, function () {
         mockConfig.secrets.sscs['sscs-cor-redis-access-key']
       );
       expect(mockConfig.session.cookie.secret).to.equal(
-        mockConfig.secrets.sscs['tyacookiesecret']
+        mockConfig.secrets.sscs.tyacookiesecret
       );
       expect(mockConfig.idam.client.secret).to.equal(
         mockConfig.secrets.sscs['idam-sscs-oauth2-client-secret']

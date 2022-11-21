@@ -4,7 +4,7 @@ import { CaseDetails } from '../data/models';
 import { Dependencies } from '../routes';
 
 function getDecision(req: Request, res: Response) {
-  const caseDetails: CaseDetails = req.session['case'];
+  const caseDetails: CaseDetails = req.session.case;
   if (caseDetails.has_final_decision) {
     return res.render('decision.njk', {
       decision: caseDetails.decision,

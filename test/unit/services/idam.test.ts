@@ -8,13 +8,13 @@ const timeout = require('config').get('apiCallTimeout');
 const nock = require('nock');
 const config = require('config');
 
-const apiUrl = config.get('idam.api-url');
+const apiUrl: string = config.get('idam.api-url');
 const appUser: string = config.get('idam.client.id');
-const appSecret = config.get('idam.client.secret');
-const appPort = config.get('node.port');
+const appSecret: string = config.get('idam.client.secret');
+const appPort: number = config.get('node.port');
 
 describe('services/idam', function () {
-  let idamService;
+  let idamService: IdamService;
   before(function () {
     idamService = new IdamService(apiUrl, appPort, appSecret);
   });

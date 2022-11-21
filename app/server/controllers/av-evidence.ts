@@ -22,7 +22,7 @@ function getAvEvidenceList(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const appeal = session['appeal']!;
+  const appeal = session.appeal;
   logger.info(
     `Number of audio video evidence: ${
       appeal.audioVideoEvidence ? appeal.audioVideoEvidence.length : 0

@@ -1,8 +1,9 @@
 import * as request from 'promise-request-retry';
+import * as config from 'config';
 import { Request } from 'express';
 
 import * as AppInsights from '../app-insights';
-const timeout = require('config').get('apiCallTimeout');
+const timeout: number = config.get('apiCallTimeout');
 
 export class RequestPromise {
   static async request(options, req?: Request) {
@@ -15,13 +16,16 @@ export class RequestPromise {
     }
 
     if (req?.session) {
+      // eslint-disable-next-line dot-notation
       defaultOptions['headers'] = {
-        Authorization: `Bearer ${req.session['accessToken']}`,
-        ServiceAuthorization: `Bearer ${req.session['serviceToken']}`,
+        Authorization: `Bearer ${req.session.accessToken}`,
+        ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
       };
     }
 
+    // eslint-disable-next-line dot-notation
     if (options.headers && defaultOptions['headers']) {
+      // eslint-disable-next-line dot-notation
       Object.assign(options.headers, defaultOptions['headers']);
     }
 

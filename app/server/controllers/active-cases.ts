@@ -20,7 +20,7 @@ export function getActiveCases(req: Request, res: Response): void {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
+  const cases: Array<CaseDetails> = session.cases ? session.cases : [];
   const activeCases = cases.filter(isCaseActive);
   const activeCasesByName: { [key: string]: Array<CaseDetails> } =
     getCasesByName(activeCases);

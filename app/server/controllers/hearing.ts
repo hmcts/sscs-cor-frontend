@@ -21,18 +21,17 @@ function getHearing(req: Request, res: Response): void {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const appeal: Appeal = session['appeal'];
+  const appeal: Appeal = session.appeal;
 
   const attending: boolean = appeal.hearingType === 'oral';
   const showHearing = shouldShowHearing(appeal);
   const hearingInfo = showHearing ? getHearingInfo(appeal) : null;
 
-  const caseDetails: CaseDetails = session['case'];
+  const caseDetails: CaseDetails = session.case;
   const hearingArrangements =
     showHearing && caseDetails?.hearing_arrangements
       ? caseDetails.hearing_arrangements
       : {};
-
   return res.render('hearing-tab.njk', {
     hearingInfo,
     attending,

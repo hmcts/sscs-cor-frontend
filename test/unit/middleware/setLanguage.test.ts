@@ -11,7 +11,9 @@ import { SessionData } from 'express-session';
 const i18next = require('i18next');
 
 describe('middleware/setLanguage', function () {
-  const session = {} as SessionData;
+  const session = {
+    language: null,
+  } as Partial<SessionData> as SessionData;
   const query = {};
   const req = {
     session,
@@ -51,37 +53,37 @@ describe('middleware/setLanguage', function () {
 
     it('#setLanguage sets the language to default en', async function () {
       await setLanguage(req, res, next);
-      expect(req.session['language']).to.equal('en');
+      expect(req.session.language).to.equal('en');
       expect(next).to.have.been.calledOnce;
     });
 
     it('#setLanguage sets the language to cy if query is cy', async function () {
-      req.session['language'] = 'en';
+      req.session.language = 'en';
       req.query = {
         lng: 'cy',
       };
       await setLanguage(req, res, next);
-      expect(req.session['language']).to.equal('cy');
+      expect(req.session.language).to.equal('cy');
       expect(i18ChangeStub).to.have.been.calledOnceWith('cy');
       expect(next).to.have.been.calledOnce;
     });
 
     it('#setLanguage sets the language to session language if query is blank', async function () {
-      req.session['language'] = 'cy';
+      req.session.language = 'cy';
       req.query = null;
       await setLanguage(req, res, next);
-      expect(req.session['language']).to.equal('cy');
+      expect(req.session.language).to.equal('cy');
       expect(i18ChangeStub).to.have.been.calledOnceWith('cy');
       expect(next).to.have.been.calledOnce;
     });
 
     it('#setLanguage sets the language to session language if query "lng" is blank', async function () {
-      req.session['language'] = 'cy';
+      req.session.language = 'cy';
       req.query = {
         lng: null,
       };
       await setLanguage(req, res, next);
-      expect(req.session['language']).to.equal('cy');
+      expect(req.session.language).to.equal('cy');
       expect(i18ChangeStub).to.have.been.calledOnceWith('cy');
       expect(next).to.have.been.calledOnce;
     });

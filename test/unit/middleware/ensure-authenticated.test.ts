@@ -75,7 +75,7 @@ describe('middleware/ensure-authenticated', function () {
         mediaFilesAllowed: 'true',
         requestTabEnabled: 'true',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         hearingType: 'oral',
         hearingOutcome: [],
       };
@@ -100,7 +100,7 @@ describe('middleware/ensure-authenticated', function () {
         mediaFilesAllowed: 'true',
         requestTabEnabled: 'false',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         hearingType: 'oral',
       };
 
@@ -118,7 +118,7 @@ describe('middleware/ensure-authenticated', function () {
         mediaFilesAllowed: 'true',
         requestTabEnabled: 'false',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         hearingType: 'oral',
         hearingOutcome: [],
       };
@@ -137,7 +137,7 @@ describe('middleware/ensure-authenticated', function () {
         mediaFilesAllowed: 'false',
         requestTabEnabled: 'false',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         audioVideoEvidence: [],
       };
 
@@ -153,7 +153,7 @@ describe('middleware/ensure-authenticated', function () {
       req.cookies = {
         requestTabEnabled: 'false',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         hearingType: 'oral',
         hearingOutcome: [],
       };

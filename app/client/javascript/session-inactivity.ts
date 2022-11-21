@@ -47,9 +47,9 @@ export class SessionInactivity {
       axios
         .get('/session-extension')
         .then((response: any): void => {
-          if (response['data'].expireInSeconds) {
+          if (response.data.expireInSeconds) {
             this.sessionExpiry = moment().add(
-              response['data'].expireInSeconds,
+              response.data.expireInSeconds,
               'milliseconds'
             );
             this.lastReset = moment();

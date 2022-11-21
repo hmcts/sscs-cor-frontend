@@ -177,8 +177,8 @@ describe('Routes', function () {
     describe.skip('Tasklist Routes', function () {
       before(function () {
         mockApp.all('*', function (req, res, next) {
-          req.session['accessToken'] = 'mock uid';
-          req.session['case'] = {
+          req.session.accessToken = 'mock uid';
+          req.session.case = {
             appellant_name: 'Adam Jenkins',
             case_reference: '112233',
             online_hearing_id: '2-completed',

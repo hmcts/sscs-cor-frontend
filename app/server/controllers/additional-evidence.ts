@@ -21,7 +21,7 @@ import HttpException from '../exceptions/HttpException';
 import { BAD_REQUEST } from 'http-status-codes';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
-import { CaseDetails } from '../services/cases';
+import { Appeal, CaseDetails } from '../data/models';
 
 const i18next = require('i18next');
 
@@ -63,7 +63,7 @@ export function postAdditionalEvidence(req: Request, res: Response): void {
 }
 
 export function getCaseId(req: Request): number {
-  const caseDetails: CaseDetails = req.session['case'];
+  const caseDetails: CaseDetails = req.session.case;
   if (!caseDetails) {
     const error = new HttpException(
       BAD_REQUEST,
@@ -114,7 +114,7 @@ export function getAdditionalEvidence(
           ? 'options'
           : req.params.action;
       if (action === 'upload') {
-        const { description } = req.session['additional_evidence'] || {
+        const { description } = req.session.additional_evidence || {
           description: '',
         };
         const caseId = getCaseId(req);
@@ -133,7 +133,7 @@ export function getAdditionalEvidence(
       } else if (action === 'uploadAudioVideo') {
         // do nothing
       }
-      const appeal = req.session['appeal'];
+      const appeal: Appeal = req.session.appeal;
       const benefitType = appeal?.benefitType ? appeal.benefitType : '';
       return res.render('additional-evidence/index.njk', {
         action,
@@ -155,7 +155,7 @@ export function postFileUpload(
     try {
       const caseId = getCaseId(req);
       const description = req.body['additional-evidence-description'] || '';
-      req.session['additional_evidence'] = { description };
+      req.session.additional_evidence = { description };
       if (action === 'upload' && req.file) {
         const evidence = await additionalEvidenceService.uploadEvidence(
           String(caseId),
@@ -192,8 +192,7 @@ export function postFileUpload(
         );
         return res.redirect(`${Paths.additionalEvidence}/upload`);
       } else if (action === 'upload' && req.body.buttonSubmit) {
-        const evidenceDescription =
-          req.session['additional_evidence'].description;
+        const evidenceDescription = req.session.additional_evidence.description;
         const descriptionValidationMsg =
           uploadDescriptionValidation(evidenceDescription);
         let evidences: EvidenceDescriptor[] =
@@ -223,14 +222,13 @@ export function postFileUpload(
           evidenceDescription,
           req
         );
-        req.session['additional_evidence'].description = '';
+        req.session.additional_evidence.description = '';
         AppInsights.trackTrace(
           `[${caseId}] - User has uploaded a total of ${evidences.length} file(s)`
         );
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else if (action === 'uploadAudioVideo' && req.body.buttonSubmit) {
-        const evidenceDescription =
-          req.session['additional_evidence'].description;
+        const evidenceDescription = req.session.additional_evidence.description;
         const descriptionValidationMsg =
           uploadDescriptionValidation(evidenceDescription);
         const evidencesValidationMsg = req.file
@@ -254,7 +252,7 @@ export function postFileUpload(
           req.file,
           req
         );
-        req.session['additional_evidence'].description = '';
+        req.session.additional_evidence.description = '';
         AppInsights.trackTrace(`[${caseId}] - User has uploaded a file`);
         return res.redirect(`${Paths.additionalEvidence}/confirm`);
       } else if (action === 'upload' && res.locals.multerError) {
