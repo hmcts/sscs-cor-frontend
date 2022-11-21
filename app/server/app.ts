@@ -35,7 +35,7 @@ const i18nextMiddleware = require('i18next-express-middleware');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-interface Options {
+export interface Options {
   disableAppInsights?: boolean;
 }
 

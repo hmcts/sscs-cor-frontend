@@ -2,12 +2,10 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
-import {
-  HearingRecordingResponse,
-  RequestTypeService,
-} from '../services/request-type';
+import { RequestTypeService } from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
 import { Dependencies } from '../routes';
+import { HearingRecordings } from '../data/models';
 const logger = Logger.getLogger('request-type.ts');
 
 const contentType = new Map([
@@ -64,7 +62,7 @@ function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
         hearingIds,
         req
       );
-      req.session['hearingRecordingsResponse'] = '';
+      req.session.hearingRecordingsResponse = null;
       return res.redirect(`${Paths.requestType}/confirm`);
     } catch (error) {
       AppInsights.trackException(error);
@@ -80,7 +78,7 @@ function selectRequestType(requestTypeService: RequestTypeService) {
       const caseId = req.session['case'].case_id;
       if (option === 'hearingRecording') {
         req.session['requestOptions'] = 'hearingRecording';
-        const hearingRecordingsResponse: HearingRecordingResponse =
+        const hearingRecordingsResponse: HearingRecordings =
           await requestTypeService.getHearingRecording(caseId, req);
         if (hearingRecordingsResponse) {
           req.session['hearingRecordingsResponse'] = hearingRecordingsResponse;

@@ -4,7 +4,7 @@ import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { getCasesByNameAndRow } from '../utils/fieldValidation';
 import { Dependencies } from '../routes';
-import { CaseDetails } from '../services/cases';
+import { CaseDetails } from '../data/models';
 
 const logger = Logger.getLogger('cases');
 

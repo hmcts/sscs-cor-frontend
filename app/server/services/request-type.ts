@@ -1,25 +1,6 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 
-export interface HearingRecordingResponse {
-  releasedHearingRecordings: CitizenHearingRecording[];
-  outstandingHearingRecordings: CitizenHearingRecording[];
-  requestableHearingRecordings: CitizenHearingRecording[];
-}
-
-export interface CitizenHearingRecording {
-  hearingId: string;
-  venue: string;
-  hearingDate: string;
-  hearingRecordings: HearingRecording[];
-}
-
-export interface HearingRecording {
-  fileName: string;
-  fileType: string;
-  documentUrl: string;
-}
-
 export class RequestTypeService {
   private readonly apiUrl: string;
 
@@ -27,25 +8,25 @@ export class RequestTypeService {
     this.apiUrl = apiUrl;
   }
 
-  async getHearingRecording(identifier: string, req: Request) {
+  async getHearingRecording(caseId: number, req: Request) {
     return RequestPromise.request(
       {
         method: 'GET',
-        uri: `${this.apiUrl}/api/request/${identifier}/hearingrecording`,
+        uri: `${this.apiUrl}/api/request/${caseId}/hearingrecording`,
       },
       req
     );
   }
 
   async submitHearingRecordingRequest(
-    identifier: string,
+    caseId: number,
     hearingIds: string[],
     req: Request
   ) {
     return RequestPromise.request(
       {
         method: 'POST',
-        uri: `${this.apiUrl}/api/request/${identifier}/recordingrequest`,
+        uri: `${this.apiUrl}/api/request/${caseId}/recordingrequest`,
         headers: {
           'Content-type': 'application/json',
         },

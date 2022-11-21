@@ -13,13 +13,15 @@ import { URL } from 'url';
 import { generateToken } from '../services/s2s';
 
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
-import { CaseDetails, CaseService } from '../services/cases';
+import { CaseService } from '../services/cases';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 import { Dependencies } from '../routes';
 import HttpException from '../exceptions/HttpException';
 import { LoggerInstance } from 'winston';
 import * as config from 'config';
+import { CaseDetails } from '../data/models';
+import { resolveQuery } from '../utils/parseUtils';
 
 const i18next = require('i18next');
 
@@ -123,7 +125,7 @@ export function getIdamCallback(
           );
           req.session['accessToken'] = tokenResponse.access_token;
           req.session['serviceToken'] = await generateToken();
-          req.session['tya'] = req.query.state;
+          req.session['tya'] = resolveQuery(req.query.state);
         } catch (error) {
           const tokenError = new HttpException(
             BAD_REQUEST,
@@ -192,7 +194,7 @@ export function getIdamCallback(
       if (cases.length === 1) {
         req.session['case'] = caseDetail;
         const { appeal, subscriptions } =
-          await trackYourAppealService.getAppeal(String(caseId), req);
+          await trackYourAppealService.getAppeal(caseId, req);
         req.session['appeal'] = appeal;
         req.session['subscriptions'] = subscriptions;
 

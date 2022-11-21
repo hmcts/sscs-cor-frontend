@@ -186,7 +186,7 @@ describe('controllers/request-type', function () {
       expect(
         requestTypeService.submitHearingRecordingRequest
       ).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
-      expect(req.session.hearingRecordingsResponse).to.equal('');
+      expect(req.session.hearingRecordingsResponse).to.equal(null);
     });
 
     it('should catch error and track Excepction with AppInsights', async function () {

@@ -1,4 +1,4 @@
-import { CaseDetails } from '../../../app/server/services/cases';
+import { CaseDetails } from '../../../app/server/data/models';
 
 import * as Paths from 'app/server/paths';
 import * as moment from 'moment';

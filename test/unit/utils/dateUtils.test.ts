@@ -1,7 +1,6 @@
-import { dateFormat } from '../../../app/server/utils/dateUtils';
-import * as CONST from '../../../app/constants';
-
-const { expect } = require('test/chai-sinon');
+import { dateFormat } from 'app/server/utils/dateUtils';
+import * as CONST from 'app/constants';
+import { expect } from 'test/chai-sinon';
 
 describe('dateUtil class', function () {
   it('should return YYYY-MM-DD date in DD-MM-YYYY format', function () {

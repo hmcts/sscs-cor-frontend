@@ -3,7 +3,7 @@ import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { getCasesByName } from '../utils/fieldValidation';
-import { CaseDetails } from '../services/cases';
+import { CaseDetails } from '../data/models';
 import { Dependencies } from '../routes';
 import { isCaseDormant } from './cases';
 

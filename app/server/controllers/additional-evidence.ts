@@ -114,7 +114,9 @@ export function getAdditionalEvidence(
           ? 'options'
           : req.params.action;
       if (action === 'upload') {
-        const { description } = req.session['additional_evidence'] || '';
+        const { description } = req.session['additional_evidence'] || {
+          description: '',
+        };
         const caseId = getCaseId(req);
         let evidences: EvidenceDescriptor[] =
           await additionalEvidenceService.getEvidences(String(caseId), req);

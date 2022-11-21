@@ -9,8 +9,9 @@ import {
 } from 'app/server/controllers/login';
 import * as AppInsights from 'app/server/app-insights';
 import * as Paths from 'app/server/paths';
-import { CaseDetails, CaseService } from '../../../app/server/services/cases';
+import { CaseService } from 'app/server/services/cases';
 import { NextFunction, Response } from 'express';
+import { CaseDetails } from 'app/server/data/models';
 const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
 

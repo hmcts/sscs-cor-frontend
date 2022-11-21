@@ -1,5 +1,5 @@
 import * as Paths from 'app/server/paths';
-import { CaseDetails } from '../../../app/server/services/cases';
+import { CaseDetails } from '../../../app/server/data/models';
 
 const { expect, sinon } = require('test/chai-sinon');
 const {
