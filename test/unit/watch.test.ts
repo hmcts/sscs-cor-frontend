@@ -9,7 +9,6 @@ const shell = require('shelljs');
 const { Logger } = require('@hmcts/nodejs-logging');
 
 describe('watch.ts', function () {
-  let sb: sinon.SinonSandbox = null;
   let chokidaySpy = null;
   let shellSpy = null;
   let loggerSpy = null;
@@ -18,13 +17,12 @@ describe('watch.ts', function () {
   let logger: LoggerInstance = null;
 
   before(async function () {
-    sb = sinon.createSandbox();
     logger = Logger.getLogger('watch.js');
     // eslint-disable-next-line mocha/no-nested-tests
     app = setup(createSession(), { disableAppInsights: true });
-    chokidaySpy = sb.spy(chokidar, 'watch');
-    shellSpy = sb.spy(shell, 'exec');
-    loggerSpy = sb.spy(logger, 'info');
+    chokidaySpy = sinon.spy(chokidar, 'watch');
+    shellSpy = sinon.spy(shell, 'exec');
+    loggerSpy = sinon.spy(logger, 'info');
     [watchInstances] = await Promise.all([watch(app)]);
     watchInstances.sass.emit('change', './app/client/sass');
     watchInstances.javascript.emit('change', './app/client/javascript');
@@ -32,7 +30,7 @@ describe('watch.ts', function () {
   });
 
   after(function () {
-    sb.restore();
+    sinon.restore();
   });
 
   it('Expect chokidar watch to be called', function () {

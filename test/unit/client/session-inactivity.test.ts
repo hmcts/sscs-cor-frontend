@@ -129,24 +129,22 @@ describe('Client/session-inactivity', function () {
   });
 
   describe('Counters', function () {
-    let sandbox;
     let clock;
     beforeEach(function () {
-      sandbox = sinon.createSandbox();
       clock = sinon.useFakeTimers();
     });
 
     afterEach(function () {
-      sandbox.restore();
+      sinon.restore();
       clock.restore();
     });
 
     it('should restart counters', function () {
-      const stopCountersStub = sandbox.stub(
+      const stopCountersStub = sinon.stub(
         SessionInactivity.prototype,
         'stopCounters'
       );
-      const startCountersStub = sandbox.stub(
+      const startCountersStub = sinon.stub(
         SessionInactivity.prototype,
         'startCounters'
       );
@@ -158,11 +156,11 @@ describe('Client/session-inactivity', function () {
     });
 
     it('should start Counters', function () {
-      const startCountdownStub = sandbox.stub(
+      const startCountdownStub = sinon.stub(
         SessionInactivity.prototype,
         'startCountdown'
       );
-      const startSessionTimeOutStub = sandbox.stub(
+      const startSessionTimeOutStub = sinon.stub(
         SessionInactivity.prototype,
         'startSessionTimeOut'
       );
@@ -183,7 +181,7 @@ describe('Client/session-inactivity', function () {
     });
 
     it('should start session timeOut', function () {
-      const signOutStub = sandbox.stub(SessionInactivity.prototype, 'signOut');
+      const signOutStub = sinon.stub(SessionInactivity.prototype, 'signOut');
 
       sessionInactivity.startSessionTimeOut(2000);
       clock.tick(2001);
@@ -192,11 +190,8 @@ describe('Client/session-inactivity', function () {
     });
 
     it('should start countDown', function () {
-      const openModalSpy = sandbox.spy(
-        SessionInactivity.prototype,
-        'openModal'
-      );
-      const startModalIntervalSpy = sandbox.spy(
+      const openModalSpy = sinon.spy(SessionInactivity.prototype, 'openModal');
+      const startModalIntervalSpy = sinon.spy(
         SessionInactivity.prototype,
         'startModalInterval'
       );

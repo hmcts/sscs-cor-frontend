@@ -9,10 +9,8 @@ const oralActiveAndDormantCases = require('../../mock/tribunals/data/oral/active
 describe('controllers/dormant-cases', function () {
   let req: any;
   let res: any;
-  let sandbox: sinon.SinonSandbox;
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       session: {
         appeal: {},
@@ -21,8 +19,8 @@ describe('controllers/dormant-cases', function () {
     } as any;
 
     res = {
-      render: sandbox.stub(),
-      send: sandbox.stub(),
+      render: sinon.stub(),
+      send: sinon.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -30,19 +28,17 @@ describe('controllers/dormant-cases', function () {
   });
 
   afterEach(function () {
-    sandbox.restore();
-    (AppInsights.trackException as sinon.SinonStub).restore();
-    (AppInsights.trackEvent as sinon.SinonStub).restore();
+    sinon.restore();
   });
 
   describe('setupDormantCasesController', function () {
     let getStub;
     beforeEach(function () {
-      getStub = sandbox.stub(express.Router, 'get');
+      getStub = sinon.stub(express.Router, 'get');
     });
 
     afterEach(function () {
-      sandbox.restore();
+      sinon.restore();
     });
 
     it('should call Router', function () {

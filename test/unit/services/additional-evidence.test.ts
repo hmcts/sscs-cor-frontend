@@ -11,7 +11,6 @@ const config = require('config');
 
 describe('services/additional-evidence', function () {
   let rpStub: sinon.SinonStub = null;
-  let sandbox: sinon.SinonSandbox = null;
   let apiUrl: string = null;
   let file: Partial<Express.Multer.File> = null;
   let additionalEvidenceService: AdditionalEvidenceService = null;
@@ -27,7 +26,6 @@ describe('services/additional-evidence', function () {
   const evidenceId = 'evidenceId';
 
   before(function () {
-    sandbox = sinon.createSandbox();
     apiUrl = config.get('api.url');
     file = {
       fieldname: 'file-upload-1',
@@ -41,11 +39,11 @@ describe('services/additional-evidence', function () {
   });
 
   beforeEach(function () {
-    rpStub = sandbox.stub(RequestPromise, 'request');
+    rpStub = sinon.stub(RequestPromise, 'request');
   });
 
   afterEach(function () {
-    sandbox.restore();
+    sinon.restore();
   });
 
   it('should save Statement', async function () {

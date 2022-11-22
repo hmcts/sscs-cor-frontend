@@ -5,7 +5,6 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 const { expect, sinon } = require('test/chai-sinon');
 
 describe('services/tyaService', function () {
-  let sandbox: sinon.SinonSandbox = null;
   let rpStub: sinon.SinonStub = null;
   let tribunalsApiUrl: string = null;
   let trackYourAppealService = null;
@@ -17,17 +16,16 @@ describe('services/tyaService', function () {
   };
 
   before(function () {
-    sandbox = sinon.createSandbox();
     tribunalsApiUrl = config.get('tribunals.api-url');
     trackYourAppealService = new TrackYourApealService(tribunalsApiUrl);
   });
 
   beforeEach(function () {
-    rpStub = sandbox.stub(RequestPromise, 'request');
+    rpStub = sinon.stub(RequestPromise, 'request');
   });
 
   afterEach(function () {
-    sandbox.restore();
+    sinon.restore();
   });
 
   it('should getAppeal', async function () {

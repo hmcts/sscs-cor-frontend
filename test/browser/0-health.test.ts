@@ -6,7 +6,7 @@ const { expect } = require('test/chai-sinon');
 const testUrl = require('config').get('testUrl');
 
 describe('Health check @smoke', function () {
-  let page: Page;
+  let page: Page = null;
 
   before(async function () {
     const res = await startServices();

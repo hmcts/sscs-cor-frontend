@@ -11,33 +11,28 @@ import { EvidenceStatement } from '../../../app/client/javascript/evidence-state
 const html = `<div id="app-cookie-banner" >`;
 
 describe('client main js', function () {
-  let sandbox;
   let body;
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     body = document.querySelector('body');
     body.innerHTML = html;
   });
   afterEach(function () {
-    sandbox.restore();
+    sinon.restore();
   });
   it('onReady', function () {
-    const govUKMock = sandbox.stub(govUK, 'initAll');
-    const expandingTextBoxMock = sandbox.stub(expandingTextBox, 'init');
-    const checkCookiesMock = sandbox.stub(CheckCookies.prototype, 'init');
-    const initEvidenceUploadMock = sandbox.stub(
-      EvidenceUpload.prototype,
-      'init'
-    );
-    const initEvidenceStatementMock = sandbox.stub(
+    const govUKMock = sinon.stub(govUK, 'initAll');
+    const expandingTextBoxMock = sinon.stub(expandingTextBox, 'init');
+    const checkCookiesMock = sinon.stub(CheckCookies.prototype, 'init');
+    const initEvidenceUploadMock = sinon.stub(EvidenceUpload.prototype, 'init');
+    const initEvidenceStatementMock = sinon.stub(
       EvidenceStatement.prototype,
       'init'
     );
-    const sessionInactivityMock = sandbox.stub(
+    const sessionInactivityMock = sinon.stub(
       SessionInactivity.prototype,
       'init'
     );
-    const detailsToggleMock = sandbox.stub(
+    const detailsToggleMock = sinon.stub(
       DetailsTabIndexToggle.prototype,
       'init'
     );

@@ -30,22 +30,17 @@ const html = `
 </details>`;
 
 describe('detailsTabIndexToggle', function () {
-  let sandbox: sinon.SinonSandbox;
   let detailsToggle: DetailsTabIndexToggle;
   before(function () {
     document.body.innerHTML = html;
   });
 
-  beforeEach(function () {
-    sandbox = sinon.createSandbox();
-  });
-
   afterEach(function () {
-    sandbox.restore();
+    sinon.restore();
   });
 
   it('should add tabindex to aria-hidden child element on load', function () {
-    const attachListernersMock = sandbox.stub(
+    const attachListernersMock = sinon.stub(
       DetailsTabIndexToggle.prototype,
       'attachListeners'
     );
@@ -59,7 +54,7 @@ describe('detailsTabIndexToggle', function () {
   });
 
   it('should remove tabindex attribute on init', function () {
-    const removeAttributeMock = sandbox.stub(
+    const removeAttributeMock = sinon.stub(
       document.querySelector('.govuk-details__text a'),
       'removeAttribute'
     );
@@ -70,7 +65,7 @@ describe('detailsTabIndexToggle', function () {
   });
 
   it('should attach listeners', function () {
-    const addEventListenerStub: sinon.SinonStub = sandbox.stub(
+    const addEventListenerStub: sinon.SinonStub = sinon.stub(
       document.querySelector('details.govuk-details'),
       'addEventListener'
     );
@@ -83,11 +78,11 @@ describe('detailsTabIndexToggle', function () {
     const selector: HTMLDetailsElement =
       document.querySelector('.govuk-details');
     const target = document.querySelector('.govuk-details__text');
-    const removeAttributeMock = sandbox.stub(
+    const removeAttributeMock = sinon.stub(
       target.querySelector('a'),
       'removeAttribute'
     );
-    const setAttributeMock = sandbox.stub(
+    const setAttributeMock = sinon.stub(
       target.querySelector('a'),
       'setAttribute'
     );

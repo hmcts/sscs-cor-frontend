@@ -14,10 +14,8 @@ const express = require('express');
 describe('controllers/policies.js', function () {
   let req: any;
   let res: any;
-  let sandbox: sinon.SinonSandbox;
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       session: {},
       cookies: {},
@@ -29,7 +27,7 @@ describe('controllers/policies.js', function () {
   });
 
   afterEach(function () {
-    sandbox.restore();
+    sinon.restore();
   });
 
   describe('getCookiePrivacy', function () {
@@ -37,7 +35,7 @@ describe('controllers/policies.js', function () {
     const scenarios = null;
 
     beforeEach(function () {
-      isFeatureEnabledStub = sandbox.stub(FeatureEnabled, 'isFeatureEnabled');
+      isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
     });
 
     // eslint-disable-next-line mocha/no-setup-in-describe

@@ -1,7 +1,6 @@
 import * as history from 'app/server/controllers/history';
 import * as Paths from 'app/server/paths';
 import * as FeatureEnabled from 'app/server/utils/featureEnabled';
-import { SinonSandbox } from 'sinon';
 
 const itParam = require('mocha-param');
 const express = require('express');
@@ -10,10 +9,8 @@ const { expect, sinon } = require('test/chai-sinon');
 describe('controllers/history', function () {
   let req: any = null;
   let res: any = null;
-  let sandbox: SinonSandbox = null;
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       session: {
         appeal: {
@@ -25,19 +22,19 @@ describe('controllers/history', function () {
     } as any;
 
     res = {
-      render: sandbox.stub(),
-      send: sandbox.stub(),
+      render: sinon.stub(),
+      send: sinon.stub(),
     };
   });
 
   afterEach(function () {
-    sandbox.restore();
+    sinon.restore();
   });
 
   describe('setupHistoryController', function () {
     let getStub;
     beforeEach(function () {
-      getStub = sandbox.stub(express.Router, 'get');
+      getStub = sinon.stub(express.Router, 'get');
     });
 
     it('should call Router', function () {
@@ -49,7 +46,7 @@ describe('controllers/history', function () {
   describe('getHistory', function () {
     let isFeatureEnabledStub;
     beforeEach(function () {
-      isFeatureEnabledStub = sandbox.stub(FeatureEnabled, 'isFeatureEnabled');
+      isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
     });
 
     // eslint-disable-next-line mocha/no-setup-in-describe

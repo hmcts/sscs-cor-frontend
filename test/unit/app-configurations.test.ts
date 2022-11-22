@@ -7,32 +7,27 @@ import express = require('express');
 import { Environment } from 'nunjucks';
 
 describe('app-configuration', function () {
-  let sandbox: sinon.SinonSandbox;
-  beforeEach(function () {
-    sandbox = sinon.createSandbox();
-  });
-
   afterEach(function () {
-    sandbox.restore();
+    sinon.restore();
   });
 
   it('configureNunjucks', function () {
     const configNunjucks: object = {
-      addFilter: sandbox.stub(),
+      addFilter: sinon.stub(),
       options: { autoescape: true },
-      render: sandbox.stub(),
-      renderString: sandbox.stub(),
-      getFilter: sandbox.stub(),
-      addExtension: sandbox.stub(),
-      removeExtension: sandbox.stub(),
-      getExtension: sandbox.stub(),
-      hasExtension: sandbox.stub(),
-      addGlobal: sandbox.stub(),
-      getTemplate: sandbox.stub(),
-      express: sandbox.stub(),
-      tyaNunjucks: sandbox.stub(),
+      render: sinon.stub(),
+      renderString: sinon.stub(),
+      getFilter: sinon.stub(),
+      addExtension: sinon.stub(),
+      removeExtension: sinon.stub(),
+      getExtension: sinon.stub(),
+      hasExtension: sinon.stub(),
+      addGlobal: sinon.stub(),
+      getTemplate: sinon.stub(),
+      express: sinon.stub(),
+      tyaNunjucks: sinon.stub(),
     };
-    sandbox.stub(nunjucks, 'configure').returns(configNunjucks as Environment);
+    sinon.stub(nunjucks, 'configure').returns(configNunjucks as Environment);
     const app: Application = express();
     app.locals.i18n = i18next;
 

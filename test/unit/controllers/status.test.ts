@@ -13,10 +13,8 @@ const paperAppealReceived = require('../../mock/tribunals/data/paper/appealRecei
 describe('controllers/status', function () {
   let req: any;
   let res: any;
-  let sandbox: sinon.SinonSandbox;
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       session: {
         appeal: {},
@@ -25,8 +23,8 @@ describe('controllers/status', function () {
     } as any;
 
     res = {
-      render: sandbox.stub(),
-      send: sandbox.stub(),
+      render: sinon.stub(),
+      send: sinon.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -34,19 +32,17 @@ describe('controllers/status', function () {
   });
 
   afterEach(function () {
-    sandbox.restore();
-    (AppInsights.trackException as sinon.SinonStub).restore();
-    (AppInsights.trackEvent as sinon.SinonStub).restore();
+    sinon.restore();
   });
 
   describe('setupStatusController', function () {
     let getStub;
     beforeEach(function () {
-      getStub = sandbox.stub(express.Router, 'get');
+      getStub = sinon.stub(express.Router, 'get');
     });
 
     afterEach(function () {
-      sandbox.restore();
+      sinon.restore();
     });
 
     it('should call Router', function () {
@@ -58,7 +54,7 @@ describe('controllers/status', function () {
   describe('getStatus', function () {
     it('should render status page when mya feature enabled for oral (APPEAL_RECEIVED)', async function () {
       req.session = oralAppealReceived;
-      const getActiveStagesStub = sandbox
+      const getActiveStagesStub = sinon
         .stub(appealStagesUtils, 'getActiveStages')
         .returns([]);
       status.getStatus(req, res);
@@ -73,7 +69,7 @@ describe('controllers/status', function () {
 
     it('should render status page when mya feature enabled for paper (APPEAL_RECEIVED)', async function () {
       req.session = paperAppealReceived;
-      const getActiveStagesStub = sandbox
+      const getActiveStagesStub = sinon
         .stub(appealStagesUtils, 'getActiveStages')
         .returns([]);
       status.getStatus(req, res);
