@@ -33,7 +33,7 @@ describe('Task list page', function () {
   let hearingId;
   let caseReference;
 
-  before('start services and bootstrap data in CCD/COH', async function () {
+  before('start services and bootstrap data in CCD', async function () {
     const res = await startServices({
       bootstrapData: true,
       performLogin: true,

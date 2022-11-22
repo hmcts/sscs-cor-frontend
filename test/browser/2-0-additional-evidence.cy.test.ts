@@ -36,7 +36,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
   let statusPage: StatusPage;
   let ccdCase;
   let sidamUser;
-  before('start services and bootstrap data in CCD/COH', async function () {
+  before('start services and bootstrap data in CCD', async function () {
     ({
       ccdCase,
       page,

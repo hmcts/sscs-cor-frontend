@@ -6,7 +6,6 @@
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
   "testUrl": "http://localhost:3000",
-  "cohUrl": "http://localhost:8081",
   "headless": true,
   "pa11y": {
     "ignoreUrl": true,
