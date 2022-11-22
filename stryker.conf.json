@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "testRunner": "mocha",
+  "disableTypeChecks": "app/server/**/*.{js,ts,jsx,tsx,html,vue}",
+  "mutate": [
+    "app/server/services/*.ts",
+    "app/server/utils/dateUtils.ts"
+  ],
+  "concurrency": 2,
+  "htmlReporter": {
+    "fileName": "functional-output/mutation-test/mutation.html"
+  },
+  "tsconfigFile": "app/server/tsconfig.json",
+  "coverageAnalysis": "off",
+  "mochaOptions": {
+    "spec": [
+      "test/unit/services/*.test.ts",
+      "test/unit/utils/dateUtils.test.ts"
+    ]
+  },
+  "logLevel": "debug"
+}
