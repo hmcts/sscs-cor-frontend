@@ -1,4 +1,4 @@
-import { CaseService } from '../../../app/server/services/cases';
+import { CaseService } from 'app/server/services/cases';
 import {
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,

@@ -2,7 +2,7 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 import {
   getHearingRecording,
   submitHearingRecordingRequest,
-} from '../../../app/server/services/request-type';
+} from 'app/server/services/request-type';
 import * as config from 'config';
 import { SinonStub } from 'sinon';
 

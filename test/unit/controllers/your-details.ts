@@ -1,8 +1,8 @@
-import * as status from '../../../app/server/controllers/status';
+import * as status from 'app/server/controllers/status';
 
 import * as yourDetails from 'app/server/controllers/your-details';
 import * as Paths from 'app/server/paths';
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');

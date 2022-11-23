@@ -1,5 +1,5 @@
 import * as Paths from 'app/server/paths';
-import * as FeatureEnabled from '../../../app/server/utils/featureEnabled';
+import * as FeatureEnabled from 'app/server/utils/featureEnabled';
 import { SinonStub } from 'sinon';
 import { Router } from 'express';
 

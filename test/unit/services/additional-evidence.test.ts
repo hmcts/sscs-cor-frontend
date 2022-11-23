@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 import { AdditionalEvidenceService } from 'app/server/services/additional-evidence';
 import { RequestPromise } from 'app/server/services/request-wrapper';
-import * as CONST from '../../../app/constants';
+import * as CONST from 'app/constants';
 const HTTP_RETRIES = CONST.HTTP_RETRIES;
 const RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 const { expect, sinon } = require('test/chai-sinon');

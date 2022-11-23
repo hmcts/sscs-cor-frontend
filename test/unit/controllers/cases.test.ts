@@ -1,6 +1,6 @@
 import * as cases from 'app/server/controllers/cases';
 import * as Paths from 'app/server/paths';
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');

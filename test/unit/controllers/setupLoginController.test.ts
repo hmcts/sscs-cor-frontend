@@ -1,7 +1,7 @@
 import { setupLoginController } from 'app/server/controllers/login';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
-import { Dependencies } from '../../../app/server/routes';
+import { Dependencies } from 'app/server/routes';
 import { Router } from 'express';
 const { expect, sinon } = require('test/chai-sinon');
 

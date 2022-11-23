@@ -1,4 +1,4 @@
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 
 import * as Paths from 'app/server/paths';
 import * as avEvidence from 'app/server/controllers/av-evidence';

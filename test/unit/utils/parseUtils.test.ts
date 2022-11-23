@@ -1,5 +1,5 @@
 import { expect } from 'test/chai-sinon';
-import { resolveQuery } from '../../../app/server/utils/parseUtils';
+import { resolveQuery } from 'app/server/utils/parseUtils';
 import { ParsedQs } from 'qs';
 
 describe('dateUtil class', function () {

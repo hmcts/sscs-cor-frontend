@@ -1,6 +1,6 @@
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 
-import { TrackYourApealService } from '../../../app/server/services/tyaService';
+import { TrackYourApealService } from 'app/server/services/tyaService';
 
 import * as Paths from 'app/server/paths';
 import * as outcome from 'app/server/controllers/outcome';

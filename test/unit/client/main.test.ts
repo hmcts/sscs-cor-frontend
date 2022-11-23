@@ -6,7 +6,7 @@ import { DetailsTabIndexToggle } from 'app/client/javascript/detailsToggle';
 import { CheckCookies } from 'app/client/javascript/check-cookies';
 import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 import { SessionInactivity } from 'app/client/javascript/session-inactivity';
-import { EvidenceStatement } from '../../../app/client/javascript/evidence-statement';
+import { EvidenceStatement } from 'app/client/javascript/evidence-statement';
 
 const html = `<div id="app-cookie-banner" >`;
 

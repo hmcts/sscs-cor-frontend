@@ -1,4 +1,4 @@
-import * as hearing from '../../../app/server/controllers/hearing';
+import * as hearing from 'app/server/controllers/hearing';
 
 import {
   setupTaskListController,
@@ -15,8 +15,8 @@ import { NextFunction, Router } from 'express';
 import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import moment from 'moment';
-import { CaseDetails } from '../../../app/server/data/models';
-import { Dependencies } from '../../../app/server/routes';
+import { CaseDetails } from 'app/server/data/models';
+import { Dependencies } from 'app/server/routes';
 
 describe('controllers/task-list', function () {
   let req;

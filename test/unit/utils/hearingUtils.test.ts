@@ -4,7 +4,7 @@ import {
   shouldShowHearing,
 } from 'app/server/utils/hearingUtils';
 import { expect } from 'test/chai-sinon';
-import { Appeal, CaseEvent } from '../../../app/server/data/models';
+import { Appeal, CaseEvent } from 'app/server/data/models';
 
 describe('hearingUtils', function () {
   describe('shouldShowHearing', function () {

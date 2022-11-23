@@ -1,9 +1,9 @@
-import * as hearing from '../../../app/server/controllers/hearing';
+import * as hearing from 'app/server/controllers/hearing';
 
 import * as status from 'app/server/controllers/status';
 import * as Paths from 'app/server/paths';
 import * as appealStagesUtils from 'app/server/utils/appealStages';
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');

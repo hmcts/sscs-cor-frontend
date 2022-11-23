@@ -1,6 +1,6 @@
 import * as activeCases from 'app/server/controllers/active-cases';
 import * as Paths from 'app/server/paths';
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 import { SinonStubStatic } from 'sinon';
 
 const express = require('express');
