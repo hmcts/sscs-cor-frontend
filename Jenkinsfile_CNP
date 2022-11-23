@@ -9,7 +9,7 @@ properties(
 def product = "sscs-cor"
 def component = "frontend"
 
-def sscsCorBackEndUrlAat = "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+def tribunalsAat = "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
 def idamUrlAat = "https://idam-web-public.aat.platform.hmcts.net"
 def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
@@ -52,7 +52,7 @@ withPipeline("nodejs", product, component) {
     before('securitychecks') { yarnBuilder.yarn('test:audit') }
 
     before("functionalTest:preview") {
-        env.SSCS_API_URL = sscsCorBackEndUrlAat
+        env.SSCS_API_URL = tribunalsAat
         sh 'echo SSCS_API_URL=$SSCS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
@@ -64,7 +64,7 @@ withPipeline("nodejs", product, component) {
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
     before("functionalTest:aat") {
-        env.SSCS_API_URL = sscsCorBackEndUrlAat
+        env.SSCS_API_URL = tribunalsAat
         sh 'echo SSCS_API_URL=$SSCS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'

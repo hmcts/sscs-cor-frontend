@@ -2,11 +2,13 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
-import { RequestTypeService } from '../services/request-type';
+import * as requestType from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
 import { Dependencies } from '../routes';
 import { HearingRecordings } from '../data/models';
-const logger = Logger.getLogger('request-type.ts');
+import { LoggerInstance } from 'winston';
+
+const logger: LoggerInstance = Logger.getLogger('request-type.ts');
 
 const contentType = new Map([
   ['mp3', 'audio/mp3'],
@@ -17,7 +19,7 @@ const contentType = new Map([
 
 const allowedActions = ['hearingRecording', 'confirm', 'formError'];
 
-function getRequestType() {
+export function getRequestType() {
   // eslint-disable-next-line @typescript-eslint/require-await
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -45,7 +47,7 @@ function getRequestType() {
   };
 }
 
-function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
+export function submitHearingRecordingRequest() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const caseId = req.session.case.case_id;
@@ -56,11 +58,7 @@ function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
         return res.redirect(`${Paths.requestType}/formError`);
       }
 
-      await requestTypeService.submitHearingRecordingRequest(
-        caseId,
-        hearingIds,
-        req
-      );
+      await requestType.submitHearingRecordingRequest(caseId, hearingIds, req);
       req.session.hearingRecordingsResponse = null;
       return res.redirect(`${Paths.requestType}/confirm`);
     } catch (error) {
@@ -70,7 +68,7 @@ function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
   };
 }
 
-function selectRequestType(requestTypeService: RequestTypeService) {
+export function selectRequestType() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const option = req.body.requestOptions;
@@ -78,7 +76,7 @@ function selectRequestType(requestTypeService: RequestTypeService) {
       if (option === 'hearingRecording') {
         req.session.requestOptions = 'hearingRecording';
         const hearingRecordingsResponse: HearingRecordings =
-          await requestTypeService.getHearingRecording(caseId, req);
+          await requestType.getHearingRecording(caseId, req);
         if (hearingRecordingsResponse) {
           req.session.hearingRecordingsResponse = hearingRecordingsResponse;
         }
@@ -91,7 +89,9 @@ function selectRequestType(requestTypeService: RequestTypeService) {
   };
 }
 
-function getHearingRecording(trackYourAppealService: TrackYourApealService) {
+export function getHearingRecording(
+  trackYourAppealService: TrackYourApealService
+) {
   return async (req: Request, res: Response) => {
     const evidence = await trackYourAppealService.getMediaFile(
       req.query.url as string,
@@ -102,7 +102,7 @@ function getHearingRecording(trackYourAppealService: TrackYourApealService) {
   };
 }
 
-function setupRequestTypeController(deps: Dependencies) {
+export function setupRequestTypeController(deps: Dependencies) {
   const router = Router();
   router.get(
     `${Paths.requestType}/recording`,
@@ -117,20 +117,12 @@ function setupRequestTypeController(deps: Dependencies) {
   router.post(
     `${Paths.requestType}/select`,
     deps.prereqMiddleware,
-    selectRequestType(deps.requestTypeService)
+    selectRequestType()
   );
   router.post(
     `${Paths.requestType}/hearing-recording-request`,
     deps.prereqMiddleware,
-    submitHearingRecordingRequest(deps.requestTypeService)
+    submitHearingRecordingRequest()
   );
   return router;
 }
-
-export {
-  getRequestType,
-  setupRequestTypeController,
-  selectRequestType,
-  submitHearingRecordingRequest,
-  getHearingRecording,
-};

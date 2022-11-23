@@ -7,17 +7,14 @@ import { TaskListPage } from 'test/page-objects/task-list';
 import { LoginPage } from 'test/page-objects/login';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
+
 const { expect } = require('test/chai-sinon');
-const mockDataHearing =
-  require('test/mock/cor-backend/services/hearing').template;
 const content = require('locale/content');
 const config = require('config');
 
 const testUrl = config.get('testUrl');
 
 const sampleHearingId = '1-pending';
-const sampleQuestionId = '001';
-const sampleQuestionOrdinal = '1';
 
 const pa11y = require('pa11y');
 
@@ -41,8 +38,7 @@ describe('Task list page', function () {
     page = res.page;
     pa11yOpts.browser = res.browser;
     hearingId = sampleHearingId;
-    caseReference =
-      res.ccdCase.case_reference || mockDataHearing.case_reference;
+    caseReference = res.ccdCase.case_reference || '112233';
     taskListPage = new TaskListPage(page);
     loginPage = new LoginPage(page);
     await taskListPage.screenshot('task-list');

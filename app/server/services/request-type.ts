@@ -1,40 +1,38 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
+import * as config from 'config';
 
-export class RequestTypeService {
-  private readonly apiUrl: string;
+const apiUrl: string = config.get('tribunals.api-url');
 
-  constructor(apiUrl: string) {
-    this.apiUrl = apiUrl;
-  }
+export async function getHearingRecording(
+  caseId: number,
+  req: Request
+): Promise<unknown> {
+  return RequestPromise.request(
+    {
+      method: 'GET',
+      uri: `${apiUrl}/api/request/${caseId}/hearingrecording`,
+    },
+    req
+  );
+}
 
-  async getHearingRecording(caseId: number, req: Request) {
-    return RequestPromise.request(
-      {
-        method: 'GET',
-        uri: `${this.apiUrl}/api/request/${caseId}/hearingrecording`,
+export async function submitHearingRecordingRequest(
+  caseId: number,
+  hearingIds: string[],
+  req: Request
+) {
+  return RequestPromise.request(
+    {
+      method: 'POST',
+      uri: `${apiUrl}/api/request/${caseId}/recordingrequest`,
+      headers: {
+        'Content-type': 'application/json',
       },
-      req
-    );
-  }
-
-  async submitHearingRecordingRequest(
-    caseId: number,
-    hearingIds: string[],
-    req: Request
-  ) {
-    return RequestPromise.request(
-      {
-        method: 'POST',
-        uri: `${this.apiUrl}/api/request/${caseId}/recordingrequest`,
-        headers: {
-          'Content-type': 'application/json',
-        },
-        formData: {
-          hearingIds,
-        },
+      formData: {
+        hearingIds,
       },
-      req
-    );
-  }
+    },
+    req
+  );
 }

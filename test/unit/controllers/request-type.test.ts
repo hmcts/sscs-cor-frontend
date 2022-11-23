@@ -1,10 +1,11 @@
-import * as AppInsights from '../../../app/server/app-insights';
-
-import * as Paths from 'app/server/paths';
+import * as AppInsights from 'app/server/app-insights';
+import * as requestTypeService from 'app/server/services/request-type';
 import * as requestType from 'app/server/controllers/request-type';
+import * as Paths from 'app/server/paths';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import { NextFunction } from 'express';
 import { expect, sinon } from '../../chai-sinon';
+import { SinonStub } from 'sinon';
 
 const express = require('express');
 const hearingRecording = require('../../mock/tribunals/data/oral/hearing-recording.json');
@@ -85,20 +86,30 @@ describe('controllers/request-type', function () {
   });
 
   describe('selectRequestType', function () {
-    let requestTypeService;
+    let getHearingRecordingStub: SinonStub = null;
+    beforeEach(function () {
+      getHearingRecordingStub = sinon.stub(
+        requestTypeService,
+        'getHearingRecording'
+      );
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+
     it('should render request type select page with hearing recordings', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.case = { case_id: 'case_id_1' };
       req.body.requestOptions = 'hearingRecording';
 
-      requestTypeService = {
-        getHearingRecording: sinon.stub().resolves(hearingRecording),
-      };
+      getHearingRecordingStub.returns(hearingRecording);
 
-      await requestType.selectRequestType(requestTypeService)(req, res, next);
-      expect(
-        requestTypeService.getHearingRecording
-      ).to.have.been.calledOnce.calledWith('case_id_1', req);
+      await requestType.selectRequestType()(req, res, next);
+      expect(getHearingRecordingStub).to.have.been.calledOnce.calledWith(
+        'case_id_1',
+        req
+      );
       expect(res.redirect).to.have.been.calledWith(
         `${Paths.requestType}/hearingRecording`
       );
@@ -110,14 +121,13 @@ describe('controllers/request-type', function () {
       req.session.case = { case_id: 'case_id_1' };
       req.body.requestOptions = 'hearingRecording';
 
-      requestTypeService = {
-        getHearingRecording: sinon.stub().resolves(null),
-      };
+      getHearingRecordingStub.returns(null);
 
-      await requestType.selectRequestType(requestTypeService)(req, res, next);
-      expect(
-        requestTypeService.getHearingRecording
-      ).to.have.been.calledOnce.calledWith('case_id_1', req);
+      await requestType.selectRequestType()(req, res, next);
+      expect(getHearingRecordingStub).to.have.been.calledOnce.calledWith(
+        'case_id_1',
+        req
+      );
       expect(res.redirect).to.have.been.calledWith(
         `${Paths.requestType}/hearingRecording`
       );
@@ -128,11 +138,9 @@ describe('controllers/request-type', function () {
       req.session.case = { case_id: 'case_id_1' };
       req.body.requestOptions = 'hearingRecording';
 
-      requestTypeService = {
-        getHearingRecording: sinon.stub().rejects(error),
-      };
+      getHearingRecordingStub.rejects(error);
 
-      await requestType.selectRequestType(requestTypeService)(req, res, next);
+      await requestType.selectRequestType()(req, res, next);
 
       expect(
         requestTypeService.getHearingRecording
@@ -145,16 +153,23 @@ describe('controllers/request-type', function () {
   });
 
   describe('submitHearingRecordingRequest', function () {
-    let requestTypeService;
+    let submitHearingRecordingStub: SinonStub = null;
+    beforeEach(function () {
+      submitHearingRecordingStub = sinon.stub(
+        requestTypeService,
+        'submitHearingRecordingRequest'
+      );
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+
     it('should render error message for request with empty hearing ids', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.hearingRecordingsResponse = hearingRecording;
 
-      await requestType.submitHearingRecordingRequest(requestTypeService)(
-        req,
-        res,
-        next
-      );
+      await requestType.submitHearingRecordingRequest()(req, res, next);
 
       expect(res.redirect).to.have.been.calledWith(
         `${Paths.requestType}/formError`
@@ -167,21 +182,17 @@ describe('controllers/request-type', function () {
       req.session.hearingRecordingsResponse = hearingRecording;
       req.body.hearingId = ['hearing_id_1'];
 
-      requestTypeService = {
-        submitHearingRecordingRequest: sinon.stub().resolves(),
-      };
+      submitHearingRecordingStub.returns(null);
 
-      await requestType.submitHearingRecordingRequest(requestTypeService)(
-        req,
-        res,
-        next
-      );
+      await requestType.submitHearingRecordingRequest()(req, res, next);
       expect(res.redirect).to.have.been.calledWith(
         `${Paths.requestType}/confirm`
       );
-      expect(
-        requestTypeService.submitHearingRecordingRequest
-      ).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
+      expect(submitHearingRecordingStub).to.have.been.calledOnce.calledWith(
+        'case_id_1',
+        ['hearing_id_1'],
+        req
+      );
       expect(req.session.hearingRecordingsResponse).to.equal(null);
     });
 
@@ -191,19 +202,15 @@ describe('controllers/request-type', function () {
       req.session.hearingRecordingsResponse = hearingRecording;
       req.body.hearingId = ['hearing_id_1'];
 
-      requestTypeService = {
-        submitHearingRecordingRequest: sinon.stub().rejects(error),
-      };
+      submitHearingRecordingStub.rejects(error);
 
-      await requestType.submitHearingRecordingRequest(requestTypeService)(
-        req,
-        res,
-        next
+      await requestType.submitHearingRecordingRequest()(req, res, next);
+
+      expect(submitHearingRecordingStub).to.have.been.calledOnce.calledWith(
+        'case_id_1',
+        ['hearing_id_1'],
+        req
       );
-
-      expect(
-        requestTypeService.submitHearingRecordingRequest
-      ).to.have.been.calledOnce.calledWith('case_id_1', ['hearing_id_1'], req);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
         error
       );

@@ -8,7 +8,6 @@ import * as nock from 'nock';
 import * as express from 'express';
 import { Application } from 'express';
 import { createSession } from '../../app/server/middleware/session';
-import { dysonSetupCorBackend } from '../mock/cor-backend/dysonSetup';
 import { dysonSetupIdam } from '../mock/idam/dysonSetup';
 import { dysonSetupS2s } from '../mock/s2s/dysonSetup';
 
@@ -21,7 +20,6 @@ describe('Routes', function () {
 
     // eslint-disable-next-line mocha/no-nested-tests
     app = setup(createSession(), { disableAppInsights: true });
-    dysonSetupCorBackend();
     dysonSetupIdam();
     dysonSetupS2s();
 
