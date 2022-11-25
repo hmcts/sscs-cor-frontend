@@ -1,5 +1,5 @@
-import * as request from 'promise-request-retry';
-import * as config from 'config';
+import request from 'promise-request-retry';
+import config from 'config';
 import { Request } from 'express';
 
 import * as AppInsights from '../app-insights';

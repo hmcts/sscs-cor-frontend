@@ -1,6 +1,6 @@
 const cache = require('memory-cache');
 
-export = {
+export default {
   path: '/login',
   method: 'POST',
   render: (req, res) => {

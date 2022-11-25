@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import * as config from 'config';
+import config from 'config';
 import * as path from 'path';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
-import { FileFilterCallback, MulterError } from 'multer';
+import multer, { FileFilterCallback, MulterError } from 'multer';
 import * as AppInsights from '../app-insights';
-import * as multer from 'multer';
 import {
   mimeTypes,
   mimeTypesWithAudioVideo,

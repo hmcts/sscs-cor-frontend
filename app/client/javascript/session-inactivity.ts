@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import axios, { AxiosResponse } from 'axios';
 import { sessionExtension } from '../../server/paths';
 import { ExtendSessionResponse } from '../../server/controllers/session';

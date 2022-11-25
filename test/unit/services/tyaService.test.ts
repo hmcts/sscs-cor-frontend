@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config from 'config';
 import { TrackYourApealService } from 'app/server/services/tyaService';
 import { RequestPromise } from 'app/server/services/request-wrapper';
 

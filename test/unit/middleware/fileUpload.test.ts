@@ -6,7 +6,7 @@ import {
   handleFileUploadErrors,
   validateFileSize,
 } from 'app/server/middleware/fileUpload';
-import * as config from 'config';
+import config from 'config';
 import { expect, sinon } from '../../chai-sinon';
 import { Feature } from 'app/server/utils/featureEnabled';
 import { SinonStub } from 'sinon';

@@ -3,7 +3,7 @@ import {
   getHearingRecording,
   submitHearingRecordingRequest,
 } from 'app/server/services/request-type';
-import * as config from 'config';
+import config from 'config';
 import { SinonStub } from 'sinon';
 
 const { expect, sinon } = require('test/chai-sinon');

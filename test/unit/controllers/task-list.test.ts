@@ -1,5 +1,3 @@
-import * as hearing from 'app/server/controllers/hearing';
-
 import {
   setupTaskListController,
   getCoversheet,
@@ -8,13 +6,11 @@ import {
 } from 'app/server/controllers/task-list';
 
 import * as AppInsights from 'app/server/app-insights';
-import * as express from 'express';
+import express, { NextFunction, Router } from 'express';
 import * as Paths from 'app/server/paths';
-import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
-import { NextFunction, Router } from 'express';
+import { Feature } from 'app/server/utils/featureEnabled';
 import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
-import moment from 'moment';
 import { CaseDetails } from 'app/server/data/models';
 import { Dependencies } from 'app/server/routes';
 

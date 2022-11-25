@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { LoggerInstance } from 'winston';
-import * as config from 'config';
+import config from 'config';
 import { OK, BAD_REQUEST } from 'http-status-codes';
 import { Logger } from '@hmcts/nodejs-logging';
 

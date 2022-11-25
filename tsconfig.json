@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
+    "module": "NodeNext",
+    "target": "esnext",
     "allowSyntheticDefaultImports": true,
 	"resolveJsonModule": true,
     "allowJs": false,
@@ -12,6 +12,10 @@
     "paths": {
       "*": ["*"]
     },
+    "typeRoots": [
+      "./node_modules/@types",
+      "app/server/data/models",
+    ],
     "lib": ["dom", "es7", "es2020"]
   },
   "exclude": ["dist"]

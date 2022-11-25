@@ -1,7 +1,7 @@
 import { expect, sinon } from 'test/chai-sinon';
 import watch from 'app/server/watch';
 import { setup } from 'app/server/app';
-import chokidar = require('chokidar');
+import chokidar from 'chokidar';
 import { Application } from 'express';
 import { LoggerInstance } from 'winston';
 const { createSession } = require('app/server/middleware/session');

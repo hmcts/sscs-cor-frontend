@@ -2,9 +2,8 @@ import * as support from 'app/server/controllers/support';
 import * as Paths from 'app/server/paths';
 import { Dependencies } from 'app/server/routes';
 import { SinonStub } from 'sinon';
-import * as express from 'express';
+import express, { Request, Response, Router } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
-import { Request, Response, Router } from 'express';
 
 describe('controllers/support', function () {
   const req = {} as Request;

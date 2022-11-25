@@ -1,8 +1,7 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { SessionInactivity } from 'app/client/javascript/session-inactivity';
-import * as moment from 'moment';
+import moment from 'moment';
 import axios from 'axios';
-import { Session } from 'inspector';
 import { SinonSpy, SinonStub } from 'sinon';
 
 describe('Client/session-inactivity', function () {

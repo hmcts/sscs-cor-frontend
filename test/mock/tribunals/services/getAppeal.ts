@@ -41,7 +41,7 @@ function getAppeal(appealNumber) {
   }
 }
 
-export = {
+export default {
   path: '/appeals',
   method: 'GET',
   cache: false,

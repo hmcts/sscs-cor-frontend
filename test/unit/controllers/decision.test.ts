@@ -1,7 +1,7 @@
 import { CaseDetails } from 'app/server/data/models';
 
 import * as Paths from 'app/server/paths';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Dependencies } from 'app/server/routes';
 import { Router } from 'express';
 const { expect, sinon } = require('test/chai-sinon');

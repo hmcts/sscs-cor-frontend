@@ -1,8 +1,6 @@
-import * as session from 'express-session';
-import { Store } from 'express-session';
-import * as ConnectRedis from 'connect-redis';
-import { RedisStoreOptions } from 'connect-redis';
-import * as config from 'config';
+import session, { Store } from 'express-session';
+import ConnectRedis, { RedisStoreOptions } from 'connect-redis';
+import config from 'config';
 import IoRedis, { RedisOptions } from 'ioredis';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';

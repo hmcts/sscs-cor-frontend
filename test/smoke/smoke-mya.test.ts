@@ -4,7 +4,6 @@ import { startServices } from 'test/browser/common';
 import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
-import * as _ from 'lodash';
 const { expect } = require('test/chai-sinon');
 const content = require('locale/content');
 const config = require('config');

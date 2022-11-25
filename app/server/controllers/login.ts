@@ -19,7 +19,7 @@ import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 import { Dependencies } from '../routes';
 import HttpException from '../exceptions/HttpException';
 import { LoggerInstance } from 'winston';
-import * as config from 'config';
+import config from 'config';
 import { CaseDetails } from '../data/models';
 import { resolveQuery } from '../utils/parseUtils';
 

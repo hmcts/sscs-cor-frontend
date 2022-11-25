@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import { Dependencies } from '../routes';
-import * as config from 'config';
+import config from 'config';
 
 const expireInSeconds: number = config.get('session.cookie.maxAgeInMs');
 

@@ -1,12 +1,11 @@
-import * as request from 'supertest';
-import * as session from 'express-session';
+import request from 'supertest';
+import session from 'express-session';
 import { setup } from 'app/server/app';
 import { expect } from 'test/chai-sinon';
-import * as config from 'config';
+import config from 'config';
 import { BAD_REQUEST, OK } from 'http-status-codes';
-import * as nock from 'nock';
-import * as express from 'express';
-import { Application } from 'express';
+import nock from 'nock';
+import express, { Application } from 'express';
 import { createSession } from 'app/server/middleware/session';
 import { dysonSetupIdam } from '../mock/idam/dysonSetup';
 import { dysonSetupS2s } from '../mock/s2s/dysonSetup';

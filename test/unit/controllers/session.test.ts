@@ -1,15 +1,14 @@
 import * as Paths from 'app/server/paths';
 import { Dependencies } from 'app/server/routes';
-import { Router } from 'express';
-import { ExtendSessionResponse } from 'app/server/controllers/session';
-import * as config from 'config';
-
-const { expect, sinon } = require('test/chai-sinon');
-const {
-  setupSessionController,
+import express, { Router } from 'express';
+import {
   extendSession,
-} = require('app/server/controllers/session.ts');
-const express = require('express');
+  setupSessionController,
+  ExtendSessionResponse,
+} from 'app/server/controllers/session';
+import * as config from 'config';
+import { expect, sinon } from 'test/chai-sinon';
+import { SinonStub } from 'sinon';
 
 const expireInSeconds: number = config.get('session.cookie.maxAgeInMs');
 
@@ -29,7 +28,7 @@ describe('controllers/session.ts', function () {
 
   describe('extendSession', function () {
     it('renders Cookie Policy page', async function () {
-      await extendSession(req, res);
+      extendSession(req, res);
       const response: ExtendSessionResponse = { expireInSeconds };
       const expected = JSON.stringify(response);
       expect(res.send).to.have.been.calledOnceWith(expected);
@@ -38,15 +37,16 @@ describe('controllers/session.ts', function () {
 
   describe('setupSessionController', function () {
     let deps: Dependencies = null;
+    let routerStub: SinonStub = null;
     beforeEach(function () {
       deps = {};
-      sinon.stub(express, 'Router').returns({
+      routerStub = sinon.stub(express, 'Router').returns({
         get: sinon.stub(),
       } as Partial<Router> as Router);
     });
 
     afterEach(function () {
-      express.Router.restore();
+      routerStub.restore();
     });
 
     it('calls router.get with the path and middleware', function () {

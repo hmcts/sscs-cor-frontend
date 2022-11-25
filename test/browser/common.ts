@@ -1,4 +1,4 @@
-import * as puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer';
 
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
@@ -10,7 +10,7 @@ import { URL } from 'url';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 
-import * as config from 'config';
+import config from 'config';
 
 const { createServer } = require('http');
 const { createSession } = require('app/server/middleware/session');

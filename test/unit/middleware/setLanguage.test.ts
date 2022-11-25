@@ -1,12 +1,11 @@
 import { expect, sinon } from 'test/chai-sinon';
-import { Request, Response, Router } from 'express';
+import express, { Request, Response, Router } from 'express';
 import { SinonStub } from 'sinon';
-import * as express from 'express';
+import { SessionData } from 'express-session';
 import {
   setupSetLanguageController,
   setLanguage,
 } from 'app/server/middleware/setLanguage';
-import { SessionData } from 'express-session';
 
 const i18next = require('i18next');
 

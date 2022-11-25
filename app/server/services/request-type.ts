@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
-import * as config from 'config';
+import config from 'config';
 
 const apiUrl: string = config.get('tribunals.api-url');
 

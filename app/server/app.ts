@@ -1,7 +1,6 @@
 import * as AppInsights from './app-insights';
 
-import * as express from 'express';
-import { Application, RequestHandler } from 'express';
+import express, { Application, RequestHandler } from 'express';
 
 import { router as routes } from './routes';
 
@@ -9,7 +8,7 @@ import * as health from './middleware/health';
 
 import * as Paths from './paths';
 
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 import * as screenReaderUtils from './utils/screenReaderUtils';
 import {
@@ -18,7 +17,7 @@ import {
   configureNunjucks,
 } from './app-configurations';
 import watch from './watch';
-import * as config from 'config';
+import config from 'config';
 import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
 import * as path from 'path';

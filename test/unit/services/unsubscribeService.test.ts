@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config from 'config';
 import {
   changeEmailAddress,
   stopReceivingEmails,
@@ -7,10 +7,9 @@ import { expect, sinon } from 'test/chai-sinon';
 import { Request, Response, NextFunction } from 'express';
 import { SessionData } from 'express-session';
 
-import * as superagent from 'superagent';
+import superagent, { SuperAgentRequest } from 'superagent';
 import { SinonStub } from 'sinon';
 import { after } from 'mocha';
-import { SuperAgentRequest } from 'superagent';
 
 const apiUrl: string = config.get('tribunals.api-url');
 

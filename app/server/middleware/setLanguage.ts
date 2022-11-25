@@ -9,7 +9,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 import { resolveQuery } from '../utils/parseUtils';
 
-import * as i18next from 'i18next';
+import i18next from 'i18next';
 
 const i18n = require('i18next');
 

@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config from 'config';
 import { isFeatureEnabled, Feature } from 'app/server/utils/featureEnabled';
 
 const { expect } = require('test/chai-sinon');

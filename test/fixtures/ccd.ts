@@ -1,5 +1,5 @@
 import { LoggerInstance } from 'winston';
-import * as config from 'config';
+import config from 'config';
 import { Logger } from '@hmcts/nodejs-logging';
 
 const rp = require('request-promise');

@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config from 'config';
 import * as supportedBrowsers from './supportedBrowsers';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';

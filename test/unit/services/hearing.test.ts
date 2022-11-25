@@ -1,29 +1,35 @@
 import { CaseService } from 'app/server/services/cases';
+import nock from 'nock';
+import config from 'config';
 import {
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,
   OK,
   UNPROCESSABLE_ENTITY,
 } from 'http-status-codes';
+import { Request } from 'express';
+import { SessionData } from 'express-session';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
 
 const { expect } = require('test/chai-sinon');
 
-const nock = require('nock');
-const config = require('config');
+const logger: LoggerInstance = Logger.getLogger('services/hearing');
 
-const apiUrl = config.get('api.url');
+const apiUrl: string = config.get('api.url');
 
 describe('services/hearing', function () {
   const email = 'test@example.com';
   const path = '/api/continuous-online-hearings';
   let caseService: CaseService = null;
-  const req: any = {};
+  const session: SessionData = {
+    cookie: undefined,
+    accessToken: 'someUserToken',
+    serviceToken: 'someServiceToken',
+  };
+  const req = { session } as Request;
   before(function () {
     caseService = new CaseService(apiUrl);
-    req.session = {
-      accessToken: 'someUserToken',
-      serviceToken: 'someServiceToken',
-    };
   });
 
   describe('#getOnlineHearing', function () {
@@ -38,12 +44,15 @@ describe('services/hearing', function () {
       const serviceToken = 'someServiceToken';
       beforeEach(function () {
         nock(apiUrl, {
-          Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`,
+          reqheaders: {
+            Authorization: `Bearer ${userToken}`,
+            ServiceAuthorization: `Bearer ${serviceToken}`,
+          },
         })
           .get(path)
           .query({ email })
-          .reply(OK, apiResponseBody);
+          .reply(OK, apiResponseBody)
+          .log((message) => logger.info(message));
       });
 
       it('resolves the promise', function () {
@@ -61,8 +70,10 @@ describe('services/hearing', function () {
 
       beforeEach(function () {
         nock(apiUrl, {
-          Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          reqheaders: {
+            Authorization: `Bearer ${req.session.accessToken}`,
+            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          },
         })
           .get(path)
           .query({ email })
@@ -79,8 +90,10 @@ describe('services/hearing', function () {
     describe('hearing not found', function () {
       beforeEach(function () {
         nock(apiUrl, {
-          Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          reqheaders: {
+            Authorization: `Bearer ${req.session.accessToken}`,
+            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          },
         })
           .get(path)
           .query({ email })
@@ -96,8 +109,10 @@ describe('services/hearing', function () {
     describe('multiple hearings found', function () {
       beforeEach(function () {
         nock(apiUrl, {
-          Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          reqheaders: {
+            Authorization: `Bearer ${req.session.accessToken}`,
+            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          },
         })
           .get(path)
           .query({ email })
@@ -126,8 +141,10 @@ describe('services/hearing', function () {
       const serviceToken = 'someServiceToken';
       beforeEach(function () {
         nock(apiUrl, {
-          Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`,
+          reqheaders: {
+            Authorization: `Bearer ${req.session.accessToken}`,
+            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          },
         })
           .get(`/api/citizen/${tya}`)
           .query({ email })
@@ -150,8 +167,10 @@ describe('services/hearing', function () {
 
       beforeEach(function () {
         nock(apiUrl, {
-          Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          reqheaders: {
+            Authorization: `Bearer ${req.session.accessToken}`,
+            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          },
         })
           .get(`/api/citizen/${tya}`)
           .query({ email })
@@ -180,8 +199,10 @@ describe('services/hearing', function () {
       const serviceToken = 'someServiceToken';
       beforeEach(function () {
         nock(apiUrl, {
-          Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`,
+          reqheaders: {
+            Authorization: `Bearer ${userToken}`,
+            ServiceAuthorization: `Bearer ${serviceToken}`,
+          },
         })
           .post(`/api/citizen/${tya}`, { email, postcode })
           .reply(OK, apiResponseBody);
@@ -209,8 +230,10 @@ describe('services/hearing', function () {
 
       beforeEach(function () {
         nock(apiUrl, {
-          Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          reqheaders: {
+            Authorization: `Bearer ${req.session.accessToken}`,
+            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+          },
         })
           .post(`/api/citizen/${tya}`, { email, postcode })
           .replyWithError(error);

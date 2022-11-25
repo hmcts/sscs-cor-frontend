@@ -1,5 +1,5 @@
-import chokidar = require('chokidar');
-import reload = require('reload');
+import chokidar from 'chokidar';
+import reload from 'reload';
 import { Application } from 'express';
 import { exec } from 'shelljs';
 import { Logger } from '@hmcts/nodejs-logging';

@@ -1,6 +1,6 @@
 import { expect, sinon } from 'test/chai-sinon';
 import * as main from 'app/client/javascript/main';
-import * as govUK from 'govuk-frontend';
+import govUK from 'govuk-frontend';
 import * as expandingTextBox from 'app/client/javascript/expanding-textbox';
 import { DetailsTabIndexToggle } from 'app/client/javascript/detailsToggle';
 import { CheckCookies } from 'app/client/javascript/check-cookies';

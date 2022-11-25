@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config from 'config';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import { setupKeyVaultSecrets } from './services/setupSecrets';
 

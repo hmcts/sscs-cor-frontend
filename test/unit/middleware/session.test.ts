@@ -1,7 +1,7 @@
 import * as redis from 'app/server/middleware/redis';
 import { SinonStub } from 'sinon';
-import * as proxyquire from 'proxyquire';
-import * as config from 'config';
+import proxyquire from 'proxyquire';
+import config from 'config';
 import { cloneDeep } from 'lodash';
 
 const { expect, sinon } = require('test/chai-sinon');

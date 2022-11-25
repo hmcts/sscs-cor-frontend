@@ -1,7 +1,7 @@
-const dyson = require('dyson');
-const path = require('path');
+import dyson from 'dyson';
+import path from 'path';
 
-export = () => {
+export default () => {
   const dysonOptions = {
     configDir: path.resolve(__dirname, './services/'),
     port: 8083,

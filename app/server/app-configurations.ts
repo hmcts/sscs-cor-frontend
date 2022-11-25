@@ -1,12 +1,12 @@
 import * as CONST from '../constants';
-import nunjucks = require('nunjucks');
+import nunjucks from 'nunjucks';
 import { i18n, InitOptions } from 'i18next';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 import { Application } from 'express';
 import { utc } from 'moment';
 import helmet from 'helmet';
-import * as config from 'config';
+import config from 'config';
 import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
 import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';

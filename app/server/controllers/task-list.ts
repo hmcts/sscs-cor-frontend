@@ -1,5 +1,5 @@
 import * as AppInsights from '../app-insights';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService } from '../services/additional-evidence';

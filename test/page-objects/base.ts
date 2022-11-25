@@ -1,7 +1,7 @@
 import { Page } from 'puppeteer';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
-import * as config from 'config';
+import config from 'config';
 import { expect } from 'test/chai-sinon';
 
 const logger: LoggerInstance = Logger.getLogger('functional test base');
