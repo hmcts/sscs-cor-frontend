@@ -5,7 +5,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import * as requestType from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
 import { Dependencies } from '../routes';
-import { HearingRecordings } from '../data/models';
+import { HearingRecordings } from 'app/server/models/express-session';
 import { LoggerInstance } from 'winston';
 
 const logger: LoggerInstance = Logger.getLogger('request-type.ts');

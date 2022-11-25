@@ -21,7 +21,7 @@ import HttpException from '../exceptions/HttpException';
 import { BAD_REQUEST } from 'http-status-codes';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
-import { Appeal, CaseDetails } from '../data/models';
+import { Appeal, CaseDetails } from '../models/express-session';
 
 const i18next = require('i18next');
 

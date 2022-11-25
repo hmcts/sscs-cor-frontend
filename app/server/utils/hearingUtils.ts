@@ -1,6 +1,6 @@
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
-import { Appeal, CaseEvent } from '../data/models';
+import { Appeal, CaseEvent } from '../models/express-session';
 
 const logger: LoggerInstance = Logger.getLogger('hearingUtils');
 

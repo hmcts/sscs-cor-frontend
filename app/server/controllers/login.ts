@@ -20,7 +20,7 @@ import { Dependencies } from '../routes';
 import HttpException from '../exceptions/HttpException';
 import { LoggerInstance } from 'winston';
 import config from 'config';
-import { CaseDetails } from '../data/models';
+import { CaseDetails } from 'app/server/models/express-session';
 import { resolveQuery } from '../utils/parseUtils';
 
 const i18next = require('i18next');

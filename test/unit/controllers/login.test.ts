@@ -11,7 +11,7 @@ import * as AppInsights from 'app/server/app-insights';
 import * as Paths from 'app/server/paths';
 import { CaseService } from 'app/server/services/cases';
 import { NextFunction, Response } from 'express';
-import { CaseDetails } from 'app/server/data/models';
+import { CaseDetails } from 'app/server/models/express-session';
 const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
 

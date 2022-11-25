@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
-import { Appeal, CaseDetails } from '../data/models';
+import { Appeal, CaseDetails } from 'app/server/models/express-session';
 import { Dependencies } from '../routes';
 import { getHearingInfo, shouldShowHearing } from '../utils/hearingUtils';
 import { LoggerInstance } from 'winston';

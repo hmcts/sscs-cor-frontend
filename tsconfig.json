@@ -14,7 +14,7 @@
     },
     "typeRoots": [
       "./node_modules/@types",
-      "app/server/data/models",
+      "app/server/models/express-session"
     ],
     "lib": ["dom", "es7", "es2020"]
   },

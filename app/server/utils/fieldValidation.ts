@@ -1,4 +1,4 @@
-import { CaseDetails } from '../data/models';
+import { CaseDetails } from 'app/server/models/express-session';
 import { dateFormat } from './dateUtils';
 
 const i18next = require('i18next');

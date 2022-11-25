@@ -1,4 +1,4 @@
-import { CaseDetails } from 'app/server/data/models';
+import { CaseDetails } from 'app/server/models/express-session';
 
 import * as Paths from 'app/server/paths';
 import moment from 'moment';

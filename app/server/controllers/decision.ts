@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import { CaseDetails } from '../data/models';
+import { CaseDetails } from 'app/server/models/express-session';
 import { Dependencies } from '../routes';
 
 function getDecision(req: Request, res: Response) {
