@@ -1,9 +1,7 @@
 {
   "extends": ["../../.eslintrc.json"],
   "parserOptions": {
-    "project": ["./tsconfig.json"], // Specify it only for TypeScript files
-    "sourceType": "module",
-    "ecmaVersion": 2018
+    "project": ["./tsconfig.json"] // Specify it only for TypeScript files
   },
   "rules": {
     "@typescript-eslint/no-misused-promises": "warn",

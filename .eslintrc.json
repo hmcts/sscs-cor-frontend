@@ -45,7 +45,7 @@ Happy linting! 💖
   "parserOptions": {
     "project": ["./tsconfig.json"], // Specify it only for TypeScript files
     "sourceType": "module",
-    "ecmaVersion": 2018
+    "ecmaVersion": 2020
   },
   "plugins": [
     "eslint-plugin-import",

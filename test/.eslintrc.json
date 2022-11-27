@@ -3,9 +3,7 @@
     "mocha": true
   },
   "parserOptions": {
-    "project": ["./tsconfig.json"], // Specify it only for TypeScript files
-    "sourceType": "module",
-    "ecmaVersion": 2018
+    "project": ["./tsconfig.json"] // Specify it only for TypeScript files
   },
   "extends": ["@hmcts/eslint-config/test", "../.eslintrc.json"],
   "rules": {
