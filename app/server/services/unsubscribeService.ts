@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
+import { LoggerInstance } from 'winston';
 
 const apiUrl = require('config').get('tribunals.api-url');
 const HttpStatus = require('http-status-codes');
 const request = require('superagent');
 const { Logger } = require('@hmcts/nodejs-logging');
 
-const logger = Logger.getLogger('UnsubscribeService.js');
+const logger: LoggerInstance = Logger.getLogger('UnsubscribeService');
 
 export function changeEmailAddress(
   req: Request,
@@ -14,9 +15,11 @@ export function changeEmailAddress(
 ): void {
   const token = res.locals.token;
 
-  const endpoint = `${apiUrl}/appeals/${token.appealId}/subscriptions/${token.subscriptionId}`;
+  const endpoint = `${apiUrl}/appeals/${token?.appealId}/subscriptions/${token?.subscriptionId}`;
+  logger.info(`Calling API endpoint: ${endpoint}`);
 
   if (!token || !token.appealId || !token.subscriptionId) {
+    logger.error(`Unable to make API call to POST: ${endpoint}`);
     next(new Error(`Unable to make API call to POST: ${endpoint}`));
     return;
   }
@@ -43,9 +46,11 @@ export function stopReceivingEmails(
 ): void {
   const token = res.locals.token;
 
-  const endpoint = `${apiUrl}/appeals/${token.appealId}/subscriptions/${token.subscriptionId}`;
+  const endpoint = `${apiUrl}/appeals/${token?.appealId}/subscriptions/${token?.subscriptionId}`;
+  logger.info(`Calling API endpoint: ${endpoint}`);
 
   if (!token || !token.appealId || !token.subscriptionId) {
+    logger.error(`Unable to make API call to POST: ${endpoint}`);
     next(new Error(`Unable to make API call to DELETE: ${endpoint}`));
     return;
   }
