@@ -1,12 +1,12 @@
 import * as applicationInsights from 'applicationinsights';
-import * as AppInsights from 'app/server/app-insights.ts';
+import * as AppInsights from 'app/server/app-insights';
 
 const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
 
 describe('app-insights.js', () => {
   describe('enable', () => {
-    const sb = sinon.sandbox.create();
+    const sb = sinon.createSandbox();
 
     beforeEach(() => {
       sb.stub(applicationInsights, 'start');

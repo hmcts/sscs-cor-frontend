@@ -8,7 +8,7 @@ export class EvidenceService {
   }
 
   async upload(hearingId: string, questionId: string, file, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'POST',
         simple: false,
@@ -34,7 +34,7 @@ export class EvidenceService {
     fileId: string,
     req: Request
   ) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'DELETE',
         headers: { 'Content-Length': '0' },

@@ -98,7 +98,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   it('checks /status page path passes @pa11y', async () => {
     statusPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-status-page.png`;
-    pa11yOpts.page = await statusPage.page;
+    pa11yOpts.page = statusPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -110,7 +110,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   it('checks /support-evidence page passes @pa11y', async () => {
     await supportEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-support-evidence-page.png`;
-    pa11yOpts.page = await supportEvidencePage.page;
+    pa11yOpts.page = supportEvidencePage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -122,7 +122,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   it('checks /representatives page passes @pa11y', async () => {
     await representativesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-representatives-page.png`;
-    pa11yOpts.page = await representativesPage.page;
+    pa11yOpts.page = representativesPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -134,7 +134,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   it('checks /support-hearing page passes @pa11y', async () => {
     await supportHearingPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-support-hearing-page.png`;
-    pa11yOpts.page = await supportHearingPage.page;
+    pa11yOpts.page = supportHearingPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -146,7 +146,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   it('checks /claiming-expenses page passes @pa11y', async () => {
     await claimingExpensesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-claiming-expenses-page.png`;
-    pa11yOpts.page = await claimingExpensesPage.page;
+    pa11yOpts.page = claimingExpensesPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -158,7 +158,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   it('checks /withdraw-appeal page passes @pa11y', async () => {
     await withdrawAppealPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-withdraw-appeal-page.png`;
-    pa11yOpts.page = await withdrawAppealPage.page;
+    pa11yOpts.page = withdrawAppealPage.page;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
@@ -242,7 +242,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     it('Navigate to hearing tab', async () => {
       statusPage.verifyPage();
       await statusPage.clickElement('#tab-hearing');
-      await page.waitFor(500);
+      await page.waitForTimeout(500);
       expect(
         await statusPage.getElementText('.govuk-tabs__list-item--selected')
       ).contain(content.en.hearingTab.tabHeader);
@@ -252,7 +252,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     it('checks /hearing page passes @pa11y', async () => {
       hearingPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-hearing-page.png`;
-      pa11yOpts.page = await hearingPage.page;
+      pa11yOpts.page = hearingPage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(
         0,
@@ -264,7 +264,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   describe('Audio/video Evidence page', () => {
     it('Navigate to Audio/Video Evidence tab', async () => {
       await statusPage.clickElement('#tab-avEvidence');
-      await page.waitFor(500);
+      await page.waitForTimeout(500);
 
       expect(
         await statusPage.getElementText('.govuk-tabs__list-item--selected')
@@ -277,7 +277,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     it('checks /audio-video-evidence page passes @pa11y', async () => {
       audioVideoEvidencePage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-audio-video-evidence-page.png`;
-      pa11yOpts.page = await audioVideoEvidencePage.page;
+      pa11yOpts.page = audioVideoEvidencePage.page;
       const result = await pa11y(pa11yOpts);
       expect(result.issues.length).to.equal(
         0,
@@ -289,7 +289,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   describe('Appeal Details page', () => {
     it('Navigate to Appeal Details page', async () => {
       await statusPage.navigateToAppealDetailsPage();
-      await page.waitFor(500);
+      await page.waitForTimeout(500);
 
       expect(
         await appealDetailsPage.getElementText('.govuk-heading-xl')

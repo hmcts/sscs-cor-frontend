@@ -51,6 +51,7 @@ describe('CY - Representative - Manage your appeal app @mya @nightly', () => {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
+    assignCasePage.verifyLanguage('cy');
   });
 
   it('CY - Representative should inform postcode, submit and land in status page', async () => {

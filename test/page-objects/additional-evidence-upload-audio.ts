@@ -12,10 +12,8 @@ export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
   }
 
   async verifyPages() {
-    const headerText = this.page.getHeading();
-    expect(headerText).to.equal(
-      content.en.additionalEvidence.evidenceUpload.header
-    );
+    const title = this.page.title();
+    expect(title).to.equal(content.en.additionalEvidence.evidenceUpload.header);
   }
 
   async selectFile(filename: string) {

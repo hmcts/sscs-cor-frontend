@@ -1,13 +1,15 @@
 import { expect, sinon } from 'test/chai-sinon';
 import * as nunjucks from 'nunjucks';
 import * as appConfigs from '../../app/server/app-configurations';
-
-const express = require('express');
+import i18next from 'i18next';
+import { Application } from 'express';
+import express = require('express');
+import { Environment } from 'nunjucks';
 
 describe('app-configuration', () => {
   let sandbox: sinon.SinonSandbox;
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
   });
 
   afterEach(() => {
@@ -30,14 +32,12 @@ describe('app-configuration', () => {
       express: sandbox.stub(),
       tyaNunjucks: sandbox.stub(),
     };
-    sandbox
-      .stub(nunjucks, 'configure')
-      .returns(configNunjucks as nunjucks.Environment);
-    const app = express();
-    const i18next = require('i18next');
+    sandbox.stub(nunjucks, 'configure').returns(configNunjucks as Environment);
+    const app: Application = express();
+    app.locals.i18n = i18next;
 
-    appConfigs.configureNunjucks(app, i18next);
+    appConfigs.configureNunjucks(app);
 
-    expect(nunjucks.configure([]).addFilter).to.have.been.callCount(11);
+    expect(nunjucks.configure([]).addFilter).to.have.been.callCount(8);
   });
 });

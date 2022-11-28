@@ -39,8 +39,7 @@ corContent %}
             </details>
           </dd>
           <dd class="govuk-summary-list__actions">
-            {{ event.date | dateFilter("locale", i18n.language) | dateFilter("DD
-            MMMM YYYY") }}
+            {{ event.date | dateFormat('DD MMMM YYYY', i18n.language)}}
           </dd>
         </div>
         {% endfor %}

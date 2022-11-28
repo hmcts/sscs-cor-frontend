@@ -3,6 +3,7 @@
     "module": "commonjs",
     "target": "es6",
     "allowSyntheticDefaultImports": true,
+	"resolveJsonModule": true,
     "allowJs": false,
     "noImplicitAny": false,
     "moduleResolution": "node",
@@ -11,6 +12,7 @@
     "paths": {
       "*": ["*"]
     },
-    "lib": ["dom", "es7"]
-  }
+    "lib": ["dom", "es7", "es2020"]
+  },
+  "exclude": ["dist"]
 }

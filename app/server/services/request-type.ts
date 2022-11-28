@@ -28,7 +28,7 @@ export class RequestTypeService {
   }
 
   async getHearingRecording(identifier: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         uri: `${this.apiUrl}/api/request/${identifier}/hearingrecording`,
@@ -42,7 +42,7 @@ export class RequestTypeService {
     hearingIds: string[],
     req: Request
   ) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'POST',
         uri: `${this.apiUrl}/api/request/${identifier}/recordingrequest`,

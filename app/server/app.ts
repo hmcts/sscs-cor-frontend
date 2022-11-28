@@ -78,7 +78,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     app.set('trust proxy', 1);
   }
 
-  configureNunjucks(app, i18next);
+  configureNunjucks(app);
 
   app.use(
     bodyParser.urlencoded({

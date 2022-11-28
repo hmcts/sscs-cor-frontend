@@ -56,7 +56,7 @@ describe('Hearing Recording request @mya @nightly', () => {
     assignCasePage.verifyPage();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     await page.reload();
     statusPage.verifyPage();
     await requestTypePage.visitPage();
@@ -64,7 +64,7 @@ describe('Hearing Recording request @mya @nightly', () => {
 
   it('Navigate to Request Type tab', async () => {
     await statusPage.clickElement('#tab-requestType');
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
 
     expect(
       await requestTypePage.getElementText('.govuk-tabs__list-item--selected')
@@ -78,7 +78,7 @@ describe('Hearing Recording request @mya @nightly', () => {
   it.skip('checks /request-type page passes @pa11y', async () => {
     requestTypePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-request-type-page.png`;
-    pa11yOpts.page = await requestTypePage.page;
+    pa11yOpts.page = requestTypePage.page;
     const result = await pa11y(pa11yOpts);
     // Request type form gets submitted on changing the value. Here PA11Y test throws "This form does not contain a submit button error"
     expect(result.issues.length).to.equal(
@@ -90,7 +90,7 @@ describe('Hearing Recording request @mya @nightly', () => {
   it('Select hearing recording option and shows list of hearing recording available', async () => {
     requestTypePage.verifyPage();
     await requestTypePage.selectRequestOption();
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
     requestTypePage.verifyPage();
 
     expect(

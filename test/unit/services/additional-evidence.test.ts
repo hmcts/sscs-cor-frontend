@@ -11,7 +11,7 @@ const config = require('config');
 
 describe('services/additional-evidence', () => {
   let rpStub: sinon.SinonStub;
-  const sandbox: sinon.SinonSandbox = sinon.sandbox.create();
+  const sandbox: sinon.SinonSandbox = sinon.createSandbox();
   const req: any = {};
   const apiUrl = config.get('api.url');
   const additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
@@ -137,6 +137,38 @@ describe('services/additional-evidence', () => {
     await additionalEvidenceService.submitEvidences(
       hearingId,
       description,
+      req
+    );
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
+
+  it('should submitSingleEvidences', async () => {
+    const description = 'An evidence description';
+    const expectedRequestOptions = {
+      method: 'POST',
+      retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
+      formData: {
+        body: description,
+        idamEmail: 'appellant@email.com',
+        file: {
+          value: file.buffer,
+          options: {
+            filename: file.originalname,
+            contentType: file.mimetype,
+          },
+        },
+      },
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/singleevidence`,
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+
+    await additionalEvidenceService.submitSingleEvidences(
+      hearingId,
+      description,
+      file as Express.Multer.File,
       req
     );
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);

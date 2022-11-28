@@ -5,7 +5,7 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 const { expect, sinon } = require('test/chai-sinon');
 
 describe('services/tyaService', () => {
-  const sandbox: sinon.SinonSandbox = sinon.sandbox.create();
+  const sandbox: sinon.SinonSandbox = sinon.createSandbox();
   let rpStub: sinon.SinonStub;
   const tribunalsApiUrl: string = config.get('tribunals.api-url');
   const trackYourAppealService = new TrackYourApealService(tribunalsApiUrl);
@@ -30,6 +30,17 @@ describe('services/tyaService', () => {
       uri: `${tribunalsApiUrl}/appeals?mya=true&caseId=${appealId}`,
     };
     await trackYourAppealService.getAppeal(appealId, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
+
+  it('should validateSurname', async () => {
+    const appealId = 'appealNumber';
+    const surname = 'burgers';
+    const expectedRequestOptions = {
+      method: 'GET',
+      uri: `${tribunalsApiUrl}/appeals/${appealId}/surname/${surname}`,
+    };
+    await trackYourAppealService.validateSurname(appealId, surname, req);
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 

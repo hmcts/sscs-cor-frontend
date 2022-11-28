@@ -19,7 +19,7 @@ export class AdditionalEvidenceService {
   }
 
   async saveStatement(identifier: string, statementText: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'POST',
         retry: HTTP_RETRIES,
@@ -39,7 +39,7 @@ export class AdditionalEvidenceService {
     file: Express.Multer.File,
     req: Request
   ): Promise<EvidenceDescriptor> {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'PUT',
         uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
@@ -60,7 +60,7 @@ export class AdditionalEvidenceService {
   }
 
   async removeEvidence(identifier: string, evidenceId: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'DELETE',
         uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence/${evidenceId}`,
@@ -76,7 +76,7 @@ export class AdditionalEvidenceService {
     identifier: string,
     req: Request
   ): Promise<EvidenceDescriptor[]> {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         uri: `${this.apiUrl}/api/continuous-online-hearings/${identifier}/evidence`,
@@ -86,7 +86,7 @@ export class AdditionalEvidenceService {
   }
 
   async getCoversheet(caseId: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'GET',
         retry: HTTP_RETRIES,
@@ -102,7 +102,7 @@ export class AdditionalEvidenceService {
   }
 
   async submitEvidences(identifier: string, description: string, req: Request) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'POST',
         retry: HTTP_RETRIES,
@@ -126,7 +126,7 @@ export class AdditionalEvidenceService {
     file: Express.Multer.File,
     req: Request
   ) {
-    return await RequestPromise.request(
+    return RequestPromise.request(
       {
         method: 'POST',
         retry: HTTP_RETRIES,

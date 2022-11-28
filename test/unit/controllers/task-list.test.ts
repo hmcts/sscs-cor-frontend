@@ -11,15 +11,15 @@ import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
-
-const { expect, sinon } = require('test/chai-sinon');
-const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-const moment = require('moment');
+import { NextFunction } from 'express';
+import { expect, sinon } from '../../chai-sinon';
+import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import moment from 'moment';
 
 describe('controllers/task-list', () => {
   let req;
   let res;
-  let next;
+  let next: NextFunction;
   let additionalEvidenceService;
   let sandbox: sinon.SinonSandbox;
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
@@ -31,7 +31,7 @@ describe('controllers/task-list', () => {
   };
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req = {
       session: {
         hearing: hearingDetails,
@@ -45,7 +45,7 @@ describe('controllers/task-list', () => {
       send: sandbox.stub(),
       header: sandbox.stub(),
     };
-    next = sandbox.stub();
+    next = sandbox.stub().resolves();
     sandbox.stub(AppInsights, 'trackException');
     sandbox.stub(AppInsights, 'trackEvent');
     additionalEvidenceService = {

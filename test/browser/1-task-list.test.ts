@@ -62,7 +62,7 @@ describe('Task list page', () => {
   });
 
   it('is on the /task-list path', async () => {
-    await page.waitFor(4000);
+    await page.waitForTimeout(4000);
     taskListPage.verifyPage();
   });
 
