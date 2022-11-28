@@ -16,21 +16,25 @@ async function runBootstrap() {
     await createAndIssueDecision(cohTestData.hearingId, ccdCase.id);
   }
 
-  console.log('\n' + bold(_.pad(' CCD case ', 60, '-')) + '\n');
+  console.log(`\n${bold(_.pad(' CCD case ', 60, '-'))}\n`);
 
-  _.each(ccdCase, (value, key) => console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40))));
+  _.each(ccdCase, (value, key) =>
+    console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40)))
+  );
 
-  console.log('\n' + bold(_.pad(' COH test data ', 60, '-')) + '\n');
+  console.log(`\n${bold(_.pad(' COH test data ', 60, '-'))}\n`);
 
-  _.each(cohTestData, (value, key) => console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40))));
+  _.each(cohTestData, (value, key) =>
+    console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40)))
+  );
 
   // reinstate once we are able to use a stable deployment of SIDAM in AAT
   // console.log('\n' + bold(_.pad('SIDAM user', 60, '-')) + '\n');
   // _.each(sidamUser, (value, key) => console.log(blue(_.padEnd(key, 20)) + white(_.padEnd(value, 40))));
 
-  console.log('\n' + bold(_.pad('', 60, '-')) + '\n');
+  console.log(`\n${bold(_.pad('', 60, '-'))}\n`);
 }
 
 runBootstrap()
   .then(() => console.log('Complete'))
-  .catch(e => console.error('Failed', e));
+  .catch((e) => console.error('Failed', e));

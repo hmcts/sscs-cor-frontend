@@ -7,17 +7,22 @@ const logger = Logger.getLogger('TokenService.js');
 
 const validateToken = (req, res, next) => {
   if (!req.params.mactoken) {
-    next(new Error(`Unable to make API call to ${tribunalApiUrl}/tokens/${req.params.mactoken}`));
+    next(
+      new Error(
+        `Unable to make API call to ${tribunalApiUrl}/tokens/${req.params.mactoken}`
+      )
+    );
     return;
   }
 
-  request.get(`${tribunalApiUrl}/tokens/${req.params.mactoken}`)
-    .then(result => {
+  request
+    .get(`${tribunalApiUrl}/tokens/${req.params.mactoken}`)
+    .then((result) => {
       res.locals.token = result.body.token;
       logger.info(`GET /tokens/${req.params.mactoken} ${HttpStatus.OK}`);
       next();
     })
-    .catch(error => {
+    .catch((error) => {
       if (error.statusCode === HttpStatus.BAD_REQUEST) {
         // Provide a better error message.
         error.message = error.rawResponse;

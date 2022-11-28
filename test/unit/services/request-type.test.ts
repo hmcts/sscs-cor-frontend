@@ -1,7 +1,8 @@
 import { RequestTypeService } from 'app/server/services/request-type';
+
+import { RequestPromise } from 'app/server/services/request-wrapper';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-import { RequestPromise } from 'app/server/services/request-wrapper';
 
 describe('services/request-type', () => {
   const hearingId = '121';
@@ -12,8 +13,8 @@ describe('services/request-type', () => {
   before(() => {
     requestTypeService = new RequestTypeService('http://sscs-cor-backend.net');
     req.session = {
-      accessToken : 'someUserToken',
-      serviceToken : 'someServiceToken'
+      accessToken: 'someUserToken',
+      serviceToken: 'someServiceToken',
     };
   });
 
@@ -27,9 +28,9 @@ describe('services/request-type', () => {
 
   const apiResponse = {
     body: {
-      hearingRecordingResponse: {}
+      hearingRecordingResponse: {},
     },
-    statusCode: 200
+    statusCode: 200,
   };
 
   describe('getHearingRecording', () => {
@@ -38,10 +39,10 @@ describe('services/request-type', () => {
 
       const expectedOptions = {
         method: 'GET',
-        uri: `http://sscs-cor-backend.net/api/request/${caseId}/hearingrecording`
+        uri: `http://sscs-cor-backend.net/api/request/${caseId}/hearingrecording`,
       };
 
-      expect(rpStub).to.have.been.calledOnce.calledWith(sinon.match(expectedOptions, req));
+      expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
     describe('on success', () => {
@@ -69,24 +70,28 @@ describe('services/request-type', () => {
         rpStub.restore();
       });
 
-      it('rejects the promise with the error', () => (
-        expect(requestTypeService.getHearingRecording(caseId, req)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(
+          requestTypeService.getHearingRecording(caseId, req)
+        ).to.be.rejectedWith(error));
     });
   });
 
   describe('submitHearingRecordingRequest', () => {
-
     it('calls out to service', async () => {
-      await requestTypeService.submitHearingRecordingRequest(caseId, [hearingId], req);
+      await requestTypeService.submitHearingRecordingRequest(
+        caseId,
+        [hearingId],
+        req
+      );
 
       const expectedOptions = {
         method: 'POST',
         uri: `http://sscs-cor-backend.net/api/request/${caseId}/recordingrequest`,
         headers: { 'Content-type': 'application/json' },
         formData: {
-          hearingIds: [hearingId]
-        }
+          hearingIds: [hearingId],
+        },
       };
 
       expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
@@ -102,7 +107,11 @@ describe('services/request-type', () => {
       });
 
       it('resolves', async () => {
-        const result = await requestTypeService.submitHearingRecordingRequest(caseId, [hearingId], req);
+        const result = await requestTypeService.submitHearingRecordingRequest(
+          caseId,
+          [hearingId],
+          req
+        );
         expect(result).to.equal(true);
       });
     });
@@ -117,9 +126,14 @@ describe('services/request-type', () => {
         rpStub.restore();
       });
 
-      it('rejects the promise with the error', () => (
-        expect(requestTypeService.submitHearingRecordingRequest(caseId, [hearingId], req)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(
+          requestTypeService.submitHearingRecordingRequest(
+            caseId,
+            [hearingId],
+            req
+          )
+        ).to.be.rejectedWith(error));
     });
   });
 });

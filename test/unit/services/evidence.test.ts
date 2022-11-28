@@ -1,9 +1,10 @@
 import { EvidenceService } from 'app/server/services/evidence';
 import * as path from 'path';
 import * as fs from 'fs';
+
+import { RequestPromise } from 'app/server/services/request-wrapper';
 const { expect, sinon } = require('test/chai-sinon');
 const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-import { RequestPromise } from 'app/server/services/request-wrapper';
 
 describe('services/evidence', () => {
   const hearingId = '121';
@@ -14,8 +15,8 @@ describe('services/evidence', () => {
   before(() => {
     evidenceService = new EvidenceService('http://sscs-cor-backend.net');
     req.session = {
-      accessToken : 'someUserToken',
-      serviceToken : 'someServiceToken'
+      accessToken: 'someUserToken',
+      serviceToken: 'someServiceToken',
     };
   });
 
@@ -30,16 +31,18 @@ describe('services/evidence', () => {
   const apiResponse = {
     body: {
       id: '5425f1eb-92bd-4784-83df-9afa348fd1b3',
-      file_name: 'some_file_name.txt'
+      file_name: 'some_file_name.txt',
     },
-    statusCode: 200
+    statusCode: 200,
   };
 
   const file = {
     fieldname: 'file-upload-1',
     originalname: 'some_evidence.txt',
     mimetype: 'text/plain',
-    buffer: fs.readFileSync(path.join(__dirname, '/../../fixtures/evidence/evidence.txt'))
+    buffer: fs.readFileSync(
+      path.join(__dirname, '/../../fixtures/evidence/evidence.txt')
+    ),
   };
 
   describe('#upload', () => {
@@ -49,17 +52,20 @@ describe('services/evidence', () => {
       const expectedOptions = {
         formData: {
           file: {
-            options: { contentType: file.mimetype, filename: file.originalname },
-            value: file.buffer
-          }
+            options: {
+              contentType: file.mimetype,
+              filename: file.originalname,
+            },
+            value: file.buffer,
+          },
         },
         method: 'POST',
         resolveWithFullResponse: true,
         simple: false,
-        url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`
+        url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence`,
       };
 
-      expect(rpStub).to.have.been.calledOnce.calledWith(sinon.match(expectedOptions, req));
+      expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
     });
 
     describe('on success', () => {
@@ -72,7 +78,12 @@ describe('services/evidence', () => {
       });
 
       it('resolves with the response body', async () => {
-        const body = await evidenceService.upload(hearingId, questionId, file, req);
+        const body = await evidenceService.upload(
+          hearingId,
+          questionId,
+          file,
+          req
+        );
         expect(body).to.deep.equal(apiResponse);
       });
     });
@@ -87,21 +98,21 @@ describe('services/evidence', () => {
         rpStub.restore();
       });
 
-      it('rejects the promise with the error', () => (
-        expect(evidenceService.upload(hearingId, questionId, {}, req)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(
+          evidenceService.upload(hearingId, questionId, {}, req)
+        ).to.be.rejectedWith(error));
     });
   });
 
   describe('#remove', () => {
-
     it('calls out to service', async () => {
       await evidenceService.remove(hearingId, questionId, '123', req);
 
       const expectedOptions = {
         method: 'DELETE',
         headers: { 'Content-Length': '0' },
-        url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`
+        url: `http://sscs-cor-backend.net/api/continuous-online-hearings/${hearingId}/questions/${questionId}/evidence/123`,
       };
 
       expect(rpStub).to.have.been.calledOnce.calledWith(expectedOptions, req);
@@ -117,7 +128,12 @@ describe('services/evidence', () => {
       });
 
       it('resolves', async () => {
-        const result = await evidenceService.remove(hearingId, questionId, '123', req);
+        const result = await evidenceService.remove(
+          hearingId,
+          questionId,
+          '123',
+          req
+        );
         expect(result).to.equal(apiResponse);
       });
     });
@@ -132,9 +148,10 @@ describe('services/evidence', () => {
         rpStub.restore();
       });
 
-      it('rejects the promise with the error', () => (
-        expect(evidenceService.remove(hearingId, questionId, '123', req)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(
+          evidenceService.remove(hearingId, questionId, '123', req)
+        ).to.be.rejectedWith(error));
     });
   });
 });

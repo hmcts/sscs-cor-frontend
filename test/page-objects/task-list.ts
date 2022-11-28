@@ -14,14 +14,14 @@ export class TaskListPage extends BasePage {
   async clickQuestion(questionId) {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement(`#question-${questionId} a`)
+      this.clickElement(`#question-${questionId} a`),
     ]);
   }
 
   async clickExtend() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#extend-deadline')
+      this.clickElement('#extend-deadline'),
     ]);
   }
 }

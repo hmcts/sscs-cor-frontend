@@ -3,6 +3,7 @@ import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 import * as moment from 'moment';
 import axios from 'axios';
 import { Session } from 'inspector';
+import { SinonSpy, SinonStub } from 'sinon';
 
 describe('Client/session-inactivity', () => {
   let sessionInactivity: SessionInactivity;
@@ -10,19 +11,24 @@ describe('Client/session-inactivity', () => {
   let modal: HTMLElement;
   let extendButton: HTMLElement;
   let cancelButton: HTMLElement;
-  let extendSessionMock: any;
-  let bindModalMock: any;
-  let addListernersMock: sinon.SinonStub;
-  let axiosSpy: any;
+  let extendSessionMock: SinonStub;
+  let bindModalMock: SinonStub;
+  let addListernersMock: SinonStub;
+  let axiosSpy: SinonSpy;
 
   before(() => {
     sessionInactivity = new SessionInactivity();
-    extendSessionMock = sinon.stub(SessionInactivity.prototype, 'extendSession');
-    bindModalMock = sinon.stub(SessionInactivity.prototype, 'bindModalButtonListeners');
+    extendSessionMock = sinon.stub(
+      SessionInactivity.prototype,
+      'extendSession'
+    );
+    bindModalMock = sinon.stub(
+      SessionInactivity.prototype,
+      'bindModalButtonListeners'
+    );
     addListernersMock = sinon.stub(SessionInactivity.prototype, 'addListeners');
     axiosSpy = sinon.spy(axios, 'get');
-    document.body.innerHTML =
-      `<form id="${sessionInactivity.ANSWER_FORM}"></form>
+    document.body.innerHTML = `<form id="${sessionInactivity.ANSWER_FORM}"></form>
       <div id="timeout-dialog" class="modal">
       <button id="extend">Extend</button>
       <button id="cancel">Cancel</button>
@@ -33,7 +39,6 @@ describe('Client/session-inactivity', () => {
     modal = document.getElementById(sessionInactivity.MODAL);
     extendButton = document.getElementById(sessionInactivity.EXTEND_BUTTON);
     cancelButton = document.getElementById(sessionInactivity.CANCEL_BUTTON);
-
   });
 
   describe('Class', () => {
@@ -52,7 +57,7 @@ describe('Client/session-inactivity', () => {
   describe('extendSession', () => {
     beforeEach(() => {
       extendSessionMock.restore();
-      axiosSpy.reset();
+      axiosSpy.resetHistory();
     });
 
     it('should extendSession if first time', () => {
@@ -62,7 +67,10 @@ describe('Client/session-inactivity', () => {
     });
 
     it('within the buffer  make an extension call', () => {
-      sessionInactivity.lastReset = moment().subtract(sessionInactivity.sessionExtendBuffer - 10, 's');
+      sessionInactivity.lastReset = moment().subtract(
+        sessionInactivity.sessionExtendBuffer - 10,
+        's'
+      );
       sessionInactivity.sessionExpiry = moment().add(2000, 's');
       sessionInactivity.extendSession();
       expect(axiosSpy).to.not.have.been.called;
@@ -73,7 +81,6 @@ describe('Client/session-inactivity', () => {
       sessionInactivity.extendSession();
       expect(axiosSpy).to.have.been.called;
     });
-
   });
 
   describe('Event listeners', () => {
@@ -83,13 +90,13 @@ describe('Client/session-inactivity', () => {
 
     it('should remove keystroke event', () => {
       sessionInactivity.removeKeyStrokeListener();
-      target.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'a' }));
+      target.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }));
       expect(extendSessionMock).to.not.have.been.called;
     });
 
     it('should bind keystroke event', () => {
       sessionInactivity.bindKeyStrokeListener();
-      target.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'a' }));
+      target.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }));
       expect(extendSessionMock).to.have.been.called;
     });
 
@@ -100,7 +107,7 @@ describe('Client/session-inactivity', () => {
         view: window,
         bubbles: true,
         cancelable: true,
-        clientX: 20
+        clientX: 20,
       });
       extendButton.dispatchEvent(evt);
       expect(bindModalMock).to.have.been.called;
@@ -119,14 +126,13 @@ describe('Client/session-inactivity', () => {
       const classes = document.getElementById('timeout-dialog').className;
       expect(classes).to.not.contain('modal--open');
     });
-
   });
 
   describe('Counters', () => {
     let sandbox;
     let clock;
     beforeEach(() => {
-      sandbox = sinon.sandbox.create();
+      sandbox = sinon.createSandbox();
       clock = sinon.useFakeTimers();
     });
 
@@ -136,8 +142,14 @@ describe('Client/session-inactivity', () => {
     });
 
     it('should restart counters', () => {
-      const stopCountersStub = sandbox.stub(SessionInactivity.prototype, 'stopCounters');
-      const startCountersStub = sandbox.stub(SessionInactivity.prototype, 'startCounters');
+      const stopCountersStub = sandbox.stub(
+        SessionInactivity.prototype,
+        'stopCounters'
+      );
+      const startCountersStub = sandbox.stub(
+        SessionInactivity.prototype,
+        'startCounters'
+      );
 
       sessionInactivity.restartCounters();
 
@@ -146,8 +158,14 @@ describe('Client/session-inactivity', () => {
     });
 
     it('should start Counters', () => {
-      const startCountdownStub = sandbox.stub(SessionInactivity.prototype, 'startCountdown');
-      const startSessionTimeOutStub = sandbox.stub(SessionInactivity.prototype, 'startSessionTimeOut');
+      const startCountdownStub = sandbox.stub(
+        SessionInactivity.prototype,
+        'startCountdown'
+      );
+      const startSessionTimeOutStub = sandbox.stub(
+        SessionInactivity.prototype,
+        'startSessionTimeOut'
+      );
 
       sessionInactivity.startCounters();
 
@@ -174,8 +192,14 @@ describe('Client/session-inactivity', () => {
     });
 
     it('should start countDown', () => {
-      const openModalSpy = sandbox.spy(SessionInactivity.prototype, 'openModal');
-      const startModalIntervalSpy = sandbox.spy(SessionInactivity.prototype, 'startModalInterval');
+      const openModalSpy = sandbox.spy(
+        SessionInactivity.prototype,
+        'openModal'
+      );
+      const startModalIntervalSpy = sandbox.spy(
+        SessionInactivity.prototype,
+        'startModalInterval'
+      );
       sessionInactivity.startCountdown(2000);
       clock.tick(2001);
 
@@ -188,7 +212,9 @@ describe('Client/session-inactivity', () => {
       clock.tick(1001);
 
       const message = document.getElementById('expiring-in-message');
-      expect(message.innerHTML).to.be.equal('Your session will expire in 2:00 minutes and you will be signed out.');
+      expect(message.innerHTML).to.be.equal(
+        'Your session will expire in 2:00 minutes and you will be signed out.'
+      );
     });
   });
 });

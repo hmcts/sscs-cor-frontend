@@ -1,23 +1,23 @@
 import * as request from 'promise-request-retry';
 import { Request } from 'express';
-const timeout = require('config').get('apiCallTimeout');
+
 import * as AppInsights from '../app-insights';
+const timeout = require('config').get('apiCallTimeout');
 
 export class RequestPromise {
-
   static async request(options, req?: Request) {
     let defaultOptions = {};
     if (!options.encoding && options.encoding !== 'binary') {
       defaultOptions = {
         timeout,
-        json: true
+        json: true,
       };
     }
 
-    if (req && req.session) {
+    if (req?.session) {
       defaultOptions['headers'] = {
         Authorization: `Bearer ${req.session['accessToken']}`,
-        ServiceAuthorization: `Bearer ${req.session['serviceToken']}`
+        ServiceAuthorization: `Bearer ${req.session['serviceToken']}`,
       };
     }
 
@@ -28,11 +28,14 @@ export class RequestPromise {
     Object.assign(options, defaultOptions);
     try {
       const body = await request(options);
-      return Promise.resolve(body);
+      return await Promise.resolve(body);
     } catch (error) {
-      AppInsights.trackException(`error is: ${error.message} calling ${options.uri}`);
-      return Promise.reject(`error is: ${error.message} calling ${options.uri}`);
+      AppInsights.trackException(
+        `error is: ${error.message} calling ${options.uri}`
+      );
+      return Promise.reject(
+        `error is: ${error.message} calling ${options.uri}`
+      );
     }
-
   }
 }

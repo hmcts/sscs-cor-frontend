@@ -1,10 +1,10 @@
+import { RequestPromise } from './request-wrapper';
 const config = require('config');
 const otp = require('otp');
 
 const microservice = config.get('s2s.microservice');
 const s2sSecret = config.get('s2s.secret');
 const s2sUrl = config.get('s2s.url');
-import { RequestPromise } from './request-wrapper';
 
 async function generateToken(): Promise<string> {
   const oneTimePassword = otp({ secret: s2sSecret }).totp();
@@ -13,11 +13,9 @@ async function generateToken(): Promise<string> {
     url: `${s2sUrl}/lease`,
     body: {
       microservice,
-      oneTimePassword
-    }
+      oneTimePassword,
+    },
   });
 }
 
-export {
-  generateToken
-};
+export { generateToken };

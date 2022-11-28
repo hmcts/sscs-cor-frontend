@@ -1,12 +1,14 @@
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  autoscaling:
+    enabled: false
   environment:
-    REDIS_URL: redis://${SERVICE_NAME}-redis-master
-    SESSION_SECRET:
+    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    REDIS_PORT: 6379
     NODE_ENV: preview
-    MYA_FEATURE_FLAG: "true"
-    POST_BULK_SCAN: "true"
+    MYA_FEATURE_FLAG: 'true'
+    POST_BULK_SCAN: 'true'
   keyVaults:
     sscs:
       secrets:
@@ -15,6 +17,11 @@ nodejs:
         - sscs-s2s-secret
 redis:
   enabled: true
+  architecture: standalone
+  auth:
+    enabled: false
+  image:
+    debug: true
 idam-pr:
   enabled: true
   redirect_uris:

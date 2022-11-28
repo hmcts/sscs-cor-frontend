@@ -1,10 +1,21 @@
 {% macro spinner(text) %}
-    <div id="upload-spinner">
-        <div class="lds-spinner">
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-        </div>
-        {% if text %}
-            <div class="govuk-heading-m spinner-text">{{ text | safe }}</div>
-        {% endif %}
-    </div>
+<div id="upload-spinner">
+  <div class="lds-spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  {% if text %}
+  <div class="govuk-heading-m spinner-text">{{ text | safe }}</div>
+  {% endif %}
+</div>
 {% endmacro %}

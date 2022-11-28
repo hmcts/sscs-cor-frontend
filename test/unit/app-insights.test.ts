@@ -1,11 +1,12 @@
-const { expect, sinon } = require('test/chai-sinon');
 import * as applicationInsights from 'applicationinsights';
-import * as AppInsights from 'app/server/app-insights.ts';
+import * as AppInsights from 'app/server/app-insights';
+
+const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
 
 describe('app-insights.js', () => {
   describe('enable', () => {
-    const sb = sinon.sandbox.create();
+    const sb = sinon.createSandbox();
 
     beforeEach(() => {
       sb.stub(applicationInsights, 'start');
@@ -17,7 +18,9 @@ describe('app-insights.js', () => {
 
     it('sets cloud role name', () => {
       AppInsights.enable();
-      expect(applicationInsights.defaultClient.context.tags['ai.cloud.role']).to.equal(config.get('appInsights.roleName'));
+      expect(
+        applicationInsights.defaultClient.context.tags['ai.cloud.role']
+      ).to.equal(config.get('appInsights.roleName'));
     });
 
     it('should call start', () => {

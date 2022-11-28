@@ -10,5 +10,5 @@ module.exports = {
   status: (req, res, next) => {
     deleteEvidences(req.params.onlineHearingId);
     next();
-  }
+  },
 };

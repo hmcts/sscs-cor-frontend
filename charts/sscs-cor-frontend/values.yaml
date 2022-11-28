@@ -8,19 +8,22 @@ nodejs:
   aadIdentityName: sscs
   environment:
     IDAM_ENABLE_STUB: false
-    SSCS_API_URL: "http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
-    IDAM_URL: "https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net"
-    IDAM_API_URL: "https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net"
-    TRIBUNALS_API_URL: "http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
-    S2S_URL: "http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
-    NODE_ENV: "production"
+    REDIS_HOST: 'sscs-cor-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
+    REDIS_PORT: 6380
+    SSCS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    IDAM_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net'
+    IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net'
+    TRIBUNALS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    S2S_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    NODE_ENV: '{{ .Values.global.environment }}'
     HTTP_PROTOCOL: http
     UV_THREADPOOL_SIZE: 64
-    MYA_FEATURE_FLAG: "false"
-    MEDIA_FILES_ALLOWED_ENABLED: "true"
-    POST_BULK_SCAN: "false"
-    HEARING_OUTCOME_TAB_ENABLED: "false"
-    REQUEST_TAB_ENABLED: "true"
+    MYA_FEATURE_FLAG: "true"
+    MEDIA_FILES_ALLOWED_ENABLED: 'true'
+    POST_BULK_SCAN: "true"
+    HEARING_OUTCOME_TAB_ENABLED: 'false'
+    REQUEST_TAB_ENABLED: 'true'
+    FT_WELSH: "true"
   keyVaults:
     sscs:
       secrets:
@@ -28,6 +31,7 @@ nodejs:
         - sscs-s2s-secret
         - sscs-cor-redis-access-key
         - sscs-cor-redis-connection-string
+        - tyacookiesecret
         - idam-sscs-oauth2-client-secret
         - AppInsightsInstrumentationKey
 redis:

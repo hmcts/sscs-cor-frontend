@@ -1,5 +1,6 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { RequestType } from 'app/client/javascript/request-type';
+import { SinonSpy } from 'sinon';
 
 const html = `<div class="task-list">
               <h2 class="govuk-heading-m --margin-bottom-s">Select Request</h2>
@@ -28,11 +29,14 @@ describe('request-type', () => {
 
   describe('constructor', () => {
     before(() => {
-      document.querySelector<HTMLInputElement>('#requestOptions').addEventListener = sinon.spy();
+      document.querySelector<HTMLInputElement>(
+        '#requestOptions'
+      ).addEventListener = sinon.spy();
     });
     describe('initialize class', () => {
       it('should attach Event Listeners', () => {
-        const target = document.querySelector<HTMLSelectElement>('#requestOptions');
+        const target =
+          document.querySelector<HTMLSelectElement>('#requestOptions');
         expect(target.addEventListener).to.have.not.been.called;
         requestType.init();
         expect(target.addEventListener).to.have.been.called;
@@ -41,9 +45,11 @@ describe('request-type', () => {
   });
 
   describe('select request type', () => {
-    let submitSpy;
+    let submitSpy: SinonSpy;
     before(() => {
-      const form = document.querySelector<HTMLFormElement>('#request-option-form');
+      const form = document.querySelector<HTMLFormElement>(
+        '#request-option-form'
+      );
       submitSpy = sinon.spy(form, 'submit');
       requestType.init();
     });
@@ -52,7 +58,8 @@ describe('request-type', () => {
     });
     describe('select request type', () => {
       it('should submit form', () => {
-        const select = document.querySelector<HTMLSelectElement>('#requestOptions');
+        const select =
+          document.querySelector<HTMLSelectElement>('#requestOptions');
         expect(select.addEventListener).to.have.been.called;
         select.value = 'hearingRecording';
         select.dispatchEvent(new Event('change'));

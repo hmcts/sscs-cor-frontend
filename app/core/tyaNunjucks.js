@@ -1,9 +1,6 @@
 const { getContentAsString } = require('../core/contentLookup');
-const { lowerCase } = require('lodash');
 
-const space = 2;
 const tyaNunjucks = {
-
   nunjucksEnv: null,
 
   get env() {
@@ -15,44 +12,15 @@ const tyaNunjucks = {
 
   set env(env) {
     this.nunjucksEnv = env;
-  }
-
-};
-
-const filters = {
-
-  json: obj => {
-    JSON.stringify(obj, null, space);
   },
-
-  acronym: benefitType => {
-    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.acronym`);
-  },
-
-  fullDescription: benefitType => {
-    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.fullDescription`);
-  },
-
-  agency: benefitType => {
-    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.agency`);
-  },
-
-  agencyAcronym: benefitType => {
-    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.agencyAcronym`);
-  },
-
-  panel: benefitType => {
-    getContentAsString(`benefitTypes.${lowerCase(benefitType)}.panel`);
-  }
-
 };
 
 const renderContent = (content, placeholder) => {
   if (Array.isArray(content)) {
-    content.forEach(str => renderContent(str, placeholder));
+    content.forEach((str) => renderContent(str, placeholder));
   }
   if (typeof content === 'object') {
-    const newKeys = Object.keys(content).map(key => {
+    const newKeys = Object.keys(content).map((key) => {
       return { [key]: renderContent(content[key], placeholder) };
     });
     return Object.assign({}, ...newKeys);
@@ -63,4 +31,4 @@ const renderContent = (content, placeholder) => {
   return null;
 };
 
-module.exports = { tyaNunjucks, filters, renderContent };
+module.exports = { tyaNunjucks, renderContent };
