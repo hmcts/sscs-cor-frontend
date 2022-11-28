@@ -4,5 +4,10 @@
   },
   "featureFlags": {
     "postBulkScan": "false"
+  },
+  "redis": {
+    "secret": null,
+    "tls": false,
+    "timeout": 10000
   }
 }

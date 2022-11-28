@@ -1,7 +1,13 @@
 import { HearingService } from 'app/server/services/hearing';
 import * as moment from 'moment';
 const { expect } = require('test/chai-sinon');
-const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND, UNPROCESSABLE_ENTITY, NO_CONTENT } = require('http-status-codes');
+const {
+  OK,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND,
+  UNPROCESSABLE_ENTITY,
+  NO_CONTENT,
+} = require('http-status-codes');
 const nock = require('nock');
 const config = require('config');
 
@@ -15,8 +21,8 @@ describe('services/hearing', () => {
   before(() => {
     hearingService = new HearingService(apiUrl);
     req.session = {
-      accessToken : 'someUserToken',
-      serviceToken : 'someServiceToken'
+      accessToken: 'someUserToken',
+      serviceToken: 'someServiceToken',
     };
   });
 
@@ -24,7 +30,7 @@ describe('services/hearing', () => {
     const apiResponseBody = {
       appellant_name: 'Adam Jenkins',
       case_reference: '112233',
-      online_hearing_id: 'abc-123-def-456'
+      online_hearing_id: 'abc-123-def-456',
     };
 
     describe('success response', () => {
@@ -33,16 +39,15 @@ describe('services/hearing', () => {
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
+          ServiceAuthorization: `Bearer ${serviceToken}`,
         })
           .get(path)
           .query({ email })
           .reply(OK, apiResponseBody);
       });
 
-      it('resolves the promise', () => (
-        expect(hearingService.getOnlineHearing(email, req)).to.be.fulfilled
-      ));
+      it('resolves the promise', () =>
+        expect(hearingService.getOnlineHearing(email, req)).to.be.fulfilled);
 
       it('resolves the promise with the response', async () => {
         const response = await hearingService.getOnlineHearing(email, req);
@@ -56,24 +61,24 @@ describe('services/hearing', () => {
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
         })
           .get(path)
           .query({ email })
           .replyWithError(error);
       });
 
-      it('rejects the promise with the error', () => (
-        expect(hearingService.getOnlineHearing(email, req)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(hearingService.getOnlineHearing(email, req)).to.be.rejectedWith(
+          error
+        ));
     });
 
     describe('hearing not found', () => {
-
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
         })
           .get(path)
           .query({ email })
@@ -87,11 +92,10 @@ describe('services/hearing', () => {
     });
 
     describe('multiple hearings found', () => {
-
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
         })
           .get(path)
           .query({ email })
@@ -107,11 +111,13 @@ describe('services/hearing', () => {
 
   describe('#getOnlineHearingsForCitizen', () => {
     const tya = 'someTyaNumber';
-    const apiResponseBody = [{
-      appellant_name: 'Adam Jenkins',
-      case_reference: '112233',
-      online_hearing_id: 'abc-123-def-456'
-    }];
+    const apiResponseBody = [
+      {
+        appellant_name: 'Adam Jenkins',
+        case_reference: '112233',
+        online_hearing_id: 'abc-123-def-456',
+      },
+    ];
 
     describe('success response', () => {
       const userToken = 'someUserToken';
@@ -119,19 +125,23 @@ describe('services/hearing', () => {
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
+          ServiceAuthorization: `Bearer ${serviceToken}`,
         })
-          .get('/api/citizen/' + tya)
+          .get(`/api/citizen/${tya}`)
           .query({ email })
           .reply(OK, apiResponseBody);
       });
 
-      it('resolves the promise', () => (
-        expect(hearingService.getOnlineHearingsForCitizen(email, tya, req)).to.be.fulfilled
-      ));
+      it('resolves the promise', () =>
+        expect(hearingService.getOnlineHearingsForCitizen(email, tya, req)).to
+          .be.fulfilled);
 
       it('resolves the promise with the response', async () => {
-        const response = await hearingService.getOnlineHearingsForCitizen(email, tya, req);
+        const response = await hearingService.getOnlineHearingsForCitizen(
+          email,
+          tya,
+          req
+        );
         expect(response.body).to.deep.equal(apiResponseBody);
       });
     });
@@ -142,16 +152,17 @@ describe('services/hearing', () => {
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
         })
-          .get('/api/citizen/' + tya)
+          .get(`/api/citizen/${tya}`)
           .query({ email })
           .replyWithError(error);
       });
 
-      it('rejects the promise with the error', () => (
-        expect(hearingService.getOnlineHearingsForCitizen(email, tya, req)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(
+          hearingService.getOnlineHearingsForCitizen(email, tya, req)
+        ).to.be.rejectedWith(error));
     });
   });
 
@@ -161,7 +172,7 @@ describe('services/hearing', () => {
     const apiResponseBody = {
       appellant_name: 'Adam Jenkins',
       case_reference: '112233',
-      online_hearing_id: 'abc-123-def-456'
+      online_hearing_id: 'abc-123-def-456',
     };
 
     describe('success response', () => {
@@ -170,18 +181,29 @@ describe('services/hearing', () => {
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${userToken}`,
-          ServiceAuthorization: `Bearer ${serviceToken}`
+          ServiceAuthorization: `Bearer ${serviceToken}`,
         })
-          .post('/api/citizen/' + tya, { email, postcode })
+          .post(`/api/citizen/${tya}`, { email, postcode })
           .reply(OK, apiResponseBody);
       });
 
-      it('resolves the promise', () => (
-        expect(hearingService.assignOnlineHearingsToCitizen(email, tya, postcode, req)).to.be.fulfilled
-      ));
+      it('resolves the promise', () =>
+        expect(
+          hearingService.assignOnlineHearingsToCitizen(
+            email,
+            tya,
+            postcode,
+            req
+          )
+        ).to.be.fulfilled);
 
       it('resolves the promise with the response', async () => {
-        const response = await hearingService.assignOnlineHearingsToCitizen(email, tya, postcode, req);
+        const response = await hearingService.assignOnlineHearingsToCitizen(
+          email,
+          tya,
+          postcode,
+          req
+        );
         expect(response.body).to.deep.equal(apiResponseBody);
       });
     });
@@ -192,15 +214,21 @@ describe('services/hearing', () => {
       beforeEach(() => {
         nock(apiUrl, {
           Authorization: `Bearer ${req.session.accessToken}`,
-          ServiceAuthorization: `Bearer ${req.session.serviceToken}`
+          ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
         })
-          .post('/api/citizen/' + tya, { email, postcode })
+          .post(`/api/citizen/${tya}`, { email, postcode })
           .replyWithError(error);
       });
 
-      it('rejects the promise with the error', () => (
-        expect(hearingService.assignOnlineHearingsToCitizen(email, tya, postcode, req)).to.be.rejectedWith(error)
-      ));
+      it('rejects the promise with the error', () =>
+        expect(
+          hearingService.assignOnlineHearingsToCitizen(
+            email,
+            tya,
+            postcode,
+            req
+          )
+        ).to.be.rejectedWith(error));
     });
   });
 });

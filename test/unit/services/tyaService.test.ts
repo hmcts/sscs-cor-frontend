@@ -1,17 +1,18 @@
-const { expect, sinon } = require('test/chai-sinon');
 import * as config from 'config';
 import { TrackYourApealService } from 'app/server/services/tyaService';
 import { RequestPromise } from 'app/server/services/request-wrapper';
 
+const { expect, sinon } = require('test/chai-sinon');
+
 describe('services/tyaService', () => {
-  let sandbox: sinon.SinonSandbox = sinon.sandbox.create();
+  const sandbox: sinon.SinonSandbox = sinon.createSandbox();
   let rpStub: sinon.SinonStub;
   const tribunalsApiUrl: string = config.get('tribunals.api-url');
   const trackYourAppealService = new TrackYourApealService(tribunalsApiUrl);
   const req: any = {};
   req.session = {
-    accessToken : 'someUserToken',
-    serviceToken : 'someServiceToken'
+    accessToken: 'someUserToken',
+    serviceToken: 'someServiceToken',
   };
 
   beforeEach(() => {
@@ -26,9 +27,20 @@ describe('services/tyaService', () => {
     const appealId = 'appealNumber';
     const expectedRequestOptions = {
       method: 'GET',
-      uri: `${tribunalsApiUrl}/appeals?mya=true&caseId=${appealId}`
+      uri: `${tribunalsApiUrl}/appeals?mya=true&caseId=${appealId}`,
     };
     await trackYourAppealService.getAppeal(appealId, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
+
+  it('should validateSurname', async () => {
+    const appealId = 'appealNumber';
+    const surname = 'burgers';
+    const expectedRequestOptions = {
+      method: 'GET',
+      uri: `${tribunalsApiUrl}/appeals/${appealId}/surname/${surname}`,
+    };
+    await trackYourAppealService.validateSurname(appealId, surname, req);
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
@@ -39,8 +51,8 @@ describe('services/tyaService', () => {
       encoding: 'binary',
       uri: `${tribunalsApiUrl}/document?url=${url}`,
       headers: {
-        'Content-type': 'application/pdf'
-      }
+        'Content-type': 'application/pdf',
+      },
     };
     await trackYourAppealService.getDocument(url, req);
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
@@ -53,8 +65,8 @@ describe('services/tyaService', () => {
       encoding: 'binary',
       uri: `${tribunalsApiUrl}/document?url=${url}`,
       headers: {
-        'Content-type': ['audio/mp3', 'video/mp4']
-      }
+        'Content-type': ['audio/mp3', 'video/mp4'],
+      },
     };
     await trackYourAppealService.getMediaFile(url, req);
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);

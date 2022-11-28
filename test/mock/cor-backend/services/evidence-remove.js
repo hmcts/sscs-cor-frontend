@@ -8,8 +8,11 @@ module.exports = {
   status: (req, res, next) => {
     const cacheKey = `${req.params.questionId}.evidence`;
     const uploadedEvidence = cache.get(cacheKey);
-    cache.put(cacheKey, uploadedEvidence.filter(file => file.id !== req.params.fileId));
+    cache.put(
+      cacheKey,
+      uploadedEvidence.filter((file) => file.id !== req.params.fileId)
+    );
     res.status(NO_CONTENT);
     next();
-  }
+  },
 };

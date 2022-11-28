@@ -7,11 +7,12 @@ import { getHearingsByName } from '../utils/fieldValidation';
 const logger = Logger.getLogger('dormant-cases.js');
 
 function getDormantCases(req: Request, res: Response) {
-
   const session = req.session;
 
   if (!session) {
-    const missingCaseIdError = new Error('Unable to retrieve session from session store');
+    const missingCaseIdError = new Error(
+      'Unable to retrieve session from session store'
+    );
     AppInsights.trackException(missingCaseIdError);
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
@@ -23,16 +24,21 @@ function getDormantCases(req: Request, res: Response) {
 }
 
 function filterDormantCase(selectedHearing, index, array) {
-  return selectedHearing.appeal_details.state === 'dormantAppealState' || selectedHearing.appeal_details.state === 'voidState';
+  return (
+    selectedHearing.appeal_details.state === 'dormantAppealState' ||
+    selectedHearing.appeal_details.state === 'voidState'
+  );
 }
 
 function setupDormantCasesController(deps: any) {
   const router = Router();
-  router.get(Paths.dormantCases, deps.prereqMiddleware, deps.setLocals, getDormantCases);
+  router.get(
+    Paths.dormantCases,
+    deps.prereqMiddleware,
+    deps.setLocals,
+    getDormantCases
+  );
   return router;
 }
 
-export {
-    getDormantCases,
-    setupDormantCasesController
-};
+export { getDormantCases, setupDormantCasesController };

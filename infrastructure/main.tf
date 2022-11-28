@@ -31,10 +31,20 @@ resource "azurerm_key_vault_secret" "redis_access_key" {
   name         = "${var.product}-redis-access-key"
   value        = module.redis-cache.access_key
   key_vault_id = data.azurerm_key_vault.sscs_key_vault.id
+
+  content_type = "secret"
+  tags = merge(var.common_tags, {
+    "source" : "redis ${module.redis-cache.host_name}"
+  })
 }
 
 resource "azurerm_key_vault_secret" "redis_connection_string" {
   name         = "${var.product}-redis-connection-string"
   value        = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
   key_vault_id = data.azurerm_key_vault.sscs_key_vault.id
+
+  content_type = "secret"
+  tags = merge(var.common_tags, {
+    "source" : "redis ${module.redis-cache.host_name}"
+  })
 }

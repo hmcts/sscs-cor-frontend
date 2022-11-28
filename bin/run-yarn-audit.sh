@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
+
 set +e
-yarn audit
+yarn audit --groups dependencies --level high
 result=$?
+
+yarn audit --groups dependencies --json > yarn-audit-issues-result
+
 set -e
 
 if [ "$result" != 0 ]; then
   if [ -f yarn-audit-known-issues ]; then
     set +e
-    yarn audit --json | grep auditAdvisory > yarn-audit-issues
+    grep auditAdvisory yarn-audit-issues-result > yarn-audit-issues
     set -e
 
     if diff -q yarn-audit-known-issues yarn-audit-issues > /dev/null 2>&1; then
+      rm -f yarn-audit-issues
       echo
       echo Ignorning known vulnerabilities
       exit 0
@@ -26,9 +31,11 @@ if [ "$result" != 0 ]; then
   echo
   echo To ignore these vulnerabilities, run:
   echo
-  echo "yarn audit --json | grep auditAdvisory > yarn-audit-known-issues"
+  echo "yarn audit --groups dependencies --json | grep auditAdvisory > yarn-audit-known-issues"
   echo
   echo and commit the yarn-audit-known-issues file
+
+  rm -f yarn-audit-issues
 
   exit "$result"
 fi

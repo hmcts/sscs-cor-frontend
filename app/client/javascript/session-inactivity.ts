@@ -11,10 +11,10 @@ export class SessionInactivity {
   public modal: HTMLElement = null;
   public extend: HTMLElement = null;
   public cancel: HTMLElement = null;
-  public ANSWER_FORM: string = 'answer-form';
-  public EXTEND_BUTTON: string = 'extend';
-  public CANCEL_BUTTON: string = 'cancel';
-  public MODAL: string = 'timeout-dialog';
+  public ANSWER_FORM = 'answer-form';
+  public EXTEND_BUTTON = 'extend';
+  public CANCEL_BUTTON = 'cancel';
+  public MODAL = 'timeout-dialog';
   public keyStrokeEventListener: any;
   public timeLeft: number = null;
 
@@ -35,22 +35,37 @@ export class SessionInactivity {
   }
 
   extendSession(): void {
-    if (this.lastReset === null || moment().diff(moment(this.sessionExpiry).subtract(this.sessionExtendBuffer, 'milliseconds')) > 0) {
-      axios.get('/session-extension').then((response: any): void => {
-        if (response['data'].expireInSeconds) {
-          this.sessionExpiry = moment().add(response['data'].expireInSeconds, 'milliseconds');
-          this.lastReset = moment();
+    if (
+      this.lastReset === null ||
+      moment().diff(
+        moment(this.sessionExpiry).subtract(
+          this.sessionExtendBuffer,
+          'milliseconds'
+        )
+      ) > 0
+    ) {
+      axios
+        .get('/session-extension')
+        .then((response: any): void => {
+          if (response['data'].expireInSeconds) {
+            this.sessionExpiry = moment().add(
+              response['data'].expireInSeconds,
+              'milliseconds'
+            );
+            this.lastReset = moment();
 
-          this.closeModal();
-          this.restartCounters();
-        } else { // It means logged out
+            this.closeModal();
+            this.restartCounters();
+          } else {
+            // It means logged out
+            this.removeListeners();
+            this.stopCounters();
+          }
+        })
+        .catch(() => {
           this.removeListeners();
           this.stopCounters();
-        }
-      }).catch(() => {
-        this.removeListeners();
-        this.stopCounters();
-      });
+        });
     }
   }
 
@@ -60,7 +75,9 @@ export class SessionInactivity {
   }
 
   startCounters(): void {
-    this.startCountdown(this.sessionExpiry.diff(moment(), 'ms') - this.sessionExtendBuffer);
+    this.startCountdown(
+      this.sessionExpiry.diff(moment(), 'ms') - this.sessionExtendBuffer
+    );
     this.startSessionTimeOut(this.sessionExpiry.diff(moment(), 'ms'));
   }
 
@@ -84,12 +101,21 @@ export class SessionInactivity {
   startModalInterval(): void {
     let count = 0;
     this.modalInterval = window.setInterval(() => {
-      const minutes: number = moment.duration((this.sessionExtendBuffer - count)).minutes();
-      const seconds: string = moment.duration((this.sessionExtendBuffer - count)).seconds().toLocaleString('en-GB', { minimumIntegerDigits: 2 });
-      const expiringMessage: string =
-        `${content[i18next.language].cookieTimeOut.modal.body[0]} ${minutes}:${seconds} ${content[i18next.language].cookieTimeOut.modal.body[1]}`;
+      const minutes: number = moment
+        .duration(this.sessionExtendBuffer - count)
+        .minutes();
+      const seconds: string = moment
+        .duration(this.sessionExtendBuffer - count)
+        .seconds()
+        .toLocaleString('en-GB', { minimumIntegerDigits: 2 });
+      const expiringMessage = `${
+        content[i18next.language].cookieTimeOut.modal.body[0]
+      } ${minutes}:${seconds} ${
+        content[i18next.language].cookieTimeOut.modal.body[1]
+      }`;
 
-      document.getElementById('expiring-in-message').innerHTML = expiringMessage;
+      document.getElementById('expiring-in-message').innerHTML =
+        expiringMessage;
       count += 1000;
     }, 1000);
   }
@@ -121,20 +147,32 @@ export class SessionInactivity {
   }
 
   bindModalButtonListeners() {
-    if (this.modal && this.extend) this.extend.addEventListener('click', this.keyStrokeEventListener);
-    if (this.modal && this.cancel) this.cancel.addEventListener('click', this.signOut);
+    if (this.modal && this.extend)
+      this.extend.addEventListener('click', this.keyStrokeEventListener);
+    if (this.modal && this.cancel)
+      this.cancel.addEventListener('click', this.signOut);
   }
 
   removeModalButtonListeners() {
-    if (this.modal && this.extend) this.extend.removeEventListener('click', this.keyStrokeEventListener);
-    if (this.modal && this.cancel) this.cancel.removeEventListener('click', this.closeModal);
+    if (this.modal && this.extend)
+      this.extend.removeEventListener('click', this.keyStrokeEventListener);
+    if (this.modal && this.cancel)
+      this.cancel.removeEventListener('click', this.closeModal);
   }
 
   bindKeyStrokeListener(): void {
-    if (this.modal && this.answerFormEl) this.answerFormEl.addEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormEl)
+      this.answerFormEl.addEventListener(
+        'keydown',
+        this.keyStrokeEventListener
+      );
   }
 
   removeKeyStrokeListener(): void {
-    if (this.modal && this.answerFormEl) this.answerFormEl.removeEventListener('keydown', this.keyStrokeEventListener);
+    if (this.modal && this.answerFormEl)
+      this.answerFormEl.removeEventListener(
+        'keydown',
+        this.keyStrokeEventListener
+      );
   }
 }

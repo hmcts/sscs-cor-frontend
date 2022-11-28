@@ -7,7 +7,7 @@ const upload = multer();
 module.exports = () => {
   const dysonOptions = {
     configDir: path.resolve(__dirname, './services/'),
-    port: 8090
+    port: 8090,
   };
   const configs = dyson.getConfigurations(dysonOptions);
   const appBefore = dyson.createServer(dysonOptions);

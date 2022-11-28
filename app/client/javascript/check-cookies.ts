@@ -1,5 +1,5 @@
 export class CheckCookies {
-  public COOKIE_BANNER: string = 'app-cookie-banner';
+  public COOKIE_BANNER = 'app-cookie-banner';
   public cookieBannerElement: HTMLElement;
   init(): void {
     this.cookieBannerElement = document.getElementById(this.COOKIE_BANNER);
@@ -7,14 +7,18 @@ export class CheckCookies {
   }
 
   isCookiePrivacyMessageDisplayed(): void {
-    let isSessionSeenCookieExist = document.cookie.indexOf('seen_cookie_message=1') > -1;
+    const isSessionSeenCookieExist = document.cookie.includes(
+      'seen_cookie_message=1'
+    );
     // If Cookie Message is not shown in the past.
     // Add a seen_cookie_message  cookie to user's browser for one year.
     if (isSessionSeenCookieExist) {
       this.toggleBanner(false);
     } else {
-      let currentDate = new Date();
-      let expiryDate = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
+      const currentDate = new Date();
+      const expiryDate = new Date(
+        currentDate.setMonth(currentDate.getMonth() + 1)
+      );
       document.cookie = `seen_cookie_message=1; expires=${expiryDate}; path=/`;
       this.toggleBanner(true);
     }

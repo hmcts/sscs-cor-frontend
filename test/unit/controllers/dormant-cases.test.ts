@@ -1,9 +1,9 @@
-
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
 import * as dormantCases from 'app/server/controllers/dormant-cases';
 import * as Paths from 'app/server/paths';
 import * as AppInsights from '../../../app/server/app-insights';
+
+const express = require('express');
+const { expect, sinon } = require('test/chai-sinon');
 const oralActiveAndDormantCases = require('../../mock/tribunals/data/oral/activeAndDormantCases.json');
 
 describe('controllers/dormant-cases', () => {
@@ -12,17 +12,17 @@ describe('controllers/dormant-cases', () => {
   let sandbox: sinon.SinonSandbox;
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req = {
       session: {
-        appeal: {}
+        appeal: {},
       },
-      cookies: {}
+      cookies: {},
     } as any;
 
     res = {
       render: sandbox.stub(),
-      send: sandbox.stub()
+      send: sandbox.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -52,19 +52,21 @@ describe('controllers/dormant-cases', () => {
   });
 
   describe('getDormantCases', () => {
-    it('should render dormant cases page', async() => {
+    it('should render dormant cases page', async () => {
       req.session['hearings'] = oralActiveAndDormantCases;
       dormantCases.getDormantCases(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('dormant-tab.html');
     });
 
-    it('should throw error if no sessions', async() => {
+    it('should throw error if no sessions', async () => {
       req.session = null;
 
       expect(() => dormantCases.getDormantCases(req, res)).to.throw(TypeError);
 
       const error = new Error('Unable to retrieve session from session store');
-      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        sinon.match.has('message', error.message)
+      );
       expect(AppInsights.trackEvent).to.have.been.calledOnce;
     });
   });

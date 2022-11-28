@@ -15,15 +15,21 @@ function uploadDescriptionValidation(description) {
     .options({
       language: {
         any: {
-          empty: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.emptyDescription}`
+          empty: `!!${
+            content[i18next.language].additionalEvidence.evidenceUpload.error
+              .emptyDescription
+          }`,
         },
         string: {
           max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}`,
           regex: {
-            base: `!!${content[i18next.language].additionalEvidence.evidenceUpload.error.regex}`
-          }
-        }
-      }
+            base: `!!${
+              content[i18next.language].additionalEvidence.evidenceUpload.error
+                .regex
+            }`,
+          },
+        },
+      },
     });
   const result = schema.validate(description);
 
@@ -34,12 +40,13 @@ function uploadDescriptionValidation(description) {
 }
 
 function answerValidation(answer, req?) {
-
-  let emptyErrorMsg = content[i18next.language].question.textareaField.errorOnSave.empty;
+  let emptyErrorMsg =
+    content[i18next.language].question.textareaField.errorOnSave.empty;
 
   // On Submit
   if (req.body.submit) {
-    emptyErrorMsg = content[i18next.language].question.textareaField.error.empty;
+    emptyErrorMsg =
+      content[i18next.language].question.textareaField.error.empty;
   }
 
   const schema = Joi.string()
@@ -51,12 +58,16 @@ function answerValidation(answer, req?) {
       language: {
         any: { empty: `!!${emptyErrorMsg}` },
         string: {
-          max: `!!${content[i18next.language].question.textareaField.error.maxCharacters}`,
+          max: `!!${
+            content[i18next.language].question.textareaField.error.maxCharacters
+          }`,
           regex: {
-            base: `!!${content[i18next.language].question.textareaField.error.regex}`
-          }
-        }
-      }
+            base: `!!${
+              content[i18next.language].question.textareaField.error.regex
+            }`,
+          },
+        },
+      },
     });
 
   const result = schema.validate(answer);
@@ -75,8 +86,10 @@ function hearingWhyValidation(answer) {
     .max(maxCharacters)
     .options({
       language: {
-        string: { max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}` }
-      }
+        string: {
+          max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}`,
+        },
+      },
     });
 
   const result = schema.validate(answer);
@@ -95,9 +108,17 @@ function loginEmailAddressValidation(email) {
     .email({ minDomainAtoms: 2 })
     .options({
       language: {
-        any: { empty: `!!${content[i18next.language].login.emailAddress.error.empty}` },
-        string: { email: `!!${content[i18next.language].login.emailAddress.error.format}` }
-      }
+        any: {
+          empty: `!!${
+            content[i18next.language].login.emailAddress.error.empty
+          }`,
+        },
+        string: {
+          email: `!!${
+            content[i18next.language].login.emailAddress.error.format
+          }`,
+        },
+      },
     });
   const result = schema.validate(email);
   let error = false;
@@ -117,7 +138,7 @@ function newHearingAcceptedValidation(newHearing) {
 
 function getHearingsByName(hearings) {
   const hearingsByName = {};
-  hearings.forEach(hearing => {
+  hearings.forEach((hearing) => {
     const appellantName = hearing.appellant_name;
     if (!hearingsByName[appellantName]) {
       hearingsByName[appellantName] = [];
@@ -133,5 +154,5 @@ export {
   newHearingAcceptedValidation,
   hearingWhyValidation,
   uploadDescriptionValidation,
-  getHearingsByName
+  getHearingsByName,
 };
