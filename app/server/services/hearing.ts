@@ -66,37 +66,6 @@ export class HearingService {
     );
   }
 
-  async getActiveOrDormantCasesForCitizen(
-    email: string,
-    caseType: string,
-    req: Request
-  ) {
-    return RequestPromise.request(
-      {
-        method: 'GET',
-        uri: `${this.apiUrl}/api/citizen/cases/${caseType}`,
-        qs: { email },
-        resolveWithFullResponse: true,
-        simple: false,
-      },
-      req
-    );
-  }
-
-  async getDormantCasesForCitizen(email: string, req: Request) {
-    const path = 'active';
-    return RequestPromise.request(
-      {
-        method: 'GET',
-        uri: `${this.apiUrl}/api/citizen${path}`,
-        qs: { email },
-        resolveWithFullResponse: true,
-        simple: false,
-      },
-      req
-    );
-  }
-
   async assignOnlineHearingsToCitizen(
     email: string,
     tya: string,

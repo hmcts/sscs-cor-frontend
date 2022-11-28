@@ -33,6 +33,17 @@ describe('services/tyaService', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
+  it('should validateSurname', async () => {
+    const appealId = 'appealNumber';
+    const surname = 'burgers';
+    const expectedRequestOptions = {
+      method: 'GET',
+      uri: `${tribunalsApiUrl}/appeals/${appealId}/surname/${surname}`,
+    };
+    await trackYourAppealService.validateSurname(appealId, surname, req);
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
+
   it('should getDocument', async () => {
     const url = 'http://test';
     const expectedRequestOptions = {

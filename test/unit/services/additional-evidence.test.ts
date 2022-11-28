@@ -141,4 +141,36 @@ describe('services/additional-evidence', () => {
     );
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
+
+  it('should submitSingleEvidences', async () => {
+    const description = 'An evidence description';
+    const expectedRequestOptions = {
+      method: 'POST',
+      retry: HTTP_RETRIES,
+      delay: RETRY_INTERVAL,
+      formData: {
+        body: description,
+        idamEmail: 'appellant@email.com',
+        file: {
+          value: file.buffer,
+          options: {
+            filename: file.originalname,
+            contentType: file.mimetype,
+          },
+        },
+      },
+      uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/singleevidence`,
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+
+    await additionalEvidenceService.submitSingleEvidences(
+      hearingId,
+      description,
+      file as Express.Multer.File,
+      req
+    );
+    expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
+  });
 });
