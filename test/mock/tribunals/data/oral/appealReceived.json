@@ -5,7 +5,7 @@
     "surname": "Test",
     "appealNumber": "1CA27vtZ1z",
     "benefitType": "esa",
-    "hearingType" : "oral",
+    "hearingType": "oral",
     "status": "APPEAL_RECEIVED",
     "latestEvents": [
       {

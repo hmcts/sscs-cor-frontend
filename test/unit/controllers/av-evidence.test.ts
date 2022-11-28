@@ -1,11 +1,11 @@
 import * as AppInsights from '../../../app/server/app-insights';
 
+import * as Paths from 'app/server/paths';
+import * as avEvidence from 'app/server/controllers/av-evidence';
+
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 const caseData = require('../../mock/tribunals/data/oral/av-evidence.json');
-
-import * as Paths from 'app/server/paths';
-import * as avEvidence from 'app/server/controllers/av-evidence';
 
 describe('controllers/av-evidence-list', () => {
   let req: any;
@@ -16,13 +16,13 @@ describe('controllers/av-evidence-list', () => {
     sandbox = sinon.sandbox.create();
     req = {
       session: {
-        appeal: {}
+        appeal: {},
       },
-      cookies: {}
+      cookies: {},
     } as any;
 
     res = {
-      render: sandbox.stub()
+      render: sandbox.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -53,25 +53,28 @@ describe('controllers/av-evidence-list', () => {
   });
 
   describe('getAvEvidenceList', () => {
-    it('should render audio video evidence list when mya feature enabled for (MEDIA_FILES_ALLOWED_ENABLED)', async() => {
+    it('should render audio video evidence list when mya feature enabled for (MEDIA_FILES_ALLOWED_ENABLED)', async () => {
       req.cookies.manageYourAppeal = 'true';
       req.session.appeal = caseData.appeal;
       const avEvidenceList = [
         {
           name: 'appellant-evidence.mp3',
           type: 'audioDocument',
-          url: 'http://dbed7988-4ed5-4965-b1b4-50e5582770f3/binary'
+          url: 'http://dbed7988-4ed5-4965-b1b4-50e5582770f3/binary',
         },
         {
           name: 'rep-evidence.mp4',
           type: 'videoDocument',
-          url: 'http://dbed7988-4ed5-4970-b1b4-50e5582770f3/binary'
-        }
+          url: 'http://dbed7988-4ed5-4970-b1b4-50e5582770f3/binary',
+        },
       ];
       req.session.appeal.audioVideoEvidence = avEvidenceList;
       const appeal = req.session.appeal;
       avEvidence.getAvEvidenceList(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('av-evidence-tab.html', { appeal });
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'av-evidence-tab.html',
+        { appeal }
+      );
     });
   });
 
@@ -83,18 +86,18 @@ describe('controllers/av-evidence-list', () => {
     beforeEach(() => {
       req = {
         session: {
-          appeal: {}
+          appeal: {},
         },
         cookies: {},
         query: {
-          url: url,
-          type: type
-        }
+          url,
+          type,
+        },
       } as any;
 
       res = {
         header: sandbox.stub(),
-        send: sandbox.stub()
+        send: sandbox.stub(),
       };
 
       trackYourAppealService = {};
@@ -102,7 +105,8 @@ describe('controllers/av-evidence-list', () => {
 
     it('should return audio/video evidence for the document url', async () => {
       const mp3 = '29312380';
-      trackYourAppealService.getMediaFile = () => Promise.resolve(mp3);
+      trackYourAppealService.getMediaFile = async () =>
+        await Promise.resolve(mp3);
       await avEvidence.getAvEvidence(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith('content-type', 'audio/mp3');
       expect(res.send).to.have.called.calledWith(Buffer.from(mp3, 'binary'));

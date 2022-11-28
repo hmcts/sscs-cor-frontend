@@ -1,9 +1,9 @@
-const express = require('express');
-const setLanguage = require('./setLanguage');
-
 import * as config from 'config';
 
-import { ensureAuthenticated, setLocals } from './middleware/ensure-authenticated';
+import {
+  ensureAuthenticated,
+  setLocals,
+} from './middleware/ensure-authenticated';
 
 import { setupTaskListController } from './controllers/task-list';
 import { setupLoginController, redirectToLogin } from './controllers/login';
@@ -24,14 +24,17 @@ import { setupOutcomeController } from './controllers/outcome';
 import { setupAvEvidenceController } from './controllers/av-evidence';
 import { setupRequestTypeController } from './controllers/request-type';
 
-const router = express.Router();
-
 import { HearingService } from './services/hearing';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
 import { RequestTypeService } from './services/request-type';
+
+const express = require('express');
+const setLanguage = require('./setLanguage');
+
+const router = express.Router();
 
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
@@ -43,46 +46,105 @@ const { validateToken } = require('./services/tokenService');
 const { notificationRedirect } = require('./controllers/notificationRedirect');
 const {
   changeEmailAddress,
-  stopReceivingEmails
+  stopReceivingEmails,
 } = require('./services/unsubscribeService');
 const { emailNotifications } = require('./controllers/content');
 const { validateEmail } = require('./controllers/validateEmail');
 
 const evidenceService: EvidenceService = new EvidenceService(apiUrl);
-const idamService: IdamService = new IdamService(idamApiUrl, appPort, appSecret);
+const idamService: IdamService = new IdamService(
+  idamApiUrl,
+  appPort,
+  appSecret
+);
 const hearingService: HearingService = new HearingService(apiUrl);
-const additionalEvidenceService: AdditionalEvidenceService = new AdditionalEvidenceService(apiUrl);
-const trackYourAppealService: TrackYourApealService = new TrackYourApealService(tribunalsApiUrl);
-const requestTypeService: RequestTypeService = new RequestTypeService(tribunalsApiUrl);
+const additionalEvidenceService: AdditionalEvidenceService =
+  new AdditionalEvidenceService(apiUrl);
+const trackYourAppealService: TrackYourApealService = new TrackYourApealService(
+  tribunalsApiUrl
+);
+const requestTypeService: RequestTypeService = new RequestTypeService(
+  tribunalsApiUrl
+);
 
 const prereqMiddleware = [ensureAuthenticated];
 
-const taskListController = setupTaskListController({ additionalEvidenceService, prereqMiddleware });
-const decisionController = setupDecisionController({ prereqMiddleware: ensureAuthenticated });
-const loginController = setupLoginController({ hearingService, idamService, trackYourApealService: trackYourAppealService });
+const taskListController = setupTaskListController({
+  additionalEvidenceService,
+  prereqMiddleware,
+});
+const decisionController = setupDecisionController({
+  prereqMiddleware: ensureAuthenticated,
+});
+const loginController = setupLoginController({
+  hearingService,
+  idamService,
+  trackYourApealService: trackYourAppealService,
+});
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
-const supportEvidenceController = supportControllers.setupSupportEvidenceController({ setLocals });
-const supportHearingController = supportControllers.setupSupportHearingController({ setLocals });
-const supportHearingExpensesController = supportControllers.setupSupportHearingExpensesController({ setLocals });
-const supportRepresentativesController = supportControllers.setupSupportRepresentativesController({ setLocals });
-const supportWithdrawAppealController = supportControllers.setupSupportWithdrawAppealController({ setLocals });
-const sessionController = setupSessionController({ prereqMiddleware: ensureAuthenticated });
-const evidenceOptionsController = setupadditionalEvidenceController({ prereqMiddleware: ensureAuthenticated, additionalEvidenceService });
-const statusController = setupStatusController({ prereqMiddleware: ensureAuthenticated });
-const activeCasesController = setupActiveCasesController({ prereqMiddleware: ensureAuthenticated, setLocals });
-const dormantCasesController = setupDormantCasesController({ prereqMiddleware: ensureAuthenticated, setLocals });
+const supportEvidenceController =
+  supportControllers.setupSupportEvidenceController({ setLocals });
+const supportHearingController =
+  supportControllers.setupSupportHearingController({ setLocals });
+const supportHearingExpensesController =
+  supportControllers.setupSupportHearingExpensesController({ setLocals });
+const supportRepresentativesController =
+  supportControllers.setupSupportRepresentativesController({ setLocals });
+const supportWithdrawAppealController =
+  supportControllers.setupSupportWithdrawAppealController({ setLocals });
+const sessionController = setupSessionController({
+  prereqMiddleware: ensureAuthenticated,
+});
+const evidenceOptionsController = setupadditionalEvidenceController({
+  prereqMiddleware: ensureAuthenticated,
+  additionalEvidenceService,
+});
+const statusController = setupStatusController({
+  prereqMiddleware: ensureAuthenticated,
+});
+const activeCasesController = setupActiveCasesController({
+  prereqMiddleware: ensureAuthenticated,
+  setLocals,
+});
+const dormantCasesController = setupDormantCasesController({
+  prereqMiddleware: ensureAuthenticated,
+  setLocals,
+});
 
-const yourDetailsController = setupYourDetailsController({ prereqMiddleware: ensureAuthenticated });
-const historyController = setupHistoryController({ prereqMiddleware: ensureAuthenticated });
-const assignCaseController = setupAssignCaseController({ hearingService, trackYourApealService: trackYourAppealService, prereqMiddleware: ensureAuthenticated });
-const hearingTabController = setupHearingController({ prereqMiddleware: ensureAuthenticated });
-const outcomeController = setupOutcomeController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
-const avEvidenceController = setupAvEvidenceController({ prereqMiddleware: ensureAuthenticated, trackYourApealService: trackYourAppealService });
-const requestTypeController = setupRequestTypeController({ prereqMiddleware: ensureAuthenticated, requestTypeService: requestTypeService, trackYourApealService: trackYourAppealService });
+const yourDetailsController = setupYourDetailsController({
+  prereqMiddleware: ensureAuthenticated,
+});
+const historyController = setupHistoryController({
+  prereqMiddleware: ensureAuthenticated,
+});
+const assignCaseController = setupAssignCaseController({
+  hearingService,
+  trackYourApealService: trackYourAppealService,
+  prereqMiddleware: ensureAuthenticated,
+});
+const hearingTabController = setupHearingController({
+  prereqMiddleware: ensureAuthenticated,
+});
+const outcomeController = setupOutcomeController({
+  prereqMiddleware: ensureAuthenticated,
+  trackYourApealService: trackYourAppealService,
+});
+const avEvidenceController = setupAvEvidenceController({
+  prereqMiddleware: ensureAuthenticated,
+  trackYourApealService: trackYourAppealService,
+});
+const requestTypeController = setupRequestTypeController({
+  prereqMiddleware: ensureAuthenticated,
+  requestTypeService,
+  trackYourApealService: trackYourAppealService,
+});
 
 router.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, max-age=0, must-revalidate, no-store'
+  );
   res.header('Pragma', 'no-cache');
   res.header('Expires', 0);
   next();
@@ -118,32 +180,73 @@ router.get('/robots.txt', (req, res) => {
   res.send('User-agent: *\nDisallow: /');
 });
 
-router.get('/manage-email-notifications/:mactoken', validateToken, (req, res, next) => {
-  res.render('manage-emails', { mactoken: req.params.mactoken });
-});
+router.get(
+  '/manage-email-notifications/:mactoken',
+  validateToken,
+  (req, res, next) => {
+    res.render('manage-emails', { mactoken: req.params.mactoken });
+  }
+);
 
-router.post('/manage-email-notifications/:mactoken', validateToken, notificationRedirect, (req, res, next) => {
-  // reload page
-});
+router.post(
+  '/manage-email-notifications/:mactoken',
+  validateToken,
+  notificationRedirect,
+  (req, res, next) => {
+    // reload page
+  }
+);
 
-router.get('/manage-email-notifications/:mactoken/stop', validateToken, emailNotifications, (req, res) => {
-  res.render('emails-stop', { mactoken: req.params.mactoken });
-});
+router.get(
+  '/manage-email-notifications/:mactoken/stop',
+  validateToken,
+  emailNotifications,
+  (req, res) => {
+    res.render('emails-stop', { mactoken: req.params.mactoken });
+  }
+);
 
-router.get('/manage-email-notifications/:mactoken/stopconfirm', validateToken, stopReceivingEmails, emailNotifications, (req, res, next) => {
-  res.render('emails-stop-confirmed', { data: { appealNumber: res.locals.token.appealId }, mactoken: req.params.mactoken });
-});
+router.get(
+  '/manage-email-notifications/:mactoken/stopconfirm',
+  validateToken,
+  stopReceivingEmails,
+  emailNotifications,
+  (req, res, next) => {
+    res.render('emails-stop-confirmed', {
+      data: { appealNumber: res.locals.token.appealId },
+      mactoken: req.params.mactoken,
+    });
+  }
+);
 
-router.get('/manage-email-notifications/:mactoken/change', validateToken, (req, res) => {
-  res.render('email-address-change', { mactoken: req.params.mactoken });
-});
+router.get(
+  '/manage-email-notifications/:mactoken/change',
+  validateToken,
+  (req, res) => {
+    res.render('email-address-change', { mactoken: req.params.mactoken });
+  }
+);
 
-router.post('/manage-email-notifications/:mactoken/change', validateToken, validateEmail, changeEmailAddress, emailNotifications, (req, res, next) => {
-  res.render('email-address-change-confirmed', { data: { email: req.body.email }, mactoken: req.params.mactoken });
-});
+router.post(
+  '/manage-email-notifications/:mactoken/change',
+  validateToken,
+  validateEmail,
+  changeEmailAddress,
+  emailNotifications,
+  (req, res, next) => {
+    res.render('email-address-change-confirmed', {
+      data: { email: req.body.email },
+      mactoken: req.params.mactoken,
+    });
+  }
+);
 
-router.get('/validate-surname/:tya/trackyourappeal', loginController, (req, res, next) => {
-  res.render('redirect-mya', { tyaNumber: req.query.tya });
-});
+router.get(
+  '/validate-surname/:tya/trackyourappeal',
+  loginController,
+  (req, res, next) => {
+    res.render('redirect-mya', { tyaNumber: req.query.tya });
+  }
+);
 
 export { router };

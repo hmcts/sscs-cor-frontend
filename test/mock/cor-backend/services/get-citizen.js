@@ -6,7 +6,7 @@ const {
   createFinalDecision,
   hasFinalDecision,
   createDecision,
-  getApellantDetails
+  getApellantDetails,
 } = require('../utils');
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
       decision: (params, query) => createDecision(query.email),
       final_decision: (params, query) => createFinalDecision(query.email),
       has_final_decision: (params, query) => hasFinalDecision(query.email),
-      user_details: (params, query) => getApellantDetails(query.email)
-    }
-  ]
+      user_details: (params, query) => getApellantDetails(query.email),
+    },
+  ],
 };

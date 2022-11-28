@@ -8,6 +8,8 @@ propertiesVolume.addTo(config);
 setupKeyVaultSecrets();
 
 const { Logger } = require('@hmcts/nodejs-logging');
+
+/* eslint-disable import/first */
 import * as session from 'express-session';
 import * as redis from 'connect-redis';
 import { setup } from './app';
@@ -20,13 +22,16 @@ const port = config.get('node.port');
 const RedisStore = redis(session);
 const redisOpts: redis.RedisStoreOptions = {
   url: config.get('session.redis.url'),
-  ttl: config.get('session.redis.ttlInSeconds')
+  ttl: config.get('session.redis.ttlInSeconds'),
 };
 const redisStore: session.Store = new RedisStore(redisOpts);
 
 const app = setup(createSession(redisStore), {});
 
-const server = app.listen(port, () => logger.info(`Server  listening on port ${port}`))
-  .on('error', (error: Error) => logger.error(`Unable to start server because of ${error.message}`));
+const server = app
+  .listen(port, () => logger.info(`Server  listening on port ${port}`))
+  .on('error', (error: Error) =>
+    logger.error(`Unable to start server because of ${error.message}`)
+  );
 
 export default server;

@@ -14,18 +14,21 @@ describe('controllers/assign-case.js', () => {
     sandbox = sinon.sandbox.create();
     res = {
       render: sandbox.spy(),
-      redirect: sandbox.spy()
+      redirect: sandbox.spy(),
     } as any;
   });
 
   describe('getIndex', () => {
     it('should render assign-case page', () => {
       req = {
-        query: {}
+        query: {},
       } as any;
 
       getIndex(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', {});
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'assign-case/index.html',
+        {}
+      );
     });
   });
 
@@ -42,23 +45,23 @@ describe('controllers/assign-case.js', () => {
     beforeEach(() => {
       onlineHearing = {
         hearingId: 'hearingId',
-        case_id: caseId
+        case_id: caseId,
       };
       appeal = {
-        hearingType: 'paper'
+        hearingType: 'paper',
       };
 
       hearingService = {
         assignOnlineHearingsToCitizen: sandbox.stub().resolves({
           statusCode: OK,
-          body: onlineHearing
-        })
+          body: onlineHearing,
+        }),
       } as any;
       trackYourAppealService = {
         getAppeal: sandbox.stub().resolves({
           statusCode: OK,
-          appeal: appeal
-        })
+          appeal,
+        }),
       } as any;
     });
 
@@ -68,7 +71,7 @@ describe('controllers/assign-case.js', () => {
       beforeEach(() => {
         req = {
           session: { idamEmail, tya },
-          body: { postcode }
+          body: { postcode },
         } as any;
 
         underTest = postIndex(hearingService, trackYourAppealService);
@@ -77,13 +80,17 @@ describe('controllers/assign-case.js', () => {
       it('assigns user to case', async () => {
         await underTest(req, res);
 
-        expect(hearingService.assignOnlineHearingsToCitizen).to.have.been.calledOnce.calledWith(idamEmail, tya, postcode, req);
+        expect(
+          hearingService.assignOnlineHearingsToCitizen
+        ).to.have.been.calledOnce.calledWith(idamEmail, tya, postcode, req);
       });
 
       it('gets appeal', async () => {
         await underTest(req, res);
 
-        expect(trackYourAppealService.getAppeal).to.have.been.calledOnce.calledWith(caseId, req);
+        expect(
+          trackYourAppealService.getAppeal
+        ).to.have.been.calledOnce.calledWith(caseId, req);
       });
 
       it('redirects to task-list', async () => {
@@ -112,7 +119,6 @@ describe('controllers/assign-case.js', () => {
     });
 
     describe('for missing postcode and hideHearing true', () => {
-
       const postcode = 'cm11 1ab';
 
       beforeEach(() => {
@@ -121,14 +127,14 @@ describe('controllers/assign-case.js', () => {
             statusCode: OK,
             appeal: {
               hearingType: 'paper',
-              hideHearing: true
-            }
-          })
+              hideHearing: true,
+            },
+          }),
         } as any;
 
         req = {
           session: { idamEmail, tya },
-          body: { postcode }
+          body: { postcode },
         } as any;
 
         underTest = postIndex(hearingService, trackYourAppealService);
@@ -147,7 +153,7 @@ describe('controllers/assign-case.js', () => {
       beforeEach(() => {
         req = {
           session: { idamEmail, tya },
-          body: { postcode }
+          body: { postcode },
         } as any;
 
         underTest = postIndex(hearingService, trackYourAppealService);
@@ -156,7 +162,10 @@ describe('controllers/assign-case.js', () => {
       it('redirects to task-list', async () => {
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.noPostcode });
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          'assign-case/index.html',
+          { error: content.en.assignCase.errors.noPostcode }
+        );
       });
     });
 
@@ -166,7 +175,7 @@ describe('controllers/assign-case.js', () => {
       beforeEach(() => {
         req = {
           session: { idamEmail, tya },
-          body: { postcode }
+          body: { postcode },
         } as any;
 
         underTest = postIndex(hearingService, trackYourAppealService);
@@ -175,7 +184,10 @@ describe('controllers/assign-case.js', () => {
       it('redirects to task-list', async () => {
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.invalidPostcode });
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          'assign-case/index.html',
+          { error: content.en.assignCase.errors.invalidPostcode }
+        );
       });
     });
 
@@ -185,7 +197,7 @@ describe('controllers/assign-case.js', () => {
       beforeEach(() => {
         req = {
           session: { idamEmail },
-          body: { postcode }
+          body: { postcode },
         } as any;
 
         underTest = postIndex(hearingService, trackYourAppealService);
@@ -194,7 +206,10 @@ describe('controllers/assign-case.js', () => {
       it('redirects to task-list', async () => {
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.html', { error: content.en.assignCase.errors.tyaNotProvided });
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          'assign-case/index.html',
+          { error: content.en.assignCase.errors.tyaNotProvided }
+        );
       });
     });
   });

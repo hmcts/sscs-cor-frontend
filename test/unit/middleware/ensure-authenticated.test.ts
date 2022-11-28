@@ -1,6 +1,11 @@
-const { expect, sinon } = require('test/chai-sinon');
-const { checkAccessToken, setLocals, ensureAuthenticated } = require('app/server/middleware/ensure-authenticated.ts');
 import * as Paths from 'app/server/paths';
+
+const { expect, sinon } = require('test/chai-sinon');
+const {
+  checkAccessToken,
+  setLocals,
+  ensureAuthenticated,
+} = require('app/server/middleware/ensure-authenticated.ts');
 
 describe('middleware/ensure-authenticated', () => {
   let req;
@@ -9,7 +14,7 @@ describe('middleware/ensure-authenticated', () => {
   const hearingDetails = {
     online_hearing_id: '1',
     case_reference: '12345',
-    appellant_name: 'John Smith'
+    appellant_name: 'John Smith',
   };
 
   beforeEach(() => {
@@ -19,15 +24,15 @@ describe('middleware/ensure-authenticated', () => {
         id: '123',
         hearing: hearingDetails,
         appeal: {
-          hearingType: 'oral'
+          hearingType: 'oral',
         },
-        destroy: sinon.stub().yields()
+        destroy: sinon.stub().yields(),
       },
-      cookie: {}
+      cookie: {},
     };
     res = {
       redirect: sinon.spy(),
-      locals: {}
+      locals: {},
     };
     next = sinon.spy();
   });
@@ -49,9 +54,7 @@ describe('middleware/ensure-authenticated', () => {
         expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
       });
 
-      it('does not call next', () => (
-        expect(next).to.not.have.been.called
-      ));
+      it('does not call next', () => expect(next).to.not.have.been.called);
     });
   });
 
@@ -67,11 +70,11 @@ describe('middleware/ensure-authenticated', () => {
       req.cookies = {
         hearingOutcomeTab: 'true',
         mediaFilesAllowed: 'true',
-        requestTabEnabled: 'true'
+        requestTabEnabled: 'true',
       };
       req.session['appeal'] = {
         hearingType: 'oral',
-        hearingOutcome: []
+        hearingOutcome: [],
       };
 
       setLocals(req, res, next);
@@ -80,16 +83,22 @@ describe('middleware/ensure-authenticated', () => {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status','hearing', 'outcome', 'avEvidence', 'requestType']);
+      expect(members).to.have.members([
+        'status',
+        'hearing',
+        'outcome',
+        'avEvidence',
+        'requestType',
+      ]);
     });
     it('also remove outcome tab if hearingOutcome not present', () => {
       req.cookies = {
         hearingOutcomeTab: 'true',
         mediaFilesAllowed: 'true',
-        requestTabEnabled: 'false'
+        requestTabEnabled: 'false',
       };
       req.session['appeal'] = {
-        hearingType: 'oral'
+        hearingType: 'oral',
       };
 
       setLocals(req, res, next);
@@ -98,17 +107,17 @@ describe('middleware/ensure-authenticated', () => {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status','hearing', 'avEvidence']);
+      expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
     });
     it('also remove outcome tab if hearingOutcomeTab flag is false', () => {
       req.cookies = {
         hearingOutcomeTab: 'false',
         mediaFilesAllowed: 'true',
-        requestTabEnabled: 'false'
+        requestTabEnabled: 'false',
       };
       req.session['appeal'] = {
         hearingType: 'oral',
-        hearingOutcome: []
+        hearingOutcome: [],
       };
 
       setLocals(req, res, next);
@@ -117,16 +126,16 @@ describe('middleware/ensure-authenticated', () => {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status','hearing', 'avEvidence']);
+      expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
     });
     it('remove audio/video tab if mediaFilesAllowed flag is false', () => {
       req.cookies = {
         manageYourAppeal: 'true',
         mediaFilesAllowed: 'false',
-        requestTabEnabled: 'false'
+        requestTabEnabled: 'false',
       };
       req.session['appeal'] = {
-        audioVideoEvidence: []
+        audioVideoEvidence: [],
       };
 
       setLocals(req, res, next);
@@ -135,15 +144,15 @@ describe('middleware/ensure-authenticated', () => {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status','hearing']);
+      expect(members).to.have.members(['status', 'hearing']);
     });
     it('remove request tab if requestTabEnabled flag is false', () => {
       req.cookies = {
-        requestTabEnabled: 'false'
+        requestTabEnabled: 'false',
       };
       req.session['appeal'] = {
         hearingType: 'oral',
-        hearingOutcome: []
+        hearingOutcome: [],
       };
 
       setLocals(req, res, next);
@@ -152,7 +161,7 @@ describe('middleware/ensure-authenticated', () => {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status','hearing']);
+      expect(members).to.have.members(['status', 'hearing']);
     });
     it('sets showSignOut on the locals', () => {
       setLocals(req, res, next);

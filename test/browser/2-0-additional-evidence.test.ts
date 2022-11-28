@@ -1,6 +1,5 @@
 import { Page } from 'puppeteer';
-const config = require('config');
-const { expect } = require('test/chai-sinon');
+
 import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { AdditionalEvidencePage } from 'test/page-objects/additional-evidence';
@@ -15,10 +14,13 @@ import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 import * as _ from 'lodash';
+const config = require('config');
+const { expect } = require('test/chai-sinon');
 const content = require('locale/content');
 const pa11y = require('pa11y');
+
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
-let pa11yOpts = _.clone(config.get('pa11y'));
+const pa11yOpts = _.clone(config.get('pa11y'));
 
 describe('Additional Evidence @mya @nightly', () => {
   let page: Page;
@@ -36,32 +38,45 @@ describe('Additional Evidence @mya @nightly', () => {
   let ccdCase;
   let sidamUser;
   before('start services and bootstrap data in CCD/COH', async () => {
-    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
-    const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
+    ({
+      ccdCase,
+      page,
+      sidamUser = {},
+    } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
+    const appellantTya = ccdCase.hasOwnProperty('appellant_tya')
+      ? ccdCase.appellant_tya
+      : 'anId';
     pa11yOpts.browser = page.browser;
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
     additionalEvidencePage = new AdditionalEvidencePage(page);
     additionalEvidenceStatementPage = new AdditionalEvidenceStatementPage(page);
-    additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
+    additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(
+      page
+    );
     additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
-    additionalEvidenceUploadAudioVideoPage = new AdditionalEvidenceUploadAudioVideoPage(page);
+    additionalEvidenceUploadAudioVideoPage =
+      new AdditionalEvidenceUploadAudioVideoPage(page);
     additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
-    additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(page);
+    additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(
+      page
+    );
     taskListPage = new TaskListPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
+    await loginPage.login(
+      sidamUser.email || 'oral.appealReceived@example.com',
+      sidamUser.password || ''
+    );
   });
 
   after(async () => {
-    if (page && page.close) {
+    if (page?.close) {
       await page.close();
     }
   });
 
   it('navigate to additional evidence page', async () => {
-
     assignCasePage.verifyPage();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
@@ -75,9 +90,13 @@ describe('Additional Evidence @mya @nightly', () => {
     additionalEvidencePage.verifyPage();
 
     const header = await additionalEvidencePage.getElementText('h1');
-    expect(header).to.equal(content.en.additionalEvidence.evidenceOptions.header);
-    const options = await additionalEvidencePage.getElementsValues("input[name='additional-evidence-option']");
-    options.forEach(option => {
+    expect(header).to.equal(
+      content.en.additionalEvidence.evidenceOptions.header
+    );
+    const options = await additionalEvidencePage.getElementsValues(
+      "input[name='additional-evidence-option']"
+    );
+    options.forEach((option) => {
       expect(allowedActions).to.contain(option);
     });
   });
@@ -102,7 +121,10 @@ describe('Additional Evidence @mya @nightly', () => {
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-task-list.png`;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
@@ -111,7 +133,10 @@ describe('Additional Evidence @mya @nightly', () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-page.png`;
     pa11yOpts.page = await additionalEvidencePage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
@@ -120,7 +145,10 @@ describe('Additional Evidence @mya @nightly', () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-page.png`;
     pa11yOpts.page = await additionalEvidenceUploadPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
@@ -129,7 +157,10 @@ describe('Additional Evidence @mya @nightly', () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-audio-video-page.png`;
     pa11yOpts.page = await additionalEvidenceUploadAudioVideoPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
@@ -138,7 +169,10 @@ describe('Additional Evidence @mya @nightly', () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-statement-page.png`;
     pa11yOpts.page = additionalEvidenceStatementPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
@@ -147,7 +181,10 @@ describe('Additional Evidence @mya @nightly', () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-post-page.png`;
     pa11yOpts.page = additionalEvidencePostPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   it('shows an error if no file to upload and no description', async () => {
@@ -157,8 +194,20 @@ describe('Additional Evidence @mya @nightly', () => {
 
     additionalEvidenceUploadPage.verifyPage();
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.emptyDescription);
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+    expect(
+      await additionalEvidenceUploadPage.getElementText(
+        'div.govuk-error-summary'
+      )
+    ).contain(
+      content.en.additionalEvidence.evidenceUpload.error.emptyDescription
+    );
+    expect(
+      await additionalEvidenceUploadPage.getElementText(
+        'div.govuk-error-summary'
+      )
+    ).contain(
+      content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded
+    );
   });
 
   it('shows an error if no file to upload', async () => {
@@ -167,9 +216,17 @@ describe('Additional Evidence @mya @nightly', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-    await additionalEvidenceUploadPage.addDescription('The evidence description');
+    await additionalEvidenceUploadPage.addDescription(
+      'The evidence description'
+    );
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+    expect(
+      await additionalEvidenceUploadPage.getElementText(
+        'div.govuk-error-summary'
+      )
+    ).contain(
+      content.en.additionalEvidence.evidenceUpload.error.noFilesUploaded
+    );
   });
 
   it('uploads a file and shows file list and check evidence confirmation page @pally', async () => {
@@ -178,12 +235,16 @@ describe('Additional Evidence @mya @nightly', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(
+      content.en.additionalEvidence.evidenceUpload.header
+    );
 
     await additionalEvidenceUploadPage.selectFile('evidence.txt');
     await page.waitFor(10000);
 
-    await additionalEvidenceUploadPage.addDescription('The evidence description');
+    await additionalEvidenceUploadPage.addDescription(
+      'The evidence description'
+    );
     await additionalEvidenceUploadPage.submit();
     await page.waitFor(6000);
 
@@ -192,7 +253,10 @@ describe('Additional Evidence @mya @nightly', () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-confirmation-page.png`;
     pa11yOpts.page = await additionalEvidenceConfirmationPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
 
     await additionalEvidenceConfirmationPage.returnToAppealPage();
     taskListPage.verifyPage();
@@ -205,12 +269,16 @@ describe('Additional Evidence @mya @nightly', () => {
 
     additionalEvidenceUploadAudioVideoPage.verifyPage();
     await page.waitFor(4000);
-    expect(await additionalEvidenceUploadAudioVideoPage.getHeading()).to.equal(content.en.additionalEvidence.evidenceUpload.header);
+    expect(await additionalEvidenceUploadAudioVideoPage.getHeading()).to.equal(
+      content.en.additionalEvidence.evidenceUpload.header
+    );
 
     await additionalEvidenceUploadAudioVideoPage.selectFile('test_audio.mp3');
     await page.waitFor(5000);
 
-    await additionalEvidenceUploadAudioVideoPage.addDescription('The evidence description for AV file');
+    await additionalEvidenceUploadAudioVideoPage.addDescription(
+      'The evidence description for AV file'
+    );
     await additionalEvidenceUploadAudioVideoPage.submit();
     await page.waitFor(4000);
 

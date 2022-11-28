@@ -4,11 +4,12 @@ import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 
 function getYourDetails(req: Request, res: Response) {
-
   const session = req.session;
 
   if (!session) {
-    const missingCaseIdError = new Error('Unable to retrieve session from session store');
+    const missingCaseIdError = new Error(
+      'Unable to retrieve session from session store'
+    );
     AppInsights.trackException(missingCaseIdError);
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
@@ -22,7 +23,4 @@ function setupYourDetailsController(deps: any) {
   return router;
 }
 
-export {
-  getYourDetails,
-  setupYourDetailsController
-};
+export { getYourDetails, setupYourDetailsController };

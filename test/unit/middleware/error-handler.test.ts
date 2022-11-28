@@ -1,7 +1,8 @@
+import * as AppInsights from 'app/server/app-insights';
+
 const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
 const { expect, sinon } = require('test/chai-sinon');
 const errorHandler = require('app/server/middleware/error-handler.ts');
-import * as AppInsights from 'app/server/app-insights';
 
 describe('middleware/error-handler', () => {
   let req;
@@ -11,7 +12,7 @@ describe('middleware/error-handler', () => {
     req = {};
     res = {
       status: sinon.spy(),
-      render: sinon.spy()
+      render: sinon.spy(),
     };
     sinon.stub(AppInsights, 'trackException');
   });
@@ -51,14 +52,18 @@ describe('middleware/error-handler', () => {
     it('gives 500 page', () => {
       const error = new Error('Some error');
       errorHandler.coreErrorHandler(error, req, res);
-      expect(res.status).to.have.been.calledOnce.calledWith(INTERNAL_SERVER_ERROR);
+      expect(res.status).to.have.been.calledOnce.calledWith(
+        INTERNAL_SERVER_ERROR
+      );
       expect(res.render).to.have.been.calledOnce.calledWith('errors/500.html');
     });
 
     it('sends error to app-insights', () => {
       const error = new Error('Some error');
       errorHandler.coreErrorHandler(error, req, res);
-      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(error);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        error
+      );
     });
   });
 });

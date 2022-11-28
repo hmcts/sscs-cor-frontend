@@ -1,6 +1,6 @@
 module.exports = {
   path: '/health',
   template: {
-    status: 'UP'
-  }
+    status: 'UP',
+  },
 };

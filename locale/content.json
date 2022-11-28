@@ -545,23 +545,23 @@
         "deleted": "If a Judge does not admit your audio or video evidence the upload will be deleted from your appeal. Please keep a copy for your own records.",
         "morelink": "Upload additional letters, documents or photos",
         "morelinkAudioVideo": "Upload audio or video files",
-        "link":{
-         "pip":  "Return to Your PIP benefit appeal",
-         "esa":  "Return to Your ESA benefit appeal",
-         "uc":  "Return to Your UC benefit appeal",
-         "dla":  "Return to Your DLA benefit appeal",
-         "carersallowance":  "Return to Your Carer's Allowance appeal",
-         "attendanceallowance": "Return to your Attendance Allowance appeal",
-         "bereavementbenefit": "Return to your Bereavement Benefit appeal",
-         "jsa": "Return to your JSA Benefit appeal",
-         "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal",
-         "maternityallowance": "Return to your Maternity Allowance appeal",
-         "socialfund": "Return to your Social Fund appeal",
-         "incomesupport": "Return to your Income Support appeal",
-         "bereavementsupportpaymentscheme": "Return to your Bereavement Support Payment Scheme benefit appeal",
-         "industrialdeathbenefit": "Return to your Industrial Death Benefit appeal",
-         "pensioncredit": "Return to your Pension Credit appeal",
-         "retirementpension": "Return to your Retirement Pension appeal"
+        "link": {
+          "pip": "Return to Your PIP benefit appeal",
+          "esa": "Return to Your ESA benefit appeal",
+          "uc": "Return to Your UC benefit appeal",
+          "dla": "Return to Your DLA benefit appeal",
+          "carersallowance": "Return to Your Carer's Allowance appeal",
+          "attendanceallowance": "Return to your Attendance Allowance appeal",
+          "bereavementbenefit": "Return to your Bereavement Benefit appeal",
+          "jsa": "Return to your JSA Benefit appeal",
+          "industrialinjuriesdisablement": "Return to your Industrial Injuries Disablement Benefit appeal",
+          "maternityallowance": "Return to your Maternity Allowance appeal",
+          "socialfund": "Return to your Social Fund appeal",
+          "incomesupport": "Return to your Income Support appeal",
+          "bereavementsupportpaymentscheme": "Return to your Bereavement Support Payment Scheme benefit appeal",
+          "industrialdeathbenefit": "Return to your Industrial Death Benefit appeal",
+          "pensioncredit": "Return to your Pension Credit appeal",
+          "retirementpension": "Return to your Retirement Pension appeal"
         }
       },
       "about": {
@@ -814,12 +814,8 @@
       "HEARING_BOOKED": {
         "heading": "Hearing booked",
         "content": {
-          "oral": [
-            "A hearing has been booked for your appeal."
-          ],
-          "paper": [
-            "A hearing has been booked for your appeal."
-          ]
+          "oral": ["A hearing has been booked for your appeal."],
+          "paper": ["A hearing has been booked for your appeal."]
         }
       },
       "LAPSED_REVISED": {
@@ -839,12 +835,8 @@
       "NEW_HEARING_BOOKED": {
         "heading": "New hearing booked",
         "content": {
-          "oral": [
-            "A new hearing has been booked for your appeal."
-          ],
-          "paper": [
-            "A new hearing has been booked for your appeal."
-          ]
+          "oral": ["A new hearing has been booked for your appeal."],
+          "paper": ["A new hearing has been booked for your appeal."]
         }
       },
       "PAST_HEARING_BOOKED": {
@@ -887,9 +879,7 @@
       "SYA_APPEAL_CREATED": {
         "heading": "Appeal created TBC",
         "content": {
-          "cor": [
-            "Content TBC"
-          ]
+          "cor": ["Content TBC"]
         }
       }
     },
@@ -942,7 +932,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge, doctor and disability expert"
       },
-      "bereavementbenefit" : {
+      "bereavementbenefit": {
         "acronym": "BEREAVEMENT BENEFIT",
         "yourBenefitAppeal": "Your Bereavement Benefit appeal",
         "fullDescription": "Bereavement Benefit",
@@ -958,7 +948,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge and financially qualified panel member (if applicable)"
       },
-      "industrialinjuriesdisablement" : {
+      "industrialinjuriesdisablement": {
         "acronym": "INDUSTRIAL INJURIES DISABLEMENT BENEFIT",
         "yourBenefitAppeal": "Your Industrial Injuries Disablement Benefit appeal",
         "fullDescription": "Industrial Injuries Disablement Benefit",
@@ -966,7 +956,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge and up to 2 consultants doctors"
       },
-      "jsa" : {
+      "jsa": {
         "acronym": "JSA",
         "yourBenefitAppeal": "Your JSA Benefit appeal",
         "fullDescription": "Jobseeker’s Allowance (JSA)",
@@ -974,7 +964,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
-      "maternityallowance" : {
+      "maternityallowance": {
         "acronym": "MATERNITY ALLOWANCE",
         "yourBenefitAppeal": "Your Maternity Allowance appeal",
         "fullDescription": "Maternity Allowance",
@@ -982,7 +972,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
-      "socialfund" : {
+      "socialfund": {
         "acronym": "SOCIAL FUND",
         "yourBenefitAppeal": "Your Social Fund appeal",
         "fullDescription": "Social Fund",
@@ -990,7 +980,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
-      "incomesupport" : {
+      "incomesupport": {
         "acronym": "INCOME SUPPORT",
         "yourBenefitAppeal": "Your Income Support appeal",
         "fullDescription": "Income Support",
@@ -998,7 +988,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
-      "bereavementsupportpaymentscheme" : {
+      "bereavementsupportpaymentscheme": {
         "acronym": "BEREAVEMENT SUPPORT PAYMENT SCHEME",
         "yourBenefitAppeal": "Your Bereavement Support Payment Scheme benefit appeal",
         "fullDescription": "Bereavement Support Payment Scheme",
@@ -1006,7 +996,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
-      "industrialdeathbenefit" : {
+      "industrialdeathbenefit": {
         "acronym": "INDUSTRIAL DEATH BENEFIT",
         "yourBenefitAppeal": "Your Industrial Death Benefit appeal",
         "fullDescription": "Industrial Death Benefit",
@@ -1014,7 +1004,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge and up to 2 consultants doctors"
       },
-      "pensioncredit" : {
+      "pensioncredit": {
         "acronym": "PENSION CREDIT",
         "yourBenefitAppeal": "Your Pension Credit appeal",
         "fullDescription": "Pension Credit",
@@ -1022,7 +1012,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
-      "retirementpension" : {
+      "retirementpension": {
         "acronym": "RETIREMENT PENSION",
         "yourBenefitAppeal": "Your Retirement Pension appeal",
         "fullDescription": "Retirement Pension",
@@ -1030,7 +1020,7 @@
         "agencyAcronym": "DWP",
         "panel": "a judge"
       },
-      "taxcredit" : {
+      "taxcredit": {
         "acronym": "TAX CREDIT",
         "yourBenefitAppeal": "Your Tax Credit appeal",
         "fullDescription": "Tax Credit",
@@ -1038,7 +1028,7 @@
         "agencyAcronym": "HMRC",
         "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       },
-      "guardiansallowance" : {
+      "guardiansallowance": {
         "acronym": "GUARDIANS ALLOWANCE",
         "yourBenefitAppeal": "Your Guardian's Allowance appeal",
         "fullDescription": "Guardian's Allowance",
@@ -1046,7 +1036,7 @@
         "agencyAcronym": "HMRC",
         "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       },
-      "taxfreechildcare" : {
+      "taxfreechildcare": {
         "acronym": "TAX-FREE CHILDCARE",
         "yourBenefitAppeal": "Your Tax-Free Childcare appeal",
         "fullDescription": "Tax-Free Childcare",
@@ -1054,7 +1044,7 @@
         "agencyAcronym": "HMRC",
         "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       },
-      "homeresponsibilitiesprotection" : {
+      "homeresponsibilitiesprotection": {
         "acronym": "HOME RESPONSIBILITIES PROTECTION",
         "yourBenefitAppeal": "Your Home Responsibilities Protection appeal",
         "fullDescription": "Home Responsibilities Protection",
@@ -1062,7 +1052,7 @@
         "agencyAcronym": "HMRC",
         "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       },
-      "childbenefit" : {
+      "childbenefit": {
         "acronym": "CHILD BENEFIT",
         "yourBenefitAppeal": "Your Child Benefit appeal",
         "fullDescription": "Child Benefit",
@@ -1070,7 +1060,7 @@
         "agencyAcronym": "HMRC",
         "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       },
-      "thirtyhoursfreechildcare" : {
+      "thirtyhoursfreechildcare": {
         "acronym": "30 HOURS FREE CHILDCARE",
         "yourBenefitAppeal": "Your 30 Hours Free Childcare appeal",
         "fullDescription": "30 Hours Free Childcare",
@@ -1078,7 +1068,7 @@
         "agencyAcronym": "HMRC",
         "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       },
-      "guaranteedminimumpension" : {
+      "guaranteedminimumpension": {
         "acronym": "GUARANTEED MINIMUM PENSION",
         "yourBenefitAppeal": "Your Guaranteed Minimum Pension appeal",
         "fullDescription": "Guaranteed Minimum Pension",
@@ -1086,7 +1076,7 @@
         "agencyAcronym": "HMRC",
         "panel": "a judge and Financially Qualified Panel Member (if applicable)"
       },
-      "nationalinsurancecredits" : {
+      "nationalinsurancecredits": {
         "acronym": "NATIONAL INSURANCE CREDITS",
         "yourBenefitAppeal": "Your National Insurance Credits appeal",
         "fullDescription": "National Insurance Credits",
@@ -1239,11 +1229,7 @@
         "title": "Register for notifications",
         "content": "Receive reminders and notifications to keep you updated on the progress of your appeal",
         "question": "How would you like to receive notifications?",
-        "options": [
-          "Email",
-          "Text Message",
-          "Both"
-        ],
+        "options": ["Email", "Text Message", "Both"],
         "continue": "Continue",
         "cancel": "Cancel"
       },
@@ -1595,11 +1581,7 @@
         },
         "googleCookies": "Mae Google Analytics yn gosod y cwcis canlynol:",
         "cookieTable": {
-          "columnNames": [
-            "Enw’r cwci",
-            "Pwrpas y cwci",
-            "Darfod ymhen"
-          ],
+          "columnNames": ["Enw’r cwci", "Pwrpas y cwci", "Darfod ymhen"],
           "items": [
             {
               "name": "_ga",
@@ -1618,11 +1600,7 @@
         "title": "Cwcis a ddefnyddir i droi ein neges gyflwyno i ffwrdd",
         "description": "Efallai y byddwch yn gweld neges groeso pan fyddwch yn ymweld â'r gwasanaeth am y tro cyntaf. Byddwn yn storio cwci ar eich cyfrifiadur fel ei fod yn gwybod i beidio â'i dangos eto.",
         "cookieTable": {
-          "columnNames": [
-            "Enw’r cwci",
-            "Pwrpas y cwci",
-            "Darfod ymhen"
-          ],
+          "columnNames": ["Enw’r cwci", "Pwrpas y cwci", "Darfod ymhen"],
           "items": [
             {
               "name": "seen_cookie_message",
@@ -1636,11 +1614,7 @@
         "title": "Cwcis a ddefnyddir i storio’r atebion a roesoch yn ystod eich ymweliad (gelwir hyn yn ‘sesiwn’)",
         "description": "Caiff cwcis sesiwn eu storio ar eich cyfrifiadur wrth ichi fynd drwy wefan, ac maent yn gadael i'r wefan wybod beth rydych wedi'i weld a'i wneud hyd yn hyn. Cwcis dros dro yw'r rhain ac fe'u dilëir yn awtomatig ychydig ar ôl ichi adael y wefan.",
         "cookieTable": {
-          "columnNames": [
-            "Enw’r cwci",
-            "Pwrpas y cwci",
-            "Darfod ymhen"
-          ],
+          "columnNames": ["Enw’r cwci", "Pwrpas y cwci", "Darfod ymhen"],
           "items": [
             {
               "name": "connect.sid",
@@ -2105,12 +2079,8 @@
       "HEARING_BOOKED": {
         "heading": "Gwrandawiad wedi’i drefnu",
         "content": {
-          "oral": [
-            "Mae gwrandawiad wedi’i drefnu ar gyfer eich apêl."
-          ],
-          "paper": [
-            "Mae gwrandawiad wedi’i drefnu ar gyfer eich apêl."
-          ]
+          "oral": ["Mae gwrandawiad wedi’i drefnu ar gyfer eich apêl."],
+          "paper": ["Mae gwrandawiad wedi’i drefnu ar gyfer eich apêl."]
         }
       },
       "LAPSED_REVISED": {
@@ -2130,12 +2100,8 @@
       "NEW_HEARING_BOOKED": {
         "heading": "Gwrandawiad newydd wedi’i drefnu",
         "content": {
-          "oral": [
-            "Mae gwrandawiad newydd wedi’i drefnu ar gyfer eich apêl."
-          ],
-          "paper": [
-            "Mae gwrandawiad newydd wedi’i drefnu ar gyfer eich apêl."
-          ]
+          "oral": ["Mae gwrandawiad newydd wedi’i drefnu ar gyfer eich apêl."],
+          "paper": ["Mae gwrandawiad newydd wedi’i drefnu ar gyfer eich apêl."]
         }
       },
       "PAST_HEARING_BOOKED": {
@@ -2178,9 +2144,7 @@
       "SYA_APPEAL_CREATED": {
         "heading": "Apêl wedi’i chreu - i’w gadarnhau",
         "content": {
-          "cor": [
-            "Cynnwys – i’w gadarnhau"
-          ]
+          "cor": ["Cynnwys – i’w gadarnhau"]
         }
       }
     },
@@ -2289,7 +2253,7 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr"
       },
-      "bereavementsupportpaymentscheme" : {
+      "bereavementsupportpaymentscheme": {
         "acronym": "CYNLLUN TALU AM GYMORTH YNG NGHYSWLLT PROFEDIGAETH",
         "yourBenefitAppeal": "Eich apêl Cynllun Talu am Gymorth yng nghyswllt Profedigaeth",
         "fullDescription": "Cynllun Talu am Gymorth yng nghyswllt Profedigaeth",
@@ -2297,7 +2261,7 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr"
       },
-      "industrialdeathbenefit" : {
+      "industrialdeathbenefit": {
         "acronym": "BUDD-DAL MARWOLAETH DDIWYDIANNOL",
         "yourBenefitAppeal": "Eich apêl Budd-dal Marwolaeth Ddiwydiannol",
         "fullDescription": "Budd-dal Marwolaeth Ddiwydiannol",
@@ -2305,7 +2269,7 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr a hyd at 2 feddyg ymgynghorol"
       },
-      "pensioncredit" : {
+      "pensioncredit": {
         "acronym": "CREDYDAU PENSIWN",
         "yourBenefitAppeal": "Eich apêl Credydau Pensiwn",
         "fullDescription": "Credydau Pensiwn",
@@ -2313,7 +2277,7 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr"
       },
-      "retirementpension" : {
+      "retirementpension": {
         "acronym": "PENSIWN YMDDEOL",
         "yourBenefitAppeal": "Eich apêl Pensiwn Ymddeol",
         "fullDescription": "Pensiwn Ymddeol",
@@ -2321,7 +2285,7 @@
         "agencyAcronym": "DWP",
         "panel": "barnwr"
       },
-      "taxcredit" : {
+      "taxcredit": {
         "acronym": "CREDYD TRETH",
         "yourBenefitAppeal": "Eich apêl Credyd Treth",
         "fullDescription": "Credyd Treth",
@@ -2329,7 +2293,7 @@
         "agencyAcronym": "HMRC",
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
-      "guardiansallowance" : {
+      "guardiansallowance": {
         "acronym": "LWFANS GWARCHEIDWAD",
         "yourBenefitAppeal": "Eich apêl Lwfans Gwarcheidwad",
         "fullDescription": "Lwfans Gwarcheidwad",
@@ -2337,7 +2301,7 @@
         "agencyAcronym": "HMRC",
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
-      "taxfreechildcare" : {
+      "taxfreechildcare": {
         "acronym": "GOFAL PLANT DI-DRETH",
         "yourBenefitAppeal": "Eich apêl Gofal Plant Di-dreth",
         "fullDescription": "Gofal Plant Di-dreth",
@@ -2345,7 +2309,7 @@
         "agencyAcronym": "HMRC",
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
-      "homeresponsibilitiesprotection" : {
+      "homeresponsibilitiesprotection": {
         "acronym": "DIOGELU CYFRIFOLDEBAU CARTREF",
         "yourBenefitAppeal": "Eich apêl Diogelu Cyfrifoldebau Cartref",
         "fullDescription": "Diogelu Cyfrifoldebau Cartref",
@@ -2353,7 +2317,7 @@
         "agencyAcronym": "HMRC",
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
-      "childbenefit" : {
+      "childbenefit": {
         "acronym": "BUDD-DAL PLANT",
         "yourBenefitAppeal": "Eich apêl Budd-dal Plant",
         "fullDescription": "Budd-dal Plant",
@@ -2361,7 +2325,7 @@
         "agencyAcronym": "HMRC",
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
-      "thirtyhoursfreechildcare" : {
+      "thirtyhoursfreechildcare": {
         "acronym": "GOFAL PLANT AM DDIM - 30 AWR",
         "yourBenefitAppeal": "Eich apêl Gofal Plant am ddim - 30 awr",
         "fullDescription": "Gofal Plant am ddim - 30 awr",
@@ -2369,7 +2333,7 @@
         "agencyAcronym": "HMRC",
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
-      "guaranteedminimumpension" : {
+      "guaranteedminimumpension": {
         "acronym": "ISAFSWM PENSIWN GWARANTEDIG",
         "yourBenefitAppeal": "Eich apêl Isafswm Pensiwn Gwarantedig",
         "fullDescription": "Isafswm Pensiwn Gwarantedig",
@@ -2377,7 +2341,7 @@
         "agencyAcronym": "HMRC",
         "panel": "Barnwr ac Aelod Panel sydd â chymhwyster i ddelio gyda materion Ariannol (os yw’n berthnasol)"
       },
-      "nationalinsurancecredits" : {
+      "nationalinsurancecredits": {
         "acronym": "CREDYDAU YSWIRIANT GWLADOL",
         "yourBenefitAppeal": "Eich apêl Credydau Yswiriant Gwladol",
         "fullDescription": "Credydau Yswiriant Gwladol",
@@ -2530,11 +2494,7 @@
         "title": "Cofrestru i gael hysbysiadau",
         "content": "Gallwch gael negeseuon atgoffa a hysbysiadau fel eich bod yn cael yr wybodaeth ddiweddaraf am eich apêl ",
         "question": "Sut yr hoffech chi gael hysbysiadau?",
-        "options": [
-          "E-bost",
-          "Neges testun",
-          "Y ddau"
-        ],
+        "options": ["E-bost", "Neges testun", "Y ddau"],
         "continue": "Parhau",
         "cancel": "Canslo"
       },

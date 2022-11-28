@@ -11,5 +11,5 @@ module.exports = {
   status: (req, res, next) => {
     cacheStopReceivingEmails(res.locals.token);
     next();
-  }
+  },
 };
