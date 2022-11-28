@@ -10,11 +10,8 @@ function setSecret(secretPath: string, configPath: string): void {
 
 export function setupKeyVaultSecrets(): void {
   if (config.has('secrets.sscs')) {
-    setSecret(
-      'secrets.sscs.sscs-cor-redis-connection-string',
-      'session.redis.url'
-    );
-    setSecret('secrets.sscs.sscs-cor-redis-access-key', 'session.redis.secret');
+    setSecret('secrets.sscs.sscs-cor-redis-access-key', 'redis.secret');
+    setSecret('secrets.sscs.tyacookiesecret', 'session.cookie.secret');
     setSecret(
       'secrets.sscs.idam-sscs-oauth2-client-secret',
       'idam.client.secret'

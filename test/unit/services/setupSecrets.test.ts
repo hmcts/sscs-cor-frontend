@@ -16,8 +16,8 @@ describe(modulePath, () => {
     it('should set config values when secrets path is set', () => {
       mockConfig.secrets = {
         sscs: {
-          'sscs-cor-redis-connection-string': 'sessionValue',
           'sscs-cor-redis-access-key': 'redisValue',
+          tyacookiesecret: 'cookieSecret',
           'idam-sscs-oauth2-client-secret': 'idamValue',
           'sscs-s2s-secret': 'osPlacesValue',
         },
@@ -29,11 +29,11 @@ describe(modulePath, () => {
       });
       setupKeyVaultSecrets();
 
-      expect(mockConfig.session.redis.url).to.equal(
-        mockConfig.secrets.sscs['sscs-cor-redis-connection-string']
-      );
-      expect(mockConfig.session.redis.secret).to.equal(
+      expect(mockConfig.redis.secret).to.equal(
         mockConfig.secrets.sscs['sscs-cor-redis-access-key']
+      );
+      expect(mockConfig.session.cookie.secret).to.equal(
+        mockConfig.secrets.sscs['tyacookiesecret']
       );
       expect(mockConfig.idam.client.secret).to.equal(
         mockConfig.secrets.sscs['idam-sscs-oauth2-client-secret']
@@ -50,30 +50,21 @@ describe(modulePath, () => {
       });
       setupKeyVaultSecrets();
 
-      expect(mockConfig.session.redis.url).to.equal(config.session.redis.url);
-      expect(mockConfig.session.redis.secret).to.equal(
-        config.session.redis.secret
+      expect(mockConfig.redis.secret).to.equal(config.redis.secret);
+      expect(mockConfig.session.cookie.secret).to.equal(
+        config.session.cookie.secret
       );
       expect(mockConfig.idam.client.secret).to.equal(config.idam.client.secret);
     });
 
     it('should only set one config value when single secret path is set', () => {
-      mockConfig.secrets = {
-        sscs: { 'sscs-cor-redis-connection-string': 'sessionValue' },
-      };
-
       // Update config with secret setup
       const { setupKeyVaultSecrets } = proxyquire(modulePath, {
         config: mockConfig,
       });
       setupKeyVaultSecrets();
 
-      expect(mockConfig.session.redis.url).to.equal(
-        mockConfig.secrets.sscs['sscs-cor-redis-connection-string']
-      );
-      expect(mockConfig.session.redis.secret).to.equal(
-        config.session.redis.secret
-      );
+      expect(mockConfig.redis.secret).to.equal(config.redis.secret);
       expect(mockConfig.idam.client.secret).to.equal(config.idam.client.secret);
     });
   });

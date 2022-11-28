@@ -23,32 +23,51 @@ function postIndex(
   trackYourAppealService: TrackYourApealService
 ) {
   return async (req: Request, res: Response) => {
-    if (!req.body.postcode || !req.body.postcode.trim()) {
+    const postcode = req.body.postcode;
+    const tya = req.session['tya'];
+    const email = req.session['idamEmail'];
+    if (!postcode || !postcode.trim()) {
+      logger.error(
+        `No postcode for postcode: ${postcode}, TYA: ${tya} and email:${email}`
+      );
       return res.render('assign-case/index.html', {
         error: content[i18next.language].assignCase.errors.noPostcode,
       });
-    } else if (!req.body.postcode.replace(/\s/g, '').match(postcodeRegex)) {
+    } else if (!postcode.replace(/\s/g, '').match(postcodeRegex)) {
+      logger.error(
+        `Invalid for postcode: ${postcode}, TYA: ${tya} and email:${email}`
+      );
       return res.render('assign-case/index.html', {
         error: content[i18next.language].assignCase.errors.invalidPostcode,
       });
     }
-    if (!req.session['tya']) {
+    if (!tya) {
+      logger.error(
+        `tyaNotProvided postcode: ${req?.body?.postcode}, TYA: ${tya} and email:${email}`
+      );
       return res.render('assign-case/index.html', {
         error: content[i18next.language].assignCase.errors.tyaNotProvided,
       });
     }
     AppInsights.trackTrace(
-      `assign-case: Finding case to assign for tya [${req.session['tya']}] email [${req.session['idamEmail']}] postcode [${req.body.postcode}]`
+      `assign-case: Finding case to assign for tya [${tya}] email [${email}] postcode [${postcode}]`
     );
     const { statusCode, body }: rp.Response =
       await hearingService.assignOnlineHearingsToCitizen(
-        req.session['idamEmail'],
-        req.session['tya'],
-        req.body.postcode,
+        email,
+        tya,
+        postcode,
         req
       );
 
     if (statusCode !== OK) {
+      logger.error(
+        `Not matching record for: ${postcode}, TYA: ${tya} and email:${email}. StatusCode ${statusCode}, error:`,
+        body
+      );
+      AppInsights.trackTrace(
+        `assign-case: Failed finding case to assign for tya [${tya}] email [${email}] postcode [${postcode}]`
+      );
       return res.render('assign-case/index.html', {
         error: content[i18next.language].assignCase.errors.postcodeDoesNotMatch,
       });
@@ -56,9 +75,7 @@ function postIndex(
 
     req.session['hearing'] = body;
 
-    logger.info(
-      `Assigned ${req.session['tya']} to ${req.session['idamEmail']}`
-    );
+    logger.info(`Assigned ${tya} to ${email}`);
 
     const { appeal } = await trackYourAppealService.getAppeal(
       req.session['hearing'].case_id,

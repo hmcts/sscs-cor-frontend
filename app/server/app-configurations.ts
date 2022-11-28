@@ -134,11 +134,7 @@ function configureNunjucks(app: express.Application): void {
     }
   );
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
-  nunEnv.addGlobal(
-    'welshEnabled',
-    process.env.FT_WELSH === 'true' ||
-      config.get(`featureFlags.welsh`) === 'true'
-  );
+  nunEnv.addGlobal('welshEnabled', config.get(`featureFlags.welsh`) === 'true');
   nunEnv.addGlobal('serviceName', `Manage your appeal`);
   nunEnv.addGlobal('t', (key: string, options?: InitOptions): string =>
     this.i18next.t(key, options)
