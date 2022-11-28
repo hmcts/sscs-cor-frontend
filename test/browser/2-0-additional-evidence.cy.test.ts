@@ -1,6 +1,5 @@
 import { Page } from 'puppeteer';
-const config = require('config');
-const { expect } = require('test/chai-sinon');
+
 import { startServices } from 'test/browser/common';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { AdditionalEvidencePage } from 'test/page-objects/additional-evidence';
@@ -14,10 +13,13 @@ import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 import * as _ from 'lodash';
+const config = require('config');
+const { expect } = require('test/chai-sinon');
 const content = require('locale/content');
 const pa11y = require('pa11y');
+
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
-let pa11yOpts = _.clone(config.get('pa11y'));
+const pa11yOpts = _.clone(config.get('pa11y'));
 
 // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
 describe.skip('CY - Additional Evidence @mya @nightly99', () => {
@@ -35,25 +37,38 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
   let ccdCase;
   let sidamUser;
   before('start services and bootstrap data in CCD/COH', async () => {
-    ({ ccdCase, page, sidamUser = {} } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
-    const appellantTya = ccdCase.hasOwnProperty('appellant_tya') ? ccdCase.appellant_tya : 'anId';
+    ({
+      ccdCase,
+      page,
+      sidamUser = {},
+    } = await startServices({ bootstrapData: true, hearingType: 'oral' }));
+    const appellantTya = ccdCase.hasOwnProperty('appellant_tya')
+      ? ccdCase.appellant_tya
+      : 'anId';
     pa11yOpts.browser = page.browser;
     loginPage = new LoginPage(page);
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
     additionalEvidencePage = new AdditionalEvidencePage(page);
     additionalEvidenceStatementPage = new AdditionalEvidenceStatementPage(page);
-    additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(page);
+    additionalEvidenceConfirmationPage = new AdditionalEvidenceConfirmationPage(
+      page
+    );
     additionalEvidenceUploadPage = new AdditionalEvidenceUploadPage(page);
     additionalEvidencePostPage = new AdditionalEvidencePostPage(page);
-    additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(page);
+    additionalEvidenceCoversheetPage = new AdditionalEvidenceCoversheetPage(
+      page
+    );
     taskListPage = new TaskListPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(sidamUser.email || 'oral.appealReceived@example.com', sidamUser.password || '');
+    await loginPage.login(
+      sidamUser.email || 'oral.appealReceived@example.com',
+      sidamUser.password || ''
+    );
   });
 
   after(async () => {
-    if (page && page.close) {
+    if (page?.close) {
       await page.close();
     }
   });
@@ -62,6 +77,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
+    assignCasePage.verifyLanguage('cy');
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
@@ -74,9 +90,13 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     additionalEvidencePage.verifyPage();
 
     const header = await additionalEvidencePage.getElementText('h1');
-    expect(header).to.equal(content.cy.additionalEvidence.evidenceOptions.header);
-    const options = await additionalEvidencePage.getElementsValues("input[name='additional-evidence-option']");
-    options.forEach(option => {
+    expect(header).to.equal(
+      content.cy.additionalEvidence.evidenceOptions.header
+    );
+    const options = await additionalEvidencePage.getElementsValues(
+      "input[name='additional-evidence-option']"
+    );
+    options.forEach((option) => {
       expect(allowedActions).to.contain(option);
     });
   });
@@ -101,25 +121,34 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-task-list.png`;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
   it('CY - checks /additional-evidence page path passes @pa11y', async () => {
     await additionalEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-page.png`;
-    pa11yOpts.page = await additionalEvidencePage.page;
+    pa11yOpts.page = additionalEvidencePage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
   it('CY - checks /additional-evidence-upload page path passes @pa11y', async () => {
     await additionalEvidenceUploadPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-upload-page.png`;
-    pa11yOpts.page = await additionalEvidenceUploadPage.page;
+    pa11yOpts.page = additionalEvidenceUploadPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
@@ -128,7 +157,10 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-statement-page.png`;
     pa11yOpts.page = additionalEvidenceStatementPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   /* PA11Y */
@@ -137,7 +169,10 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-post-page.png`;
     pa11yOpts.page = additionalEvidencePostPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
@@ -148,8 +183,20 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
 
     additionalEvidenceUploadPage.verifyPage();
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.emptyDescription);
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+    expect(
+      await additionalEvidenceUploadPage.getElementText(
+        'div.govuk-error-summary'
+      )
+    ).contain(
+      content.cy.additionalEvidence.evidenceUpload.error.emptyDescription
+    );
+    expect(
+      await additionalEvidenceUploadPage.getElementText(
+        'div.govuk-error-summary'
+      )
+    ).contain(
+      content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded
+    );
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
@@ -159,9 +206,17 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-    await additionalEvidenceUploadPage.addDescription('The evidence description');
+    await additionalEvidenceUploadPage.addDescription(
+      'The evidence description'
+    );
     await additionalEvidenceUploadPage.submit();
-    expect(await additionalEvidenceUploadPage.getElementText('div.govuk-error-summary')).contain(content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded);
+    expect(
+      await additionalEvidenceUploadPage.getElementText(
+        'div.govuk-error-summary'
+      )
+    ).contain(
+      content.cy.additionalEvidence.evidenceUpload.error.noFilesUploaded
+    );
   });
 
   // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
@@ -171,22 +226,31 @@ describe.skip('CY - Additional Evidence @mya @nightly99', () => {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-    await page.waitFor(5000);
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.cy.additionalEvidence.evidenceUpload.header);
+    await page.waitForTimeout(5000);
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(
+      content.cy.additionalEvidence.evidenceUpload.header
+    );
 
     await additionalEvidenceUploadPage.selectFile('evidence.txt');
-    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(content.cy.additionalEvidence.evidenceUpload.header);
+    expect(await additionalEvidenceUploadPage.getHeading()).to.equal(
+      content.cy.additionalEvidence.evidenceUpload.header
+    );
 
-    await additionalEvidenceUploadPage.addDescription('The evidence description');
+    await additionalEvidenceUploadPage.addDescription(
+      'The evidence description'
+    );
     await additionalEvidenceUploadPage.submit();
-    await page.waitFor(4000);
+    await page.waitForTimeout(4000);
 
     /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-confirmation-page.png`;
-    pa11yOpts.page = await additionalEvidenceConfirmationPage.page;
+    pa11yOpts.page = additionalEvidenceConfirmationPage.page;
     const result = await pa11y(pa11yOpts);
-    expect(result.issues.length).to.equal(0, JSON.stringify(result.issues, null, 2));
+    expect(result.issues.length).to.equal(
+      0,
+      JSON.stringify(result.issues, null, 2)
+    );
 
     await additionalEvidenceConfirmationPage.returnToAppealPage();
     taskListPage.verifyPage();

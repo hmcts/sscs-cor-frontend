@@ -1,7 +1,8 @@
 import * as path from 'path';
-const { expect } = require('test/chai-sinon');
+
 import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
+const { expect } = require('test/chai-sinon');
 const content = require('locale/content');
 
 export class AdditionalEvidencePostPage extends BasePage {
@@ -11,14 +12,14 @@ export class AdditionalEvidencePostPage extends BasePage {
   }
 
   async verifyPages() {
-    const headerText = this.page.getHeading();
-    expect(headerText).to.equal(content.en.additionalEvidence.evidencePost.header);
+    const title = this.page.title();
+    expect(title).to.equal(content.en.additionalEvidence.evidencePost.header);
   }
 
   async returnToAppealPage() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('.govuk-back-link')
+      this.clickElement('.govuk-back-link'),
     ]);
   }
 }

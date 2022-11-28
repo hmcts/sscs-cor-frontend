@@ -14,30 +14,30 @@ const corAppealCreated = require('../data/cor/appealCreated');
 /* eslint-disable complexity */
 function getAppeal(appealNumber) {
   switch (appealNumber) {
-  case '1':
-    return oralAppealReceived;
-  case '2':
-    return oralDWPRespond;
-  case '3':
-    return oralHearingBooked;
-  case '4':
-    return oralHearing;
-  case '5':
-    return oralAppealPostponed;
-  case '6':
-    return oralNewHearingBooked;
-  case '7':
-    return oralClosed;
-  case '8':
-    return oralWithdrawn;
-  case '9':
-    return oralLapsed;
-  case '10':
-    return paperAppealReceived;
-  case '11':
-    return paperDWPRespond;
-  default:
-    return corAppealCreated;
+    case '1':
+      return oralAppealReceived;
+    case '2':
+      return oralDWPRespond;
+    case '3':
+      return oralHearingBooked;
+    case '4':
+      return oralHearing;
+    case '5':
+      return oralAppealPostponed;
+    case '6':
+      return oralNewHearingBooked;
+    case '7':
+      return oralClosed;
+    case '8':
+      return oralWithdrawn;
+    case '9':
+      return oralLapsed;
+    case '10':
+      return paperAppealReceived;
+    case '11':
+      return paperDWPRespond;
+    default:
+      return corAppealCreated;
   }
 }
 
@@ -45,5 +45,5 @@ module.exports = {
   path: '/appeals',
   method: 'GET',
   cache: false,
-  template: (params, query) => getAppeal(query.caseId)
+  template: (params, query) => getAppeal(query.caseId),
 };

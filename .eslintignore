@@ -4,6 +4,7 @@ functional-output/
 govuk_modules/
 test/coverage
 dist
+app/client/javascript/*.js
 test/crossbrowser/pages/steps.js
 test/accessibility/**/*.js
 test/browser/**/*.js
@@ -12,3 +13,7 @@ test/page-objects/**/*.js
 test/unit/**/*.js
 test/*.js
 cookie-banner/
+
+# Ignore artifacts:
+build
+coverage

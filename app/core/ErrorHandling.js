@@ -15,14 +15,18 @@ class ErrorHandling {
     const status = ErrorHandling.getStatus(error);
     logger.error('Unhandled error', error);
     res.status(status);
-    res.render(status === HttpStatus.NOT_FOUND ? 'errors/404.html' : 'errors/500.html');
+    res.render(
+      status === HttpStatus.NOT_FOUND ? 'errors/404.html' : 'errors/500.html'
+    );
   }
 
   static getStatus(error) {
-    return error.status ||
-           error.statusCode ||
-           error.responseCode ||
-           HttpStatus.INTERNAL_SERVER_ERROR;
+    return (
+      error.status ||
+      error.statusCode ||
+      error.responseCode ||
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   }
 }
 

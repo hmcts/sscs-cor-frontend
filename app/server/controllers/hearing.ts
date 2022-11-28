@@ -10,28 +10,44 @@ function getHearing(req: Request, res: Response) {
   const session = req.session;
 
   if (!session) {
-    const missingCaseIdError = new Error('Unable to retrieve session from session store');
+    const missingCaseIdError = new Error(
+      'Unable to retrieve session from session store'
+    );
     AppInsights.trackException(missingCaseIdError);
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const { latestEvents = [], historicalEvents = [], hearingType } = session['appeal'];
+  const {
+    latestEvents = [],
+    historicalEvents = [],
+    hearingType,
+  } = session['appeal'];
   const attending: boolean = hearingType === 'oral';
   let hearingInfo = null;
 
   if (!session['hideHearing']) {
-    hearingInfo = latestEvents.concat(historicalEvents).find(event => {
+    hearingInfo = latestEvents.concat(historicalEvents).find((event) => {
       const { type } = event;
-      if (type === 'HEARING_BOOKED' || type === 'NEW_HEARING_BOOKED') return event;
+      if (type === 'HEARING_BOOKED' || type === 'NEW_HEARING_BOOKED')
+        return event;
     });
   }
 
   let hearingArrangements = {};
-  let appeal = session['appeal']!;
-  if (session['hearing'] && !session['hideHearing'] && session['hearing'].hearing_arrangements) {
+  const appeal = session['appeal']!;
+  if (
+    session['hearing'] &&
+    !session['hideHearing'] &&
+    session['hearing'].hearing_arrangements
+  ) {
     hearingArrangements = session['hearing'].hearing_arrangements;
   }
-  return res.render('hearing-tab.html', { hearingInfo, attending, hearingArrangements, appeal });
+  return res.render('hearing-tab.html', {
+    hearingInfo,
+    attending,
+    hearingArrangements,
+    appeal,
+  });
 }
 
 function setupHearingController(deps: any) {
@@ -40,7 +56,4 @@ function setupHearingController(deps: any) {
   return router;
 }
 
-export {
-  getHearing,
-  setupHearingController
-};
+export { getHearing, setupHearingController };

@@ -1,10 +1,11 @@
 import * as status from '../../../app/server/controllers/status';
 
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
 import * as yourDetails from 'app/server/controllers/your-details';
 import * as Paths from 'app/server/paths';
 import * as AppInsights from '../../../app/server/app-insights';
+
+const express = require('express');
+const { expect, sinon } = require('test/chai-sinon');
 
 describe('controllers/your-details', () => {
   let req: any;
@@ -12,23 +13,23 @@ describe('controllers/your-details', () => {
   let sandbox: sinon.SinonSandbox;
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     req = {
       session: {
         appeal: {},
         hearing: {
-          user_details: {}
+          user_details: {},
         },
         subscriptions: {
-          appellant: {}
-        }
+          appellant: {},
+        },
       },
-      cookies: {}
+      cookies: {},
     } as any;
 
     res = {
       render: sandbox.stub(),
-      send: sandbox.stub()
+      send: sandbox.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -58,19 +59,24 @@ describe('controllers/your-details', () => {
   });
 
   describe('getYourDetails', () => {
-    it('should render your details page when mya feature enabled', async() => {
+    it('should render your details page when mya feature enabled', async () => {
       yourDetails.getYourDetails(req, res);
 
-      expect(res.render).to.have.been.calledOnce.calledWith('your-details.html', { details: req.session.hearing });
+      expect(res.render).to.have.been.calledOnce.calledWith(
+        'your-details.html',
+        { details: req.session.hearing }
+      );
     });
 
-    it('should throw error if no sessions', async() => {
+    it('should throw error if no sessions', async () => {
       req.session = null;
 
       expect(() => yourDetails.getYourDetails(req, res)).to.throw(TypeError);
 
       const error = new Error('Unable to retrieve session from session store');
-      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(sinon.match.has('message', error.message));
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        sinon.match.has('message', error.message)
+      );
       expect(AppInsights.trackEvent).to.have.been.calledOnce;
     });
   });

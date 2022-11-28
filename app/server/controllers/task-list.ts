@@ -6,23 +6,26 @@ import { AdditionalEvidenceService } from '../services/additional-evidence';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
 function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
-  if (allQuestionsSubmitted) return { status: 'completed', expiryDate: null, extendable: false };
+  if (allQuestionsSubmitted)
+    return { status: 'completed', expiryDate: null, extendable: false };
 
   const endOfToday = moment.utc().endOf('day');
-  const status = moment.utc(expiryDate).isBefore(endOfToday) ? 'expired' : 'pending';
+  const status = moment.utc(expiryDate).isBefore(endOfToday)
+    ? 'expired'
+    : 'pending';
 
   return { status, expiryDate, extendable: true };
 }
 
 function getTaskList(req: Request, res: Response, next: NextFunction) {
   try {
-    let deadlineDetails = null;
-    let hearingType = req.session['appeal']!.hearingType;
-    let appeal = req.session['appeal']!;
+    const deadlineDetails = null;
+    const hearingType = req.session['appeal']!.hearingType;
+    const appeal = req.session['appeal']!;
     res.render('task-list.html', {
       deadlineExpiryDate: deadlineDetails,
       hearingType,
-      appeal
+      appeal,
     });
   } catch (error) {
     AppInsights.trackException(error);
@@ -32,7 +35,9 @@ function getTaskList(req: Request, res: Response, next: NextFunction) {
 
 function getEvidencePost(req: Request, res: Response, next: NextFunction) {
   try {
-    res.render('post-evidence.html', { postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies) });
+    res.render('post-evidence.html', {
+      postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
+    });
   } catch (error) {
     AppInsights.trackException(error);
     next(error);
@@ -50,9 +55,12 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
         AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
       }
 
-      const coversheet = await additionalEvidenceService.getCoversheet(session['hearing'].case_id, req);
+      const coversheet = await additionalEvidenceService.getCoversheet(
+        session['hearing'].case_id,
+        req
+      );
       res.header('content-type', 'application/pdf');
-      res.send(new Buffer(coversheet, 'binary'));
+      res.send(Buffer.from(coversheet, 'binary'));
     } catch (error) {
       AppInsights.trackException(error);
       next(error);
@@ -64,7 +72,11 @@ function setupTaskListController(deps: any): Router {
   const router: Router = Router();
   router.get(Paths.taskList, deps.prereqMiddleware, getTaskList);
   router.get(Paths.postEvidence, deps.prereqMiddleware, getEvidencePost);
-  router.get(Paths.coversheet, deps.prereqMiddleware, getCoversheet(deps.additionalEvidenceService));
+  router.get(
+    Paths.coversheet,
+    deps.prereqMiddleware,
+    getCoversheet(deps.additionalEvidenceService)
+  );
   return router;
 }
 
@@ -73,5 +85,5 @@ export {
   getCoversheet,
   getEvidencePost,
   getTaskList,
-  processDeadline
+  processDeadline,
 };

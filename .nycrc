@@ -1,21 +1,13 @@
 {
-  "include": [
-    "app/**/*.ts"
-  ],
+  "include": ["app/**/*.ts"],
   "exclude": [
     "**/*.d.ts",
     "app/server/app.ts",
     "app/server/server.ts",
     "app/server/controllers/idam-stub.ts"
   ],
-  "reporter": [
-    "lcov",
-    "text",
-    "html"
-  ],
-  "extension": [
-    ".ts"
-  ],
+  "reporter": ["lcov", "text", "html"],
+  "extension": [".ts"],
   "report-dir": "./test/coverage/html",
   "temp-directory": "./test/coverage/.nyc_output",
   "temp-dir": "./test/coverage/.nyc_output",

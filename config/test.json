@@ -28,6 +28,6 @@
     "smartWait": "30000",
     "outputDir": "./functional-output/crossbrowser/reports"
   },
-  "apiCallTimeout" : 40000,
-  "navigationTimeout" : 140000
+  "apiCallTimeout": 40000,
+  "navigationTimeout": 140000
 }

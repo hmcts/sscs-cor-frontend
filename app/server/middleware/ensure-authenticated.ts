@@ -1,7 +1,8 @@
-const { Logger } = require('@hmcts/nodejs-logging');
-const i18next = require('i18next');
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+
+const { Logger } = require('@hmcts/nodejs-logging');
+const i18next = require('i18next');
 const content = require('../../../locale/content');
 
 const logger = Logger.getLogger('ensure-authenticated.js');
@@ -11,7 +12,7 @@ function checkAccessToken(req, res, next) {
     return next();
   }
   const sessionId = req.session.id;
-  req.session.destroy(error => {
+  req.session.destroy((error) => {
     if (error) {
       logger.error(`Error destroying session ${sessionId}`);
     }
@@ -26,24 +27,47 @@ function setLocals(req, res, next) {
     res.locals.showSignOut = true;
   }
 
-  res.locals.inDashboard = ['/status', '/task-list', '/history', '/hearing'].includes(req.originalUrl);
+  res.locals.inDashboard = [
+    '/status',
+    '/task-list',
+    '/history',
+    '/hearing',
+  ].includes(req.originalUrl);
 
   // Retrieve feature Flags and adding them as local variables so views can easily access to them
   res.locals.featureFlags = {};
-  res.locals.featureFlags[Feature.MEDIA_FILES_ALLOWED_ENABLED] = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
+  res.locals.featureFlags[Feature.MEDIA_FILES_ALLOWED_ENABLED] =
+    isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
 
   // Setting up Main Tabs to show on MYA;
-  const myaPagination = isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies);
+  const myaPagination = isFeatureEnabled(
+    Feature.MYA_PAGINATION_ENABLED,
+    req.cookies
+  );
   if (req.session.hearings && myaPagination) {
     res.locals.mainTabs = setMainTabNavigationItems();
   }
 
   // Setting up Tabs to show on MYA;
   if (req.session.appeal) {
-    const hearingOutcomeTab = isFeatureEnabled(Feature.HEARING_OUTCOME_TAB, req.cookies);
-    const avEvidenceTab = isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
-    const requestTab = isFeatureEnabled(Feature.REQUEST_TAB_ENABLED, req.cookies);
-    res.locals.tabs = setTabNavigationItems(req.session.appeal, hearingOutcomeTab, avEvidenceTab, requestTab);
+    const hearingOutcomeTab = isFeatureEnabled(
+      Feature.HEARING_OUTCOME_TAB,
+      req.cookies
+    );
+    const avEvidenceTab = isFeatureEnabled(
+      Feature.MEDIA_FILES_ALLOWED_ENABLED,
+      req.cookies
+    );
+    const requestTab = isFeatureEnabled(
+      Feature.REQUEST_TAB_ENABLED,
+      req.cookies
+    );
+    res.locals.tabs = setTabNavigationItems(
+      req.session.appeal,
+      hearingOutcomeTab,
+      avEvidenceTab,
+      requestTab
+    );
   }
   next();
 }
@@ -51,72 +75,91 @@ function setLocals(req, res, next) {
 function setMainTabNavigationItems() {
   const tabs = [
     {
-      'id': 'activeTab',
-      'title': content[i18next.language].activeTab.tabHeader,
-      'url': '/active-cases'
+      id: 'activeTab',
+      title: content[i18next.language].activeTab.tabHeader,
+      url: '/active-cases',
     },
     {
-      'id': 'dormantTab',
-      'title': content[i18next.language].dormantTab.tabHeader,
-      'url': '/dormant-cases'
-    }
+      id: 'dormantTab',
+      title: content[i18next.language].dormantTab.tabHeader,
+      url: '/dormant-cases',
+    },
   ];
   return tabs;
 }
 
-function setTabNavigationItems(appeal, hearingOutcomeTab, avEvidenceTab, requestTab) {
+function setTabNavigationItems(
+  appeal,
+  hearingOutcomeTab,
+  avEvidenceTab,
+  requestTab
+) {
   const { hearingType } = appeal;
   const { createdInGapsFrom } = appeal;
   const tabs = [
     {
-      'id': 'status',
-      'title': content[i18next.language].statusTab.tabHeader,
-      'url': '/status'
+      id: 'status',
+      title: content[i18next.language].statusTab.tabHeader,
+      url: '/status',
     },
     {
-      'id': 'questions',
-      'title': content[i18next.language].provideEvidenceTab.tabHeader,
-      'url': '/task-list'
+      id: 'questions',
+      title: content[i18next.language].provideEvidenceTab.tabHeader,
+      url: '/task-list',
     },
     {
-      'id': 'hearing',
-      'title': content[i18next.language].hearingTab.tabHeader,
-      'url': '/hearing'
+      id: 'hearing',
+      title: content[i18next.language].hearingTab.tabHeader,
+      url: '/hearing',
     },
     {
-      'id': 'history',
-      'title': content[i18next.language].historyTab.tabHeader,
-      'url': '/history'
+      id: 'history',
+      title: content[i18next.language].historyTab.tabHeader,
+      url: '/history',
     },
     {
-      'id': 'outcome',
-      'title': content[i18next.language].outcomeTab.tabHeader,
-      'url': '/outcome'
+      id: 'outcome',
+      title: content[i18next.language].outcomeTab.tabHeader,
+      url: '/outcome',
     },
     {
-      'id': 'avEvidence',
-      'title': content[i18next.language].avEvidenceTab.tabHeader,
-      'url': '/av-evidence-list'
+      id: 'avEvidence',
+      title: content[i18next.language].avEvidenceTab.tabHeader,
+      url: '/av-evidence-list',
     },
     {
-      'id': 'requestType',
-      'title': content[i18next.language].requestTypeTab.tabHeader,
-      'url': '/request-type'
-    }
+      id: 'requestType',
+      title: content[i18next.language].requestTypeTab.tabHeader,
+      url: '/request-type',
+    },
   ];
-  let tabsToShow = hearingType === 'cor' ? tabs.filter(tab => tab.title !== content[i18next.language].hearingTab.tabHeader) : tabs;
+  let tabsToShow =
+    hearingType === 'cor'
+      ? tabs.filter(
+          (tab) => tab.title !== content[i18next.language].hearingTab.tabHeader
+        )
+      : tabs;
 
-  tabsToShow = (createdInGapsFrom !== 'readyToList' && hearingType !== 'cor') ? tabsToShow.filter(tab => tab.title !== content[i18next.language].provideEvidenceTab.tabHeader) : tabs;
-  tabsToShow = tabsToShow.filter(tab => tab.id !== 'history');
-  tabsToShow = (!appeal.hearingOutcome || !hearingOutcomeTab) ? tabsToShow.filter(tab => tab.id !== 'outcome') : tabsToShow;
-  tabsToShow = (!avEvidenceTab) ? tabsToShow.filter(tab => tab.id !== 'avEvidence') : tabsToShow;
-  tabsToShow = (!requestTab) ? tabsToShow.filter(tab => tab.id !== 'requestType') : tabsToShow;
+  tabsToShow =
+    createdInGapsFrom !== 'readyToList' && hearingType !== 'cor'
+      ? tabsToShow.filter(
+          (tab) =>
+            tab.title !== content[i18next.language].provideEvidenceTab.tabHeader
+        )
+      : tabs;
+  tabsToShow = tabsToShow.filter((tab) => tab.id !== 'history');
+  tabsToShow =
+    !appeal.hearingOutcome || !hearingOutcomeTab
+      ? tabsToShow.filter((tab) => tab.id !== 'outcome')
+      : tabsToShow;
+  tabsToShow = avEvidenceTab
+    ? tabsToShow
+    : tabsToShow.filter((tab) => tab.id !== 'avEvidence');
+  tabsToShow = requestTab
+    ? tabsToShow
+    : tabsToShow.filter((tab) => tab.id !== 'requestType');
   return tabsToShow;
 }
 
 const ensureAuthenticated = [checkAccessToken, setLocals];
-export {
-  checkAccessToken,
-  setLocals,
-  ensureAuthenticated
-};
+export { checkAccessToken, setLocals, ensureAuthenticated };

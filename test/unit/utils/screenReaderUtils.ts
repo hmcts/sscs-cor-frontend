@@ -1,5 +1,6 @@
-const { expect } = require('test/chai-sinon');
 import { spellNumbersOut } from '../../../app/server/utils/screenReaderUtils';
+
+const { expect } = require('test/chai-sinon');
 
 describe('#screenReaderUtils', () => {
   it('should spell out a case reference', () => {

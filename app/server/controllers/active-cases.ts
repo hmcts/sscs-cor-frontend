@@ -7,11 +7,12 @@ import { getHearingsByName } from '../utils/fieldValidation';
 const logger = Logger.getLogger('active-cases.js');
 
 function getActiveCases(req: Request, res: Response) {
-
   const session = req.session;
 
   if (!session) {
-    const missingCaseIdError = new Error('Unable to retrieve session from session store');
+    const missingCaseIdError = new Error(
+      'Unable to retrieve session from session store'
+    );
     AppInsights.trackException(missingCaseIdError);
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
@@ -23,16 +24,21 @@ function getActiveCases(req: Request, res: Response) {
 }
 
 function filterActiveCase(selectedHearing, index, array) {
-  return !(selectedHearing.appeal_details.state === 'dormantAppealState' || selectedHearing.appeal_details.state === 'voidState');
+  return !(
+    selectedHearing.appeal_details.state === 'dormantAppealState' ||
+    selectedHearing.appeal_details.state === 'voidState'
+  );
 }
 
 function setupActiveCasesController(deps: any) {
   const router = Router();
-  router.get(Paths.activeCases, deps.prereqMiddleware, deps.setLocals, getActiveCases);
+  router.get(
+    Paths.activeCases,
+    deps.prereqMiddleware,
+    deps.setLocals,
+    getActiveCases
+  );
   return router;
 }
 
-export {
-    getActiveCases,
-    setupActiveCasesController
-};
+export { getActiveCases, setupActiveCasesController };

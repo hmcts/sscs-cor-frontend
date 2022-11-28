@@ -12,16 +12,14 @@
     "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
   },
   "session": {
-    "redis": {
-      "url": "REDIS_URL",
-      "secret": "SESSION_SECRET",
-      "timeout": "SESSION_TIME_OUT"
-    },
     "cookie": {
-      "secret": "SESSION_COOKIE_SECRET",
       "maxAgeInMs": "SESSION_COOKIE_MAX_AGE",
       "secure": "SECURE_SESSION"
     }
+  },
+  "redis": {
+    "host": "REDIS_HOST",
+    "port": "REDIS_PORT"
   },
   "idam": {
     "url": "IDAM_URL",
@@ -36,6 +34,7 @@
   },
   "featureFlags": {
     "mediaFilesAllowed": "MEDIA_FILES_ALLOWED_ENABLED",
+    "testFeature": "TEST_FEATURE",
     "allowContactUs": {
       "enabled": "ALLOW_CONTACT_US",
       "telephoneEnabled": "CONTACT_US_TELEPHONE_ENABLED",
@@ -43,8 +42,10 @@
       "webChatEnabled": "CONTACT_US_WEBCHAT_ENABLED"
     },
     "postBulkScan": "POST_BULK_SCAN",
+    "historyTab": "HISTORY_TAB",
     "hearingOutcomeTab": "HEARING_OUTCOME_TAB_ENABLED",
     "requestTabEnabled": "REQUEST_TAB_ENABLED",
+    "welsh": "FT_WELSH",
     "myaPagination": "MYA_PAGINATION_ENABLED",
     "cookieBanner": {
       "enabled": "ALLOW_COOKIE_BANNER_ENABLED"
@@ -63,10 +64,10 @@
       }
     }
   },
-  "apiCallTimeout" : "API_CALL_TIMEOUT",
-  "navigationTimeout" : "NAVIGATION_TIMEOUT",
+  "apiCallTimeout": "API_CALL_TIMEOUT",
+  "navigationTimeout": "NAVIGATION_TIMEOUT",
   "services": {
-    "webForm" : {
+    "webForm": {
       "url": "SERVICES_WEB_FORM"
     },
     "webChat": {

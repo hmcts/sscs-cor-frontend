@@ -14,7 +14,7 @@ export class AssignCasePage extends BasePage {
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
-      this.clickElement('#assign-case')
+      this.clickElement('#assign-case'),
     ]);
   }
 }

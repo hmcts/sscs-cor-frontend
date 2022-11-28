@@ -1,11 +1,7 @@
 {
-  "idam": {
-    "url": "http://localhost:3000/idam-stub",
-    "api-url": "http://localhost:3000/idam-stub",
-    "client": {
-      "id": "sscs-demo",
-      "secret": "a_secret"
-    },
-    "enableStub": "false"
+  "redis": {
+    "host": "sscs-cor-redis-demo.redis.cache.windows.net",
+    "port": 6380,
+    "tls": true
   }
 }
