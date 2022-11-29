@@ -2,6 +2,7 @@ import { setupLoginController } from 'app/server/controllers/login';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { Dependencies } from '../../../../app/server/routes';
+import { Router } from 'express';
 const { expect, sinon } = require('test/chai-sinon');
 
 describe('#setupLoginController', function () {
@@ -11,7 +12,7 @@ describe('#setupLoginController', function () {
     sinon.stub(express, 'Router').returns({
       get: sinon.stub(),
       post: sinon.stub(),
-    });
+    } as Partial<Router> as Router);
   });
 
   afterEach(function () {

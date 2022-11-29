@@ -1,9 +1,9 @@
 import * as chai from 'chai';
 
-const sinonChai = require('sinon-chai');
-const sinon = require('sinon');
-const chaiAsPromised = require('chai-as-promised');
-const chaiString = require('chai-string');
+import * as sinon from 'sinon';
+import * as sinonChai from 'sinon-chai';
+import * as chaiAsPromised from 'chai-as-promised';
+import * as chaiString from 'chai-string';
 
 const expect = chai.expect;
 chai.should();

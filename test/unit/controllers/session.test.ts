@@ -1,5 +1,6 @@
 import * as Paths from 'app/server/paths';
 import { Dependencies } from '../../../app/server/routes';
+import { Router } from 'express';
 
 const { expect, sinon } = require('test/chai-sinon');
 const {
@@ -35,7 +36,7 @@ describe('controllers/session.ts', function () {
       deps = {};
       sinon.stub(express, 'Router').returns({
         get: sinon.stub(),
-      });
+      } as Partial<Router> as Router);
     });
 
     afterEach(function () {

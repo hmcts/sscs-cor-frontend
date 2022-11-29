@@ -11,7 +11,7 @@ import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
-import { NextFunction } from 'express';
+import { NextFunction, Router } from 'express';
 import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import moment from 'moment';
@@ -126,7 +126,7 @@ describe('controllers/task-list', function () {
       sinon.stub(express, 'Router').returns({
         get: sinon.stub(),
         post: sinon.stub(),
-      });
+      } as Partial<Router> as Router);
     });
 
     afterEach(function () {
