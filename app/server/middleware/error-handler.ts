@@ -17,18 +17,14 @@ const logger: LoggerInstance = Logger.getLogger('error-handler.js');
 
 function trackTrace(error: HttpException, req: Request) {
   logger.error(
-    `${error.status} Error from request ${req.originalUrl} : ${JSON.stringify(
-      error
-    )} : ${error}`
+    `${error.status} Error from request ${req.originalUrl}, error: ${error}`
   );
   AppInsights.trackTrace(error);
 }
 
 function trackException(error: HttpException, req: Request) {
   logger.error(
-    `${error.status} Error from request ${req.originalUrl} : ${JSON.stringify(
-      error
-    )} : ${error}`
+    `${error.status} Error from request ${req.originalUrl} , error: ${error}`
   );
   AppInsights.trackException(error);
 }
@@ -83,7 +79,7 @@ export function badRequestHandler(
 
 /* eslint-disable no-unused-vars */
 export function coreErrorHandler(
-  error: HttpException,
+  error: any,
   req: Request,
   res: Response
 ): void {
