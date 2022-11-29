@@ -179,11 +179,17 @@
     },
     "error": {
       "error404": {
-        "header": "Sorry, this page could not be found"
+        "header": "404: Sorry, this page could not be found"
+      },
+      "error403": {
+        "header": "403: You dont have permission to access this page"
+      },
+      "error400": {
+        "header": "400: Bad request"
       },
       "error500": {
         "header": "Sorry, we’re experiencing technical difficulties",
-        "content": "Please try again."
+        "message": "Please try again."
       }
     },
     "general": {
@@ -1464,11 +1470,17 @@
     },
     "error": {
       "error404": {
-        "header": "Mae’n ddrwg gennym, ni ellir dod o hyd i'r dudalen hon"
+        "header": "404: Mae’n ddrwg gennym, ni ellir dod o hyd i'r dudalen hon"
+      },
+      "error403": {
+        "header": "403: Nid oes gennych ganiatâd i gael mynediad i'r dudalen hon"
+      },
+      "error400": {
+        "header": "400: Cais gwael"
       },
       "error500": {
         "header": "Mae’n ddrwg gennym, rydym yn cael anawsterau technegol",
-        "content": "Rhowch gynnig arall arni."
+        "message": "Rhowch gynnig arall arni."
       }
     },
     "general": {

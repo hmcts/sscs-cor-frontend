@@ -1,33 +1,98 @@
 import * as AppInsights from '../app-insights';
+import { Request, Response, NextFunction } from 'express';
+import HttpException from '../exceptions/HttpException';
+import {
+  BAD_REQUEST,
+  FORBIDDEN,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND,
+} from 'http-status-codes';
+import { Logger } from '@hmcts/nodejs-logging';
+import { LoggerInstance } from 'winston';
 
-const { Logger } = require('@hmcts/nodejs-logging');
-const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
+const i18next = require('i18next');
+const content = require('../../../locale/content');
 
-const logger = Logger.getLogger('error-handler.js');
+const logger: LoggerInstance = Logger.getLogger('error-handler.js');
 
-function pageNotFoundHandler(req, res) {
-  res.status(NOT_FOUND);
-  res.render('errors/404.njk');
+function trackTrace(error: HttpException, req: Request) {
+  logger.error(
+    `${error.status} Error from request ${req.originalUrl} : ${JSON.stringify(
+      error
+    )} : ${error}`
+  );
+  AppInsights.trackTrace(error);
 }
 
-function sessionNotFoundHandler(req, res, next) {
+function trackException(error: HttpException, req: Request) {
+  logger.error(
+    `${error.status} Error from request ${req.originalUrl} : ${JSON.stringify(
+      error
+    )} : ${error}`
+  );
+  AppInsights.trackException(error);
+}
+
+export function sessionNotFoundHandler(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
   if (!req.session) {
     return next('Session not found');
   }
   return next();
 }
 
+export function pageNotFoundHandler(req: Request, res: Response): void {
+  logger.error(`${404} Error from request ${req.originalUrl}`);
+  res.status(NOT_FOUND);
+  const header: string = content[i18next.language].error.error404.header;
+  res.render('errors/error.njk', { header });
+}
+
+export function forbiddenHandler(
+  error: HttpException,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  if (error.status !== FORBIDDEN) {
+    return next();
+  }
+  trackTrace(error, req);
+  res.status(FORBIDDEN);
+  const header: string = content[i18next.language].error.error403.header;
+  res.render('errors/error.njk', { header });
+}
+
+export function badRequestHandler(
+  error: HttpException,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  if (error.status !== BAD_REQUEST) {
+    return next();
+  }
+  trackTrace(error, req);
+  res.status(BAD_REQUEST);
+  const header: string = content[i18next.language].error.error400.header;
+  res.render('errors/error.njk', { header });
+}
+
 /* eslint-disable no-unused-vars */
-function coreErrorHandler(error, req, res, next) {
-  logger.error(
-    `500 Error from request ${req.originalUrl} : ${JSON.stringify(
-      error
-    )} : ${error}`
-  );
-  AppInsights.trackException(error);
+export function coreErrorHandler(
+  error: HttpException,
+  req: Request,
+  res: Response
+): void {
+  trackException(error, req);
   res.status(INTERNAL_SERVER_ERROR);
-  res.render('errors/500.njk');
+  const header: string = content[i18next.language].error.error500.header;
+  const message: string = content[i18next.language].error.error500.content;
+  const contact: string =
+    content[i18next.language].common.contactIfProblemContinues;
+  res.render('errors/error.njk', { header, message, contact });
 }
 /* eslint-enable no-unused-vars */
-
-export { pageNotFoundHandler, coreErrorHandler, sessionNotFoundHandler };

@@ -22,6 +22,10 @@ import * as config from 'config';
 import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
 import * as path from 'path';
+import {
+  badRequestHandler,
+  forbiddenHandler,
+} from './middleware/error-handler';
 
 const { Express } = require('@hmcts/nodejs-logging');
 const errors = require('./middleware/error-handler');
@@ -178,6 +182,8 @@ export function setup(
   app.use(errors.sessionNotFoundHandler);
   app.use(routes);
   app.use(errors.pageNotFoundHandler);
+  app.use(errors.forbiddenHandler);
+  app.use(errors.badRequestHandler);
   app.use(errors.coreErrorHandler);
   app.use(i18nextMiddleware.handle(i18next));
   return app;
