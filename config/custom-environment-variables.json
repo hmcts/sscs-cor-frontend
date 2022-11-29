@@ -19,8 +19,7 @@
   },
   "redis": {
     "host": "REDIS_HOST",
-    "port": "REDIS_PORT",
-    "tls": "REDIS_TLS"
+    "port": "REDIS_PORT"
   },
   "idam": {
     "url": "IDAM_URL",
