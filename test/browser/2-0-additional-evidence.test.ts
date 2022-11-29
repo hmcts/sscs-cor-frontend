@@ -22,7 +22,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Additional Evidence @mya @nightly', () => {
+describe('Additional Evidence @mya @nightly', function () {
   let page: Page;
   let taskListPage: TaskListPage;
   let additionalEvidencePage: AdditionalEvidencePage;
@@ -37,7 +37,7 @@ describe('Additional Evidence @mya @nightly', () => {
   let statusPage: StatusPage;
   let ccdCase;
   let sidamUser;
-  before('start services and bootstrap data in CCD/COH', async () => {
+  before('start services and bootstrap data in CCD/COH', async function () {
     ({
       ccdCase,
       page,
@@ -70,13 +70,13 @@ describe('Additional Evidence @mya @nightly', () => {
     );
   });
 
-  after(async () => {
+  after(async function () {
     if (page?.close) {
       await page.close();
     }
   });
 
-  it('navigate to additional evidence page', async () => {
+  it('navigate to additional evidence page', async function () {
     assignCasePage.verifyPage();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
@@ -86,7 +86,7 @@ describe('Additional Evidence @mya @nightly', () => {
     await additionalEvidencePage.visitPage();
   });
 
-  it('Verify additional evidence options', async () => {
+  it('Verify additional evidence options', async function () {
     additionalEvidencePage.verifyPage();
 
     const header = await additionalEvidencePage.getElementText('h1');
@@ -101,7 +101,7 @@ describe('Additional Evidence @mya @nightly', () => {
     });
   });
 
-  it('fills a statement and submit and shows confirmation page and returns to appeal page', async () => {
+  it('fills a statement and submit and shows confirmation page and returns to appeal page', async function () {
     additionalEvidencePage.verifyPage();
     await additionalEvidencePage.selectStatementOption();
     await additionalEvidencePage.submit();
@@ -116,7 +116,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /task-list passes @pa11y', async () => {
+  it('checks /task-list passes @pa11y', async function () {
     await taskListPage.visitPage();
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-task-list.png`;
@@ -128,7 +128,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /additional-evidence page path passes @pa11y', async () => {
+  it('checks /additional-evidence page path passes @pa11y', async function () {
     await additionalEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-page.png`;
     pa11yOpts.page = additionalEvidencePage.page;
@@ -140,7 +140,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /additional-evidence-upload page path passes @pa11y', async () => {
+  it('checks /additional-evidence-upload page path passes @pa11y', async function () {
     await additionalEvidenceUploadPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-page.png`;
     pa11yOpts.page = additionalEvidenceUploadPage.page;
@@ -152,7 +152,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /additional-evidence-upload-audio-video page path passes @pa11y', async () => {
+  it('checks /additional-evidence-upload-audio-video page path passes @pa11y', async function () {
     await additionalEvidenceUploadAudioVideoPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-audio-video-page.png`;
     pa11yOpts.page = additionalEvidenceUploadAudioVideoPage.page;
@@ -164,7 +164,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /additional-evidence/statement page path passes @pa11y', async () => {
+  it('checks /additional-evidence/statement page path passes @pa11y', async function () {
     await additionalEvidenceStatementPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-statement-page.png`;
     pa11yOpts.page = additionalEvidenceStatementPage.page;
@@ -176,7 +176,7 @@ describe('Additional Evidence @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /additional-evidence/post page path passes @pa11y', async () => {
+  it('checks /additional-evidence/post page path passes @pa11y', async function () {
     await additionalEvidencePostPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-post-page.png`;
     pa11yOpts.page = additionalEvidencePostPage.page;
@@ -187,7 +187,7 @@ describe('Additional Evidence @mya @nightly', () => {
     );
   });
 
-  it('shows an error if no file to upload and no description', async () => {
+  it('shows an error if no file to upload and no description', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -210,7 +210,7 @@ describe('Additional Evidence @mya @nightly', () => {
     );
   });
 
-  it('shows an error if no file to upload', async () => {
+  it('shows an error if no file to upload', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -229,7 +229,7 @@ describe('Additional Evidence @mya @nightly', () => {
     );
   });
 
-  it('uploads a file and shows file list and check evidence confirmation page @pally', async () => {
+  it('uploads a file and shows file list and check evidence confirmation page @pally', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadOption();
     await additionalEvidencePage.submit();
@@ -262,7 +262,7 @@ describe('Additional Evidence @mya @nightly', () => {
     taskListPage.verifyPage();
   });
 
-  it('uploads an audio file and shows file list and check evidence confirmation page', async () => {
+  it('uploads an audio file and shows file list and check evidence confirmation page', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectUploadAudioVideoOption();
     await additionalEvidencePage.submit();
@@ -285,7 +285,7 @@ describe('Additional Evidence @mya @nightly', () => {
     additionalEvidenceConfirmationPage.verifyPage();
   });
 
-  it('shows additional evidence post page', async () => {
+  it('shows additional evidence post page', async function () {
     await additionalEvidencePage.visitPage();
     await additionalEvidencePage.selectPostOption();
     await additionalEvidencePage.submit();

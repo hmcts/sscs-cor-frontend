@@ -7,6 +7,7 @@ import {
   RequestTypeService,
 } from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
+import { Dependencies } from '../routes';
 const logger = Logger.getLogger('request-type.ts');
 
 const contentType = new Map([
@@ -32,7 +33,7 @@ function getRequestType() {
       const emptyHearingIdError = action === 'formError';
       const appeal = req.session['appeal']!;
 
-      return res.render('request-type/index.html', {
+      return res.render('request-type/index.njk', {
         action,
         requestOptions,
         hearingRecordingsResponse,
@@ -50,7 +51,7 @@ function getRequestType() {
 function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const caseId = req.session['hearing'].case_id;
+      const caseId = req.session['case'].case_id;
       const hearingIds = req.body['hearingId'];
       const emptyHearingIdError = !hearingIds;
 
@@ -76,7 +77,7 @@ function selectRequestType(requestTypeService: RequestTypeService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const option = req.body['requestOptions'];
-      const caseId = req.session['hearing'].case_id;
+      const caseId = req.session['case'].case_id;
       if (option === 'hearingRecording') {
         req.session['requestOptions'] = 'hearingRecording';
         const hearingRecordingsResponse: HearingRecordingResponse =
@@ -104,7 +105,7 @@ function getHearingRecording(trackYourAppealService: TrackYourApealService) {
   };
 }
 
-function setupRequestTypeController(deps: any) {
+function setupRequestTypeController(deps: Dependencies) {
   const router = Router();
   router.get(
     `${Paths.requestType}/recording`,

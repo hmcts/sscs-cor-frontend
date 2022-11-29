@@ -29,22 +29,22 @@ const html = `
   </div>
 </details>`;
 
-describe('detailsTabIndexToggle', () => {
+describe('detailsTabIndexToggle', function () {
   let sandbox: sinon.SinonSandbox;
   let detailsToggle: DetailsTabIndexToggle;
-  before(() => {
+  before(function () {
     document.body.innerHTML = html;
   });
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
   });
 
-  it('should add tabindex to aria-hidden child element on load', () => {
+  it('should add tabindex to aria-hidden child element on load', function () {
     const attachListernersMock = sandbox.stub(
       DetailsTabIndexToggle.prototype,
       'attachListeners'
@@ -58,7 +58,7 @@ describe('detailsTabIndexToggle', () => {
     expect(value).to.equal('-1');
   });
 
-  it('should remove tabindex attribute on init', () => {
+  it('should remove tabindex attribute on init', function () {
     const removeAttributeMock = sandbox.stub(
       document.querySelector('.govuk-details__text a'),
       'removeAttribute'
@@ -69,7 +69,7 @@ describe('detailsTabIndexToggle', () => {
     expect(removeAttributeMock).to.have.been.called.calledWith('tabindex');
   });
 
-  it('should attach listeners', () => {
+  it('should attach listeners', function () {
     const addEventListenerStub: sinon.SinonStub = sandbox.stub(
       document.querySelector('details.govuk-details'),
       'addEventListener'
@@ -79,7 +79,7 @@ describe('detailsTabIndexToggle', () => {
     expect(addEventListenerStub).to.have.been.called.calledWith('toggle');
   });
 
-  it('should toggle tabindex attribute', () => {
+  it('should toggle tabindex attribute', function () {
     const selector: HTMLDetailsElement =
       document.querySelector('.govuk-details');
     const target = document.querySelector('.govuk-details__text');

@@ -9,14 +9,14 @@ const { expect } = require('test/chai-sinon');
 const content = require('locale/content');
 const config = require('config');
 
-describe('Manage your appeal app @smoke', () => {
+describe('Manage your appeal app @smoke', function () {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
   let sidamUser;
-  before(async () => {
+  before(async function () {
     ({
       ccdCase,
       page,
@@ -35,25 +35,25 @@ describe('Manage your appeal app @smoke', () => {
     );
   });
 
-  after(async () => {
+  after(async function () {
     if (page?.close) {
       await page.close();
     }
   });
 
-  it('should land in assign-case page after a successful login', async () => {
+  it('should land in assign-case page after a successful login', async function () {
     assignCasePage.verifyPage();
   });
 
-  it('should inform postcode, submit and land in status page', async () => {
+  it('should inform postcode, submit and land in status page', async function () {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
     statusPage.verifyPage();
   });
 
-  describe('Status page', () => {
-    it('should display navigation tabs and Status tab should be active', async () => {
+  describe('Status page', function () {
+    it('should display navigation tabs and Status tab should be active', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be
         .null;
@@ -62,28 +62,28 @@ describe('Manage your appeal app @smoke', () => {
       ).contain(content.en.statusTab.tabHeader);
     });
 
-    it('should display subheading', async () => {
+    it('should display subheading', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(
         content.en.statusTab.header
       );
     });
 
-    it('should display status bar', async () => {
+    it('should display status bar', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(
         content.en.statusTab.header
       );
     });
 
-    it('should display panel with latest update', async () => {
+    it('should display panel with latest update', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.panel')).contain(
         content.en.statusTab.panelHeader
       );
     });
 
-    it('should display Help and Support links', async () => {
+    it('should display Help and Support links', async function () {
       statusPage.verifyPage();
       expect(
         await statusPage.getElementText('.mya-contact__content h2')
@@ -96,7 +96,7 @@ describe('Manage your appeal app @smoke', () => {
       ).contain(content.en.helpGuides.withdrawAppeal.linkHeader);
     });
 
-    it('should display Contact us for help options and open details', async () => {
+    it('should display Contact us for help options and open details', async function () {
       statusPage.verifyPage();
       expect(
         await statusPage.getElementText('.govuk-details.contact-us')

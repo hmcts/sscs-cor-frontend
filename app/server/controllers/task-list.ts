@@ -4,6 +4,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import { AdditionalEvidenceService } from '../services/additional-evidence';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+import { Dependencies } from '../routes';
 
 function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
   if (allQuestionsSubmitted)
@@ -22,7 +23,7 @@ function getTaskList(req: Request, res: Response, next: NextFunction) {
     const deadlineDetails = null;
     const hearingType = req.session['appeal']!.hearingType;
     const appeal = req.session['appeal']!;
-    res.render('task-list.html', {
+    res.render('task-list.njk', {
       deadlineExpiryDate: deadlineDetails,
       hearingType,
       appeal,
@@ -35,7 +36,7 @@ function getTaskList(req: Request, res: Response, next: NextFunction) {
 
 function getEvidencePost(req: Request, res: Response, next: NextFunction) {
   try {
-    res.render('post-evidence.html', {
+    res.render('post-evidence.njk', {
       postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
     });
   } catch (error) {
@@ -56,7 +57,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
       }
 
       const coversheet = await additionalEvidenceService.getCoversheet(
-        session['hearing'].case_id,
+        session['case'].case_id,
         req
       );
       res.header('content-type', 'application/pdf');
@@ -68,7 +69,7 @@ function getCoversheet(additionalEvidenceService: AdditionalEvidenceService) {
   };
 }
 
-function setupTaskListController(deps: any): Router {
+function setupTaskListController(deps: Dependencies): Router {
   const router: Router = Router();
   router.get(Paths.taskList, deps.prereqMiddleware, getTaskList);
   router.get(Paths.postEvidence, deps.prereqMiddleware, getEvidencePost);

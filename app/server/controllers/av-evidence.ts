@@ -1,10 +1,9 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { TrackYourApealService } from '../services/tyaService';
-import { dateFormat } from '../utils/dateUtils';
+import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('av-evidence.js');
 const contentType = new Map([
@@ -29,7 +28,7 @@ function getAvEvidenceList(req: Request, res: Response) {
       appeal.audioVideoEvidence ? appeal.audioVideoEvidence.length : 0
     }`
   );
-  return res.render('av-evidence-tab.html', { appeal });
+  return res.render('av-evidence-tab.njk', { appeal });
 }
 
 function getAvEvidence(trackYourAppealService: TrackYourApealService) {
@@ -43,7 +42,7 @@ function getAvEvidence(trackYourAppealService: TrackYourApealService) {
   };
 }
 
-function setupAvEvidenceController(deps: any) {
+function setupAvEvidenceController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.avEvidenceList, deps.prereqMiddleware, getAvEvidenceList);
   router.get(

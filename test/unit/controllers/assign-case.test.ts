@@ -1,16 +1,16 @@
 import { getIndex, postIndex } from 'app/server/controllers/assign-case';
 import { expect, sinon } from '../../chai-sinon';
 import { OK } from 'http-status-codes';
-import { HearingService } from '../../../app/server/services/hearing';
+import { CaseService } from '../../../app/server/services/cases';
 import { TrackYourApealService } from '../../../app/server/services/tyaService';
 const content = require('locale/content');
 
-describe('controllers/assign-case.js', () => {
+describe('controllers/assign-case.js', function () {
   let sandbox: sinon.SinonSandbox;
   let req;
   let res;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     res = {
       render: sandbox.spy(),
@@ -18,31 +18,31 @@ describe('controllers/assign-case.js', () => {
     } as any;
   });
 
-  describe('getIndex', () => {
-    it('should render assign-case page', () => {
+  describe('getIndex', function () {
+    it('should render assign-case page', function () {
       req = {
         query: {},
       } as any;
 
       getIndex(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'assign-case/index.html',
+        'assign-case/index.njk',
         {}
       );
     });
   });
 
-  describe('postIndex', () => {
+  describe('postIndex', function () {
     const idamEmail = 'someEmail@example.com';
     const tya = 'some-tya-number';
     const caseId = 'caseId';
     let onlineHearing;
     let appeal;
-    let hearingService: HearingService;
+    let caseService: CaseService = null;
     let trackYourAppealService: TrackYourApealService;
     let underTest;
 
-    beforeEach(() => {
+    beforeEach(function () {
       onlineHearing = {
         hearingId: 'hearingId',
         case_id: caseId,
@@ -51,7 +51,7 @@ describe('controllers/assign-case.js', () => {
         hearingType: 'paper',
       };
 
-      hearingService = {
+      caseService = {
         assignOnlineHearingsToCitizen: sandbox.stub().resolves({
           statusCode: OK,
           body: onlineHearing,
@@ -65,27 +65,27 @@ describe('controllers/assign-case.js', () => {
       } as any;
     });
 
-    describe('for valid postcode', () => {
+    describe('for valid postcode', function () {
       const postcode = 'cm11 1ab';
 
-      beforeEach(() => {
+      beforeEach(function () {
         req = {
           session: { idamEmail, tya },
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
-      it('assigns user to case', async () => {
+      it('assigns user to case', async function () {
         await underTest(req, res);
 
         expect(
-          hearingService.assignOnlineHearingsToCitizen
+          caseService.assignOnlineHearingsToCitizen
         ).to.have.been.calledOnce.calledWith(idamEmail, tya, postcode, req);
       });
 
-      it('gets appeal', async () => {
+      it('gets appeal', async function () {
         await underTest(req, res);
 
         expect(
@@ -93,35 +93,35 @@ describe('controllers/assign-case.js', () => {
         ).to.have.been.calledOnce.calledWith(caseId, req);
       });
 
-      it('redirects to task-list', async () => {
+      it('redirects to task-list', async function () {
         await underTest(req, res);
 
         expect(res.redirect).to.have.been.calledOnce.calledWith('/status');
       });
 
-      it('sets hearing in session', async () => {
+      it('sets hearing in session', async function () {
         await underTest(req, res);
 
-        expect(req.session.hearing).to.be.eql(onlineHearing);
+        expect(req.session.case).to.be.eql(onlineHearing);
       });
 
-      it('sets appeal in session', async () => {
+      it('sets appeal in session', async function () {
         await underTest(req, res);
 
         expect(req.session.appeal).to.be.eql(appeal);
       });
 
-      it('sets hideHearing false in session', async () => {
+      it('sets hideHearing false in session', async function () {
         await underTest(req, res);
 
         expect(req.session.hideHearing).to.be.eql(false);
       });
     });
 
-    describe('for missing postcode and hideHearing true', () => {
+    describe('for missing postcode and hideHearing true', function () {
       const postcode = 'cm11 1ab';
 
-      beforeEach(() => {
+      beforeEach(function () {
         trackYourAppealService = {
           getAppeal: sandbox.stub().resolves({
             statusCode: OK,
@@ -137,77 +137,77 @@ describe('controllers/assign-case.js', () => {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
-      it('sets hideHearing true in session', async () => {
+      it('sets hideHearing true in session', async function () {
         await underTest(req, res);
 
         expect(req.session.hideHearing).to.be.eql(true);
       });
     });
 
-    describe('for missing postcode', () => {
+    describe('for missing postcode', function () {
       const postcode = '';
 
-      beforeEach(() => {
+      beforeEach(function () {
         req = {
           session: { idamEmail, tya },
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
-      it('redirects to task-list', async () => {
+      it('redirects to task-list', async function () {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.html',
+          'assign-case/index.njk',
           { error: content.en.assignCase.errors.noPostcode }
         );
       });
     });
 
-    describe('for invalid postcode', () => {
+    describe('for invalid postcode', function () {
       const postcode = 'invalid';
 
-      beforeEach(() => {
+      beforeEach(function () {
         req = {
           session: { idamEmail, tya },
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
-      it('redirects to task-list', async () => {
+      it('redirects to task-list', async function () {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.html',
+          'assign-case/index.njk',
           { error: content.en.assignCase.errors.invalidPostcode }
         );
       });
     });
 
-    describe('for missing tya', () => {
+    describe('for missing tya', function () {
       const postcode = 'TS1 1ST';
 
-      beforeEach(() => {
+      beforeEach(function () {
         req = {
           session: { idamEmail },
           body: { postcode },
         } as any;
 
-        underTest = postIndex(hearingService, trackYourAppealService);
+        underTest = postIndex(caseService, trackYourAppealService);
       });
 
-      it('redirects to task-list', async () => {
+      it('redirects to task-list', async function () {
         await underTest(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.html',
+          'assign-case/index.njk',
           { error: content.en.assignCase.errors.tyaNotProvided }
         );
       });

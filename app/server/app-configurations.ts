@@ -7,9 +7,10 @@ import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 import { Application } from 'express';
 import { Moment, utc } from 'moment';
-import * as helmet from 'helmet';
+import helmet from 'helmet';
 import * as config from 'config';
-import { tyaNunjucks } from '../core/tyaNunjucks';
+import { tyaNunjucks } from './controllers/content';
+import { dateFormat } from './utils/dateUtils';
 
 const content = require('../../locale/content');
 
@@ -17,7 +18,7 @@ const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 
 const DecisionReceivedDaysAfterHearing = 5;
 
-function configureHelmet(app: Application) {
+function configureHelmet(app: Application): void {
   // by setting HTTP headers appropriately.
   app.use(helmet());
   // Helmet referrer policy
@@ -78,25 +79,6 @@ function configureHeaders(app: Application): void {
   });
 }
 
-function dateFormat(
-  date: string | Moment,
-  format: string = CONST.DATE_FORMAT,
-  locale = 'en'
-): string {
-  try {
-    const momentDate: Moment = typeof date === 'string' ? utc(date) : date;
-    if (momentDate) {
-      return momentDate.locale(locale).format(format);
-    }
-  } catch (error) {
-    logger.error(
-      `Error formatting date '${date}' with format '${format}', error:`,
-      error
-    );
-  }
-  return typeof date === 'string' ? date : date?.format();
-}
-
 function dateForDecisionReceived(
   utcDateTimeStr: string,
   locale: string
@@ -124,8 +106,7 @@ function configureNunjucks(app: express.Application): void {
       'app/main',
       'cookie-banner/',
       'views/notifications',
-      'node_modules/govuk-frontend/govuk/',
-      'node_modules/govuk-frontend/govuk/components/',
+      'node_modules/govuk-frontend/',
     ],
     {
       autoescape: true,

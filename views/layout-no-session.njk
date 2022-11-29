@@ -1,0 +1,19 @@
+{% extends "govuk/template.njk" %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "components/mya-contact-us.njk" import contactUs with context %}
+{% set assetPath = "/public/govuk-frontend" %}
+{% block pageTitle %}
+  {{ contact.pageTitle | safe }}
+{% endblock pageTitle %}
+{% block head %}
+  {% include "includes/head.njk" %}
+{% endblock head %}
+{% block header %}
+  {% include "includes/cookie-banner.njk" %}
+  {% include "includes/header.njk" %}
+{% endblock header %}
+{% block content %}
+{% endblock content %}
+{% block body_end %}
+  <script src="/public/js/main.js"></script>
+{% endblock body_end %}

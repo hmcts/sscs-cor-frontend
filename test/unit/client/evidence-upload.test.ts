@@ -60,30 +60,30 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
       </div>
     </div>`;
 
-describe('evidence-upload', () => {
+describe('evidence-upload', function () {
   let evidenceUpload: EvidenceUpload;
   let body;
-  before(() => {
+  before(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
     evidenceUpload = new EvidenceUpload();
     evidenceUpload.evidenceUploadHelper = new EvidenceUploadHelper();
   });
 
-  describe('#constructor', () => {
-    it('hide no-JS elements', () => {
+  describe('#constructor', function () {
+    it('hide no-JS elements', function () {
       const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
         evidenceUpload.NOJS_ELEMENT_SELECTOR
       );
       noJsElements.forEach((e) => expect(e.style.display).to.equal('none'));
     });
-    it('shows JS elements with expection of file input', () => {
+    it('shows JS elements with expection of file input', function () {
       const jsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
         `${evidenceUpload.JS_ELEMENT_SELECTOR}:not(#${evidenceUpload.FILE_UPLOAD_ID})`
       );
       jsElements.forEach((e) => expect(e.style.display).to.equal('block'));
     });
-    it('hide reveal container by default', () => {
+    it('hide reveal container by default', function () {
       const revealContainer: HTMLElement = document.getElementById(
         evidenceUpload.REVEAL_CONTAINER_ID
       );
@@ -92,7 +92,7 @@ describe('evidence-upload', () => {
         'govuk-details__text --margin-bottom-m'
       );
     });
-    it('sets file upload state', () => {
+    it('sets file upload state', function () {
       const fileUpload: HTMLElement = document.getElementById(
         evidenceUpload.FILE_UPLOAD_ID
       );
@@ -168,14 +168,14 @@ describe('evidence-upload', () => {
     });
   }); */
 
-  describe('upload media file', () => {
-    before(() => {
+  describe('upload media file', function () {
+    before(function () {
       document.querySelector<HTMLInputElement>(
         `#${evidenceUpload.FILE_UPLOAD_ID}`
       ).addEventListener = sinon.spy();
     });
-    describe('initialize class', () => {
-      it('should attach Event Listeners', () => {
+    describe('initialize class', function () {
+      it('should attach Event Listeners', function () {
         const target = document.querySelector<HTMLInputElement>(
           `#${evidenceUpload.FILE_UPLOAD_ID}`
         );
@@ -186,15 +186,15 @@ describe('evidence-upload', () => {
     });
   });
 
-  describe('#uploadFile', () => {
+  describe('#uploadFile', function () {
     let submitStub: sinon.SinonStub;
-    beforeEach(() => {
+    beforeEach(function () {
       submitStub = sinon.stub(HTMLFormElement.prototype, 'submit');
     });
-    afterEach(() => {
+    afterEach(function () {
       submitStub.restore();
     });
-    it('creates a form element appended to the body', () => {
+    it('creates a form element appended to the body', function () {
       expect(document.forms.length).to.equal(1);
       evidenceUpload.uploadFile();
       expect(document.forms.length).to.equal(2);
@@ -203,14 +203,14 @@ describe('evidence-upload', () => {
       expect(form.method).to.equal('post');
       expect(form.enctype).to.equal('multipart/form-data');
     });
-    it('shows the spinner and hides the file upload', () => {
+    it('shows the spinner and hides the file upload', function () {
       evidenceUpload.uploadFile();
       const uploadSpinner = document.getElementById('upload-spinner');
       expect(uploadSpinner.style.display).to.equal('block');
       const uploadFileButton = document.getElementById('uploadFileButton');
       expect(uploadFileButton.style.display).to.equal('none');
     });
-    it('submits the form', () => {
+    it('submits the form', function () {
       evidenceUpload.uploadFile();
       expect(submitStub).to.have.been.calledOnce;
     });

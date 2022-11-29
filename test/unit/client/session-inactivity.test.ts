@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Session } from 'inspector';
 import { SinonSpy, SinonStub } from 'sinon';
 
-describe('Client/session-inactivity', () => {
+describe('Client/session-inactivity', function () {
   let sessionInactivity: SessionInactivity;
   let target: HTMLElement;
   let modal: HTMLElement;
@@ -16,7 +16,7 @@ describe('Client/session-inactivity', () => {
   let addListernersMock: SinonStub;
   let axiosSpy: SinonSpy;
 
-  before(() => {
+  before(function () {
     sessionInactivity = new SessionInactivity();
     extendSessionMock = sinon.stub(
       SessionInactivity.prototype,
@@ -41,8 +41,8 @@ describe('Client/session-inactivity', () => {
     cancelButton = document.getElementById(sessionInactivity.CANCEL_BUTTON);
   });
 
-  describe('Class', () => {
-    it('should initialize', () => {
+  describe('Class', function () {
+    it('should initialize', function () {
       sessionInactivity.init();
       expect(sessionInactivity.answerFormEl).to.equal(target);
       expect(sessionInactivity.modal).to.equal(modal);
@@ -54,19 +54,19 @@ describe('Client/session-inactivity', () => {
     });
   });
 
-  describe('extendSession', () => {
-    beforeEach(() => {
+  describe('extendSession', function () {
+    beforeEach(function () {
       extendSessionMock.restore();
       axiosSpy.resetHistory();
     });
 
-    it('should extendSession if first time', () => {
+    it('should extendSession if first time', function () {
       sessionInactivity.lastReset = null;
       sessionInactivity.extendSession();
       expect(axiosSpy).to.have.been.called;
     });
 
-    it('within the buffer  make an extension call', () => {
+    it('within the buffer  make an extension call', function () {
       sessionInactivity.lastReset = moment().subtract(
         sessionInactivity.sessionExtendBuffer - 10,
         's'
@@ -76,31 +76,31 @@ describe('Client/session-inactivity', () => {
       expect(axiosSpy).to.not.have.been.called;
     });
 
-    it('outside the buffer wait', () => {
+    it('outside the buffer wait', function () {
       sessionInactivity.sessionExpiry = moment().add(20, 's');
       sessionInactivity.extendSession();
       expect(axiosSpy).to.have.been.called;
     });
   });
 
-  describe('Event listeners', () => {
-    beforeEach(() => {
+  describe('Event listeners', function () {
+    beforeEach(function () {
       extendSessionMock.reset();
     });
 
-    it('should remove keystroke event', () => {
+    it('should remove keystroke event', function () {
       sessionInactivity.removeKeyStrokeListener();
       target.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }));
       expect(extendSessionMock).to.not.have.been.called;
     });
 
-    it('should bind keystroke event', () => {
+    it('should bind keystroke event', function () {
       sessionInactivity.bindKeyStrokeListener();
       target.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }));
       expect(extendSessionMock).to.have.been.called;
     });
 
-    it('should bind extend event', () => {
+    it('should bind extend event', function () {
       sessionInactivity.bindModalButtonListeners();
 
       const evt = new MouseEvent('click', {
@@ -113,14 +113,14 @@ describe('Client/session-inactivity', () => {
       expect(bindModalMock).to.have.been.called;
     });
 
-    it('should open modal', () => {
+    it('should open modal', function () {
       sessionInactivity.openModal();
 
       const classes = document.getElementById('timeout-dialog').className;
       expect(classes).to.contain('modal--open');
     });
 
-    it('should close modal', () => {
+    it('should close modal', function () {
       sessionInactivity.closeModal();
 
       const classes = document.getElementById('timeout-dialog').className;
@@ -128,20 +128,20 @@ describe('Client/session-inactivity', () => {
     });
   });
 
-  describe('Counters', () => {
+  describe('Counters', function () {
     let sandbox;
     let clock;
-    beforeEach(() => {
+    beforeEach(function () {
       sandbox = sinon.createSandbox();
       clock = sinon.useFakeTimers();
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
       clock.restore();
     });
 
-    it('should restart counters', () => {
+    it('should restart counters', function () {
       const stopCountersStub = sandbox.stub(
         SessionInactivity.prototype,
         'stopCounters'
@@ -157,7 +157,7 @@ describe('Client/session-inactivity', () => {
       expect(startCountersStub).to.have.been.called;
     });
 
-    it('should start Counters', () => {
+    it('should start Counters', function () {
       const startCountdownStub = sandbox.stub(
         SessionInactivity.prototype,
         'startCountdown'
@@ -173,7 +173,7 @@ describe('Client/session-inactivity', () => {
       expect(startSessionTimeOutStub).to.have.been.called;
     });
 
-    it('should stop counters', () => {
+    it('should stop counters', function () {
       sinon.spy(clock, 'clearTimeout');
       sinon.spy(clock, 'clearInterval');
       sessionInactivity.stopCounters();
@@ -182,7 +182,7 @@ describe('Client/session-inactivity', () => {
       expect(clock.clearInterval).to.have.been.calledOnce;
     });
 
-    it('should start session timeOut', () => {
+    it('should start session timeOut', function () {
       const signOutStub = sandbox.stub(SessionInactivity.prototype, 'signOut');
 
       sessionInactivity.startSessionTimeOut(2000);
@@ -191,7 +191,7 @@ describe('Client/session-inactivity', () => {
       expect(signOutStub).to.have.been.called;
     });
 
-    it('should start countDown', () => {
+    it('should start countDown', function () {
       const openModalSpy = sandbox.spy(
         SessionInactivity.prototype,
         'openModal'
@@ -207,7 +207,7 @@ describe('Client/session-inactivity', () => {
       expect(startModalIntervalSpy).to.have.been.called;
     });
 
-    it('should modify expiring message when interval starts', () => {
+    it('should modify expiring message when interval starts', function () {
       sessionInactivity.startModalInterval();
       clock.tick(1001);
 

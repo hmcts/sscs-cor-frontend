@@ -18,47 +18,47 @@ const html = `<div class="task-list">
               </form>
               </div>`;
 
-describe('request-type', () => {
-  let requestType;
-  let body;
-  before(() => {
+describe('request-type', function () {
+  let requestType: RequestType = null;
+  let body: HTMLBodyElement = null;
+  before(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
     requestType = new RequestType();
   });
 
-  describe('constructor', () => {
-    before(() => {
-      document.querySelector<HTMLInputElement>(
-        '#requestOptions'
-      ).addEventListener = sinon.spy();
+  describe('constructor', function () {
+    before(function () {
+      const select: HTMLSelectElement =
+        document.querySelector<HTMLSelectElement>('#requestOptions');
+      select.addEventListener = sinon.spy();
     });
-    describe('initialize class', () => {
-      it('should attach Event Listeners', () => {
-        const target =
+    describe('initialize class', function () {
+      it('should attach Event Listeners', function () {
+        const select: HTMLSelectElement =
           document.querySelector<HTMLSelectElement>('#requestOptions');
-        expect(target.addEventListener).to.have.not.been.called;
+        expect(select.addEventListener).to.have.not.been.called;
         requestType.init();
-        expect(target.addEventListener).to.have.been.called;
+        expect(select.addEventListener).to.have.been.called;
       });
     });
   });
 
-  describe('select request type', () => {
+  describe('select request type', function () {
     let submitSpy: SinonSpy;
-    before(() => {
+    before(function () {
       const form = document.querySelector<HTMLFormElement>(
         '#request-option-form'
       );
       submitSpy = sinon.spy(form, 'submit');
       requestType.init();
     });
-    afterEach(() => {
+    afterEach(function () {
       submitSpy.restore();
     });
-    describe('select request type', () => {
-      it('should submit form', () => {
-        const select =
+    describe('select request type', function () {
+      it('should submit form', function () {
+        const select: HTMLSelectElement =
           document.querySelector<HTMLSelectElement>('#requestOptions');
         expect(select.addEventListener).to.have.been.called;
         select.value = 'hearingRecording';

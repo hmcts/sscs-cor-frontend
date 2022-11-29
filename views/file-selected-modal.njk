@@ -1,0 +1,16 @@
+<div id="file-dialog" class="modal">
+  <div class="modal__title"
+       role="dialog"
+       aria-labelledby="aria-timeout-label"></div>
+  <div class="modal__content">
+    <p>{{ content[i18n.language].fileSelected.modal.body[0] | safe }} {{ content[i18n.language].fileSelected.modal.body[1] | safe }}</p>
+    <p>{{ content[i18n.language].fileSelected.modal.info | safe }}</p>
+    <div class="modals__buttons">
+      <button class="govuk-button button-padding"
+              id="stay"
+              href="#"
+              rel="modal:close">{{ content[i18n.language].fileSelected.modal.extend | safe }}</button>
+      <button class="govuk-button secondary-button" id="leave" href="#">{{ content[i18n.language].fileSelected.modal.cancel | safe }}</button>
+    </div>
+  </div>
+</div>

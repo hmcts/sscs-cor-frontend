@@ -2,7 +2,7 @@ import { expect, sinon } from 'test/chai-sinon';
 import { CheckCookies } from 'app/client/javascript/check-cookies';
 import { SinonSpy } from 'sinon';
 
-describe('Client/check-cookies', () => {
+describe('Client/check-cookies', function () {
   let checkCookies: CheckCookies;
   let toggleBannerSpy: SinonSpy;
 
@@ -17,55 +17,55 @@ describe('Client/check-cookies', () => {
     }
   }
 
-  before(() => {
+  before(function () {
     checkCookies = new CheckCookies();
     document.body.innerHTML = `<div id="${checkCookies.COOKIE_BANNER}"></div>`;
     toggleBannerSpy = sinon.spy(checkCookies, 'toggleBanner');
   });
 
-  describe('Class', () => {
-    before(() => {
+  describe('Class', function () {
+    before(function () {
       deleteAllCookies();
     });
 
-    beforeEach(() => {
+    beforeEach(function () {
       toggleBannerSpy.resetHistory();
     });
 
-    it('should initialize', () => {
+    it('should initialize', function () {
       checkCookies.init();
       expect(checkCookies.cookieBannerElement.style.display).to.equal('block');
     });
   });
 
-  describe('Browser Cookie Tests', () => {
-    before(() => {
+  describe('Browser Cookie Tests', function () {
+    before(function () {
       deleteAllCookies();
     });
 
-    beforeEach(() => {
+    beforeEach(function () {
       toggleBannerSpy.resetHistory();
     });
 
-    it('isCookiePrivacyMessageDisplayed First Visit', () => {
+    it('isCookiePrivacyMessageDisplayed First Visit', function () {
       console.log('First Call', document.cookie);
       checkCookies.isCookiePrivacyMessageDisplayed();
       expect(toggleBannerSpy).to.have.been.calledWith(true);
     });
 
-    it('isCookiePrivacyMessageDisplayed Second Visit', () => {
+    it('isCookiePrivacyMessageDisplayed Second Visit', function () {
       console.log('Second Call', document.cookie);
       checkCookies.isCookiePrivacyMessageDisplayed();
       expect(toggleBannerSpy).to.have.been.calledWith(false);
     });
   });
 
-  describe('Banner toggle', () => {
-    beforeEach(() => {
+  describe('Banner toggle', function () {
+    beforeEach(function () {
       toggleBannerSpy.resetHistory();
     });
 
-    it('Cookie banner toggle', () => {
+    it('Cookie banner toggle', function () {
       checkCookies.toggleBanner(true);
       expect(checkCookies.cookieBannerElement.style.display).to.equal('block');
 

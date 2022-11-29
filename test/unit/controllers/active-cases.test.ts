@@ -6,12 +6,12 @@ const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 const oralActiveAndDormantCases = require('../../mock/tribunals/data/oral/activeAndDormantCases.json');
 
-describe('controllers/active-cases', () => {
+describe('controllers/active-cases', function () {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -29,36 +29,36 @@ describe('controllers/active-cases', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('setupActiveCasesController', () => {
+  describe('setupActiveCasesController', function () {
     let getStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       activeCases.setupActiveCasesController({});
       expect(getStub).to.have.been.calledWith(Paths.activeCases);
     });
   });
 
-  describe('getActiveCases', () => {
-    it('should render active cases page', async () => {
-      req.session['hearings'] = oralActiveAndDormantCases;
+  describe('getActiveCases', function () {
+    it('should render active cases page', async function () {
+      req.session['cases'] = oralActiveAndDormantCases;
       activeCases.getActiveCases(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('active-tab.html');
+      expect(res.render).to.have.been.calledOnce.calledWith('active-tab.njk');
     });
 
-    it('should throw error if no sessions', async () => {
+    it('should throw error if no sessions', async function () {
       req.session = null;
 
       expect(() => activeCases.getActiveCases(req, res)).to.throw(TypeError);

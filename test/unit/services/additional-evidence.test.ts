@@ -9,38 +9,46 @@ const RETRY_INTERVAL = CONST.RETRY_INTERVAL;
 const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
 
-describe('services/additional-evidence', () => {
-  let rpStub: sinon.SinonStub;
-  const sandbox: sinon.SinonSandbox = sinon.createSandbox();
-  const req: any = {};
-  const apiUrl = config.get('api.url');
-  const additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
-  req.session = {
-    accessToken: 'someUserToken',
-    serviceToken: 'someServiceToken',
-    tya: 'wqiuvokQlD',
-    idamEmail: 'appellant@email.com',
+describe('services/additional-evidence', function () {
+  let rpStub: sinon.SinonStub = null;
+  let sandbox: sinon.SinonSandbox = null;
+  let apiUrl: string = null;
+  let file: Partial<Express.Multer.File> = null;
+  let additionalEvidenceService: AdditionalEvidenceService = null;
+  const req: any = {
+    session: {
+      accessToken: 'someUserToken',
+      serviceToken: 'someServiceToken',
+      tya: 'wqiuvokQlD',
+      idamEmail: 'appellant@email.com',
+    },
   };
   const hearingId = 'hearingId';
   const evidenceId = 'evidenceId';
-  const file: Partial<Express.Multer.File> = {
-    fieldname: 'file-upload-1',
-    originalname: 'some_evidence.txt',
-    mimetype: 'text/plain',
-    buffer: fs.readFileSync(
-      path.join(__dirname, '/../../fixtures/evidence/evidence.txt')
-    ),
-  };
 
-  beforeEach(() => {
+  before(function () {
+    sandbox = sinon.createSandbox();
+    apiUrl = config.get('api.url');
+    file = {
+      fieldname: 'file-upload-1',
+      originalname: 'some_evidence.txt',
+      mimetype: 'text/plain',
+      buffer: fs.readFileSync(
+        path.join(__dirname, '/../../fixtures/evidence/evidence.txt')
+      ),
+    };
+    additionalEvidenceService = new AdditionalEvidenceService(apiUrl);
+  });
+
+  beforeEach(function () {
     rpStub = sandbox.stub(RequestPromise, 'request');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
   });
 
-  it('should save Statement', async () => {
+  it('should save Statement', async function () {
     const expectedRequestOptions = {
       body: {
         body: 'text',
@@ -56,7 +64,7 @@ describe('services/additional-evidence', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should uploadEvidence', async () => {
+  it('should uploadEvidence', async function () {
     const expectedRequestOptions = {
       formData: {
         file: {
@@ -81,7 +89,7 @@ describe('services/additional-evidence', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should removeEvidence', async () => {
+  it('should removeEvidence', async function () {
     const expectedRequestOptions = {
       method: 'DELETE',
       headers: { 'Content-Length': '0' },
@@ -92,7 +100,7 @@ describe('services/additional-evidence', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should getEvidences', async () => {
+  it('should getEvidences', async function () {
     const expectedRequestOptions = {
       method: 'GET',
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence`,
@@ -102,7 +110,7 @@ describe('services/additional-evidence', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should getCoversheet', async () => {
+  it('should getCoversheet', async function () {
     const expectedRequestOptions = {
       method: 'GET',
       retry: HTTP_RETRIES,
@@ -118,7 +126,7 @@ describe('services/additional-evidence', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should submitEvidences', async () => {
+  it('should submitEvidences', async function () {
     const description = 'An evidence description';
     const expectedRequestOptions = {
       method: 'POST',
@@ -142,7 +150,7 @@ describe('services/additional-evidence', () => {
     expect(rpStub).to.have.been.calledOnce.calledWith(expectedRequestOptions);
   });
 
-  it('should submitSingleEvidences', async () => {
+  it('should submitSingleEvidences', async function () {
     const description = 'An evidence description';
     const expectedRequestOptions = {
       method: 'POST',

@@ -1,13 +1,31 @@
+import { CaseDetails } from '../services/cases';
+import { dateFormat } from './dateUtils';
+
 const i18next = require('i18next');
 const Joi = require('joi');
+
 const content = require('../../../locale/content');
 
 const maxCharacters = 20000;
 const minCharecters = 1;
 const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
 
+export interface Attribute {
+  attribute: string;
+  value: string;
+}
+
+export interface GovTableRow {
+  text?: string;
+  html?: string;
+  format?: string;
+  classes?: string;
+  colspan?: number;
+  rowspan?: number;
+  attributes?: Array<Attribute>;
+}
+
 function uploadDescriptionValidation(description) {
-  let error = false;
   const schema = Joi.string()
     .required()
     .max(maxCharacters)
@@ -34,9 +52,9 @@ function uploadDescriptionValidation(description) {
   const result = schema.validate(description);
 
   if (result.error) {
-    error = result.error.details[0].message;
+    return result.error.details[0].message;
   }
-  return error;
+  return false;
 }
 
 function answerValidation(answer, req?) {
@@ -71,13 +89,12 @@ function answerValidation(answer, req?) {
     });
 
   const result = schema.validate(answer);
-  let error = false;
 
   if (result.error) {
-    error = result.error.details[0].message;
+    return result.error.details[0].message;
   }
 
-  return error;
+  return false;
 }
 
 function hearingWhyValidation(answer) {
@@ -93,13 +110,12 @@ function hearingWhyValidation(answer) {
     });
 
   const result = schema.validate(answer);
-  let error = false;
 
   if (result.error) {
-    error = result.error.details[0].message;
+    return result.error.details[0].message;
   }
 
-  return error;
+  return false;
 }
 
 function loginEmailAddressValidation(email) {
@@ -121,11 +137,11 @@ function loginEmailAddressValidation(email) {
       },
     });
   const result = schema.validate(email);
-  let error = false;
+
   if (result.error) {
-    error = result.error.details[0].message;
+    return result.error.details[0].message;
   }
-  return error;
+  return false;
 }
 
 function newHearingAcceptedValidation(newHearing) {
@@ -136,16 +152,55 @@ function newHearingAcceptedValidation(newHearing) {
   return false;
 }
 
-function getHearingsByName(hearings) {
-  const hearingsByName = {};
-  hearings.forEach((hearing) => {
-    const appellantName = hearing.appellant_name;
-    if (!hearingsByName[appellantName]) {
-      hearingsByName[appellantName] = [];
+function getCasesByName(cases: Array<CaseDetails>): {
+  [key: string]: Array<CaseDetails>;
+} {
+  const casesByName: { [key: string]: Array<CaseDetails> } = {};
+  cases?.forEach((value) => {
+    const appellantName: string = value.appellant_name;
+    if (!casesByName[appellantName]) {
+      casesByName[appellantName] = [];
     }
-    hearingsByName[appellantName].push(hearing);
+    casesByName[appellantName].push(value);
   });
-  return hearingsByName;
+  return casesByName;
+}
+
+function getCasesRow(casedetails: CaseDetails): Array<GovTableRow> {
+  const caseReference: string = casedetails.case_reference;
+  const benefitType: string =
+    casedetails?.appeal_details?.benefit_type?.toLowerCase();
+  const language: string = i18next.language;
+  const benefitAcronym: string =
+    content[language]?.benefitTypes[benefitType]?.acronym;
+  const submittedDate: string = casedetails?.appeal_details?.submitted_date;
+  const mrnDate: string = casedetails?.appeal_details?.mrn_date;
+  const viewLabel: string = content[language]?.selectCase?.view;
+
+  return [
+    { text: caseReference },
+    { text: benefitAcronym },
+    { text: dateFormat(submittedDate, 'DD MMMM YYYY', language) },
+    { text: dateFormat(mrnDate, 'DD MMMM YYYY', language) },
+    {
+      html: `<a href="/sign-in?code=dummy&caseId=${casedetails.case_id}">${viewLabel}</a>`,
+    },
+  ];
+}
+
+function getCasesByNameAndRow(cases: Array<CaseDetails>): {
+  [key: string]: Array<Array<GovTableRow>>;
+} {
+  const casesByName: { [key: string]: Array<Array<GovTableRow>> } = {};
+  cases?.forEach((value) => {
+    const appellantName: string = value.appellant_name;
+    if (!casesByName[appellantName]) {
+      casesByName[appellantName] = [];
+    }
+    const row: Array<GovTableRow> = getCasesRow(value);
+    casesByName[appellantName].push(row);
+  });
+  return casesByName;
 }
 
 export {
@@ -154,5 +209,6 @@ export {
   newHearingAcceptedValidation,
   hearingWhyValidation,
   uploadDescriptionValidation,
-  getHearingsByName,
+  getCasesByName,
+  getCasesByNameAndRow,
 };

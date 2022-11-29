@@ -6,17 +6,17 @@ import { Application } from 'express';
 import express = require('express');
 import { Environment } from 'nunjucks';
 
-describe('app-configuration', () => {
+describe('app-configuration', function () {
   let sandbox: sinon.SinonSandbox;
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
   });
 
-  it('configureNunjucks', () => {
+  it('configureNunjucks', function () {
     const configNunjucks: object = {
       addFilter: sandbox.stub(),
       options: { autoescape: true },

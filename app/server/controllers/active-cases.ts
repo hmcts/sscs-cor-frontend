@@ -2,11 +2,14 @@ import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
-import { getHearingsByName } from '../utils/fieldValidation';
+import { getCasesByName } from '../utils/fieldValidation';
+import { CaseDetails } from '../services/cases';
+import { Dependencies } from '../routes';
+import { isCaseActive } from './cases';
 
-const logger = Logger.getLogger('active-cases.js');
+const logger = Logger.getLogger('active-cases');
 
-function getActiveCases(req: Request, res: Response) {
+export function getActiveCases(req: Request, res: Response): void {
   const session = req.session;
 
   if (!session) {
@@ -17,20 +20,14 @@ function getActiveCases(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const hearings = session['hearings']!;
-  const activeCases = hearings.filter(filterActiveCase);
-  const activeHearingsByName = getHearingsByName(activeCases);
-  return res.render('active-tab.html', { activeHearingsByName });
+  const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
+  const activeCases = cases.filter(isCaseActive);
+  const activeCasesByName: { [key: string]: Array<CaseDetails> } =
+    getCasesByName(activeCases);
+  return res.render('active-tab.njk', { activeCasesByName });
 }
 
-function filterActiveCase(selectedHearing, index, array) {
-  return !(
-    selectedHearing.appeal_details.state === 'dormantAppealState' ||
-    selectedHearing.appeal_details.state === 'voidState'
-  );
-}
-
-function setupActiveCasesController(deps: any) {
+export function setupActiveCasesController(deps: Dependencies): Router {
   const router = Router();
   router.get(
     Paths.activeCases,
@@ -40,5 +37,3 @@ function setupActiveCasesController(deps: any) {
   );
   return router;
 }
-
-export { getActiveCases, setupActiveCasesController };

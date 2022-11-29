@@ -1,8 +1,0 @@
-{% macro panel(title, array) %}
-<div class="panel">
-  <h2 class="govuk-heading-s">{{ title }}</h2>
-  {% for para in array%}
-  <p>{{ para | eval }}</p>
-  {% endfor %}
-</div>
-{% endmacro %}

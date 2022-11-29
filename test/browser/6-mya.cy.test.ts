@@ -21,7 +21,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Welsh Manage your appeal app @mya @nightly', () => {
+describe('Welsh Manage your appeal app @mya @nightly', function () {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -37,7 +37,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   let withdrawAppealPage: WithdrawAppealPage;
   let sidamUser;
 
-  before(async () => {
+  before(async function () {
     ({
       ccdCase,
       page,
@@ -66,14 +66,14 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     );
   });
 
-  after(async () => {
+  after(async function () {
     if (page?.close) {
       await page.close();
     }
   });
 
   /* PA11Y */
-  it('CY:checks postcode page path passes @pa11y', async () => {
+  it('CY:checks postcode page path passes @pa11y', async function () {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
@@ -87,7 +87,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     );
   });
 
-  it('CY:should inform postcode, submit and land in status page', async () => {
+  it('CY:should inform postcode, submit and land in status page', async function () {
     await page.waitForSelector('*');
     await page.waitForSelector('.govuk-link.language', {
       visible: true,
@@ -98,8 +98,8 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     statusPage.verifyPage();
   });
 
-  describe('CY:Status page', () => {
-    it('should display navigation tabs and Status tab should be active', async () => {
+  describe('CY:Status page', function () {
+    it('should display navigation tabs and Status tab should be active', async function () {
       await statusPage.visitPage();
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be
@@ -109,28 +109,28 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       ).contain(content.cy.statusTab.tabHeader);
     });
 
-    it('CY:should display subheading', async () => {
+    it('CY:should display subheading', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(
         content.cy.statusTab.header
       );
     });
 
-    it('CY:should display status bar', async () => {
+    it('CY:should display status bar', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(
         content.cy.statusTab.header
       );
     });
 
-    it('CY:should display panel with latest update', async () => {
+    it('CY:should display panel with latest update', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.panel')).contain(
         content.cy.statusTab.panelHeader
       );
     });
 
-    it('CY:should display Help and Support links', async () => {
+    it('CY:should display Help and Support links', async function () {
       statusPage.verifyPage();
       expect(
         await statusPage.getElementText('.mya-contact__content h2')
@@ -143,7 +143,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       ).contain(content.cy.helpGuides.withdrawAppeal.linkHeader);
     });
 
-    it('CY:should display Contact us for help options and open details', async () => {
+    it('CY:should display Contact us for help options and open details', async function () {
       statusPage.verifyPage();
       expect(
         await statusPage.getElementText('.govuk-details.contact-us')
@@ -157,7 +157,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       expect(heightClosed).to.equal(40);
     });
 
-    it('CY:should open Contact us details', async () => {
+    it('CY:should open Contact us details', async function () {
       statusPage.verifyPage();
       const elementHandle = await page.$('.govuk-details.contact-us');
       await statusPage.openDetails('.govuk-details.contact-us');
@@ -166,12 +166,12 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(490);
+      expect(heightOpen).to.equal(465);
     });
   });
 
   /* PA11Y */
-  it('CY- checks /status page path passes @pa11y', async () => {
+  it('CY- checks /status page path passes @pa11y', async function () {
     statusPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-status-page.png`;
     pa11yOpts.page = statusPage.page;
@@ -183,7 +183,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('CY- checks /support-evidence page passes @pa11y', async () => {
+  it('CY- checks /support-evidence page passes @pa11y', async function () {
     await supportEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-support-evidence-page.png`;
     pa11yOpts.page = supportEvidencePage.page;
@@ -195,7 +195,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('CY- checks /representatives page passes @pa11y', async () => {
+  it('CY- checks /representatives page passes @pa11y', async function () {
     await representativesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-representatives-page.png`;
     pa11yOpts.page = representativesPage.page;
@@ -207,7 +207,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('CY- checks /support-hearing page passes @pa11y', async () => {
+  it('CY- checks /support-hearing page passes @pa11y', async function () {
     await supportHearingPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-support-hearing-page.png`;
     pa11yOpts.page = supportHearingPage.page;
@@ -219,7 +219,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('CY - checks /claiming-expenses page passes @pa11y', async () => {
+  it('CY - checks /claiming-expenses page passes @pa11y', async function () {
     await claimingExpensesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-claiming-expenses-page.png`;
     pa11yOpts.page = claimingExpensesPage.page;
@@ -231,7 +231,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('CY - checks /withdraw-appeal page passes @pa11y', async () => {
+  it('CY - checks /withdraw-appeal page passes @pa11y', async function () {
     await withdrawAppealPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-withdraw-appeal-page.png`;
     pa11yOpts.page = withdrawAppealPage.page;
@@ -242,17 +242,18 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     );
   });
 
-  describe('CY - Hearing page', () => {
-    it('CY - Navigate to hearing tab', async () => {
+  describe('CY - Hearing page', function () {
+    it('CY - Navigate to hearing tab', async function () {
       statusPage.verifyPage();
       await statusPage.clickElement('#tab-hearing');
       await page.waitForTimeout(500);
-      expect(
-        await statusPage.getElementText('.govuk-tabs__list-item--selected')
-      ).contain(content.cy.hearingTab.tabHeader);
+      const selectedTab: string = await statusPage.getElementText(
+        '.govuk-tabs__list-item--selected'
+      );
+      expect(selectedTab).contain(content.cy.hearingTab.tabHeader);
     });
     /* PA11Y */
-    it('CY - checks /hearing page passes @pa11y', async () => {
+    it('CY - checks /hearing page passes @pa11y', async function () {
       hearingPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-hearing-page.png`;
       pa11yOpts.page = hearingPage.page;
@@ -264,8 +265,8 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     });
   });
 
-  describe('CY - Audio/video Evidence page', () => {
-    it('CY - Navigate to Audio/Video Evidence tab', async () => {
+  describe('CY - Audio/video Evidence page', function () {
+    it('CY - Navigate to Audio/Video Evidence tab', async function () {
       await statusPage.clickElement('#tab-avEvidence');
       await page.waitForTimeout(500);
 
@@ -278,7 +279,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     });
 
     /* PA11Y */
-    it('CY - checks /audio-video-evidence page passes @pa11y', async () => {
+    it('CY - checks /audio-video-evidence page passes @pa11y', async function () {
       audioVideoEvidencePage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-audio-video-evidence-page.png`;
       pa11yOpts.page = audioVideoEvidencePage.page;
@@ -290,8 +291,8 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
     });
   });
 
-  describe('CY - Appeal Details page', () => {
-    it('CY - Navigate to Appeal Details page', async () => {
+  describe('CY - Appeal Details page', function () {
+    it('CY - Navigate to Appeal Details page', async function () {
       await statusPage.navigateToAppealDetailsPage();
       await page.waitForTimeout(500);
 
@@ -310,7 +311,7 @@ describe('Welsh Manage your appeal app @mya @nightly', () => {
       ).contain('joe@bloggs.com');
     });
     /* PA11Y */
-    it('CY - Navigate to Appeal Details page @pa11y', async () => {
+    it('CY - Navigate to Appeal Details page @pa11y', async function () {
       appealDetailsPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-appeal-details-page.png`;
       pa11yOpts.page = appealDetailsPage.page;

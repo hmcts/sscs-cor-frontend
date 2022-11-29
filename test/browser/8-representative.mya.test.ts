@@ -13,14 +13,14 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Representative - Manage your appeal app @mya @nightly', () => {
+describe('Representative - Manage your appeal app @mya @nightly', function () {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
   let sidamUser;
-  before(async () => {
+  before(async function () {
     ({
       ccdCase,
       page,
@@ -41,17 +41,17 @@ describe('Representative - Manage your appeal app @mya @nightly', () => {
     );
   });
 
-  after(async () => {
+  after(async function () {
     if (page?.close) {
       await page.close();
     }
   });
 
-  it('Representative should land in assign-case page after a successful login', async () => {
+  it('Representative should land in assign-case page after a successful login', async function () {
     assignCasePage.verifyPage();
   });
 
-  it('Representative should inform postcode, submit and land in status page', async () => {
+  it('Representative should inform postcode, submit and land in status page', async function () {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
@@ -59,8 +59,8 @@ describe('Representative - Manage your appeal app @mya @nightly', () => {
     statusPage.verifyPage();
   });
 
-  describe('Representative Status page', () => {
-    it('should display navigation tabs and Status tab should be active', async () => {
+  describe('Representative Status page', function () {
+    it('should display navigation tabs and Status tab should be active', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be
         .null;
@@ -69,28 +69,28 @@ describe('Representative - Manage your appeal app @mya @nightly', () => {
       ).contain(content.en.statusTab.tabHeader);
     });
 
-    it('should display subheading', async () => {
+    it('should display subheading', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(
         content.en.statusTab.header
       );
     });
 
-    it('should display status bar', async () => {
+    it('should display status bar', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(
         content.en.statusTab.header
       );
     });
 
-    it('should display panel with latest update', async () => {
+    it('should display panel with latest update', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.panel')).contain(
         content.en.statusTab.panelHeader
       );
     });
 
-    it('should display Help and Support links', async () => {
+    it('should display Help and Support links', async function () {
       statusPage.verifyPage();
       expect(
         await statusPage.getElementText('.mya-contact__content h2')
@@ -103,7 +103,7 @@ describe('Representative - Manage your appeal app @mya @nightly', () => {
       ).contain(content.en.helpGuides.withdrawAppeal.linkHeader);
     });
 
-    it('should display Contact us for help options and open details', async () => {
+    it('should display Contact us for help options and open details', async function () {
       statusPage.verifyPage();
       expect(
         await statusPage.getElementText('.govuk-details.contact-us')
@@ -117,7 +117,7 @@ describe('Representative - Manage your appeal app @mya @nightly', () => {
       expect(heightClosed).to.equal(40);
     });
 
-    it('should open Contact us details', async () => {
+    it('should open Contact us details', async function () {
       statusPage.verifyPage();
       const elementHandle = await page.$('.govuk-details.contact-us');
       await statusPage.openDetails('.govuk-details.contact-us');

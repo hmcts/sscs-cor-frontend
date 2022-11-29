@@ -1,16 +1,18 @@
 import * as history from 'app/server/controllers/history';
 import * as Paths from 'app/server/paths';
 import * as FeatureEnabled from 'app/server/utils/featureEnabled';
+import { SinonSandbox } from 'sinon';
 
+const itParam = require('mocha-param');
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 
-describe('controllers/history', () => {
-  let req: any;
-  let res: any;
-  let sandbox: sinon.SinonSandbox;
+describe('controllers/history', function () {
+  let req: any = null;
+  let res: any = null;
+  let sandbox: SinonSandbox = null;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -28,42 +30,44 @@ describe('controllers/history', () => {
     };
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
   });
 
-  describe('setupHistoryController', () => {
+  describe('setupHistoryController', function () {
     let getStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       history.setupHistoryController({});
       expect(getStub).to.have.been.calledWith(Paths.history);
     });
   });
 
-  describe('getHistory', () => {
+  describe('getHistory', function () {
     let isFeatureEnabledStub;
-    beforeEach(() => {
+    beforeEach(function () {
       isFeatureEnabledStub = sandbox.stub(FeatureEnabled, 'isFeatureEnabled');
     });
 
-    const scenarios = [
-      { historyTabFeature: true, expected: 'history.html' },
-      { historyTabFeature: false, expected: 'errors/404.html' },
-    ];
-    scenarios.forEach((scenario) => {
-      it(`should render ${scenario.expected} view when history tab feature is ${scenario.historyTabFeature}`, () => {
-        isFeatureEnabledStub
-          .withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object)
-          .returns(scenario.historyTabFeature);
-        history.getHistory(req, res);
-        expect(res.render).to.have.been.calledOnce.calledWith(
-          scenario.expected
-        );
-      });
-    });
+    // eslint-disable-next-line mocha/no-setup-in-describe
+    itParam(
+      `renders Cookie Policy page for cookieBanner.enabled`,
+      [
+        { historyTabFeature: true, expected: 'history.njk' },
+        { historyTabFeature: false, expected: 'errors/404.njk' },
+      ],
+      function (value) {
+        it(`should render ${value.expected} view when history tab feature is ${value.historyTabFeature}`, function () {
+          isFeatureEnabledStub
+            .withArgs(FeatureEnabled.Feature.HISTORY_TAB, sinon.match.object)
+            .returns(value.historyTabFeature);
+          history.getHistory(req, res);
+          expect(res.render).to.have.been.calledOnce.calledWith(value.expected);
+        });
+      }
+    );
   });
 });

@@ -1,25 +1,26 @@
 import * as request from 'supertest';
 import * as session from 'express-session';
-import express = require('express');
 import { setup } from '../../app/server/app';
 import { expect } from 'test/chai-sinon';
+import * as config from 'config';
+import { BAD_REQUEST, OK } from 'http-status-codes';
+import * as nock from 'nock';
+import * as express from 'express';
+import { Application } from 'express';
+import { createSession } from '../../app/server/middleware/session';
+import { dysonSetupCorBackend } from '../mock/cor-backend/dysonSetup';
+import { dysonSetupCoh } from '../mock/coh/dysonSetup';
+import { dysonSetupIdam } from '../mock/idam/dysonSetup';
+import { dysonSetupS2s } from '../mock/s2s/dysonSetup';
 
-import * as CONST from '../../app/constants';
-import moment = require('moment');
-const content = require('locale/content');
-const { createSession } = require('../../app/server/middleware/session');
-const HttpStatus = require('http-status-codes');
-const tribunalApiUrl = require('config').get('tribunals.api-url');
-const nock = require('nock');
+describe('Routes', function () {
+  let tribunalApiUrl: string = null;
+  let app: Application = null;
 
-const dysonSetupCorBackend = require('../mock/cor-backend/dysonSetup');
-const dysonSetupCoh = require('../mock/coh/dysonSetup');
-const dysonSetupIdam = require('../mock/idam/dysonSetup');
-const dysonSetupS2s = require('../mock/s2s/dysonSetup');
+  before(function () {
+    tribunalApiUrl = config.get('tribunals.api-url');
 
-describe('Routes', () => {
-  let app;
-  before(() => {
+    // eslint-disable-next-line mocha/no-nested-tests
     app = setup(createSession(), { disableAppInsights: true });
     dysonSetupCorBackend();
     dysonSetupCoh();
@@ -30,7 +31,7 @@ describe('Routes', () => {
     nock(tribunalApiUrl)
       .persist()
       .get('/tokens/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=')
-      .reply(HttpStatus.OK, {
+      .reply(OK, {
         token: {
           appealId: 'md005',
           subscriptionId: 1,
@@ -44,19 +45,17 @@ describe('Routes', () => {
       .post('/appeals/md005/subscriptions/1', {
         subscription: { email: 'person@example.com' },
       })
-      .reply(HttpStatus.OK);
+      .reply(OK);
 
     // Mock DELETE /appeals/id/subscriptions/id
-    nock(tribunalApiUrl)
-      .delete('/appeals/md005/subscriptions/1')
-      .reply(HttpStatus.OK);
+    nock(tribunalApiUrl).delete('/appeals/md005/subscriptions/1').reply(OK);
   });
 
-  describe('Non secured routes', () => {
-    it('GET / responds with 200', (done) => {
+  describe('Non secured routes', function () {
+    it('GET / responds with 200', function (done) {
       request(app).get('/').expect(302).expect('Location', '/sign-in', done);
     });
-    it.skip('GET /sign-in responds with 200', (done) => {
+    it.skip('GET /sign-in responds with 200', function (done) {
       request(app)
         .get('/sign-in')
         .expect(302)
@@ -66,105 +65,106 @@ describe('Routes', () => {
           done
         );
     });
-    it.skip('GET /health responds with 200', (done) => {
+    it.skip('GET /health responds with 200', function (done) {
       request(app).get('/health').expect(200, done);
     });
-    it.skip('GET /readiness responds with 200', (done) => {
+    it.skip('GET /readiness responds with 200', function (done) {
       request(app).get('/readiness').expect(200, done);
     });
   });
 
-  describe('/manage-email-notifications/mactoken', () => {
+  describe('/manage-email-notifications/mactoken', function () {
     const url = '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=';
 
-    it('should respond with a HTTP 200 when performing a GET', (done) => {
-      request(app).get(url).expect(HttpStatus.OK, done);
+    it('should respond with a HTTP 200 when performing a GET', function (done) {
+      request(app).get(url).expect(OK, done);
     });
 
-    it("should respond with a HTTP 400 when POSTing an 'unknown' type", (done) => {
+    it("should respond with a HTTP 400 when POSTing an 'unknown' type", function (done) {
       request(app)
         .post(url)
         .send({ type: 'unknown' })
-        .expect(HttpStatus.BAD_REQUEST, done);
+        .expect(BAD_REQUEST, done);
     });
   });
 
-  describe('/manage-email-notifications/mactoken/stop', () => {
-    it('should respond with a HTTP 200 when performing a GET', (done) => {
+  describe('/manage-email-notifications/mactoken/stop', function () {
+    it('should respond with a HTTP 200 when performing a GET', function (done) {
       request(app)
         .get(
           '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=/stop'
         )
-        .expect(HttpStatus.OK, done);
+        .expect(OK, done);
     });
   });
 
-  describe('/manage-email-notifications/mactoken/stopconfirm', () => {
-    it('should respond with a HTTP 200 when performing a GET', (done) => {
+  describe('/manage-email-notifications/mactoken/stopconfirm', function () {
+    it('should respond with a HTTP 200 when performing a GET', function (done) {
       request(app)
         .get(
           '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=/stopconfirm'
         )
-        .expect(HttpStatus.OK, done);
+        .expect(OK, done);
     });
   });
 
-  describe('/validate-surname/tya/trackyourappeal', () => {
-    it('should respond with a HTTP 200 when performing a GET', (done) => {
+  describe('/validate-surname/tya/trackyourappeal', function () {
+    it('should respond with a HTTP 200 when performing a GET', function (done) {
       request(app)
         .get('/validate-surname/67sC1UvHy3/trackyourappeal')
-        .expect(HttpStatus.OK, done);
+        .expect(OK, done);
     });
   });
 
-  describe.skip('/manage-email-notifications/mactoken/change', () => {
+  describe.skip('/manage-email-notifications/mactoken/change', function () {
     const url =
       '/manage-email-notifications/NnwxNDg3MDY1ODI4fDExN3BsSDdrVDc=/change';
 
-    it('should respond with a HTTP 200 when POSTing both email addresses', (done) => {
+    it('should respond with a HTTP 200 when POSTing both email addresses', function (done) {
       request(app)
         .post(url)
         .send({
           email: 'person@example.com',
           confirmEmail: 'person@example.com',
         })
-        .expect(HttpStatus.OK, done);
+        .expect(OK, done);
     });
 
-    it('should respond with a HTTP 400 when POSTing empty strings', (done) => {
+    it('should respond with a HTTP 400 when POSTing empty strings', function (done) {
       request(app)
         .post(url)
         .send({
           email: '',
           confirmEmail: '',
         })
-        .expect(HttpStatus.BAD_REQUEST, done);
+        .expect(BAD_REQUEST, done);
     });
 
-    it('should respond with a HTTP 400 when POSTing non email addresses', (done) => {
+    it('should respond with a HTTP 400 when POSTing non email addresses', function (done) {
       request(app)
         .post(url)
         .send({
           email: 'rubb@ish',
           confirmEmail: 'rubb@ish',
         })
-        .expect(HttpStatus.BAD_REQUEST, done);
+        .expect(BAD_REQUEST, done);
     });
 
-    it('should respond with a 400 when POSTing email address that do not match', (done) => {
+    it('should respond with a 400 when POSTing email address that do not match', function (done) {
       request(app)
         .post(url)
         .send({
           email: 'person@example.com',
           confirmEmail: 'person@example.net',
         })
-        .expect(HttpStatus.BAD_REQUEST, done);
+        .expect(BAD_REQUEST, done);
     });
   });
 
-  describe('Secured routes', () => {
-    const mockApp = express();
-    before(() => {
+  describe('Secured routes', function () {
+    let mockApp: Application;
+    before(function () {
+      mockApp = express();
       mockApp.use(
         session({
           resave: true,
@@ -174,11 +174,11 @@ describe('Routes', () => {
       );
     });
 
-    describe.skip('Tasklist Routes', () => {
-      before(() => {
+    describe.skip('Tasklist Routes', function () {
+      before(function () {
         mockApp.all('*', function (req, res, next) {
           req.session['accessToken'] = 'mock uid';
-          req.session['hearing'] = {
+          req.session['case'] = {
             appellant_name: 'Adam Jenkins',
             case_reference: '112233',
             online_hearing_id: '2-completed',
@@ -188,15 +188,15 @@ describe('Routes', () => {
         mockApp.use(app);
       });
 
-      it('GET /task-list should return 200 as user is authenticated', (done) => {
+      it('GET /task-list should return 200 as user is authenticated', function (done) {
         request(mockApp).get('/task-list').expect(200, done);
       });
-      it('GET /about-evidence should return 200', async () => {
+      it('GET /about-evidence should return 200', async function () {
         const response = await request(mockApp).get('/about-evidence');
         expect(response.status).to.be.equal(200);
       });
 
-      it('GET /post-evidence should return 200', async () => {
+      it('GET /post-evidence should return 200', async function () {
         const response = await request(mockApp).get('/post-evidence');
         expect(response.status).to.be.equal(200);
       });

@@ -10,12 +10,12 @@ const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
 const oralHearing = require('../../mock/tribunals/data/oral/outcome');
 
-describe('controllers/outcome', () => {
+describe('controllers/outcome', function () {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
@@ -32,52 +32,51 @@ describe('controllers/outcome', () => {
     sinon.stub(AppInsights, 'trackEvent');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
   });
 
-  describe('setupOutcomeController', () => {
+  describe('setupOutcomeController', function () {
     let getStub;
-    beforeEach(() => {
+    beforeEach(function () {
       getStub = sandbox.stub(express.Router, 'get');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('should call Router', () => {
+    it('should call Router', function () {
       outcome.setupOutcomeController({});
       expect(getStub).to.have.been.calledWith(Paths.outcome);
       expect(getStub).to.have.been.calledWith(Paths.document);
     });
   });
 
-  describe('getOutcome', () => {
-    it('should render outcome page when mya feature enabled for oral (APPEAL_RECEIVED)', async () => {
+  describe('getOutcome', function () {
+    it('should render outcome page when mya feature enabled for oral (APPEAL_RECEIVED)', async function () {
       req.session.appeal = oralHearing.appeal;
       const outcomes = [
         {
           name: 'Adjournment.pdf',
-          date: '20-11-2019',
+          date: '2019-11-20',
           url: 'http://dbed7988-4ed5-4965-b1b4-50e5582770f3/binary',
         },
       ];
       outcome.getOutcome(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith(
-        'outcome-tab.html',
-        { outcomes }
-      );
+      expect(res.render).to.have.been.calledOnce.calledWith('outcome-tab.njk', {
+        outcomes,
+      });
     });
   });
 
-  describe('getDocument', () => {
+  describe('getDocument', function () {
     let trackYourAppealService;
     const url = 'http://test';
 
-    beforeEach(() => {
+    beforeEach(function () {
       req = {
         session: {
           appeal: {},
@@ -96,7 +95,7 @@ describe('controllers/outcome', () => {
       trackYourAppealService = {};
     });
 
-    it('should return pdf document for the document url', async () => {
+    it('should return pdf document for the document url', async function () {
       const pdf = 'PDF';
       trackYourAppealService.getDocument = async () => Promise.resolve(pdf);
       await outcome.getDocument(trackYourAppealService)(req, res);

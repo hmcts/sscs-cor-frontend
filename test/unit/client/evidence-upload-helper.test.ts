@@ -59,16 +59,16 @@ const html = `<form id="answer-form" action="/question/1?_csrf=12323" method="po
       </div>
     </div>`;
 
-describe('evidence-upload-helper', () => {
+describe('evidence-upload-helper', function () {
   let evidenceUploadHelper: EvidenceUploadHelper;
   let body;
-  before(() => {
+  before(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
     evidenceUploadHelper = new EvidenceUploadHelper();
   });
-  describe('#showHideElements', () => {
-    it('hide no-JS and JS elements', () => {
+  describe('#showHideElements', function () {
+    it('hide no-JS and JS elements', function () {
       const noJsElements: NodeListOf<HTMLElement> = body.querySelectorAll(
         '.evidence-upload-nojs'
       );
@@ -83,15 +83,15 @@ describe('evidence-upload-helper', () => {
       jsElements.forEach((e) => expect(e.style.display).to.equal('block'));
     });
   });
-  describe('#showHideRevealContainer', () => {
+  describe('#showHideRevealContainer', function () {
     let revealContainer: HTMLElement;
-    before(() => {
+    before(function () {
       revealContainer = document.getElementById(
         'evidence-upload-reveal-container'
       );
       evidenceUploadHelper.revealContainer = revealContainer;
     });
-    it('hides if checkbox is not checked', () => {
+    it('hides if checkbox is not checked', function () {
       const target = document.getElementById(
         evidenceUploadHelper.CHECKBOX_ID
       ) as HTMLInputElement;
@@ -99,7 +99,7 @@ describe('evidence-upload-helper', () => {
       evidenceUploadHelper.showHideRevealContainer({ target });
       expect(revealContainer.style.display).to.equal('none');
     });
-    it('shows if checkbox is checked', () => {
+    it('shows if checkbox is checked', function () {
       const target = document.getElementById(
         evidenceUploadHelper.CHECKBOX_ID
       ) as HTMLInputElement;
@@ -109,14 +109,14 @@ describe('evidence-upload-helper', () => {
     });
   });
 
-  describe('#setRevealStartState', () => {
+  describe('#setRevealStartState', function () {
     let revealContainer: HTMLElement;
-    before(() => {
+    before(function () {
       revealContainer = document.getElementById(
         'evidence-upload-reveal-container'
       );
     });
-    it('starts hidden if no uploaded files exist and no upload errors', () => {
+    it('starts hidden if no uploaded files exist and no upload errors', function () {
       evidenceUploadHelper.setRevealStartState();
       const checkbox = document.getElementById(
         evidenceUploadHelper.CHECKBOX_ID
@@ -124,7 +124,7 @@ describe('evidence-upload-helper', () => {
       expect(revealContainer.style.display).to.equal('none');
       expect(checkbox.checked).to.equal(false);
     });
-    it('starts revealed if uploaded files exist', () => {
+    it('starts revealed if uploaded files exist', function () {
       document.querySelector('#files-uploaded tbody').innerHTML = `
         <tr class="govuk-table__row evidence">
           <td class="govuk-table__cell">My file.png</td>
@@ -140,7 +140,7 @@ describe('evidence-upload-helper', () => {
       expect(revealContainer.style.display).to.equal('block');
       expect(checkbox.checked).to.equal(true);
     });
-    it('starts revealed if uploaded errors exist', () => {
+    it('starts revealed if uploaded errors exist', function () {
       document.querySelector(
         '#files-uploaded tbody'
       ).innerHTML = `<span id="file-upload-1-error" class="govuk-error-message">some error</span>`;

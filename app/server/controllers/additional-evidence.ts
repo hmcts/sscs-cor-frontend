@@ -16,6 +16,7 @@ import {
   validateFileSize,
 } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
+import { Dependencies } from '../routes';
 const multer = require('multer');
 const i18next = require('i18next');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
@@ -56,7 +57,7 @@ const allowedActions = [
 ];
 
 function getAboutEvidence(req: Request, res: Response) {
-  return res.render('additional-evidence/about-evidence.html');
+  return res.render('additional-evidence/about-evidence.njk');
 }
 
 function postAdditionalEvidence(req: Request, res: Response) {
@@ -68,7 +69,7 @@ function postAdditionalEvidence(req: Request, res: Response) {
   const errorMessage =
     content[i18next.language].additionalEvidence.evidenceOptions.error
       .noButtonSelected;
-  res.render('additional-evidence/index.html', {
+  res.render('additional-evidence/index.njk', {
     action: 'options',
     pageTitleError: true,
     error: errorMessage,
@@ -95,7 +96,7 @@ function fileTypeInWhitelist(req, file, cb) {
       fileExtension.toLocaleLowerCase()
     )
   ) {
-    const caseId = req.session['hearing'].case_id;
+    const caseId = req.session['case'].case_id;
     logger.info(
       `[${caseId}] Allowed only upload letter, document or photo evidence on this page, file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );
@@ -104,7 +105,7 @@ function fileTypeInWhitelist(req, file, cb) {
     );
     cb(new multer.MulterError(limitOnlyDocument));
   } else {
-    const caseId = req.session['hearing'].case_id;
+    const caseId = req.session['case'].case_id;
     logger.info(
       `[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );
@@ -126,7 +127,7 @@ function fileTypeAudioVideoInWhitelist(req, file, cb) {
   ) {
     cb(null, true);
   } else {
-    const caseId = req.session['hearing'].case_id;
+    const caseId = req.session['case'].case_id;
     logger.info(
       `[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );
@@ -146,13 +147,13 @@ function postEvidenceStatement(
     try {
       const validationMessage = answerValidation(statementText, req);
       if (validationMessage) {
-        res.render('additional-evidence/index.html', {
+        res.render('additional-evidence/index.njk', {
           action: 'statement',
           pageTitleError: true,
           error: validationMessage,
         });
       } else {
-        const caseId = req.session['hearing'].case_id;
+        const caseId = req.session['case'].case_id;
         await additionalEvidenceService.saveStatement(
           caseId,
           statementText,
@@ -179,7 +180,7 @@ function getAdditionalEvidence(
           : req.params.action;
       if (action === 'upload') {
         const { description } = req.session['additional_evidence'] || '';
-        const caseId = req.session['hearing'].case_id;
+        const caseId = req.session['case'].case_id;
         let evidences: EvidenceDescriptor[] =
           await additionalEvidenceService.getEvidences(caseId, req);
         if (evidences) {
@@ -187,7 +188,7 @@ function getAdditionalEvidence(
         } else {
           evidences = [];
         }
-        return res.render('additional-evidence/index.html', {
+        return res.render('additional-evidence/index.njk', {
           action,
           evidences,
           description,
@@ -196,7 +197,7 @@ function getAdditionalEvidence(
         // do nothing
       }
       const benefitType = req.session['appeal']!.benefitType;
-      return res.render('additional-evidence/index.html', {
+      return res.render('additional-evidence/index.njk', {
         action,
         postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
         benefitType,
@@ -214,7 +215,7 @@ function postFileUpload(
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const caseId = req.session['hearing'].case_id;
+      const caseId = req.session['case'].case_id;
       const description = req.body['additional-evidence-description'] || '';
       req.session['additional_evidence'] = { description };
       if (action === 'upload' && req.file) {
@@ -238,7 +239,7 @@ function postFileUpload(
         const evidenceUploadErrorMsg =
           content[i18next.language].additionalEvidence.evidenceUpload.error
             .fileCannotBeUploaded;
-        return res.render('additional-evidence/index.html', {
+        return res.render('additional-evidence/index.njk', {
           action: 'upload',
           pageTitleError: true,
           description,
@@ -266,7 +267,7 @@ function postFileUpload(
           evidences = [];
         }
         if (descriptionValidationMsg || evidencesValidationMsg) {
-          return res.render('additional-evidence/index.html', {
+          return res.render('additional-evidence/index.njk', {
             action: 'upload',
             pageTitleError: true,
             evidences,
@@ -296,7 +297,7 @@ function postFileUpload(
               .noFilesUploaded;
 
         if (descriptionValidationMsg || evidencesValidationMsg) {
-          return res.render('additional-evidence/index.html', {
+          return res.render('additional-evidence/index.njk', {
             action: 'uploadAudioVideo',
             pageTitleError: true,
             description,
@@ -322,7 +323,7 @@ function postFileUpload(
         } else {
           evidences = [];
         }
-        return res.render('additional-evidence/index.html', {
+        return res.render('additional-evidence/index.njk', {
           action: 'upload',
           pageTitleError: true,
           evidences,
@@ -330,7 +331,7 @@ function postFileUpload(
           fileUploadError: res.locals.multerError,
         });
       } else if (action === 'uploadAudioVideo' && res.locals.multerError) {
-        return res.render('additional-evidence/index.html', {
+        return res.render('additional-evidence/index.njk', {
           action: 'uploadAudioVideo',
           pageTitleError: true,
           description,
@@ -345,7 +346,7 @@ function postFileUpload(
   };
 }
 
-function setupadditionalEvidenceController(deps: any) {
+function setupadditionalEvidenceController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.aboutEvidence, deps.prereqMiddleware, getAboutEvidence);
   router.get(

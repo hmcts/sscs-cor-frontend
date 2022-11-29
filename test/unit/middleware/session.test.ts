@@ -9,7 +9,7 @@ const { createSession } = require('app/server/middleware/session.ts');
 
 process.env.ALLOW_CONFIG_MUTATIONS = 'true';
 
-describe('middleware/session', () => {
+describe('middleware/session', function () {
   let mockConfig: any = null;
 
   let redisStub: SinonStub = null;
@@ -24,25 +24,25 @@ describe('middleware/session', () => {
     sinon.restore();
   });
 
-  it('should return the correct session when useRedisStore is false', () => {
+  it('should return the correct session when useRedisStore is false', function () {
     createSession(false);
 
     expect(redisStub).to.have.not.been.called;
   });
 
-  it('should return the correct session when no args are given', () => {
+  it('should return the correct session when no args are given', function () {
     createSession();
 
     expect(redisStub).to.have.not.been.called;
   });
 
-  it('should return the correct session when useRedisStore is true', () => {
+  it('should return the correct session when useRedisStore is true', function () {
     createSession(true);
 
     expect(redisStub).to.have.been.calledOnce;
   });
 
-  it('should return without error when secret is null', () => {
+  it('should return without error when secret is null', function () {
     mockConfig.session.cookie.secret = null;
 
     const sessionProxy = proxyquire('app/server/middleware/session', {

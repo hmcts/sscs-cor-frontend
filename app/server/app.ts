@@ -1,7 +1,8 @@
 import * as AppInsights from './app-insights';
 
-import { RequestHandler } from 'express';
-import express = require('express');
+import * as express from 'express';
+import { Application, RequestHandler } from 'express';
+
 import { router as routes } from './routes';
 
 import * as health from './middleware/health';
@@ -12,15 +13,16 @@ import * as cookieParser from 'cookie-parser';
 
 import * as screenReaderUtils from './utils/screenReaderUtils';
 import {
-  configureHelmet,
   configureHeaders,
+  configureHelmet,
   configureNunjucks,
 } from './app-configurations';
 import watch from './watch';
 import * as config from 'config';
-import { isFeatureEnabled, Feature } from './utils/featureEnabled';
+import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
 import * as path from 'path';
+
 const { Express } = require('@hmcts/nodejs-logging');
 const errors = require('./middleware/error-handler');
 const content = require('../../locale/content');
@@ -38,7 +40,10 @@ interface Options {
   disableAppInsights?: boolean;
 }
 
-function setup(sessionHandler: RequestHandler, options: Options) {
+export function setup(
+  sessionHandler: RequestHandler,
+  options: Options
+): Application {
   i18next.init({
     resources: content,
     supportedLngs: config.get('languages'),
@@ -50,7 +55,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     AppInsights.enable();
   }
 
-  const app: express.Application = express();
+  const app: Application = express();
 
   if (!isDevelopment) {
     // Protect against some well known web vulnerabilities
@@ -72,7 +77,7 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.locals.screenReaderUtils = screenReaderUtils;
 
   if (isDevelopment) {
-    watch(app);
+    void watch(app);
     app.locals.isDev = true;
   } else {
     app.set('trust proxy', 1);
@@ -122,6 +127,48 @@ function setup(sessionHandler: RequestHandler, options: Options) {
     next();
   });
   app.use('/public', express.static(path.join(__dirname, '/../../public')));
+  app.use(
+    '/public/govuk-frontend',
+    express.static(
+      path.join(
+        __dirname,
+        '/../../node_modules',
+        'govuk-frontend',
+        'govuk',
+        'assets'
+      )
+    )
+  );
+  app.use(
+    '/public/images',
+    express.static(path.join(__dirname, '/../../app', 'client', 'images'))
+  );
+  app.use(
+    '/public/js',
+    express.static(
+      path.join(
+        __dirname,
+        '/../../node_modules',
+        '@hmcts',
+        'ctsc-web-chat',
+        'assets',
+        'javascript'
+      )
+    )
+  );
+  app.use(
+    '/public/css',
+    express.static(
+      path.join(
+        __dirname,
+        '/../../node_modules',
+        '@hmcts',
+        'ctsc-web-chat',
+        'assets',
+        'css'
+      )
+    )
+  );
   app.use(Express.accessLogger());
   app.use(sessionHandler);
   app.use(csrfToken);
@@ -135,5 +182,3 @@ function setup(sessionHandler: RequestHandler, options: Options) {
   app.use(i18nextMiddleware.handle(i18next));
   return app;
 }
-
-export { setup };

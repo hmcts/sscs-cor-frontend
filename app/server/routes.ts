@@ -10,7 +10,7 @@ import { setupLoginController, redirectToLogin } from './controllers/login';
 import { setupDecisionController } from './controllers/decision';
 import { setupIdamStubController } from './controllers/idam-stub';
 import { setupCookiePrivacyController } from './controllers/policies';
-import { supportControllers } from './controllers/support';
+import * as supportControllers from './controllers/support';
 import { setupSessionController } from './controllers/session';
 import { setupadditionalEvidenceController } from './controllers/additional-evidence';
 import { setupYourDetailsController } from './controllers/your-details';
@@ -23,18 +23,33 @@ import { setupHearingController } from './controllers/hearing';
 import { setupOutcomeController } from './controllers/outcome';
 import { setupAvEvidenceController } from './controllers/av-evidence';
 import { setupRequestTypeController } from './controllers/request-type';
+import { setupCasesController } from './controllers/cases';
 
-import { HearingService } from './services/hearing';
+import { CaseService } from './services/cases';
 import { IdamService } from './services/idam';
 import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
 import { RequestTypeService } from './services/request-type';
+import { NextFunction, Request, Response, Router } from 'express';
 
-const express = require('express');
+export interface Dependencies {
+  setLocals?: (req: Request, res: Response, next: NextFunction) => void;
+  requestTypeService?: RequestTypeService;
+  prereqMiddleware?: ((
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => void)[];
+  additionalEvidenceService?: AdditionalEvidenceService;
+  trackYourApealService?: TrackYourApealService;
+  caseService?: CaseService;
+  idamService?: IdamService;
+}
+
 const setLanguage = require('./setLanguage');
 
-const router = express.Router();
+const router = Router();
 
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
@@ -57,7 +72,7 @@ const idamService: IdamService = new IdamService(
   appPort,
   appSecret
 );
-const hearingService: HearingService = new HearingService(apiUrl);
+const caseService: CaseService = new CaseService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService =
   new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(
@@ -67,17 +82,15 @@ const requestTypeService: RequestTypeService = new RequestTypeService(
   tribunalsApiUrl
 );
 
-const prereqMiddleware = [ensureAuthenticated];
-
 const taskListController = setupTaskListController({
   additionalEvidenceService,
-  prereqMiddleware,
+  prereqMiddleware: ensureAuthenticated,
 });
 const decisionController = setupDecisionController({
   prereqMiddleware: ensureAuthenticated,
 });
 const loginController = setupLoginController({
-  hearingService,
+  caseService,
   idamService,
   trackYourApealService: trackYourAppealService,
 });
@@ -103,6 +116,10 @@ const evidenceOptionsController = setupadditionalEvidenceController({
 const statusController = setupStatusController({
   prereqMiddleware: ensureAuthenticated,
 });
+const casesController = setupCasesController({
+  prereqMiddleware: ensureAuthenticated,
+  setLocals,
+});
 const activeCasesController = setupActiveCasesController({
   prereqMiddleware: ensureAuthenticated,
   setLocals,
@@ -119,7 +136,7 @@ const historyController = setupHistoryController({
   prereqMiddleware: ensureAuthenticated,
 });
 const assignCaseController = setupAssignCaseController({
-  hearingService,
+  caseService,
   trackYourApealService: trackYourAppealService,
   prereqMiddleware: ensureAuthenticated,
 });
@@ -140,13 +157,13 @@ const requestTypeController = setupRequestTypeController({
   trackYourApealService: trackYourAppealService,
 });
 
-router.use((req, res, next) => {
+router.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader(
     'Cache-Control',
     'no-cache, max-age=0, must-revalidate, no-store'
   );
   res.header('Pragma', 'no-cache');
-  res.header('Expires', 0);
+  res.header('Expires', '0');
   next();
 });
 
@@ -164,6 +181,7 @@ router.use(supportWithdrawAppealController);
 router.use(sessionController);
 router.use(evidenceOptionsController);
 router.use(statusController);
+router.use(casesController);
 router.use(activeCasesController);
 router.use(dormantCasesController);
 router.use(yourDetailsController);
@@ -183,8 +201,8 @@ router.get('/robots.txt', (req, res) => {
 router.get(
   '/manage-email-notifications/:mactoken',
   validateToken,
-  (req, res, next) => {
-    res.render('manage-emails', { mactoken: req.params.mactoken });
+  (req: Request, res: Response, next: NextFunction) => {
+    res.render('manage-emails.njk', { mactoken: req.params.mactoken });
   }
 );
 
@@ -192,7 +210,7 @@ router.post(
   '/manage-email-notifications/:mactoken',
   validateToken,
   notificationRedirect,
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     // reload page
   }
 );
@@ -201,8 +219,8 @@ router.get(
   '/manage-email-notifications/:mactoken/stop',
   validateToken,
   emailNotifications,
-  (req, res) => {
-    res.render('emails-stop', { mactoken: req.params.mactoken });
+  (req: Request, res: Response) => {
+    res.render('emails-stop.njk', { mactoken: req.params.mactoken });
   }
 );
 
@@ -211,8 +229,8 @@ router.get(
   validateToken,
   stopReceivingEmails,
   emailNotifications,
-  (req, res, next) => {
-    res.render('emails-stop-confirmed', {
+  (req: Request, res: Response, next: NextFunction) => {
+    res.render('emails-stop-confirmed.njk', {
       data: { appealNumber: res.locals.token.appealId },
       mactoken: req.params.mactoken,
     });
@@ -222,8 +240,8 @@ router.get(
 router.get(
   '/manage-email-notifications/:mactoken/change',
   validateToken,
-  (req, res) => {
-    res.render('email-address-change', { mactoken: req.params.mactoken });
+  (req: Request, res: Response) => {
+    res.render('email-address-change.njk', { mactoken: req.params.mactoken });
   }
 );
 
@@ -233,8 +251,8 @@ router.post(
   validateEmail,
   changeEmailAddress,
   emailNotifications,
-  (req, res, next) => {
-    res.render('email-address-change-confirmed', {
+  (req: Request, res: Response, next: NextFunction) => {
+    res.render('email-address-change-confirmed.njk', {
       data: { email: req.body.email },
       mactoken: req.params.mactoken,
     });
@@ -244,8 +262,8 @@ router.post(
 router.get(
   '/validate-surname/:tya/trackyourappeal',
   loginController,
-  (req, res, next) => {
-    res.render('redirect-mya', { tyaNumber: req.query.tya });
+  (req: Request, res: Response, next: NextFunction) => {
+    res.render('redirect-mya.njk', { tyaNumber: req.query.tya });
   }
 );
 

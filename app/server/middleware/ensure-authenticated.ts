@@ -23,8 +23,13 @@ function checkAccessToken(req, res, next) {
 
 function setLocals(req, res, next) {
   if (req.session.accessToken) {
-    res.locals.hearing = req.session.hearing;
-    res.locals.showSignOut = true;
+    if (req.session.case) {
+      res.locals.case = req.session.case;
+      res.locals.caseSelected = true;
+    } else {
+      res.locals.caseSelected = false;
+    }
+    res.locals.signedIn = true;
   }
 
   res.locals.inDashboard = [
@@ -44,7 +49,7 @@ function setLocals(req, res, next) {
     Feature.MYA_PAGINATION_ENABLED,
     req.cookies
   );
-  if (req.session.hearings && myaPagination) {
+  if (req.session.cases && myaPagination) {
     res.locals.mainTabs = setMainTabNavigationItems();
   }
 

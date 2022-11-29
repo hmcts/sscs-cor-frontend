@@ -1,7 +1,9 @@
-import * as FeatureEnabled from '../../../app/server/utils/featureEnabled';
-
 import * as Paths from 'app/server/paths';
+import * as FeatureEnabled from '../../../app/server/utils/featureEnabled';
+import { SinonStub } from 'sinon';
+import { Router } from 'express';
 
+const itParam = require('mocha-param');
 const { expect, sinon } = require('test/chai-sinon');
 const {
   setupCookiePrivacyController,
@@ -9,12 +11,12 @@ const {
 } = require('app/server/controllers/policies.ts');
 const express = require('express');
 
-describe('controllers/policies.js', () => {
+describe('controllers/policies.js', function () {
   let req: any;
   let res: any;
   let sandbox: sinon.SinonSandbox;
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {},
@@ -26,55 +28,56 @@ describe('controllers/policies.js', () => {
     } as any;
   });
 
-  afterEach(() => {
+  afterEach(function () {
     sandbox.restore();
   });
 
-  describe('getCookiePrivacy', () => {
-    let isFeatureEnabledStub;
-    beforeEach(() => {
+  describe('getCookiePrivacy', function () {
+    let isFeatureEnabledStub: SinonStub = null;
+    const scenarios = null;
+
+    beforeEach(function () {
       isFeatureEnabledStub = sandbox.stub(FeatureEnabled, 'isFeatureEnabled');
     });
 
-    const scenarios = [
-      {
-        cookieBannerFeature: true,
-        expected: 'policy-pages/cookie-privacy-new.html',
-      },
-      {
-        cookieBannerFeature: false,
-        expected: 'policy-pages/cookie-privacy-old.html',
-      },
-    ];
-
-    scenarios.forEach((scenario) => {
-      it(`renders Cookie Policy page for cookieBanner.enabled = ${scenario.cookieBannerFeature}`, () => {
+    // eslint-disable-next-line mocha/no-setup-in-describe
+    itParam(
+      `renders Cookie Policy page for cookieBanner.enabled`,
+      [
+        {
+          cookieBannerFeature: true,
+          expected: 'policy-pages/cookie-privacy-new.njk',
+        },
+        {
+          cookieBannerFeature: false,
+          expected: 'policy-pages/cookie-privacy-old.njk',
+        },
+      ],
+      function (value) {
         isFeatureEnabledStub
           .withArgs(
             FeatureEnabled.Feature.ALLOW_COOKIE_BANNER_ENABLED,
             sinon.match.object
           )
-          .returns(scenario.cookieBannerFeature);
+          .returns(value.cookieBannerFeature);
         getCookiePrivacy(req, res);
-        expect(res.render).to.have.been.calledOnce.calledWith(
-          scenario.expected
-        );
-      });
-    });
+        expect(res.render).to.have.been.calledOnce.calledWith(value.expected);
+      }
+    );
   });
 
-  describe('setupCookiePrivacyController', () => {
-    beforeEach(() => {
+  describe('setupCookiePrivacyController', function () {
+    beforeEach(function () {
       sinon.stub(express, 'Router').returns({
         get: sinon.stub(),
-      });
+      } as Partial<Router> as Router);
     });
 
-    afterEach(() => {
+    afterEach(function () {
       express.Router.restore();
     });
 
-    it('calls router.get with the path and middleware', () => {
+    it('calls router.get with the path and middleware', function () {
       setupCookiePrivacyController();
       // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(Paths.cookiePrivacy);

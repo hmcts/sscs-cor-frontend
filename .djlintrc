@@ -1,0 +1,8 @@
+{
+    "profile": "nunjucks",
+    "extension": "njk",
+    "indent": "2",
+    "max_line_length": "160",
+    "use_gitignore": "true",
+    "format_attribute_template_tags": "true"
+}

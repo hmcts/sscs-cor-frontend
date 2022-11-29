@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+import { expect } from 'chai';
 const { cloneDeep } = require('lodash');
 const config = require('config');
 const proxyquire = require('proxyquire');
@@ -7,13 +7,13 @@ const modulePath = 'app/server/services/setupSecrets';
 
 let mockConfig: any = {};
 
-describe(modulePath, () => {
-  describe('#setup', () => {
-    beforeEach(() => {
+describe(modulePath, function () {
+  describe('#setup', function () {
+    beforeEach(function () {
       mockConfig = cloneDeep(config);
     });
 
-    it('should set config values when secrets path is set', () => {
+    it('should set config values when secrets path is set', function () {
       mockConfig.secrets = {
         sscs: {
           'sscs-cor-redis-access-key': 'redisValue',
@@ -43,7 +43,7 @@ describe(modulePath, () => {
       );
     });
 
-    it('should not set config values when secrets path is not set', () => {
+    it('should not set config values when secrets path is not set', function () {
       // Update config with secret setup
       const { setupKeyVaultSecrets } = proxyquire(modulePath, {
         config: mockConfig,
@@ -57,7 +57,7 @@ describe(modulePath, () => {
       expect(mockConfig.idam.client.secret).to.equal(config.idam.client.secret);
     });
 
-    it('should only set one config value when single secret path is set', () => {
+    it('should only set one config value when single secret path is set', function () {
       // Update config with secret setup
       const { setupKeyVaultSecrets } = proxyquire(modulePath, {
         config: mockConfig,

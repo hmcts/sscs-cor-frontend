@@ -11,30 +11,32 @@ import * as AppInsights from 'app/server/app-insights';
 import * as express from 'express';
 import * as Paths from 'app/server/paths';
 import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
-import { NextFunction } from 'express';
+import { NextFunction, Router } from 'express';
 import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import moment from 'moment';
+import { CaseDetails } from '../../../app/server/services/cases';
+import { Dependencies } from '../../../app/server/routes';
 
-describe('controllers/task-list', () => {
+describe('controllers/task-list', function () {
   let req;
   let res;
   let next: NextFunction;
   let additionalEvidenceService;
   let sandbox: sinon.SinonSandbox;
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-  const hearingDetails = {
+  const caseDetails: CaseDetails = {
     online_hearing_id: '1',
     case_reference: '12345',
     appellant_name: 'John Smith',
     case_id: 12345,
   };
 
-  beforeEach(() => {
+  beforeEach(function () {
     sandbox = sinon.createSandbox();
     req = {
       session: {
-        hearing: hearingDetails,
+        case: caseDetails,
         appeal: {},
       },
       cookies: {},
@@ -53,21 +55,21 @@ describe('controllers/task-list', () => {
     };
   });
 
-  afterEach(() => {
+  afterEach(function () {
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
     sandbox.restore();
   });
 
-  describe.skip('getCoversheet', () => {
-    it('should return a pdf file', async () => {
+  describe.skip('getCoversheet', function () {
+    it('should return a pdf file', async function () {
       await getCoversheet(additionalEvidenceService)(req, res, next);
       expect(res.send).to.have.been.calledOnce.calledWith(
         new Buffer('file', 'binary')
       );
     });
 
-    it('should track Exception with AppInsights and call next(error)', async () => {
+    it('should track Exception with AppInsights and call next(error)', async function () {
       additionalEvidenceService = {
         getCoversheet: sandbox.stub().rejects(error),
       };
@@ -78,7 +80,7 @@ describe('controllers/task-list', () => {
       expect(next).to.have.been.calledWith(error);
     });
 
-    it('should throw error and event if no sessions', async () => {
+    it('should throw error and event if no sessions', async function () {
       req.session = null;
 
       expect(
@@ -93,13 +95,13 @@ describe('controllers/task-list', () => {
     });
   });
 
-  describe('getTaskList', () => {
-    it('should render task-list.html page', () => {
+  describe('getTaskList', function () {
+    it('should render task-list.njk page', function () {
       req.session.appeal = {
         hearingType: null,
       };
       getTaskList(req, res, next);
-      expect(res.render).to.have.been.calledOnce.calledWith('task-list.html', {
+      expect(res.render).to.have.been.calledOnce.calledWith('task-list.njk', {
         deadlineExpiryDate: null,
         hearingType: null,
         appeal: req.session.appeal,
@@ -107,44 +109,40 @@ describe('controllers/task-list', () => {
     });
   });
 
-  describe('getEvidencePost', () => {
-    it('should render post-evidence.html page', () => {
+  describe('getEvidencePost', function () {
+    it('should render post-evidence.njk page', function () {
       getEvidencePost(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'post-evidence.html',
+        'post-evidence.njk',
         { postBulkScan: false }
       );
     });
   });
 
-  describe('setupTaskListController', () => {
-    const deps = {
-      getAllQuestionsService: {},
-    };
+  describe('setupTaskListController', function () {
+    const deps: Dependencies = {};
 
-    beforeEach(() => {
+    beforeEach(function () {
       sinon.stub(express, 'Router').returns({
         get: sinon.stub(),
         post: sinon.stub(),
-      });
+      } as Partial<Router> as Router);
     });
 
-    afterEach(() => {
+    afterEach(function () {
       (express.Router as sinon.SinonStub).restore();
     });
 
-    it('calls router.get with the path and middleware', () => {
+    it('calls router.get with the path and middleware', function () {
       setupTaskListController(deps);
       // eslint-disable-next-line new-cap
       expect(express.Router().get).to.have.been.calledWith(Paths.taskList);
     });
 
-    it('returns the router', () => {
+    it('returns the router', function () {
       const controller = setupTaskListController(deps);
       // eslint-disable-next-line new-cap
       expect(controller).to.equal(express.Router());
     });
   });
 });
-
-export {};

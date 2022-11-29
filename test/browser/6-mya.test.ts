@@ -21,7 +21,7 @@ const pa11y = require('pa11y');
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
 
-describe('Appellant - Manage your appeal app @mya @nightly', () => {
+describe('Appellant - Manage your appeal app @mya @nightly', function () {
   let ccdCase;
   let page: Page;
   let loginPage: LoginPage;
@@ -37,7 +37,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   let withdrawAppealPage: WithdrawAppealPage;
   let sidamUser;
 
-  before(async () => {
+  before(async function () {
     ({
       ccdCase,
       page,
@@ -65,18 +65,18 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     );
   });
 
-  after(async () => {
+  after(async function () {
     if (page?.close) {
       await page.close();
     }
   });
 
-  it('should land in assign-case page after a successful login', async () => {
+  it('should land in assign-case page after a successful login', async function () {
     assignCasePage.verifyPage();
   });
 
   /* PA11Y */
-  it('checks /postcode page path passes @pa11y', async () => {
+  it('checks /postcode page path passes @pa11y', async function () {
     assignCasePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-postcode-page.png`;
     pa11yOpts.page = assignCasePage.page;
@@ -87,7 +87,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     );
   });
 
-  it('should inform postcode, submit and land in status page', async () => {
+  it('should inform postcode, submit and land in status page', async function () {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
     await page.reload();
@@ -95,7 +95,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /status page path passes @pa11y', async () => {
+  it('checks /status page path passes @pa11y', async function () {
     statusPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-status-page.png`;
     pa11yOpts.page = statusPage.page;
@@ -107,7 +107,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /support-evidence page passes @pa11y', async () => {
+  it('checks /support-evidence page passes @pa11y', async function () {
     await supportEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-support-evidence-page.png`;
     pa11yOpts.page = supportEvidencePage.page;
@@ -119,7 +119,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /representatives page passes @pa11y', async () => {
+  it('checks /representatives page passes @pa11y', async function () {
     await representativesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-representatives-page.png`;
     pa11yOpts.page = representativesPage.page;
@@ -131,7 +131,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /support-hearing page passes @pa11y', async () => {
+  it('checks /support-hearing page passes @pa11y', async function () {
     await supportHearingPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-support-hearing-page.png`;
     pa11yOpts.page = supportHearingPage.page;
@@ -143,7 +143,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /claiming-expenses page passes @pa11y', async () => {
+  it('checks /claiming-expenses page passes @pa11y', async function () {
     await claimingExpensesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-claiming-expenses-page.png`;
     pa11yOpts.page = claimingExpensesPage.page;
@@ -155,7 +155,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
   });
 
   /* PA11Y */
-  it('checks /withdraw-appeal page passes @pa11y', async () => {
+  it('checks /withdraw-appeal page passes @pa11y', async function () {
     await withdrawAppealPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-withdraw-appeal-page.png`;
     pa11yOpts.page = withdrawAppealPage.page;
@@ -166,8 +166,8 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     );
   });
 
-  describe('Status page', () => {
-    it('should display navigation tabs and Status tab should be active', async () => {
+  describe('Status page', function () {
+    it('should display navigation tabs and Status tab should be active', async function () {
       await statusPage.visitPage();
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.navigation-tabs')).to.not.be
@@ -177,28 +177,28 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
       ).contain(content.en.statusTab.tabHeader);
     });
 
-    it('should display subheading', async () => {
+    it('should display subheading', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(
         content.en.statusTab.header
       );
     });
 
-    it('should display status bar', async () => {
+    it('should display status bar', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.task-list h2')).to.equal(
         content.en.statusTab.header
       );
     });
 
-    it('should display panel with latest update', async () => {
+    it('should display panel with latest update', async function () {
       statusPage.verifyPage();
       expect(await statusPage.getElementText('.panel')).contain(
         content.en.statusTab.panelHeader
       );
     });
 
-    it('should display Help and Support links', async () => {
+    it('should display Help and Support links', async function () {
       statusPage.verifyPage();
       expect(
         await statusPage.getElementText('.mya-contact__content h2')
@@ -211,7 +211,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
       ).contain(content.en.helpGuides.withdrawAppeal.linkHeader);
     });
 
-    it('should display Contact us for help options and open details', async () => {
+    it('should display Contact us for help options and open details', async function () {
       statusPage.verifyPage();
       expect(
         await statusPage.getElementText('.govuk-details.contact-us')
@@ -225,7 +225,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
       expect(heightClosed).to.equal(40);
     });
 
-    it('should open Contact us details', async () => {
+    it('should open Contact us details', async function () {
       statusPage.verifyPage();
       const elementHandle = await page.$('.govuk-details.contact-us');
       await statusPage.openDetails('.govuk-details.contact-us');
@@ -238,8 +238,8 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     });
   });
 
-  describe('Hearing page', () => {
-    it('Navigate to hearing tab', async () => {
+  describe('Hearing page', function () {
+    it('Navigate to hearing tab', async function () {
       statusPage.verifyPage();
       await statusPage.clickElement('#tab-hearing');
       await page.waitForTimeout(500);
@@ -249,7 +249,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     });
 
     /* PA11Y */
-    it('checks /hearing page passes @pa11y', async () => {
+    it('checks /hearing page passes @pa11y', async function () {
       hearingPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-hearing-page.png`;
       pa11yOpts.page = hearingPage.page;
@@ -261,8 +261,8 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     });
   });
 
-  describe('Audio/video Evidence page', () => {
-    it('Navigate to Audio/Video Evidence tab', async () => {
+  describe('Audio/video Evidence page', function () {
+    it('Navigate to Audio/Video Evidence tab', async function () {
       await statusPage.clickElement('#tab-avEvidence');
       await page.waitForTimeout(500);
 
@@ -274,7 +274,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
       );
     });
     /* PA11Y */
-    it('checks /audio-video-evidence page passes @pa11y', async () => {
+    it('checks /audio-video-evidence page passes @pa11y', async function () {
       audioVideoEvidencePage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-audio-video-evidence-page.png`;
       pa11yOpts.page = audioVideoEvidencePage.page;
@@ -286,8 +286,8 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     });
   });
 
-  describe('Appeal Details page', () => {
-    it('Navigate to Appeal Details page', async () => {
+  describe('Appeal Details page', function () {
+    it('Navigate to Appeal Details page', async function () {
       await statusPage.navigateToAppealDetailsPage();
       await page.waitForTimeout(500);
 
@@ -307,7 +307,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', () => {
     });
 
     /* PA11Y */
-    it('Navigate to Appeal Details page @pa11y', async () => {
+    it('Navigate to Appeal Details page @pa11y', async function () {
       appealDetailsPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-appeal-details-page.png`;
       pa11yOpts.page = appealDetailsPage.page;

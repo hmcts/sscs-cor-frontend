@@ -75,6 +75,7 @@ async function startAppServer(): Promise<void> {
   return Promise.resolve();
 }
 
+// eslint-disable-next-line mocha/no-exports
 export async function login(page, force?, assignCase?) {
   const sidamUser = sidamUsers[0];
   const email = sidamUser?.email || ccdCase?.email || 'someone@example.com';
@@ -116,7 +117,8 @@ export async function login(page, force?, assignCase?) {
   console.log(`Login function finished. On ${page.url()}`);
 }
 
-async function startServices(options?) {
+// eslint-disable-next-line mocha/no-exports
+export async function startServices(options?) {
   const opts = options || {};
   let sidamUser;
   logger.info(`testingLocalhost--------${testingLocalhost}`);
@@ -144,7 +146,7 @@ async function startServices(options?) {
   return { page, ccdCase: ccdCase || {}, sidamUser, browser };
 }
 
-after(async () => {
+after(async function () {
   if (sidamUsers.length > 0) {
     console.log('Clean up sidam');
     // await sidam.unregisterRedirectUri();
@@ -166,5 +168,3 @@ async function closeBrowser() {
     await browser.close();
   }
 }
-
-export { startServices };

@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { TrackYourApealService } from '../services/tyaService';
 import { dateFormat } from '../utils/dateUtils';
+import { Dependencies } from '../routes';
 
 const logger = Logger.getLogger('outcome.js');
 
@@ -20,16 +20,7 @@ function getOutcome(req: Request, res: Response) {
   }
 
   const outcomes = session['appeal'].hearingOutcome;
-  outcomes.forEach((outcome) => {
-    logger.info(
-      `Date converted from ${outcome.date} to ${dateFormat(
-        outcome.date,
-        'YYYY-MM-DD'
-      )}`
-    );
-    outcome.date = dateFormat(outcome.date, 'YYYY-MM-DD');
-  });
-  return res.render('outcome-tab.html', { outcomes });
+  return res.render('outcome-tab.njk', { outcomes });
 }
 
 function getDocument(trackYourAppealService: TrackYourApealService) {
@@ -43,7 +34,7 @@ function getDocument(trackYourAppealService: TrackYourApealService) {
   };
 }
 
-function setupOutcomeController(deps: any) {
+function setupOutcomeController(deps: Dependencies) {
   const router = Router();
   router.get(Paths.outcome, deps.prereqMiddleware, getOutcome);
   router.get(
