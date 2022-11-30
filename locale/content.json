@@ -71,15 +71,24 @@
       "failed": {
         "emailNotFound": {
           "header": "There is no benefit appeal associated with this email address",
-          "body": "<p>Either you have changed your email address or you do not have an active benefit appeal.</p><p>If you have changed your email address then you need to create a new account using your new email address:</p>"
+          "messages": [
+            "Either you have changed your email address or you do not have an active benefit appeal.",
+            "If you have changed your email address then you need to create a new account using your new email address:"
+          ]
         },
         "technicalError": {
           "header": "There is a technical problem with your account",
-          "body": "<p>There is a technical problem with the account you are using to access your benefit appeal.</p><p>Please email <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> and we will resolve it for you. Include your appeal reference number and name.</p><p>We apologise for any inconvenience.</p>"
+          "messages": [
+            "There is a technical problem with the account you are using to access your benefit appeal.",
+            "Please email <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> and we will resolve it for you. Include your appeal reference number and name.",
+            "We apologise for any inconvenience."
+          ]
         },
         "cannotUseService": {
           "header": "You cannot access this service",
-          "body": "<p>Please check any emails or letters you have received about your benefit appeal if you would like an update.</p>"
+          "messages": [
+            "Please check any emails or letters you have received about your benefit appeal if you would like an update."
+          ]
         }
       }
     },
@@ -1362,15 +1371,24 @@
       "failed": {
         "emailNotFound": {
           "header": "Nid oes unrhyw apêl budd-dal sy’n gysylltiedig â’r cyfeiriad e-bost hwn",
-          "body": "<p>Naill ai rydych wedi newid eich cyfeiriad e-bost neu nid os gennych apêl budd-dal gweithredol.</p><p>Os ydych wedi newid eich cyfeiriad e-bost yna bydd rhaid ichi greu cyfrif newydd gan ddefnyddio eich cyfeiriad e-bost newydd:</p>"
+          "messages": [
+            "Naill ai rydych wedi newid eich cyfeiriad e-bost neu nid os gennych apêl budd-dal gweithredol.",
+            "Os ydych wedi newid eich cyfeiriad e-bost yna bydd rhaid ichi greu cyfrif newydd gan ddefnyddio eich cyfeiriad e-bost newydd:"
+          ]
         },
         "technicalError": {
           "header": "Mae problem technegol gyda’ch cyfrif",
-          "body": "<p>Mae problem technegol gyda’r cyfrif rydych yn ei ddefnyddio i gael mynediad at eich apêl budd-dal.</p><p>Anfonwch neges e-bost I <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> aa byddwn yn datrys y broblem ichi. Cofiwch gynnwys cyfeirnod eich apêl a’ch enw.</p><p>We apologise for any inconvenience.</p>"
+          "messages": [
+            "Mae problem technegol gyda’r cyfrif rydych yn ei ddefnyddio i gael mynediad at eich apêl budd-dal.",
+            "Anfonwch neges e-bost I <a href=\"mailto:{{ i18n.contactEmail }}\">{{ i18n.contactEmail }}</a> aa byddwn yn datrys y broblem ichi. Cofiwch gynnwys cyfeirnod eich apêl a’ch enw.",
+            "We apologise for any inconvenience."
+          ]
         },
         "cannotUseService": {
           "header": "Ni allwch gael mynediad at y gwasanaeth hwn",
-          "body": "<p>Os yr hoffech gael diweddariad ar eich apêl, yna gwiriwch unrhyw negeseuon e-bost neu lythyrau rydych wedi’u cael ynghylch eich apêl budd-dal.</p>"
+          "messages": [
+            "Os yr hoffech gael diweddariad ar eich apêl, yna gwiriwch unrhyw negeseuon e-bost neu lythyrau rydych wedi’u cael ynghylch eich apêl budd-dal."
+          ]
         }
       }
     },

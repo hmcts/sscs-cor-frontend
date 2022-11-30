@@ -6,21 +6,25 @@ import {
   UNPROCESSABLE_ENTITY,
   CONFLICT,
   OK,
+  UNAUTHORIZED,
 } from 'http-status-codes';
 import * as Paths from '../paths';
 import { URL } from 'url';
 import { generateToken } from '../services/s2s';
 
-import * as rp from 'request-promise';
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
 import { CaseDetails, CaseService } from '../services/cases';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 import { Dependencies } from '../routes';
-const content = require('../../../locale/content');
-const config = require('config');
+import HttpException from '../exceptions/HttpException';
+import { LoggerInstance } from 'winston';
+import * as config from 'config';
+import i18next from 'i18next';
 
-const logger = Logger.getLogger('login.js');
+const content = require('../../../locale/content');
+
+const logger: LoggerInstance = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
 const idamClientId: string = config.get('idam.client.id');
 
@@ -77,7 +81,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
     } else if (req.query.state) {
       idamUrl.searchParams.append('state', req.query.state as string);
     }
-    logger.log(`Redirecting to [${idamUrl.href}]`);
+    logger.info(`Redirecting to [${idamUrl.href}]`);
     AppInsights.trackEvent('MYA_REDIRECT_IDAM_LOGIN');
     return res.redirect(idamUrl.href);
   };
@@ -117,9 +121,11 @@ function getIdamCallback(
           req.session['serviceToken'] = await generateToken();
           req.session['tya'] = req.query.state;
         } catch (error) {
-          const tokenError = new Error(
+          const tokenError = new HttpException(
+            UNAUTHORIZED,
             `Idam token verification failed for code ${code} with error ${error.message}`
           );
+          logger.error('MYA_IDAM_CODE_AUTH_ERROR', tokenError);
           AppInsights.trackException(tokenError);
           AppInsights.trackEvent('MYA_IDAM_CODE_AUTH_ERROR');
           throw tokenError;
@@ -154,24 +160,28 @@ function getIdamCallback(
         if (caseId?.length > 0) {
           value.case_reference = caseId;
         } else {
-          const missingHearingIdError = new Error(
+          const missingHearingIdError = new HttpException(
+            NOT_FOUND,
             'Case ID cannot be empty from hearing in session'
           );
+          logger.error('MYA_SESSION_READ_FAIL', missingHearingIdError);
           AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
           throw missingHearingIdError;
         }
       });
 
+      logger.info('MYA_LOGIN_SUCCESS');
       AppInsights.trackEvent('MYA_LOGIN_SUCCESS');
       if (cases.length === 0) {
         return res.redirect(Paths.assignCase);
-      } else if (cases.length === 1) {
-        req.session['case'] = cases[0];
+      }
+
+      const caseDetail = cases[0];
+      const caseId = caseDetail.case_id;
+      if (cases.length === 1) {
+        req.session['case'] = caseDetail;
         const { appeal, subscriptions } =
-          await trackYourAppealService.getAppeal(
-            req.session['case'].case_id,
-            req
-          );
+          await trackYourAppealService.getAppeal(String(caseId), req);
         req.session['appeal'] = appeal;
         req.session['subscriptions'] = subscriptions;
         req.session['hideHearing'] =
@@ -179,7 +189,7 @@ function getIdamCallback(
           appeal.hideHearing == null ? false : appeal.hideHearing;
 
         logger.info(
-          `Logging in ${email} for benefit type ${appeal.benefitType}`
+          `Logging in ${email} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
           `[${req.session['case']?.case_id}] - User logged in successfully as ${email}`
@@ -190,20 +200,23 @@ function getIdamCallback(
         }
         return res.redirect(Paths.status);
       }
-      logger.info(`Logging in ${email} for Cases count ${cases.length}`);
+      logger.info(
+        `Logging in ${email} for Cases count ${cases.length}, Case Id: ${caseId}`
+      );
       AppInsights.trackTrace(
         `[Cases count ${cases.length}] - User logged in successfully as ${email}`
       );
 
       req.session['cases'] = cases;
 
-      logger.info(`Cases stored: ${req.session['cases']?.length}`);
+      logger.info(`Cases stored: ${caseDetail.case_id}`);
 
       if (isFeatureEnabled(Feature.MYA_PAGINATION_ENABLED, req.cookies)) {
         return res.redirect(Paths.activeCases);
       }
       return res.redirect(Paths.selectCase);
     } catch (error) {
+      logger.error('MYA_LOGIN_FAIL', error);
       AppInsights.trackException(error);
       AppInsights.trackEvent('MYA_LOGIN_FAIL');
       return next(error);
@@ -217,26 +230,33 @@ function renderErrorPage(
   idamService: IdamService,
   req: Request,
   res: Response
-) {
-  const options = {};
+): void {
+  let header: string = null;
+  const messages: Array<string> = [];
   if (statusCode === NOT_FOUND) {
     logger.info(`Cannot find any case for ${email}`);
-    options['registerUrl'] = idamService.getRegisterUrl(
-      req.protocol,
-      req.hostname
-    );
-    options['errorHeader'] = content.en.login.failed.emailNotFound.header;
-    options['errorBody'] = content.en.login.failed.emailNotFound.body;
+    header = content[i18next.language].login.failed.emailNotFound.header;
+    const errorMessages: Array<string> =
+      content[i18next.language].login.failed.emailNotFound.messages;
+    messages.push(...errorMessages);
+    const registerLink = new HTMLLinkElement();
+    registerLink.href = idamService.getRegisterUrl(req.protocol, req.hostname);
+    registerLink.classList.add('govuk-link');
+    messages.push(registerLink.outerHTML);
   } else if (statusCode === UNPROCESSABLE_ENTITY) {
     logger.info(`Found multiple appeals for ${email}`);
-    options['errorHeader'] = content.en.login.failed.technicalError.header;
-    options['errorBody'] = content.en.login.failed.technicalError.body;
+    header = content[i18next.language].login.failed.technicalError.header;
+    const errorMessages: Array<string> =
+      content[i18next.language].login.failed.technicalError.messages;
+    messages.push(...errorMessages);
   } else if (statusCode === CONFLICT) {
     logger.info(`Found a non cor appeal for ${email}`);
-    options['errorHeader'] = content.en.login.failed.cannotUseService.header;
-    options['errorBody'] = content.en.login.failed.cannotUseService.body;
+    header = content[i18next.language].login.failed.cannotUseService.header;
+    const errorMessages: Array<string> =
+      content[i18next.language].login.failed.cannotUseService.messages;
+    messages.push(...errorMessages);
   }
-  return res.render('load-case-error.njk', { ...options });
+  return res.render('errors/error.njk', { header, messages });
 }
 
 function setupLoginController(deps: Dependencies) {

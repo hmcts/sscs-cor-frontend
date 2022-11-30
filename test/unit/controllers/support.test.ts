@@ -26,7 +26,7 @@ describe('controllers/support', function () {
   });
 
   describe('supportEvidence', function () {
-    let deps: Dependencies = { setLocals };
+    const deps: Dependencies = { setLocals };
 
     afterEach(function () {
       sinon.resetHistory();
@@ -49,7 +49,7 @@ describe('controllers/support', function () {
   });
 
   describe('supportHearingExpenses', function () {
-    let deps: Dependencies = { setLocals };
+    const deps: Dependencies = { setLocals };
 
     afterEach(function () {
       sinon.resetHistory();
@@ -72,7 +72,7 @@ describe('controllers/support', function () {
   });
 
   describe('supportHearing', function () {
-    let deps: Dependencies = { setLocals };
+    const deps: Dependencies = { setLocals };
 
     afterEach(function () {
       sinon.resetHistory();
@@ -95,7 +95,7 @@ describe('controllers/support', function () {
   });
 
   describe('supportRepresentatives', function () {
-    let deps: Dependencies = { setLocals };
+    const deps: Dependencies = { setLocals };
 
     afterEach(function () {
       sinon.resetHistory();
@@ -118,7 +118,7 @@ describe('controllers/support', function () {
   });
 
   describe('supportWithdrawAppeal', function () {
-    let deps: Dependencies = { setLocals };
+    const deps: Dependencies = { setLocals };
 
     afterEach(function () {
       sinon.resetHistory();
