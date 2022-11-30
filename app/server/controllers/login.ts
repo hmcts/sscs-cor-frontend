@@ -225,6 +225,7 @@ function getIdamCallback(
       return res.redirect(Paths.selectCase);
     } catch (error) {
       logger.error('MYA_LOGIN_FAIL', error);
+      logger.error('MYA_LOGIN_FAIL, stack: ', error.stack);
       AppInsights.trackException(error);
       AppInsights.trackEvent('MYA_LOGIN_FAIL');
       return next(error);

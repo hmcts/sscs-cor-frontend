@@ -112,7 +112,7 @@ describe('middleware/error-handler', function () {
   describe('#coreErrorHandler', function () {
     it('gives 500 page', function () {
       const error = new Error('Some error');
-      errorHandler.coreErrorHandler(error, req, res);
+      errorHandler.coreErrorHandler(error, req, res, next);
       expect(res.status).to.have.been.calledOnce.calledWith(
         INTERNAL_SERVER_ERROR
       );
@@ -121,7 +121,7 @@ describe('middleware/error-handler', function () {
 
     it('sends error to app-insights', function () {
       const error = new Error('Some error');
-      errorHandler.coreErrorHandler(error, req, res);
+      errorHandler.coreErrorHandler(error, req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
         error
       );

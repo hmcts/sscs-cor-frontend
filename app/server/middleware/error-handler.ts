@@ -24,7 +24,7 @@ function trackTrace(error: HttpException, req: Request) {
 
 function trackException(error: HttpException, req: Request) {
   logger.error(
-    `${error.status} Error from request ${req.originalUrl} , error: ${error}`
+    `${error?.status} Error from request ${req.originalUrl}, error: ${error}`
   );
   AppInsights.trackException(error);
 }
@@ -41,7 +41,7 @@ export function sessionNotFoundHandler(
 }
 
 export function pageNotFoundHandler(req: Request, res: Response): void {
-  logger.error(`${404} Error from request ${req.originalUrl}`);
+  logger.error(`${NOT_FOUND} Error from request ${req.originalUrl}`);
   res.status(NOT_FOUND);
   const header: string = content[i18next.language].error.error404.header;
   res.render('errors/error.njk', { header });
@@ -54,7 +54,7 @@ export function forbiddenHandler(
   next: NextFunction
 ): void {
   if (error.status !== FORBIDDEN) {
-    return next();
+    return next(error);
   }
   trackTrace(error, req);
   res.status(FORBIDDEN);
@@ -69,7 +69,7 @@ export function badRequestHandler(
   next: NextFunction
 ): void {
   if (error.status !== BAD_REQUEST) {
-    return next();
+    return next(error);
   }
   trackTrace(error, req);
   res.status(BAD_REQUEST);
@@ -81,14 +81,15 @@ export function badRequestHandler(
 export function coreErrorHandler(
   error: any,
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): void {
   trackException(error, req);
   res.status(INTERNAL_SERVER_ERROR);
   const header: string = content[i18next.language].error.error500.header;
-  const message: string = content[i18next.language].error.error500.content;
-  const contact: string =
-    content[i18next.language].common.contactIfProblemContinues;
-  res.render('errors/error.njk', { header, message, contact });
+  const messages: Array<string> = [];
+  messages.push(content[i18next.language].error.error500.content);
+  messages.push(content[i18next.language].common.contactIfProblemContinues);
+  res.render('errors/error.njk', { header, messages });
 }
 /* eslint-enable no-unused-vars */
