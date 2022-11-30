@@ -156,11 +156,7 @@ function configureNunjucks(app: Application): void {
   );
   nunEnv.addFilter(
     'benefitFullDescription',
-    function benefitFullDescription(
-      this,
-      benefitType: string,
-      i18next: I18next
-    ) {
+    function benefitFullDescription(this, benefitType: string) {
       return nunjucks.renderString(
         content[i18next.language].benefitTypes[benefitType].fullDescription,
         this.ctx
