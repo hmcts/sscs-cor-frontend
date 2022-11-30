@@ -147,7 +147,14 @@ function getIdamCallback(
       ));
 
       if (statusCode !== OK)
-        return renderErrorPage(email, statusCode, idamService, req, res);
+        return renderErrorPage(
+          email,
+          statusCode,
+          body as any,
+          idamService,
+          req,
+          res
+        );
 
       const cases: Array<CaseDetails> = req.query.caseId
         ? body.filter(
@@ -228,6 +235,7 @@ function getIdamCallback(
 export function renderErrorPage(
   email: string,
   statusCode: number,
+  body: string,
   idamService: IdamService,
   req: Request,
   res: Response
@@ -243,20 +251,23 @@ export function renderErrorPage(
     const registerUrl = idamService.getRegisterUrl(req.protocol, req.hostname);
     const registerLink = `<a class='govuk-link' href='${registerUrl}'>${registerUrl}</a>'`;
     messages.push(registerLink);
+    return res.render('errors/error.njk', { header, messages });
   } else if (statusCode === UNPROCESSABLE_ENTITY) {
     logger.info(`Found multiple appeals for ${email}`);
     header = content[i18next.language].login.failed.technicalError.header;
     const errorMessages: Array<string> =
       content[i18next.language].login.failed.technicalError.messages;
     messages.push(...errorMessages);
+    return res.render('errors/error.njk', { header, messages });
   } else if (statusCode === CONFLICT) {
     logger.info(`Found a non cor appeal for ${email}`);
     header = content[i18next.language].login.failed.cannotUseService.header;
     const errorMessages: Array<string> =
       content[i18next.language].login.failed.cannotUseService.messages;
     messages.push(...errorMessages);
+    return res.render('errors/error.njk', { header, messages });
   }
-  return res.render('errors/error.njk', { header, messages });
+  throw new HttpException(statusCode, body);
 }
 
 function setupLoginController(deps: Dependencies) {

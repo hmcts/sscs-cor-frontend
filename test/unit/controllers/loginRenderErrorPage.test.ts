@@ -2,9 +2,15 @@ import { IdamService } from 'app/server/services/idam';
 
 import { renderErrorPage } from 'app/server/controllers/login';
 import { NextFunction, Request, Response } from 'express';
-import { CONFLICT, NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import {
+  CONFLICT,
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND,
+  UNPROCESSABLE_ENTITY,
+} from 'http-status-codes';
 import { Session, SessionData } from 'express-session';
 import { expect, sinon } from 'test/chai-sinon';
+import HttpException from 'app/server/exceptions/HttpException';
 
 const i18next = require('i18next');
 
@@ -23,6 +29,8 @@ describe('controllers/login renderErrorPage', function () {
     'testsecret'
   );
 
+  const body = 'this is a test error';
+
   beforeEach(function () {
     req = {
       session,
@@ -37,7 +45,7 @@ describe('controllers/login renderErrorPage', function () {
 
   it('NOT_FOUND', function () {
     i18next.language = 'en';
-    renderErrorPage('email@email.com', NOT_FOUND, idamService, req, res);
+    renderErrorPage('email@email.com', NOT_FOUND, body, idamService, req, res);
     expect(res.render).to.have.been.calledOnce.calledWith('errors/error.njk', {
       header: 'There is no benefit appeal associated with this email address',
       messages: [
@@ -53,6 +61,7 @@ describe('controllers/login renderErrorPage', function () {
     renderErrorPage(
       'email@email.com',
       UNPROCESSABLE_ENTITY,
+      body,
       idamService,
       req,
       res
@@ -69,12 +78,27 @@ describe('controllers/login renderErrorPage', function () {
 
   it('CONFLICT', function () {
     i18next.language = 'en';
-    renderErrorPage('email@email.com', CONFLICT, idamService, req, res);
+    renderErrorPage('email@email.com', CONFLICT, body, idamService, req, res);
     expect(res.render).to.have.been.calledOnce.calledWith('errors/error.njk', {
       header: 'You cannot access this service',
       messages: [
         'Please check any emails or letters you have received about your benefit appeal if you would like an update.',
       ],
     });
+  });
+
+  it('other error', function () {
+    i18next.language = 'en';
+
+    expect(function () {
+      renderErrorPage(
+        'email@email.com',
+        INTERNAL_SERVER_ERROR,
+        body,
+        idamService,
+        req,
+        res
+      );
+    }).to.throw(body);
   });
 });
