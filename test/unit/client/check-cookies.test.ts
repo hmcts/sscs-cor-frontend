@@ -1,6 +1,10 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { CheckCookies } from 'app/client/javascript/check-cookies';
 import { SinonSpy } from 'sinon';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+
+const logger: LoggerInstance = Logger.getLogger('check-cookies test');
 
 describe('Client/check-cookies', function () {
   let checkCookies: CheckCookies;
@@ -48,13 +52,13 @@ describe('Client/check-cookies', function () {
     });
 
     it('isCookiePrivacyMessageDisplayed First Visit', function () {
-      console.log('First Call', document.cookie);
+      logger.log('First Call', document.cookie);
       checkCookies.isCookiePrivacyMessageDisplayed();
       expect(toggleBannerSpy).to.have.been.calledWith(true);
     });
 
     it('isCookiePrivacyMessageDisplayed Second Visit', function () {
-      console.log('Second Call', document.cookie);
+      logger.log('Second Call', document.cookie);
       checkCookies.isCookiePrivacyMessageDisplayed();
       expect(toggleBannerSpy).to.have.been.calledWith(false);
     });

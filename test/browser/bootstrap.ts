@@ -1,12 +1,16 @@
 import * as ccd from 'test/fixtures/ccd';
 import * as sidam from 'test/fixtures/sidam';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+
+const logger: LoggerInstance = Logger.getLogger('test bootstrap');
 
 async function bootstrapCcdCase(hearingType) {
   try {
     const ccdCase = await ccd.createCase(hearingType);
     return ccdCase;
   } catch (error) {
-    console.log('Error bootstrapping CCD with test case', error);
+    logger.error('Error bootstrapping CCD with test case', error);
     return Promise.reject(error);
   }
 }
@@ -16,7 +20,7 @@ async function bootstrapSidamUser(ccdCase) {
     await sidam.registerRedirectUri();
     return await sidam.createUser(ccdCase);
   } catch (error) {
-    console.log('Error bootstrapping SIDAM user', error);
+    logger.error('Error bootstrapping SIDAM user', error);
     return Promise.reject(error);
   }
 }

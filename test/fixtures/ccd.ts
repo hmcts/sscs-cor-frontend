@@ -1,16 +1,19 @@
+import { LoggerInstance } from 'winston';
+import * as config from 'config';
+import { Logger } from '@hmcts/nodejs-logging';
+
 const rp = require('request-promise');
 
-const backendApiUrl = require('config').get('api.url');
-const { Logger } = require('@hmcts/nodejs-logging');
+const logger: LoggerInstance = Logger.getLogger('test ccd');
 
-const logger = Logger.getLogger('ccd.ts');
-const timeout = require('config').get('apiCallTimeout');
+const apiUrl = config.get('api.url');
+const timeout: number = config.get('apiCallTimeout');
 
 async function createCase(hearingType) {
   const randomNumber = parseInt(`${Math.random() * 10000000}`, 10);
   const email = `test${randomNumber}@hmcts.net`;
   const options = {
-    url: `${backendApiUrl}/api/case`,
+    url: `${apiUrl}/api/case`,
     qs: { email, hearingType },
     json: true,
     timeout,
@@ -30,7 +33,7 @@ async function createCase(hearingType) {
     joint_party_tya: jointPartyTya,
     representative_tya: representativeTya,
   } = body;
-  console.log(
+  logger.info(
     `Created CCD case for ${email} with ID ${id} and reference ${caseReference} and appellant_tya ${appellantTya} and jp_tya ${jointPartyTya} and representative_tya ${representativeTya}`
   );
   return {

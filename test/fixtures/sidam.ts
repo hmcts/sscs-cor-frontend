@@ -1,12 +1,14 @@
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+import * as config from 'config';
+
 const rp = require('request-promise');
 
-const sidamApiUrl = require('config').get('idam.api-url');
-const testUrl = require('config').get('testUrl');
+const logger: LoggerInstance = Logger.getLogger('test sidam');
 
-const { Logger } = require('@hmcts/nodejs-logging');
-
-const logger = Logger.getLogger('sidam.ts');
-const timeout = require('config').get('apiCallTimeout');
+const sidamApiUrl: string = config.get('idam.api-url');
+const testUrl: string = config.get('testUrl');
+const timeout: number = config.get('apiCallTimeout');
 
 async function manageRedirectUri(operation) {
   const redirectUri = `${testUrl}/sign-in`;
@@ -31,9 +33,9 @@ async function manageRedirectUri(operation) {
     }
 
     if (operation === 'add') {
-      console.log(`Register redirect uri [${redirectUri}]`);
+      logger.info(`Register redirect uri [${redirectUri}]`);
     } else {
-      console.log(`Unregister redirect uri [${redirectUri}]`);
+      logger.info(`Unregister redirect uri [${redirectUri}]`);
     }
   }
 }
@@ -70,7 +72,7 @@ async function createUser(ccdCase) {
 
   try {
     await rp.post(options);
-    console.log(
+    logger.info(
       `Created idam user for ${ccdCase.email} with password ${password}`
     );
     return { email: ccdCase.email, password };
@@ -93,7 +95,7 @@ async function deleteUser(sidamUser) {
     logger.error('Error deleteUser', error);
   }
 
-  console.log(`Deleted SIDAM user for ${sidamUser.email}`);
+  logger.info(`Deleted SIDAM user for ${sidamUser.email}`);
 }
 
 export { createUser, deleteUser, registerRedirectUri, unregisterRedirectUri };
