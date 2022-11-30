@@ -22,10 +22,6 @@ import * as config from 'config';
 import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
 import * as path from 'path';
-import {
-  badRequestHandler,
-  forbiddenHandler,
-} from './middleware/error-handler';
 
 const { Express } = require('@hmcts/nodejs-logging');
 const errors = require('./middleware/error-handler');

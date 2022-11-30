@@ -20,7 +20,8 @@ import { Dependencies } from '../routes';
 import HttpException from '../exceptions/HttpException';
 import { LoggerInstance } from 'winston';
 import * as config from 'config';
-import i18next from 'i18next';
+
+const i18next = require('i18next');
 
 const content = require('../../../locale/content');
 
@@ -224,7 +225,7 @@ function getIdamCallback(
   };
 }
 
-function renderErrorPage(
+export function renderErrorPage(
   email: string,
   statusCode: number,
   idamService: IdamService,
@@ -239,10 +240,9 @@ function renderErrorPage(
     const errorMessages: Array<string> =
       content[i18next.language].login.failed.emailNotFound.messages;
     messages.push(...errorMessages);
-    const registerLink = new HTMLLinkElement();
-    registerLink.href = idamService.getRegisterUrl(req.protocol, req.hostname);
-    registerLink.classList.add('govuk-link');
-    messages.push(registerLink.outerHTML);
+    const registerUrl = idamService.getRegisterUrl(req.protocol, req.hostname);
+    const registerLink = `<a class='govuk-link' href='${registerUrl}'>${registerUrl}</a>'`;
+    messages.push(registerLink);
   } else if (statusCode === UNPROCESSABLE_ENTITY) {
     logger.info(`Found multiple appeals for ${email}`);
     header = content[i18next.language].login.failed.technicalError.header;
