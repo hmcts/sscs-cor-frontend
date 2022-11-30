@@ -3,7 +3,7 @@ import * as config from 'config';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
-const i18next = require('i18next');
+import * as i18next from 'i18next';
 
 const i18n = require('i18next');
 
