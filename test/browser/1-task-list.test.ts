@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import * as _ from 'lodash';
 
 import { Page } from 'puppeteer';
@@ -6,7 +5,8 @@ import { startServices } from 'test/browser/common';
 
 import { TaskListPage } from 'test/page-objects/task-list';
 import { LoginPage } from 'test/page-objects/login';
-import * as Paths from 'app/server/paths';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
 const { expect } = require('test/chai-sinon');
 const mockDataHearing =
   require('test/mock/cor-backend/services/hearing').template;
@@ -23,6 +23,8 @@ const pa11y = require('pa11y');
 
 const pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
+
+const logger: LoggerInstance = Logger.getLogger('1-task-list.test');
 
 describe('Task list page', function () {
   let page: Page;
@@ -50,7 +52,7 @@ describe('Task list page', function () {
     if (this.currentTest.state !== 'passed') {
       const testName = this.currentTest.title.replace(/[ /]/g, '_');
       taskListPage.screenshot(`failed-${testName}`).catch((err) => {
-        console.log(err);
+        logger.error(err);
       });
     }
   });

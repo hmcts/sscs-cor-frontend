@@ -7,25 +7,27 @@ import { TaskListPage } from 'test/page-objects/task-list';
 
 import * as sidam from 'test/fixtures/sidam';
 import { URL } from 'url';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+
+import * as config from 'config';
+
 const { createServer } = require('http');
 const { createSession } = require('app/server/middleware/session');
 const { bootstrap } = require('test/browser/bootstrap');
 const { setup } = require('app/server/app');
-const config = require('config');
 const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
 
-const { Logger } = require('@hmcts/nodejs-logging');
+const logger: LoggerInstance = Logger.getLogger('test browser common');
 
-const logger = Logger.getLogger('commong.js');
-
-const idamUrl = config.get('idam.url');
-const testUrl = config.get('testUrl');
-const port = config.get('node.port');
-const headless = config.get('headless') !== 'false';
-const testingLocalhost = testUrl.indexOf('localhost') !== -1;
+const idamUrl: string = config.get('idam.url');
+const testUrl: string = config.get('testUrl');
+const port: number = config.get('node.port');
+const headless: boolean = config.get('headless') !== 'false';
+const testingLocalhost: boolean = testUrl.indexOf('localhost') !== -1;
 
 let browser;
 let server;
@@ -36,7 +38,7 @@ let taskListPage;
 
 async function startBrowser() {
   if (!browser) {
-    console.log('Starting browser');
+    logger.info('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
     const opts = {
       args,
@@ -47,7 +49,7 @@ async function startBrowser() {
     try {
       browser = await puppeteer.launch(opts);
     } catch (error) {
-      console.log('Unable to start browser', error);
+      logger.error('Unable to start browser', error);
     }
   }
 
@@ -63,12 +65,12 @@ async function startAppServer(): Promise<void> {
     dysonSetupTribunals();
     server = createServer(app).listen(port, async (error) => {
       if (error) {
-        console.log(
+        logger.error(
           `Unable to start server on port ${port} because of ${error.message}`
         );
         return Promise.reject(error);
       }
-      console.log(`Starting server on port ${port}`);
+      logger.info(`Starting server on port ${port}`);
       return Promise.resolve();
     });
   }
@@ -83,19 +85,19 @@ export async function login(page, force?, assignCase?) {
   const tya = ccdCase ? ccdCase.appellant_tya : 'someTya';
   loginPage = new LoginPage(page);
   taskListPage = new TaskListPage(page);
-  console.log('in login');
+  logger.info('in login');
 
   const isOnIdamPage = () => page.url().indexOf(idamUrl) >= 0;
   const signInFailed = () => page.url().indexOf(`${testUrl}/sign-in`) >= 0;
-  console.log(`is on idam page [${isOnIdamPage()}]`);
-  console.log(`sign in failed [${signInFailed()}]`);
-  console.log(`force [${force}]`);
+  logger.info(`is on idam page [${isOnIdamPage()}]`);
+  logger.info(`sign in failed [${signInFailed()}]`);
+  logger.info(`force [${force}]`);
   if (isOnIdamPage() || force) {
     await loginPage.visitPage(`?tya=${tya}`);
     await loginPage.login(email, password);
     let maxRetries = 10;
     while ((isOnIdamPage() || signInFailed()) && maxRetries > 0) {
-      console.log('Login attempt failed, retrying...');
+      logger.info('Login attempt failed, retrying...');
       await new Promise((r) => setTimeout(r, 500));
       await loginPage.visitPage();
       await loginPage.login(email, password);
@@ -104,7 +106,7 @@ export async function login(page, force?, assignCase?) {
   }
 
   if (assignCase === undefined || assignCase) {
-    console.log('Assigning case');
+    logger.info('Assigning case');
     if (new URL(page.url()).pathname.includes('assign-case')) {
       const assignCasePage = new AssignCasePage(page);
       await assignCasePage.fillPostcode('TN32 6PL');
@@ -114,7 +116,7 @@ export async function login(page, force?, assignCase?) {
     }
   }
 
-  console.log(`Login function finished. On ${page.url()}`);
+  logger.info(`Login function finished. On ${page.url()}`);
 }
 
 // eslint-disable-next-line mocha/no-exports
@@ -148,10 +150,10 @@ export async function startServices(options?) {
 
 after(async function () {
   if (sidamUsers.length > 0) {
-    console.log('Clean up sidam');
+    logger.info('Clean up sidam');
     // await sidam.unregisterRedirectUri();
     for (const sidamUser of sidamUsers) {
-      console.log(`Deleting user ${sidamUser.email}`);
+      logger.info(`Deleting user ${sidamUser.email}`);
       await sidam.deleteUser(sidamUser);
     }
   }
@@ -160,11 +162,11 @@ after(async function () {
 
 async function closeBrowser() {
   if (server?.close) {
-    console.log('Killing server');
+    logger.info('Killing server');
     server.close();
   }
   if (browser?.close) {
-    console.log('Killing browser');
+    logger.info('Killing browser');
     await browser.close();
   }
 }

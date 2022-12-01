@@ -1,10 +1,14 @@
 import { Page } from 'puppeteer';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+import * as config from 'config';
+import { expect } from 'test/chai-sinon';
 
-const { expect } = require('test/chai-sinon');
-const config = require('config');
+const logger: LoggerInstance = Logger.getLogger('functional test base');
 
-const testUrl = config.get('testUrl');
-const navigationTimeout = config.get('navigationTimeout');
+const testUrl: string = config.get('testUrl');
+const navigationTimeout: number = config.get('navigationTimeout');
+
 export class BasePage {
   public page: Page;
   public pagePath: string;
@@ -17,12 +21,12 @@ export class BasePage {
 
   async visitPage(query = '') {
     try {
-      console.log(`goto [${testUrl}${this.pagePath}${query}]`);
+      logger.info(`goto [${testUrl}${this.pagePath}${query}]`);
       await this.page.goto(`${testUrl}${this.pagePath}${query}`);
       await this.page.waitForSelector('body');
     } catch (error) {
       const filename = this.getFileName();
-      console.log(
+      logger.info(
         `Exception catched in visitPage, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-visit-${filename}`);
@@ -60,8 +64,8 @@ export class BasePage {
       return heading;
     } catch (error) {
       const filename = `failed-getHeading-${this.getFileName()}`;
-      console.log(
-        `Exception catched in getHeading on ${this.page.url()}, taking screenshot ${filename}.png. Error is: ${error}`
+      logger.info(
+        `Exception caught in getHeading on ${this.page.url()}, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(filename);
     }
@@ -73,8 +77,8 @@ export class BasePage {
       return body;
     } catch (error) {
       const filename = this.getFileName();
-      console.log(
-        `Exception catched in getBody, taking screenshot ${filename}.png. Error is: ${error}`
+      logger.info(
+        `Exception caught in getBody, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-getBody-${filename}`);
     }
@@ -87,8 +91,8 @@ export class BasePage {
       );
     } catch (error) {
       const filename = `failed-openDetails-${this.getFileName()}`;
-      console.log(
-        `Exception catched in openDetails, taking screenshot ${filename}.png. Error is: ${error}`
+      logger.info(
+        `Exception caught in openDetails, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`${filename}`);
     }
@@ -103,8 +107,8 @@ export class BasePage {
       return element;
     } catch (error) {
       const filename = this.getFileName();
-      console.log(
-        `Exception catched in getElementText, taking screenshot ${filename}.png. Error is: ${error}`
+      logger.info(
+        `Exception caught in getElementText, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-getElementText-${filename}`);
     }
@@ -119,8 +123,8 @@ export class BasePage {
       return elements;
     } catch (error) {
       const filename = `failed-getElementsText-${this.getFileName()}`;
-      console.log(
-        `Exception catched in getElementsText, taking screenshot ${filename}.png. Error is: ${error}`
+      logger.info(
+        `Exception caught in getElementsText, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`${filename}`);
     }
@@ -135,8 +139,8 @@ export class BasePage {
       return element;
     } catch (error) {
       const filename = this.getFileName();
-      console.log(
-        `Exception catched in getElementValue, taking screenshot ${filename}.png. Error is: ${error}`
+      logger.info(
+        `Exception caught in getElementValue, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-getElementVal-${filename}`);
     }
@@ -177,7 +181,7 @@ export class BasePage {
       await this.page.type(selector, text);
     } catch (error) {
       const filename = this.getFileName();
-      console.log(
+      logger.info(
         `Exception catched in enterTextintoField, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-enterText-${filename}`);
@@ -189,7 +193,7 @@ export class BasePage {
       await this.page.click(selector);
     } catch (error) {
       const filename = this.getFileName();
-      console.log(
+      logger.info(
         `Exception catched in clickElement with selector ${selector}, taking screenshot failed-click-${selector}-${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-click-${selector}-${filename}`);
@@ -201,7 +205,7 @@ export class BasePage {
       await this.page.select(selector, value);
     } catch (error) {
       const filename = this.getFileName();
-      console.log(
+      logger.info(
         `Exception catched in selectOption with selector ${selector} for ${value}, taking screenshot failed-click-${selector}-${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-click-${selector}-${filename}`);

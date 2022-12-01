@@ -32,6 +32,7 @@ import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
 import { RequestTypeService } from './services/request-type';
 import { NextFunction, Request, Response, Router } from 'express';
+import { setupSetLanguageController } from './middleware/setLanguage';
 
 export interface Dependencies {
   setLocals?: (req: Request, res: Response, next: NextFunction) => void;
@@ -46,8 +47,6 @@ export interface Dependencies {
   caseService?: CaseService;
   idamService?: IdamService;
 }
-
-const setLanguage = require('./setLanguage');
 
 const router = Router();
 
@@ -94,6 +93,8 @@ const loginController = setupLoginController({
   idamService,
   trackYourApealService: trackYourAppealService,
 });
+
+const setLanguageController = setupSetLanguageController();
 const idamStubController = setupIdamStubController();
 const cookiePrivacyController = setupCookiePrivacyController();
 const supportEvidenceController =
@@ -167,7 +168,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-router.use(setLanguage);
+router.use(setLanguageController);
 router.use(idamStubController);
 router.use(loginController);
 router.use(taskListController);

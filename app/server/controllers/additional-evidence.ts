@@ -196,7 +196,8 @@ function getAdditionalEvidence(
       } else if (action === 'uploadAudioVideo') {
         // do nothing
       }
-      const benefitType = req.session['appeal']!.benefitType;
+      const appeal = req.session['appeal'];
+      const benefitType = appeal?.benefitType ? appeal.benefitType : '';
       return res.render('additional-evidence/index.njk', {
         action,
         postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),

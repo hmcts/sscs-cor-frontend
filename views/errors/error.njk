@@ -1,0 +1,14 @@
+{% extends "layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageHeader = header | safe %}
+{% block corContent %}
+  <h1 class="govuk-heading-l">{{ header | safe }}</h1>
+  {{ govukBackLink({
+    text: "Back",
+    href: "#"
+  }) }}
+  {%- for message in messages %}
+    <p>{{ message | safe }}</p>
+  {% endfor %}
+{% endblock corContent %}

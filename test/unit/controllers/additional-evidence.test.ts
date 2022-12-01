@@ -154,6 +154,20 @@ describe('controllers/additional-evidence.js', function () {
     );
   });
 
+  it('should return benefitType null if appeal is null', async function () {
+    req.params.action = 'statement';
+    req.session.appeal = null;
+    await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
+    expect(res.render).to.have.been.calledOnce.calledWith(
+      'additional-evidence/index.njk',
+      {
+        action: 'statement',
+        postBulkScan: false,
+        benefitType: '',
+      }
+    );
+  });
+
   it('should pass "post" as argument to view if param action is "post"', async function () {
     req.params.action = 'post';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);

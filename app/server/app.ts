@@ -178,6 +178,8 @@ export function setup(
   app.use(errors.sessionNotFoundHandler);
   app.use(routes);
   app.use(errors.pageNotFoundHandler);
+  app.use(errors.forbiddenHandler);
+  app.use(errors.badRequestHandler);
   app.use(errors.coreErrorHandler);
   app.use(i18nextMiddleware.handle(i18next));
   return app;

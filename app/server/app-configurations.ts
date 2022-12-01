@@ -1,12 +1,10 @@
 import * as CONST from '../constants';
 import nunjucks = require('nunjucks');
-import express = require('express');
-import { InitOptions } from 'i18next';
-import { I18next } from 'i18next-express-middleware';
+import { i18n, InitOptions } from 'i18next';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 import { Application } from 'express';
-import { Moment, utc } from 'moment';
+import { utc } from 'moment';
 import helmet from 'helmet';
 import * as config from 'config';
 import { tyaNunjucks } from './controllers/content';
@@ -71,7 +69,7 @@ function configureHelmet(app: Application): void {
 }
 
 function configureHeaders(app: Application): void {
-  // Disallow search index indexing
+  // Disallow search indexing
   app.use((req, res, next) => {
     // Setting headers stops pages being indexed even if indexed pages link to them
     res.setHeader('X-Robots-Tag', 'noindex');
@@ -97,8 +95,8 @@ function flattenArray(text: string | Array<string>): string {
   return text;
 }
 
-function configureNunjucks(app: express.Application): void {
-  const i18next: I18next = app.locals.i18n;
+function configureNunjucks(app: Application): void {
+  const i18next: i18n = app.locals.i18n;
 
   const nunEnv = nunjucks.configure(
     [
@@ -158,11 +156,7 @@ function configureNunjucks(app: express.Application): void {
   );
   nunEnv.addFilter(
     'benefitFullDescription',
-    function benefitFullDescription(
-      this,
-      benefitType: string,
-      i18next: I18next
-    ) {
+    function benefitFullDescription(this, benefitType: string) {
       return nunjucks.renderString(
         content[i18next.language].benefitTypes[benefitType].fullDescription,
         this.ctx
