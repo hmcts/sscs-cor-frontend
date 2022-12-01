@@ -84,9 +84,6 @@ function postIndex(
     );
 
     req.session['appeal'] = appeal;
-    req.session['hideHearing'] =
-      // eslint-disable-next-line no-eq-null,eqeqeq
-      appeal.hideHearing == null ? false : appeal.hideHearing;
     req.session['case'].case_reference = req.session['case'].case_id
       ? req.session['case'].case_id.toString()
       : '';

@@ -195,9 +195,6 @@ export function getIdamCallback(
           await trackYourAppealService.getAppeal(String(caseId), req);
         req.session['appeal'] = appeal;
         req.session['subscriptions'] = subscriptions;
-        req.session['hideHearing'] =
-          // eslint-disable-next-line no-eq-null,eqeqeq
-          appeal.hideHearing == null ? false : appeal.hideHearing;
 
         logger.info(
           `Logging in ${email} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
