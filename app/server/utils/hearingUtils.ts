@@ -5,14 +5,10 @@ const logger: LoggerInstance = Logger.getLogger('hearingUtils');
 
 const HEARING_BOOKED_EVENT_TYPES = ['HEARING_BOOKED', 'NEW_HEARING_BOOKED'];
 
-export function shouldHideHearing(appeal): boolean {
-  const hideHearing = appeal?.hideHearing === true;
-  logger.info(`Hiding hearing: ${hideHearing} for case ${appeal?.case_id}`);
-  return hideHearing;
-}
-
 export function shouldShowHearing(appeal): boolean {
-  return !shouldHideHearing(appeal);
+  const hideHearing = appeal?.hideHearing !== true;
+  logger.info(`Showing hearing: ${hideHearing} for case ${appeal?.case_id}`);
+  return hideHearing;
 }
 
 export function isHearingBookedEvent(event): boolean {

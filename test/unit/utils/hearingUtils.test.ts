@@ -1,38 +1,11 @@
 import {
   getHearingInfo,
   isHearingBookedEvent,
-  shouldHideHearing,
   shouldShowHearing,
 } from 'app/server/utils/hearingUtils';
 import { expect } from 'test/chai-sinon';
 
 describe('hearingUtils', function () {
-  describe('shouldHideHearing', function () {
-    it('should return true when hideHearing is true', function () {
-      const appeal = {
-        hideHearing: true,
-      };
-      expect(shouldHideHearing(appeal)).to.equal(true);
-    });
-
-    it('should return false when hideHearing is false', function () {
-      const appeal = {
-        hideHearing: false,
-      };
-      expect(shouldHideHearing(appeal)).to.equal(false);
-    });
-
-    it('should return false when hideHearing is null', function () {
-      const appeal = {};
-      expect(shouldHideHearing(appeal)).to.equal(false);
-    });
-
-    it('should return false when appeal is null', function () {
-      const appeal = null;
-      expect(shouldHideHearing(appeal)).to.equal(false);
-    });
-  });
-
   describe('shouldShowHearing', function () {
     it('should return false when hideHearing is true', function () {
       const appeal = {
