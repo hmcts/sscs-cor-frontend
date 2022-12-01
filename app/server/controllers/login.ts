@@ -29,11 +29,11 @@ const logger: LoggerInstance = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
 const idamClientId: string = config.get('idam.client.id');
 
-function redirectToLogin(req: Request, res: Response) {
+export function redirectToLogin(req: Request, res: Response) {
   return res.redirect(Paths.login);
 }
 
-function getLogout(idamService: IdamService) {
+export function getLogout(idamService: IdamService) {
   return async (req: Request, res: Response) => {
     if (req.session['accessToken']) {
       try {
@@ -62,7 +62,10 @@ function getLogout(idamService: IdamService) {
   };
 }
 
-function redirectToIdam(idamPath: string, idamService: IdamService) {
+export function redirectToIdam(
+  idamPath: string,
+  idamService: IdamService
+): (req: Request, res: Response) => void {
   return (req: Request, res: Response) => {
     const idamUrl: URL = new URL(idamUrlString);
     idamUrl.pathname =
@@ -88,7 +91,7 @@ function redirectToIdam(idamPath: string, idamService: IdamService) {
   };
 }
 
-function getIdamCallback(
+export function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   idamService: IdamService,
   caseService: CaseService,
@@ -243,35 +246,43 @@ export function renderErrorPage(
 ): void {
   let header: string = null;
   const messages: Array<string> = [];
-  if (statusCode === NOT_FOUND) {
-    logger.info(`Cannot find any case for ${email}`);
-    header = content[i18next.language].login.failed.emailNotFound.header;
-    const errorMessages: Array<string> =
-      content[i18next.language].login.failed.emailNotFound.messages;
-    messages.push(...errorMessages);
-    const registerUrl = idamService.getRegisterUrl(req.protocol, req.hostname);
-    const registerLink = `<a class='govuk-link' href='${registerUrl}'>${registerUrl}</a>'`;
-    messages.push(registerLink);
-    return res.render('errors/error.njk', { header, messages });
-  } else if (statusCode === UNPROCESSABLE_ENTITY) {
-    logger.info(`Found multiple appeals for ${email}`);
-    header = content[i18next.language].login.failed.technicalError.header;
-    const errorMessages: Array<string> =
-      content[i18next.language].login.failed.technicalError.messages;
-    messages.push(...errorMessages);
-    return res.render('errors/error.njk', { header, messages });
-  } else if (statusCode === CONFLICT) {
-    logger.info(`Found a non cor appeal for ${email}`);
-    header = content[i18next.language].login.failed.cannotUseService.header;
-    const errorMessages: Array<string> =
-      content[i18next.language].login.failed.cannotUseService.messages;
-    messages.push(...errorMessages);
-    return res.render('errors/error.njk', { header, messages });
+  switch (statusCode) {
+    case NOT_FOUND: {
+      logger.info(`Cannot find any case for ${email}`);
+      header = content[i18next.language].login.failed.emailNotFound.header;
+      const errorMessages: Array<string> =
+        content[i18next.language].login.failed.emailNotFound.messages;
+      messages.push(...errorMessages);
+      const registerUrl = idamService.getRegisterUrl(
+        req.protocol,
+        req.hostname
+      );
+      const registerLink = `<a class='govuk-link' href='${registerUrl}'>${registerUrl}</a>'`;
+      messages.push(registerLink);
+      return res.render('errors/error.njk', { header, messages });
+    }
+    case UNPROCESSABLE_ENTITY: {
+      logger.info(`Found multiple appeals for ${email}`);
+      header = content[i18next.language].login.failed.technicalError.header;
+      const errorMessages: Array<string> =
+        content[i18next.language].login.failed.technicalError.messages;
+      messages.push(...errorMessages);
+      return res.render('errors/error.njk', { header, messages });
+    }
+    case CONFLICT: {
+      logger.info(`Found a non cor appeal for ${email}`);
+      header = content[i18next.language].login.failed.cannotUseService.header;
+      const errorMessages: Array<string> =
+        content[i18next.language].login.failed.cannotUseService.messages;
+      messages.push(...errorMessages);
+      return res.render('errors/error.njk', { header, messages });
+    }
+    default:
+      throw new HttpException(statusCode, body);
   }
-  throw new HttpException(statusCode, body);
 }
 
-function setupLoginController(deps: Dependencies) {
+export function setupLoginController(deps: Dependencies): Router {
   const router = Router();
   router.get(
     Paths.login,
@@ -289,11 +300,3 @@ function setupLoginController(deps: Dependencies) {
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;
 }
-
-export {
-  setupLoginController,
-  redirectToLogin,
-  redirectToIdam,
-  getLogout,
-  getIdamCallback,
-};
