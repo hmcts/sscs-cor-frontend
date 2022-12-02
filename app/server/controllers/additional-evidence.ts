@@ -17,12 +17,16 @@ import {
 } from '../middleware/file-upload-validation';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import { Dependencies } from '../routes';
+import HttpException from '../exceptions/HttpException';
+import { BAD_REQUEST } from 'http-status-codes';
+import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+
 const multer = require('multer');
 const i18next = require('i18next');
 const mimeTypeWhitelist = require('../utils/mimeTypeWhitelist');
-const { Logger } = require('@hmcts/nodejs-logging');
 
-const logger = Logger.getLogger('additional-evidence');
+const logger: LoggerInstance = Logger.getLogger('additional-evidence');
 const fileTypeError = 'LIMIT_FILE_TYPE';
 const limitOnlyDocument = 'LIMIT_UNEXPECTED_FILE';
 const content = require('../../../locale/content');
@@ -96,7 +100,7 @@ function fileTypeInWhitelist(req, file, cb) {
       fileExtension.toLocaleLowerCase()
     )
   ) {
-    const caseId = req.session['case'].case_id;
+    const caseId = req.session['case']?.case_id;
     logger.info(
       `[${caseId}] Allowed only upload letter, document or photo evidence on this page, file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );
@@ -105,7 +109,7 @@ function fileTypeInWhitelist(req, file, cb) {
     );
     cb(new multer.MulterError(limitOnlyDocument));
   } else {
-    const caseId = req.session['case'].case_id;
+    const caseId = req.session['case']?.case_id;
     logger.info(
       `[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );
@@ -127,7 +131,7 @@ function fileTypeAudioVideoInWhitelist(req, file, cb) {
   ) {
     cb(null, true);
   } else {
-    const caseId = req.session['case'].case_id;
+    const caseId = req.session['case']?.case_id;
     logger.info(
       `[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );
@@ -143,7 +147,6 @@ function postEvidenceStatement(
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const statementText = req.body['question-field'];
-
     try {
       const validationMessage = answerValidation(statementText, req);
       if (validationMessage) {
@@ -153,7 +156,16 @@ function postEvidenceStatement(
           error: validationMessage,
         });
       } else {
-        const caseId = req.session['case'].case_id;
+        const caseDetails = req.session['case'];
+        if (!caseDetails) {
+          const error = new HttpException(
+            BAD_REQUEST,
+            `No Case for session ${req.sessionID}`
+          );
+          logger.error(error.message, error);
+          throw error;
+        }
+        const caseId = caseDetails.case_id;
         await additionalEvidenceService.saveStatement(
           caseId,
           statementText,
@@ -178,9 +190,18 @@ function getAdditionalEvidence(
         !allowedActions.includes(req.params.action) || !req.params.action
           ? 'options'
           : req.params.action;
-      if (action === 'upload') {
+      const caseDetails = req.session['case'];
+      if (!caseDetails) {
+        const error = new HttpException(
+          BAD_REQUEST,
+          `No Case for session ${req.sessionID}`
+        );
+        logger.error(error.message, error);
+        throw error;
+      }
+      if (action === 'upload' && caseDetails) {
         const { description } = req.session['additional_evidence'] || '';
-        const caseId = req.session['case'].case_id;
+        const caseId = caseDetails.case_id;
         let evidences: EvidenceDescriptor[] =
           await additionalEvidenceService.getEvidences(caseId, req);
         if (evidences) {
@@ -216,7 +237,16 @@ function postFileUpload(
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const caseId = req.session['case'].case_id;
+      const caseDetails = req.session['case'];
+      if (!caseDetails) {
+        const error = new HttpException(
+          BAD_REQUEST,
+          `No Case for session ${req.sessionID}`
+        );
+        logger.error(error.message, error);
+        throw error;
+      }
+      const caseId = caseDetails.case_id;
       const description = req.body['additional-evidence-description'] || '';
       req.session['additional_evidence'] = { description };
       if (action === 'upload' && req.file) {

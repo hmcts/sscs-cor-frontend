@@ -1,18 +1,17 @@
 import * as config from 'config';
 import {
+  fileTypeAudioVideoInWhitelist,
+  fileTypeInWhitelist,
   getAboutEvidence,
   getAdditionalEvidence,
-  postEvidenceStatement,
   postAdditionalEvidence,
+  postEvidenceStatement,
   postFileUpload,
-  fileTypeInWhitelist,
-  fileTypeAudioVideoInWhitelist,
 } from 'app/server/controllers/additional-evidence';
 import * as Paths from 'app/server/paths';
-
 import * as AppInsights from 'app/server/app-insights';
 import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
-import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
+import { Feature } from 'app/server/utils/featureEnabled';
 import { NextFunction, Response } from 'express';
 import { expect, sinon } from '../../chai-sinon';
 import { before } from 'mocha';
@@ -89,6 +88,7 @@ describe('controllers/additional-evidence.js', function () {
   });
 
   it('should pass "options" as argument to view if param action empty', async function () {
+    req.session.case.case_id = '1234567890';
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
       'additional-evidence/index.njk',
