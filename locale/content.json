@@ -199,6 +199,10 @@
       "error500": {
         "header": "Sorry, we’re experiencing technical difficulties",
         "message": "Please try again."
+      },
+      "error504": {
+        "header": "504: Sorry, the request timed out",
+        "message": "Please try again."
       }
     },
     "general": {
@@ -1498,6 +1502,10 @@
       },
       "error500": {
         "header": "Mae’n ddrwg gennym, rydym yn cael anawsterau technegol",
+        "message": "Rhowch gynnig arall arni."
+      },
+      "error504": {
+        "header": "504: Mae’n ddrwg gennym, y cais wedi'i amseru allan",
         "message": "Rhowch gynnig arall arni."
       }
     },
