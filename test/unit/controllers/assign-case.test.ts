@@ -110,12 +110,6 @@ describe('controllers/assign-case.js', function () {
 
         expect(req.session.appeal).to.be.eql(appeal);
       });
-
-      it('sets hideHearing false in session', async function () {
-        await underTest(req, res);
-
-        expect(req.session.hideHearing).to.be.eql(false);
-      });
     });
 
     describe('for missing postcode and hideHearing true', function () {
@@ -138,12 +132,6 @@ describe('controllers/assign-case.js', function () {
         } as any;
 
         underTest = postIndex(caseService, trackYourAppealService);
-      });
-
-      it('sets hideHearing true in session', async function () {
-        await underTest(req, res);
-
-        expect(req.session.hideHearing).to.be.eql(true);
       });
     });
 

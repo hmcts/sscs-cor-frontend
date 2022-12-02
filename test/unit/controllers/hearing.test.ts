@@ -70,7 +70,7 @@ describe('controllers/hearing', function () {
 
     it('should hide hearing info when appeal has hideHearing set to true', async function () {
       req.session.appeal = oralHearing.appeal;
-      req.session.hideHearing = true;
+      req.session.appeal.hideHearing = true;
       const hearingArrangements = {};
       req.session.case = { hearing_arrangements: hearingArrangements };
       hearing.getHearing(req, res);

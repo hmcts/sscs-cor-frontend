@@ -337,32 +337,6 @@ describe('controllers/login', function () {
             .resolves({ statusCode: 200, body: [caseDetails] }),
         } as CaseService;
       });
-
-      it('sets the hideHearing false', async function () {
-        trackYourAppealService = {
-          getAppeal: sinon.stub().resolves({ appeal: {} }),
-        };
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
-        expect(req.session.hideHearing).to.be.eql(false);
-      });
-
-      it('sets the hideHearing true', async function () {
-        trackYourAppealService = {
-          getAppeal: sinon.stub().resolves({ appeal: { hideHearing: true } }),
-        };
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
-        expect(req.session.hideHearing).to.be.eql(true);
-      });
     });
 
     describe('cannot find case with MYA enabled', function () {
