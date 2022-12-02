@@ -1,9 +1,8 @@
 import * as config from 'config';
 import {
-  fileTypeAudioVideoInWhitelist,
-  fileTypeInWhitelist,
   getAboutEvidence,
   getAdditionalEvidence,
+  getCaseId,
   postAdditionalEvidence,
   postEvidenceStatement,
   postFileUpload,
@@ -14,8 +13,6 @@ import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
 import { Feature } from 'app/server/utils/featureEnabled';
 import { NextFunction, Response } from 'express';
 import { expect, sinon } from '../../chai-sinon';
-import { before } from 'mocha';
-import { SinonStub } from 'sinon';
 
 const multer = require('multer');
 const content = require('locale/content');
@@ -30,6 +27,9 @@ describe('controllers/additional-evidence.js', function () {
   let next: NextFunction;
   let additionalEvidenceService;
   let sandbox: sinon.SinonSandbox;
+
+  const caseId = '1234567890';
+  const sessionID = '345345';
 
   const accessToken = 'accessToken';
   const serviceToken = 'serviceToken';
@@ -46,13 +46,14 @@ describe('controllers/additional-evidence.js', function () {
         case: {
           online_hearing_id: '',
           case_reference: 'mockedCaseRef',
-          case_id: '1234567890',
+          case_id: caseId,
         },
         appeal: {
           benefitType: 'UC',
         },
         additional_evidence: {},
       },
+      sessionID,
       body: {},
       file: null,
       query: {},
@@ -88,7 +89,7 @@ describe('controllers/additional-evidence.js', function () {
   });
 
   it('should pass "options" as argument to view if param action empty', async function () {
-    req.session.case.case_id = '1234567890';
+    req.session.case.case_id = caseId;
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
     expect(res.render).to.have.been.calledOnce.calledWith(
       'additional-evidence/index.njk',
@@ -104,7 +105,6 @@ describe('controllers/additional-evidence.js', function () {
     const description = 'this is a description for the files to be upload';
     req.params.action = 'upload';
     req.session.case.online_hearing_id = 'hearingId';
-    const caseId = '1234567890';
     req.session.case.case_id = caseId;
     req.session.additional_evidence.description = description;
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
@@ -128,7 +128,6 @@ describe('controllers/additional-evidence.js', function () {
     };
     req.params.action = 'upload';
     req.session.case.online_hearing_id = 'hearingId';
-    const caseId = '1234567890';
     req.session.case.case_id = caseId;
     await getAdditionalEvidence(additionalEvidenceService)(req, res, next);
 
@@ -202,6 +201,14 @@ describe('controllers/additional-evidence.js', function () {
         `${Paths.additionalEvidence}/${req.body['additional-evidence-option']}`
       );
     });
+
+    it('should return page with error when action is invalid', function () {
+      req.body['additional-evidence-option'] = null;
+      postAdditionalEvidence(req, res);
+      expect(res.render).to.have.been.calledWith(
+        'additional-evidence/index.njk'
+      );
+    });
   });
 
   describe('#postEvidenceStatement', function () {
@@ -219,7 +226,6 @@ describe('controllers/additional-evidence.js', function () {
     it('should save statement and redirect to confirmation page', async function () {
       req.body['question-field'] = 'My amazing statement';
       req.session.case.online_hearing_id = 'hearingId';
-      const caseId = '1234567890';
       req.session.case.case_id = caseId;
       await postEvidenceStatement(additionalEvidenceService)(req, res, next);
       expect(
@@ -472,129 +478,19 @@ describe('controllers/additional-evidence.js', function () {
     });
   });
 
-  describe('#fileTypeInWhitelist', function () {
-    let sb: SinonStub = null;
-    const file = {
-      mimetype: 'image/png',
-      originalname: 'someImage.png',
-    };
-
-    before(function () {
-      sb = sinon.stub();
+  describe('#getCaseId', function () {
+    it('should return case id when case is not null', function () {
+      req.session['case'] = {
+        case_id: caseId,
+      };
+      expect(getCaseId(req)).to.equal(caseId);
     });
 
-    beforeEach(function () {
-      sb.resetHistory();
-    });
-
-    it('file is in whitelist', function () {
-      fileTypeInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWith(null, true);
-    });
-
-    it('file mime type is not in whitelist', function () {
-      file.mimetype = 'plain/disallowed';
-      fileTypeInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_FILE_TYPE')
-      );
-    });
-
-    it('file extension type is not in whitelist', function () {
-      file.originalname = 'disallowed.file';
-      fileTypeInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_FILE_TYPE')
-      );
-    });
-
-    it('file does not have an extension ', function () {
-      file.originalname = 'disallowedfile';
-      fileTypeInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_FILE_TYPE')
-      );
-    });
-
-    it('file is audio ', function () {
-      file.originalname = 'audio.MP3';
-      fileTypeInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_FILE_TYPE')
-      );
-    });
-
-    it('file is audio with feature flag on', function () {
-      file.originalname = 'audio.MP3';
-      file.mimetype = 'audio/mp3';
-      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
-      fileTypeInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_UNEXPECTED_FILE')
-      );
-    });
-  });
-
-  describe('#fileTypeAudioVideoInWhitelist', function () {
-    let sb: SinonStub = null;
-    const file = {
-      mimetype: 'audio/mp3',
-      originalname: 'someImage.mp3',
-    };
-
-    before(function () {
-      sb = sinon.stub();
-    });
-
-    beforeEach(function () {
-      sb.resetHistory();
-    });
-
-    it('file is in whitelist', function () {
-      file.mimetype = 'audio/mp3';
-      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
-      fileTypeAudioVideoInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWith(null, true);
-    });
-
-    it('file mime type is not in whitelist', function () {
-      file.mimetype = 'plain/disallowed';
-      fileTypeAudioVideoInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_FILE_TYPE')
-      );
-    });
-
-    it('file extension type is not in whitelist', function () {
-      file.originalname = 'disallowed.file';
-      fileTypeAudioVideoInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_FILE_TYPE')
-      );
-    });
-
-    it('file does not have an extension ', function () {
-      file.originalname = 'disallowedfile';
-      fileTypeAudioVideoInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_FILE_TYPE')
-      );
-    });
-
-    it('file is audio ', function () {
-      file.originalname = 'audio.MP3';
-      fileTypeAudioVideoInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWithMatch(
-        new multer.MulterError('LIMIT_FILE_TYPE')
-      );
-    });
-
-    it('file is audio with feature flag on', function () {
-      file.originalname = 'audio.MP3';
-      file.mimetype = 'audio/mp3';
-      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
-      fileTypeAudioVideoInWhitelist(req, file, sb);
-      expect(sb).to.have.been.calledOnce.calledWith(null, true);
+    it('should throw an error when case is null', function () {
+      req.session['case'] = null;
+      expect(() => {
+        getCaseId(req);
+      }).to.throw(`No Case for session ${sessionID}`);
     });
   });
 });

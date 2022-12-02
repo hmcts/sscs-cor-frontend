@@ -12,7 +12,7 @@ import { setupIdamStubController } from './controllers/idam-stub';
 import { setupCookiePrivacyController } from './controllers/policies';
 import * as supportControllers from './controllers/support';
 import { setupSessionController } from './controllers/session';
-import { setupadditionalEvidenceController } from './controllers/additional-evidence';
+import { setupAdditionalEvidenceController } from './controllers/additional-evidence';
 import { setupYourDetailsController } from './controllers/your-details';
 import { setupStatusController } from './controllers/status';
 import { setupActiveCasesController } from './controllers/active-cases';
@@ -110,7 +110,7 @@ const supportWithdrawAppealController =
 const sessionController = setupSessionController({
   prereqMiddleware: ensureAuthenticated,
 });
-const evidenceOptionsController = setupadditionalEvidenceController({
+const evidenceOptionsController = setupAdditionalEvidenceController({
   prereqMiddleware: ensureAuthenticated,
   additionalEvidenceService,
 });
