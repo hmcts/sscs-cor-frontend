@@ -1,5 +1,7 @@
 import * as moment from 'moment';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { sessionExtension } from '../../server/paths';
+import { ExtendSessionResponse } from '../../server/controllers/session';
 const content = require('../../../locale/content');
 const i18next = require('i18next');
 
@@ -45,8 +47,8 @@ export class SessionInactivity {
       ) > 0
     ) {
       axios
-        .get('/session-extension')
-        .then((response: any): void => {
+        .get(sessionExtension)
+        .then((response: AxiosResponse<ExtendSessionResponse>): void => {
           if (response.data.expireInSeconds) {
             this.sessionExpiry = moment().add(
               response.data.expireInSeconds,
