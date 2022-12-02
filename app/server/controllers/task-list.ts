@@ -20,12 +20,8 @@ function processDeadline(expiryDate: string, allQuestionsSubmitted: boolean) {
 
 function getTaskList(req: Request, res: Response, next: NextFunction) {
   try {
-    const deadlineDetails = null;
-    const hearingType = req.session['appeal']!.hearingType;
     const appeal = req.session['appeal']!;
     res.render('task-list.njk', {
-      deadlineExpiryDate: deadlineDetails,
-      hearingType,
       appeal,
     });
   } catch (error) {
