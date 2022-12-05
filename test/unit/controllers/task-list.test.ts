@@ -102,8 +102,6 @@ describe('controllers/task-list', function () {
       };
       getTaskList(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith('task-list.njk', {
-        deadlineExpiryDate: null,
-        hearingType: null,
         appeal: req.session.appeal,
       });
     });

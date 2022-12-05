@@ -4,6 +4,7 @@ import HttpException from '../exceptions/HttpException';
 import {
   BAD_REQUEST,
   FORBIDDEN,
+  GATEWAY_TIMEOUT,
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,
 } from 'http-status-codes';
@@ -57,7 +58,7 @@ export function forbiddenHandler(
     return next(error);
   }
   trackTrace(error, req);
-  res.status(FORBIDDEN);
+  res.status(error.status);
   const header: string = content[i18next.language].error.error403.header;
   res.render('errors/error.njk', { header });
 }
@@ -72,16 +73,34 @@ export function badRequestHandler(
     return next(error);
   }
   trackTrace(error, req);
-  res.status(BAD_REQUEST);
+  res.status(error.status);
   const header: string = content[i18next.language].error.error400.header;
   res.render('errors/error.njk', { header });
 }
 
-/* eslint-disable no-unused-vars */
+export function gatewayTimeoutHandler(
+  error: HttpException,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  if (error.status !== GATEWAY_TIMEOUT) {
+    return next(error);
+  }
+  trackTrace(error, req);
+  res.status(error.status);
+  const header: string = content[i18next.language].error.error504.header;
+  const messages: Array<string> = [];
+  messages.push(content[i18next.language].error.error504.content);
+  messages.push(content[i18next.language].common.contactIfProblemContinues);
+  res.render('errors/error.njk', { header, messages });
+}
+
 export function coreErrorHandler(
   error: any,
   req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ): void {
   trackException(error, req);
@@ -92,4 +111,3 @@ export function coreErrorHandler(
   messages.push(content[i18next.language].common.contactIfProblemContinues);
   res.render('errors/error.njk', { header, messages });
 }
-/* eslint-enable no-unused-vars */

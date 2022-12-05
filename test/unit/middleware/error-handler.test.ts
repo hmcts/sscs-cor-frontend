@@ -2,6 +2,7 @@ import * as AppInsights from 'app/server/app-insights';
 import {
   BAD_REQUEST,
   FORBIDDEN,
+  GATEWAY_TIMEOUT,
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,
 } from 'http-status-codes';
@@ -105,6 +106,31 @@ describe('middleware/error-handler', function () {
 
     it('sends error to app-insights', function () {
       errorHandler.badRequestHandler(error, req, res, next);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(error);
+    });
+  });
+
+  describe('#gatewayTimeoutHandler', function () {
+    const error = new HttpException(GATEWAY_TIMEOUT, 'gatewayTimeoutMessage');
+    it('gives 504 page', function () {
+      errorHandler.gatewayTimeoutHandler(error, req, res, next);
+      expect(res.status).to.have.been.calledOnce.calledWith(GATEWAY_TIMEOUT);
+      expect(res.render).to.have.been.calledOnce.calledWith('errors/error.njk');
+    });
+
+    it('no error returns next', function () {
+      errorHandler.gatewayTimeoutHandler(
+        new HttpException(INTERNAL_SERVER_ERROR, 'notCorrectError'),
+        req,
+        res,
+        next
+      );
+      expect(res.render).to.have.not.been.called;
+      expect(next).to.have.been.calledOnce;
+    });
+
+    it('sends error to app-insights', function () {
+      errorHandler.gatewayTimeoutHandler(error, req, res, next);
       expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(error);
     });
   });

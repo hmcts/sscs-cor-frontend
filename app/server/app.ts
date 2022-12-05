@@ -23,14 +23,13 @@ import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
 import * as path from 'path';
 
+import { fileTypes, fileTypesWithAudioVideo } from './data/typeWhitelist.json';
+
 const { Express } = require('@hmcts/nodejs-logging');
 const errors = require('./middleware/error-handler');
 const content = require('../../locale/content');
 const bodyParser = require('body-parser');
-const {
-  fileTypes,
-  fileTypesWithAudioVideo,
-} = require('./utils/mimeTypeWhitelist');
+
 const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-express-middleware');
 

@@ -6,7 +6,7 @@ import {
   UNPROCESSABLE_ENTITY,
   CONFLICT,
   OK,
-  UNAUTHORIZED,
+  BAD_REQUEST,
 } from 'http-status-codes';
 import * as Paths from '../paths';
 import { URL } from 'url';
@@ -126,7 +126,7 @@ export function getIdamCallback(
           req.session['tya'] = req.query.state;
         } catch (error) {
           const tokenError = new HttpException(
-            UNAUTHORIZED,
+            BAD_REQUEST,
             `Idam token verification failed for code ${code} with error ${error.message}`
           );
           logger.error('MYA_IDAM_CODE_AUTH_ERROR', tokenError);
