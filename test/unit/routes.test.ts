@@ -1,6 +1,6 @@
 import request from 'supertest';
 import session from 'express-session';
-import { setup } from 'app/server/app';
+import { setupApp } from 'app/server/app';
 import { expect } from 'test/chai-sinon';
 import config from 'config';
 import { BAD_REQUEST, OK } from 'http-status-codes';
@@ -14,11 +14,10 @@ describe('Routes', function () {
   let tribunalApiUrl: string = null;
   let app: Application = null;
 
-  before(function () {
+  before(async function () {
     tribunalApiUrl = config.get('tribunals.api-url');
 
-    // eslint-disable-next-line mocha/no-nested-tests
-    app = setup(createSession(), { disableAppInsights: true });
+    app = await setupApp(createSession());
     dysonSetupIdam();
     dysonSetupS2s();
 

@@ -1,10 +1,11 @@
 import * as history from 'app/server/controllers/history';
 import * as Paths from 'app/server/paths';
 import * as FeatureEnabled from 'app/server/utils/featureEnabled';
+import express, { Router } from 'express';
+import { expect, sinon } from 'test/chai-sinon';
 
-const itParam = require('mocha-param');
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
+import itParam from 'mocha-param';
+import { SinonStub } from 'sinon';
 
 describe('controllers/history', function () {
   let req: any = null;
@@ -32,9 +33,20 @@ describe('controllers/history', function () {
   });
 
   describe('setupHistoryController', function () {
-    let getStub;
-    beforeEach(function () {
-      getStub = sinon.stub(express.Router, 'get');
+    let getStub: SinonStub = null;
+    before(function () {
+      getStub = sinon.stub();
+      sinon.stub(express, 'Router').returns({
+        get: getStub,
+      } as Partial<Router> as Router);
+    });
+
+    afterEach(function () {
+      sinon.resetHistory();
+    });
+
+    after(function () {
+      sinon.restore();
     });
 
     it('should call Router', function () {

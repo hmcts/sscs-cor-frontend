@@ -4,7 +4,9 @@
   },
   "testUrl": "http://localhost:3000",
   "api": {
-    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal",
+    "retries": 3,
+    "delay": 2000
   },
   "appInsights": {
     "instrumentationKey": "iKey",
@@ -92,5 +94,8 @@
       "channel": "SSCS"
     }
   },
-  "languages": ["en", "cy"]
+  "languages": ["en", "cy"],
+  "default": {
+    "dateFormat": "D MMMM YYYY"
+  }
 }

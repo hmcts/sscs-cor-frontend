@@ -1,3 +1,3 @@
-const dysonSetupS2S = require('./dysonSetup');
+import { dysonSetupS2s } from './dysonSetup';
 
-dysonSetupS2S();
+dysonSetupS2s();

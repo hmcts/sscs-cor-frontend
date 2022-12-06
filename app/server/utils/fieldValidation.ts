@@ -1,13 +1,13 @@
 import { CaseDetails } from 'app/server/models/express-session';
 import { dateFormat } from './dateUtils';
 
-const i18next = require('i18next');
-const Joi = require('joi');
+import i18next from 'i18next';
+import content from '../../common/locale/content.json';
 
-const content = require('../../../locale/content');
+import Joi from 'joi';
 
 const maxCharacters = 20000;
-const minCharecters = 1;
+const minCharacters = 1;
 const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
 
 export interface Attribute {
@@ -69,7 +69,7 @@ function answerValidation(answer, req?) {
 
   const schema = Joi.string()
     .required()
-    .min(minCharecters)
+    .min(minCharacters)
     .max(maxCharacters)
     .regex(whitelist)
     .options({

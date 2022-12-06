@@ -13,19 +13,21 @@ import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import { CaseDetails } from 'app/server/models/express-session';
 import { Dependencies } from 'app/server/routes';
+import HttpException from 'app/server/exceptions/HttpException';
 
 describe('controllers/task-list', function () {
   let req;
   let res;
   let next: NextFunction;
   let additionalEvidenceService;
-  const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   const caseDetails: CaseDetails = {
     online_hearing_id: '1',
     case_reference: '12345',
     appellant_name: 'John Smith',
     case_id: 12345,
   };
+
+  const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
 
   beforeEach(function () {
     req = {

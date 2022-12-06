@@ -12,9 +12,9 @@ import {
 } from '../data/typeWhitelist.json';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
+import content from '../../common/locale/content.json';
 
-const i18next = require('i18next');
-const content = require('../../../locale/content');
+import i18next from 'i18next';
 
 const logger: LoggerInstance = Logger.getLogger('fileUpload');
 

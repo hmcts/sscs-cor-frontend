@@ -1,4 +1,4 @@
-const cache = require('memory-cache');
+import cache from 'memory-cache';
 
 export default {
   path: '/login',

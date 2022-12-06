@@ -1,13 +1,15 @@
 import { Moment, utc } from 'moment/moment';
-import * as CONST from '../../constants';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
+import config from 'config';
 
 const logger: LoggerInstance = Logger.getLogger('dateUtils');
 
+const defaultDateFormat: string = config.get('default.dateFormat');
+
 export function dateFormat(
   date: string | Moment,
-  format: string = CONST.DATE_FORMAT,
+  format: string = defaultDateFormat,
   locale = 'en'
 ): string {
   try {

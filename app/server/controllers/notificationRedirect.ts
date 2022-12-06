@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
+import content from '../../common/locale/content.json';
 
-const HttpStatus = require('http-status-codes');
-const content = require('../../../locale/content');
-const i18next = require('i18next');
+import i18next from 'i18next';
+
+import { BAD_REQUEST } from 'http-status-codes';
 
 enum requestType {
   changeEmail,
@@ -22,7 +23,7 @@ export function notificationRedirect(
       res.redirect(`/manage-email-notifications/${req.params.mactoken}/stop`);
       break;
     default:
-      res.status(HttpStatus.BAD_REQUEST);
+      res.status(BAD_REQUEST);
       res.render('manage-emails.njk', {
         mactoken: req.params.mactoken,
         fields: {

@@ -2,7 +2,7 @@ import config from 'config';
 import { TrackYourApealService } from 'app/server/services/tyaService';
 import { RequestPromise } from 'app/server/services/request-wrapper';
 
-const { expect, sinon } = require('test/chai-sinon');
+import { expect, sinon } from 'test/chai-sinon';
 
 describe('services/tyaService', function () {
   let rpStub: sinon.SinonStub = null;

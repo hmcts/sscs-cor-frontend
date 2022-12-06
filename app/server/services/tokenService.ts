@@ -3,10 +3,9 @@ import { LoggerInstance } from 'winston';
 import config from 'config';
 import { OK, BAD_REQUEST } from 'http-status-codes';
 import { Logger } from '@hmcts/nodejs-logging';
+import request from 'superagent';
 
 const apiUrl = config.get('tribunals.api-url');
-const request = require('superagent');
-
 const logger: LoggerInstance = Logger.getLogger('TokenService.js');
 
 export function validateToken(

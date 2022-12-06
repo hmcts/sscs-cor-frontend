@@ -2,8 +2,11 @@ import { startServices } from 'test/browser/common';
 
 import { Page } from 'puppeteer';
 
-const { expect } = require('test/chai-sinon');
-const testUrl = require('config').get('testUrl');
+import { expect } from 'test/chai-sinon';
+
+import config from 'config';
+
+const testUrl: string = config.get('testUrl');
 
 describe('Health check @smoke', function () {
   let page: Page = null;

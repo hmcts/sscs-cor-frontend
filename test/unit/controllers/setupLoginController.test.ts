@@ -3,7 +3,7 @@ import express, { Router } from 'express';
 import * as Paths from 'app/server/paths';
 import { Dependencies } from 'app/server/routes';
 
-const { expect, sinon } = require('test/chai-sinon');
+import { expect, sinon } from 'test/chai-sinon';
 
 describe('#setupLoginController', function () {
   const deps: Dependencies = {};

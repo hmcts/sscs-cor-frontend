@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser, Page } from 'puppeteer';
 
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
@@ -12,13 +12,16 @@ import { Logger } from '@hmcts/nodejs-logging';
 
 import config from 'config';
 
-const { createServer } = require('http');
-const { createSession } = require('app/server/middleware/session');
-const { bootstrap } = require('test/browser/bootstrap');
-const { setup } = require('app/server/app');
-const dysonSetupIdam = require('test/mock/idam/dysonSetup');
-const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
-const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
+import { createServer, IncomingMessage, Server, ServerResponse } from 'http';
+import { createSession } from 'app/server/middleware/session';
+import { bootstrap } from 'test/browser/bootstrap';
+import { setupApp } from 'app/server/app';
+import { dysonSetupIdam } from 'test/mock/idam/dysonSetup';
+import { dysonSetupS2s } from 'test/mock/s2s/dysonSetup';
+import { dysonSetupTribunals } from 'test/mock/tribunals/dysonSetup';
+import { Application } from 'express';
+import { SidamUser } from 'test/fixtures/sidam';
+import { CCDCase } from '../fixtures/ccd';
 
 const logger: LoggerInstance = Logger.getLogger('test browser common');
 
@@ -28,14 +31,14 @@ const port: number = config.get('node.port');
 const headless: boolean = config.get('headless') !== 'false';
 const testingLocalhost: boolean = testUrl.indexOf('localhost') !== -1;
 
-let browser;
-let server;
-let ccdCase;
-const sidamUsers = [];
-let loginPage;
-let taskListPage;
+let browser: Browser = null;
+let server: Server<typeof IncomingMessage, typeof ServerResponse> = null;
+let ccdCase: CCDCase = null;
+const sidamUsers: SidamUser[] = [];
+let loginPage: LoginPage = null;
+let taskListPage: TaskListPage = null;
 
-async function startBrowser() {
+async function startBrowser(): Promise<Browser> {
   if (!browser) {
     logger.info('Starting browser');
     const args = ['--no-sandbox', '--start-maximized'];
@@ -57,26 +60,23 @@ async function startBrowser() {
 
 async function startAppServer(): Promise<void> {
   if (!server && testingLocalhost) {
-    const app = setup(createSession(), { disableAppInsights: true });
+    const app: Application = await setupApp(createSession());
     dysonSetupIdam();
     dysonSetupS2s();
     dysonSetupTribunals();
-    server = createServer(app).listen(port, async (error) => {
-      if (error) {
+    server = createServer(app)
+      .listen(port)
+      .on('error', (error) => {
         logger.error(
           `Unable to start server on port ${port} because of ${error.message}`
         );
-        return Promise.reject(error);
-      }
-      logger.info(`Starting server on port ${port}`);
-      return Promise.resolve();
-    });
+      });
   }
   return Promise.resolve();
 }
 
 // eslint-disable-next-line mocha/no-exports
-export async function login(page, force?, assignCase?) {
+export async function login(page, force?, assignCase?): Promise<void> {
   const sidamUser = sidamUsers[0];
   const email = sidamUser?.email || ccdCase?.email || 'someone@example.com';
   const password = sidamUser?.password || 'somePassword';
@@ -118,12 +118,20 @@ export async function login(page, force?, assignCase?) {
 }
 
 // eslint-disable-next-line mocha/no-exports
-export async function startServices(options?) {
+export async function startServices(options?): Promise<{
+  sidamUser: SidamUser;
+  browser: Browser;
+  page: Page;
+  ccdCase: CCDCase;
+}> {
   const opts = options || {};
-  let sidamUser;
+  let sidamUser: SidamUser;
   logger.info(`testingLocalhost--------${testingLocalhost}`);
   if (opts.bootstrapData && !testingLocalhost) {
     ({ ccdCase, sidamUser } = await bootstrap(opts.hearingType));
+    if (!ccdCase) {
+      ccdCase = {};
+    }
     sidamUsers.unshift(sidamUser);
   }
   await startAppServer();
@@ -143,10 +151,10 @@ export async function startServices(options?) {
   if (opts.performLogin) {
     await login(page, opts.forceLogin, opts.assignCase);
   }
-  return { page, ccdCase: ccdCase || {}, sidamUser, browser };
+  return { page, ccdCase, sidamUser, browser };
 }
 
-after(async function () {
+after(async function (): Promise<void> {
   if (sidamUsers.length > 0) {
     logger.info('Clean up sidam');
     // await sidam.unregisterRedirectUri();
@@ -158,7 +166,7 @@ after(async function () {
   await closeBrowser();
 });
 
-async function closeBrowser() {
+async function closeBrowser(): Promise<void> {
   if (server?.close) {
     logger.info('Killing server');
     server.close();

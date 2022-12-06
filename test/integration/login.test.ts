@@ -4,11 +4,10 @@ import { AssignCasePage } from '../page-objects/assign-case';
 import { LoginPage } from 'test/page-objects/login';
 import { TaskListPage } from 'test/page-objects/task-list';
 import { DecisionPage } from 'test/page-objects/decision';
-
-const moment = require('moment');
-const { expect } = require('test/chai-sinon');
-const { startServices } = require('test/browser/common');
-const content = require('locale/content');
+import { expect } from 'test/chai-sinon';
+import moment from 'moment';
+import { startServices } from 'test/browser/common';
+import content from 'app/common/locale/content.json';
 
 describe.skip('Login page', function () {
   let page;
@@ -16,7 +15,6 @@ describe.skip('Login page', function () {
   let statusPage;
   let taskListPage;
   let decisionPage;
-  let tribunalViewPage;
   let assignCasePage;
 
   before(async function () {
@@ -115,19 +113,6 @@ describe.skip('Login page', function () {
       '#deadline-status'
     );
     expect(deadlineStatus).to.contain(content.en.taskList.deadline.completed);
-  });
-
-  it('displays the tribunal view page', async function () {
-    await loginPage.visitPage();
-    await loginPage.login('view.issued@example.com', 'examplePassword');
-    await loginPage.screenshot('tribunal-view-issued-login');
-    tribunalViewPage.verifyPage();
-    expect(await tribunalViewPage.getHeading()).to.equal(
-      content.en.tribunalView.header
-    );
-    expect(await tribunalViewPage.getElementText('#decision-text')).to.equal(
-      'The final decision is this.'
-    );
   });
 
   it('displays the decision page with appeal upheld', async function () {

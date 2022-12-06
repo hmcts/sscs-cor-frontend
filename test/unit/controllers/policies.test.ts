@@ -1,15 +1,13 @@
 import * as Paths from 'app/server/paths';
 import * as FeatureEnabled from 'app/server/utils/featureEnabled';
 import { SinonStub } from 'sinon';
-import { Router } from 'express';
-
-const itParam = require('mocha-param');
-const { expect, sinon } = require('test/chai-sinon');
-const {
-  setupCookiePrivacyController,
+import express, { Router } from 'express';
+import { expect, sinon } from 'test/chai-sinon';
+import {
   getCookiePrivacy,
-} = require('app/server/controllers/policies.ts');
-const express = require('express');
+  setupCookiePrivacyController,
+} from 'app/server/controllers/policies';
+import itParam from 'mocha-param';
 
 describe('controllers/policies.js', function () {
   let req: any;
@@ -65,23 +63,27 @@ describe('controllers/policies.js', function () {
   });
 
   describe('setupCookiePrivacyController', function () {
-    beforeEach(function () {
+    let getStub: SinonStub = null;
+    before(function () {
+      getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({
-        get: sinon.stub(),
+        get: getStub,
       } as Partial<Router> as Router);
     });
 
     afterEach(function () {
-      express.Router.restore();
+      sinon.resetHistory();
+    });
+
+    after(function () {
+      sinon.restore();
     });
 
     it('calls router.get with the path and middleware', function () {
       setupCookiePrivacyController();
       // eslint-disable-next-line new-cap
-      expect(express.Router().get).to.have.been.calledWith(Paths.cookiePrivacy);
-      expect(express.Router().get).to.have.been.calledWith(
-        Paths.cookiePrivacy2
-      );
+      expect(getStub).to.have.been.calledWith(Paths.cookiePrivacy);
+      expect(getStub).to.have.been.calledWith(Paths.cookiePrivacy2);
     });
   });
 });

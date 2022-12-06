@@ -6,6 +6,15 @@
     "project": ["./tsconfig.json"] // Specify it only for TypeScript files
   },
   "extends": ["@hmcts/eslint-config/test", "../.eslintrc.json"],
+  "ignorePatterns": [
+    "coverage",
+    "accessibility/**/*.js",
+    "browser/**/*.js",
+    "integration/**/*.js",
+    "page-objects/**/*.js",
+    "unit/**/*.js",
+    "*.js"
+  ],
   "rules": {
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/require-await": "warn",

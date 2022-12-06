@@ -1,6 +1,8 @@
 import { dateFormat } from 'app/server/utils/dateUtils';
-import * as CONST from 'app/constants';
 import { expect } from 'test/chai-sinon';
+import config from 'config';
+
+const defaultDateFormat: string = config.get('default.dateFormat');
 
 describe('dateUtil class', function () {
   it('should return YYYY-MM-DD date in DD-MM-YYYY format', function () {
@@ -16,13 +18,13 @@ describe('dateUtil class', function () {
   });
 
   it('should return YYYY/MM/DD date in the default en format correctly', function () {
-    expect(dateFormat('2020/11/09', CONST.DATE_FORMAT, 'en')).to.equal(
+    expect(dateFormat('2020/11/09', defaultDateFormat, 'en')).to.equal(
       '9 November 2020'
     );
   });
 
   it('should return YYYY/MM/DD date in the default cy format correctly', function () {
-    expect(dateFormat('2020/11/09', CONST.DATE_FORMAT, 'cy')).to.equal(
+    expect(dateFormat('2020/11/09', defaultDateFormat, 'cy')).to.equal(
       '9 Tachwedd 2020'
     );
   });

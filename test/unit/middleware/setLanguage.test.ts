@@ -7,7 +7,7 @@ import {
   setLanguage,
 } from 'app/server/middleware/setLanguage';
 
-const i18next = require('i18next');
+import i18next from 'i18next';
 
 describe('middleware/setLanguage', function () {
   const session = {
@@ -32,7 +32,7 @@ describe('middleware/setLanguage', function () {
       get: sinon.stub(),
     } as Partial<Router> as Router);
 
-    i18ChangeStub = sinon.stub(i18next, 'changeLanguage').resolves('');
+    i18ChangeStub = sinon.stub(i18next, 'changeLanguage').resolves();
     i18nextStub = sinon.stub(i18next, 'language').returns('test');
   });
 

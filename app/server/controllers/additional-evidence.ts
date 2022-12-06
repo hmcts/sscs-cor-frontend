@@ -22,11 +22,9 @@ import { BAD_REQUEST } from 'http-status-codes';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 import { Appeal, CaseDetails } from '../models/express-session';
-
-const i18next = require('i18next');
-
-const content = require('../../../locale/content');
-const crypto = require('crypto');
+import i18next from 'i18next';
+import crypto from 'crypto';
+import content from '../../common/locale/content.json';
 
 const logger: LoggerInstance = Logger.getLogger('additional-evidence');
 

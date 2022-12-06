@@ -1,4 +1,4 @@
-const computedStyle = require('computed-style');
+import computedStyle from 'computed-style';
 
 function autoExpand(event: any): void {
   const target = event.target as HTMLInputElement;

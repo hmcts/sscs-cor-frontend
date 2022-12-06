@@ -1,6 +1,6 @@
 import { spellNumbersOut } from 'app/server/utils/screenReaderUtils';
 
-const { expect } = require('test/chai-sinon');
+import { expect } from 'test/chai-sinon';
 
 describe('#screenReaderUtils', function () {
   it('should spell out a case reference', function () {

@@ -1,4 +1,3 @@
-import * as CONST from '../constants';
 import nunjucks from 'nunjucks';
 import { i18n, InitOptions } from 'i18next';
 import { Logger } from '@hmcts/nodejs-logging';
@@ -11,10 +10,11 @@ import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
 import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';
 import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
-
-const content = require('../../locale/content');
+import content from '../common/locale/content.json';
 
 const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
+
+const defaultDateFormat: string = config.get('default.dateFormat');
 
 const DecisionReceivedDaysAfterHearing = 5;
 
@@ -90,7 +90,7 @@ function dateForDecisionReceived(
     DecisionReceivedDaysAfterHearing,
     'days'
   );
-  return dateFormat(decisionReceivedDate, CONST.DATE_FORMAT, locale);
+  return dateFormat(decisionReceivedDate, defaultDateFormat, locale);
 }
 
 function flattenArray(text: string | Array<string>): string {

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const gulp = require('gulp');
 
 const appDirectory = './cookie-banner/common/components/imported';

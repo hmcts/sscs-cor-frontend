@@ -8,15 +8,16 @@ import { LoginPage } from 'test/page-objects/login';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 
-const { expect } = require('test/chai-sinon');
-const content = require('locale/content');
-const config = require('config');
+import { expect } from 'test/chai-sinon';
+import content from 'app/common/locale/content.json';
+
+import config from 'config';
 
 const testUrl = config.get('testUrl');
 
 const sampleHearingId = '1-pending';
 
-const pa11y = require('pa11y');
+import pa11y from 'pa11y';
 
 const pa11yOpts = _.clone(config.get('pa11y'));
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');

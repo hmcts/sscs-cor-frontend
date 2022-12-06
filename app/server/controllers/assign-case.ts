@@ -8,8 +8,8 @@ import { TrackYourApealService } from '../services/tyaService';
 import * as AppInsights from '../app-insights';
 import { Dependencies } from '../routes';
 
-const i18next = require('i18next');
-const content = require('../../../locale/content');
+import i18next from 'i18next';
+import content from '../../common/locale/content.json';
 
 const postcodeRegex = /^([A-Z][A-HJ-Y]?\d[A-Z\d]?\s?\d[A-Z]{2}|GIR ?0A{2})$/gi;
 

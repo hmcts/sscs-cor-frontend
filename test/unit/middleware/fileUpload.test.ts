@@ -13,8 +13,7 @@ import { SinonStub } from 'sinon';
 import { before } from 'mocha';
 import { SessionData } from 'express-session';
 import { MulterError } from 'multer';
-
-const content = require('locale/content');
+import content from 'app/common/locale/content.json';
 
 describe('fileUpload middleware', function () {
   const caseId = 1234;

@@ -2,8 +2,8 @@ import * as path from 'path';
 
 import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
-const { expect } = require('test/chai-sinon');
-const content = require('locale/content');
+import { expect } from 'test/chai-sinon';
+import content from 'app/common/locale/content.json';
 
 export class AdditionalEvidenceUploadPage extends BasePage {
   constructor(page) {
@@ -13,7 +13,7 @@ export class AdditionalEvidenceUploadPage extends BasePage {
 
   async verifyPages() {
     const title = this.page.title();
-    expect(title).to.equal(content.en.additionalEvidence.evidenceUpload.title);
+    expect(title).to.equal(content.en.additionalEvidence.evidenceUpload.header);
   }
 
   async selectFile(filename: string) {

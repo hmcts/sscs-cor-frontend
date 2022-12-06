@@ -3,11 +3,11 @@ import * as fs from 'fs';
 
 import { AdditionalEvidenceService } from 'app/server/services/additional-evidence';
 import { RequestPromise } from 'app/server/services/request-wrapper';
-import * as CONST from 'app/constants';
-const HTTP_RETRIES = CONST.HTTP_RETRIES;
-const RETRY_INTERVAL = CONST.RETRY_INTERVAL;
-const { expect, sinon } = require('test/chai-sinon');
-const config = require('config');
+import { expect, sinon } from 'test/chai-sinon';
+import config from 'config';
+
+const retry: number = config.get('api.retries');
+const delay: number = config.get('api.delay');
 
 describe('services/additional-evidence', function () {
   let rpStub: sinon.SinonStub = null;
@@ -53,8 +53,8 @@ describe('services/additional-evidence', function () {
         tya: 'wqiuvokQlD',
       },
       method: 'POST',
-      retry: HTTP_RETRIES,
-      delay: RETRY_INTERVAL,
+      retry,
+      delay,
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/statement`,
     };
 
@@ -111,8 +111,8 @@ describe('services/additional-evidence', function () {
   it('should getCoversheet', async function () {
     const expectedRequestOptions = {
       method: 'GET',
-      retry: HTTP_RETRIES,
-      delay: RETRY_INTERVAL,
+      retry,
+      delay,
       encoding: 'binary',
       uri: `${apiUrl}/api/continuous-online-hearings/${hearingId}/evidence/coversheet`,
       headers: {
@@ -128,8 +128,8 @@ describe('services/additional-evidence', function () {
     const description = 'An evidence description';
     const expectedRequestOptions = {
       method: 'POST',
-      retry: HTTP_RETRIES,
-      delay: RETRY_INTERVAL,
+      retry,
+      delay,
       body: {
         body: description,
         idamEmail: 'appellant@email.com',
@@ -152,8 +152,8 @@ describe('services/additional-evidence', function () {
     const description = 'An evidence description';
     const expectedRequestOptions = {
       method: 'POST',
-      retry: HTTP_RETRIES,
-      delay: RETRY_INTERVAL,
+      retry,
+      delay,
       formData: {
         body: description,
         idamEmail: 'appellant@email.com',

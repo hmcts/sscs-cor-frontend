@@ -11,8 +11,8 @@ import {
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
-const i18next = require('i18next');
-const content = require('../../../locale/content');
+import i18next from 'i18next';
+import content from '../../common/locale/content.json';
 
 const logger: LoggerInstance = Logger.getLogger('error-handler.js');
 

@@ -13,13 +13,13 @@ import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
 import { Feature } from 'app/server/utils/featureEnabled';
 import { NextFunction, Response } from 'express';
 import { expect, sinon } from '../../chai-sinon';
-
-const multer = require('multer');
-const content = require('locale/content');
+import content from 'app/common/locale/content.json';
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 
-const { INTERNAL_SERVER_ERROR, NOT_FOUND } = require('http-status-codes');
+import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+
+import HttpException from 'app/server/exceptions/HttpException';
 
 describe('controllers/additional-evidence.js', function () {
   let req;
@@ -32,7 +32,9 @@ describe('controllers/additional-evidence.js', function () {
 
   const accessToken = 'accessToken';
   const serviceToken = 'serviceToken';
-  const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+  const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
+
   beforeEach(function () {
     req = {
       params: {

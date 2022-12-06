@@ -1,14 +1,11 @@
 import * as AppInsights from 'app/server/app-insights';
-
-import { TrackYourApealService } from 'app/server/services/tyaService';
-
 import * as Paths from 'app/server/paths';
 import * as outcome from 'app/server/controllers/outcome';
-import { OK } from 'http-status-codes';
+import express, { Router } from 'express';
+import { expect, sinon } from 'test/chai-sinon';
 
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
-const oralHearing = require('../../mock/tribunals/data/oral/outcome');
+import oralHearing from '../../mock/tribunals/data/oral/outcome.json';
+import { SinonStub } from 'sinon';
 
 describe('controllers/outcome', function () {
   let req: any;
@@ -35,12 +32,19 @@ describe('controllers/outcome', function () {
   });
 
   describe('setupOutcomeController', function () {
-    let getStub;
-    beforeEach(function () {
-      getStub = sinon.stub(express.Router, 'get');
+    let getStub: SinonStub = null;
+    before(function () {
+      getStub = sinon.stub();
+      sinon.stub(express, 'Router').returns({
+        get: getStub,
+      } as Partial<Router> as Router);
     });
 
     afterEach(function () {
+      sinon.resetHistory();
+    });
+
+    after(function () {
       sinon.restore();
     });
 

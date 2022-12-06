@@ -1,4 +1,5 @@
 import config from 'config';
+import { NextFunction, Request, Response, Router } from 'express';
 
 import {
   ensureAuthenticated,
@@ -29,8 +30,15 @@ import { CaseService } from './services/cases';
 import { IdamService } from './services/idam';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
-import { NextFunction, Request, Response, Router } from 'express';
 import { setupSetLanguageController } from './middleware/setLanguage';
+import { validateToken } from './services/tokenService';
+import { notificationRedirect } from './controllers/notificationRedirect';
+import { emailNotifications } from './controllers/content';
+import {
+  changeEmailAddress,
+  stopReceivingEmails,
+} from './services/unsubscribeService';
+import { validateEmail } from './controllers/validateEmail';
 
 export interface Dependencies {
   setLocals?: (req: Request, res: Response, next: NextFunction) => void;
@@ -53,14 +61,6 @@ const tribunalsApiUrl: string = config.get('tribunals.api-url');
 const appPort: number = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
-const { validateToken } = require('./services/tokenService');
-const { notificationRedirect } = require('./controllers/notificationRedirect');
-const {
-  changeEmailAddress,
-  stopReceivingEmails,
-} = require('./services/unsubscribeService');
-const { emailNotifications } = require('./controllers/content');
-const { validateEmail } = require('./controllers/validateEmail');
 
 const idamService: IdamService = new IdamService(
   idamApiUrl,

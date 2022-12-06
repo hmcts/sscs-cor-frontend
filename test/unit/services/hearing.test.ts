@@ -11,8 +11,8 @@ import { Request } from 'express';
 import { SessionData } from 'express-session';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
-
-const { expect } = require('test/chai-sinon');
+import { expect, sinon } from 'test/chai-sinon';
+import HttpException from 'app/server/exceptions/HttpException';
 
 const logger: LoggerInstance = Logger.getLogger('services/hearing');
 
@@ -27,6 +27,7 @@ describe('services/hearing', function () {
     accessToken: 'someUserToken',
     serviceToken: 'someServiceToken',
   };
+  const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
   const req = { session } as Request;
   before(function () {
     caseService = new CaseService(apiUrl);
@@ -66,8 +67,6 @@ describe('services/hearing', function () {
     });
 
     describe('error response', function () {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
@@ -83,7 +82,7 @@ describe('services/hearing', function () {
       it('rejects the promise with the error', function () {
         return expect(
           caseService.getOnlineHearing(email, req)
-        ).to.be.rejectedWith(error);
+        ).to.be.rejectedWith(error.message);
       });
     });
 
@@ -137,8 +136,6 @@ describe('services/hearing', function () {
     ];
 
     describe('success response', function () {
-      const userToken = 'someUserToken';
-      const serviceToken = 'someServiceToken';
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
@@ -163,8 +160,6 @@ describe('services/hearing', function () {
     });
 
     describe('error response', function () {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
@@ -180,7 +175,7 @@ describe('services/hearing', function () {
       it('rejects the promise with the error', function () {
         return expect(
           caseService.getCasesForCitizen(email, tya, req)
-        ).to.be.rejectedWith(error);
+        ).to.be.rejectedWith(error.message);
       });
     });
   });
@@ -226,8 +221,6 @@ describe('services/hearing', function () {
     });
 
     describe('error response', function () {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
@@ -242,7 +235,7 @@ describe('services/hearing', function () {
       it('rejects the promise with the error', function () {
         return expect(
           caseService.assignOnlineHearingsToCitizen(email, tya, postcode, req)
-        ).to.be.rejectedWith(error);
+        ).to.be.rejectedWith(error.message);
       });
     });
   });

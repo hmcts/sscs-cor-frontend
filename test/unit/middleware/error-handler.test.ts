@@ -11,7 +11,7 @@ import * as errorHandler from 'app/server/middleware/error-handler';
 import { Session, SessionData } from 'express-session';
 import HttpException from 'app/server/exceptions/HttpException';
 
-const { expect, sinon } = require('test/chai-sinon');
+import { expect, sinon } from 'test/chai-sinon';
 
 describe('middleware/error-handler', function () {
   const req: Request = {
@@ -24,7 +24,7 @@ describe('middleware/error-handler', function () {
     res = {
       status: sinon.spy(),
       render: sinon.spy(),
-    } as Response;
+    } as Partial<Response> as Response;
     next = sinon.spy();
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackTrace');

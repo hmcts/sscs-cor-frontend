@@ -1,15 +1,9 @@
 import * as AppInsights from './app-insights';
-
 import express, { Application, RequestHandler } from 'express';
-
 import { router as routes } from './routes';
-
 import * as health from './middleware/health';
-
 import * as Paths from './paths';
-
 import cookieParser from 'cookie-parser';
-
 import * as screenReaderUtils from './utils/screenReaderUtils';
 import {
   configureHeaders,
@@ -21,35 +15,32 @@ import config from 'config';
 import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
 import * as path from 'path';
-
+import i18next, { InitOptions } from 'i18next';
+import i18nextMiddleware from 'i18next-express-middleware';
+import bodyParser from 'body-parser';
+import * as errors from './middleware/error-handler';
+import { Express as loggingExpress } from '@hmcts/nodejs-logging';
 import { fileTypes, fileTypesWithAudioVideo } from './data/typeWhitelist.json';
 
-const { Express } = require('@hmcts/nodejs-logging');
-const errors = require('./middleware/error-handler');
-const content = require('../../locale/content');
-const bodyParser = require('body-parser');
-
-const i18next = require('i18next');
-const i18nextMiddleware = require('i18next-express-middleware');
+import content from '../common/locale/content.json';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-export interface Options {
-  disableAppInsights?: boolean;
-}
+const supportedLngs: string[] = config.get('languages');
+const defaultLng = 'en';
+const i18Options: InitOptions = {
+  resources: content,
+  supportedLngs,
+  lng: defaultLng,
+};
 
-export function setup(
+export async function setupApp(
   sessionHandler: RequestHandler,
-  options: Options
-): Application {
-  i18next.init({
-    resources: content,
-    supportedLngs: config.get('languages'),
-    lng: 'en',
-  });
+  appInsights = false
+): Promise<Application> {
+  await i18next.init(i18Options);
 
-  const opts = options || {};
-  if (!opts.disableAppInsights) {
+  if (appInsights) {
     AppInsights.enable();
   }
 
@@ -167,7 +158,8 @@ export function setup(
       )
     )
   );
-  app.use(Express.accessLogger());
+
+  app.use(loggingExpress.accessLogger());
   app.use(sessionHandler);
   app.use(csrfToken);
   app.use(csrfTokenEmbed);

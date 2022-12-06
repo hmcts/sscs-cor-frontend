@@ -1,8 +1,9 @@
 import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
-import * as CONST from '../../constants';
-const HTTP_RETRIES = CONST.HTTP_RETRIES;
-const RETRY_INTERVAL = CONST.RETRY_INTERVAL;
+import config from 'config';
+
+const retry: number = config.get('api.retries');
+const delay: number = config.get('api.delay');
 
 interface ExtendDeadlineResponse {
   deadline_expiry_date: string;
@@ -33,8 +34,8 @@ export class CaseService {
     return RequestPromise.request(
       {
         method: 'GET',
-        retry: HTTP_RETRIES,
-        delay: RETRY_INTERVAL,
+        retry,
+        delay,
         uri: `${this.apiUrl}/api/citizen${path}`,
         qs: { email },
         resolveWithFullResponse: true,

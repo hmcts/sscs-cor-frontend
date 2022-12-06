@@ -1,12 +1,14 @@
 import { expect, sinon } from 'test/chai-sinon';
 import watch from 'app/server/watch';
-import { setup } from 'app/server/app';
+import { setupApp } from 'app/server/app';
 import chokidar from 'chokidar';
 import { Application } from 'express';
 import { LoggerInstance } from 'winston';
-const { createSession } = require('app/server/middleware/session');
-const shell = require('shelljs');
-const { Logger } = require('@hmcts/nodejs-logging');
+import { Logger } from '@hmcts/nodejs-logging';
+
+import shell from 'shelljs';
+
+import { createSession } from 'app/server/middleware/session';
 
 describe('watch.ts', function () {
   let chokidaySpy = null;
@@ -19,7 +21,7 @@ describe('watch.ts', function () {
   before(async function () {
     logger = Logger.getLogger('watch.js');
     // eslint-disable-next-line mocha/no-nested-tests
-    app = setup(createSession(), { disableAppInsights: true });
+    app = await setupApp(createSession());
     chokidaySpy = sinon.spy(chokidar, 'watch');
     shellSpy = sinon.spy(shell, 'exec');
     loggerSpy = sinon.spy(logger, 'info');

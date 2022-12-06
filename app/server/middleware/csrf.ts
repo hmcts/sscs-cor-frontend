@@ -1,6 +1,6 @@
 import * as AppInsights from '../app-insights';
 
-const csurf = require('csurf');
+import csurf from 'csurf';
 
 function csrfToken(req, res, next) {
   const csrfMiddleware = csurf();

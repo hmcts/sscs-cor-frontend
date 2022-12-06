@@ -1,10 +1,9 @@
 import { NextFunction, Response, Request } from 'express';
-import { StringSchema, ValidationResult } from 'joi';
+import Joi, { StringSchema, ValidationResult } from 'joi';
+import content from '../../common/locale/content.json';
+import i18next from 'i18next';
 
-const content = require('../../../locale/content');
-const HttpStatus = require('http-status-codes');
-const Joi = require('joi');
-const i18next = require('i18next');
+import { BAD_REQUEST } from 'http-status-codes';
 
 function setErrorFields(field, fields, result, errors) {
   fields.error = true;
@@ -78,7 +77,7 @@ export function validateEmail(
   const errors = content[i18next.language].notifications.email.errors;
   const fields = validateFields(email, confirmEmail, errors);
   if (fields.error) {
-    res.status(HttpStatus.BAD_REQUEST);
+    res.status(BAD_REQUEST);
     res.render('email-address-change.njk', {
       mactoken: req.params.mactoken,
       fields,

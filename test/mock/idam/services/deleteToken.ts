@@ -1,4 +1,4 @@
-const { NO_CONTENT } = require('http-status-codes');
+import { NO_CONTENT } from 'http-status-codes';
 
 export default {
   path: '/session/:token',

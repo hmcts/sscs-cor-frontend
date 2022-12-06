@@ -23,9 +23,8 @@ import config from 'config';
 import { CaseDetails } from 'app/server/models/express-session';
 import { resolveQuery } from '../utils/parseUtils';
 
-const i18next = require('i18next');
-
-const content = require('../../../locale/content');
+import i18next from 'i18next';
+import content from '../../common/locale/content.json';
 
 const logger: LoggerInstance = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');

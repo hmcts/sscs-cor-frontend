@@ -1,15 +1,15 @@
-const oralAppealReceived = require('../data/oral/appealReceived');
-const oralDWPRespond = require('../data/oral/dwpRespond');
-const oralHearingBooked = require('../data/oral/hearingBooked');
-const oralHearing = require('../data/oral/hearing');
-const oralAppealPostponed = require('../data/oral/postponed');
-const oralNewHearingBooked = require('../data/oral/newHearingBooked');
-const oralClosed = require('../data/oral/closed');
-const oralWithdrawn = require('../data/oral/withdrawn');
-const oralLapsed = require('../data/oral/lapsedRevised');
-const paperAppealReceived = require('../data/paper/appealReceived');
-const paperDWPRespond = require('../data/paper/dwpRespond');
-const corAppealCreated = require('../data/cor/appealCreated');
+import oralAppealReceived from '../data/oral/appealReceived.json';
+import oralDWPRespond from '../data/oral/dwpRespond.json';
+import oralHearingBooked from '../data/oral/hearingBooked.json';
+import oralHearing from '../data/oral/hearing.json';
+import oralAppealPostponed from '../data/oral/postponed.json';
+import oralNewHearingBooked from '../data/oral/newHearingBooked.json';
+import oralClosed from '../data/oral/closed.json';
+import oralWithdrawn from '../data/oral/withdrawn.json';
+import oralLapsed from '../data/oral/lapsedRevised.json';
+import paperAppealReceived from '../data/paper/appealReceived.json';
+import paperDWPRespond from '../data/paper/dwpRespond.json';
+import corAppealCreated from '../data/cor/appealCreated.json';
 
 /* eslint-disable complexity */
 function getAppeal(appealNumber) {

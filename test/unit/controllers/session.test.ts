@@ -6,7 +6,7 @@ import {
   setupSessionController,
   ExtendSessionResponse,
 } from 'app/server/controllers/session';
-import * as config from 'config';
+import config from 'config';
 import { expect, sinon } from 'test/chai-sinon';
 import { SinonStub } from 'sinon';
 
