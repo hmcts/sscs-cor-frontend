@@ -16,18 +16,11 @@ const content = require('../../../locale/content');
 
 const logger: LoggerInstance = Logger.getLogger('error-handler.js');
 
-function trackTrace(error: HttpException, req: Request) {
-  logger.error(
-    `${error.status} Error from request ${req.originalUrl}, error: ${error}`
-  );
-  AppInsights.trackTrace(error);
-}
-
 function trackException(error: HttpException, req: Request) {
-  logger.error(
+  AppInsights.trackException(error);
+  AppInsights.trackTrace(
     `${error?.status} Error from request ${req.originalUrl}, error: ${error}`
   );
-  AppInsights.trackException(error);
 }
 
 export function sessionNotFoundHandler(
@@ -57,7 +50,7 @@ export function forbiddenHandler(
   if (error.status !== FORBIDDEN) {
     return next(error);
   }
-  trackTrace(error, req);
+  trackException(error, req);
   res.status(error.status);
   const header: string = content[i18next.language].error.error403.header;
   res.render('errors/error.njk', { header });
@@ -72,7 +65,7 @@ export function badRequestHandler(
   if (error.status !== BAD_REQUEST) {
     return next(error);
   }
-  trackTrace(error, req);
+  trackException(error, req);
   res.status(error.status);
   const header: string = content[i18next.language].error.error400.header;
   res.render('errors/error.njk', { header });
@@ -87,7 +80,7 @@ export function gatewayTimeoutHandler(
   if (error.status !== GATEWAY_TIMEOUT) {
     return next(error);
   }
-  trackTrace(error, req);
+  trackException(error, req);
   res.status(error.status);
   const header: string = content[i18next.language].error.error504.header;
   const messages: Array<string> = [];
