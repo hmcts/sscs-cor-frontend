@@ -9,12 +9,12 @@ import {
   configureHeaders,
   configureHelmet,
   configureNunjucks,
+  configureStaticRoutes,
 } from './app-configurations';
 import watch from './watch';
 import config from 'config';
 import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
-import * as path from 'path';
 import i18next, { InitOptions } from 'i18next';
 import i18nextMiddleware from 'i18next-express-middleware';
 import bodyParser from 'body-parser';
@@ -119,44 +119,7 @@ export async function setupApp(
     next();
   });
 
-  const publicPath = path.join(__dirname, '/../../public');
-  const imagesPath = path.join(__dirname, '/../../app', 'client', 'images');
-  const govUkAssetsPath = path.join(
-    __dirname,
-    '/../../node_modules',
-    'govuk-frontend',
-    'govuk',
-    'assets'
-  );
-  const ctscJsPath = path.join(
-    __dirname,
-    '/../../node_modules',
-    '@hmcts',
-    'ctsc-web-chat',
-    'assets',
-    'javascript'
-  );
-  const ctscCssPath = path.join(
-    __dirname,
-    '/../../node_modules',
-    '@hmcts',
-    'ctsc-web-chat',
-    'assets',
-    'css'
-  );
-
-  logger.info(`'/public' routes to ${publicPath}`);
-  app.use('/public', express.static(publicPath));
-  logger.info(`'/public/images' routes to ${imagesPath}`);
-  app.use('/public/images', express.static(imagesPath));
-
-  logger.info(`'/public/govuk-frontend' routes to ${govUkAssetsPath}`);
-  app.use('/public/govuk-frontend', express.static(govUkAssetsPath));
-
-  logger.info(`'/public/js'' routes to ${ctscJsPath}`);
-  app.use('/public/js', express.static(ctscJsPath));
-  logger.info(`'/public/css'' routes to ${ctscCssPath}`);
-  app.use('/public/css', express.static(ctscCssPath));
+  configureStaticRoutes(app);
 
   app.use(loggingExpress.accessLogger());
   app.use(sessionHandler);

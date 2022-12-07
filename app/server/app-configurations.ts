@@ -2,7 +2,7 @@ import nunjucks from 'nunjucks';
 import { i18n, InitOptions } from 'i18next';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
-import { Application } from 'express';
+import express, { Application } from 'express';
 import { utc } from 'moment';
 import helmet from 'helmet';
 import config from 'config';
@@ -11,6 +11,7 @@ import { dateFormat } from './utils/dateUtils';
 import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';
 import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
 import content from '../common/locale/content.json';
+import * as path from 'path';
 
 const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 
@@ -64,7 +65,7 @@ const contentSecurityPolicy: ContentSecurityPolicyOptions = {
   },
 };
 
-function configureHelmet(app: Application): void {
+export function configureHelmet(app: Application): void {
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
@@ -73,7 +74,7 @@ function configureHelmet(app: Application): void {
   app.use(helmet.contentSecurityPolicy(contentSecurityPolicy));
 }
 
-function configureHeaders(app: Application): void {
+export function configureHeaders(app: Application): void {
   // Disallow search indexing
   app.use((req, res, next) => {
     // Setting headers stops pages being indexed even if indexed pages link to them
@@ -100,7 +101,7 @@ function flattenArray(text: string | Array<string>): string {
   return text;
 }
 
-function configureNunjucks(app: Application): void {
+export function configureNunjucks(app: Application): void {
   const i18next: i18n = app.locals.i18n;
 
   const nunEnv = nunjucks.configure(
@@ -197,4 +198,65 @@ function configureNunjucks(app: Application): void {
   tyaNunjucks.env = nunEnv;
 }
 
-export { configureHelmet, configureHeaders, configureNunjucks };
+const publicPath = path.join(__dirname, '..', '..', 'public');
+const imagesPath = path.join(__dirname, '..', '..', 'app', 'client', 'images');
+const govUkAssetsPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  'node_modules',
+  'govuk-frontend',
+  'govuk',
+  'assets'
+);
+const ctscJsPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  'node_modules',
+  '@hmcts',
+  'ctsc-web-chat',
+  'assets',
+  'javascript'
+);
+const ctscCssPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  'node_modules',
+  '@hmcts',
+  'ctsc-web-chat',
+  'assets',
+  'css'
+);
+const cookieManagerJsPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  'node_modules',
+  'cmc-cookies-manager',
+  'shared-component',
+  'components',
+  'cookie-manager',
+  'cookies-manager.js'
+);
+
+export function configureStaticRoutes(app: Application): void {
+  logger.info(`'/public' routes to ${publicPath}`);
+  app.use('/public', express.static(publicPath));
+  logger.info(`'/public/images' routes to ${imagesPath}`);
+  app.use('/public/images', express.static(imagesPath));
+
+  logger.info(`'/public/govuk-frontend' routes to ${govUkAssetsPath}`);
+  app.use('/public/govuk-frontend', express.static(govUkAssetsPath));
+
+  logger.info(`'/public/js' routes to ${ctscJsPath}`);
+  app.use('/public/js', express.static(ctscJsPath));
+  logger.info(`'/public/css' routes to ${ctscCssPath}`);
+  app.use('/public/css', express.static(ctscCssPath));
+
+  logger.info(
+    `'/public/js/cookies-manager.js' routes to ${cookieManagerJsPath}`
+  );
+  app.use('/public/js/cookies-manager.js', express.static(cookieManagerJsPath));
+}
