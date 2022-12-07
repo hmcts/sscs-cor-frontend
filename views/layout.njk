@@ -11,7 +11,7 @@
 {% endblock head %}
 {% block header %}
   {% if cookieBannerEnabled %}
-    <div>{% include "../cookie-banner/common/components/imported/cookie-manager/cookie-banner.njk" %}</div>
+    <div>{% include "cookie-manager/cookie-banner.njk" %}</div>
   {% else %}
     {% include "includes/cookie-banner.njk" %}
   {% endif %}
