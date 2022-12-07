@@ -1702,10 +1702,10 @@ append-transform@^2.0.0:
   dependencies:
     default-require-extensions "^3.0.0"
 
-applicationinsights-native-metrics@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/applicationinsights-native-metrics/-/applicationinsights-native-metrics-0.0.7.tgz#ce879dc4ee137d73452e0511da8aa23173759e3c"
-  integrity sha512-dStduFRRNDJFZNvIYkRTxtvrzzHU0jdCjoKXBncDIBwsxgmIFF6n6KEe2zhIdEjYcCwgJNszJ5BeSjctcKiRRA==
+applicationinsights-native-metrics@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/applicationinsights-native-metrics/-/applicationinsights-native-metrics-0.0.8.tgz#bb224145421ba5ea864e69c7fd34ab66c6fcff83"
+  integrity sha512-3areRz2+Q1EPWbQYokfOgYXLkZyBzeReI9716nw97p697gFUfGqYgwJ5fCopftvHycW2zuRWTFJWmA70S5605A==
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.8"
     nan "^2.14.0"
