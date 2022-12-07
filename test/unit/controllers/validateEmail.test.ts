@@ -72,7 +72,7 @@ describe('controllers/validateEmail', function () {
         },
       };
       expect(res.render).to.have.been.calledOnceWith(
-        'email-address-change.njk',
+        'notifications/email-address-change.njk',
         { mactoken, fields }
       );
     });
@@ -101,7 +101,7 @@ describe('controllers/validateEmail', function () {
         },
       };
       expect(res.render).to.have.been.calledOnceWith(
-        'email-address-change.njk',
+        'notifications/email-address-change.njk',
         { mactoken, fields }
       );
     });

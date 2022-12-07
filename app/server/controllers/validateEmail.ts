@@ -78,7 +78,7 @@ export function validateEmail(
   const fields = validateFields(email, confirmEmail, errors);
   if (fields.error) {
     res.status(BAD_REQUEST);
-    res.render('email-address-change.njk', {
+    res.render('notifications/email-address-change.njk', {
       mactoken: req.params.mactoken,
       fields,
     });

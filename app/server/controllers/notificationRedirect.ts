@@ -24,7 +24,7 @@ export function notificationRedirect(
       break;
     default:
       res.status(BAD_REQUEST);
-      res.render('manage-emails.njk', {
+      res.render('notifications/manage-emails.njk', {
         mactoken: req.params.mactoken,
         fields: {
           error: true,

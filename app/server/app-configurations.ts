@@ -104,13 +104,7 @@ function configureNunjucks(app: Application): void {
   const i18next: i18n = app.locals.i18n;
 
   const nunEnv = nunjucks.configure(
-    [
-      'views',
-      'app/main',
-      'cookie-banner/',
-      'views/notifications',
-      'node_modules/govuk-frontend/',
-    ],
+    ['views', 'cookie-banner', 'node_modules/govuk-frontend'],
     {
       autoescape: true,
       express: app,
