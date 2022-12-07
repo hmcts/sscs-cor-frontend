@@ -19,10 +19,13 @@ import i18next, { InitOptions } from 'i18next';
 import i18nextMiddleware from 'i18next-express-middleware';
 import bodyParser from 'body-parser';
 import * as errors from './middleware/error-handler';
-import { Express as loggingExpress } from '@hmcts/nodejs-logging';
+import { Express as loggingExpress, Logger } from '@hmcts/nodejs-logging';
 import { fileTypes, fileTypesWithAudioVideo } from './data/typeWhitelist.json';
+import { LoggerInstance } from 'winston';
 
 import content from '../common/locale/content.json';
+
+const logger: LoggerInstance = Logger.getLogger('app');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -115,49 +118,45 @@ export async function setupApp(
     app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
     next();
   });
-  app.use('/public', express.static(path.join(__dirname, '/../../public')));
-  app.use(
-    '/public/govuk-frontend',
-    express.static(
-      path.join(
-        __dirname,
-        '/../../node_modules',
-        'govuk-frontend',
-        'govuk',
-        'assets'
-      )
-    )
+
+  const publicPath = path.join(__dirname, '/../../public');
+  const imagesPath = path.join(__dirname, '/../../app', 'client', 'images');
+  const govUkAssetsPath = path.join(
+    __dirname,
+    '/../../node_modules',
+    'govuk-frontend',
+    'govuk',
+    'assets'
   );
-  app.use(
-    '/public/images',
-    express.static(path.join(__dirname, '/../../app', 'client', 'images'))
+  const ctscJsPath = path.join(
+    __dirname,
+    '/../../node_modules',
+    '@hmcts',
+    'ctsc-web-chat',
+    'assets',
+    'javascript'
   );
-  app.use(
-    '/public/js',
-    express.static(
-      path.join(
-        __dirname,
-        '/../../node_modules',
-        '@hmcts',
-        'ctsc-web-chat',
-        'assets',
-        'javascript'
-      )
-    )
+  const ctscCssPath = path.join(
+    __dirname,
+    '/../../node_modules',
+    '@hmcts',
+    'ctsc-web-chat',
+    'assets',
+    'css'
   );
-  app.use(
-    '/public/css',
-    express.static(
-      path.join(
-        __dirname,
-        '/../../node_modules',
-        '@hmcts',
-        'ctsc-web-chat',
-        'assets',
-        'css'
-      )
-    )
-  );
+
+  logger.info(`'/public' routes to ${publicPath}`);
+  app.use('/public', express.static(publicPath));
+  logger.info(`'/public/images' routes to ${imagesPath}`);
+  app.use('/public/images', express.static(imagesPath));
+
+  logger.info(`'/public/govuk-frontend' routes to ${govUkAssetsPath}`);
+  app.use('/public/govuk-frontend', express.static(govUkAssetsPath));
+
+  logger.info(`'/public/js'' routes to ${ctscJsPath}`);
+  app.use('/public/js', express.static(ctscJsPath));
+  logger.info(`'/public/css'' routes to ${ctscCssPath}`);
+  app.use('/public/css', express.static(ctscCssPath));
 
   app.use(loggingExpress.accessLogger());
   app.use(sessionHandler);
