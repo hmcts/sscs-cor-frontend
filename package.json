@@ -63,7 +63,7 @@
     "applicationinsights": "^1.6.0",
     "applicationinsights-native-metrics": "^0.0.7",
     "axios": "^0.21.2",
-    "body-parser": "^1.17.1",
+    "body-parser": "^1.20.1",
     "chokidar": "^3.5.3",
     "cmc-cookies-manager": "github:hmcts/cmc-cookies-manager#^3.0.2",
     "computed-style": "^0.3.0",
@@ -101,7 +101,7 @@
     "request-promise": "^4.2.2",
     "serve-favicon": "^2.4.2",
     "shelljs": "^0.8.5",
-    "superagent": "^3.8.2"
+    "superagent": "^8.0.5"
   },
   "devDependencies": {
     "@hmcts/eslint-config": "^1.4.0",
@@ -161,7 +161,7 @@
     "sinon-chai": "^3.7.0",
     "sonar-scanner": "^3.0.3",
     "source-map-support": "^0.5.9",
-    "supertest": "^3.1.0",
+    "supertest": "^6.3.2",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.5.0",
     "tsify": "^4.0.0",
@@ -177,7 +177,9 @@
     "gulp/**/glob-stream": "^7.0.0",
     "gulp/**/micromatch": "^4.0.5",
     "promise-request-retry/**/http-signature": "^1.3.6",
-    "dyson/**/express-fileupload": "^1.4.0"
+    "promise-request-retry/**/qs": "^6.11.0",
+    "dyson/**/express-fileupload": "^1.4.0",
+    "superagent/**/formidable": "^2.1.1"
   },
   "typeScriptVersion": "4.8"
 }
