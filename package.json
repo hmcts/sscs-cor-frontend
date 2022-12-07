@@ -162,7 +162,7 @@
     "sonar-scanner": "^3.0.3",
     "source-map-support": "^0.5.9",
     "supertest": "^6.3.2",
-    "ts-node": "^7.0.1",
+    "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.5.0",
     "tsify": "^4.0.0",
     "typescript": "4.8.4",
