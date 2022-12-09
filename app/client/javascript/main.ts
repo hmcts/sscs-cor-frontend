@@ -9,13 +9,6 @@ import { EvidenceStatement } from './evidence-statement';
 import * as CookiesManager from './cookie-manager';
 import domready from 'domready';
 
-declare global {
-  interface Window {
-    dataLayer: Record<string, any>[];
-    dtrum: Record<string, any>;
-  }
-}
-
 function goBack(): boolean {
   window.history.go(-1);
   return false;

@@ -1,5 +1,12 @@
 import cookieManager from '@hmcts/cookie-manager';
 
+declare global {
+  interface Window {
+    dataLayer: Record<string, any>[];
+    dtrum: Record<string, any>;
+  }
+}
+
 interface UserPreferences {
   cookieName: string;
   cookieExpiry: number;
