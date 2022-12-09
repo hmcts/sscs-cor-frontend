@@ -7,8 +7,8 @@ import { BAD_REQUEST, OK } from 'http-status-codes';
 import nock from 'nock';
 import express, { Application } from 'express';
 import { createSession } from 'app/server/middleware/session';
-import { dysonSetupIdam } from '../mock/idam/dysonSetup';
-import { dysonSetupS2s } from '../mock/s2s/dysonSetup';
+import { dysonSetupIdam } from '../../mock/idam/dysonSetup';
+import { dysonSetupS2s } from '../../mock/s2s/dysonSetup';
 
 describe('Routes', function () {
   let tribunalApiUrl: string = null;

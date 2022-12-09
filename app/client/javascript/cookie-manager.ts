@@ -1,6 +1,45 @@
 import cookieManager from '@hmcts/cookie-manager';
 
-const cookieManagerConfig = {
+interface UserPreferences {
+  cookieName: string;
+  cookieExpiry: number;
+  cookieSecure: boolean;
+}
+interface PreferencesForm {
+  class: string;
+}
+interface CookieBanner {
+  class: string;
+  showWithPreferencesForm: boolean;
+  actions: {
+    name: string;
+    buttonClass: string;
+    confirmationClass?: string;
+    consent?: string[] | boolean;
+  }[];
+}
+interface CookieManifest {
+  categoryName: string;
+  optional?: boolean;
+  matchBy?: string;
+  cookies: string[];
+}
+interface AdditionalOptions {
+  disableCookieBanner: boolean;
+  disableCookiePreferencesForm: boolean;
+  deleteUndefinedCookies: boolean;
+  defaultConsent: boolean;
+}
+
+interface CookieManagerConfig {
+  userPreferences: Partial<UserPreferences>;
+  preferencesForm: Partial<PreferencesForm>;
+  cookieBanner: Partial<CookieBanner>;
+  cookieManifest: CookieManifest[];
+  additionalOptions: Partial<AdditionalOptions>;
+}
+
+export const cookieManagerConfig: Partial<CookieManagerConfig> = {
   userPreferences: {
     cookieName: 'mya-cookie-preferences',
     cookieExpiry: 365,
@@ -49,40 +88,49 @@ const cookieManagerConfig = {
   ],
 };
 
-export function init(): void {
-  cookieManager.on('UserPreferencesLoaded', (preferences) => {
-    const dataLayer = window.dataLayer || [];
+function showCookiePreferenceSuccess(): void {
+  document
+    .getElementById('cookie-preference-success')
+    .classList.remove('govuk-visually-hidden');
+}
 
-    dataLayer.push({
-      event: 'Cookie Preferences',
-      cookiePreferences: preferences,
-    });
+function pushCookiePreferences(preferences: Record<string, string>): void {
+  const dataLayer = window.dataLayer || [];
+
+  dataLayer.push({
+    event: 'Cookie Preferences',
+    cookiePreferences: preferences,
   });
+}
 
-  cookieManager.on('UserPreferencesSaved', (preferences) => {
-    const dataLayer = window.dataLayer || [];
-    const dtrum = window.dtrum;
+function pushDtrumPreferences(preferences: Record<string, string>): void {
+  const dtrum = window.dtrum;
 
-    dataLayer.push({
-      event: 'Cookie Preferences',
-      cookiePreferences: preferences,
-    });
-
-    if (dtrum) {
-      if (preferences.apm === 'on') {
-        dtrum.enable();
-        dtrum.enableSessionReplay();
-      } else {
-        dtrum.disableSessionReplay();
-        dtrum.disable();
-      }
+  if (dtrum) {
+    if (preferences.apm === 'on') {
+      dtrum.enable();
+      dtrum.enableSessionReplay();
+    } else {
+      dtrum.disableSessionReplay();
+      dtrum.disable();
     }
-  });
+  }
+}
 
-  cookieManager.on('UserPreferencesSaved', (preferences) => {
-    document
-      .getElementById('cookie-preference-success')
-      .classList.remove('govuk-visually-hidden');
-  });
+function userPreferencesLoaded(preferences: Record<string, string>): void {
+  pushCookiePreferences(preferences);
+}
+
+function userPreferencesSaved(preferences: Record<string, string>): void {
+  showCookiePreferenceSuccess();
+  pushCookiePreferences(preferences);
+  pushDtrumPreferences(preferences);
+}
+
+export function init(): void {
+  cookieManager.on('UserPreferencesLoaded', userPreferencesLoaded);
+
+  cookieManager.on('UserPreferencesSaved', userPreferencesSaved);
+
   cookieManager.init(cookieManagerConfig);
 }

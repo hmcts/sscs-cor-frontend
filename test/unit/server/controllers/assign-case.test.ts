@@ -1,5 +1,5 @@
 import { getIndex, postIndex } from 'app/server/controllers/assign-case';
-import { expect, sinon } from '../../chai-sinon';
+import { expect, sinon } from '../../../chai-sinon';
 import { OK } from 'http-status-codes';
 import { CaseService } from 'app/server/services/cases';
 import { TrackYourApealService } from 'app/server/services/tyaService';

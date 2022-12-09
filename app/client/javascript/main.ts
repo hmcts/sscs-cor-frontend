@@ -11,8 +11,8 @@ import domready from 'domready';
 
 declare global {
   interface Window {
-    dataLayer: any;
-    dtrum: any;
+    dataLayer: Record<string, any>[];
+    dtrum: Record<string, any>;
   }
 }
 

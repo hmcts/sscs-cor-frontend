@@ -7,7 +7,7 @@ import {
   validateFileSize,
 } from 'app/server/middleware/fileUpload';
 import config from 'config';
-import { expect, sinon } from '../../chai-sinon';
+import { expect, sinon } from '../../../chai-sinon';
 import { Feature } from 'app/server/utils/featureEnabled';
 import { SinonStub } from 'sinon';
 import { before } from 'mocha';

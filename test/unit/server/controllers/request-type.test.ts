@@ -4,10 +4,10 @@ import * as requestType from 'app/server/controllers/request-type';
 import * as Paths from 'app/server/paths';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import express, { NextFunction, Router } from 'express';
-import { expect, sinon } from '../../chai-sinon';
+import { expect, sinon } from '../../../chai-sinon';
 import { SinonStub } from 'sinon';
 
-import hearingRecording from '../../mock/tribunals/data/oral/hearing-recording.json';
+import hearingRecording from '../../../mock/tribunals/data/oral/hearing-recording.json';
 import HttpException from 'app/server/exceptions/HttpException';
 
 describe('controllers/request-type', function () {

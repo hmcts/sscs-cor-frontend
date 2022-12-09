@@ -3,7 +3,7 @@ import * as main from 'app/client/javascript/main';
 import govUK from 'govuk-frontend';
 import * as expandingTextBox from 'app/client/javascript/expanding-textbox';
 import { DetailsTabIndexToggle } from 'app/client/javascript/detailsToggle';
-import { CheckCookies } from 'app/client/javascript/check-cookies';
+import * as CookieManager from 'app/client/javascript/cookie-manager';
 import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 import { EvidenceStatement } from 'app/client/javascript/evidence-statement';
@@ -22,7 +22,7 @@ describe('client main js', function () {
   it('onReady', function () {
     const govUKMock = sinon.stub(govUK, 'initAll');
     const expandingTextBoxMock = sinon.stub(expandingTextBox, 'init');
-    const checkCookiesMock = sinon.stub(CheckCookies.prototype, 'init');
+    const cookieManagerMock = sinon.stub(CookieManager, 'init');
     const initEvidenceUploadMock = sinon.stub(EvidenceUpload.prototype, 'init');
     const initEvidenceStatementMock = sinon.stub(
       EvidenceStatement.prototype,
@@ -42,7 +42,7 @@ describe('client main js', function () {
     expect(govUKMock).to.have.been.calledOnce;
     expect(expandingTextBoxMock).to.have.been.calledOnce;
     expect(initEvidenceStatementMock).to.have.been.calledTwice;
-    expect(checkCookiesMock).to.have.been.calledOnce;
+    expect(cookieManagerMock).to.have.been.calledOnce;
     expect(initEvidenceUploadMock).to.have.been.calledOnce;
     expect(sessionInactivityMock).to.have.been.calledOnce;
   });

@@ -1,15 +1,15 @@
-import * as cases from 'app/server/controllers/cases';
+import * as activeCases from 'app/server/controllers/active-cases';
 import * as Paths from 'app/server/paths';
 import * as AppInsights from 'app/server/app-insights';
-import express, { Router } from 'express';
+import express, { Router, Request, Response } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
 
-import oralCases from '../../mock/tribunals/data/oral/activeAndDormantCases.json';
+import oralActiveAndDormantCases from '../../../mock/tribunals/data/oral/activeAndDormantCases.json';
 import { SinonStub } from 'sinon';
 
-describe('controllers/cases', function () {
-  let req: any;
-  let res: any;
+describe('controllers/active-cases', function () {
+  let req: Request = null;
+  let res: Response = null;
 
   beforeEach(function () {
     req = {
@@ -17,12 +17,12 @@ describe('controllers/cases', function () {
         appeal: {},
       },
       cookies: {},
-    } as any;
+    } as Request;
 
     res = {
       render: sinon.stub(),
       send: sinon.stub(),
-    };
+    } as Partial<Response> as Response;
 
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackEvent');
@@ -32,9 +32,9 @@ describe('controllers/cases', function () {
     sinon.restore();
   });
 
-  describe('setupCasesController', function () {
+  describe('setupActiveCasesController', function () {
     let getStub: SinonStub = null;
-    before(function () {
+    beforeEach(function () {
       getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({
         get: getStub,
@@ -42,30 +42,26 @@ describe('controllers/cases', function () {
     });
 
     afterEach(function () {
-      sinon.resetHistory();
-    });
-
-    after(function () {
       sinon.restore();
     });
 
     it('should call Router', function () {
-      cases.setupCasesController({});
-      expect(getStub).to.have.been.calledWith(Paths.selectCase);
+      activeCases.setupActiveCasesController({});
+      expect(getStub).to.have.been.calledWith(Paths.activeCases);
     });
   });
 
-  describe('getCases', function () {
-    it('should render cases page', async function () {
-      req.session.cases = oralCases;
-      cases.getCases(req, res);
-      expect(res.render).to.have.been.calledOnce.calledWith('cases.njk');
+  describe('getActiveCases', function () {
+    it('should render active cases page', async function () {
+      req.session.cases = oralActiveAndDormantCases;
+      activeCases.getActiveCases(req, res);
+      expect(res.render).to.have.been.calledOnce.calledWith('active-tab.njk');
     });
 
     it('should throw error if no sessions', async function () {
       req.session = null;
 
-      expect(() => cases.getCases(req, res)).to.throw(TypeError);
+      expect(() => activeCases.getActiveCases(req, res)).to.throw(TypeError);
 
       const error = new Error('Unable to retrieve session from session store');
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(

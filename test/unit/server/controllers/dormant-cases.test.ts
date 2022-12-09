@@ -4,7 +4,7 @@ import * as AppInsights from 'app/server/app-insights';
 import express, { Router } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
 
-import oralActiveAndDormantCases from '../../mock/tribunals/data/oral/activeAndDormantCases.json';
+import oralActiveAndDormantCases from '../../../mock/tribunals/data/oral/activeAndDormantCases.json';
 import { SinonStub } from 'sinon';
 
 describe('controllers/dormant-cases', function () {

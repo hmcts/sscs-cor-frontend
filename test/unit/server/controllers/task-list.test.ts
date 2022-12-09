@@ -9,7 +9,7 @@ import * as AppInsights from 'app/server/app-insights';
 import express, { NextFunction, Router } from 'express';
 import * as Paths from 'app/server/paths';
 import { Feature } from 'app/server/utils/featureEnabled';
-import { expect, sinon } from '../../chai-sinon';
+import { expect, sinon } from '../../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import { CaseDetails } from 'app/server/models/express-session';
 import { Dependencies } from 'app/server/routes';

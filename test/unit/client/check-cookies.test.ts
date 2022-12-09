@@ -1,80 +1,48 @@
 import { expect, sinon } from 'test/chai-sinon';
-import { CheckCookies } from 'app/client/javascript/check-cookies';
+import {
+  init,
+  cookieManagerConfig,
+} from 'app/client/javascript/cookie-manager';
 import { SinonSpy } from 'sinon';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
+import cookieManager from '@hmcts/cookie-manager';
 
 const logger: LoggerInstance = Logger.getLogger('check-cookies test');
 
 describe('Client/check-cookies', function () {
-  let checkCookies: CheckCookies;
-  let toggleBannerSpy: SinonSpy;
+  describe('#init', function () {
+    let initSpy: SinonSpy = null;
+    let onSpy: SinonSpy = null;
 
-  function deleteAllCookies() {
-    const cookies = document.cookie.split(';');
-
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i];
-      const eqPos = cookie.indexOf('=');
-      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-    }
-  }
-
-  before(function () {
-    checkCookies = new CheckCookies();
-    document.body.innerHTML = `<div id="${checkCookies.COOKIE_BANNER}"></div>`;
-    toggleBannerSpy = sinon.spy(checkCookies, 'toggleBanner');
-  });
-
-  describe('Class', function () {
     before(function () {
-      deleteAllCookies();
+      initSpy = sinon.spy(cookieManager, 'init');
+      onSpy = sinon.spy(cookieManager, 'on');
     });
 
     beforeEach(function () {
-      toggleBannerSpy.resetHistory();
+      initSpy.resetHistory();
+      onSpy.resetHistory();
     });
 
-    it('should initialize', function () {
-      checkCookies.init();
-      expect(checkCookies.cookieBannerElement.style.display).to.equal('block');
-    });
-  });
-
-  describe('Browser Cookie Tests', function () {
-    before(function () {
-      deleteAllCookies();
+    after(function () {
+      initSpy.restore();
+      onSpy.restore();
     });
 
-    beforeEach(function () {
-      toggleBannerSpy.resetHistory();
+    it('should call cookie manager method init with config', function () {
+      init();
+      expect(initSpy).to.have.been.calledOnceWith(cookieManagerConfig);
     });
 
-    it('isCookiePrivacyMessageDisplayed First Visit', function () {
-      logger.log('First Call', document.cookie);
-      checkCookies.isCookiePrivacyMessageDisplayed();
-      expect(toggleBannerSpy).to.have.been.calledWith(true);
+    it('should call cookie manager method on with UserPreferencesLoaded', function () {
+      init();
+      expect(onSpy).to.have.been.calledOnceWith('UserPreferencesLoaded');
     });
 
-    it('isCookiePrivacyMessageDisplayed Second Visit', function () {
-      logger.log('Second Call', document.cookie);
-      checkCookies.isCookiePrivacyMessageDisplayed();
-      expect(toggleBannerSpy).to.have.been.calledWith(false);
-    });
-  });
-
-  describe('Banner toggle', function () {
-    beforeEach(function () {
-      toggleBannerSpy.resetHistory();
-    });
-
-    it('Cookie banner toggle', function () {
-      checkCookies.toggleBanner(true);
-      expect(checkCookies.cookieBannerElement.style.display).to.equal('block');
-
-      checkCookies.toggleBanner(false);
-      expect(checkCookies.cookieBannerElement.style.display).to.equal('none');
+    it('should call cookie manager method on with UserPreferencesSaved', function () {
+      init();
+      expect(onSpy).to.have.been.calledOnceWith('UserPreferencesSaved');
     });
   });
 });
