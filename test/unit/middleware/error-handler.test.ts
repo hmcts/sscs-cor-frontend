@@ -9,7 +9,7 @@ import {
 import { NextFunction, Request, Response } from 'express';
 import * as errorHandler from 'app/server/middleware/error-handler';
 import { Session, SessionData } from 'express-session';
-import HttpException from '../../../app/server/exceptions/HttpException';
+import HttpException from 'app/server/exceptions/HttpException';
 
 const { expect, sinon } = require('test/chai-sinon');
 

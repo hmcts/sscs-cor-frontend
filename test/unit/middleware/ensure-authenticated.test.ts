@@ -1,5 +1,5 @@
 import * as Paths from 'app/server/paths';
-import { CaseDetails } from '../../../app/server/services/cases';
+import { CaseDetails } from 'app/server/data/models';
 
 const { expect, sinon } = require('test/chai-sinon');
 const {
@@ -75,7 +75,7 @@ describe('middleware/ensure-authenticated', function () {
         mediaFilesAllowed: 'true',
         requestTabEnabled: 'true',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         hearingType: 'oral',
         hearingOutcome: [],
       };
@@ -100,7 +100,7 @@ describe('middleware/ensure-authenticated', function () {
         mediaFilesAllowed: 'true',
         requestTabEnabled: 'false',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         hearingType: 'oral',
       };
 
@@ -118,7 +118,7 @@ describe('middleware/ensure-authenticated', function () {
         mediaFilesAllowed: 'true',
         requestTabEnabled: 'false',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         hearingType: 'oral',
         hearingOutcome: [],
       };
@@ -137,7 +137,7 @@ describe('middleware/ensure-authenticated', function () {
         mediaFilesAllowed: 'false',
         requestTabEnabled: 'false',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         audioVideoEvidence: [],
       };
 
@@ -153,7 +153,7 @@ describe('middleware/ensure-authenticated', function () {
       req.cookies = {
         requestTabEnabled: 'false',
       };
-      req.session['appeal'] = {
+      req.session.appeal = {
         hearingType: 'oral',
         hearingOutcome: [],
       };

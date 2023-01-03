@@ -27,16 +27,13 @@ import { setupCasesController } from './controllers/cases';
 
 import { CaseService } from './services/cases';
 import { IdamService } from './services/idam';
-import { EvidenceService } from './services/evidence';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
-import { RequestTypeService } from './services/request-type';
 import { NextFunction, Request, Response, Router } from 'express';
 import { setupSetLanguageController } from './middleware/setLanguage';
 
 export interface Dependencies {
   setLocals?: (req: Request, res: Response, next: NextFunction) => void;
-  requestTypeService?: RequestTypeService;
   prereqMiddleware?: ((
     req: Request,
     res: Response,
@@ -53,7 +50,7 @@ const router = Router();
 const apiUrl: string = config.get('api.url');
 const idamApiUrl: string = config.get('idam.api-url');
 const tribunalsApiUrl: string = config.get('tribunals.api-url');
-const appPort: string = config.get('node.port');
+const appPort: number = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
 const { validateToken } = require('./services/tokenService');
@@ -65,7 +62,6 @@ const {
 const { emailNotifications } = require('./controllers/content');
 const { validateEmail } = require('./controllers/validateEmail');
 
-const evidenceService: EvidenceService = new EvidenceService(apiUrl);
 const idamService: IdamService = new IdamService(
   idamApiUrl,
   appPort,
@@ -75,9 +71,6 @@ const caseService: CaseService = new CaseService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService =
   new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(
-  tribunalsApiUrl
-);
-const requestTypeService: RequestTypeService = new RequestTypeService(
   tribunalsApiUrl
 );
 
@@ -154,7 +147,6 @@ const avEvidenceController = setupAvEvidenceController({
 });
 const requestTypeController = setupRequestTypeController({
   prereqMiddleware: ensureAuthenticated,
-  requestTypeService,
   trackYourApealService: trackYourAppealService,
 });
 

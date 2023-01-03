@@ -1,4 +1,4 @@
-import { CaseDetails } from '../services/cases';
+import { CaseDetails } from '../data/models';
 import { dateFormat } from './dateUtils';
 
 const i18next = require('i18next');

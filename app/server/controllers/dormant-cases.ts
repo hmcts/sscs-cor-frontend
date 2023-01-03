@@ -3,7 +3,7 @@ import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { getCasesByName } from '../utils/fieldValidation';
-import { CaseDetails } from '../services/cases';
+import { CaseDetails } from '../data/models';
 import { Dependencies } from '../routes';
 import { isCaseDormant } from './cases';
 
@@ -20,7 +20,7 @@ export function getDormantCases(req: Request, res: Response): void {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
+  const cases: Array<CaseDetails> = session.cases ? session.cases : [];
   const dormantCases = cases.filter(isCaseDormant);
   const dormantCasesByName: { [key: string]: Array<CaseDetails> } =
     getCasesByName(dormantCases);

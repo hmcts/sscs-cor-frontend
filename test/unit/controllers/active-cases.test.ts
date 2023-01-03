@@ -1,6 +1,7 @@
 import * as activeCases from 'app/server/controllers/active-cases';
 import * as Paths from 'app/server/paths';
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
+import { SinonStubStatic } from 'sinon';
 
 const express = require('express');
 const { expect, sinon } = require('test/chai-sinon');
@@ -9,10 +10,8 @@ const oralActiveAndDormantCases = require('../../mock/tribunals/data/oral/active
 describe('controllers/active-cases', function () {
   let req: any;
   let res: any;
-  let sandbox: sinon.SinonSandbox;
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       session: {
         appeal: {},
@@ -21,8 +20,8 @@ describe('controllers/active-cases', function () {
     } as any;
 
     res = {
-      render: sandbox.stub(),
-      send: sandbox.stub(),
+      render: sinon.stub(),
+      send: sinon.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -30,19 +29,17 @@ describe('controllers/active-cases', function () {
   });
 
   afterEach(function () {
-    sandbox.restore();
-    (AppInsights.trackException as sinon.SinonStub).restore();
-    (AppInsights.trackEvent as sinon.SinonStub).restore();
+    sinon.restore();
   });
 
   describe('setupActiveCasesController', function () {
     let getStub;
     beforeEach(function () {
-      getStub = sandbox.stub(express.Router, 'get');
+      getStub = sinon.stub(express.Router, 'get');
     });
 
     afterEach(function () {
-      sandbox.restore();
+      sinon.restore();
     });
 
     it('should call Router', function () {
@@ -53,7 +50,7 @@ describe('controllers/active-cases', function () {
 
   describe('getActiveCases', function () {
     it('should render active cases page', async function () {
-      req.session['cases'] = oralActiveAndDormantCases;
+      req.session.cases = oralActiveAndDormantCases;
       activeCases.getActiveCases(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith('active-tab.njk');
     });

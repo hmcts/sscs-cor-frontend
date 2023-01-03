@@ -13,13 +13,15 @@ import { URL } from 'url';
 import { generateToken } from '../services/s2s';
 
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
-import { CaseDetails, CaseService } from '../services/cases';
+import { CaseService } from '../services/cases';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 import { Dependencies } from '../routes';
 import HttpException from '../exceptions/HttpException';
 import { LoggerInstance } from 'winston';
 import * as config from 'config';
+import { CaseDetails } from '../data/models';
+import { resolveQuery } from '../utils/parseUtils';
 
 const i18next = require('i18next');
 
@@ -35,9 +37,9 @@ export function redirectToLogin(req: Request, res: Response) {
 
 export function getLogout(idamService: IdamService) {
   return async (req: Request, res: Response) => {
-    if (req.session['accessToken']) {
+    if (req.session.accessToken) {
       try {
-        await idamService.deleteToken(req.session['accessToken']);
+        await idamService.deleteToken(req.session.accessToken);
       } catch (error) {
         AppInsights.trackException(error);
       }
@@ -113,7 +115,7 @@ export function getIdamCallback(
     }
 
     try {
-      if (!req.session['accessToken']) {
+      if (!req.session.accessToken) {
         try {
           logger.info('getting token');
           const tokenResponse: TokenResponse = await idamService.getToken(
@@ -121,9 +123,9 @@ export function getIdamCallback(
             req.protocol,
             req.hostname
           );
-          req.session['accessToken'] = tokenResponse.access_token;
-          req.session['serviceToken'] = await generateToken();
-          req.session['tya'] = req.query.state;
+          req.session.accessToken = tokenResponse.access_token;
+          req.session.serviceToken = await generateToken();
+          req.session.tya = resolveQuery(req.query.state);
         } catch (error) {
           const tokenError = new HttpException(
             BAD_REQUEST,
@@ -137,15 +139,15 @@ export function getIdamCallback(
       }
 
       const { email }: UserDetails = await idamService.getUserDetails(
-        req.session['accessToken']
+        req.session.accessToken
       );
-      req.session['idamEmail'] = email;
+      req.session.idamEmail = email;
 
       let statusCode: number = null;
       let body: Array<CaseDetails> = null;
       ({ statusCode, body } = await caseService.getCasesForCitizen(
         email,
-        req.session['tya'],
+        req.session.tya,
         req
       ));
 
@@ -190,20 +192,20 @@ export function getIdamCallback(
       const caseDetail = cases[0];
       const caseId = caseDetail.case_id;
       if (cases.length === 1) {
-        req.session['case'] = caseDetail;
+        req.session.case = caseDetail;
         const { appeal, subscriptions } =
-          await trackYourAppealService.getAppeal(String(caseId), req);
-        req.session['appeal'] = appeal;
-        req.session['subscriptions'] = subscriptions;
+          await trackYourAppealService.getAppeal(caseId, req);
+        req.session.appeal = appeal;
+        req.session.subscriptions = subscriptions;
 
         logger.info(
           `Logging in ${email} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
-          `[${req.session['case']?.case_id}] - User logged in successfully as ${email}`
+          `[${req.session.case?.case_id}] - User logged in successfully as ${email}`
         );
 
-        if (req.session['appeal'].hearingType === 'cor') {
+        if (req.session.appeal.hearingType === 'cor') {
           return res.redirect(Paths.taskList);
         }
         return res.redirect(Paths.status);
@@ -215,7 +217,7 @@ export function getIdamCallback(
         `[Cases count ${cases.length}] - User logged in successfully as ${email}`
       );
 
-      req.session['cases'] = cases;
+      req.session.cases = cases;
 
       logger.info(`Cases stored: ${caseDetail.case_id}`);
 

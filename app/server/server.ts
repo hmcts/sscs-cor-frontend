@@ -13,7 +13,7 @@ import { setup } from './app';
 import { createSession } from './middleware/session';
 const logger = Logger.getLogger('server.js');
 
-const port = config.get('node.port');
+const port: number = config.get('node.port');
 
 const app = setup(createSession(true), {});
 

@@ -1,24 +1,17 @@
 import * as applicationInsights from 'applicationinsights';
 import * as AppInsights from 'app/server/app-insights';
-import { SinonSandbox } from 'sinon';
 
 const { expect, sinon } = require('test/chai-sinon');
 const config = require('config');
 
 describe('app-insights.js', function () {
   describe('enable', function () {
-    let sb: SinonSandbox = null;
-
-    before(function () {
-      sb = sinon.createSandbox();
-    });
-
     beforeEach(function () {
-      sb.stub(applicationInsights, 'start');
+      sinon.stub(applicationInsights, 'start');
     });
 
     afterEach(function () {
-      sb.restore();
+      sinon.restore();
     });
 
     it('sets cloud role name', function () {

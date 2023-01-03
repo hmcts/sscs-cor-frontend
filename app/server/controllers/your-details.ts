@@ -15,7 +15,7 @@ function getYourDetails(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  return res.render('your-details.njk', { details: session['case'] });
+  return res.render('your-details.njk', { details: session.case });
 }
 
 function setupYourDetailsController(deps: Dependencies) {

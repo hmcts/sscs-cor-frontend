@@ -85,9 +85,7 @@ Points to note when running the tests against your local environment:
 
 Integrated environments include `preview` and `AAT`. Please note the following:
 
-- COH API is bootstrapped with an Online Hearing and question
 - real backend API service is used
-- real COH API service is used
 - by default preview is integrated with other services in AAT
 
 ### Smoke Tests
@@ -103,7 +101,6 @@ If a functional/smoke test run is failing in AAT (or other integrated environmen
 To do this you must set some extra environment variables locally:
 
 - SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
-- COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
 - TEST_URL - this is the URL you are testing e.g. https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal for AAT staging slot
 - HEADLESS - optionally choose to show the browser by setting this to false
 - IDAM_URL - Used to check the user returns to idam when logged out (currently https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub when using stub)
@@ -118,7 +115,7 @@ To do this you must set some extra environment variables locally:
 Put these together with the required `yarn` command in one line like this:
 
 ```bash
-HEADLESS=false SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=XXXXXXXXXXX IDAM_OAUTH2_CLIENT_SECRET=XXXXXXXXXXX S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net yarn test:functional
+HEADLESS=false SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal TEST_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal IDAM_URL=https://sscs-cor-frontend-aat-staging.service.core-compute-aat.internal/idam-stub S2S_SECRET=XXXXXXXXXXXXX S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=XXXXXXXXXXX IDAM_OAUTH2_CLIENT_SECRET=XXXXXXXXXXX S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net yarn test:functional
 ```
 
 Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
@@ -137,7 +134,6 @@ Open another terminal. Set env vars in the terminal
 
 ```
 export SSCS_API_URL=http://localhost:8080
-export COH_URL=http://coh-cor-aat.service.core-compute-aat.internal
 export S2S_SECRET=AAAAAAAAAAAAAAAC
 export S2S_URL=http://localhost:4502
 export IDAM_API_URL=http://localhost:5000
@@ -168,89 +164,6 @@ In order to log in as a citizen and be able to see your appeal you might need to
 http://localhost:3000/sign-in?tya=[subscriptionCode]
 
 If you are using the idam simulator check the sscs-docker README for some config changes
-
-### Creating test data in AAT
-
-You can easily create a benefit appeal in CCD with online panel and associate it with an online hearing. The hearing will have three questions and the question round will be issued.
-
-Since this script directly accesses services such as CCD and COH, which are protected by service-2-service auth, you must specify the secret in order to connect.
-
-This can be done locally by using a yarn command with a required environment variable
-
-```bash
-S2S_SECRET=44******* IDAM_SSCS_SYSTEMUPDATE_USER=sscs-system-update@hmcts.net IDAM_SSCS_SYSTEMUPDATE_PASSWORD=Bb******** IDAM_OAUTH2_CLIENT_SECRET=3\******** yarn test:create-data-aat
-```
-
-The command will output something like this:
-
-```
-Created CCD case for test5631931@hmcts.net with ID 1541757922252787 and reference SC285/17/1523910000
-Created online hearing with ID 4bc401a3-0fe8-4be3-821b-fe1d84be8a9e
-Created question with ID 43b96298-c797-43a0-9d46-2b5807a4e0c6
-Created question with ID 77ce837b-eb99-4a95-bf4e-19c9b7012d17
-Created question with ID c1917163-18aa-4d93-8a7b-f83e11cb69ea
-Question round issued, status pending
-Question round not issued at attempt 1: question_issue_pending
-Question round not issued at attempt 2: question_issue_pending
-Question round issued successfully at attempt 3
-
-------------------------- CCD case -------------------------
-
-email               test5631931@hmcts.net
-caseId              1541757922252787
-caseReference       SC285/17/1523910000
-
----------------------- COH test data -----------------------
-
-hearingId           4bc401a3-0fe8-4be3-821b-fe1d84be8a9e
-questionIdList      43b96298-c797-43a0-9d46-2b5807a4e0c6,77ce837b-eb99-4a95-bf4e-19c9b7012d17,c1917163-18aa-4d93-8a7b-f83e11cb69ea
-questionId          43b96298-c797-43a0-9d46-2b5807a4e0c6
-questionOrdinal     1
-questionHeader      How do you interact with people?
-questionBody        You said you avoid interacting with people if possible. We'd like to know more about the times when you see friends and family.
-
-Tell us about three separate occasions in 2017 that you have met with friends and family.
-
-Tell us:
-
-- who you met
-
-- when
-
-- where
-
-- how it made you feel
-deadlineExpiryDate  2018-11-16T23:59:59Z
-
-------------------------------------------------------------
-```
-
-If you visit https://sscs-cor-frontend-aat.service.core-compute-aat.internal/ and enter the email address shown you should be able to use the service.
-
-If you need to run against different environments, you can set the following environment variables:
-
-- SSCS_API_URL = this is used for the tests to bootstrap an appeal with online panel in CCD e.g. http://sscs-tribunals-api-aat.service.core-compute-aat.internal for AAT
-- COH_URL - this is used for the tests to bootstrap some data using the COR COH API e.g. http://coh-cor-aat.service.core-compute-aat.internal for AAT
-- S2S_SECRET - used to provide auth for connecting to backend services
-- S2S_URL - the service-2-service application for generating access tokens
-- IDAM_API_URL - Used to create a user in idam that can login to the system
-
-And use the command:
-
-```bash
-SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal COH_URL=http://coh-cor-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_SECRET=XXXXXXXXXXXXX yarn test:create-data
-```
-
-If you then want to make calls directly to COH to change the state of an online hearing you will need the S2S headers
-these can be generated with
-
-```bash
-yarn test:create-s2s-headers
-```
-
-You will need the same environment variables used when creating test data.
-
-If you wish to also issue a decision then add the environment variable ISSUE_DECISION=true. NB it does not matter the value of the variable just that it exists to issue the decision.
 
 ### Analytics
 

@@ -19,7 +19,7 @@ function getOutcome(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const outcomes = session['appeal'].hearingOutcome;
+  const outcomes = session.appeal.hearingOutcome;
   return res.render('outcome-tab.njk', { outcomes });
 }
 

@@ -15,10 +15,10 @@ export interface UserDetails {
 
 export class IdamService {
   private readonly apiUrl: string;
-  private readonly appPort: string;
+  private readonly appPort: number;
   private readonly appSecret: string;
 
-  constructor(apiUrl: string, appPort: string, appSecret: string) {
+  constructor(apiUrl: string, appPort: number, appSecret: string) {
     this.apiUrl = apiUrl;
     this.appPort = appPort;
     this.appSecret = appSecret;

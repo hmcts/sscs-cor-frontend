@@ -82,7 +82,7 @@ function setupIdamStubController(): Router {
   if (enableStub) {
     logger.info(`Using Idam stub`);
     redis = createRedisClient();
-    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     router.get('/idam-stub/login', getLogin);
     router.post('/idam-stub/login', postLogin);
     router.post('/idam-stub/oauth2/token', multipart.none(), getToken);

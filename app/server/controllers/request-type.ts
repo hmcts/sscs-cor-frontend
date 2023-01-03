@@ -2,13 +2,13 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
-import {
-  HearingRecordingResponse,
-  RequestTypeService,
-} from '../services/request-type';
+import * as requestType from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
 import { Dependencies } from '../routes';
-const logger = Logger.getLogger('request-type.ts');
+import { HearingRecordings } from '../data/models';
+import { LoggerInstance } from 'winston';
+
+const logger: LoggerInstance = Logger.getLogger('request-type.ts');
 
 const contentType = new Map([
   ['mp3', 'audio/mp3'],
@@ -19,19 +19,18 @@ const contentType = new Map([
 
 const allowedActions = ['hearingRecording', 'confirm', 'formError'];
 
-function getRequestType() {
+export function getRequestType() {
   // eslint-disable-next-line @typescript-eslint/require-await
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const action: string = allowedActions.includes(req.params.action)
         ? req.params.action
         : '';
-      const requestOptions = req.session['requestOptions'];
-      const hearingRecordingsResponse =
-        req.session['hearingRecordingsResponse'];
+      const requestOptions = req.session.requestOptions;
+      const hearingRecordingsResponse = req.session.hearingRecordingsResponse;
       const pageTitleError = action === 'formError';
       const emptyHearingIdError = action === 'formError';
-      const appeal = req.session['appeal']!;
+      const appeal = req.session.appeal;
 
       return res.render('request-type/index.njk', {
         action,
@@ -48,23 +47,19 @@ function getRequestType() {
   };
 }
 
-function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
+export function submitHearingRecordingRequest() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const caseId = req.session['case'].case_id;
-      const hearingIds = req.body['hearingId'];
+      const caseId = req.session.case.case_id;
+      const hearingIds = req.body.hearingId;
       const emptyHearingIdError = !hearingIds;
 
       if (emptyHearingIdError) {
         return res.redirect(`${Paths.requestType}/formError`);
       }
 
-      await requestTypeService.submitHearingRecordingRequest(
-        caseId,
-        hearingIds,
-        req
-      );
-      req.session['hearingRecordingsResponse'] = '';
+      await requestType.submitHearingRecordingRequest(caseId, hearingIds, req);
+      req.session.hearingRecordingsResponse = null;
       return res.redirect(`${Paths.requestType}/confirm`);
     } catch (error) {
       AppInsights.trackException(error);
@@ -73,17 +68,17 @@ function submitHearingRecordingRequest(requestTypeService: RequestTypeService) {
   };
 }
 
-function selectRequestType(requestTypeService: RequestTypeService) {
+export function selectRequestType() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const option = req.body['requestOptions'];
-      const caseId = req.session['case'].case_id;
+      const option = req.body.requestOptions;
+      const caseId = req.session.case.case_id;
       if (option === 'hearingRecording') {
-        req.session['requestOptions'] = 'hearingRecording';
-        const hearingRecordingsResponse: HearingRecordingResponse =
-          await requestTypeService.getHearingRecording(caseId, req);
+        req.session.requestOptions = 'hearingRecording';
+        const hearingRecordingsResponse: HearingRecordings =
+          await requestType.getHearingRecording(caseId, req);
         if (hearingRecordingsResponse) {
-          req.session['hearingRecordingsResponse'] = hearingRecordingsResponse;
+          req.session.hearingRecordingsResponse = hearingRecordingsResponse;
         }
         return res.redirect(`${Paths.requestType}/hearingRecording`);
       }
@@ -94,7 +89,9 @@ function selectRequestType(requestTypeService: RequestTypeService) {
   };
 }
 
-function getHearingRecording(trackYourAppealService: TrackYourApealService) {
+export function getHearingRecording(
+  trackYourAppealService: TrackYourApealService
+) {
   return async (req: Request, res: Response) => {
     const evidence = await trackYourAppealService.getMediaFile(
       req.query.url as string,
@@ -105,7 +102,7 @@ function getHearingRecording(trackYourAppealService: TrackYourApealService) {
   };
 }
 
-function setupRequestTypeController(deps: Dependencies) {
+export function setupRequestTypeController(deps: Dependencies) {
   const router = Router();
   router.get(
     `${Paths.requestType}/recording`,
@@ -120,20 +117,12 @@ function setupRequestTypeController(deps: Dependencies) {
   router.post(
     `${Paths.requestType}/select`,
     deps.prereqMiddleware,
-    selectRequestType(deps.requestTypeService)
+    selectRequestType()
   );
   router.post(
     `${Paths.requestType}/hearing-recording-request`,
     deps.prereqMiddleware,
-    submitHearingRecordingRequest(deps.requestTypeService)
+    submitHearingRecordingRequest()
   );
   return router;
 }
-
-export {
-  getRequestType,
-  setupRequestTypeController,
-  selectRequestType,
-  submitHearingRecordingRequest,
-  getHearingRecording,
-};

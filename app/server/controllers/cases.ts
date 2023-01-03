@@ -4,7 +4,7 @@ import * as AppInsights from '../app-insights';
 import { Logger } from '@hmcts/nodejs-logging';
 import { getCasesByNameAndRow } from '../utils/fieldValidation';
 import { Dependencies } from '../routes';
-import { CaseDetails } from '../services/cases';
+import { CaseDetails } from '../data/models';
 
 const logger = Logger.getLogger('cases');
 
@@ -28,7 +28,7 @@ export function getCases(req: Request, res: Response): void {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  const cases: Array<CaseDetails> = session['cases'] ? session['cases'] : [];
+  const cases: Array<CaseDetails> = session.cases ? session.cases : [];
   const casesByNameAndRow = getCasesByNameAndRow(cases);
   return res.render('cases.njk', { casesByNameAndRow });
 }

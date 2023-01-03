@@ -129,7 +129,7 @@ export function fileTypeInWhitelist(
     mimeTypesWithAudioVideo.includes(file.mimetype) &&
     fileTypesWithAudioVideo.includes(fileExtension)
   ) {
-    const caseId = req.session['case']?.case_id;
+    const caseId = req.session.case?.case_id;
     logger.info(
       `[${caseId}] Allowed only upload letter, document or photo evidence on this page, file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );
@@ -138,7 +138,7 @@ export function fileTypeInWhitelist(
     );
     filterCallback(new MulterError(unexpectedFileErrorCode));
   } else {
-    const caseId = req.session['case']?.case_id;
+    const caseId = req.session.case?.case_id;
     logger.info(
       `[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );
@@ -162,7 +162,7 @@ export function fileTypeAudioVideoInWhitelist(
   ) {
     filterCallback(null, true);
   } else {
-    const caseId = req.session['case']?.case_id;
+    const caseId = req.session.case?.case_id;
     logger.info(
       `[${caseId}] Unsupported file type uploaded with file name – ${file.originalname} and mimetype - ${file.mimetype}`
     );

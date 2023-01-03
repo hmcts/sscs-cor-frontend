@@ -8,7 +8,6 @@ import { DecisionPage } from 'test/page-objects/decision';
 const moment = require('moment');
 const { expect } = require('test/chai-sinon');
 const { startServices } = require('test/browser/common');
-const mockData = require('test/mock/cor-backend/services/hearing').template;
 const content = require('locale/content');
 
 describe.skip('Login page', function () {
@@ -71,8 +70,8 @@ describe.skip('Login page', function () {
   it('displays the appellant name and case reference', async function () {
     const appellantName = await taskListPage.getElementText('#appellant-name');
     const caseReference = await taskListPage.getElementText('#case-reference');
-    expect(appellantName).to.equal(mockData.appellant_name);
-    expect(caseReference).to.equal(mockData.case_reference);
+    expect(appellantName).to.equal('Adam Jenkins');
+    expect(caseReference).to.equal('112233');
   });
 
   it('displays the deadline text and date', async function () {

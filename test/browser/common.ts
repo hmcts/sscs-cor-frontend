@@ -16,7 +16,6 @@ const { createServer } = require('http');
 const { createSession } = require('app/server/middleware/session');
 const { bootstrap } = require('test/browser/bootstrap');
 const { setup } = require('app/server/app');
-const dysonSetupCorBackend = require('test/mock/cor-backend/dysonSetup');
 const dysonSetupIdam = require('test/mock/idam/dysonSetup');
 const dysonSetupS2s = require('test/mock/s2s/dysonSetup');
 const dysonSetupTribunals = require('test/mock/tribunals/dysonSetup');
@@ -59,7 +58,6 @@ async function startBrowser() {
 async function startAppServer(): Promise<void> {
   if (!server && testingLocalhost) {
     const app = setup(createSession(), { disableAppInsights: true });
-    dysonSetupCorBackend();
     dysonSetupIdam();
     dysonSetupS2s();
     dysonSetupTribunals();

@@ -3,7 +3,7 @@ import {
   corAppealStages,
   oralAppealStages,
   paperAppealStages,
-} from '../../app/server/data/appealStages';
+} from 'app/server/data/appealStages';
 
 describe('Appeal stages', function () {
   it('Oral Appeal Stages should contain oral appeal stages', function () {

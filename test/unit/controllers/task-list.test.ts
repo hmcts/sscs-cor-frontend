@@ -1,4 +1,4 @@
-import * as hearing from '../../../app/server/controllers/hearing';
+import * as hearing from 'app/server/controllers/hearing';
 
 import {
   setupTaskListController,
@@ -15,15 +15,14 @@ import { NextFunction, Router } from 'express';
 import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import moment from 'moment';
-import { CaseDetails } from '../../../app/server/services/cases';
-import { Dependencies } from '../../../app/server/routes';
+import { CaseDetails } from 'app/server/data/models';
+import { Dependencies } from 'app/server/routes';
 
 describe('controllers/task-list', function () {
   let req;
   let res;
   let next: NextFunction;
   let additionalEvidenceService;
-  let sandbox: sinon.SinonSandbox;
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   const caseDetails: CaseDetails = {
     online_hearing_id: '1',
@@ -33,7 +32,6 @@ describe('controllers/task-list', function () {
   };
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       session: {
         case: caseDetails,
@@ -43,22 +41,22 @@ describe('controllers/task-list', function () {
     };
     req.cookies[Feature.POST_BULK_SCAN] = 'false';
     res = {
-      render: sandbox.stub(),
-      send: sandbox.stub(),
-      header: sandbox.stub(),
+      render: sinon.stub(),
+      send: sinon.stub(),
+      header: sinon.stub(),
     };
-    next = sandbox.stub().resolves();
-    sandbox.stub(AppInsights, 'trackException');
-    sandbox.stub(AppInsights, 'trackEvent');
+    next = sinon.stub().resolves();
+    sinon.stub(AppInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackEvent');
     additionalEvidenceService = {
-      getCoversheet: sandbox.stub().resolves('file'),
+      getCoversheet: sinon.stub().resolves('file'),
     };
   });
 
   afterEach(function () {
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
-    sandbox.restore();
+    sinon.restore();
   });
 
   describe.skip('getCoversheet', function () {
@@ -71,7 +69,7 @@ describe('controllers/task-list', function () {
 
     it('should track Exception with AppInsights and call next(error)', async function () {
       additionalEvidenceService = {
-        getCoversheet: sandbox.stub().rejects(error),
+        getCoversheet: sinon.stub().rejects(error),
       };
       await getCoversheet(additionalEvidenceService)(req, res, next);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(

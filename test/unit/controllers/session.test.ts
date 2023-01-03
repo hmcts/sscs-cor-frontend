@@ -1,6 +1,8 @@
 import * as Paths from 'app/server/paths';
-import { Dependencies } from '../../../app/server/routes';
+import { Dependencies } from 'app/server/routes';
 import { Router } from 'express';
+import { ExtendSessionResponse } from 'app/server/controllers/session';
+import * as config from 'config';
 
 const { expect, sinon } = require('test/chai-sinon');
 const {
@@ -8,6 +10,8 @@ const {
   extendSession,
 } = require('app/server/controllers/session.ts');
 const express = require('express');
+
+const expireInSeconds: number = config.get('session.cookie.maxAgeInMs');
 
 describe('controllers/session.ts', function () {
   let req: any;
@@ -26,7 +30,9 @@ describe('controllers/session.ts', function () {
   describe('extendSession', function () {
     it('renders Cookie Policy page', async function () {
       await extendSession(req, res);
-      expect(res.send).to.have.been.calledOnce;
+      const response: ExtendSessionResponse = { expireInSeconds };
+      const expected = JSON.stringify(response);
+      expect(res.send).to.have.been.calledOnceWith(expected);
     });
   });
 

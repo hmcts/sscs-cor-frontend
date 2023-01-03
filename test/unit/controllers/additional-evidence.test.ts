@@ -26,7 +26,6 @@ describe('controllers/additional-evidence.js', function () {
   let res: Response;
   let next: NextFunction;
   let additionalEvidenceService;
-  let sandbox: sinon.SinonSandbox;
 
   const caseId = '1234567890';
   const sessionID = '345345';
@@ -35,7 +34,6 @@ describe('controllers/additional-evidence.js', function () {
   const serviceToken = 'serviceToken';
   const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       params: {
         action: '',
@@ -62,23 +60,23 @@ describe('controllers/additional-evidence.js', function () {
 
     req.cookies[Feature.POST_BULK_SCAN] = 'false';
     res = {
-      render: sandbox.spy(),
-      redirect: sandbox.spy(),
+      render: sinon.spy(),
+      redirect: sinon.spy(),
       locals: {},
     } as any;
     additionalEvidenceService = {
-      getEvidences: sandbox.stub().resolves([]),
-      uploadEvidence: sandbox.stub().resolves(),
-      submitSingleEvidences: sandbox.stub().resolves(),
-      removeEvidence: sandbox.stub().resolves(),
+      getEvidences: sinon.stub().resolves([]),
+      uploadEvidence: sinon.stub().resolves(),
+      submitSingleEvidences: sinon.stub().resolves(),
+      removeEvidence: sinon.stub().resolves(),
     };
-    next = sandbox.stub().resolves();
-    sandbox.stub(AppInsights, 'trackException');
-    sandbox.stub(AppInsights, 'trackTrace');
+    next = sinon.stub().resolves();
+    sinon.stub(AppInsights, 'trackException');
+    sinon.stub(AppInsights, 'trackTrace');
   });
 
   afterEach(function () {
-    sandbox.restore();
+    sinon.restore();
   });
 
   it('should render about evidence page', function () {
@@ -124,7 +122,7 @@ describe('controllers/additional-evidence.js', function () {
 
   it('should catch error and track Excepction with AppInsights', async function () {
     additionalEvidenceService = {
-      getEvidences: sandbox.stub().rejects(error),
+      getEvidences: sinon.stub().rejects(error),
     };
     req.params.action = 'upload';
     req.session.case.online_hearing_id = 'hearingId';
@@ -215,12 +213,12 @@ describe('controllers/additional-evidence.js', function () {
     let additionalEvidenceService;
     beforeEach(function () {
       additionalEvidenceService = {
-        saveStatement: sandbox.stub().resolves(),
+        saveStatement: sinon.stub().resolves(),
       };
     });
 
     afterEach(function () {
-      sandbox.restore();
+      sinon.restore();
     });
 
     it('should save statement and redirect to confirmation page', async function () {
@@ -272,7 +270,7 @@ describe('controllers/additional-evidence.js', function () {
     it('should catch error and track Excepction with AppInsights', async function () {
       req.file = { name: 'myfile.txt' };
       additionalEvidenceService = {
-        uploadEvidence: sandbox.stub().rejects(error),
+        uploadEvidence: sinon.stub().rejects(error),
       };
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
 
@@ -288,7 +286,7 @@ describe('controllers/additional-evidence.js', function () {
     it('should send error message for file upload error', async function () {
       req.file = { name: 'myfile.txt' };
       additionalEvidenceService = {
-        uploadEvidence: sandbox.stub().resolves({
+        uploadEvidence: sinon.stub().resolves({
           id: null,
         }),
       };
@@ -318,7 +316,7 @@ describe('controllers/additional-evidence.js', function () {
         buffer: new Buffer('some content'),
       };
       additionalEvidenceService = {
-        uploadEvidence: sandbox.stub().resolves({
+        uploadEvidence: sinon.stub().resolves({
           id: '1',
           statusCode: 200,
         }),
@@ -351,7 +349,7 @@ describe('controllers/additional-evidence.js', function () {
       req.body.delete = { fileId1: 'Delete' };
       const fileId = 'fileId1';
       additionalEvidenceService = {
-        removeEvidence: sandbox.stub().rejects(error),
+        removeEvidence: sinon.stub().rejects(error),
       };
       await postFileUpload('upload', additionalEvidenceService)(req, res, next);
 
@@ -393,8 +391,8 @@ describe('controllers/additional-evidence.js', function () {
         statusCode: 200,
       };
       additionalEvidenceService = {
-        getEvidences: sandbox.stub().resolves([evidence]),
-        submitEvidences: sandbox.stub().resolves(),
+        getEvidences: sinon.stub().resolves([evidence]),
+        submitEvidences: sinon.stub().resolves(),
       };
       const description = 'this is a description for the files to be upload';
       req.body['additional-evidence-description'] = description;
@@ -457,7 +455,7 @@ describe('controllers/additional-evidence.js', function () {
       const caseId = req.session.case.case_id;
       req.file = { name: 'myfile.mp3' };
       additionalEvidenceService = {
-        submitSingleEvidences: sandbox.stub().resolves(),
+        submitSingleEvidences: sinon.stub().resolves(),
       };
       const description = 'this is a description for the files to be upload';
       req.body['additional-evidence-description'] = description;
@@ -480,14 +478,14 @@ describe('controllers/additional-evidence.js', function () {
 
   describe('#getCaseId', function () {
     it('should return case id when case is not null', function () {
-      req.session['case'] = {
+      req.session.case = {
         case_id: caseId,
       };
       expect(getCaseId(req)).to.equal(caseId);
     });
 
     it('should throw an error when case is null', function () {
-      req.session['case'] = null;
+      req.session.case = null;
       expect(() => {
         getCaseId(req);
       }).to.throw(`No Case for session ${sessionID}`);

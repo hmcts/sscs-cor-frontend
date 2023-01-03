@@ -1,14 +1,18 @@
 import { Router, Request, Response } from 'express';
 import * as Paths from '../paths';
-import * as moment from 'moment';
 import { Dependencies } from '../routes';
-const config = require('config');
+import * as config from 'config';
 
-function extendSession(req: Request, res: Response) {
+const expireInSeconds: number = config.get('session.cookie.maxAgeInMs');
+
+export interface ExtendSessionResponse {
+  expireInSeconds?: number;
+}
+
+function extendSession(req: Request, res: Response): void {
   res.setHeader('Content-Type', 'application/json');
-  res.send(
-    JSON.stringify({ expireInSeconds: config.get('session.cookie.maxAgeInMs') })
-  );
+  const value: ExtendSessionResponse = { expireInSeconds };
+  res.send(JSON.stringify(value));
 }
 
 function setupSessionController(deps: Dependencies): Router {

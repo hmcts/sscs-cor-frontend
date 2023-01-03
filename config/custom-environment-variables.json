@@ -3,7 +3,6 @@
     "port": "PORT"
   },
   "testUrl": "TEST_URL",
-  "cohUrl": "COH_URL",
   "headless": "HEADLESS",
   "api": {
     "url": "SSCS_API_URL"

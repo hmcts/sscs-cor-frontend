@@ -1,13 +1,13 @@
-import { CaseService } from '../../../app/server/services/cases';
-import * as moment from 'moment';
-const { expect } = require('test/chai-sinon');
-const {
-  OK,
+import { CaseService } from 'app/server/services/cases';
+import {
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,
+  OK,
   UNPROCESSABLE_ENTITY,
-  NO_CONTENT,
-} = require('http-status-codes');
+} from 'http-status-codes';
+
+const { expect } = require('test/chai-sinon');
+
 const nock = require('nock');
 const config = require('config');
 

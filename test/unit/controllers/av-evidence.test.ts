@@ -1,4 +1,4 @@
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 
 import * as Paths from 'app/server/paths';
 import * as avEvidence from 'app/server/controllers/av-evidence';
@@ -10,10 +10,8 @@ const caseData = require('../../mock/tribunals/data/oral/av-evidence.json');
 describe('controllers/av-evidence-list', function () {
   let req: any;
   let res: any;
-  let sandbox: sinon.SinonSandbox;
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       session: {
         appeal: {},
@@ -22,7 +20,7 @@ describe('controllers/av-evidence-list', function () {
     } as any;
 
     res = {
-      render: sandbox.stub(),
+      render: sinon.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -30,19 +28,17 @@ describe('controllers/av-evidence-list', function () {
   });
 
   afterEach(function () {
-    sandbox.restore();
-    (AppInsights.trackException as sinon.SinonStub).restore();
-    (AppInsights.trackEvent as sinon.SinonStub).restore();
+    sinon.restore();
   });
 
   describe('setupAvEvidenceController', function () {
     let getStub;
     beforeEach(function () {
-      getStub = sandbox.stub(express.Router, 'get');
+      getStub = sinon.stub(express.Router, 'get');
     });
 
     afterEach(function () {
-      sandbox.restore();
+      sinon.restore();
     });
 
     it('should call Router', function () {
@@ -96,8 +92,8 @@ describe('controllers/av-evidence-list', function () {
       } as any;
 
       res = {
-        header: sandbox.stub(),
-        send: sandbox.stub(),
+        header: sinon.stub(),
+        send: sinon.stub(),
       };
 
       trackYourAppealService = {};

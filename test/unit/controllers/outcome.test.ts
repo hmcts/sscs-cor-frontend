@@ -1,6 +1,6 @@
-import * as AppInsights from '../../../app/server/app-insights';
+import * as AppInsights from 'app/server/app-insights';
 
-import { TrackYourApealService } from '../../../app/server/services/tyaService';
+import { TrackYourApealService } from 'app/server/services/tyaService';
 
 import * as Paths from 'app/server/paths';
 import * as outcome from 'app/server/controllers/outcome';
@@ -13,10 +13,8 @@ const oralHearing = require('../../mock/tribunals/data/oral/outcome');
 describe('controllers/outcome', function () {
   let req: any;
   let res: any;
-  let sandbox: sinon.SinonSandbox;
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     req = {
       session: {
         appeal: {},
@@ -25,7 +23,7 @@ describe('controllers/outcome', function () {
     } as any;
 
     res = {
-      render: sandbox.stub(),
+      render: sinon.stub(),
     };
 
     sinon.stub(AppInsights, 'trackException');
@@ -33,19 +31,17 @@ describe('controllers/outcome', function () {
   });
 
   afterEach(function () {
-    sandbox.restore();
-    (AppInsights.trackException as sinon.SinonStub).restore();
-    (AppInsights.trackEvent as sinon.SinonStub).restore();
+    sinon.restore();
   });
 
   describe('setupOutcomeController', function () {
     let getStub;
     beforeEach(function () {
-      getStub = sandbox.stub(express.Router, 'get');
+      getStub = sinon.stub(express.Router, 'get');
     });
 
     afterEach(function () {
-      sandbox.restore();
+      sinon.restore();
     });
 
     it('should call Router', function () {
@@ -88,8 +84,8 @@ describe('controllers/outcome', function () {
       } as any;
 
       res = {
-        header: sandbox.stub(),
-        send: sandbox.stub(),
+        header: sinon.stub(),
+        send: sinon.stub(),
       };
 
       trackYourAppealService = {};

@@ -1,20 +1,18 @@
 import { getIndex, postIndex } from 'app/server/controllers/assign-case';
 import { expect, sinon } from '../../chai-sinon';
 import { OK } from 'http-status-codes';
-import { CaseService } from '../../../app/server/services/cases';
-import { TrackYourApealService } from '../../../app/server/services/tyaService';
+import { CaseService } from 'app/server/services/cases';
+import { TrackYourApealService } from 'app/server/services/tyaService';
 const content = require('locale/content');
 
 describe('controllers/assign-case.js', function () {
-  let sandbox: sinon.SinonSandbox;
   let req;
   let res;
 
   beforeEach(function () {
-    sandbox = sinon.createSandbox();
     res = {
-      render: sandbox.spy(),
-      redirect: sandbox.spy(),
+      render: sinon.spy(),
+      redirect: sinon.spy(),
     } as any;
   });
 
@@ -52,13 +50,13 @@ describe('controllers/assign-case.js', function () {
       };
 
       caseService = {
-        assignOnlineHearingsToCitizen: sandbox.stub().resolves({
+        assignOnlineHearingsToCitizen: sinon.stub().resolves({
           statusCode: OK,
           body: onlineHearing,
         }),
       } as any;
       trackYourAppealService = {
-        getAppeal: sandbox.stub().resolves({
+        getAppeal: sinon.stub().resolves({
           statusCode: OK,
           appeal,
         }),
@@ -117,7 +115,7 @@ describe('controllers/assign-case.js', function () {
 
       beforeEach(function () {
         trackYourAppealService = {
-          getAppeal: sandbox.stub().resolves({
+          getAppeal: sinon.stub().resolves({
             statusCode: OK,
             appeal: {
               hearingType: 'paper',

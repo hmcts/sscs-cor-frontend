@@ -1,4 +1,4 @@
-import { spellNumbersOut } from '../../../app/server/utils/screenReaderUtils';
+import { spellNumbersOut } from 'app/server/utils/screenReaderUtils';
 
 const { expect } = require('test/chai-sinon');
 
