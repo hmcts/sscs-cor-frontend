@@ -1,3 +1,3 @@
-const dysonSetupTribunalsBackend = require('./dysonSetup');
+import dysonSetupTribunalsBackend from './dysonSetup';
 
 dysonSetupTribunalsBackend();

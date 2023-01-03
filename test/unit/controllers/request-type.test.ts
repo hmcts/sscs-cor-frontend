@@ -3,18 +3,19 @@ import * as requestTypeService from 'app/server/services/request-type';
 import * as requestType from 'app/server/controllers/request-type';
 import * as Paths from 'app/server/paths';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
-import { NextFunction } from 'express';
+import express, { NextFunction, Router } from 'express';
 import { expect, sinon } from '../../chai-sinon';
 import { SinonStub } from 'sinon';
 
-const express = require('express');
-const hearingRecording = require('../../mock/tribunals/data/oral/hearing-recording.json');
+import hearingRecording from '../../mock/tribunals/data/oral/hearing-recording.json';
+import HttpException from 'app/server/exceptions/HttpException';
 
 describe('controllers/request-type', function () {
   let req: any;
   let res: any;
   let next: NextFunction;
-  const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
+
+  const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
 
   beforeEach(function () {
     req = {
@@ -45,14 +46,22 @@ describe('controllers/request-type', function () {
   });
 
   describe('setupRequestTypeController', function () {
-    let getStub;
-    let postStub;
-    beforeEach(function () {
-      getStub = sinon.stub(express.Router, 'get');
-      postStub = sinon.stub(express.Router, 'post');
+    let getStub: SinonStub = null;
+    let postStub: SinonStub = null;
+    before(function () {
+      getStub = sinon.stub();
+      postStub = sinon.stub();
+      sinon.stub(express, 'Router').returns({
+        get: getStub,
+        post: postStub,
+      } as Partial<Router> as Router);
     });
 
     afterEach(function () {
+      sinon.resetHistory();
+    });
+
+    after(function () {
       sinon.restore();
     });
 

@@ -1,9 +1,9 @@
 import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 
-const { Logger } = require('@hmcts/nodejs-logging');
-const i18next = require('i18next');
-const content = require('../../../locale/content');
+import { Logger } from '@hmcts/nodejs-logging';
+import i18next from 'i18next';
+import content from '../../common/locale/content.json';
 
 const logger = Logger.getLogger('ensure-authenticated.js');
 

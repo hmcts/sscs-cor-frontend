@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { LoggerInstance } from 'winston';
+import { Logger } from '@hmcts/nodejs-logging';
+import HttpStatus from 'http-status-codes';
+import request from 'superagent';
+import config from 'config';
 
-const apiUrl = require('config').get('tribunals.api-url');
-const HttpStatus = require('http-status-codes');
-const request = require('superagent');
-const { Logger } = require('@hmcts/nodejs-logging');
+const apiUrl: string = config.get('tribunals.api-url');
 
 const logger: LoggerInstance = Logger.getLogger('UnsubscribeService');
 

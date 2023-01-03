@@ -1,13 +1,12 @@
-import * as config from 'config';
+import config from 'config';
 import { validateToken } from 'app/server/services/tokenService';
 import { expect, sinon } from 'test/chai-sinon';
 import { Request, Response, NextFunction } from 'express';
 import { SessionData } from 'express-session';
 
-import * as superagent from 'superagent';
+import superagent, { SuperAgentRequest } from 'superagent';
 import { SinonStub } from 'sinon';
 import { after } from 'mocha';
-import { SuperAgentRequest } from 'superagent';
 import { ParamsDictionary } from 'express-serve-static-core';
 
 const apiUrl: string = config.get('tribunals.api-url');

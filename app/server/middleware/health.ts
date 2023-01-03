@@ -3,10 +3,10 @@ import * as AppInsights from '../app-insights';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 import { createRedisClient } from './redis';
-const os = require('os');
-const healthCheck = require('@hmcts/nodejs-healthcheck');
-const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
-const config = require('config');
+import config from 'config';
+import os from 'os';
+import healthCheck from '@hmcts/nodejs-healthcheck';
+import outputs from '@hmcts/nodejs-healthcheck/healthcheck/outputs';
 
 const logger: LoggerInstance = Logger.getLogger('health');
 

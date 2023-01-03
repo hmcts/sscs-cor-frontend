@@ -1,11 +1,11 @@
-import * as status from 'app/server/controllers/status';
-
 import * as yourDetails from 'app/server/controllers/your-details';
 import * as Paths from 'app/server/paths';
 import * as AppInsights from 'app/server/app-insights';
 
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
+import express, { Router } from 'express';
+
+import { expect, sinon } from 'test/chai-sinon';
+import { SinonStub } from 'sinon';
 
 describe('controllers/your-details', function () {
   let req: any;
@@ -39,12 +39,19 @@ describe('controllers/your-details', function () {
   });
 
   describe('setupYourDetailsController', function () {
-    let getStub;
-    beforeEach(function () {
-      getStub = sinon.stub(express.Router, 'get');
+    let getStub: SinonStub = null;
+    before(function () {
+      getStub = sinon.stub();
+      sinon.stub(express, 'Router').returns({
+        get: getStub,
+      } as Partial<Router> as Router);
     });
 
     afterEach(function () {
+      sinon.resetHistory();
+    });
+
+    after(function () {
       sinon.restore();
     });
 

@@ -1,30 +1,34 @@
-import * as applicationInsights from 'applicationinsights';
-import * as AppInsights from 'app/server/app-insights';
+import * as appInsights from 'applicationinsights';
+import { enable } from 'app/server/app-insights';
+import { expect, sinon } from 'test/chai-sinon';
+import config from 'config';
 
-const { expect, sinon } = require('test/chai-sinon');
-const config = require('config');
+const roleName: string = config.get('appInsights.roleName');
 
 describe('app-insights.js', function () {
   describe('enable', function () {
-    beforeEach(function () {
-      sinon.stub(applicationInsights, 'start');
+    before(function () {
+      sinon.stub(appInsights, 'start');
     });
 
     afterEach(function () {
+      sinon.resetHistory();
+    });
+
+    after(function () {
       sinon.restore();
     });
 
     it('sets cloud role name', function () {
-      AppInsights.enable();
-      expect(
-        applicationInsights.defaultClient.context.tags['ai.cloud.role']
-      ).to.equal(config.get('appInsights.roleName'));
+      enable();
+      expect(appInsights.defaultClient.context.tags['ai.cloud.role']).to.equal(
+        roleName
+      );
     });
 
     it('should call start', function () {
-      AppInsights.enable();
-      // eslint-disable-next-line no-unused-expressions
-      expect(applicationInsights.start).to.have.been.called;
+      enable();
+      expect(appInsights.start).to.have.been.calledOnceWith();
     });
   });
 });

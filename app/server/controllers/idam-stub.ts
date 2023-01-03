@@ -1,24 +1,26 @@
 import { Router, Request, Response } from 'express';
 import { NO_CONTENT } from 'http-status-codes';
-import { diskStorage } from 'multer';
+import multer, { diskStorage } from 'multer';
 import { createRedisClient } from '../middleware/redis';
-const config = require('config');
-const { Logger } = require('@hmcts/nodejs-logging');
-const Redis = require('ioredis');
-const multer = require('multer');
+import config from 'config';
+import { Logger } from '@hmcts/nodejs-logging';
+import { LoggerInstance } from 'winston';
+import Redis from 'ioredis';
 
+const storageOptions = {};
 const multipart = multer({
-  storage: diskStorage,
+  storage: diskStorage(storageOptions),
   limits: {
-    fileSize: 8000000, // Compliant: 8MB
+    // Compliant: 8MB
+    fileSize: 8000000,
   },
 });
 
-const logger = Logger.getLogger('idam-stub');
+const logger: LoggerInstance = Logger.getLogger('idam-stub');
 
 const enableStub = config.get('idam.enableStub') === 'true';
 
-let redis;
+let redis: Redis = null;
 
 function generateRandomNumber() {
   return Math.floor(Math.random() * 100000);
@@ -34,7 +36,7 @@ function getLogin(req: Request, res: Response) {
 async function postLogin(req: Request, res: Response) {
   const code = generateRandomNumber();
   logger.info('postLogin generating code', code);
-  redis.set(`idamStub.code.${code}`, req.body.username, 'ex', 60);
+  await redis.set(`idamStub.code.${code}`, req.body.username, 'EX', 60);
   logger.info(
     'postLogin adding username to redis under code',
     req.body.username,
@@ -51,7 +53,7 @@ async function getToken(req: Request, res: Response) {
   logger.info('getToken getting username from redis', username);
   const token = generateRandomNumber();
   logger.info('getToken generating token', token);
-  redis.set(`idamStub.token.${token}`, username, 'ex', 60);
+  await redis.set(`idamStub.token.${token}`, username, 'EX', 60);
   logger.info(
     'getToken adding username to redis under token',
     username,

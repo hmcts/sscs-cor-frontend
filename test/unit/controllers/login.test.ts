@@ -10,12 +10,12 @@ import {
 import * as AppInsights from 'app/server/app-insights';
 import * as Paths from 'app/server/paths';
 import { CaseService } from 'app/server/services/cases';
-import { NextFunction, Response } from 'express';
-import { CaseDetails } from 'app/server/data/models';
-const { expect, sinon } = require('test/chai-sinon');
-const config = require('config');
+import { NextFunction } from 'express';
+import { CaseDetails } from 'app/server/models/express-session';
+import { expect, sinon } from 'test/chai-sinon';
+import config from 'config';
 
-const idamUrl = config.get('idam.url');
+const idamUrl: string = config.get('idam.url');
 
 describe('controllers/login', function () {
   let req;
@@ -46,7 +46,7 @@ describe('controllers/login', function () {
       render: sinon.stub(),
       redirect: sinon.stub(),
     };
-    next = sinon.stub();
+    next = sinon.stub().resolves();
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackTrace');
     sinon.stub(AppInsights, 'trackEvent');
@@ -73,7 +73,7 @@ describe('controllers/login', function () {
           .stub()
           .withArgs(req.session.accessToken)
           .resolves({}),
-      } as IdamService;
+      } as Partial<IdamService> as IdamService;
 
       await getLogout(idamServiceStub)(req, res);
       expect(idamServiceStub.deleteToken).to.have.been.calledOnce.calledWith(
@@ -89,7 +89,7 @@ describe('controllers/login', function () {
           .stub()
           .withArgs(req.session.accessToken)
           .resolves({}),
-      } as IdamService;
+      } as Partial<IdamService> as IdamService;
 
       await getLogout(idamServiceStub)(req, res);
 
@@ -108,7 +108,7 @@ describe('controllers/login', function () {
           .stub()
           .withArgs(req.session.accessToken)
           .resolves({}),
-      } as IdamService;
+      } as Partial<IdamService> as IdamService;
 
       await getLogout(idamServiceStub)(req, res);
       expect(idamServiceStub.deleteToken).to.have.been.calledOnce.calledWith(
@@ -126,7 +126,7 @@ describe('controllers/login', function () {
           .stub()
           .withArgs('http', 'localhost')
           .returns('http://redirect_url'),
-      } as IdamService;
+      } as Partial<IdamService> as IdamService;
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
       expect(res.redirect).to.have.been.calledOnce.calledWith(
@@ -140,7 +140,7 @@ describe('controllers/login', function () {
           .stub()
           .withArgs('http', 'localhost')
           .returns('http://redirect_url'),
-      } as IdamService;
+      } as Partial<IdamService> as IdamService;
       req.query = { redirectUrl: '', state: 'state-value' };
 
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
@@ -176,7 +176,7 @@ describe('controllers/login', function () {
         const redirectToIdam = sinon.stub();
         const idamServiceStub = {
           getToken: sinon.stub().rejects(error400),
-        } as IdamService;
+        } as Partial<IdamService> as IdamService;
 
         // eslint-disable-next-line prefer-const
         caseServiceStub = {} as CaseService;
@@ -199,7 +199,7 @@ describe('controllers/login', function () {
 
     describe('throw exception because no caseId', function () {
       it('throw error', async function () {
-        sinon.stub(Service2Service, 'generateToken').returns(3);
+        sinon.stub(Service2Service, 'generateToken').resolves('3');
         const accessToken = 'someAccessToken';
         let caseServiceStub;
         req.query = {
@@ -215,7 +215,7 @@ describe('controllers/login', function () {
             .stub()
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
-        } as IdamService;
+        } as Partial<IdamService> as IdamService;
         const cases: Array<CaseDetails> = [
           {
             online_hearing_id: '1',
@@ -228,7 +228,7 @@ describe('controllers/login', function () {
           getCasesForCitizen: sinon
             .stub()
             .resolves({ statusCode: 200, body: cases }),
-        } as CaseService;
+        } as Partial<CaseService> as CaseService;
 
         await getIdamCallback(
           redirectToIdam,
@@ -266,12 +266,12 @@ describe('controllers/login', function () {
             .stub()
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
-        } as IdamService;
+        } as Partial<IdamService> as IdamService;
         caseServiceStub = {
           getCasesForCitizen: sinon
             .stub()
             .resolves({ statusCode: 200, body: [caseDetails] }),
-        } as CaseService;
+        } as Partial<CaseService> as CaseService;
 
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
@@ -331,12 +331,12 @@ describe('controllers/login', function () {
             .stub()
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
-        } as IdamService;
+        } as Partial<IdamService> as IdamService;
         caseServiceStub = {
           getCasesForCitizen: sinon
             .stub()
             .resolves({ statusCode: 200, body: [caseDetails] }),
-        } as CaseService;
+        } as Partial<CaseService> as CaseService;
       });
     });
 
@@ -355,12 +355,12 @@ describe('controllers/login', function () {
             .stub()
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
-        } as IdamService;
+        } as Partial<IdamService> as IdamService;
         caseServiceStub = {
           getCasesForCitizen: sinon
             .stub()
             .resolves({ statusCode: 200, body: [] }),
-        } as CaseService;
+        } as Partial<CaseService> as CaseService;
 
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
@@ -406,13 +406,13 @@ describe('controllers/login', function () {
             .stub()
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
-        } as IdamService;
+        } as Partial<IdamService> as IdamService;
         caseServiceStub = {
           getCasesForCitizen: sinon.stub().resolves({
             statusCode: 200,
             body: [caseDetails, caseDetails],
           }),
-        } as CaseService;
+        } as Partial<CaseService> as CaseService;
 
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
@@ -458,7 +458,7 @@ describe('controllers/login', function () {
             .stub()
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
-        } as IdamService;
+        } as Partial<IdamService> as IdamService;
         caseServiceStub = {
           getCasesForCitizen: sinon.stub().resolves({
             statusCode: 200,
@@ -477,7 +477,7 @@ describe('controllers/login', function () {
               },
             ],
           }),
-        } as CaseService;
+        } as Partial<CaseService> as CaseService;
 
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),

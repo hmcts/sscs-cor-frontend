@@ -1,6 +1,6 @@
 import { RequestPromise } from './request-wrapper';
-const config = require('config');
-const otp = require('otp');
+import config from 'config';
+import otp from 'otp';
 
 const microservice = config.get('s2s.microservice');
 const s2sSecret = config.get('s2s.secret');

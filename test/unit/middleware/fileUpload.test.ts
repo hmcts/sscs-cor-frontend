@@ -6,15 +6,14 @@ import {
   handleFileUploadErrors,
   validateFileSize,
 } from 'app/server/middleware/fileUpload';
-import * as config from 'config';
+import config from 'config';
 import { expect, sinon } from '../../chai-sinon';
 import { Feature } from 'app/server/utils/featureEnabled';
 import { SinonStub } from 'sinon';
 import { before } from 'mocha';
 import { SessionData } from 'express-session';
 import { MulterError } from 'multer';
-
-const content = require('locale/content');
+import content from 'app/common/locale/content.json';
 
 describe('fileUpload middleware', function () {
   const caseId = 1234;

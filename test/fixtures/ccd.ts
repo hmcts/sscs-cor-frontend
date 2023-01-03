@@ -1,15 +1,23 @@
 import { LoggerInstance } from 'winston';
-import * as config from 'config';
+import config from 'config';
 import { Logger } from '@hmcts/nodejs-logging';
-
-const rp = require('request-promise');
+import rp from 'request-promise';
 
 const logger: LoggerInstance = Logger.getLogger('test ccd');
 
 const apiUrl = config.get('api.url');
 const timeout: number = config.get('apiCallTimeout');
 
-async function createCase(hearingType) {
+export interface CCDCase {
+  case_reference?: string;
+  appellant_tya?: string;
+  joint_party_tya?: string;
+  representative_tya?: string;
+  id?: string;
+  email?: string;
+}
+
+export async function createCase(hearingType): Promise<CCDCase> {
   const randomNumber = parseInt(`${Math.random() * 10000000}`, 10);
   const email = `test${randomNumber}@hmcts.net`;
   const options = {
@@ -45,5 +53,3 @@ async function createCase(hearingType) {
     representative_tya: representativeTya,
   };
 }
-
-export { createCase };

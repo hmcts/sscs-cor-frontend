@@ -1,10 +1,11 @@
 import * as dormantCases from 'app/server/controllers/dormant-cases';
 import * as Paths from 'app/server/paths';
 import * as AppInsights from 'app/server/app-insights';
+import express, { Router } from 'express';
+import { expect, sinon } from 'test/chai-sinon';
 
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
-const oralActiveAndDormantCases = require('../../mock/tribunals/data/oral/activeAndDormantCases.json');
+import oralActiveAndDormantCases from '../../mock/tribunals/data/oral/activeAndDormantCases.json';
+import { SinonStub } from 'sinon';
 
 describe('controllers/dormant-cases', function () {
   let req: any;
@@ -32,12 +33,19 @@ describe('controllers/dormant-cases', function () {
   });
 
   describe('setupDormantCasesController', function () {
-    let getStub;
-    beforeEach(function () {
-      getStub = sinon.stub(express.Router, 'get');
+    let getStub: SinonStub = null;
+    before(function () {
+      getStub = sinon.stub();
+      sinon.stub(express, 'Router').returns({
+        get: getStub,
+      } as Partial<Router> as Router);
     });
 
     afterEach(function () {
+      sinon.resetHistory();
+    });
+
+    after(function () {
       sinon.restore();
     });
 

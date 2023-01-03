@@ -1,7 +1,7 @@
-const dyson = require('dyson');
-const path = require('path');
+import dyson from 'dyson';
+import path from 'path';
 
-export = () => {
+export function dysonSetupTribunals(): void {
   const dysonOptions = {
     configDir: path.resolve(__dirname, './services/'),
     port: 8083,
@@ -9,4 +9,4 @@ export = () => {
   const configs = dyson.getConfigurations(dysonOptions);
   const appBefore = dyson.createServer(dysonOptions);
   dyson.registerServices(appBefore, dysonOptions, configs);
-};
+}

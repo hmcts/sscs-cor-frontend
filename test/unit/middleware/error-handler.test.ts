@@ -11,10 +11,12 @@ import * as errorHandler from 'app/server/middleware/error-handler';
 import { Session, SessionData } from 'express-session';
 import HttpException from 'app/server/exceptions/HttpException';
 
-const { expect, sinon } = require('test/chai-sinon');
+import { expect, sinon } from 'test/chai-sinon';
 
 describe('middleware/error-handler', function () {
-  const req: Request = {} as Request;
+  const req: Request = {
+    originalUrl: 'https://test.com',
+  } as Request;
   let res: Response = {} as Response;
   let next: NextFunction = null;
 
@@ -22,7 +24,7 @@ describe('middleware/error-handler', function () {
     res = {
       status: sinon.spy(),
       render: sinon.spy(),
-    } as Response;
+    } as Partial<Response> as Response;
     next = sinon.spy();
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackTrace');
@@ -81,7 +83,12 @@ describe('middleware/error-handler', function () {
 
     it('sends error to app-insights', function () {
       errorHandler.forbiddenHandler(error, req, res, next);
-      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(error);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(
+        `${error.status} Error from request ${req.originalUrl}, error: ${error}`
+      );
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        error
+      );
     });
   });
 
@@ -106,7 +113,12 @@ describe('middleware/error-handler', function () {
 
     it('sends error to app-insights', function () {
       errorHandler.badRequestHandler(error, req, res, next);
-      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(error);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(
+        `${error.status} Error from request ${req.originalUrl}, error: ${error}`
+      );
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        error
+      );
     });
   });
 
@@ -131,7 +143,12 @@ describe('middleware/error-handler', function () {
 
     it('sends error to app-insights', function () {
       errorHandler.gatewayTimeoutHandler(error, req, res, next);
-      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(error);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(
+        `${error.status} Error from request ${req.originalUrl}, error: ${error}`
+      );
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        error
+      );
     });
   });
 
@@ -148,6 +165,9 @@ describe('middleware/error-handler', function () {
     it('sends error to app-insights', function () {
       const error = new Error('Some error');
       errorHandler.coreErrorHandler(error, req, res, next);
+      expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(
+        `undefined Error from request ${req.originalUrl}, error: ${error}`
+      );
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
         error
       );

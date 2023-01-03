@@ -1,12 +1,11 @@
-import * as request from 'supertest';
-import * as session from 'express-session';
-import { setup } from 'app/server/app';
+import request from 'supertest';
+import session from 'express-session';
+import { setupApp } from 'app/server/app';
 import { expect } from 'test/chai-sinon';
-import * as config from 'config';
+import config from 'config';
 import { BAD_REQUEST, OK } from 'http-status-codes';
-import * as nock from 'nock';
-import * as express from 'express';
-import { Application } from 'express';
+import nock from 'nock';
+import express, { Application } from 'express';
 import { createSession } from 'app/server/middleware/session';
 import { dysonSetupIdam } from '../mock/idam/dysonSetup';
 import { dysonSetupS2s } from '../mock/s2s/dysonSetup';
@@ -15,11 +14,10 @@ describe('Routes', function () {
   let tribunalApiUrl: string = null;
   let app: Application = null;
 
-  before(function () {
+  before(async function () {
     tribunalApiUrl = config.get('tribunals.api-url');
 
-    // eslint-disable-next-line mocha/no-nested-tests
-    app = setup(createSession(), { disableAppInsights: true });
+    app = await setupApp(createSession());
     dysonSetupIdam();
     dysonSetupS2s();
 

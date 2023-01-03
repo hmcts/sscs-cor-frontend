@@ -1,8 +1,7 @@
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
-import * as config from 'config';
-
-const rp = require('request-promise');
+import config from 'config';
+import rp from 'request-promise';
 
 const logger: LoggerInstance = Logger.getLogger('test sidam');
 
@@ -10,7 +9,12 @@ const sidamApiUrl: string = config.get('idam.api-url');
 const testUrl: string = config.get('testUrl');
 const timeout: number = config.get('apiCallTimeout');
 
-async function manageRedirectUri(operation) {
+export interface SidamUser {
+  email: string;
+  password: string;
+}
+
+export async function manageRedirectUri(operation: string): Promise<void> {
   const redirectUri = `${testUrl}/sign-in`;
   if (redirectUri.startsWith('https://pr-')) {
     const options = {
@@ -40,15 +44,15 @@ async function manageRedirectUri(operation) {
   }
 }
 
-async function registerRedirectUri() {
+export async function registerRedirectUri(): Promise<void> {
   await manageRedirectUri('add');
 }
 
-async function unregisterRedirectUri() {
+export async function unregisterRedirectUri(): Promise<void> {
   await manageRedirectUri('remove');
 }
 
-async function createUser(ccdCase) {
+export async function createUser(ccdCase): Promise<SidamUser> {
   // eslint-disable-next-line no-magic-numbers
   logger.info(`Creating user [${ccdCase.email}] on [${sidamApiUrl}]`);
   const password = 'Apassword123';
@@ -81,7 +85,7 @@ async function createUser(ccdCase) {
   }
 }
 
-async function deleteUser(sidamUser) {
+export async function deleteUser(sidamUser: SidamUser): Promise<void> {
   const email = encodeURIComponent(sidamUser.email);
   const options = {
     url: `${sidamApiUrl}/testing-support/accounts/${email}`,
@@ -97,5 +101,3 @@ async function deleteUser(sidamUser) {
 
   logger.info(`Deleted SIDAM user for ${sidamUser.email}`);
 }
-
-export { createUser, deleteUser, registerRedirectUri, unregisterRedirectUri };

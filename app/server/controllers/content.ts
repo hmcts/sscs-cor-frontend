@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
+import content from '../../common/locale/content.json';
 
-const content = require('../../../locale/content');
-const i18next = require('i18next');
+import i18next from 'i18next';
 
 export const tyaNunjucks = {
   nunjucksEnv: null,

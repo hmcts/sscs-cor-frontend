@@ -1,6 +1,6 @@
-const cache = require('memory-cache');
+import cache from 'memory-cache';
 
-export = {
+export default {
   path: '/details',
   method: 'GET',
   template: {

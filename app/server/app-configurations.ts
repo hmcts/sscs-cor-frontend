@@ -1,74 +1,80 @@
-import * as CONST from '../constants';
-import nunjucks = require('nunjucks');
+import nunjucks from 'nunjucks';
 import { i18n, InitOptions } from 'i18next';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
-import { Application } from 'express';
+import express, { Application } from 'express';
 import { utc } from 'moment';
 import helmet from 'helmet';
-import * as config from 'config';
+import config from 'config';
 import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
-
-const content = require('../../locale/content');
+import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';
+import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
+import content from '../common/locale/content.json';
+import * as path from 'path';
 
 const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 
+const defaultDateFormat: string = config.get('default.dateFormat');
+
 const DecisionReceivedDaysAfterHearing = 5;
 
-function configureHelmet(app: Application): void {
+// Helmet referrer policy
+const referrerPolicy: ReferrerPolicyOptions = { policy: 'origin' };
+
+// Helmet content security policy (CSP) to allow only assets from same domain.
+const contentSecurityPolicy: ContentSecurityPolicyOptions = {
+  directives: {
+    defaultSrc: ["'self'"],
+    fontSrc: ["'self' data:"],
+    scriptSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'www.google-analytics.com',
+      'www.googletagmanager.com',
+      'tagmanager.google.com',
+      'vcc-eu4.8x8.com',
+      'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
+      'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
+      'https://code.jquery.com/jquery-3.6.0.js',
+    ],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'tagmanager.google.com',
+      'fonts.googleapis.com/',
+    ],
+    connectSrc: [
+      "'self'",
+      'www.gov.uk',
+      '//localhost:9856/',
+      'www.google-analytics.com',
+      'www.googletagmanager.com',
+    ],
+    mediaSrc: ["'self'"],
+    frameSrc: ["'self'", 'www.googletagmanager.com', 'vcc-eu4.8x8.com'],
+    frameAncestors: ["'self'", 'www.googletagmanager.com'],
+    imgSrc: [
+      "'self'",
+      "'self' data:",
+      'www.google-analytics.com',
+      'www.googletagmanager.com',
+      'tagmanager.google.com',
+      'vcc-eu4.8x8.com',
+    ],
+  },
+};
+
+export function configureHelmet(app: Application): void {
   // by setting HTTP headers appropriately.
   app.use(helmet());
-  // Helmet referrer policy
-  app.use(helmet.referrerPolicy({ policy: 'origin' }));
 
-  // Helmet content security policy (CSP) to allow only assets from same domain.
-  app.use(
-    helmet.contentSecurityPolicy({
-      directives: {
-        defaultSrc: ["'self'"],
-        fontSrc: ["'self' data:"],
-        scriptSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          'www.google-analytics.com',
-          'www.googletagmanager.com',
-          'tagmanager.google.com',
-          'vcc-eu4.8x8.com',
-          'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
-          'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
-          'https://code.jquery.com/jquery-3.6.0.js',
-        ],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          'tagmanager.google.com',
-          'fonts.googleapis.com/',
-        ],
-        connectSrc: [
-          "'self'",
-          'www.gov.uk',
-          '//localhost:9856/',
-          'www.google-analytics.com',
-          'www.googletagmanager.com',
-        ],
-        mediaSrc: ["'self'"],
-        frameSrc: ["'self'", 'www.googletagmanager.com', 'vcc-eu4.8x8.com'],
-        frameAncestors: ["'self'", 'www.googletagmanager.com'],
-        imgSrc: [
-          "'self'",
-          "'self' data:",
-          'www.google-analytics.com',
-          'www.googletagmanager.com',
-          'tagmanager.google.com',
-          'vcc-eu4.8x8.com',
-        ],
-      },
-    })
-  );
+  app.use(helmet.referrerPolicy(referrerPolicy));
+
+  app.use(helmet.contentSecurityPolicy(contentSecurityPolicy));
 }
 
-function configureHeaders(app: Application): void {
+export function configureHeaders(app: Application): void {
   // Disallow search indexing
   app.use((req, res, next) => {
     // Setting headers stops pages being indexed even if indexed pages link to them
@@ -85,7 +91,7 @@ function dateForDecisionReceived(
     DecisionReceivedDaysAfterHearing,
     'days'
   );
-  return dateFormat(decisionReceivedDate, CONST.DATE_FORMAT, locale);
+  return dateFormat(decisionReceivedDate, defaultDateFormat, locale);
 }
 
 function flattenArray(text: string | Array<string>): string {
@@ -95,16 +101,14 @@ function flattenArray(text: string | Array<string>): string {
   return text;
 }
 
-function configureNunjucks(app: Application): void {
+export function configureNunjucks(app: Application): void {
   const i18next: i18n = app.locals.i18n;
 
   const nunEnv = nunjucks.configure(
     [
       'views',
-      'app/main',
-      'cookie-banner/',
-      'views/notifications',
-      'node_modules/govuk-frontend/',
+      'node_modules/cmc-cookies-manager/shared-component/components',
+      'node_modules/govuk-frontend',
     ],
     {
       autoescape: true,
@@ -194,4 +198,65 @@ function configureNunjucks(app: Application): void {
   tyaNunjucks.env = nunEnv;
 }
 
-export { configureHelmet, configureHeaders, configureNunjucks };
+const publicPath = path.join(__dirname, '..', '..', 'public');
+const imagesPath = path.join(__dirname, '..', '..', 'app', 'client', 'images');
+const govUkAssetsPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  'node_modules',
+  'govuk-frontend',
+  'govuk',
+  'assets'
+);
+const ctscJsPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  'node_modules',
+  '@hmcts',
+  'ctsc-web-chat',
+  'assets',
+  'javascript'
+);
+const ctscCssPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  'node_modules',
+  '@hmcts',
+  'ctsc-web-chat',
+  'assets',
+  'css'
+);
+const cookieManagerJsPath = path.join(
+  __dirname,
+  '..',
+  '..',
+  'node_modules',
+  'cmc-cookies-manager',
+  'shared-component',
+  'components',
+  'cookie-manager',
+  'cookies-manager.js'
+);
+
+export function configureStaticRoutes(app: Application): void {
+  logger.info(`'/public' routes to ${publicPath}`);
+  app.use('/public', express.static(publicPath));
+  logger.info(`'/public/images' routes to ${imagesPath}`);
+  app.use('/public/images', express.static(imagesPath));
+
+  logger.info(`'/public/govuk-frontend' routes to ${govUkAssetsPath}`);
+  app.use('/public/govuk-frontend', express.static(govUkAssetsPath));
+
+  logger.info(`'/public/js' routes to ${ctscJsPath}`);
+  app.use('/public/js', express.static(ctscJsPath));
+  logger.info(`'/public/css' routes to ${ctscCssPath}`);
+  app.use('/public/css', express.static(ctscCssPath));
+
+  logger.info(
+    `'/public/js/cookies-manager.js' routes to ${cookieManagerJsPath}`
+  );
+  app.use('/public/js/cookies-manager.js', express.static(cookieManagerJsPath));
+}

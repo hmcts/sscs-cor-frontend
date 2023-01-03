@@ -11,7 +11,7 @@ import {
 import { Session, SessionData } from 'express-session';
 import { expect, sinon } from 'test/chai-sinon';
 
-const i18next = require('i18next');
+import i18next from 'i18next';
 
 describe('controllers/login renderErrorPage', function () {
   let req: Request = null;

@@ -1,4 +1,4 @@
-export = {
+export default {
   path: '/oauth2/token',
   method: 'POST',
   template: {

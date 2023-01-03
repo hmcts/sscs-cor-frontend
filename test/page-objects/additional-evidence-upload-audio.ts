@@ -2,8 +2,8 @@ import * as path from 'path';
 
 import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
-const { expect } = require('test/chai-sinon');
-const content = require('locale/content');
+import { expect } from 'test/chai-sinon';
+import content from 'app/common/locale/content.json';
 
 export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
   constructor(page) {

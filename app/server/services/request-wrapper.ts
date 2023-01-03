@@ -1,5 +1,5 @@
-import * as request from 'promise-request-retry';
-import * as config from 'config';
+import request from 'promise-request-retry';
+import config from 'config';
 import { Request } from 'express';
 
 import * as AppInsights from '../app-insights';
@@ -34,7 +34,8 @@ export class RequestPromise {
       const body = await request(options);
       return await Promise.resolve(body);
     } catch (error) {
-      AppInsights.trackException(
+      AppInsights.trackException(error);
+      AppInsights.trackEvent(
         `error is: ${error.message} calling ${options.uri}`
       );
       return Promise.reject(

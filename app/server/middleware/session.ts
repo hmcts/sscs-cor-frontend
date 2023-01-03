@@ -1,6 +1,5 @@
-import * as session from 'express-session';
-import { Store } from 'express-session';
-import * as config from 'config';
+import session, { Store } from 'express-session';
+import config from 'config';
 import { RequestHandler } from 'express';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
@@ -8,7 +7,7 @@ import { createRedisStore } from './redis';
 
 const logger: LoggerInstance = Logger.getLogger('session');
 
-function createSession(useRedisStore = false): RequestHandler {
+export function createSession(useRedisStore = false): RequestHandler {
   const secure: boolean = config.get('session.cookie.secure') === 'true';
 
   const store: Store = useRedisStore ? createRedisStore() : null;
@@ -32,5 +31,3 @@ function createSession(useRedisStore = false): RequestHandler {
     store,
   });
 }
-
-export { createSession };

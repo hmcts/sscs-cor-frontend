@@ -1,7 +1,6 @@
 import { BasePage } from 'test/page-objects/base';
 import * as path from 'path';
-
-const { question } = require('app/server/paths');
+import { question } from 'app/server/paths';
 
 export class UploadEvidencePage extends BasePage {
   constructor(page, questionOrdinal) {

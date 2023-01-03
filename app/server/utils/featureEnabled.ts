@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config from 'config';
 
 enum Feature {
   TEST_FEATURE = 'testFeature',

@@ -6,8 +6,8 @@ import {
   uploadDescriptionValidation,
 } from 'app/server/utils/fieldValidation';
 
-const { expect } = require('test/chai-sinon');
-const content = require('locale/content');
+import { expect } from 'test/chai-sinon';
+import content from 'app/common/locale/content.json';
 
 describe('utils/fieldValidation.js', function () {
   describe('answerValidation on submit', function () {

@@ -2,8 +2,9 @@ import * as Paths from '../paths';
 import { RequestPromise } from './request-wrapper';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger('login.js');
-const i18next = require('i18next');
-const config = require('config');
+import i18next from 'i18next';
+
+import config from 'config';
 
 export interface TokenResponse {
   access_token: string;

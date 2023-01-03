@@ -1,5 +1,3 @@
-import * as hearing from 'app/server/controllers/hearing';
-
 import {
   setupTaskListController,
   getCoversheet,
@@ -8,28 +6,28 @@ import {
 } from 'app/server/controllers/task-list';
 
 import * as AppInsights from 'app/server/app-insights';
-import * as express from 'express';
+import express, { NextFunction, Router } from 'express';
 import * as Paths from 'app/server/paths';
-import { Feature, isFeatureEnabled } from 'app/server/utils/featureEnabled';
-import { NextFunction, Router } from 'express';
+import { Feature } from 'app/server/utils/featureEnabled';
 import { expect, sinon } from '../../chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
-import moment from 'moment';
-import { CaseDetails } from 'app/server/data/models';
+import { CaseDetails } from 'app/server/models/express-session';
 import { Dependencies } from 'app/server/routes';
+import HttpException from 'app/server/exceptions/HttpException';
 
 describe('controllers/task-list', function () {
   let req;
   let res;
   let next: NextFunction;
   let additionalEvidenceService;
-  const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
   const caseDetails: CaseDetails = {
     online_hearing_id: '1',
     case_reference: '12345',
     appellant_name: 'John Smith',
     case_id: 12345,
   };
+
+  const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
 
   beforeEach(function () {
     req = {

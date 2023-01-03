@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config from 'config';
 import { get, set } from 'lodash';
 
 function setSecret(secretPath: string, configPath: string): void {

@@ -1,12 +1,12 @@
 import * as Paths from 'app/server/paths';
-import { CaseDetails } from 'app/server/data/models';
+import { CaseDetails } from 'app/server/models/express-session';
 
-const { expect, sinon } = require('test/chai-sinon');
-const {
+import { expect, sinon } from 'test/chai-sinon';
+import {
   checkAccessToken,
-  setLocals,
   ensureAuthenticated,
-} = require('app/server/middleware/ensure-authenticated.ts');
+  setLocals,
+} from 'app/server/middleware/ensure-authenticated';
 
 describe('middleware/ensure-authenticated', function () {
   let req;

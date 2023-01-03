@@ -34,7 +34,7 @@ export interface HearingArrangements {
   language_interpreter: boolean;
   languages: string;
   sign_language_interpreter: boolean;
-  sign_langauge_type: string;
+  sign_langauge_type?: string;
   hearing_loop_required: boolean;
   disabled_access_required: boolean;
   other_arrangements: string;
@@ -42,7 +42,7 @@ export interface HearingArrangements {
 
 export interface AddressDetails {
   line1: string;
-  line2: string;
+  line2?: string;
   town: string;
   county: string;
   postcode: string;
@@ -55,24 +55,24 @@ export interface Subscription {
 }
 
 export interface UserDetails {
-  type: string;
-  name: string;
+  type?: string;
+  name?: string;
   address_details: AddressDetails;
   email: string;
-  phone: string;
-  mobile: string;
-  subscriptions: Array<Subscription>;
+  phone?: string;
+  mobile?: string;
+  subscriptions?: Array<Subscription>;
 }
 
 export interface AppealDetails {
-  submitted_date: string;
-  mrn_date: string;
+  submitted_date?: string;
+  mrn_date?: string;
   benefit_type: string;
   state: string;
 }
 
 export interface CaseDetails {
-  online_hearing_id: string;
+  online_hearing_id?: string;
   appellant_name: string;
   case_reference: string;
   case_id?: number;

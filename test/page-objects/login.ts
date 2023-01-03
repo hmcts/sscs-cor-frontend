@@ -1,8 +1,8 @@
 import { URL } from 'url';
 import { login } from 'app/server/paths';
 import { BasePage } from 'test/page-objects/base';
-const config = require('config');
-const { expect } = require('test/chai-sinon');
+import config from 'config';
+import { expect } from 'test/chai-sinon';
 
 const idamUrl = config.get('idam.url');
 const idamSignInPagePath = '/login';

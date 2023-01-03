@@ -1,15 +1,15 @@
 import * as activeCases from 'app/server/controllers/active-cases';
 import * as Paths from 'app/server/paths';
 import * as AppInsights from 'app/server/app-insights';
-import { SinonStubStatic } from 'sinon';
+import express, { Router, Request, Response } from 'express';
+import { expect, sinon } from 'test/chai-sinon';
 
-const express = require('express');
-const { expect, sinon } = require('test/chai-sinon');
-const oralActiveAndDormantCases = require('../../mock/tribunals/data/oral/activeAndDormantCases.json');
+import oralActiveAndDormantCases from '../../mock/tribunals/data/oral/activeAndDormantCases.json';
+import { SinonStub } from 'sinon';
 
 describe('controllers/active-cases', function () {
-  let req: any;
-  let res: any;
+  let req: Request = null;
+  let res: Response = null;
 
   beforeEach(function () {
     req = {
@@ -17,12 +17,12 @@ describe('controllers/active-cases', function () {
         appeal: {},
       },
       cookies: {},
-    } as any;
+    } as Request;
 
     res = {
       render: sinon.stub(),
       send: sinon.stub(),
-    };
+    } as Partial<Response> as Response;
 
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackEvent');
@@ -33,9 +33,12 @@ describe('controllers/active-cases', function () {
   });
 
   describe('setupActiveCasesController', function () {
-    let getStub;
+    let getStub: SinonStub = null;
     beforeEach(function () {
-      getStub = sinon.stub(express.Router, 'get');
+      getStub = sinon.stub();
+      sinon.stub(express, 'Router').returns({
+        get: getStub,
+      } as Partial<Router> as Router);
     });
 
     afterEach(function () {

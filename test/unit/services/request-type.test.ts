@@ -3,24 +3,26 @@ import {
   getHearingRecording,
   submitHearingRecordingRequest,
 } from 'app/server/services/request-type';
-import * as config from 'config';
+import config from 'config';
 import { SinonStub } from 'sinon';
 
-const { expect, sinon } = require('test/chai-sinon');
-const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
+import { expect, sinon } from 'test/chai-sinon';
+import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import HttpException from 'app/server/exceptions/HttpException';
+
+const tribunalsApiUrl: string = config.get('tribunals.api-url');
 
 describe('services/request-type', function () {
   const hearingId = '121';
   const caseId = 62;
   const req: any = {};
   let rpStub: SinonStub = null;
-  let tribunalsApiUrl: string = null;
+  const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
   before(function () {
     req.session = {
       accessToken: 'someUserToken',
       serviceToken: 'someServiceToken',
     };
-    tribunalsApiUrl = config.get('tribunals.api-url');
   });
 
   beforeEach(function () {
@@ -66,7 +68,6 @@ describe('services/request-type', function () {
     });
 
     describe('on failure', function () {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       beforeEach(function () {
         rpStub.rejects(error);
       });
@@ -119,7 +120,6 @@ describe('services/request-type', function () {
     });
 
     describe('on failure', function () {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
       beforeEach(function () {
         rpStub.rejects(error);
       });
@@ -131,7 +131,7 @@ describe('services/request-type', function () {
       it('rejects the promise with the error', function () {
         return expect(
           submitHearingRecordingRequest(caseId, [hearingId], req)
-        ).to.be.rejectedWith(error);
+        ).to.be.rejectedWith(error.message);
       });
     });
   });

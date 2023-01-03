@@ -1,11 +1,15 @@
 import { expect } from 'chai';
-const { cloneDeep } = require('lodash');
-const config = require('config');
-const proxyquire = require('proxyquire');
+import config from 'config';
+import proxyquire from 'proxyquire';
+import { cloneDeep } from 'lodash';
 
 const modulePath = 'app/server/services/setupSecrets';
 
 let mockConfig: any = {};
+
+const redisSecret: string = config.get('redis.secret');
+const cookieSecret: string = config.get('session.cookie.secret');
+const idamSecret: string = config.get('idam.client.secret');
 
 describe(modulePath, function () {
   describe('#setup', function () {
@@ -50,11 +54,9 @@ describe(modulePath, function () {
       });
       setupKeyVaultSecrets();
 
-      expect(mockConfig.redis.secret).to.equal(config.redis.secret);
-      expect(mockConfig.session.cookie.secret).to.equal(
-        config.session.cookie.secret
-      );
-      expect(mockConfig.idam.client.secret).to.equal(config.idam.client.secret);
+      expect(mockConfig.redis.secret).to.equal(redisSecret);
+      expect(mockConfig.session.cookie.secret).to.equal(cookieSecret);
+      expect(mockConfig.idam.client.secret).to.equal(idamSecret);
     });
 
     it('should only set one config value when single secret path is set', function () {
@@ -64,8 +66,8 @@ describe(modulePath, function () {
       });
       setupKeyVaultSecrets();
 
-      expect(mockConfig.redis.secret).to.equal(config.redis.secret);
-      expect(mockConfig.idam.client.secret).to.equal(config.idam.client.secret);
+      expect(mockConfig.redis.secret).to.equal(redisSecret);
+      expect(mockConfig.idam.client.secret).to.equal(idamSecret);
     });
   });
 });

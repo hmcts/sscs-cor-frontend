@@ -1,8 +1,8 @@
 import { coversheet } from 'app/server/paths';
 import { BasePage } from 'test/page-objects/base';
 
-const { expect } = require('test/chai-sinon');
-const config = require('config');
+import { expect } from 'test/chai-sinon';
+import config from 'config';
 
 const testUrl = config.get('testUrl');
 

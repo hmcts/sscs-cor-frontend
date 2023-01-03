@@ -1,10 +1,8 @@
 import { expect, sinon } from 'test/chai-sinon';
-import * as nunjucks from 'nunjucks';
+import nunjucks, { Environment } from 'nunjucks';
 import * as appConfigs from 'app/server/app-configurations';
 import i18next from 'i18next';
-import { Application } from 'express';
-import express = require('express');
-import { Environment } from 'nunjucks';
+import express, { Application } from 'express';
 
 describe('app-configuration', function () {
   afterEach(function () {

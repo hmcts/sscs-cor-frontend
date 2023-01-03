@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import * as config from 'config';
+import config from 'config';
 import * as path from 'path';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
-import { FileFilterCallback, MulterError } from 'multer';
+import multer, { FileFilterCallback, MulterError } from 'multer';
 import * as AppInsights from '../app-insights';
-import * as multer from 'multer';
 import {
   mimeTypes,
   mimeTypesWithAudioVideo,
@@ -13,9 +12,9 @@ import {
 } from '../data/typeWhitelist.json';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
+import content from '../../common/locale/content.json';
 
-const i18next = require('i18next');
-const content = require('../../../locale/content');
+import i18next from 'i18next';
 
 const logger: LoggerInstance = Logger.getLogger('fileUpload');
 

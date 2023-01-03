@@ -1,7 +1,7 @@
 import { oralAppealStages } from 'app/server/data/appealStages';
 import { getActiveStages } from 'app/server/utils/appealStages';
 
-const { expect, sinon } = require('test/chai-sinon');
+import { expect } from 'test/chai-sinon';
 
 describe('getActiveStatus', function () {
   it('should return stages array with states', function () {

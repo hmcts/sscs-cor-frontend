@@ -1,7 +1,4 @@
-const config = require('config');
-const otp = require('otp');
-const rp = require('request-promise');
-
+import config from 'config';
 const microservice = config.get('s2s.microservice');
 const s2sSecret = config.get('s2s.secret');
 const s2sUrl = config.get('s2s.url');
@@ -10,11 +7,12 @@ const systemUpdateUser = config.get('s2s.oauth2.user');
 const systemUpdatePassword = config.get('s2s.oauth2.password');
 const clientSecret = config.get('s2s.oauth2.client.secret');
 const redirectUrl = config.get('s2s.oauth2.redirectUrl');
-
-const { Logger } = require('@hmcts/nodejs-logging');
+import { Logger } from '@hmcts/nodejs-logging';
+import otp from 'otp';
+import rp from 'request-promise';
 
 const logger = Logger.getLogger('question.ts');
-const timeout = require('config').get('apiCallTimeout');
+const timeout = config.get('apiCallTimeout');
 
 interface TokenResponse {
   access_token: string;

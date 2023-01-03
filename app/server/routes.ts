@@ -1,4 +1,5 @@
-import * as config from 'config';
+import config from 'config';
+import { NextFunction, Request, Response, Router } from 'express';
 
 import {
   ensureAuthenticated,
@@ -29,8 +30,15 @@ import { CaseService } from './services/cases';
 import { IdamService } from './services/idam';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
-import { NextFunction, Request, Response, Router } from 'express';
 import { setupSetLanguageController } from './middleware/setLanguage';
+import { validateToken } from './services/tokenService';
+import { notificationRedirect } from './controllers/notificationRedirect';
+import { emailNotifications } from './controllers/content';
+import {
+  changeEmailAddress,
+  stopReceivingEmails,
+} from './services/unsubscribeService';
+import { validateEmail } from './controllers/validateEmail';
 
 export interface Dependencies {
   setLocals?: (req: Request, res: Response, next: NextFunction) => void;
@@ -53,14 +61,6 @@ const tribunalsApiUrl: string = config.get('tribunals.api-url');
 const appPort: number = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
-const { validateToken } = require('./services/tokenService');
-const { notificationRedirect } = require('./controllers/notificationRedirect');
-const {
-  changeEmailAddress,
-  stopReceivingEmails,
-} = require('./services/unsubscribeService');
-const { emailNotifications } = require('./controllers/content');
-const { validateEmail } = require('./controllers/validateEmail');
 
 const idamService: IdamService = new IdamService(
   idamApiUrl,
@@ -195,7 +195,9 @@ router.get(
   '/manage-email-notifications/:mactoken',
   validateToken,
   (req: Request, res: Response, next: NextFunction) => {
-    res.render('manage-emails.njk', { mactoken: req.params.mactoken });
+    res.render('notifications/manage-emails.njk', {
+      mactoken: req.params.mactoken,
+    });
   }
 );
 
@@ -213,7 +215,9 @@ router.get(
   validateToken,
   emailNotifications,
   (req: Request, res: Response) => {
-    res.render('emails-stop.njk', { mactoken: req.params.mactoken });
+    res.render('notifications/emails-stop.njk', {
+      mactoken: req.params.mactoken,
+    });
   }
 );
 
@@ -223,7 +227,7 @@ router.get(
   stopReceivingEmails,
   emailNotifications,
   (req: Request, res: Response, next: NextFunction) => {
-    res.render('emails-stop-confirmed.njk', {
+    res.render('notifications/emails-stop-confirmed.njk', {
       data: { appealNumber: res.locals.token.appealId },
       mactoken: req.params.mactoken,
     });
@@ -234,7 +238,9 @@ router.get(
   '/manage-email-notifications/:mactoken/change',
   validateToken,
   (req: Request, res: Response) => {
-    res.render('email-address-change.njk', { mactoken: req.params.mactoken });
+    res.render('notifications/email-address-change.njk', {
+      mactoken: req.params.mactoken,
+    });
   }
 );
 
@@ -245,7 +251,7 @@ router.post(
   changeEmailAddress,
   emailNotifications,
   (req: Request, res: Response, next: NextFunction) => {
-    res.render('email-address-change-confirmed.njk', {
+    res.render('notifications/email-address-change-confirmed.njk', {
       data: { email: req.body.email },
       mactoken: req.params.mactoken,
     });

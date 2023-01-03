@@ -1,4 +1,4 @@
-import * as config from 'config';
+import config from 'config';
 import * as supportedBrowsers from './supportedBrowsers';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
@@ -20,34 +20,37 @@ const user: string =
   process.env.SAUCE_USERNAME || config.get('saucelabs.username');
 const key: string = process.env.SAUCE_ACCESS_KEY || config.get('saucelabs.key');
 const output: string = config.get('saucelabs.outputDir');
+const WebDriverIO = {
+  url,
+  browser,
+  waitForTimeout,
+  smartWait,
+  cssSelectorsEnabled: 'true',
+  host: 'ondemand.eu-central-1.saucelabs.com',
+  port: 80,
+  region: 'eu',
+  user,
+  key,
+  desiredCapabilities: {
+    idleTimeout: 300,
+  },
+};
+
+const helpers = {
+  WebDriverIO,
+  BootstrapHelper: { require: './helpers/BootstrapHelper' },
+  TeardownHelper: { require: './helpers/TeardownHelper' },
+  GeneralHelpers: { require: './helpers/GeneralHelpers' },
+  SauceLabsReportingHelper: { require: './helpers/SauceLabsReportingHelper' },
+};
 
 export const setupConfig = {
   tests: './journeys/*.test.js',
   output,
   require: ['ts-node/register'],
-  helpers: {
-    WebDriverIO: {
-      url,
-      browser,
-      waitForTimeout,
-      smartWait,
-      cssSelectorsEnabled: 'true',
-      host: 'ondemand.eu-central-1.saucelabs.com',
-      port: 80,
-      region: 'eu',
-      user,
-      key,
-      desiredCapabilities: {
-        idleTimeout: 300,
-      },
-    },
-    BootstrapHelper: { require: './helpers/BootstrapHelper' },
-    TeardownHelper: { require: './helpers/TeardownHelper' },
-    GeneralHelpers: { require: './helpers/GeneralHelpers' },
-    SauceLabsReportingHelper: { require: './helpers/SauceLabsReportingHelper' },
-  },
+  helpers,
   include: {
-    I: './pages/steps.js',
+    I: './pages/steps.ts',
   },
   teardownAll: (done) => {
     // Pause to allow SauceLabs to finish updating before Jenkins queries it for results

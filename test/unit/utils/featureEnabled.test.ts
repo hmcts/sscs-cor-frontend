@@ -1,7 +1,7 @@
-import * as config from 'config';
+import config from 'config';
 import { isFeatureEnabled, Feature } from 'app/server/utils/featureEnabled';
 
-const { expect } = require('test/chai-sinon');
+import { expect } from 'test/chai-sinon';
 
 describe('#featureEnabled', function () {
   it('should return whether a feature is enabled', function () {

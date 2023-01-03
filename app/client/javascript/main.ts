@@ -7,8 +7,7 @@ import { SessionInactivity } from './session-inactivity';
 import { DetailsTabIndexToggle } from './detailsToggle';
 import { RequestType } from './request-type';
 import { EvidenceStatement } from './evidence-statement';
-
-const domready = require('domready');
+import domready from 'domready';
 
 function goBack() {
   window.history.go(-1);

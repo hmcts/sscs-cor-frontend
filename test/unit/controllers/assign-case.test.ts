@@ -3,7 +3,7 @@ import { expect, sinon } from '../../chai-sinon';
 import { OK } from 'http-status-codes';
 import { CaseService } from 'app/server/services/cases';
 import { TrackYourApealService } from 'app/server/services/tyaService';
-const content = require('locale/content');
+import content from 'app/common/locale/content.json';
 
 describe('controllers/assign-case.js', function () {
   let req;

@@ -1,19 +1,20 @@
 import { IdamService } from 'app/server/services/idam';
 import { RequestPromise } from 'app/server/services/request-wrapper';
-
 import { INTERNAL_SERVER_ERROR, OK, NO_CONTENT } from 'http-status-codes';
 import { SinonSpy } from 'sinon';
-const { expect, sinon } = require('test/chai-sinon');
-const timeout = require('config').get('apiCallTimeout');
-const nock = require('nock');
-const config = require('config');
+import { expect, sinon } from 'test/chai-sinon';
+import config from 'config';
+import nock from 'nock';
+import HttpException from 'app/server/exceptions/HttpException';
 
+const timeout = config.get('apiCallTimeout');
 const apiUrl: string = config.get('idam.api-url');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
 const appPort: number = config.get('node.port');
 
 describe('services/idam', function () {
+  const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
   let idamService: IdamService;
   before(function () {
     idamService = new IdamService(apiUrl, appPort, appSecret);
@@ -65,15 +66,13 @@ describe('services/idam', function () {
     });
 
     describe('rejecting the promise', function () {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-
       beforeEach(function () {
         nock(apiUrl).get(path).replyWithError(error);
       });
 
       it('with the error', async function () {
         return expect(idamService.getUserDetails(token)).to.be.rejectedWith(
-          error
+          error.message
         );
       });
     });
@@ -133,8 +132,6 @@ describe('services/idam', function () {
     });
 
     describe('rejecting the promise', function () {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-
       beforeEach(function () {
         nock(apiUrl).post(path).replyWithError(error);
       });
@@ -142,7 +139,7 @@ describe('services/idam', function () {
       it('rejects the promise with the error', function () {
         return expect(
           idamService.getToken(code, protocol, host)
-        ).to.be.rejectedWith(error);
+        ).to.be.rejectedWith(error.message);
       });
     });
   });
@@ -168,14 +165,14 @@ describe('services/idam', function () {
     });
 
     describe('rejecting the promise', function () {
-      const error = { value: INTERNAL_SERVER_ERROR, reason: 'Server Error' };
-
       beforeEach(function () {
         nock(apiUrl).delete(path).replyWithError(error);
       });
 
       it('rejects the promise with the error', function () {
-        return expect(idamService.deleteToken(token)).to.be.rejectedWith(error);
+        return expect(idamService.deleteToken(token)).to.be.rejectedWith(
+          error.message
+        );
       });
     });
   });

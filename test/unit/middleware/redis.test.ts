@@ -2,12 +2,11 @@ import {
   createRedisClient,
   createRedisStore,
 } from 'app/server/middleware/redis';
-import * as proxyquire from 'proxyquire';
-import * as config from 'config';
+import proxyquire from 'proxyquire';
+import config from 'config';
 import { cloneDeep } from 'lodash';
 
-const { expect, sinon } = require('test/chai-sinon');
-const { createSession } = require('app/server/middleware/session.ts');
+import { sinon } from 'test/chai-sinon';
 
 describe('middleware/redis', function () {
   let mockConfig: any = null;

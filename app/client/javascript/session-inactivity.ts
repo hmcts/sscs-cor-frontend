@@ -1,9 +1,10 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import axios, { AxiosResponse } from 'axios';
 import { sessionExtension } from '../../server/paths';
 import { ExtendSessionResponse } from '../../server/controllers/session';
-const content = require('../../../locale/content');
-const i18next = require('i18next');
+import content from '../../common/locale/content.json';
+
+import i18next from 'i18next';
 
 export class SessionInactivity {
   public sessionExtendBuffer: number = 2 * 60 * 1000;
