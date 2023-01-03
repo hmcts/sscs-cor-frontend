@@ -4,7 +4,7 @@ import * as avEvidence from 'app/server/controllers/av-evidence';
 import express, { Router } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
 
-import caseData from '../../mock/tribunals/data/oral/av-evidence.json';
+import caseData from '../../../mock/tribunals/data/oral/av-evidence.json';
 import { SinonStub } from 'sinon';
 
 describe('controllers/av-evidence-list', function () {

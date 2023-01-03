@@ -4,7 +4,7 @@ import * as outcome from 'app/server/controllers/outcome';
 import express, { Router } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
 
-import oralHearing from '../../mock/tribunals/data/oral/outcome.json';
+import oralHearing from '../../../mock/tribunals/data/oral/outcome.json';
 import { SinonStub } from 'sinon';
 
 describe('controllers/outcome', function () {

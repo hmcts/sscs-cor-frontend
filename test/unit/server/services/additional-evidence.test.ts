@@ -32,7 +32,7 @@ describe('services/additional-evidence', function () {
       originalname: 'some_evidence.txt',
       mimetype: 'text/plain',
       buffer: fs.readFileSync(
-        path.join(__dirname, '/../../fixtures/evidence/evidence.txt')
+        path.join(__dirname, '/../../../fixtures/evidence/evidence.txt')
       ),
     };
     additionalEvidenceService = new AdditionalEvidenceService(apiUrl);

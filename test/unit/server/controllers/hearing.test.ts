@@ -4,7 +4,7 @@ import * as Paths from 'app/server/paths';
 import express, { Router } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
 
-import oralHearing from '../../mock/tribunals/data/oral/hearing.json';
+import oralHearing from '../../../mock/tribunals/data/oral/hearing.json';
 import { SinonStub } from 'sinon';
 
 describe('controllers/hearing', function () {

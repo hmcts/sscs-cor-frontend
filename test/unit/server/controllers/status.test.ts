@@ -5,8 +5,8 @@ import * as AppInsights from 'app/server/app-insights';
 import express, { Router } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
 
-import oralAppealReceived from '../../mock/tribunals/data/oral/appealReceived.json';
-import paperAppealReceived from '../../mock/tribunals/data/paper/appealReceived.json';
+import oralAppealReceived from '../../../mock/tribunals/data/oral/appealReceived.json';
+import paperAppealReceived from '../../../mock/tribunals/data/paper/appealReceived.json';
 import { SinonStub } from 'sinon';
 
 describe('controllers/status', function () {

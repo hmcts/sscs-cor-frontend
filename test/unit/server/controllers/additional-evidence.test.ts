@@ -12,7 +12,7 @@ import * as AppInsights from 'app/server/app-insights';
 import { EvidenceDescriptor } from 'app/server/services/additional-evidence';
 import { Feature } from 'app/server/utils/featureEnabled';
 import { NextFunction, Response } from 'express';
-import { expect, sinon } from '../../chai-sinon';
+import { expect, sinon } from '../../../chai-sinon';
 import content from 'app/common/locale/content.json';
 
 const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
