@@ -26,7 +26,6 @@ import { setupAvEvidenceController } from './controllers/av-evidence';
 import { setupRequestTypeController } from './controllers/request-type';
 import { setupCasesController } from './controllers/cases';
 
-import { CaseService } from './services/cases';
 import { IdamService } from './services/idam';
 import { AdditionalEvidenceService } from './services/additional-evidence';
 import { TrackYourApealService } from './services/tyaService';
@@ -49,7 +48,6 @@ export interface Dependencies {
   ) => void)[];
   additionalEvidenceService?: AdditionalEvidenceService;
   trackYourApealService?: TrackYourApealService;
-  caseService?: CaseService;
   idamService?: IdamService;
 }
 
@@ -67,7 +65,6 @@ const idamService: IdamService = new IdamService(
   appPort,
   appSecret
 );
-const caseService: CaseService = new CaseService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService =
   new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(
@@ -82,7 +79,6 @@ const decisionController = setupDecisionController({
   prereqMiddleware: ensureAuthenticated,
 });
 const loginController = setupLoginController({
-  caseService,
   idamService,
   trackYourApealService: trackYourAppealService,
 });
@@ -130,7 +126,6 @@ const historyController = setupHistoryController({
   prereqMiddleware: ensureAuthenticated,
 });
 const assignCaseController = setupAssignCaseController({
-  caseService,
   trackYourApealService: trackYourAppealService,
   prereqMiddleware: ensureAuthenticated,
 });

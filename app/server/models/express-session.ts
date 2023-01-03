@@ -73,8 +73,8 @@ export interface AppealDetails {
 
 export interface CaseDetails {
   online_hearing_id?: string;
-  appellant_name: string;
-  case_reference: string;
+  appellant_name?: string;
+  case_reference?: string;
   case_id?: number;
   decision?: Decision;
   final_decision?: FinalDecision;

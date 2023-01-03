@@ -9,18 +9,21 @@ import {
 } from 'app/server/controllers/login';
 import * as AppInsights from 'app/server/app-insights';
 import * as Paths from 'app/server/paths';
-import { CaseService } from 'app/server/services/cases';
-import { NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { CaseDetails } from 'app/server/models/express-session';
 import { expect, sinon } from 'test/chai-sinon';
 import config from 'config';
+import * as citizenCaseApi from 'app/server/services/citizenCaseApi';
+import { Response as fetchResponse } from 'node-fetch';
+import { SinonStub } from 'sinon';
+import { Session } from 'express-session';
 
 const idamUrl: string = config.get('idam.url');
 
 describe('controllers/login', function () {
-  let req;
-  let res;
-  let next: NextFunction;
+  let req: Request = null;
+  let res: Response = null;
+  let next: NextFunction = null;
   const caseDetails: CaseDetails = {
     case_id: 12345,
     online_hearing_id: '1',
@@ -28,12 +31,18 @@ describe('controllers/login', function () {
     appellant_name: 'John Smith',
   };
 
+  let getCasesStub: SinonStub = null;
+
+  before(function () {
+    getCasesStub = sinon.stub(citizenCaseApi, 'getCases');
+  });
+
   beforeEach(function () {
+    const session = {
+      destroy: sinon.stub().yields(),
+    } as Partial<Session> as Session;
     req = {
-      session: {
-        question: {},
-        destroy: sinon.stub().yields(),
-      },
+      session,
       body: {
         'email-address': 'test@example.com',
       },
@@ -41,11 +50,11 @@ describe('controllers/login', function () {
       hostname: 'localhost',
       query: { redirectUrl: '', tya: 'tya-number' },
       cookies: {},
-    };
+    } as Partial<Request> as Request;
     res = {
       render: sinon.stub(),
-      redirect: sinon.stub(),
-    };
+      redirect: sinon.stub().resolves(),
+    } as Partial<Response> as Response;
     next = sinon.stub().resolves();
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackTrace');
@@ -56,6 +65,11 @@ describe('controllers/login', function () {
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackTrace as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
+    getCasesStub.resetHistory();
+  });
+
+  after(function () {
+    getCasesStub.restore();
   });
 
   describe('#redirectToLogin', function () {
@@ -157,7 +171,7 @@ describe('controllers/login', function () {
         req.query = {};
 
         const redirectToIdam = sinon.stub();
-        await getIdamCallback(redirectToIdam, null, null, null)(req, res, next);
+        await getIdamCallback(redirectToIdam, null, null)(req, res, next);
 
         expect(redirectToIdam).to.have.been.calledOnce.calledWith(req, res);
       });
@@ -169,7 +183,6 @@ describe('controllers/login', function () {
       it('throw error', async function () {
         const error400 = new Error('400 Not Authorised');
 
-        let caseServiceStub;
         req.query = {
           code: 'badCode',
         };
@@ -178,15 +191,11 @@ describe('controllers/login', function () {
           getToken: sinon.stub().rejects(error400),
         } as Partial<IdamService> as IdamService;
 
-        // eslint-disable-next-line prefer-const
-        caseServiceStub = {} as CaseService;
-
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          null
-        )(req, res, next);
+        await getIdamCallback(redirectToIdam, idamServiceStub, null)(
+          req,
+          res,
+          next
+        );
 
         expect(AppInsights.trackEvent).to.have.been.called.calledWith(
           'MYA_IDAM_CODE_AUTH_ERROR'
@@ -201,7 +210,6 @@ describe('controllers/login', function () {
       it('throw error', async function () {
         sinon.stub(Service2Service, 'generateToken').resolves('3');
         const accessToken = 'someAccessToken';
-        let caseServiceStub;
         req.query = {
           code: 'someCode',
         };
@@ -223,19 +231,18 @@ describe('controllers/login', function () {
             case_reference: null,
           },
         ];
-        // eslint-disable-next-line prefer-const
-        caseServiceStub = {
-          getCasesForCitizen: sinon
-            .stub()
-            .resolves({ statusCode: 200, body: cases }),
-        } as Partial<CaseService> as CaseService;
 
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          null
-        )(req, res, next);
+        getCasesStub.resolves({
+          status: 200,
+          ok: true,
+          json: sinon.stub().resolves(cases),
+        } as Partial<fetchResponse>);
+
+        await getIdamCallback(redirectToIdam, idamServiceStub, null)(
+          req,
+          res,
+          next
+        );
         const error = new Error(
           'Case ID cannot be empty from hearing in session'
         );
@@ -252,7 +259,6 @@ describe('controllers/login', function () {
     });
 
     describe('on success with MYA enabled', function () {
-      let caseServiceStub;
       let trackYourAppealService;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
@@ -267,11 +273,12 @@ describe('controllers/login', function () {
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
         } as Partial<IdamService> as IdamService;
-        caseServiceStub = {
-          getCasesForCitizen: sinon
-            .stub()
-            .resolves({ statusCode: 200, body: [caseDetails] }),
-        } as Partial<CaseService> as CaseService;
+
+        getCasesStub.resolves({
+          status: 200,
+          ok: true,
+          json: sinon.stub().resolves([caseDetails]),
+        });
 
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
@@ -280,7 +287,6 @@ describe('controllers/login', function () {
         await getIdamCallback(
           redirectToIdam,
           idamServiceStub,
-          caseServiceStub,
           trackYourAppealService
         )(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
@@ -288,13 +294,7 @@ describe('controllers/login', function () {
       });
 
       it('calls the online hearing service', function () {
-        expect(
-          caseServiceStub.getCasesForCitizen
-        ).to.have.been.calledOnce.calledWith(
-          'someEmail@example.com',
-          'tya-number',
-          req
-        );
+        expect(getCasesStub).to.have.been.calledOnce.calledWith(req);
       });
 
       it('logs AppInsights trace log', function () {
@@ -315,7 +315,6 @@ describe('controllers/login', function () {
     });
 
     describe('check hideHearing flag with MYA enabled', function () {
-      let caseServiceStub;
       let trackYourAppealService;
       let redirectToIdam;
       let idamServiceStub;
@@ -332,16 +331,15 @@ describe('controllers/login', function () {
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
         } as Partial<IdamService> as IdamService;
-        caseServiceStub = {
-          getCasesForCitizen: sinon
-            .stub()
-            .resolves({ statusCode: 200, body: [caseDetails] }),
-        } as Partial<CaseService> as CaseService;
+        getCasesStub.resolves({
+          status: 200,
+          ok: true,
+          json: sinon.stub().resolves([caseDetails]),
+        });
       });
     });
 
     describe('cannot find case with MYA enabled', function () {
-      let caseServiceStub;
       let trackYourAppealService;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
@@ -356,11 +354,11 @@ describe('controllers/login', function () {
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
         } as Partial<IdamService> as IdamService;
-        caseServiceStub = {
-          getCasesForCitizen: sinon
-            .stub()
-            .resolves({ statusCode: 200, body: [] }),
-        } as Partial<CaseService> as CaseService;
+        getCasesStub.resolves({
+          status: 200,
+          ok: true,
+          json: sinon.stub().resolves([]),
+        });
 
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
@@ -369,7 +367,6 @@ describe('controllers/login', function () {
         await getIdamCallback(
           redirectToIdam,
           idamServiceStub,
-          caseServiceStub,
           trackYourAppealService
         )(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
@@ -377,13 +374,7 @@ describe('controllers/login', function () {
       });
 
       it('calls the online hearing service', function () {
-        expect(
-          caseServiceStub.getCasesForCitizen
-        ).to.have.been.calledOnce.calledWith(
-          'someEmail@example.com',
-          'tya-number',
-          req
-        );
+        expect(getCasesStub).to.have.been.calledOnce.calledWith(req);
       });
 
       it('redirects to assign case page', function () {
@@ -392,7 +383,6 @@ describe('controllers/login', function () {
     });
 
     describe('finds multiple cases with MYA enabled', function () {
-      let caseServiceStub;
       let trackYourAppealService;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
@@ -407,12 +397,11 @@ describe('controllers/login', function () {
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
         } as Partial<IdamService> as IdamService;
-        caseServiceStub = {
-          getCasesForCitizen: sinon.stub().resolves({
-            statusCode: 200,
-            body: [caseDetails, caseDetails],
-          }),
-        } as Partial<CaseService> as CaseService;
+        getCasesStub.resolves({
+          status: 200,
+          ok: true,
+          json: sinon.stub().resolves([caseDetails, caseDetails]),
+        });
 
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
@@ -421,7 +410,6 @@ describe('controllers/login', function () {
         await getIdamCallback(
           redirectToIdam,
           idamServiceStub,
-          caseServiceStub,
           trackYourAppealService
         )(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
@@ -429,13 +417,7 @@ describe('controllers/login', function () {
       });
 
       it('calls the online hearing service', function () {
-        expect(
-          caseServiceStub.getCasesForCitizen
-        ).to.have.been.calledOnce.calledWith(
-          'someEmail@example.com',
-          'tya-number',
-          req
-        );
+        expect(getCasesStub).to.have.been.calledOnce.calledWith(req);
       });
 
       it('loads select case page', function () {
@@ -444,7 +426,6 @@ describe('controllers/login', function () {
     });
 
     describe('selects a case by case id with MYA enabled', function () {
-      let caseServiceStub;
       let trackYourAppealService;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number', caseId: '11111' };
@@ -459,25 +440,24 @@ describe('controllers/login', function () {
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
         } as Partial<IdamService> as IdamService;
-        caseServiceStub = {
-          getCasesForCitizen: sinon.stub().resolves({
-            statusCode: 200,
-            body: [
-              {
-                case_id: 11111,
-                online_hearing_id: '1',
-                case_reference: '11111',
-                appellant_name: 'John Smith',
-              },
-              {
-                case_id: 22222,
-                online_hearing_id: '2',
-                case_reference: '22222',
-                appellant_name: 'John Smith',
-              },
-            ],
-          }),
-        } as Partial<CaseService> as CaseService;
+        getCasesStub.resolves({
+          status: 200,
+          ok: true,
+          json: sinon.stub().resolves([
+            {
+              case_id: 11111,
+              online_hearing_id: '1',
+              case_reference: '11111',
+              appellant_name: 'John Smith',
+            },
+            {
+              case_id: 22222,
+              online_hearing_id: '2',
+              case_reference: '22222',
+              appellant_name: 'John Smith',
+            },
+          ]),
+        });
 
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
@@ -486,7 +466,6 @@ describe('controllers/login', function () {
         await getIdamCallback(
           redirectToIdam,
           idamServiceStub,
-          caseServiceStub,
           trackYourAppealService
         )(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
@@ -494,13 +473,7 @@ describe('controllers/login', function () {
       });
 
       it('calls the online hearing service', function () {
-        expect(
-          caseServiceStub.getCasesForCitizen
-        ).to.have.been.calledOnce.calledWith(
-          'someEmail@example.com',
-          'tya-number',
-          req
-        );
+        expect(getCasesStub).to.have.been.calledOnce.calledWith(req);
       });
 
       it('sets the hearing', function () {

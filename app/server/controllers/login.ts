@@ -5,7 +5,6 @@ import {
   NOT_FOUND,
   UNPROCESSABLE_ENTITY,
   CONFLICT,
-  OK,
   BAD_REQUEST,
 } from 'http-status-codes';
 import * as Paths from '../paths';
@@ -13,7 +12,6 @@ import { URL } from 'url';
 import { generateToken } from '../services/s2s';
 
 import { IdamService, TokenResponse, UserDetails } from '../services/idam';
-import { CaseService } from '../services/cases';
 import { TrackYourApealService } from '../services/tyaService';
 import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 import { Dependencies } from '../routes';
@@ -22,11 +20,13 @@ import { LoggerInstance } from 'winston';
 import config from 'config';
 import { CaseDetails } from 'app/server/models/express-session';
 import { resolveQuery } from '../utils/parseUtils';
+import { getCases } from '../services/citizenCaseApi';
+import { Response as fetchResponse } from 'node-fetch';
 
 import i18next from 'i18next';
 import content from '../../common/locale/content.json';
 
-const logger: LoggerInstance = Logger.getLogger('login.js');
+const logger: LoggerInstance = Logger.getLogger('login');
 const idamUrlString: string = config.get('idam.url');
 const idamClientId: string = config.get('idam.client.id');
 
@@ -95,7 +95,6 @@ export function redirectToIdam(
 export function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   idamService: IdamService,
-  caseService: CaseService,
   trackYourAppealService: TrackYourApealService
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -142,23 +141,23 @@ export function getIdamCallback(
       );
       req.session.idamEmail = email;
 
-      let statusCode: number = null;
-      let body: Array<CaseDetails> = null;
-      ({ statusCode, body } = await caseService.getCasesForCitizen(
-        email,
-        req.session.tya,
-        req
-      ));
+      const response: fetchResponse = await getCases(req);
 
-      if (statusCode !== OK)
+      if (!response.ok) {
+        logger.error(
+          `Error getting cases for citizen, status: ${response.status}, status Text: ${response.statusText}`
+        );
         return renderErrorPage(
           email,
-          statusCode,
-          body as any,
+          response.status,
+          response.statusText,
           idamService,
           req,
           res
         );
+      }
+
+      const body = (await response.json()) as Array<CaseDetails>;
 
       const cases: Array<CaseDetails> = req.query.caseId
         ? body.filter(
@@ -287,7 +286,6 @@ export function setupLoginController(deps: Dependencies): Router {
     getIdamCallback(
       redirectToIdam('/login', deps.idamService),
       deps.idamService,
-      deps.caseService,
       deps.trackYourApealService
     )
   );

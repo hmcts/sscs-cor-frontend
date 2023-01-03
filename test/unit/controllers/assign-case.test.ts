@@ -1,9 +1,13 @@
 import { getIndex, postIndex } from 'app/server/controllers/assign-case';
 import { expect, sinon } from '../../chai-sinon';
 import { OK } from 'http-status-codes';
-import { CaseService } from 'app/server/services/cases';
 import { TrackYourApealService } from 'app/server/services/tyaService';
 import content from 'app/common/locale/content.json';
+import { Appeal, CaseDetails } from 'app/server/models/express-session';
+import * as citizenCaseApi from 'app/server/services/citizenCaseApi';
+import { Response as fetchResponse } from 'node-fetch';
+import { SinonStub } from 'sinon';
+import { Response, Request } from 'express';
 
 describe('controllers/assign-case.js', function () {
   let req;
@@ -33,34 +37,36 @@ describe('controllers/assign-case.js', function () {
   describe('postIndex', function () {
     const idamEmail = 'someEmail@example.com';
     const tya = 'some-tya-number';
-    const caseId = 'caseId';
-    let onlineHearing;
-    let appeal;
-    let caseService: CaseService = null;
-    let trackYourAppealService: TrackYourApealService;
-    let underTest;
+    const caseId = 1234;
+    const caseDetails: CaseDetails = {
+      case_id: caseId,
+    };
+    const appeal: Appeal = {
+      hearingType: 'paper',
+    };
+    let trackYourAppealService: TrackYourApealService = null;
+    let postIndexInst: (req: Request, res: Response) => Promise<void> = null;
+    let stubAddUserToCase: SinonStub = null;
+
+    before(function () {
+      stubAddUserToCase = sinon.stub(citizenCaseApi, 'addUserToCase').resolves({
+        status: 200,
+        ok: true,
+        json: sinon.stub().resolves(caseDetails),
+      } as Partial<fetchResponse>);
+    });
 
     beforeEach(function () {
-      onlineHearing = {
-        hearingId: 'hearingId',
-        case_id: caseId,
-      };
-      appeal = {
-        hearingType: 'paper',
-      };
-
-      caseService = {
-        assignOnlineHearingsToCitizen: sinon.stub().resolves({
-          statusCode: OK,
-          body: onlineHearing,
-        }),
-      } as any;
       trackYourAppealService = {
         getAppeal: sinon.stub().resolves({
           statusCode: OK,
           appeal,
         }),
       } as any;
+    });
+
+    after(function () {
+      stubAddUserToCase.restore();
     });
 
     describe('for valid postcode', function () {
@@ -71,20 +77,18 @@ describe('controllers/assign-case.js', function () {
           session: { idamEmail, tya },
           body: { postcode },
         } as any;
-
-        underTest = postIndex(caseService, trackYourAppealService);
+        stubAddUserToCase.resetHistory();
+        postIndexInst = postIndex(trackYourAppealService);
       });
 
       it('assigns user to case', async function () {
-        await underTest(req, res);
+        await postIndexInst(req, res);
 
-        expect(
-          caseService.assignOnlineHearingsToCitizen
-        ).to.have.been.calledOnce.calledWith(idamEmail, tya, postcode, req);
+        expect(stubAddUserToCase).to.have.been.calledOnce.calledWith(req);
       });
 
       it('gets appeal', async function () {
-        await underTest(req, res);
+        await postIndexInst(req, res);
 
         expect(
           trackYourAppealService.getAppeal
@@ -92,19 +96,19 @@ describe('controllers/assign-case.js', function () {
       });
 
       it('redirects to task-list', async function () {
-        await underTest(req, res);
+        await postIndexInst(req, res);
 
         expect(res.redirect).to.have.been.calledOnce.calledWith('/status');
       });
 
       it('sets hearing in session', async function () {
-        await underTest(req, res);
+        await postIndexInst(req, res);
 
-        expect(req.session.case).to.be.eql(onlineHearing);
+        expect(req.session.case).to.be.eql(caseDetails);
       });
 
       it('sets appeal in session', async function () {
-        await underTest(req, res);
+        await postIndexInst(req, res);
 
         expect(req.session.appeal).to.be.eql(appeal);
       });
@@ -129,7 +133,7 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(caseService, trackYourAppealService);
+        postIndexInst = postIndex(trackYourAppealService);
       });
     });
 
@@ -142,11 +146,11 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(caseService, trackYourAppealService);
+        postIndexInst = postIndex(trackYourAppealService);
       });
 
       it('redirects to task-list', async function () {
-        await underTest(req, res);
+        await postIndexInst(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
           'assign-case/index.njk',
@@ -164,11 +168,11 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(caseService, trackYourAppealService);
+        postIndexInst = postIndex(trackYourAppealService);
       });
 
       it('redirects to task-list', async function () {
-        await underTest(req, res);
+        await postIndexInst(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
           'assign-case/index.njk',
@@ -186,11 +190,11 @@ describe('controllers/assign-case.js', function () {
           body: { postcode },
         } as any;
 
-        underTest = postIndex(caseService, trackYourAppealService);
+        postIndexInst = postIndex(trackYourAppealService);
       });
 
       it('redirects to task-list', async function () {
-        await underTest(req, res);
+        await postIndexInst(req, res);
 
         expect(res.render).to.have.been.calledOnce.calledWith(
           'assign-case/index.njk',
