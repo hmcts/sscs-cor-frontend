@@ -8,23 +8,28 @@ import * as citizenCaseApi from 'app/server/services/citizenCaseApi';
 import { Response as fetchResponse } from 'node-fetch';
 import { SinonStub } from 'sinon';
 import { Response, Request } from 'express';
+import i18next from 'i18next';
 
 describe('controllers/assign-case.js', function () {
-  let req;
-  let res;
+  let req: Request = null;
+  let res: Response = null;
+
+  before(function () {
+    i18next.language = 'en';
+  });
 
   beforeEach(function () {
     res = {
       render: sinon.spy(),
       redirect: sinon.spy(),
-    } as any;
+    } as Partial<Response> as Response;
   });
 
   describe('getIndex', function () {
     it('should render assign-case page', function () {
       req = {
         query: {},
-      } as any;
+      } as Partial<Request> as Request;
 
       getIndex(req, res);
       expect(res.render).to.have.been.calledOnce.calledWith(
@@ -76,7 +81,7 @@ describe('controllers/assign-case.js', function () {
         req = {
           session: { idamEmail, tya },
           body: { postcode },
-        } as any;
+        } as Partial<Request> as Request;
         stubAddUserToCase.resetHistory();
         postIndexInst = postIndex(trackYourAppealService);
       });
@@ -131,7 +136,7 @@ describe('controllers/assign-case.js', function () {
         req = {
           session: { idamEmail, tya },
           body: { postcode },
-        } as any;
+        } as Partial<Request> as Request;
 
         postIndexInst = postIndex(trackYourAppealService);
       });
@@ -144,7 +149,7 @@ describe('controllers/assign-case.js', function () {
         req = {
           session: { idamEmail, tya },
           body: { postcode },
-        } as any;
+        } as Partial<Request> as Request;
 
         postIndexInst = postIndex(trackYourAppealService);
       });
@@ -166,7 +171,7 @@ describe('controllers/assign-case.js', function () {
         req = {
           session: { idamEmail, tya },
           body: { postcode },
-        } as any;
+        } as Partial<Request> as Request;
 
         postIndexInst = postIndex(trackYourAppealService);
       });
@@ -188,7 +193,7 @@ describe('controllers/assign-case.js', function () {
         req = {
           session: { idamEmail },
           body: { postcode },
-        } as any;
+        } as Partial<Request> as Request;
 
         postIndexInst = postIndex(trackYourAppealService);
       });

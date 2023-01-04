@@ -7,6 +7,7 @@ import {
   ensureAuthenticated,
   setLocals,
 } from 'app/server/middleware/ensure-authenticated';
+import i18next from 'i18next';
 
 describe('middleware/ensure-authenticated', function () {
   let req;
@@ -17,6 +18,10 @@ describe('middleware/ensure-authenticated', function () {
     case_reference: '12345',
     appellant_name: 'John Smith',
   };
+
+  before(function () {
+    i18next.language = 'en';
+  });
 
   beforeEach(function () {
     req = {

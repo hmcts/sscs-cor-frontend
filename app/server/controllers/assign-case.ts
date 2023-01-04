@@ -14,7 +14,7 @@ import { Appeal, CaseDetails } from '../models/express-session';
 
 const postcodeRegex = /^([A-Z][A-HJ-Y]?\d[A-Z\d]?\s?\d[A-Z]{2}|GIR ?0A{2})$/gi;
 
-const logger: LoggerInstance = Logger.getLogger('login.js');
+const logger: LoggerInstance = Logger.getLogger('assign-case');
 
 function getIndex(req: Request, res: Response) {
   return res.render('assign-case/index.njk', {});

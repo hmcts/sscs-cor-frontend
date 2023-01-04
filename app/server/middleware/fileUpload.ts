@@ -98,7 +98,7 @@ export function validateFileSize(
     if (file) {
       let error: string = null;
       const fileExtension = path.extname(file.originalname).toLocaleLowerCase();
-      console.log(fileExtension);
+      logger.info(fileExtension);
       if (
         mimeTypes.includes(file.mimetype) &&
         fileTypes.includes(fileExtension) &&

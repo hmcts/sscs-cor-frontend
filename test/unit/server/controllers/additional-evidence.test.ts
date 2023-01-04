@@ -20,6 +20,7 @@ const maxFileSizeInMb: number = config.get('evidenceUpload.maxFileSizeInMb');
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 
 import HttpException from 'app/server/exceptions/HttpException';
+import i18next from 'i18next';
 
 describe('controllers/additional-evidence.js', function () {
   let req;
@@ -34,6 +35,10 @@ describe('controllers/additional-evidence.js', function () {
   const serviceToken = 'serviceToken';
 
   const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
+
+  before(function () {
+    i18next.language = 'en';
+  });
 
   beforeEach(function () {
     req = {

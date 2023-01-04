@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { ParamsDictionary } from 'express-serve-static-core';
 import { BAD_REQUEST } from 'http-status-codes';
 import { expect, sinon } from 'test/chai-sinon';
+import i18next from 'i18next';
 
 describe('controllers/validateEmail', function () {
   const session: SessionData = {
@@ -28,6 +29,7 @@ describe('controllers/validateEmail', function () {
   let next: NextFunction = null;
 
   before(function () {
+    i18next.language = 'en';
     res.render = sinon.stub().resolves();
     res.status = sinon.stub().resolves();
     next = sinon.stub().resolves();

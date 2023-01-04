@@ -12,6 +12,7 @@ import { Session, SessionData } from 'express-session';
 import HttpException from 'app/server/exceptions/HttpException';
 
 import { expect, sinon } from 'test/chai-sinon';
+import i18next from 'i18next';
 
 describe('middleware/error-handler', function () {
   const req: Request = {
@@ -19,6 +20,10 @@ describe('middleware/error-handler', function () {
   } as Request;
   let res: Response = {} as Response;
   let next: NextFunction = null;
+
+  before(function () {
+    i18next.language = 'en';
+  });
 
   beforeEach(function () {
     res = {

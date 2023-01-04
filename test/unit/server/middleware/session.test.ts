@@ -14,12 +14,19 @@ describe('middleware/session', function () {
 
   let redisStub: SinonStub = null;
 
-  beforeEach(function () {
-    mockConfig = cloneDeep(config);
+  before(function () {
     redisStub = sinon.stub(redis, 'createRedisStore').returns(null);
   });
 
+  beforeEach(function () {
+    mockConfig = cloneDeep(config);
+  });
+
   afterEach(function () {
+    redisStub.resetHistory();
+  });
+
+  after(function () {
     redisStub.restore();
     sinon.restore();
   });
@@ -47,6 +54,7 @@ describe('middleware/session', function () {
 
     const sessionProxy = proxyquire('app/server/middleware/session', {
       config: mockConfig,
+      redis: sinon.stub(),
     });
 
     sessionProxy.createSession();

@@ -5,7 +5,9 @@
     "tsconfig-paths/register"
   ],
   "timeout": 180000,
-  "bail": true,
   "colors": true,
-  "full-trace": true
+  "full-trace": true,
+  "diff": true,
+  "bail": false,
+  "extension": ["ts", "tsx", "cjs", "mjs"]
 }

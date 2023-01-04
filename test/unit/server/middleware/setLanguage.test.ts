@@ -26,6 +26,7 @@ describe('middleware/setLanguage', function () {
   let i18nextStub: SinonStub = null;
 
   before(function () {
+    i18next.language = 'en';
     res.render = sinon.stub();
     next = sinon.stub();
     routerStub = sinon.stub(express, 'Router').returns({

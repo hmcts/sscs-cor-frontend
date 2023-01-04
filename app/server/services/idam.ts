@@ -1,7 +1,7 @@
 import * as Paths from '../paths';
 import { RequestPromise } from './request-wrapper';
 import { Logger } from '@hmcts/nodejs-logging';
-const logger = Logger.getLogger('login.js');
+const logger = Logger.getLogger('idam');
 import i18next from 'i18next';
 
 import config from 'config';

@@ -1,12 +1,8 @@
-import {
-  createRedisClient,
-  createRedisStore,
-} from 'app/server/middleware/redis';
+import * as redis from 'app/server/middleware/redis';
 import proxyquire from 'proxyquire';
 import config from 'config';
 import { cloneDeep } from 'lodash';
-
-import { sinon } from 'test/chai-sinon';
+import { expect, sinon } from 'test/chai-sinon';
 
 describe('middleware/redis', function () {
   let mockConfig: any = null;
@@ -24,15 +20,15 @@ describe('middleware/redis', function () {
 
   describe('#createRedisClient', function () {
     it('should return the correct redis client when createRedisClient is false', function () {
-      createRedisClient(false);
+      redis.createRedisClient(false);
     });
 
     it('should return the correct redis client when no args are given', function () {
-      createRedisClient();
+      redis.createRedisClient();
     });
 
     it('should return the correct redis client when createRedisClient is true', function () {
-      createRedisClient(true);
+      redis.createRedisClient(true);
     });
 
     it('should run without error with redis secret being null', function () {
@@ -67,8 +63,18 @@ describe('middleware/redis', function () {
   });
 
   describe('#createRedisStore', function () {
+    let ioredisStub = null;
+    let redisProxy = null;
+    before(function () {
+      ioredisStub = sinon.stub().returns({ on: sinon.stub() });
+      redisProxy = proxyquire('app/server/middleware/redis', {
+        ioredis: ioredisStub,
+      });
+    });
+
     it('should return the correct redis store', function () {
-      createRedisStore();
+      redisProxy.createRedisStore();
+      expect(ioredisStub).to.be.calledOnce;
     });
   });
 });

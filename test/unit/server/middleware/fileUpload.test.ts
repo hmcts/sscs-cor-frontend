@@ -14,14 +14,16 @@ import { before } from 'mocha';
 import { SessionData } from 'express-session';
 import { MulterError } from 'multer';
 import content from 'app/common/locale/content.json';
+import i18next from 'i18next';
 
 describe('fileUpload middleware', function () {
   const caseId = 1234;
-  const session = {
+  let session = {
+    cookie: null,
     case: {
       case_id: caseId,
     },
-  } as Partial<SessionData> as SessionData;
+  } as SessionData;
   const req = {
     session,
     cookies: {},
@@ -29,7 +31,6 @@ describe('fileUpload middleware', function () {
   let res: Response = null;
   let next: NextFunction = null;
 
-  let sandbox: sinon.SinonSandbox = null;
   let maxFileSizeInMb: number = null;
   let maxDocumentFileSizeInMb: number = null;
 
@@ -39,6 +40,7 @@ describe('fileUpload middleware', function () {
   const FileTypeErrorCode = 'LIMIT_FILE_TYPE';
 
   before(function () {
+    i18next.language = 'en';
     filterCallbackStub = sinon.stub().resolves();
     maxFileSizeInMb = config.get('evidenceUpload.maxDocumentFileSizeInMb');
     maxDocumentFileSizeInMb = config.get(
@@ -48,11 +50,10 @@ describe('fileUpload middleware', function () {
 
   describe('#handleFileUploadErrors', function () {
     beforeEach(function () {
-      sandbox = sinon.createSandbox();
       res = {
         locals: {},
-      } as any;
-      next = sandbox.stub().resolves();
+      } as Partial<Response> as Response;
+      next = sinon.stub().resolves();
     });
 
     it('should catch multer LIMIT_FILE_SIZE error', function () {
@@ -114,7 +115,6 @@ describe('fileUpload middleware', function () {
 
   describe('#validateFileSize', function () {
     beforeEach(function () {
-      sandbox = sinon.createSandbox();
       req.file = {
         originalname: 'word.docx',
         mimetype: 'application/msword',
@@ -123,8 +123,8 @@ describe('fileUpload middleware', function () {
       req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
       res = {
         locals: {},
-      } as any;
-      next = sandbox.stub().resolves();
+      } as Partial<Response> as Response;
+      next = sinon.stub().resolves();
     });
 
     it('should not filter when feature is off', function () {
@@ -175,12 +175,15 @@ describe('fileUpload middleware', function () {
     } as Partial<Express.Multer.File> as Express.Multer.File;
 
     beforeEach(function () {
-      session.case = {
-        appellant_name: '',
-        case_reference: '',
-        online_hearing_id: '',
-        case_id: caseId,
-      };
+      session = {
+        cookie: undefined,
+        case: {
+          appellant_name: '',
+          case_reference: '',
+          online_hearing_id: '',
+          case_id: caseId,
+        },
+      } as SessionData;
       filterCallbackStub.resetHistory();
     });
 
@@ -222,7 +225,9 @@ describe('fileUpload middleware', function () {
     });
 
     it('returns correct LIMIT_FILE_TYPE error when case is null', function () {
-      session.case = null;
+      session = {
+        cookie: null,
+      };
       file.originalname = 'audio.MP3';
       fileTypeInWhitelist(req, file, filterCallbackStub);
       expect(filterCallbackStub).to.have.been.calledOnce.calledWithMatch({
@@ -241,7 +246,9 @@ describe('fileUpload middleware', function () {
     });
 
     it('returns correct LIMIT_UNEXPECTED_FILE error when case is null', function () {
-      session.case = null;
+      session = {
+        cookie: null,
+      };
       file.originalname = 'audio.MP3';
       file.mimetype = 'audio/mp3';
       fileTypeInWhitelist(req, file, filterCallbackStub);
@@ -258,12 +265,15 @@ describe('fileUpload middleware', function () {
     } as Partial<Express.Multer.File> as Express.Multer.File;
 
     beforeEach(function () {
-      session.case = {
-        appellant_name: '',
-        case_reference: '',
-        online_hearing_id: '',
-        case_id: caseId,
-      };
+      session = {
+        cookie: undefined,
+        case: {
+          appellant_name: '',
+          case_reference: '',
+          online_hearing_id: '',
+          case_id: caseId,
+        },
+      } as SessionData;
       filterCallbackStub.resetHistory();
     });
 
@@ -308,7 +318,9 @@ describe('fileUpload middleware', function () {
 
     it('returns correct LIMIT_FILE_TYPE error when case is null', function () {
       file.originalname = 'audio.MP3';
-      session.case = null;
+      session = {
+        cookie: null,
+      };
       fileTypeAudioVideoInWhitelist(req, file, filterCallbackStub);
       expect(filterCallbackStub).to.have.been.calledOnce.calledWithMatch({
         code: FileTypeErrorCode,

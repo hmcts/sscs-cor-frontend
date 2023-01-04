@@ -3,6 +3,7 @@ import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 import moment from 'moment';
 import axios from 'axios';
 import { SinonSpy, SinonStub } from 'sinon';
+import i18next from 'i18next';
 
 describe('Client/session-inactivity', function () {
   let sessionInactivity: SessionInactivity;
@@ -16,6 +17,7 @@ describe('Client/session-inactivity', function () {
   let axiosSpy: SinonSpy;
 
   before(function () {
+    i18next.language = 'en';
     sessionInactivity = new SessionInactivity();
     extendSessionMock = sinon.stub(
       SessionInactivity.prototype,
@@ -201,13 +203,25 @@ describe('Client/session-inactivity', function () {
       expect(startModalIntervalSpy).to.have.been.called;
     });
 
-    it.skip('should modify expiring message when interval starts', function () {
+    it('should set english expiring message when interval starts', function () {
+      i18next.language = 'en';
       sessionInactivity.startModalInterval();
       clock.tick(1001);
 
       const message = document.getElementById('expiring-in-message');
       expect(message.innerHTML).to.be.equal(
         'Your session will expire in 2:00 minutes and you will be signed out.'
+      );
+    });
+
+    it('should set welsh expiring message when interval starts', function () {
+      i18next.language = 'cy';
+      sessionInactivity.startModalInterval();
+      clock.tick(1001);
+
+      const message = document.getElementById('expiring-in-message');
+      expect(message.innerHTML).to.be.equal(
+        'Bydd eich sesiwn yn dod i ben mewn 2:00 munud a byddwch yn cael eich allgofnodi’n awtomatig.'
       );
     });
   });

@@ -8,8 +8,13 @@ import {
 
 import { expect } from 'test/chai-sinon';
 import content from 'app/common/locale/content.json';
+import i18next from 'i18next';
 
 describe('utils/fieldValidation.js', function () {
+  before(function () {
+    i18next.language = 'en';
+  });
+
   describe('answerValidation on submit', function () {
     it('returns the error message if answer is empty', function () {
       expect(answerValidation('', { body: { submit: true } })).to.equal(
