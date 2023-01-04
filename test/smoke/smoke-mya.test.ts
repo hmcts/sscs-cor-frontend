@@ -6,6 +6,10 @@ import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 import { expect } from 'test/chai-sinon';
 import content from 'app/common/locale/content.json';
+import addContext from 'mochawesome/addContext';
+import { mkdir } from 'fs/promises';
+
+const smokeReportDir = 'reports/smoke/';
 
 describe('Manage your appeal app @smoke', function () {
   let ccdCase;
@@ -15,6 +19,7 @@ describe('Manage your appeal app @smoke', function () {
   let statusPage: StatusPage;
   let sidamUser;
   before(async function () {
+    await mkdir(smokeReportDir);
     ({
       ccdCase,
       page,
@@ -31,6 +36,16 @@ describe('Manage your appeal app @smoke', function () {
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
     );
+  });
+
+  afterEach(async function () {
+    const filename = `'${this.currentTest.title}'-${new Date().toString()}`;
+    const path = `${smokeReportDir}${filename}.png`;
+    await page.screenshot({
+      fullPage: true,
+      path,
+    });
+    addContext(this, path);
   });
 
   after(async function () {

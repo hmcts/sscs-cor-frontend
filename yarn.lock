@@ -1146,10 +1146,17 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/mocha@^10.0.0":
+"@types/mocha@*", "@types/mocha@^10.0.0":
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-10.0.1.tgz#2f4f65bb08bc368ac39c96da7b2f09140b26851b"
   integrity sha512-/fvYntiO1GeICvqbQ3doGDIP97vWmvFt83GKguJ6prmQM2iXZfFcq6YE8KteFyRtX2/h5Hf91BYvPodJKFYv5Q==
+
+"@types/mochawesome@^6.2.1":
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/@types/mochawesome/-/mochawesome-6.2.1.tgz#4d81b570a44812c216a592b1785d9829c2e96425"
+  integrity sha512-AhQdBkT/CBdx3sI9ATeljqa5uJ3dGNKEJnsgzw9IkPeg9d9Lzxsz1eKFnenxq1qQojIW0XkIsCgdheRRXP2SQA==
+  dependencies:
+    "@types/mocha" "*"
 
 "@types/multer@^1.4.7":
   version "1.4.7"
