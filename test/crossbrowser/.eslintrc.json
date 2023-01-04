@@ -1,8 +1,6 @@
 {
   "extends": ["../.eslintrc.json"],
-  "ignorePatterns": [
-    "pages/steps.js"
-  ],
+  "ignorePatterns": ["pages/steps.js"],
   "rules": {
     "@typescript-eslint/no-this-alias": "warn",
     "@typescript-eslint/no-misused-promises": "warn"

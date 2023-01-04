@@ -65,7 +65,7 @@ The pa11y tests are a subset of the browser tests, simply tagged @pa11y.
 yarn test:a11y
 ```
 
-These tests generate screenshots of all pages tested and can be found in `./functional-output/pa11y-screenshots`
+These tests generate screenshots of all pages tested and can be found in `./reports/pa11y`
 
 On Jenkins, when viewing a build, the screenshots are available as Build Artifacts.
 

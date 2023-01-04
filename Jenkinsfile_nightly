@@ -45,29 +45,53 @@ withNightlyPipeline("nodejs", product, component) {
 
     before('DependencyCheckNightly') {sh 'yarn test:audit'}
     enableSecurityScan()
-    // enableFortifyScan('sscs-aat')
-    enableCrossBrowserTest()
-    enableFullFunctionalTest(20)
-    enableSlackNotifications('#sscs-tech')
-    enableMutationTest()
 
-    // after('fortify-scan') {
+    // enableFortifyScan('sscs-aat')
+
+    // afterAlways('fortify-scan') {
     //     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
     // }
 
-    after('crossBrowserTest') {
-       steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-    }
+    enableCrossBrowserTest()
 
-    after('fullFunctionalTest') {
-
+    afterAlways('crossBrowserTest') {
         publishHTML target: [
                 allowMissing : true,
                 alwaysLinkToLastBuild: true,
                 keepAll : true,
-                reportDir : "output",
-                reportFiles : "SSCS-e2e-result.html",
-                reportName : "SSCS E2E functional tests result"
+                reportDir : "reports/crossbrowser",
+                reportFiles : "mochawesome.html",
+                reportName : "Cross Browser Test Results"
+        ]
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'reports/crossbrowser/**/*'
+    }
+
+    enableFullFunctionalTest(20)
+
+    afterAlways('fullFunctionalTest') {
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/functional",
+                reportFiles : "mochawesome.html",
+                reportName : "Functional Test Results"
         ]
     }
+
+    enableMutationTest()
+
+    afterAlways('mutationTest') {
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/mutation",
+                reportFiles : "mutation.html",
+                reportName : "Mutation Test Results"
+        ]
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'reports/crossbrowser/**/*'
+    }
+
+    enableSlackNotifications('#sscs-tech')
 }

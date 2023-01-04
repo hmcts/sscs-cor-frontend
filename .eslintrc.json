@@ -28,7 +28,7 @@ Happy linting! 💖
   "ignorePatterns": [
     "node_modules/",
     "public/",
-    "functional-output/",
+    "reports/",
     "govuk_modules/",
     "dist",
     "cookie-banner/"

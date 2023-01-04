@@ -1,8 +1,7 @@
 node_modules/
 public/
-functional-output/
+reports/
 govuk_modules/
-test/coverage
 dist
 app/client/javascript/*.js
 test/crossbrowser/pages/steps.js
@@ -16,4 +15,3 @@ cookie-banner/
 
 # Ignore artifacts:
 build
-coverage

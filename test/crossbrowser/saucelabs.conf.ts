@@ -69,7 +69,7 @@ export const setupConfig = {
         options: { steps: true },
       },
       mochawesome: {
-        stdout: './functional-output/console.log',
+        stdout: './reports/functional/console.log',
         options: {
           reportDir: output,
           reportName: 'index',

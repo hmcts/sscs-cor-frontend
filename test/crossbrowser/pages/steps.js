@@ -26,19 +26,15 @@ module.exports = () => {
   return actor(actions);
 };
 
-module.exports = function() {
-
+module.exports = function () {
   let stepsKeys = Object.keys(steps);
 
   for (let step in stepsKeys) {
-
     let sectionKeys = Object.keys(steps[stepsKeys[step]]);
 
     for (let section in sectionKeys) {
-
       setActorActions(steps[stepsKeys[step]][sectionKeys[section]]);
     }
-
   }
 
   return actor(actions);

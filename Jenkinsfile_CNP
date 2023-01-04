@@ -38,15 +38,81 @@ def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
-    after('checkout') {yarnBuilder.yarn('cache clean')}
-    after('build') {
+
+    afterSuccess('checkout') {
+        yarnBuilder.yarn('cache clean')
+    }
+    afterSuccess('build') {
         yarnBuilder.yarn('build')
     }
 
     enableAksStagingDeployment()
     disableLegacyDeployment()
     syncBranchesWithMaster(branchesToSync)
-    before('securitychecks') { yarnBuilder.yarn('test:audit') }
+
+    before('securitychecks') {
+        yarnBuilder.yarn('test:audit')
+    }
+
+    afterAlways('test') {
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/unit/server",
+                reportFiles : "mochawesome.html",
+                reportName : "Server Unit Test Results"
+        ]
+
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/unit/client",
+                reportFiles : "mochawesome.html",
+                reportName : "Client Unit Test Results"
+        ]
+
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/integration",
+                reportFiles : "mochawesome.html",
+                reportName : "Client Unit Test Results"
+        ]
+
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/coverage/html",
+                reportFiles : "index.html",
+                reportName : "Coverage Report"
+        ]
+    }
+
+    afterAlways('smoketest:preview') {
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/smoke",
+                reportFiles : "mochawesome.html",
+                reportName : "Smoke Test Results"
+        ]
+    }
+
+    afterAlways('smoketest:aat') {
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/smoke",
+                reportFiles : "mochawesome.html",
+                reportName : "Smoke Test Results"
+        ]
+    }
 
     before("functionalTest:preview") {
         env.SSCS_API_URL = tribunalsAat
@@ -71,5 +137,27 @@ withPipeline("nodejs", product, component) {
         sh 'echo S2S_URL=$S2S_URL'
         env.S2S_OAUTH2_URL = "https://idam-api.aat.platform.hmcts.net"
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
+    }
+
+    afterAlways('functionalTest:preview') {
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/functional",
+                reportFiles : "mochawesome.html",
+                reportName : "Functional Test Results"
+        ]
+    }
+
+    afterAlways('functionalTest:aat') {
+        publishHTML target: [
+                allowMissing : true,
+                alwaysLinkToLastBuild: true,
+                keepAll : true,
+                reportDir : "reports/functional",
+                reportFiles : "mochawesome.html",
+                reportName : "Functional Test Results"
+        ]
     }
 }
