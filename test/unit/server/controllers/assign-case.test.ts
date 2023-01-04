@@ -54,11 +54,7 @@ describe('controllers/assign-case.js', function () {
     let stubAddUserToCase: SinonStub = null;
 
     before(function () {
-      stubAddUserToCase = sinon.stub(citizenCaseApi, 'addUserToCase').resolves({
-        status: 200,
-        ok: true,
-        json: sinon.stub().resolves(caseDetails),
-      } as Partial<fetchResponse>);
+      stubAddUserToCase = sinon.stub(citizenCaseApi, 'addUserToCase');
     });
 
     beforeEach(function () {
@@ -84,12 +80,32 @@ describe('controllers/assign-case.js', function () {
         } as Partial<Request> as Request;
         stubAddUserToCase.resetHistory();
         postIndexInst = postIndex(trackYourAppealService);
+        stubAddUserToCase.resolves({
+          status: 200,
+          ok: true,
+          json: sinon.stub().resolves(caseDetails),
+        } as Partial<fetchResponse>);
       });
 
       it('assigns user to case', async function () {
         await postIndexInst(req, res);
 
         expect(stubAddUserToCase).to.have.been.calledOnce.calledWith(req);
+      });
+
+      it('renders assign-case/index.njk with errors if response not ok', async function () {
+        stubAddUserToCase.resolves({
+          status: 404,
+          ok: false,
+        } as Partial<fetchResponse>);
+
+        await postIndexInst(req, res);
+
+        expect(stubAddUserToCase).to.have.been.calledOnce.calledWith(req);
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          'assign-case/index.njk',
+          { error: content.en.assignCase.errors.postcodeDoesNotMatch }
+        );
       });
 
       it('gets appeal', async function () {

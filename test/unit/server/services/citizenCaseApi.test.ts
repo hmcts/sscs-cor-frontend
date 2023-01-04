@@ -1,5 +1,10 @@
 import { INTERNAL_SERVER_ERROR, OK } from 'http-status-codes';
-import { addUserToCase, getCases } from 'app/server/services/citizenCaseApi';
+import {
+  addUserToCase,
+  getActiveCases,
+  getCases,
+  getDormantCases,
+} from 'app/server/services/citizenCaseApi';
 import { Request } from 'express';
 import { Response as fetchResponse } from 'node-fetch';
 import config from 'config';
@@ -67,6 +72,100 @@ describe('services/citizenCaseApi', function () {
 
       it('rejects the promise with the error', function () {
         return expect(getCases(req)).to.be.rejectedWith(error.message);
+      });
+    });
+  });
+
+  describe('#getActiveCases', function () {
+    const apiResponseBody = [
+      {
+        appellant_name: 'Adam Jenkins',
+        case_reference: '112233',
+        online_hearing_id: 'abc-123-def-456',
+      },
+    ];
+
+    describe('success response', function () {
+      beforeEach(function () {
+        nock(apiUrl, {
+          reqheaders: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
+        })
+          .get(`/api/citizen/active`)
+          .reply(OK, apiResponseBody);
+      });
+
+      it('resolves the promise', function () {
+        return expect(getActiveCases(req)).to.be.fulfilled;
+      });
+
+      it('resolves the promise with the response', async function () {
+        const response: fetchResponse = await getActiveCases(req);
+        expect(await response.json()).to.deep.equal(apiResponseBody);
+      });
+    });
+
+    describe('error response', function () {
+      beforeEach(function () {
+        nock(apiUrl, {
+          reqheaders: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
+        })
+          .get(`/api/citizen/active`)
+          .replyWithError(error);
+      });
+
+      it('rejects the promise with the error', function () {
+        return expect(getActiveCases(req)).to.be.rejectedWith(error.message);
+      });
+    });
+  });
+
+  describe('#getDormantCases', function () {
+    const apiResponseBody = [
+      {
+        appellant_name: 'Adam Jenkins',
+        case_reference: '112233',
+        online_hearing_id: 'abc-123-def-456',
+      },
+    ];
+
+    describe('success response', function () {
+      beforeEach(function () {
+        nock(apiUrl, {
+          reqheaders: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
+        })
+          .get(`/api/citizen/dormant`)
+          .reply(OK, apiResponseBody);
+      });
+
+      it('resolves the promise', function () {
+        return expect(getDormantCases(req)).to.be.fulfilled;
+      });
+
+      it('resolves the promise with the response', async function () {
+        const response: fetchResponse = await getDormantCases(req);
+        expect(await response.json()).to.deep.equal(apiResponseBody);
+      });
+    });
+
+    describe('error response', function () {
+      beforeEach(function () {
+        nock(apiUrl, {
+          reqheaders: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
+        })
+          .get(`/api/citizen/dormant`)
+          .replyWithError(error);
+      });
+
+      it('rejects the promise with the error', function () {
+        return expect(getDormantCases(req)).to.be.rejectedWith(error.message);
       });
     });
   });
