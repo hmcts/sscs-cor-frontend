@@ -38,8 +38,8 @@ def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
-    after('checkout') {yarnBuilder.yarn('cache clean')}
-    after('build') {
+    afterSuccess('checkout') {yarnBuilder.yarn('cache clean')}
+    afterSuccess('build') {
         yarnBuilder.yarn('build')
     }
 
