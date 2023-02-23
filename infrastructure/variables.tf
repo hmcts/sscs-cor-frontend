@@ -19,8 +19,6 @@ variable "node_environment" {
 variable "subscription" {
 }
 
-variable "ilbIp" {}
-
 variable "common_tags" {
   type = map(string)
 }
