@@ -154,7 +154,7 @@
     "pa11y": "^6.2.3",
     "prettier": "2.7.1",
     "puppeteer": "9.1.1",
-    "sinon": "15.0.1",
+    "sinon": "15.0.2",
     "sinon-chai": "^3.7.0",
     "sonar-scanner": "^3.0.3",
     "source-map-support": "^0.5.9",
@@ -165,7 +165,7 @@
     "typescript": "4.9.4",
     "uglify-js": "^3.8.0",
     "uglifyjs": "^2.4.11",
-    "uuid": "^3.3.2",
+    "uuid": "^9.0.0",
     "webdriverio": "^8.0.0"
   },
   "resolutions": {
