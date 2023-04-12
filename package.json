@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=16.15.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "start": "node dist/server/server",
@@ -169,11 +169,6 @@
     "webdriverio": "^8.0.0"
   },
   "resolutions": {
-    "codeceptjs/**/mocha": "^10.0.0",
-    "promise-request-retry/**/http-signature": "^1.3.6",
-    "promise-request-retry/**/qs": "^6.11.0",
-    "dyson/**/express-fileupload": "^1.4.0",
-    "superagent/**/formidable": "^2.1.1",
     "json5": "^2.2.2",
     "http-cache-semantics": "^4.1.1",
     "cookiejar": "^2.1.4"
