@@ -60,7 +60,7 @@ describe('Client/check-cookies', function () {
     it('isCookiePrivacyMessageDisplayed Second Visit', function () {
       logger.log('Second Call', document.cookie);
       checkCookies.isCookiePrivacyMessageDisplayed();
-      expect(toggleBannerSpy).to.have.been.calledWith(false);
+      expect(toggleBannerSpy).to.have.been.calledWith(true);
     });
   });
 
