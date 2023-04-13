@@ -20,7 +20,7 @@ export class CheckCookies {
         currentDate.setMonth(currentDate.getMonth() + 1)
       );
       document.cookie = `seen_cookie_message=1; expires=${expiryDate}; path=/`;
-      this.toggleBanner(true);
+      this.toggleBanner(false);
     }
   }
 
