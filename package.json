@@ -130,7 +130,7 @@
     "concurrently": "^7.0.0",
     "cross-env": "^4.0.0",
     "domready": "^1.0.8",
-    "dyson": "^0.1.7",
+    "dyson": "^4.1.0",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-nibble": "^8.1.0",
