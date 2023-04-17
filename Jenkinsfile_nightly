@@ -12,7 +12,7 @@ properties([
         ])
 ])
 
-@Library("Infrastructure@DTSPO-7198-SecurityScan")
+@Library("Infrastructure@SecurityScan_AddCustomConfig")
 
 def product = "sscs-cor"
 def component = "frontend"
