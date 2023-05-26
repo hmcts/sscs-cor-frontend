@@ -1,7 +1,7 @@
 #!groovy
 
 properties([
-        pipelineTriggers([H 08 * * 1-5')]),
+        pipelineTriggers([cron('H 08 * * 1-5')]),
         parameters([
                 string(name: 'URL_TO_TEST', defaultValue: 'https://sscs-cor.aat.platform.hmcts.net', description: 'The URL you want to run these tests against'),
                 string(name: 'TRIBUNALS_API_URI', defaultValue: 'http://sscs-tribunals-api-aat.service.core-compute-aat.internal', description: 'Tribunal URL to create test data'),
