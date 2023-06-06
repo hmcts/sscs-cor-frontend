@@ -6651,7 +6651,7 @@ merge2@^1.3.0, merge2@^1.4.1:
 methods@^1.1.1, methods@^1.1.2, methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
-  integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
+  integrity sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==
 
 micromatch@^4.0.4:
   version "4.0.5"
@@ -9336,7 +9336,7 @@ superagent@^3.7.0:
     qs "^6.5.1"
     readable-stream "^2.3.5"
 
-superagent@^8.0.3, superagent@^8.0.5:
+superagent@^8.0.5:
   version "8.0.5"
   resolved "https://registry.yarnpkg.com/superagent/-/superagent-8.0.5.tgz#6812022410c7e220416968fd3efb85c8059f5626"
   integrity sha512-lQVE0Praz7nHiSaJLKBM/cZyi7J0E4io8tWnGSBdBrqAzhzrjQ/F5iGP9Zr29CJC8N5zYdhG2kKaNcB6dKxp7g==
@@ -9353,12 +9353,12 @@ superagent@^8.0.3, superagent@^8.0.5:
     semver "^7.3.8"
 
 supertest@^6.3.2:
-  version "6.3.2"
-  resolved "https://registry.yarnpkg.com/supertest/-/supertest-6.3.2.tgz#7780b4b85bb2ea675c05b5cb80fa52f4dbe5a52b"
-  integrity sha512-mSmbW/sPpBU6K8w8189ZiHdc62zMe7dCHpC2ktS9tc0/d2DN0FaxNbDJJNFknZD4jCrGJpxkiFoVyemvKgOdwA==
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/supertest/-/supertest-6.3.3.tgz#42f4da199fee656106fd422c094cf6c9578141db"
+  integrity sha512-EMCG6G8gDu5qEqRQ3JjjPs6+FYT1a7Hv5ApHvtSghmOFJYtsU5S+pSb6Y2EUeCEY3CmEL3mmQ8YWlPOzQomabA==
   dependencies:
     methods "^1.1.2"
-    superagent "^8.0.3"
+    superagent "^8.0.5"
 
 supervisor@~0.12.0:
   version "0.12.0"
