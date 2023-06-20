@@ -9,8 +9,8 @@
   "scripts": {
     "start": "node dist/server/server",
     "dev": "cross-env yarn build:dev && cross-env TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=development nodemon",
-    "dev-docker": "concurrently \"yarn build:dev && cross-env TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=docker nodemon\" \"yarn mock-api\"",
-    "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\"",
+    "dev-docker": "yarn dlx -p concurrently concurrently \"yarn build:dev && cross-env TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=docker nodemon\" \"yarn mock-api\"",
+    "dev-mock-api": "yarn dlx -p concurrently concurrently \"yarn dev\" \"yarn mock-api\"",
     "mock-api": "node test/mock/s2s/server & node test/mock/tribunals/server",
     "mock-idam-api": "dyson test/mock/idam/services/ 8082",
     "build": "yarn build:prod && yarn transpile",
@@ -169,14 +169,10 @@
     "webdriverio": "^8.0.0"
   },
   "resolutions": {
-    "codeceptjs/**/mocha": "^10.0.0",
-    "promise-request-retry/**/http-signature": "^1.3.6",
-    "promise-request-retry/**/qs": "^6.11.0",
-    "dyson/**/express-fileupload": "^1.4.0",
-    "superagent/**/formidable": "^2.1.1",
     "json5": "^2.2.2",
     "http-cache-semantics": "^4.1.1",
     "cookiejar": "^2.1.4"
   },
-  "typeScriptVersion": "4.8"
+  "typeScriptVersion": "4.8",
+  "packageManager": "yarn@3.6.0"
 }

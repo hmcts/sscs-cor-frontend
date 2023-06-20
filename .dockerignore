@@ -11,3 +11,9 @@
 
 !tsconfig.json
 !server.js
+
+!.yarn/plugins
+!.yarn/releases
+!.yarnrc.yml
+.yarn/cache
+.yarn/install-state.gz
