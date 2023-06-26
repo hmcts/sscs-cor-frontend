@@ -3527,7 +3527,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cmc-cookies-manager@github:hmcts/cmc-cookies-manager#^3.0.2":
+"cmc-cookies-manager@github:hmcts/cmc-cookies-manager#3.0.2":
   version: 1.0.6
   resolution: "cmc-cookies-manager@https://github.com/hmcts/cmc-cookies-manager.git#commit=b41d9321c8c0b12ed36a550a0859b75c7c75467b"
   dependencies:
@@ -12166,7 +12166,7 @@ __metadata:
     chai-string: ^1.5.0
     chokidar: ^3.5.3
     cli-color: ^2.0.3
-    cmc-cookies-manager: "github:hmcts/cmc-cookies-manager#^3.0.2"
+    cmc-cookies-manager: "github:hmcts/cmc-cookies-manager#3.0.2"
     codeceptjs: ^3.3.7
     computed-style: ^0.3.0
     concurrently: ^7.0.0
