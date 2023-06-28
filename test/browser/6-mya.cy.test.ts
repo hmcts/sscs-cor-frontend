@@ -1,19 +1,19 @@
-import { Page } from 'puppeteer';
+import {Page} from 'puppeteer';
 
-import { startServices } from 'test/browser/common';
-import { LoginPage } from 'test/page-objects/login';
-import { AssignCasePage } from 'test/page-objects/assign-case';
-import { StatusPage } from 'test/page-objects/status';
-import { AppealDetailsPage } from 'test/page-objects/appeal-details';
-import { HearingPage } from 'test/page-objects/hearing';
-import { AudioVideoEvidencePage } from 'test/page-objects/audio-video-evidence';
-import { SupportEvidencePage } from 'test/page-objects/support-evidence';
-import { RepresentativesPage } from 'test/page-objects/representatives';
-import { SupportHearingPage } from 'test/page-objects/support-hearing';
-import { ClaimingExpensesPage } from 'test/page-objects/claiming-expenses';
-import { WithdrawAppealPage } from 'test/page-objects/withdraw-appeal';
+import {startServices} from 'test/browser/common';
+import {LoginPage} from 'test/page-objects/login';
+import {AssignCasePage} from 'test/page-objects/assign-case';
+import {StatusPage} from 'test/page-objects/status';
+import {AppealDetailsPage} from 'test/page-objects/appeal-details';
+import {HearingPage} from 'test/page-objects/hearing';
+import {AudioVideoEvidencePage} from 'test/page-objects/audio-video-evidence';
+import {SupportEvidencePage} from 'test/page-objects/support-evidence';
+import {RepresentativesPage} from 'test/page-objects/representatives';
+import {SupportHearingPage} from 'test/page-objects/support-hearing';
+import {ClaimingExpensesPage} from 'test/page-objects/claiming-expenses';
+import {WithdrawAppealPage} from 'test/page-objects/withdraw-appeal';
 import * as _ from 'lodash';
-import { expect } from 'test/chai-sinon';
+import {expect} from 'test/chai-sinon';
 import content from 'app/common/locale/content.json';
 
 import config from 'config';
@@ -61,9 +61,6 @@ describe('Welsh Manage your appeal app @mya @nightly', function () {
     withdrawAppealPage = new WithdrawAppealPage(page);
     await loginPage.setCookie('welsh', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    console.log(
-      `Attempting login with credentials: ${sidamUser.email} : ${sidamUser.password}`
-    );
     await loginPage.login(
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
