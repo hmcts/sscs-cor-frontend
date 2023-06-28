@@ -70,12 +70,12 @@ describe('CY - Hearing Recording request @mya @nightly', function () {
     await statusPage.clickElement('#tab-requestType');
     await page.waitForTimeout(500);
 
-    // expect(
-    //   await requestTypePage.getElementText('.govuk-tabs__list-item--selected')
-    // ).contain(content.cy.requestTypeTab.tabHeader);
-    // expect(await requestTypePage.getElementText('.task-list div div')).contain(
-    //   content.cy.requestTypeTab.selectRequestHeader
-    // );
+    expect(
+      await requestTypePage.getElementText('.govuk-tabs__list-item--selected')
+    ).contain(content.cy.requestTypeTab.tabHeader);
+    expect(await requestTypePage.getElementText('.task-list div div')).contain(
+      content.cy.requestTypeTab.selectRequestHeader
+    );
   });
 
   /* PA11Y */

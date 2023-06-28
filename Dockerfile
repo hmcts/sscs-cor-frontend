@@ -3,50 +3,17 @@ FROM hmctspublic.azurecr.io/base/node:16-alpine as base
 
 USER root
 RUN corepack enable
-RUN corepack prepare yarn@stable --activate
+USER hmcts
 
-FROM base AS deps
+COPY --chown=hmcts:hmcts .yarn ./.yarn
+COPY --chown=hmcts:hmcts config ./config
+COPY --chown=hmcts:hmcts package.json yarn.lock .yarnrc.yml ./
 
-WORKDIR /app
-COPY ./package.json .
-COPY ./.yarn/plugins ./.yarn/plugins
-COPY ./.yarn/releases ./.yarn/releases/
-COPY ./.yarnrc.yml .
-COPY ./yarn.lock .
+RUN yarn workspaces focus --all --production && yarn cache clean
 
-
-
-FROM base AS builder
-
-WORKDIR /app
-
-COPY . .
-COPY --from=deps /app/.yarn ./.yarn/
-COPY --from=deps /app/yarn.lock .
-RUN yarn install
+# ---- Build image ----
+FROM base as build
+COPY --chown=hmcts:hmcts . ./
 RUN yarn build
-
-FROM base AS runner
-
-WORKDIR /app
-
-USER hmcts
-
-COPY --from=builder --chown=hmcts:hmcts /app ./
-COPY --from=builder --chown=hmcts:hmcts . .
-
-FROM runner AS production
-
-WORKDIR /app
-USER hmcts
-COPY --from=builder /app/.yarn/plugins .yarn/plugins/
-COPY --from=builder /app/.yarnrc.yml .
-COPY --from=builder /app/.yarn/releases .yarn/releases/
-
-
-RUN rm -rf ./.yarn/cache
-
-
-RUN yarn workspaces focus --all --production
 
 EXPOSE 3000
