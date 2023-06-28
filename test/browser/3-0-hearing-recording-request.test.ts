@@ -1,14 +1,14 @@
-import {Page} from 'puppeteer';
+import { Page } from 'puppeteer';
 
-import {startServices} from 'test/browser/common';
-import {TaskListPage} from 'test/page-objects/task-list';
-import {RequestTypePage} from 'test/page-objects/request-type';
-import {LoginPage} from 'test/page-objects/login';
-import {AssignCasePage} from 'test/page-objects/assign-case';
-import {StatusPage} from 'test/page-objects/status';
+import { startServices } from 'test/browser/common';
+import { TaskListPage } from 'test/page-objects/task-list';
+import { RequestTypePage } from 'test/page-objects/request-type';
+import { LoginPage } from 'test/page-objects/login';
+import { AssignCasePage } from 'test/page-objects/assign-case';
+import { StatusPage } from 'test/page-objects/status';
 import * as _ from 'lodash';
 import config from 'config';
-import {expect} from 'test/chai-sinon';
+import { expect } from 'test/chai-sinon';
 import content from 'app/common/locale/content.json';
 
 import pa11y from 'pa11y';
@@ -67,12 +67,12 @@ describe('Hearing Recording request @mya @nightly', function () {
     await statusPage.clickElement('#tab-requestType');
     await page.waitForTimeout(500);
 
-    // expect(
-    //   await requestTypePage.getElementText('.govuk-tabs__list-item--selected')
-    // ).contain(content.en.requestTypeTab.tabHeader);
-    // expect(await requestTypePage.getElementText('.task-list div div')).contain(
-    //   content.en.requestTypeTab.selectRequestHeader
-    // );
+    expect(
+      await requestTypePage.getElementText('.govuk-tabs__list-item--selected')
+    ).contain(content.en.requestTypeTab.tabHeader);
+    expect(await requestTypePage.getElementText('.task-list div div')).contain(
+      content.en.requestTypeTab.selectRequestHeader
+    );
   });
 
   /* PA11Y */
