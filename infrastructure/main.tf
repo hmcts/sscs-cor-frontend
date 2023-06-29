@@ -28,9 +28,20 @@ module "redis-cache" {
   common_tags                   = var.common_tags
 }
 
+module "redis-cache-v2" {
+  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  product                       = var.product
+  location                      = var.location
+  env                           = var.env
+  name                          = "${var.product}-cor-frontend-v6-${var.env}"
+  redis_version                 = "6"
+  business_area                 = "cft"
+  common_tags                   = var.common_tags
+}
+
 resource "azurerm_key_vault_secret" "redis_access_key" {
   name         = "${var.product}-redis-access-key"
-  value        = module.redis-cache.access_key
+  value        = module.redis-cache-v2.access_key
   key_vault_id = data.azurerm_key_vault.sscs_key_vault.id
 
   content_type = "secret"
