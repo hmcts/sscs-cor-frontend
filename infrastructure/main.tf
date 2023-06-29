@@ -48,7 +48,7 @@ resource "azurerm_key_vault_secret" "redis_access_key" {
 
   content_type = "secret"
   tags = merge(var.common_tags, {
-    "source" : "redis ${module.redis-cache.host_name}"
+    "source" : "redis ${module.redis-cache-v2.host_name}"
   })
 }
 
