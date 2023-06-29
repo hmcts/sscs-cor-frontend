@@ -19,11 +19,10 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 
 module "redis-cache" {
   source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product                       = var.product
+  product                       = "${var.product}-redis"
   location                      = var.location
   env                           = var.env
   name                          = "${var.product}-cor-frontend-v6"
-  redis_version                 = "6"
   business_area                 = "cft"
   subnetid                      = data.azurerm_subnet.core_infra_redis_subnet.id
   common_tags                   = var.common_tags
