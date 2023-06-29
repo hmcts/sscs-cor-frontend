@@ -37,6 +37,8 @@ module "redis-cache-v2" {
   redis_version                 = "6"
   business_area                 = "cft"
   common_tags                   = var.common_tags
+  public_network_access_enabled = false
+  private_endpoint_enabled      = true
 }
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
