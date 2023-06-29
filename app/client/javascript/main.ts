@@ -1,3 +1,4 @@
+import './cookie';
 import * as govUK from 'govuk-frontend';
 import * as expandingTextBox from './expanding-textbox';
 import { EvidenceUpload } from './evidence-upload';
