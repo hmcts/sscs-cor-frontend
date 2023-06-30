@@ -1,6 +1,6 @@
 {
   "redis": {
-    "host": "sscs-cor-redis-aat.redis.cache.windows.net",
+    "host": "sscs-cor-cor-frontend-v6-aat.redis.cache.windows.net",
     "port": 6380,
     "tls": true
   }
