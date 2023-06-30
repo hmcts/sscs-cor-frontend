@@ -34,7 +34,7 @@
     "test:audit": "./bin/run-yarn-audit.sh -f yarn-audit-known-issues",
     "test:crossbrowser": "cross-env SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net NODE_PATH=. NODE_ENV=test codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/crossbrowser/saucelabs.conf.js --steps --reporter mocha-multi --verbose",
     "test:coverage": "nyc report",
-    "test:a11y": "yarn -v it will run as part of functional test",
+    "test:a11y": "yarn -v",
     "test:all": "yarn test && yarn test:coverage",
     "sonar-scan": "sonar-scanner -Dsonar.exclusions=app/server/app.ts,app/server/controllers/content.js,app/core/contentLookup.js,app/server/controllers/notificationRedirect.js,app/server/controllers/validateEmail.js,app/server/controllers/question.ts,app/server/setLanguage.ts,app/core/tyaNunjucks.js,app/server/controllers/idam-stub.ts,app/server/middleware/health.ts -Dsonar.javascript.lcov.reportPaths=test/coverage/html/lcov.info",
     "transpile": "yarn tsc -p ./app/server/tsconfig.json",
@@ -61,7 +61,7 @@
     "axios": "^0.27.0",
     "body-parser": "^1.20.1",
     "chokidar": "^3.5.3",
-    "cmc-cookies-manager": "github:hmcts/cmc-cookies-manager#^3.0.2",
+    "cmc-cookies-manager": "github:hmcts/cmc-cookies-manager#3.0.2",
     "computed-style": "^0.3.0",
     "config": "3.3.9",
     "connect-redis": "^6.1.3",
@@ -169,14 +169,10 @@
     "webdriverio": "^8.0.0"
   },
   "resolutions": {
-    "codeceptjs/**/mocha": "^10.0.0",
-    "promise-request-retry/**/http-signature": "^1.3.6",
-    "promise-request-retry/**/qs": "^6.11.0",
-    "dyson/**/express-fileupload": "^1.4.0",
-    "superagent/**/formidable": "^2.1.1",
     "json5": "^2.2.2",
     "http-cache-semantics": "^4.1.1",
     "cookiejar": "^2.1.4"
   },
-  "typeScriptVersion": "4.8"
+  "typeScriptVersion": "4.8",
+  "packageManager": "yarn@3.6.0"
 }

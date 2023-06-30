@@ -1,9 +1,20 @@
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:16-alpine as base
 
-COPY --chown=hmcts:hmcts . .
-
-RUN yarn install && yarn build && rm -r node_modules/ && yarn install --production && rm -r ~/.cache/yarn
-
+USER root
+RUN corepack enable
 USER hmcts
+
+COPY --chown=hmcts:hmcts .yarn ./.yarn
+COPY --chown=hmcts:hmcts config ./config
+COPY --chown=hmcts:hmcts package.json yarn.lock .yarnrc.yml ./
+
+RUN yarn workspaces focus --all --production && yarn cache clean
+
+# ---- Build image ----
+FROM base as build
+COPY --chown=hmcts:hmcts . ./
+RUN yarn install
+RUN yarn build
+
 EXPOSE 3000
