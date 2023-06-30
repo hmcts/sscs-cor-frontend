@@ -1,5 +1,6 @@
 {% extends "govuk/template.njk" %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "components/mya-contact-us.njk" import contactUs with context %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% set assetPath = "/public/govuk-frontend/" %}
@@ -53,6 +54,15 @@
     {% set phaseBarHtml = phaseBarHtml + (content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}", currentUrl) | replace("{languageFlag}", languageFlag)) %}
   {% endif %}
   {{ govukPhaseBanner({ tag: { text: "beta" }, html: phaseBarHtml }) }}
+  {% set notificationHtml %}
+    <p class="govuk-notification-banner__heading">
+      We are aware of technical issues with MYA, this is being investigated as a high priority.
+    </p>
+  {% endset %}
+
+  {{ govukNotificationBanner({
+    html: notificationHtml
+  }) }}
   {% include "includes/account-navigation.njk" %}
 {% endblock beforeContent %}
 {% block content %}
