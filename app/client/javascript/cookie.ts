@@ -50,7 +50,7 @@ cookieManager.on('UserPreferencesSaved', (preferences: Preferences) => {
 
 const config = {
   userPreferences: {
-    cookieName: 'sscs-cor-frontend-cookie-preferences',
+    cookieName: 'sscs-manage-your-appeal-cookie-preferences',
   },
   cookieManifest: [
     {
