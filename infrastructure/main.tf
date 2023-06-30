@@ -22,7 +22,7 @@ module "redis-cache-v2" {
   product                       = var.product
   location                      = var.location
   env                           = var.env
-  name                          = "${var.product}-cor-frontend-v6-${var.env}"
+  name                          = "${var.product}-frontend-v6-${var.env}"
   redis_version                 = "6"
   business_area                 = "cft"
   common_tags                   = var.common_tags
