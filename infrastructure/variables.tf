@@ -1,4 +1,5 @@
 variable "product" {
+  default = "sscs"
 }
 
 variable "component" {
