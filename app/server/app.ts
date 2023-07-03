@@ -1,21 +1,26 @@
 import * as AppInsights from './app-insights';
-import express, {Application, RequestHandler} from 'express';
-import {router as routes} from './routes';
+import express, { Application, RequestHandler } from 'express';
+import { router as routes } from './routes';
 import * as health from './middleware/health';
 import * as Paths from './paths';
 import cookieParser from 'cookie-parser';
 import * as screenReaderUtils from './utils/screenReaderUtils';
-import {configureHeaders, configureHelmet, configureNunjucks, configureStaticRoutes,} from './app-configurations';
+import {
+  configureHeaders,
+  configureHelmet,
+  configureNunjucks,
+  configureStaticRoutes,
+} from './app-configurations';
 import watch from './watch';
 import config from 'config';
-import {Feature, isFeatureEnabled} from './utils/featureEnabled';
-import {csrfToken, csrfTokenEmbed} from './middleware/csrf';
-import i18next, {InitOptions} from 'i18next';
+import { Feature, isFeatureEnabled } from './utils/featureEnabled';
+import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
+import i18next, { InitOptions } from 'i18next';
 import i18nextMiddleware from 'i18next-express-middleware';
 import bodyParser from 'body-parser';
 import * as errors from './middleware/error-handler';
-import {Express as loggingExpress} from '@hmcts/nodejs-logging';
-import {fileTypes, fileTypesWithAudioVideo} from './data/typeWhitelist.json';
+import { Express as loggingExpress } from '@hmcts/nodejs-logging';
+import { fileTypes, fileTypesWithAudioVideo } from './data/typeWhitelist.json';
 
 import content from '../common/locale/content.json';
 
