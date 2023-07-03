@@ -17,34 +17,37 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
   resource_group_name  = "core-infra-${var.env}"
 }
 
-module "redis-cache" {
-  source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product  = "${var.product}-redis"
-  location = var.location
-  env      = var.env
-
-  subnetid    = data.azurerm_subnet.core_infra_redis_subnet.id
-  common_tags = var.common_tags
+module "redis-cache-v2" {
+  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  product                       = var.product
+  location                      = var.location
+  env                           = var.env
+  name                          = "${var.product}-frontend-v6-${var.env}"
+  redis_version                 = "6"
+  business_area                 = "cft"
+  common_tags                   = var.common_tags
+  public_network_access_enabled = false
+  private_endpoint_enabled      = true
 }
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
   name         = "${var.product}-redis-access-key"
-  value        = module.redis-cache.access_key
+  value        = module.redis-cache-v2.access_key
   key_vault_id = data.azurerm_key_vault.sscs_key_vault.id
 
   content_type = "secret"
   tags = merge(var.common_tags, {
-    "source" : "redis ${module.redis-cache.host_name}"
+    "source" : "redis ${module.redis-cache-v2.host_name}"
   })
 }
 
 resource "azurerm_key_vault_secret" "redis_connection_string" {
   name         = "${var.product}-redis-connection-string"
-  value        = "redis://ignore:${urlencode(module.redis-cache.access_key)}@${module.redis-cache.host_name}:${module.redis-cache.redis_port}?tls=true"
+  value        = "redis://:${urlencode(module.redis-cache-v2.access_key)}@${module.redis-cache-v2.host_name}:${module.redis-cache-v2.redis_port}?tls=true"
   key_vault_id = data.azurerm_key_vault.sscs_key_vault.id
 
   content_type = "secret"
   tags = merge(var.common_tags, {
-    "source" : "redis ${module.redis-cache.host_name}"
+    "source" : "redis ${module.redis-cache-v2.host_name}"
   })
 }

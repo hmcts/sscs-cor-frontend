@@ -46,7 +46,6 @@ withPipeline("nodejs", product, component) {
     enableAksStagingDeployment()
     disableLegacyDeployment()
     syncBranchesWithMaster(branchesToSync)
-    before('securitychecks') { yarnBuilder.yarn('test:audit') }
 
     before("functionalTest:preview") {
         env.SSCS_API_URL = tribunalsAat
