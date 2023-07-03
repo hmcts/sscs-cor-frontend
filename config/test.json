@@ -19,6 +19,11 @@
     "api-url": "https://idam-api.aat.platform.hmcts.net",
     "enableStub": "false"
   },
+  "redis": {
+    "host": "sscs-cor-frontend-v6-aat.redis.cache.windows.net",
+    "port": 6380,
+    "tls": true
+  },
   "saucelabs": {
     "browser": "chrome",
     "username": "username",
