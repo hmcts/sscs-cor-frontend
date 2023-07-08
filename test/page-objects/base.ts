@@ -45,7 +45,9 @@ export class BasePage {
 
   verifyPage() {
     logger.info(
-        `Received page: ${this.page.url()}, expected value: ${testUrl}${this.pagePath}`
+      `Received page: ${this.page.url()}, expected value: ${testUrl}${
+        this.pagePath
+      }`
     );
     expect(this.page.url()).to.contain(`${testUrl}${this.pagePath}`);
   }
