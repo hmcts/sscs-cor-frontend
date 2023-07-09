@@ -94,8 +94,7 @@ export async function deleteUser(sidamUser: SidamUser): Promise<void> {
   };
 
   try {
-    logger.info('Suppressing deleteUser');
-    // await rp.delete(options);
+    await rp.delete(options);
   } catch (error) {
     logger.error('Error deleteUser', error);
   }
