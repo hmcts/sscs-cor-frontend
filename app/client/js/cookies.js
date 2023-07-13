@@ -1,4 +1,3 @@
-console.log('stuff')
 window.cookieManager.on('UserPreferencesLoaded', (preferences) => {
     var dataLayer = window.dataLayer || [];
     dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': preferences});
