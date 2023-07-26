@@ -50,6 +50,7 @@
     }
   },
   "dependencies": {
+    "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/ctsc-web-chat": "^0.3.12",
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.4",
@@ -61,7 +62,6 @@
     "axios": "^0.27.0",
     "body-parser": "^1.20.1",
     "chokidar": "^3.5.3",
-    "cmc-cookies-manager": "github:hmcts/cmc-cookies-manager#3.0.2",
     "computed-style": "^0.3.0",
     "config": "3.3.9",
     "connect-redis": "^6.1.3",

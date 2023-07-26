@@ -2,7 +2,6 @@ import * as govUK from 'govuk-frontend';
 import * as expandingTextBox from './expanding-textbox';
 import { EvidenceUpload } from './evidence-upload';
 import { EvidenceUploadAudioVideo } from './evidence-upload-audio-video';
-import { CheckCookies } from './check-cookies';
 import { SessionInactivity } from './session-inactivity';
 import { DetailsTabIndexToggle } from './detailsToggle';
 import { RequestType } from './request-type';
@@ -14,13 +13,6 @@ function goBack() {
   return false;
 }
 
-function initCookieBanner() {
-  if (document.querySelector('#app-cookie-banner')) {
-    const checkCookies = new CheckCookies();
-    checkCookies.init();
-  }
-}
-
 const onReady = () => {
   const evidence = new EvidenceUpload();
   const evidenceAudioVideo = new EvidenceUploadAudioVideo();
@@ -29,7 +21,6 @@ const onReady = () => {
   const requestType = new RequestType();
   const evidenceStatement = new EvidenceStatement();
 
-  initCookieBanner();
   govUK.initAll();
   expandingTextBox.init();
   sessionInactivity.init();
