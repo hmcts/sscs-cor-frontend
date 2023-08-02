@@ -4460,6 +4460,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dicer@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "dicer@npm:0.3.1"
+  dependencies:
+    streamsearch: ^1.1.0
+  checksum: 9f3b11f8b7965f47624a9b09f96ba05e3bad2a0f3957a7ede07ae032eda16739ffa665c260e3eba20bd9751abf83202803e29df0f30ef4cbb164eef749a2a84d
+  languageName: node
+  linkType: hard
+
 "diff-match-patch@npm:1.0.5":
   version: 1.0.5
   resolution: "diff-match-patch@npm:1.0.5"
@@ -11489,6 +11498,7 @@ __metadata:
     cookie-parser: ^1.4.3
     cross-env: ^4.0.0
     csurf: ^1.10.0
+    dicer: ^0.3.1
     domready: ^1.0.8
     dyson: ^4.1.0
     eslint: ^8.26.0
