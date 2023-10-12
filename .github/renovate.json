@@ -1,5 +1,6 @@
 {
   "extends": [
+    "local>hmcts/.github:renovate-config", # required for jenkins checks(renovate-config-check.sh) to pass
     "github>hmcts/sscs-common//.github/sscs-renovate.json"
   ]
 }
