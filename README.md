@@ -218,3 +218,4 @@ _Application mounted SIDAM stub_
 - uses Redis to keep track of username associated with code/token
 - used when running functional tests as part of the "Functional Test" stages on the pipeline
 - also used when signing into the service on preview or AAT environments
+
