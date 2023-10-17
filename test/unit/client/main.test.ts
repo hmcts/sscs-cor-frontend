@@ -2,7 +2,7 @@ import { expect, sinon } from 'test/chai-sinon';
 import * as main from 'app/client/javascript/main';
 import govUK from 'govuk-frontend';
 import * as expandingTextBox from 'app/client/javascript/expanding-textbox';
-import { DetailsTabIndexToggle } from '../../../app/client/javascript/details-toggle';
+import { DetailsTabIndexToggle } from '../../../app/client/javascript/detailsToggle';
 import { EvidenceUpload } from 'app/client/javascript/evidence-upload';
 import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 import { EvidenceStatement } from 'app/client/javascript/evidence-statement';

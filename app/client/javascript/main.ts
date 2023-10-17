@@ -3,7 +3,7 @@ import * as expandingTextBox from './expanding-textbox';
 import { EvidenceUpload } from './evidence-upload';
 import { EvidenceUploadAudioVideo } from './evidence-upload-audio-video';
 import { SessionInactivity } from './session-inactivity';
-import { DetailsTabIndexToggle } from './details-toggle';
+import { DetailsTabIndexToggle } from './detailsToggle';
 import { RequestType } from './request-type';
 import { EvidenceStatement } from './evidence-statement';
 import domready from 'domready';

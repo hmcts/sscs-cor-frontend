@@ -1,5 +1,5 @@
 import { expect, sinon } from 'test/chai-sinon';
-import { DetailsTabIndexToggle } from '../../../app/client/javascript/details-toggle';
+import { DetailsTabIndexToggle } from '../../../app/client/javascript/detailsToggle';
 
 const html = `
 <details class="govuk-details contact-us">
