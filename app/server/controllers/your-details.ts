@@ -7,7 +7,6 @@ import { logger } from '@hmcts/nodejs-logging';
 
 function getYourDetails(req: Request, res: Response) {
   const session = req.session;
-  console.log(session.case);
   if (!session) {
     const missingCaseIdError = new Error(
       'Unable to retrieve session from session store'
