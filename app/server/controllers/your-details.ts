@@ -3,10 +3,10 @@ import * as Paths from '../paths';
 import { isFeatureEnabled, Feature } from '../utils/featureEnabled';
 import * as AppInsights from '../app-insights';
 import { Dependencies } from '../routes';
-import { logger } from '@hmcts/nodejs-logging';
 
 function getYourDetails(req: Request, res: Response) {
   const session = req.session;
+
   if (!session) {
     const missingCaseIdError = new Error(
       'Unable to retrieve session from session store'
