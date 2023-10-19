@@ -9,7 +9,7 @@ import { EvidenceStatement } from './evidence-statement';
 import domready from 'domready';
 
 function goBack() {
-  window.history.go(-1);
+  window.history.back();
   return false;
 }
 
