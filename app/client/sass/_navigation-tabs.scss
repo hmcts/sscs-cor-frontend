@@ -23,4 +23,7 @@
       }
     }
   }
+  .nav-tab-a{
+    @extend .govuk-tabs__tab;
+  }
 }
