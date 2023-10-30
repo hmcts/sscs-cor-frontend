@@ -21,6 +21,7 @@ export function createSession(useRedisStore = false): RequestHandler {
   return session({
     cookie: {
       httpOnly: true,
+      sameSite: true,
       maxAge: config.get('session.cookie.maxAgeInMs'),
       secure,
     },
