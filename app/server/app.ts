@@ -90,8 +90,8 @@ export async function setupApp(
     res.cookie('connect.sid', connect, {
       secure: true,
       httpOnly: true,
-      sameSite: true
-      });
+      sameSite: true,
+    });
     app.locals.webChat = config.get('services.webChat');
     app.locals.webFormUrl = config.get('services.webForm.url');
     app.locals.allowContactUs = isFeatureEnabled(
