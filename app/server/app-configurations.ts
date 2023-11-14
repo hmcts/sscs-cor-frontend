@@ -35,7 +35,6 @@ const contentSecurityPolicy: ContentSecurityPolicyOptions = {
       'tagmanager.google.com',
       'vcc-eu4.8x8.com',
       'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
-      'https://code.jquery.com/jquery-3.7.1.js',
     ],
     styleSrc: [
       "'self'",
