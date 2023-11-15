@@ -5,6 +5,7 @@ govuk_modules/
 test/coverage
 dist
 app/client/javascript/*.js
+app/client/js/*.js
 test/crossbrowser/pages/steps.js
 test/accessibility/**/*.js
 test/browser/**/*.js

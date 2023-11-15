@@ -645,6 +645,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hmcts/cookie-manager@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@hmcts/cookie-manager@npm:1.0.0"
+  checksum: 7b9aacd5510f296fad664cbce2ad3bde1dfbe6276f79e05ecd7f3a437fd6b5415b95a202354a4ad2d2bb41ad4ddda436202e757eca8d106ddf1d28d801169657
+  languageName: node
+  linkType: hard
+
 "@hmcts/ctsc-web-chat@npm:^0.3.12":
   version: 0.3.12
   resolution: "@hmcts/ctsc-web-chat@npm:0.3.12"
@@ -3406,15 +3413,6 @@ __metadata:
   version: 1.1.2
   resolution: "cluster-key-slot@npm:1.1.2"
   checksum: be0ad2d262502adc998597e83f9ded1b80f827f0452127c5a37b22dfca36bab8edf393f7b25bb626006fb9fb2436106939ede6d2d6ecf4229b96a47f27edd681
-  languageName: node
-  linkType: hard
-
-"cmc-cookies-manager@github:hmcts/cmc-cookies-manager#3.0.2":
-  version: 1.0.6
-  resolution: "cmc-cookies-manager@https://github.com/hmcts/cmc-cookies-manager.git#commit=b41d9321c8c0b12ed36a550a0859b75c7c75467b"
-  dependencies:
-    govuk-frontend: ^3.11.0
-  checksum: aff8b2cf57f19e328b4b28dd00856d244895b1e0be8e235910df7d26f179f4fc719dcbba3b9b71e71fea14376eafa54ca471853f3de37df9b49af673fe6a6bae
   languageName: node
   linkType: hard
 
@@ -6336,13 +6334,6 @@ __metadata:
   dependencies:
     govuk_frontend_toolkit: ^7.1.0
   checksum: 16b5c4197c8292812a8937e156dca7f71199040fa08aaaf0a6b772e0b922434e42f750f536afcfe8fa46007e4e58abd377989bde44bd6acf435938c52bce3184
-  languageName: node
-  linkType: hard
-
-"govuk-frontend@npm:^3.11.0":
-  version: 3.14.0
-  resolution: "govuk-frontend@npm:3.14.0"
-  checksum: 14db4c8fad243c09a89178a2ea932e04a79a6e36ea1a10d3499f783a4d024cab1ecb6879ad6cb5ebdadda8cd3e2b16b1508a7873414be7cdcddc311cf6814bdf
   languageName: node
   linkType: hard
 
@@ -11451,6 +11442,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sscs-cor-frontend@workspace:."
   dependencies:
+    "@hmcts/cookie-manager": ^1.0.0
     "@hmcts/ctsc-web-chat": ^0.3.12
     "@hmcts/eslint-config": ^1.4.0
     "@hmcts/nodejs-healthcheck": ^1.8.0
@@ -11489,7 +11481,6 @@ __metadata:
     chai-string: ^1.5.0
     chokidar: ^3.5.3
     cli-color: ^2.0.3
-    cmc-cookies-manager: "github:hmcts/cmc-cookies-manager#3.0.2"
     codeceptjs: ^3.3.7
     computed-style: ^0.3.0
     concurrently: ^7.0.0

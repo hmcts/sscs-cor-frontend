@@ -32,7 +32,7 @@
     "test:fullfunctional": "yarn test:nightly",
     "test:smoke": "cross-env NODE_PATH=. NODE_ENV=test TS_NODE_PROJECT=app/server/tsconfig.json mocha test/smoke/*.ts --grep @smoke --colors --reporter mochawesome  --reporter-options reportDir=smoke-output/reports/smoke,inlineAssets=true --exit",
     "test:audit": "./bin/run-yarn-audit.sh -f yarn-audit-known-issues",
-    "test:crossbrowser": "cross-env SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net NODE_PATH=. NODE_ENV=test codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/crossbrowser/saucelabs.conf.js --steps --reporter mocha-multi --verbose",
+    "test:crossbrowser": "cross-env SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net NODE_PATH=. NODE_ENV=test codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/crossbrowser/saucelabs.conf.ts --steps --reporter mocha-multi --verbose",
     "test:coverage": "nyc report",
     "test:a11y": "yarn -v",
     "test:all": "yarn test && yarn test:coverage",
@@ -50,6 +50,7 @@
     }
   },
   "dependencies": {
+    "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/ctsc-web-chat": "^0.3.12",
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.4",
@@ -61,7 +62,6 @@
     "axios": "^0.27.0",
     "body-parser": "^1.20.1",
     "chokidar": "^3.5.3",
-    "cmc-cookies-manager": "github:hmcts/cmc-cookies-manager#3.0.2",
     "computed-style": "^0.3.0",
     "config": "3.3.9",
     "connect-redis": "^6.1.3",

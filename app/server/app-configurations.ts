@@ -104,18 +104,11 @@ function flattenArray(text: string | Array<string>): string {
 export function configureNunjucks(app: Application): void {
   const i18next: i18n = app.locals.i18n;
 
-  const nunEnv = nunjucks.configure(
-    [
-      'views',
-      'node_modules/cmc-cookies-manager/shared-component/components',
-      'node_modules/govuk-frontend',
-    ],
-    {
-      autoescape: true,
-      express: app,
-      noCache: true,
-    }
-  );
+  const nunEnv = nunjucks.configure(['views', 'node_modules/govuk-frontend'], {
+    autoescape: true,
+    express: app,
+    noCache: true,
+  });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
   nunEnv.addGlobal('welshEnabled', config.get(`featureFlags.welsh`) === 'true');
   nunEnv.addGlobal('serviceName', `Manage your appeal`);
@@ -200,6 +193,7 @@ export function configureNunjucks(app: Application): void {
 
 const publicPath = path.join(__dirname, '..', '..', 'public');
 const imagesPath = path.join(__dirname, '..', '..', 'app', 'client', 'images');
+const jsPath = path.join(__dirname, '..', '..', 'app', 'client', 'js');
 const govUkAssetsPath = path.join(
   __dirname,
   '..',
@@ -229,23 +223,14 @@ const ctscCssPath = path.join(
   'assets',
   'css'
 );
-const cookieManagerJsPath = path.join(
-  __dirname,
-  '..',
-  '..',
-  'node_modules',
-  'cmc-cookies-manager',
-  'shared-component',
-  'components',
-  'cookie-manager',
-  'cookies-manager.js'
-);
 
 export function configureStaticRoutes(app: Application): void {
   logger.info(`'/public' routes to ${publicPath}`);
   app.use('/public', express.static(publicPath));
   logger.info(`'/public/images' routes to ${imagesPath}`);
   app.use('/public/images', express.static(imagesPath));
+  logger.info(`'/public/js' routes to ${jsPath}`);
+  app.use('/public/js', express.static(jsPath));
 
   logger.info(`'/public/govuk-frontend' routes to ${govUkAssetsPath}`);
   app.use('/public/govuk-frontend', express.static(govUkAssetsPath));
@@ -254,9 +239,4 @@ export function configureStaticRoutes(app: Application): void {
   app.use('/public/js', express.static(ctscJsPath));
   logger.info(`'/public/css' routes to ${ctscCssPath}`);
   app.use('/public/css', express.static(ctscCssPath));
-
-  logger.info(
-    `'/public/js/cookies-manager.js' routes to ${cookieManagerJsPath}`
-  );
-  app.use('/public/js/cookies-manager.js', express.static(cookieManagerJsPath));
 }
