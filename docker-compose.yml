@@ -13,3 +13,5 @@ services:
     command: 'yarn dev-docker'
   redis:
     image: 'redis:alpine'
+    ports:
+      - '6379:6379'
