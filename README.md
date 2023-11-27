@@ -3,7 +3,7 @@
 This application is the public facing service for Manage Your Appeal (MYA).
 
 MYA was adapted from the Continuous Online Resolution (COR) service. There are still many configuration references to
-COR and SSCS-COR as to change these to MYA would require building it as a new service and migrating over which is non-trivial engineering effort for low benefit.
+COR and SSCS-COR, and changing these to MYA would require building it as a new service and migrating over which is a non-trivial engineering effort for low benefit.
 
 It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/sscs-tribunals-case-api)
 
@@ -11,7 +11,7 @@ It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/s
 
 ##### Prereqs
 
-- node.js v8 or higher
+- node.js v18 or higher
 - yarn
 - redis running on the standard port (6379)
 
