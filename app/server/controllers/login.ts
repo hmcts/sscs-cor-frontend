@@ -199,12 +199,12 @@ export function getIdamCallback(
 
         logger.info(
           `Logging in ${getReducedEmailforLogs(email)} for benefit type ${
-                      appeal.benefitType
+           appeal.benefitType
                                 }, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
           `[${
-                      req.session.case?.case_id
+            req.session.case?.case_id
                                 }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
         );
 
@@ -215,13 +215,13 @@ export function getIdamCallback(
       }
       logger.info(
         `Logging in ${getReducedEmailforLogs(email)} for Cases count ${
-                  cases.length
-                          }, Case Id: ${caseId}`
+         cases.length
+         }, Case Id: ${caseId}`
       );
       AppInsights.trackTrace(
         `[Cases count ${
-                  cases.length
-                          }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
+         cases.length
+         }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
       );
 
       req.session.cases = cases;
@@ -318,9 +318,9 @@ function getReducedEmailforLogs(email) {
     indexOfFinalChar = indexOfAt + 3;
     shortenedEmail = ShortenedEmail.concat(
       email.substring(0, 3),
-      "...",
+      '...',
       email.substring(indexOfAt, indexOfFinalChar),
-      "..."
+      '...'
           );
   }
   return shortenedEmail;
