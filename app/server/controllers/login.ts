@@ -198,10 +198,14 @@ export function getIdamCallback(
         req.session.subscriptions = subscriptions;
 
         logger.info(
-          `Logging in ${getReducedEmailforLogs(email)} for benefit type ${            appeal.benefitType       }, Case Id: ${caseId}`
+          `Logging in ${getReducedEmailforLogs(email)} for benefit type ${
+                      appeal.benefitType
+                                }, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
-          `[${            req.session.case?.case_id       }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
+          `[${
+                      req.session.case?.case_id
+                                }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
         );
 
         if (req.session.appeal.hearingType === 'cor') {
@@ -210,10 +214,14 @@ export function getIdamCallback(
         return res.redirect(Paths.status);
       }
       logger.info(
-        `Logging in ${getReducedEmailforLogs(email)} for Cases count ${          cases.length    }, Case Id: ${caseId}`
+        `Logging in ${getReducedEmailforLogs(email)} for Cases count ${
+                  cases.length
+                          }, Case Id: ${caseId}`
       );
       AppInsights.trackTrace(
-        `[Cases count ${          cases.length        }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
+        `[Cases count ${
+                  cases.length
+                          }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
       );
 
       req.session.cases = cases;
@@ -306,13 +314,14 @@ export function setupLoginController(deps: Dependencies): Router {
 function getReducedEmailforLogs(email) {
   let shortenedEmail = '';
   if (email !== null) {
-    indexOfAt = email.indexOf("@");
+    indexOfAt = email.indexOf('@');
     indexOfFinalChar = indexOfAt + 3;
     shortenedEmail = ShortenedEmail.concat(
-          email.substring(0, 3),
-          "...",
-          email.substring(indexOfAt, indexOfFinalChar),
-          "...");
+      email.substring(0, 3),
+      "...",
+      email.substring(indexOfAt, indexOfFinalChar),
+      "..."
+          );
   }
   return shortenedEmail;
 }
