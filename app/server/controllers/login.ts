@@ -315,8 +315,8 @@ function getReducedEmailforLogs(email) {
   let shortenedEmail = '';
   if (email !== null) {
     const indexOfAt = email.indexOf('@');
-    const indexOfFinalChar = parseInt(indexOfAt) + parseInt(3);
-    shortenedEmail = ShortenedEmail.concat(
+    const indexOfFinalChar = parseInt(indexOfAt) + 3;
+    shortenedEmail = shortenedEmail.concat(
       email.substring(0, 3),
       '...',
       email.substring(indexOfAt, indexOfFinalChar),
