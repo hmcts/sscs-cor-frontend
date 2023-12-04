@@ -198,10 +198,10 @@ export function getIdamCallback(
         req.session.subscriptions = subscriptions;
 
         logger.info(
-          `Logging in ${getReducedEmailforLogs(email)} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
+          `Logging in ${getReducedEmailforLogs(email)} for benefit type ${  appeal.benefitType  }, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
-          `[${req.session.case?.case_id}] - User logged in successfully as ${getReducedEmailforLogs(email)}`
+          `[${  req.session.case?.case_id   }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
         );
 
         if (req.session.appeal.hearingType === 'cor') {
@@ -210,10 +210,10 @@ export function getIdamCallback(
         return res.redirect(Paths.status);
       }
       logger.info(
-        `Logging in ${getReducedEmailforLogs(email)} for Cases count ${cases.length}, Case Id: ${caseId}`
+        `Logging in ${getReducedEmailforLogs(email)} for Cases count ${ cases.length    }, Case Id: ${caseId}`
       );
       AppInsights.trackTrace(
-        `[Cases count ${cases.length}] - User logged in successfully as ${getReducedEmailforLogs(email)}`
+        `[Cases count ${    cases.length    }] - User logged in successfully as ${getReducedEmailforLogs(   email   )}`
       );
 
       req.session.cases = cases;
@@ -260,7 +260,7 @@ export function renderErrorPage(
       return res.render('errors/error.njk', { header, messages });
     }
     case UNPROCESSABLE_ENTITY: {
-      logger.info(`Found multiple appeals for ${getReducedEmailforLogs(email)}`);
+      logger.info(`     Found multiple appeals for ${getReducedEmailforLogs(email)}     `);
       header = content[i18next.language].login.failed.technicalError.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.technicalError.messages;
@@ -268,7 +268,7 @@ export function renderErrorPage(
       return res.render('errors/error.njk', { header, messages });
     }
     case CONFLICT: {
-      logger.info(`Found a non cor appeal for ${getReducedEmailforLogs(email)}`);
+      logger.info(`     Found a non cor appeal for ${getReducedEmailforLogs(email)}     `);
       header = content[i18next.language].login.failed.cannotUseService.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.cannotUseService.messages;
@@ -300,9 +300,9 @@ export function setupLoginController(deps: Dependencies): Router {
 }
 
 function getReducedEmailforLogs(email) {
-    let shortenedEmail = "";
-    if(email!=null){
-        shortenedEmail = email.substring(0,3) + "..." + email.substring(email.indexOf("@"), email.indexOf("@")+3) + "...";
-    }
-    return shortenedEmail;
+  let shortenedEmail = '';
+  if(email !== null){
+        shortenedEmail = ShortenedEmail.concat(email.substring(0,3), "...", email.substring(email.indexOf("@"), email.indexOf("@")+3), "...");
+  }
+  return shortenedEmail;
 }
