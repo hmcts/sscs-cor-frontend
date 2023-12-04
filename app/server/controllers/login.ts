@@ -198,10 +198,10 @@ export function getIdamCallback(
         req.session.subscriptions = subscriptions;
 
         logger.info(
-          `Logging in ${email} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
+          `Logging in ${getReducedEmailforLogs(email)} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
-          `[${req.session.case?.case_id}] - User logged in successfully as ${email}`
+          `[${req.session.case?.case_id}] - User logged in successfully as ${getReducedEmailforLogs(email)}`
         );
 
         if (req.session.appeal.hearingType === 'cor') {
@@ -210,10 +210,10 @@ export function getIdamCallback(
         return res.redirect(Paths.status);
       }
       logger.info(
-        `Logging in ${email} for Cases count ${cases.length}, Case Id: ${caseId}`
+        `Logging in ${getReducedEmailforLogs(email)} for Cases count ${cases.length}, Case Id: ${caseId}`
       );
       AppInsights.trackTrace(
-        `[Cases count ${cases.length}] - User logged in successfully as ${email}`
+        `[Cases count ${cases.length}] - User logged in successfully as ${getReducedEmailforLogs(email)}`
       );
 
       req.session.cases = cases;
@@ -246,7 +246,7 @@ export function renderErrorPage(
   const messages: Array<string> = [];
   switch (statusCode) {
     case NOT_FOUND: {
-      logger.info(`Cannot find any case for ${email}`);
+      logger.info(`Cannot find any case for ${getReducedEmailforLogs(email)}`);
       header = content[i18next.language].login.failed.emailNotFound.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.emailNotFound.messages;
@@ -260,7 +260,7 @@ export function renderErrorPage(
       return res.render('errors/error.njk', { header, messages });
     }
     case UNPROCESSABLE_ENTITY: {
-      logger.info(`Found multiple appeals for ${email}`);
+      logger.info(`Found multiple appeals for ${getReducedEmailforLogs(email)}`);
       header = content[i18next.language].login.failed.technicalError.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.technicalError.messages;
@@ -268,7 +268,7 @@ export function renderErrorPage(
       return res.render('errors/error.njk', { header, messages });
     }
     case CONFLICT: {
-      logger.info(`Found a non cor appeal for ${email}`);
+      logger.info(`Found a non cor appeal for ${getReducedEmailforLogs(email)}`);
       header = content[i18next.language].login.failed.cannotUseService.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.cannotUseService.messages;
@@ -297,4 +297,12 @@ export function setupLoginController(deps: Dependencies): Router {
   );
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;
+}
+
+function getReducedEmailforLogs(email) {
+    let shortenedEmail = "";
+    if(email!=null){
+        shortenedEmail = email.substring(0,3) + "..." + email.substring(email.indexOf("@"), email.indexOf("@")+3) + "...";
+    }
+    return shortenedEmail;
 }
