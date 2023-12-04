@@ -314,8 +314,8 @@ export function setupLoginController(deps: Dependencies): Router {
 function getReducedEmailforLogs(email) {
   let shortenedEmail = '';
   if (email !== null) {
-    indexOfAt = email.indexOf('@');
-    indexOfFinalChar = indexOfAt + 3;
+    const indexOfAt = email.indexOf('@');
+    const indexOfFinalChar = indexOfAt + 3;
     shortenedEmail = ShortenedEmail.concat(
       email.substring(0, 3),
       '...',
