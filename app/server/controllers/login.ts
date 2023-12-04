@@ -199,13 +199,13 @@ export function getIdamCallback(
 
         logger.info(
           `Logging in ${getReducedEmailforLogs(email)} for benefit type ${
-           appeal.benefitType
-                                }, Case Id: ${caseId}`
+            appeal.benefitType
+          }, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
           `[${
             req.session.case?.case_id
-                                }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
+          }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
         );
 
         if (req.session.appeal.hearingType === 'cor') {
@@ -215,13 +215,13 @@ export function getIdamCallback(
       }
       logger.info(
         `Logging in ${getReducedEmailforLogs(email)} for Cases count ${
-         cases.length
-         }, Case Id: ${caseId}`
+          cases.length
+        }, Case Id: ${caseId}`
       );
       AppInsights.trackTrace(
         `[Cases count ${
-         cases.length
-         }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
+          cases.length
+        }] - User logged in successfully as ${getReducedEmailforLogs(email)}`
       );
 
       req.session.cases = cases;
@@ -321,7 +321,7 @@ function getReducedEmailforLogs(email) {
       '...',
       email.substring(indexOfAt, indexOfFinalChar),
       '...'
-          );
+    );
   }
   return shortenedEmail;
 }
