@@ -7,7 +7,7 @@ import { OK } from 'http-status-codes';
 import { TrackYourApealService } from '../services/tyaService';
 import * as AppInsights from '../app-insights';
 import { Dependencies } from '../routes';
-import { getReducedEmailforLogs } from './login'
+import { getReducedEmailforLogs } from './login';
 
 import i18next from 'i18next';
 import content from '../../common/locale/content.json';
