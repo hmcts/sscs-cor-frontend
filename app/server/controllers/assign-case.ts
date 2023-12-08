@@ -7,7 +7,7 @@ import { OK } from 'http-status-codes';
 import { TrackYourApealService } from '../services/tyaService';
 import * as AppInsights from '../app-insights';
 import { Dependencies } from '../routes';
-import { getReducedEmailforLogs} from './login'
+import { getReducedEmailforLogs } from './login'
 
 import i18next from 'i18next';
 import content from '../../common/locale/content.json';
@@ -30,14 +30,18 @@ function postIndex(
     const email = req.session.idamEmail;
     if (!postcode || !postcode.trim()) {
       logger.error(
-        `No postcode for postcode: ${postcode}, TYA: ${tya} and email:${getReducedEmailforLogs(email)}`
+        `No postcode for postcode: ${postcode}, TYA: ${tya} and email:${getReducedEmailforLogs(
+          email
+        )}`
       );
       return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.noPostcode,
       });
     } else if (!postcode.replace(/\s/g, '').match(postcodeRegex)) {
       logger.error(
-        `Invalid for postcode: ${postcode}, TYA: ${tya} and email:${getReducedEmailforLogs(email)}`
+        `Invalid for postcode: ${postcode}, TYA: ${tya} and email:${getReducedEmailforLogs(
+          email
+        )}`
       );
       return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.invalidPostcode,
@@ -45,14 +49,18 @@ function postIndex(
     }
     if (!tya) {
       logger.error(
-        `tyaNotProvided postcode: ${req?.body?.postcode}, TYA: ${tya} and email:${getReducedEmailforLogs(email)}`
+        `tyaNotProvided postcode: ${
+          req?.body?.postcode
+        }, TYA: ${tya} and email:${getReducedEmailforLogs(email)}`
       );
       return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.tyaNotProvided,
       });
     }
     AppInsights.trackTrace(
-      `assign-case: Finding case to assign for tya [${tya}] email [${getReducedEmailforLogs(email)}] postcode [${postcode}]`
+      `assign-case: Finding case to assign for tya [${tya}] email [${getReducedEmailforLogs(
+        email
+      )}] postcode [${postcode}]`
     );
     const { statusCode, body }: rp.Response =
       await caseService.assignOnlineHearingsToCitizen(
@@ -64,11 +72,15 @@ function postIndex(
 
     if (statusCode !== OK) {
       logger.error(
-        `Not matching record for: ${postcode}, TYA: ${tya} and email:${getReducedEmailforLogs(email)}. StatusCode ${statusCode}, error:`,
+        `Not matching record for: ${postcode}, TYA: ${tya} and email:${getReducedEmailforLogs(
+          email
+        )}. StatusCode ${statusCode}, error:`,
         body
       );
       AppInsights.trackTrace(
-        `assign-case: Failed finding case to assign for tya [${tya}] email [${getReducedEmailforLogs(email)}] postcode [${postcode}]`
+        `assign-case: Failed finding case to assign for tya [${tya}] email [${getReducedEmailforLogs(
+          email
+        )}] postcode [${postcode}]`
       );
       return res.render('assign-case/index.njk', {
         error: content[i18next.language].assignCase.errors.postcodeDoesNotMatch,
