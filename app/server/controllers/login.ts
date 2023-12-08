@@ -325,3 +325,4 @@ function getReducedEmailforLogs(email) {
   }
   return shortenedEmail;
 }
+export { getReducedEmailforLogs };
