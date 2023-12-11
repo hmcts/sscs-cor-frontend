@@ -299,7 +299,7 @@ describe('controllers/login', function () {
 
       it('logs AppInsights trace log', function () {
         expect(AppInsights.trackTrace).to.have.been.calledOnce.calledWith(
-          `[12345] - User logged in successfully as som...@ex...`
+          `[12345] - User logged in successfully as som***@ex***`
         );
       });
 
