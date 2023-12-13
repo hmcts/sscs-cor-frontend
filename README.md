@@ -31,10 +31,44 @@ Then run the necessary build tasks using:
 yarn build
 ```
 
-Once complete you can start the application and required mocks using:
+Then add the below export files: 
 
 ```bash
-yarn dev-mock-api
+export SSCS_API_URL=http://localhost:8080
+export COH_URL=http://coh-cor-aat.service.core-compute-aat.internal
+export S2S_SECRET=443EL4ICRQ53FFUY
+export S2S_URL=http://localhost:4502
+export IDAM_API_URL=http://localhost:5062
+export IDAM_URL=http://localhost:5062
+export HTTP_PROTOCOL=http
+export TRIBUNALS_API_URL=http://localhost:8080
+export IDAM_CLIENT_SECRET=QM5RQQ53LZFOSIXJ
+export NODE_ENV=preview
+export MYA_FEATURE_FLAG=true
+export EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED=true
+export EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED=false
+export ADDITIONAL_EVIDENCE_FEATURE_FLAG=true
+export POST_BULK_SCAN=true
+```
+
+To run locally you will need to change the following files:
+
+```In config/default.json: on lines 7 and 45 change the url to
+"http://localhost:8080"
+```
+
+```In app/server/services/idam.ts: on line 37 change the uri to:
+ `${this.apiUrl}/oauth2/token?client_id=sscs&client_secret=${this.appSecret}` 
+ ```
+
+```In app/server/controllers/login.ts: on line 89 add in:
+ else {idamUrl.searchParams.append('state', ''); }
+ ```
+
+Once complete, ensure tribunals-api is running locally, and you can start the application using:
+
+```bash
+yarn dev
 ```
 
 Finally visit http://localhost:3000 to see the running application.
