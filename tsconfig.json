@@ -16,7 +16,8 @@
       "./node_modules/@types",
       "./app/server/models/express-session"
     ],
-    "lib": ["dom", "es7", "es2020"]
+    "lib": ["dom", "es7", "es2020"],
+    "forceConsistentCasingInFileNames": false
   },
   "exclude": ["dist"]
 }
