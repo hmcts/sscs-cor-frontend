@@ -23,4 +23,7 @@
       }
     }
   }
+  .sscs-govuk-tab{
+    @extend .govuk-tabs__tab;
+  }
 }
