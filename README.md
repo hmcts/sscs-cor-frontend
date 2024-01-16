@@ -31,6 +31,8 @@ Then run the necessary build tasks using:
 yarn build
 ```
 
+Add export files
+
 Once complete you can start the application and required mocks using:
 
 ```bash
