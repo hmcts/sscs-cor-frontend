@@ -11,7 +11,7 @@ It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/s
 
 ##### Prereqs
 
-- node.js v18 or higher 
+- node.js v18 or higher
 - yarn
 - redis running on the standard port (6379)
 
