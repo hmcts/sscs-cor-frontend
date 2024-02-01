@@ -87,13 +87,12 @@ export async function setupApp(
   app.use((req, res, next) => {
     const connect = req.cookies['connect.sid'];
 
-    if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {
-      res.cookie('connect.sid', connect, {
-        secure: true,
-        httpOnly: true,
-        sameSite: true,
-      });
-    }
+    res.cookie('connect.sid', connect, {
+      secure: true,
+      if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {httpOnly: true,}
+      if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {sameSite: true,}
+      else {sameSite:'strict'}
+    });
 
     app.locals.webChat = config.get('services.webChat');
     app.locals.webFormUrl = config.get('services.webForm.url');
