@@ -87,7 +87,10 @@ export async function setupApp(
   app.use((req, res, next) => {
     const connect = req.cookies['connect.sid'];
     function isSameSiteCookieEnabled() {
-     if (isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED)) {return true} {return 'strict'}
+      if (isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED)) {
+        return true
+      }
+        return 'strict'
      }
 
     res.cookie('connect.sid', connect, {
