@@ -4,7 +4,6 @@
   },
   "featureFlags": {
     "postBulkScan": "false"
-
   },
   "redis": {
     "secret": null,
