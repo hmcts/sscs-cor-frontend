@@ -84,7 +84,7 @@
       "enabled": "true"
     },
     "httpOnlyCookieFlag": "false",
-    "sameSiteCookieFlag": "strict",
+    "sameSiteCookieFlag": "false",
     "sameSiteSessionCookieFlag": "false"
   },
   "services": {
