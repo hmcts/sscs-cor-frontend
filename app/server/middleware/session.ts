@@ -21,7 +21,7 @@ export function createSession(useRedisStore = false): RequestHandler {
 
   if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {
     return session({
-     cookie: {
+      cookie: {
         httpOnly: true,
         sameSite: true,
         maxAge: config.get('session.cookie.maxAgeInMs'),
@@ -33,18 +33,19 @@ export function createSession(useRedisStore = false): RequestHandler {
       rolling: true,
       store,
     });
-  } else {
+  }
+  {
     return session({
       cookie: {
-      httpOnly: true,
-      maxAge: config.get('session.cookie.maxAgeInMs'),
-      secure,
-     },
-    resave: true,
-    saveUninitialized: true,
-    secret,
-    rolling: true,
-    store,
-  });
- }
+        httpOnly: true,
+        maxAge: config.get('session.cookie.maxAgeInMs'),
+        secure,
+      },
+      resave: true,
+      saveUninitialized: true,
+      secret,
+      rolling: true,
+      store,
+    });
+  }
 }
