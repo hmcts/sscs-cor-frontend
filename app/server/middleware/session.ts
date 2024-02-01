@@ -19,24 +19,10 @@ export function createSession(useRedisStore = false): RequestHandler {
     `Using redis store with secure cooke: ${secure} secret length: ${secret?.length}`
   );
 
-  if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {
-    return session({
-      cookie: {
-        httpOnly: true,
-        if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {sameSite: true,}
-        maxAge: config.get('session.cookie.maxAgeInMs'),
-        secure,
-      },
-      resave: true,
-      saveUninitialized: true,
-      secret,
-      rolling: true,
-      store,
-    });
-  }
   return session({
     cookie: {
       httpOnly: true,
+      if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {sameSite: true,}
       maxAge: config.get('session.cookie.maxAgeInMs'),
       secure,
     },
