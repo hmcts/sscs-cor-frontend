@@ -20,27 +20,26 @@ export function createSession(useRedisStore = false): RequestHandler {
   );
 
   if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {
-   return session({
-    cookie: {
+    return session({
+     cookie: {
+        httpOnly: true,
+        sameSite: true,
+        maxAge: config.get('session.cookie.maxAgeInMs'),
+        secure,
+      },
+      resave: true,
+      saveUninitialized: true,
+      secret,
+      rolling: true,
+      store,
+    });
+  } else {
+    return session({
+      cookie: {
       httpOnly: true,
-      sameSite: true,
       maxAge: config.get('session.cookie.maxAgeInMs'),
       secure,
-    },
-    resave: true,
-    saveUninitialized: true,
-    secret,
-    rolling: true,
-    store,
-  });
- }
- else {
-  return session({
-    cookie: {
-      httpOnly: true,
-      maxAge: config.get('session.cookie.maxAgeInMs'),
-      secure,
-    },
+     },
     resave: true,
     saveUninitialized: true,
     secret,
