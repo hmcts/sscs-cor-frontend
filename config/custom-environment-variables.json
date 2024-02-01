@@ -48,7 +48,8 @@
     "myaPagination": "MYA_PAGINATION_ENABLED",
     "cookieBanner": {
       "enabled": "ALLOW_COOKIE_BANNER_ENABLED"
-    }
+    },
+    "httpOnlyCookieFlag": "HTTPONLY_COOKIE_FLAG_ENABLED"
   },
   "s2s": {
     "secret": "S2S_SECRET",

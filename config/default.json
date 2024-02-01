@@ -82,7 +82,8 @@
     "myaPagination": "false",
     "cookieBanner": {
       "enabled": "true"
-    }
+    },
+    "httpOnlyCookieFlag": "false"
   },
   "services": {
     "webForm": {
