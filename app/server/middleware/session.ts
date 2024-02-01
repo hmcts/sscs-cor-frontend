@@ -34,16 +34,16 @@ export function createSession(useRedisStore = false): RequestHandler {
       store,
     });
   }
-    return session({
-      cookie: {
-        httpOnly: true,
-        maxAge: config.get('session.cookie.maxAgeInMs'),
-        secure,
-      },
-      resave: true,
-      saveUninitialized: true,
-      secret,
-      rolling: true,
-      store,
-    });
+  return session({
+    cookie: {
+      httpOnly: true,
+      maxAge: config.get('session.cookie.maxAgeInMs'),
+      secure,
+    },
+    resave: true,
+    saveUninitialized: true,
+    secret,
+    rolling: true,
+    store,
+  });
 }
