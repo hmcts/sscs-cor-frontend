@@ -3,9 +3,7 @@
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
   "featureFlags": {
-    "postBulkScan": "false",
-    "httpOnlyCookieFlag": "true",
-    "sameSiteCookieFlag": "true"
+    "postBulkScan": "false"
 
   },
   "redis": {
