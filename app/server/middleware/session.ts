@@ -34,7 +34,6 @@ export function createSession(useRedisStore = false): RequestHandler {
       store,
     });
   }
-  {
     return session({
       cookie: {
         httpOnly: true,
@@ -47,5 +46,4 @@ export function createSession(useRedisStore = false): RequestHandler {
       rolling: true,
       store,
     });
-  }
 }
