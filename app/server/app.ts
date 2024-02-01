@@ -89,9 +89,8 @@ export async function setupApp(
 
     res.cookie('connect.sid', connect, {
       secure: true,
-      if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {httpOnly: true,},
-      if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {sameSite: true,}
-      else {sameSite:'strict'}
+      httpOnly: isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED),
+      sameSite: isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED),
     });
 
     app.locals.webChat = config.get('services.webChat');

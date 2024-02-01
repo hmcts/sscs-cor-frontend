@@ -83,7 +83,8 @@
     "cookieBanner": {
       "enabled": "true"
     },
-    "httpOnlyCookieFlag": "false"
+    "httpOnlyCookieFlag": "false",
+    "sameSiteCookieFlag": "strict"
   },
   "services": {
     "webForm": {

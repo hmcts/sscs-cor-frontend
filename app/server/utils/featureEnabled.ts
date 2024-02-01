@@ -14,6 +14,7 @@ enum Feature {
   MYA_PAGINATION_ENABLED = 'myaPagination',
   ALLOW_COOKIE_BANNER_ENABLED = 'cookieBanner.enabled',
   HTTPONLY_COOKIE_FLAG_ENABLED = 'httpOnlyCookieFlag',
+  SAME_SITE_COOKIE_FLAG_ENABLED = 'sameSiteCookieFlag',
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types

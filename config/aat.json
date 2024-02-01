@@ -5,6 +5,7 @@
     "tls": true
   },
   "featureFlags": {
-    "httpOnlyCookieFlag": "true"
+    "httpOnlyCookieFlag": "true",
+    "sameSiteCookieFlag": "true"
   }
 }

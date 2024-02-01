@@ -49,7 +49,8 @@
     "cookieBanner": {
       "enabled": "ALLOW_COOKIE_BANNER_ENABLED"
     },
-    "httpOnlyCookieFlag": "HTTPONLY_COOKIE_FLAG_ENABLED"
+    "httpOnlyCookieFlag": "HTTPONLY_COOKIE_FLAG_ENABLED",
+    "sameSiteCookieFlag": "SAME_SITE_COOKIE_FLAG_ENABLED"
   },
   "s2s": {
     "secret": "S2S_SECRET",

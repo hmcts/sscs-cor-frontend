@@ -22,7 +22,7 @@ export function createSession(useRedisStore = false): RequestHandler {
   return session({
     cookie: {
       httpOnly: true,
-      if (isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED)) {sameSite: true,},
+      sameSite: isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED),
       maxAge: config.get('session.cookie.maxAgeInMs'),
       secure,
     },
