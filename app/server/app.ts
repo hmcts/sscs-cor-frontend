@@ -86,17 +86,11 @@ export async function setupApp(
   // Get Base url and contact us configuration
   app.use((req, res, next) => {
     const connect = req.cookies['connect.sid'];
-    function isSameSiteCookieEnabled() {
-      if (isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED)) {
-        return true;
-      }
-      return 'strict';
-    }
 
     res.cookie('connect.sid', connect, {
       secure: true,
       httpOnly: isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED),
-      sameSite: isSameSiteCookieEnabled(),
+      sameSite: isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED) ? true : 'strict',
     });
 
     app.locals.webChat = config.get('services.webChat');
