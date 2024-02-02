@@ -92,7 +92,7 @@ export async function setupApp(
       httpOnly: isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED),
       sameSite: isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED)
         ? true
-       : 'strict',
+        : 'strict',
     });
 
     app.locals.webChat = config.get('services.webChat');
