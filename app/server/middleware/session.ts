@@ -4,6 +4,7 @@ import { RequestHandler } from 'express';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 import { createRedisStore } from './redis';
+import { Feature, isFeatureEnabled } from '../utils/featureEnabled';
 
 const logger: LoggerInstance = Logger.getLogger('session');
 
@@ -21,6 +22,7 @@ export function createSession(useRedisStore = false): RequestHandler {
   return session({
     cookie: {
       httpOnly: true,
+      sameSite: isFeatureEnabled(Feature.SAME_SITE_SESSION_COOKIE_FLAG_ENABLED),
       maxAge: config.get('session.cookie.maxAgeInMs'),
       secure,
     },
