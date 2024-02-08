@@ -244,7 +244,7 @@ export class BasePage {
       value,
       name,
       url: testUrl,
-      expires: Date.now() + 30 * 60 * 1000,
+      expires: Date.now() + 5 * 60,
     });
   }
 
