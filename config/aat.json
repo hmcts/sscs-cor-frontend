@@ -5,8 +5,8 @@
     "tls": true
   },
   "featureFlags": {
-    "httpOnlyCookieFlag": "false",
-    "sameSiteCookieFlag": "false",
-    "sameSiteSessionCookieFlag": "false"
+    "httpOnlyCookieFlag": "true",
+    "sameSiteCookieFlag": "true",
+    "sameSiteSessionCookieFlag": "true"
   }
 }
