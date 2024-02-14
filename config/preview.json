@@ -5,7 +5,6 @@
   "featureFlags": {
     "postBulkScan": "false",
     "httpOnlyCookieFlag": "true",
-    "sameSiteCookieFlag": "true",
     "sameSiteSessionCookieFlag": "true"
   },
   "redis": {
