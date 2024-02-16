@@ -3,10 +3,5 @@
     "host": "sscs-cor-frontend-v6-aat.redis.cache.windows.net",
     "port": 6380,
     "tls": true
-  },
-  "featureFlags": {
-    "httpOnlyCookieFlag": "true",
-    "sameSiteCookieFlag": "true",
-    "sameSiteSessionCookieFlag": "true"
   }
 }
