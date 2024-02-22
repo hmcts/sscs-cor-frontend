@@ -25,7 +25,7 @@ export function createSession(useRedisStore = false): RequestHandler {
       sameSite: isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED)
         ? 'lax' // required for the oauth2 redirect
         : false,
-      secure: isFeatureEnabled(Feature.SECURE_COOKIE_FLAG_ENABLED)
+      secure: isFeatureEnabled(Feature.SECURE_COOKIE_FLAG_ENABLED),
       maxAge: config.get('session.cookie.maxAgeInMs'),
     },
     resave: true,
