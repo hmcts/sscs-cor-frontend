@@ -51,7 +51,7 @@
     },
     "httpOnlyCookieFlag": "HTTPONLY_COOKIE_FLAG_ENABLED",
     "sameSiteCookieFlag": "SAME_SITE_COOKIE_FLAG_ENABLED",
-    "sameSiteSessionCookieFlag": "SAME_SITE_SESSION_COOKIE_FLAG_ENABLED"
+    "secureCookieFlag": "SECURE_COOKIE_FLAG_ENABLED"
   },
   "s2s": {
     "secret": "S2S_SECRET",
