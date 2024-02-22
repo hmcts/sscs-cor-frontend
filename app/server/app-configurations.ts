@@ -65,12 +65,12 @@ const contentSecurityPolicy: ContentSecurityPolicyOptions = {
 };
 
 if (!isFeatureEnabled(Feature.JQUERY_VERSION_FLAG)){
-    for (var a in contentSecurityPolicy.directives){
-        if (a == 'scriptSrc'){
-            a.concat('https://code.jquery.com/ui/1.12.1/jquery-ui.js')
-            a.concat('https://code.jquery.com/jquery-3.6.0.js');
-        };
+  for (let a in contentSecurityPolicy.directives) {
+    if (a === 'scriptSrc'){
+      a.concat('https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+      a.concat('https://code.jquery.com/jquery-3.6.0.js');
     }
+  }
 }
 
 export function configureHelmet(app: Application): void {
