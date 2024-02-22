@@ -8,7 +8,11 @@ import helmet from 'helmet';
 import config from 'config';
 import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
 import content from '../common/locale/content.json';
 import * as path from 'path';
