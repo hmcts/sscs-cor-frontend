@@ -85,7 +85,7 @@
     },
     "httpOnlyCookieFlag": "false",
     "sameSiteCookieFlag": "false",
-    "sameSiteSessionCookieFlag": "false",
+    "secureCookieFlag": "false",
     "jqueryVersionFlag": "false"
   },
   "services": {
