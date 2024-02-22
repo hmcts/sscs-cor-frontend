@@ -90,7 +90,9 @@ export async function setupApp(
     res.cookie('connect.sid', connect, {
       secure: true,
       httpOnly: isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED),
-      sameSite: 'strict',
+      sameSite: isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED)
+        ? 'lax' // required for the oauth2 redirect
+        : 'strict',
     });
 
     app.locals.webChat = config.get('services.webChat');

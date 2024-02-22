@@ -22,11 +22,11 @@ export function createSession(useRedisStore = false): RequestHandler {
   return session({
     cookie: {
       httpOnly: true,
-      sameSite: isFeatureEnabled(Feature.SAME_SITE_SESSION_COOKIE_FLAG_ENABLED)
+      sameSite: isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED)
         ? 'lax' // required for the oauth2 redirect
         : false,
+      secure: isFeatureEnabled(Feature.SECURE_COOKIE_FLAG_ENABLED),
       maxAge: config.get('session.cookie.maxAgeInMs'),
-      secure,
     },
     resave: true,
     saveUninitialized: true,

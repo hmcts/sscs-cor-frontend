@@ -15,7 +15,7 @@ enum Feature {
   ALLOW_COOKIE_BANNER_ENABLED = 'cookieBanner.enabled',
   HTTPONLY_COOKIE_FLAG_ENABLED = 'httpOnlyCookieFlag',
   SAME_SITE_COOKIE_FLAG_ENABLED = 'sameSiteCookieFlag',
-  SAME_SITE_SESSION_COOKIE_FLAG_ENABLED = 'sameSiteSessionCookieFlag',
+  SECURE_COOKIE_FLAG_ENABLED = 'secureCookieFlag',
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
