@@ -10,6 +10,7 @@ import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
 import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';
 import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
+import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import content from '../common/locale/content.json';
 import * as path from 'path';
 
@@ -62,6 +63,15 @@ const contentSecurityPolicy: ContentSecurityPolicyOptions = {
     ],
   },
 };
+
+if (!isFeatureEnabled(Feature.JQUERY_VERSION_FLAG)){
+    for (var a in contentSecurityPolicy.directives){
+        if (a == 'scriptSrc'){
+            a.concat('https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+            a.concat('https://code.jquery.com/jquery-3.6.0.js');
+        };
+    }
+}
 
 export function configureHelmet(app: Application): void {
   // by setting HTTP headers appropriately.

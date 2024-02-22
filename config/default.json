@@ -85,7 +85,8 @@
     },
     "httpOnlyCookieFlag": "false",
     "sameSiteCookieFlag": "false",
-    "sameSiteSessionCookieFlag": "false"
+    "sameSiteSessionCookieFlag": "false",
+    "jqueryVersionFlag": "false"
   },
   "services": {
     "webForm": {
