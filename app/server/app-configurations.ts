@@ -64,6 +64,15 @@ const contentSecurityPolicy = {
   },
 };
 export function configureHelmet(app: Application): void {
+
+  if (!isFeatureEnabled(Feature.JQUERY_VERSION_FLAG)) {
+    contentSecurityPolicy.directives.scriptSrc.push(
+      'https://code.jquery.com/ui/1.12.1/jquery-ui.js'
+    );
+    contentSecurityPolicy.directives.scriptSrc.push(
+      'https://code.jquery.com/jquery-3.6.0.js'
+    );
+  }
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
@@ -100,14 +109,6 @@ function flattenArray(text: string | Array<string>): string {
 }
 
 export function configureNunjucks(app: Application): void {
-  if (!isFeatureEnabled(Feature.JQUERY_VERSION_FLAG)) {
-    contentSecurityPolicy.directives.scriptSrc.push(
-      'https://code.jquery.com/ui/1.12.1/jquery-ui.js'
-    );
-    contentSecurityPolicy.directives.scriptSrc.push(
-      'https://code.jquery.com/jquery-3.6.0.js'
-    );
-  }
   const i18next: i18n = app.locals.i18n;
 
   const nunEnv = nunjucks.configure(['views', 'node_modules/govuk-frontend'], {
