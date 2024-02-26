@@ -66,10 +66,7 @@ const contentSecurityPolicy = {
 export function configureHelmet(app: Application): void {
   if (!isFeatureEnabled(Feature.JQUERY_VERSION_FLAG)) {
     contentSecurityPolicy.directives.scriptSrc.push(
-      'https://code.jquery.com/ui/1.12.1/jquery-ui.js'
-    );
-    contentSecurityPolicy.directives.scriptSrc.push(
-      'https://code.jquery.com/jquery-3.7.1.js'
+      'https://code.jquery.com/ui/1.12.1/jquery-ui.js','https://code.jquery.com/jquery-3.7.1.js'
     );
   }
   // by setting HTTP headers appropriately.
