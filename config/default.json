@@ -82,7 +82,10 @@
     "myaPagination": "false",
     "cookieBanner": {
       "enabled": "true"
-    }
+    },
+    "httpOnlyCookieFlag": "false",
+    "sameSiteCookieFlag": "false",
+    "secureCookieFlag": "false"
   },
   "services": {
     "webForm": {

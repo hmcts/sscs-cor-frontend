@@ -87,7 +87,14 @@ export async function setupApp(
   app.use((req, res, next) => {
     const connect = req.cookies['connect.sid'];
 
-    res.cookie('connect.sid', connect, { secure: true, sameSite: 'strict' });
+    res.cookie('connect.sid', connect, {
+      secure: true,
+      httpOnly: isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED),
+      sameSite: isFeatureEnabled(Feature.SAME_SITE_COOKIE_FLAG_ENABLED)
+        ? 'lax' // required for the oauth2 redirect
+        : 'strict',
+    });
+
     app.locals.webChat = config.get('services.webChat');
     app.locals.webFormUrl = config.get('services.webForm.url');
     app.locals.allowContactUs = isFeatureEnabled(
