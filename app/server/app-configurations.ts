@@ -64,7 +64,6 @@ const contentSecurityPolicy = {
   },
 };
 export function configureHelmet(app: Application): void {
-
   if (!isFeatureEnabled(Feature.JQUERY_VERSION_FLAG)) {
     contentSecurityPolicy.directives.scriptSrc.push(
       'https://code.jquery.com/ui/1.12.1/jquery-ui.js'
