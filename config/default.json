@@ -84,8 +84,6 @@
       "enabled": "true"
     },
     "httpOnlyCookieFlag": "false",
-    "sameSiteCookieFlag": "false",
-    "secureCookieFlag": "false",
     "jqueryVersionFlag": "false"
   },
   "services": {

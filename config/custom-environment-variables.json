@@ -50,8 +50,6 @@
       "enabled": "ALLOW_COOKIE_BANNER_ENABLED"
     },
     "httpOnlyCookieFlag": "HTTPONLY_COOKIE_FLAG_ENABLED",
-    "sameSiteCookieFlag": "SAME_SITE_COOKIE_FLAG_ENABLED",
-    "secureCookieFlag": "SECURE_COOKIE_FLAG_ENABLED",
     "jqueryVersionFlag": "JQUERY_VERSION_FLAG"
   },
   "s2s": {
