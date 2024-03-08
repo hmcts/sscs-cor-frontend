@@ -13,7 +13,6 @@ enum Feature {
   MEDIA_FILES_ALLOWED_ENABLED = 'mediaFilesAllowed',
   MYA_PAGINATION_ENABLED = 'myaPagination',
   ALLOW_COOKIE_BANNER_ENABLED = 'cookieBanner.enabled',
-  JQUERY_VERSION_FLAG = 'jqueryVersionFlag',
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
