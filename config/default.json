@@ -83,7 +83,6 @@
     "cookieBanner": {
       "enabled": "true"
     },
-    "httpOnlyCookieFlag": "false",
     "jqueryVersionFlag": "false"
   },
   "services": {

@@ -89,7 +89,7 @@ export async function setupApp(
 
     res.cookie('connect.sid', connect, {
       secure: true,
-      httpOnly: isFeatureEnabled(Feature.HTTPONLY_COOKIE_FLAG_ENABLED),
+      httpOnly: true,
       sameSite: 'lax', // required for the oauth2 redirect
     });
 
