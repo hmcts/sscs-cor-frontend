@@ -16,6 +16,7 @@ enum Feature {
   HTTPONLY_COOKIE_FLAG_ENABLED = 'httpOnlyCookieFlag',
   SAME_SITE_COOKIE_FLAG_ENABLED = 'sameSiteCookieFlag',
   SECURE_COOKIE_FLAG_ENABLED = 'secureCookieFlag',
+  JQUERY_VERSION_FLAG = 'jqueryVersionFlag',
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types

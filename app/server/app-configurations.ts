@@ -10,6 +10,7 @@ import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
 import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';
 import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
+import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import content from '../common/locale/content.json';
 import * as path from 'path';
 
@@ -23,7 +24,7 @@ const DecisionReceivedDaysAfterHearing = 5;
 const referrerPolicy: ReferrerPolicyOptions = { policy: 'origin' };
 
 // Helmet content security policy (CSP) to allow only assets from same domain.
-const contentSecurityPolicy: ContentSecurityPolicyOptions = {
+const contentSecurityPolicy = {
   directives: {
     defaultSrc: ["'self'"],
     fontSrc: ["'self' data:"],
@@ -35,8 +36,6 @@ const contentSecurityPolicy: ContentSecurityPolicyOptions = {
       'tagmanager.google.com',
       'vcc-eu4.8x8.com',
       'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
-      'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
-      'https://code.jquery.com/jquery-3.6.0.js',
     ],
     styleSrc: [
       "'self'",
@@ -64,8 +63,13 @@ const contentSecurityPolicy: ContentSecurityPolicyOptions = {
     ],
   },
 };
-
 export function configureHelmet(app: Application): void {
+  if (!isFeatureEnabled(Feature.JQUERY_VERSION_FLAG)) {
+    contentSecurityPolicy.directives.scriptSrc.push(
+      'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
+      'https://code.jquery.com/jquery-3.7.1.js'
+    );
+  }
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
