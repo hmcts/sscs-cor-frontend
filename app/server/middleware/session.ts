@@ -23,7 +23,7 @@ export function createSession(useRedisStore = false): RequestHandler {
     cookie: {
       httpOnly: true,
       sameSite: 'lax', // required for the oauth2 redirect
-      secure,
+      secure: true,
       maxAge: config.get('session.cookie.maxAgeInMs'),
     },
     resave: true,
