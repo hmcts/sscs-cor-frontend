@@ -177,7 +177,8 @@
     "semver": "^7.5.2",
     "express-fileupload": "^1.4.3",
     "socks": "^2.7.3",
-    "es5-ext": "^0.10.64"
+    "es5-ext": "^0.10.64",
+    "express": "^4.19.2"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@3.6.0"
