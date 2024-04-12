@@ -28,7 +28,7 @@ export function getStatus(req: Request, res: Response) {
   }
 
   const appeal = session.appeal;
-  console.log(appeal.latestEvents)
+  console.log(appeal.latestEvents);
   const noProgressBarStages = ['CLOSED', 'LAPSED_REVISED', 'WITHDRAWN'];
   const { hearingType, status } = appeal;
   if (noProgressBarStages.includes(status)) {
