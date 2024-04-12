@@ -739,10 +739,11 @@
         "heading": "Appeal Received",
         "content": {
           "oral": [
-            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. We’ll contact you and explain the next steps when they’ve replied. INSERT {{ appeal.latestEvents[0] }} AND {{appeal.latestEvents[1].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}"
+            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. We’ll contact you and explain the next steps when they’ve replied. \n LATEST EVENT {{ appeal.latestEvents }} \n AND 1 {{appeal.latestEvents[1].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}} \n AND 2 {{appeal.latestEvents[2].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}} \n AND 3 {{appeal.latestEvents[3].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}} \n AND 4 {{appeal.latestEvents[4].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}  \n AND DWPDUE {{appeal.latestEvents[0].dwpDueDate|dateFormat('DD MMMM YYYY', i18n.language)}}"
+
           ],
           "paper": [
-            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. We’ll contact you and explain the next steps when they’ve replied. INSERT {{ appeal.latestEvents[0] }}"
+            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. We’ll contact you and explain the next steps when they’ve replied.  \n LATEST EVENT {{ appeal.latestEvents }} \n AND 1 {{appeal.latestEvents[1].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}} \n AND 2 {{appeal.latestEvents[2].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}} \n AND 3 {{appeal.latestEvents[3].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}} \n AND 4 {{appeal.latestEvents[4].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}  \n AND DWPDUE {{appeal.latestEvents[0].dwpDueDate|dateFormat('DD MMMM YYYY', i18n.language)}}"
           ]
         }
       },
