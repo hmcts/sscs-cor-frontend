@@ -27,7 +27,6 @@
           {% set latestUpdate = content[i18n.language].appealEvents[appeal.status]["content"][appeal.hearingType] %}
         {% endif %}
         {{ panel(content[i18n.language].statusTab.panelHeader, latestUpdate | evalStatus) }}
-        {{ console.log(appeal.latestEvents) }}
       </div>
     </div>
   </div>
