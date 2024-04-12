@@ -6,7 +6,6 @@ import { SessionInactivity } from './session-inactivity';
 import { DetailsTabIndexToggle } from './details-toggle';
 import { RequestType } from './request-type';
 import { EvidenceStatement } from './evidence-statement';
-import { Request } from 'express';
 import domready from 'domready';
 
 function goBack() {
