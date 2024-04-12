@@ -4,7 +4,7 @@
   },
   "testUrl": "http://localhost:3000",
   "api": {
-    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal",
+    "url": "http://localhost:8080",
     "retries": 3,
     "delay": 2000
   },
@@ -42,7 +42,7 @@
     "enableStub": "false"
   },
   "tribunals": {
-    "api-url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+    "api-url": "http://localhost:8080"
   },
   "evidenceUpload": {
     "maxFileSizeInMb": 10,
