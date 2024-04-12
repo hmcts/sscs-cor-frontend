@@ -6,6 +6,7 @@ import { SessionInactivity } from './session-inactivity';
 import { DetailsTabIndexToggle } from './details-toggle';
 import { RequestType } from './request-type';
 import { EvidenceStatement } from './evidence-statement';
+import { Request} from 'express';
 import domready from 'domready';
 
 function goBack() {
@@ -20,6 +21,9 @@ const onReady = () => {
   const detailsToggle = new DetailsTabIndexToggle();
   const requestType = new RequestType();
   const evidenceStatement = new EvidenceStatement();
+
+  const appeal = Request.session.appeal;
+  console.log(appeal.latestEvents);
 
   govUK.initAll();
   expandingTextBox.init();
