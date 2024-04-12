@@ -22,9 +22,6 @@ const onReady = () => {
   const requestType = new RequestType();
   const evidenceStatement = new EvidenceStatement();
 
-  const appeal = Request.session.appeal;
-  console.log(appeal.latestEvents);
-
   govUK.initAll();
   expandingTextBox.init();
   sessionInactivity.init();
