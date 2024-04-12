@@ -111,6 +111,7 @@ export interface CaseEvent {
   type: string;
   contentKey: string;
   dwpResponseDate?: string;
+  dwpDueDate?: string;
   evidenceType?: string;
   evidenceProvidedBy?: string;
   hearingContactDate?: string;
