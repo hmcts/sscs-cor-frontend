@@ -10,7 +10,6 @@ import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
 import { ContentSecurityPolicyOptions } from 'helmet/dist/types/middlewares/content-security-policy';
 import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
-import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import content from '../common/locale/content.json';
 import * as path from 'path';
 
@@ -64,12 +63,6 @@ const contentSecurityPolicy = {
   },
 };
 export function configureHelmet(app: Application): void {
-  if (!isFeatureEnabled(Feature.JQUERY_VERSION_FLAG)) {
-    contentSecurityPolicy.directives.scriptSrc.push(
-      'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
-      'https://code.jquery.com/jquery-3.7.1.js'
-    );
-  }
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
