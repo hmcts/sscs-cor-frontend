@@ -1,4 +1,4 @@
-# SSCS - ~~Continuous Online Resolution~~ Manage Your Appeal
+# SSCS - Manage Your Appeal
 
 This application is the public facing service for Manage Your Appeal (MYA).
 
