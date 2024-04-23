@@ -750,10 +750,10 @@
         "heading": "Appeal Received",
         "content": {
           "oral": [
-            "We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal && {appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}"
+            "We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal"
           ],
           "paper": [
-            "We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal && {appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}"
+            "We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal"
           ]
         }
       },
