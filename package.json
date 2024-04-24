@@ -95,7 +95,7 @@
     "sass": "^1.66.1",
     "serve-favicon": "^2.4.2",
     "shelljs": "^0.8.5",
-    "superagent": "^8.0.5"
+    "superagent": "^9.0.1"
   },
   "devDependencies": {
     "@hmcts/eslint-config": "^1.4.0",
@@ -177,7 +177,8 @@
     "semver": "^7.5.2",
     "express-fileupload": "^1.4.3",
     "socks": "^2.7.3",
-    "es5-ext": "^0.10.64"
+    "es5-ext": "^0.10.64",
+    "superagent": "^9.0.1"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@3.6.0"
