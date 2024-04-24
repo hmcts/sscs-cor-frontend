@@ -766,14 +766,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hmcts/nodejs-healthcheck@npm:^1.8.0":
-  version: 1.8.0
-  resolution: "@hmcts/nodejs-healthcheck@npm:1.8.0"
+"@hmcts/nodejs-healthcheck@npm:^1.8.4":
+  version: 1.8.4
+  resolution: "@hmcts/nodejs-healthcheck@npm:1.8.4"
   dependencies:
     "@hmcts/nodejs-logging": ^4.0.4
     js-yaml: ^3.8.4
-    superagent: 7
-  checksum: 8412f6a36b2a16a6be25d98c9cb083650bc55ba8b490aa5bc438cca3d1f5e2d17a936cd5ae5f0aa577b1e7de41ac647d0b4866dd89d7ab68b37518a72eef97b9
+    superagent: 8
+  checksum: 8b2a6d1745fc2b63bd933a4034b92e9b144c385e8e57a9c9cde454ef2dff19467911aa1c5ade2ece54fff10868c07b966814c31fe1d743c59ab10d5706db898e
   languageName: node
   linkType: hard
 
@@ -5823,15 +5823,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"formidable@npm:^2.0.1, formidable@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "formidable@npm:2.1.2"
+"formidable@npm:^3.5.1":
+  version: 3.5.1
+  resolution: "formidable@npm:3.5.1"
   dependencies:
     dezalgo: ^1.0.4
     hexoid: ^1.0.0
     once: ^1.4.0
-    qs: ^6.11.0
-  checksum: 81c8e5d89f5eb873e992893468f0de22c01678ca3d315db62be0560f9de1c77d4faefc9b1f4575098eb2263b3c81ba1024833a9fc3206297ddbac88a4f69b7a8
+  checksum: 46b21496f9f985161cf7636163147b6728f9997c7e1d59433680d92619758bf6862330e6d105b5816bafcd1ab32f27ef183455991f93ef836ea731c68db62af9
   languageName: node
   linkType: hard
 
@@ -8271,7 +8270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:2.6.0, mime@npm:^2.5.0":
+"mime@npm:2.6.0":
   version: 2.6.0
   resolution: "mime@npm:2.6.0"
   bin:
@@ -9906,7 +9905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.3, qs@npm:^6.11.0, qs@npm:^6.11.2, qs@npm:^6.9.1":
+"qs@npm:^6.11.0, qs@npm:^6.11.2, qs@npm:^6.9.1":
   version: 6.11.2
   resolution: "qs@npm:6.11.2"
   dependencies:
@@ -11001,7 +11000,7 @@ __metadata:
     "@hmcts/cookie-manager": ^1.0.0
     "@hmcts/ctsc-web-chat": ^0.3.12
     "@hmcts/eslint-config": ^1.4.0
-    "@hmcts/nodejs-healthcheck": ^1.8.0
+    "@hmcts/nodejs-healthcheck": ^1.8.4
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^0.0.14
     "@stryker-mutator/core": ^6.3.0
@@ -11102,8 +11101,8 @@ __metadata:
     sinon-chai: ^3.7.0
     sonar-scanner: ^3.0.3
     source-map-support: ^0.5.9
-    superagent: ^8.0.5
-    supertest: ^6.3.2
+    superagent: ^9.0.1
+    supertest: ^6.3.4
     ts-node: ^10.0.0
     tsconfig-paths: ^4.1.0
     tsify: ^5.0.0
@@ -11437,50 +11436,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:7":
-  version: 7.1.5
-  resolution: "superagent@npm:7.1.5"
+"superagent@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "superagent@npm:9.0.1"
   dependencies:
     component-emitter: ^1.3.0
-    cookiejar: ^2.1.3
+    cookiejar: ^2.1.4
     debug: ^4.3.4
     fast-safe-stringify: ^2.1.1
     form-data: ^4.0.0
-    formidable: ^2.0.1
-    methods: ^1.1.2
-    mime: ^2.5.0
-    qs: ^6.10.3
-    readable-stream: ^3.6.0
-    semver: ^7.3.7
-  checksum: 4782ca099b18a0933705f93ac4678290bcfcd5e57ca1286dd4f733c7fbb554ca0c7cc1c97261254dc29623ac258aa64fc40aaa18da960cbe759085efa3e4b8f6
-  languageName: node
-  linkType: hard
-
-"superagent@npm:^8.0.5, superagent@npm:^8.0.9":
-  version: 8.0.9
-  resolution: "superagent@npm:8.0.9"
-  dependencies:
-    component-emitter: ^1.3.0
-    cookiejar: ^2.1.3
-    debug: ^4.3.4
-    fast-safe-stringify: ^2.1.1
-    form-data: ^4.0.0
-    formidable: ^2.1.2
+    formidable: ^3.5.1
     methods: ^1.1.2
     mime: 2.6.0
     qs: ^6.11.0
     semver: ^7.3.8
-  checksum: 5d00cdc7ceb5570663da80604965750e6b1b8d7d7442b7791e285c62bcd8d578a8ead0242a2426432b59a255fb42eb3a196d636157538a1392e7b6c5f1624810
+  checksum: c332ef5609349fe76a26de26bb13bf62399ae26d18f533ce829c88cbe9c30763a0ef1b50a4e7f7eba7a5c00a46fba8337491169103521bed1d5b7036496bdb9f
   languageName: node
   linkType: hard
 
-"supertest@npm:^6.3.2":
-  version: 6.3.3
-  resolution: "supertest@npm:6.3.3"
+"supertest@npm:^6.3.4":
+  version: 6.3.4
+  resolution: "supertest@npm:6.3.4"
   dependencies:
     methods: ^1.1.2
-    superagent: ^8.0.5
-  checksum: 38239e517f7ba62b7a139a79c5c48d55f8d67b5ff4b6e51d5b07732ca8bbc4a28ffa1b10916fbb403dd013a054dbf028edc5850057d9a43aecbff439d494673e
+    superagent: ^8.1.2
+  checksum: 875c6fa7940f21e5be9bb646579cdb030d4057bf2da643e125e1f0480add1200395d2b17e10b8e54e1009efc63e047422501e9eb30e12828668498c0910f295f
   languageName: node
   linkType: hard
 
