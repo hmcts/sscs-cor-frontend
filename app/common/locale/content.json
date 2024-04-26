@@ -739,10 +739,10 @@
         "heading": "Appeal Received",
         "content": {
           "oral": [
-            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. We’ll contact you and explain the next steps when they’ve replied."
+            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate}}. We’ll contact you and explain the next steps when they’ve replied."
           ],
           "paper": [
-            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate|dateFormat('DD MMMM YYYY', i18n.language)}}. We’ll contact you and explain the next steps when they’ve replied."
+            "We’ve told {{appeal.benefitType | agencyAcronym}} that you’ve appealed against their decision. They should respond before {{appeal.latestEvents[0].dwpResponseDate}}. We’ll contact you and explain the next steps when they’ve replied."
           ]
         }
       },
