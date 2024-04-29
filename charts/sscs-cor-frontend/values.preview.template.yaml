@@ -4,6 +4,8 @@ nodejs:
   autoscaling:
     enabled: false
   environment:
+    SSCS_API_URL: 'http://sscs-tribunals-api-pr-3745.preview.platform.hmcts.net'
+    TRIBUNALS_API_URL: 'http://sscs-tribunals-api-pr-3745.preview.platform.hmcts.net'
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
     NODE_ENV: preview
