@@ -9,8 +9,8 @@ nodejs:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
     POST_BULK_SCAN: 'true'
-    SSCS_API_URL: 'https://sscs-tribunals-api-pr-3771.preview.platform.hmcts.net'
-    TRIBUNALS_API_URL: 'https://sscs-tribunals-api-pr-3771.preview.platform.hmcts.net'
+    SSCS_API_URL: 'https://sscs-tribunals-api-pr-3784.preview.platform.hmcts.net'
+    TRIBUNALS_API_URL: 'https://sscs-tribunals-api-pr-3784.preview.platform.hmcts.net'
   keyVaults:
     sscs:
       secrets:
