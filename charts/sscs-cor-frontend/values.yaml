@@ -6,6 +6,8 @@ nodejs:
   memoryLimits: 512Mi
   cpuLimits: 1
   aadIdentityName: sscs
+  spotInstances:
+    enabled: true
   environment:
     IDAM_ENABLE_STUB: false
     REDIS_HOST: 'sscs-cor-frontend-v6-{{ .Values.global.environment }}.redis.cache.windows.net'
