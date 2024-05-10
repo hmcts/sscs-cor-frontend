@@ -113,3 +113,5 @@ export function getBrowserConfig(browserGroup) {
   }
   return browserConfig;
 }
+
+exports.config = setupConfig;
