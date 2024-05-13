@@ -20,24 +20,23 @@ const user: string =
   process.env.SAUCE_USERNAME || config.get('saucelabs.username');
 const key: string = process.env.SAUCE_ACCESS_KEY || config.get('saucelabs.key');
 const output: string = config.get('saucelabs.outputDir');
-const WebDriverIO = {
-  url,
-  browser,
-  waitForTimeout,
-  smartWait,
-  cssSelectorsEnabled: 'true',
-  host: 'ondemand.eu-central-1.saucelabs.com',
-  port: 80,
-  region: 'eu',
-  user,
-  key,
-  desiredCapabilities: {
-    idleTimeout: 300,
-  },
-};
 
 const helpers = {
-  WebDriverIO,
+  WebDriver: {
+    url,
+    browser,
+    waitForTimeout,
+    smartWait,
+    cssSelectorsEnabled: 'true',
+    host: 'ondemand.eu-central-1.saucelabs.com',
+    port: 80,
+    region: 'eu',
+    user,
+    key,
+    desiredCapabilities: {
+      idleTimeout: 300,
+    },
+  },
   BootstrapHelper: { require: './helpers/BootstrapHelper' },
   TeardownHelper: { require: './helpers/TeardownHelper' },
   GeneralHelpers: { require: './helpers/GeneralHelpers' },
