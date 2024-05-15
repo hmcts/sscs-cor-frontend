@@ -32,7 +32,7 @@
     "test:fullfunctional": "yarn test:nightly",
     "test:smoke": "cross-env NODE_PATH=. NODE_ENV=test TS_NODE_PROJECT=app/server/tsconfig.json mocha test/smoke/*.ts --grep @smoke --colors --reporter mochawesome  --reporter-options reportDir=smoke-output/reports/smoke,inlineAssets=true --exit",
     "test:audit": "./bin/run-yarn-audit.sh -f yarn-audit-known-issues",
-    "test:crossbrowser": "cross-env SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net NODE_PATH=. NODE_ENV=test codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/crossbrowser/saucelabs.conf.ts --steps --reporter mocha-multi --verbose",
+    "test:crossbrowser": "yarn playwright install && cross-env SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-aat.internal IDAM_API_URL=https://idam-api.aat.platform.hmcts.net S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal S2S_OAUTH2_URL=https://idam-api.aat.platform.hmcts.net NODE_PATH=. NODE_ENV=test codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/crossbrowser/saucelabs.conf.ts --steps --reporter mocha-multi --verbose",
     "test:coverage": "nyc report",
     "test:a11y": "yarn -v",
     "test:all": "yarn test && yarn test:coverage",
