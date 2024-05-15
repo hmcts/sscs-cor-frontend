@@ -54,7 +54,6 @@ export const setupConfig = {
     );
     const secondsToMilliseconds = 1000;
     setTimeout(() => true, thirtySeconds * secondsToMilliseconds);
-    done();
   },
   mocha: {
     reporterOptions: {
