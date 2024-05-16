@@ -20,28 +20,22 @@ const user: string =
   process.env.SAUCE_USERNAME || config.get('saucelabs.username');
 const key: string = process.env.SAUCE_ACCESS_KEY || config.get('saucelabs.key');
 const output: string = config.get('saucelabs.outputDir');
-const WebDriverIO = {
-  url,
-  browser,
-  waitForTimeout,
-  smartWait,
-  cssSelectorsEnabled: 'true',
-  host: 'ondemand.eu-central-1.saucelabs.com',
-  port: 80,
-  region: 'eu',
-  user,
-  key,
-  desiredCapabilities: {
-    idleTimeout: 300,
-  },
-};
 
 const helpers = {
-  WebDriverIO,
+  Playwright: {
+    url,
+    browser,
+    smartWait,
+    waitForTimeout,
+    cssSelectorsEnabled: 'true',
+    host: 'ondemand.eu-central-1.saucelabs.com',
+    port: 80,
+    region: 'eu',
+    capabilities: {},
+  },
   BootstrapHelper: { require: './helpers/BootstrapHelper' },
   TeardownHelper: { require: './helpers/TeardownHelper' },
   GeneralHelpers: { require: './helpers/GeneralHelpers' },
-  SauceLabsReportingHelper: { require: './helpers/SauceLabsReportingHelper' },
 };
 
 export const setupConfig = {
@@ -50,7 +44,7 @@ export const setupConfig = {
   require: ['ts-node/register'],
   helpers,
   include: {
-    I: './pages/steps.ts',
+    I: './pages/steps.js',
   },
   teardownAll: (done) => {
     // Pause to allow SauceLabs to finish updating before Jenkins queries it for results
@@ -79,17 +73,14 @@ export const setupConfig = {
     },
   },
   multiple: {
-    microsoft: {
-      browsers: getBrowserConfig('microsoft'),
-    },
     chrome: {
-      browsers: getBrowserConfig('chrome'),
+      browsers: getBrowserConfig('chromium'),
     },
     firefox: {
       browsers: getBrowserConfig('firefox'),
     },
-    safari: {
-      browsers: getBrowserConfig('safari'),
+    webkit: {
+      browsers: getBrowserConfig('webkit'),
     },
   },
   name: 'SSCS COR Crossbrowser Tests',
