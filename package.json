@@ -165,8 +165,7 @@
     "typescript": "5.0.2",
     "uglify-js": "^3.8.0",
     "uglifyjs": "^2.4.11",
-    "uuid": "^9.0.0",
-    "webdriverio": "^8.0.0"
+    "uuid": "^9.0.0"
   },
   "resolutions": {
     "json5": "^2.2.2",
