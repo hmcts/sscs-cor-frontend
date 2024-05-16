@@ -46,16 +46,6 @@ export const setupConfig = {
   include: {
     I: './pages/steps.js',
   },
-  teardownAll: (done) => {
-    // Pause to allow SauceLabs to finish updating before Jenkins queries it for results
-    const thirtySeconds = 30;
-    logger.info(
-      `Wait for ${thirtySeconds} seconds before Jenkins queries SauceLabs results...`
-    );
-    const secondsToMilliseconds = 1000;
-    setTimeout(() => true, thirtySeconds * secondsToMilliseconds);
-    done();
-  },
   mocha: {
     reporterOptions: {
       'codeceptjs-cli-reporter': {
