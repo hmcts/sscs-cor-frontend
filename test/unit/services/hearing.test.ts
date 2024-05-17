@@ -18,15 +18,17 @@ const logger: LoggerInstance = Logger.getLogger('services/hearing');
 
 const apiUrl: string = config.get('api.url');
 
+const userToken = 'someUserToken';
+const serviceToken = 'someServiceToken';
+
 describe('services/hearing', function () {
   const email = 'test@example.com';
   const path = '/api/continuous-online-hearings';
   let caseService: CaseService = null;
   const session: SessionData = {
     cookie: undefined,
-    accessToken: 'someUserToken',
-    serviceToken: 'someServiceToken',
-  };
+  } as Partial<SessionData> as SessionData;
+
   const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
   const req = { session } as Request;
   before(function () {
@@ -41,8 +43,6 @@ describe('services/hearing', function () {
     };
 
     describe('success response', function () {
-      const userToken = 'someUserToken';
-      const serviceToken = 'someServiceToken';
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
@@ -70,8 +70,8 @@ describe('services/hearing', function () {
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+            Authorization: `Bearer ${userToken}`,
+            ServiceAuthorization: `Bearer ${serviceToken}`,
           },
         })
           .get(path)
@@ -90,8 +90,8 @@ describe('services/hearing', function () {
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+            Authorization: `Bearer ${userToken}`,
+            ServiceAuthorization: `Bearer ${serviceToken}`,
           },
         })
           .get(path)
@@ -109,8 +109,8 @@ describe('services/hearing', function () {
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+            Authorization: `Bearer ${userToken}`,
+            ServiceAuthorization: `Bearer ${serviceToken}`,
           },
         })
           .get(path)
@@ -139,8 +139,8 @@ describe('services/hearing', function () {
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+            Authorization: `Bearer ${userToken}`,
+            ServiceAuthorization: `Bearer ${serviceToken}`,
           },
         })
           .get(`/api/citizen/${tya}`)
@@ -163,8 +163,8 @@ describe('services/hearing', function () {
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+            Authorization: `Bearer ${userToken}`,
+            ServiceAuthorization: `Bearer ${serviceToken}`,
           },
         })
           .get(`/api/citizen/${tya}`)
@@ -224,8 +224,8 @@ describe('services/hearing', function () {
       beforeEach(function () {
         nock(apiUrl, {
           reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
+            Authorization: `Bearer ${userToken}`,
+            ServiceAuthorization: `Bearer ${serviceToken}`,
           },
         })
           .post(`/api/citizen/${tya}`, { email, postcode })
