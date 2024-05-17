@@ -20,8 +20,8 @@ const copyGovukTemplateAssets = new CopyWebpackPlugin({
     { from: images, to: '../dist/images' },
     { from: fonts, to: '../dist/fonts' },
     //    { from: `${assets}/manifest.json`, to: '../dist/manifest.json' },
-//    { from: `${root}/template.njk`, to: '../views' },
-//    { from: `${root}/components`, to: '../views/components' },
+    //    { from: `${root}/template.njk`, to: '../views' },
+    //    { from: `${root}/components`, to: '../views/components' },
   ],
 });
 
