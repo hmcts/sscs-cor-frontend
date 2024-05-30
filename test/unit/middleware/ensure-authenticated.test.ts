@@ -72,7 +72,6 @@ describe('middleware/ensure-authenticated', function () {
     it('also sets tabs data on the locals', function () {
       req.cookies = {
         hearingOutcomeTab: 'true',
-        mediaFilesAllowed: 'true',
         requestTabEnabled: 'true',
       };
       req.session.appeal = {
@@ -97,7 +96,6 @@ describe('middleware/ensure-authenticated', function () {
     it('also remove outcome tab if hearingOutcome not present', function () {
       req.cookies = {
         hearingOutcomeTab: 'true',
-        mediaFilesAllowed: 'true',
         requestTabEnabled: 'false',
       };
       req.session.appeal = {
@@ -115,7 +113,6 @@ describe('middleware/ensure-authenticated', function () {
     it('also remove outcome tab if hearingOutcomeTab flag is false', function () {
       req.cookies = {
         hearingOutcomeTab: 'false',
-        mediaFilesAllowed: 'true',
         requestTabEnabled: 'false',
       };
       req.session.appeal = {
@@ -130,24 +127,6 @@ describe('middleware/ensure-authenticated', function () {
         members.push(t.id);
       });
       expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
-    });
-    it('remove audio/video tab if mediaFilesAllowed flag is false', function () {
-      req.cookies = {
-        manageYourAppeal: 'true',
-        mediaFilesAllowed: 'false',
-        requestTabEnabled: 'false',
-      };
-      req.session.appeal = {
-        audioVideoEvidence: [],
-      };
-
-      setLocals(req, res, next);
-      expect(res.locals).to.have.property('tabs');
-      const members = [];
-      res.locals.tabs.forEach((t) => {
-        members.push(t.id);
-      });
-      expect(members).to.have.members(['status', 'hearing']);
     });
     it('remove request tab if requestTabEnabled flag is false', function () {
       req.cookies = {

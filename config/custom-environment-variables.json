@@ -32,7 +32,6 @@
     "api-url": "TRIBUNALS_API_URL"
   },
   "featureFlags": {
-    "mediaFilesAllowed": "MEDIA_FILES_ALLOWED_ENABLED",
     "testFeature": "TEST_FEATURE",
     "allowContactUs": {
       "enabled": "ALLOW_CONTACT_US",
