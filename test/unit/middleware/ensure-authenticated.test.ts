@@ -143,7 +143,7 @@ describe('middleware/ensure-authenticated', function () {
       res.locals.tabs.forEach((t) => {
         members.push(t.id);
       });
-      expect(members).to.have.members(['status', 'hearing']);
+      expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
     });
     it('sets signedIn on the locals', function () {
       setLocals(req, res, next);
