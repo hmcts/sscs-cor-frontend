@@ -93,24 +93,22 @@ export function validateFileSize(
   res: Response,
   next: NextFunction
 ): void {
-  if (isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies)) {
-    const file: Express.Multer.File = req.file;
-    if (file) {
-      let error: string = null;
-      const fileExtension = path.extname(file.originalname).toLocaleLowerCase();
-      console.log(fileExtension);
-      if (
-        mimeTypes.includes(file.mimetype) &&
-        fileTypes.includes(fileExtension) &&
-        file.size > maxDocumentFileSize
-      ) {
-        error = `${
-          content[i18next.language].questionUploadEvidence.error.tooLarge
-        } ${maxFileSizeInMb}MB.`;
-        res.locals.multerError = error;
-        req.file = null;
-        return next();
-      }
+  const file: Express.Multer.File = req.file;
+  if (file) {
+    let error: string = null;
+    const fileExtension = path.extname(file.originalname).toLocaleLowerCase();
+    console.log(fileExtension);
+    if (
+      mimeTypes.includes(file.mimetype) &&
+      fileTypes.includes(fileExtension) &&
+      file.size > maxDocumentFileSize
+    ) {
+      error = `${
+        content[i18next.language].questionUploadEvidence.error.tooLarge
+      } ${maxFileSizeInMb}MB.`;
+      res.locals.multerError = error;
+      req.file = null;
+      return next();
     }
   }
   return next();
@@ -155,7 +153,6 @@ export function fileTypeAudioVideoInWhitelist(
 ): void {
   const fileExtension = path.extname(file.originalname).toLocaleLowerCase();
   if (
-    isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies) &&
     mimeTypesWithAudioVideo.includes(file.mimetype) &&
     fileTypesWithAudioVideo.includes(fileExtension)
   ) {

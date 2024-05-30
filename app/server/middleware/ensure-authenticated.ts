@@ -41,8 +41,6 @@ function setLocals(req, res, next) {
 
   // Retrieve feature Flags and adding them as local variables so views can easily access to them
   res.locals.featureFlags = {};
-  res.locals.featureFlags[Feature.MEDIA_FILES_ALLOWED_ENABLED] =
-    isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
 
   // Setting up Main Tabs to show on MYA;
   const myaPagination = isFeatureEnabled(
@@ -59,10 +57,7 @@ function setLocals(req, res, next) {
       Feature.HEARING_OUTCOME_TAB,
       req.cookies
     );
-    const avEvidenceTab = isFeatureEnabled(
-      Feature.MEDIA_FILES_ALLOWED_ENABLED,
-      req.cookies
-    );
+    const avEvidenceTab = true;
     const requestTab = isFeatureEnabled(
       Feature.REQUEST_TAB_ENABLED,
       req.cookies
