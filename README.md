@@ -145,9 +145,7 @@ export TRIBUNALS_API_URL=http://localhost:8080
 export IDAM_CLIENT_SECRET=QM5RQQ53LZFOSIXJ
 export NODE_ENV=preview
 export MYA_FEATURE_FLAG=true
-export EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED=true
 export EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED=false
-export ADDITIONAL_EVIDENCE_FEATURE_FLAG=true
 export POST_BULK_SCAN=true
 ```
 
@@ -180,22 +178,6 @@ Feature flags are used to show or hide certain features.
 
 - they are defined in the JSON config files within the `config` directory
 - specify an environment variable which can be used to override the setting in `config/custom-environment-variables`
-- these env vars are then configured using terraform, set the variable to the desired value in the `[env].tfvars` representing the desired environment
-- this is then set on the app in via the `app_settings` in `main.tf`
-
-**Current feature flags**
-
-| Name                     | Config path                           | Environment variable                    | Notes                                        |
-| ------------------------ | ------------------------------------- | --------------------------------------- | -------------------------------------------- |
-| Question evidence upload | `evidenceUpload.questionPage.enabled` | `EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED` | Enables evidence upload on the question page |
-
-**Overrides for testing**
-
-It's possible to override a setting and temporarily enable a feature for testing purposes, includeing automated and manual tests. This is done by setting a different property in the config to allow the override to happen, then also setting a cookie on the client. Both must be present for the feature to be enabled.
-
-| Feature name             | Override config path                          | Override environment variable                    | Override cookie               |
-| ------------------------ | --------------------------------------------- | ------------------------------------------------ | ----------------------------- |
-| Question evidence upload | `evidenceUpload.questionPage.overrideAllowed` | `EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED` | `evidenceUploadOverride=true` |
 
 ### SIDAM
 
