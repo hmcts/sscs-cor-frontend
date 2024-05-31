@@ -110,24 +110,6 @@ describe('middleware/ensure-authenticated', function () {
       });
       expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
     });
-    it('also remove outcome tab if hearingOutcomeTab flag is false', function () {
-      req.cookies = {
-        hearingOutcomeTab: 'false',
-        requestTabEnabled: 'false',
-      };
-      req.session.appeal = {
-        hearingType: 'oral',
-        hearingOutcome: [],
-      };
-
-      setLocals(req, res, next);
-      expect(res.locals).to.have.property('tabs');
-      const members = [];
-      res.locals.tabs.forEach((t) => {
-        members.push(t.id);
-      });
-      expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
-    });
     it('remove request tab if requestTabEnabled flag is false', function () {
       req.cookies = {
         requestTabEnabled: 'false',

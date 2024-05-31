@@ -20,7 +20,6 @@ nodejs:
     UV_THREADPOOL_SIZE: 64
     MYA_FEATURE_FLAG: "true"
     POST_BULK_SCAN: "true"
-    HEARING_OUTCOME_TAB_ENABLED: 'false'
     REQUEST_TAB_ENABLED: 'true'
     FT_WELSH: "true"
   keyVaults:

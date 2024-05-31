@@ -53,10 +53,7 @@ function setLocals(req, res, next) {
 
   // Setting up Tabs to show on MYA;
   if (req.session.appeal) {
-    const hearingOutcomeTab = isFeatureEnabled(
-      Feature.HEARING_OUTCOME_TAB,
-      req.cookies
-    );
+    const hearingOutcomeTab = true;
     const avEvidenceTab = true;
     const requestTab = isFeatureEnabled(
       Feature.REQUEST_TAB_ENABLED,
