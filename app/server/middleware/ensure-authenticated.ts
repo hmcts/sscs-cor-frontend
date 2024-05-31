@@ -129,9 +129,9 @@ function setTabNavigationItems(appeal) {
         )
       : tabs;
   tabsToShow = tabsToShow.filter((tab) => tab.id !== 'history');
-  tabsToShow = !appeal.hearingOutcome
-    ? tabsToShow.filter((tab) => tab.id !== 'outcome')
-    : tabsToShow;
+  tabsToShow = appeal.hearingOutcome
+    ? tabsToShow
+    : tabsToShow.filter((tab) => tab.id !== 'outcome');
   return tabsToShow;
 }
 
