@@ -107,10 +107,6 @@ export async function setupApp(
       Feature.CONTACT_US_WEBCHAT_ENABLED,
       req.cookies
     );
-    app.locals.cookieBannerEnabled = isFeatureEnabled(
-      Feature.ALLOW_COOKIE_BANNER_ENABLED,
-      req.cookies
-    );
     app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
     next();
   });

@@ -78,10 +78,7 @@
     "hearingOutcomeTab": "false",
     "requestTabEnabled": "false",
     "welsh": "true",
-    "myaPagination": "false",
-    "cookieBanner": {
-      "enabled": "true"
-    }
+    "myaPagination": "false"
   },
   "services": {
     "webForm": {

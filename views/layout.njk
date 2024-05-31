@@ -10,11 +10,7 @@
   {% include "includes/head.njk" %}
 {% endblock head %}
 {% block header %}
-  {% if cookieBannerEnabled %}
     {% include "includes/new-cookie-banner.njk" %}
-  {% else %}
-    {% include "includes/cookie-banner.njk" %}
-  {% endif %}
   {% include "includes/header.njk" %}
 {% endblock header %}
 {% block bodyStart %}
@@ -69,10 +65,8 @@
 {% endblock footer %}
 {% block bodyEnd %}
   {% if isDev %}<script src="/reload/reload.js"></script>{% endif %}
-  {% if cookieBannerEnabled %}
     <script src="public/js/cookie-manager-1.0.0.min.js"></script>
     <script src="public/js/cookies.js"></script>
-  {% endif %}
   <script src="/public/js/main.js"></script>
   {% if webChatEnabled and content.en.language == "en" %}
     <script src="/public/js/hmcts-webchat.js"></script>
