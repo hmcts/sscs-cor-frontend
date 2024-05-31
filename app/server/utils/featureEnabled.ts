@@ -8,7 +8,6 @@ enum Feature {
   CONTACT_US_WEBCHAT_ENABLED = 'allowContactUs.webChatEnabled',
   POST_BULK_SCAN = 'postBulkScan',
   HISTORY_TAB = 'historyTab',
-  REQUEST_TAB_ENABLED = 'requestTabEnabled',
   MYA_PAGINATION_ENABLED = 'myaPagination',
 }
 

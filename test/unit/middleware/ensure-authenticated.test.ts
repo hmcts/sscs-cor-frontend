@@ -94,29 +94,9 @@ describe('middleware/ensure-authenticated', function () {
       ]);
     });
     it('also remove outcome tab if hearingOutcome not present', function () {
-      req.cookies = {
-        hearingOutcomeTab: 'true',
-        requestTabEnabled: 'false',
-      };
+      req.cookies = {};
       req.session.appeal = {
         hearingType: 'oral',
-      };
-
-      setLocals(req, res, next);
-      expect(res.locals).to.have.property('tabs');
-      const members = [];
-      res.locals.tabs.forEach((t) => {
-        members.push(t.id);
-      });
-      expect(members).to.have.members(['status', 'hearing', 'avEvidence']);
-    });
-    it('remove request tab if requestTabEnabled flag is false', function () {
-      req.cookies = {
-        requestTabEnabled: 'false',
-      };
-      req.session.appeal = {
-        hearingType: 'oral',
-        hearingOutcome: [],
       };
 
       setLocals(req, res, next);
@@ -129,7 +109,7 @@ describe('middleware/ensure-authenticated', function () {
         'status',
         'hearing',
         'avEvidence',
-        'outcome',
+        'requestType',
       ]);
     });
     it('sets signedIn on the locals', function () {

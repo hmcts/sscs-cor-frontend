@@ -41,7 +41,6 @@
     },
     "postBulkScan": "POST_BULK_SCAN",
     "historyTab": "HISTORY_TAB",
-    "requestTabEnabled": "REQUEST_TAB_ENABLED",
     "welsh": "FT_WELSH",
     "myaPagination": "MYA_PAGINATION_ENABLED"
   },
