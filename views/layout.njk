@@ -30,7 +30,6 @@
     + '<a class="govuk-link" href="' + content[i18n.language].general.exitLink + pageHeader + '" target="_blank">'
     + content[i18n.language].phaseBanner.report + "</a> "
     + content[i18n.language].phaseBanner.improve %}
-  {% if welshEnabled %}
     {% set queryStringConcat = "" %}
     {% if "lng=" in currentUrl %}
       {% set currentUrl = currentUrl | replace("?lng=en", "") | replace("&lng=en", "") | replace("?lng=cy", "") | replace("&lng=cy", "") %}
@@ -47,7 +46,6 @@
       {% set languageFlag = queryStringConcat + "lng=en" %}
     {% endif %}
     {% set phaseBarHtml = phaseBarHtml + (content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}", currentUrl) | replace("{languageFlag}", languageFlag)) %}
-  {% endif %}
   {{ govukPhaseBanner({ tag: { text: "beta" }, html: phaseBarHtml }) }}
   {% include "includes/account-navigation.njk" %}
 {% endblock beforeContent %}
