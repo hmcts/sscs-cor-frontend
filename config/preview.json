@@ -1,6 +1,6 @@
 {
   "api": {
-    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+    "url": "https://sscs-tribunals-api-pr-3837.preview.platform.hmcts.net"
   },
   "featureFlags": {
     "postBulkScan": "false"
