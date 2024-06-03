@@ -39,7 +39,6 @@
       "webFormEnabled": "CONTACT_US_WEB_FORM_ENABLED",
       "webChatEnabled": "CONTACT_US_WEBCHAT_ENABLED"
     },
-    "postBulkScan": "POST_BULK_SCAN",
     "historyTab": "HISTORY_TAB",
     "welsh": "FT_WELSH",
     "myaPagination": "MYA_PAGINATION_ENABLED"

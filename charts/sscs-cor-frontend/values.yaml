@@ -19,7 +19,6 @@ nodejs:
     HTTP_PROTOCOL: http
     UV_THREADPOOL_SIZE: 64
     MYA_FEATURE_FLAG: "true"
-    POST_BULK_SCAN: "true"
     FT_WELSH: "true"
   keyVaults:
     sscs:

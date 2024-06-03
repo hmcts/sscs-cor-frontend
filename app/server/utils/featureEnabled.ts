@@ -6,7 +6,6 @@ enum Feature {
   CONTACT_US_WEB_FORM_ENABLED = 'allowContactUs.webFormEnabled',
   CONTACT_US_TELEPHONE_ENABLED = 'allowContactUs.telephoneEnabled',
   CONTACT_US_WEBCHAT_ENABLED = 'allowContactUs.webChatEnabled',
-  POST_BULK_SCAN = 'postBulkScan',
   HISTORY_TAB = 'historyTab',
   MYA_PAGINATION_ENABLED = 'myaPagination',
 }

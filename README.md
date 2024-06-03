@@ -146,7 +146,6 @@ export IDAM_CLIENT_SECRET=QM5RQQ53LZFOSIXJ
 export NODE_ENV=preview
 export MYA_FEATURE_FLAG=true
 export EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED=false
-export POST_BULK_SCAN=true
 ```
 
 then do
