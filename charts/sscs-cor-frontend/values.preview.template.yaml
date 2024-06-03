@@ -11,7 +11,6 @@ nodejs:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
     POST_BULK_SCAN: 'true'
-    TEST_URL: 'https://sscs-cor-frontend-pr-1077.preview.platform.hmcts.net'
   keyVaults:
     sscs:
       secrets:
