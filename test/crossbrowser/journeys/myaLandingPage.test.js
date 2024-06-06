@@ -2,13 +2,13 @@ Feature('Manage your appeal');
 
 let appealData = null;
 
-Before(async (I) => {
+Before(async ({ I }) => {
   appealData = await I.createTestAppealData();
 });
 
 Scenario(
   'English - can track appeal status via manager your appeal',
-  async (I) => {
+  async ({ I }) => {
     if (appealData === null) {
       console.log('Failed to create test data');
     } else {
@@ -23,7 +23,7 @@ Scenario(
 
 Scenario(
   'Welsh - can track appeal status via manager your appeal',
-  async (I) => {
+  async ({ I }) => {
     if (appealData === null) {
       console.log('Failed to create test data');
     } else {
@@ -36,7 +36,7 @@ Scenario(
   }
 ).retry(1);
 
-After(async (I) => {
+After(async ({ I }) => {
   if (appealData && appealData.sidamUser) {
     await I.deleteUser(appealData.sidamUser);
   }
