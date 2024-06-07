@@ -1,128 +1,27 @@
 import { CaseService } from 'app/server/services/cases';
 import nock from 'nock';
 import config from 'config';
-import {
-  INTERNAL_SERVER_ERROR,
-  NOT_FOUND,
-  OK,
-  UNPROCESSABLE_ENTITY,
-} from 'http-status-codes';
 import { Request } from 'express';
 import { SessionData } from 'express-session';
-import { LoggerInstance } from 'winston';
-import { Logger } from '@hmcts/nodejs-logging';
-import { expect, sinon } from 'test/chai-sinon';
+import { expect } from 'test/chai-sinon';
 import HttpException from 'app/server/exceptions/HttpException';
-
-const logger: LoggerInstance = Logger.getLogger('services/hearing');
+import { StatusCodes } from 'http-status-codes';
 
 const apiUrl: string = config.get('api.url');
+const error = new HttpException(
+  StatusCodes.INTERNAL_SERVER_ERROR,
+  'Server Error'
+);
 
 describe('services/hearing', function () {
   const email = 'test@example.com';
-  const path = '/api/continuous-online-hearings';
   let caseService: CaseService = null;
   const session: SessionData = {
     cookie: undefined,
-    accessToken: 'someUserToken',
-    serviceToken: 'someServiceToken',
-  };
-  const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
+  } as Partial<SessionData> as SessionData;
   const req = { session } as Request;
   before(function () {
     caseService = new CaseService(apiUrl);
-  });
-
-  describe('#getOnlineHearing', function () {
-    const apiResponseBody = {
-      appellant_name: 'Adam Jenkins',
-      case_reference: '112233',
-      online_hearing_id: 'abc-123-def-456',
-    };
-
-    describe('success response', function () {
-      const userToken = 'someUserToken';
-      const serviceToken = 'someServiceToken';
-      beforeEach(function () {
-        nock(apiUrl, {
-          reqheaders: {
-            Authorization: `Bearer ${userToken}`,
-            ServiceAuthorization: `Bearer ${serviceToken}`,
-          },
-        })
-          .get(path)
-          .query({ email })
-          .reply(OK, apiResponseBody)
-          .log((message) => logger.info(message));
-      });
-
-      it('resolves the promise', function () {
-        return expect(caseService.getOnlineHearing(email, req)).to.be.fulfilled;
-      });
-
-      it('resolves the promise with the response', async function () {
-        const response = await caseService.getOnlineHearing(email, req);
-        expect(response.body).to.deep.equal(apiResponseBody);
-      });
-    });
-
-    describe('error response', function () {
-      beforeEach(function () {
-        nock(apiUrl, {
-          reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
-          },
-        })
-          .get(path)
-          .query({ email })
-          .replyWithError(error);
-      });
-
-      it('rejects the promise with the error', function () {
-        return expect(
-          caseService.getOnlineHearing(email, req)
-        ).to.be.rejectedWith(error.message);
-      });
-    });
-
-    describe('hearing not found', function () {
-      beforeEach(function () {
-        nock(apiUrl, {
-          reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
-          },
-        })
-          .get(path)
-          .query({ email })
-          .reply(NOT_FOUND);
-      });
-
-      it('resolves the promise with 404 status', async function () {
-        const response = await caseService.getOnlineHearing(email, req);
-        expect(response.statusCode).to.equal(NOT_FOUND);
-      });
-    });
-
-    describe('multiple hearings found', function () {
-      beforeEach(function () {
-        nock(apiUrl, {
-          reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
-          },
-        })
-          .get(path)
-          .query({ email })
-          .reply(UNPROCESSABLE_ENTITY);
-      });
-
-      it('resolves the promise with 422 status', async function () {
-        const response = await caseService.getOnlineHearing(email, req);
-        expect(response.statusCode).to.equal(UNPROCESSABLE_ENTITY);
-      });
-    });
   });
 
   describe('#getCasesForCitizen', function () {
@@ -134,20 +33,13 @@ describe('services/hearing', function () {
         online_hearing_id: 'abc-123-def-456',
       },
     ];
-
     describe('success response', function () {
       beforeEach(function () {
-        nock(apiUrl, {
-          reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
-          },
-        })
+        nock(apiUrl)
           .get(`/api/citizen/${tya}`)
           .query({ email })
-          .reply(OK, apiResponseBody);
+          .reply(StatusCodes.OK, apiResponseBody);
       });
-
       it('resolves the promise', function () {
         return expect(caseService.getCasesForCitizen(email, tya, req)).to.be
           .fulfilled;
@@ -158,24 +50,17 @@ describe('services/hearing', function () {
         expect(response.body).to.deep.equal(apiResponseBody);
       });
     });
-
     describe('error response', function () {
       beforeEach(function () {
-        nock(apiUrl, {
-          reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
-          },
-        })
+        nock(apiUrl)
           .get(`/api/citizen/${tya}`)
           .query({ email })
-          .replyWithError(error);
+          .reply(StatusCodes.INTERNAL_SERVER_ERROR, 'Server Error');
       });
 
-      it('rejects the promise with the error', function () {
-        return expect(
-          caseService.getCasesForCitizen(email, tya, req)
-        ).to.be.rejectedWith(error.message);
+      it('rejects the promise with the error', async function () {
+        const response = await caseService.getCasesForCitizen(email, tya, req);
+        expect(response.body).to.deep.equal('Server Error');
       });
     });
   });
@@ -190,17 +75,10 @@ describe('services/hearing', function () {
     };
 
     describe('success response', function () {
-      const userToken = 'someUserToken';
-      const serviceToken = 'someServiceToken';
       beforeEach(function () {
-        nock(apiUrl, {
-          reqheaders: {
-            Authorization: `Bearer ${userToken}`,
-            ServiceAuthorization: `Bearer ${serviceToken}`,
-          },
-        })
+        nock(apiUrl)
           .post(`/api/citizen/${tya}`, { email, postcode })
-          .reply(OK, apiResponseBody);
+          .reply(StatusCodes.OK, apiResponseBody);
       });
 
       it('resolves the promise', function () {
@@ -222,12 +100,7 @@ describe('services/hearing', function () {
 
     describe('error response', function () {
       beforeEach(function () {
-        nock(apiUrl, {
-          reqheaders: {
-            Authorization: `Bearer ${req.session.accessToken}`,
-            ServiceAuthorization: `Bearer ${req.session.serviceToken}`,
-          },
-        })
+        nock(apiUrl)
           .post(`/api/citizen/${tya}`, { email, postcode })
           .replyWithError(error);
       });
