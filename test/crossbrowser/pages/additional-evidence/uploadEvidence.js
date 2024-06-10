@@ -1,4 +1,4 @@
-const content = require('locale/content');
+const content = require('../../../../app/common/locale/content.json');
 
 function uploadEvidence() {
   const I = this;
