@@ -14,7 +14,7 @@ describe('Client/session-inactivity', function () {
   let bindModalMock: SinonStub;
   let addListernersMock: SinonStub;
   // let axiosSpy: SinonSpy;
-    let fetchStub;
+  let fetchStub;
 
   before(function () {
     sessionInactivity = new SessionInactivity();
@@ -28,12 +28,12 @@ describe('Client/session-inactivity', function () {
     );
     addListernersMock = sinon.stub(SessionInactivity.prototype, 'addListeners');
     // axiosSpy = sinon.spy(axios, 'get');
-        fetchStub = sinon.stub(global, 'fetch');
-        fetchStub.resolves({
-          json: sinon.stub().resolves({
-            data: { expireInSeconds: 1200000 },
-          }),
-        });
+    fetchStub = sinon.stub(global, 'fetch');
+    fetchStub.resolves({
+      json: sinon.stub().resolves({
+        data: { expireInSeconds: 1200000 },
+      }),
+    });
     document.body.innerHTML = `<form id="${sessionInactivity.ANSWER_FORM}"></form>
       <div id="timeout-dialog" class="modal">
       <button id="extend">Extend</button>
