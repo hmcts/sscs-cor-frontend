@@ -11,6 +11,8 @@
 
 !tsconfig.json
 !server.js
+!webpack/**
+!webpack.config.js
 
 !.yarn/plugins
 !.yarn/releases
