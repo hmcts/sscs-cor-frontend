@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { sessionExtension } from '../../server/paths';
+import { ExtendSessionResponse } from '../../server/controllers/session';
 import content from '../../common/locale/content.json';
 
 import i18next from 'i18next';
@@ -47,11 +48,11 @@ export class SessionInactivity {
     ) {
       fetch(sessionExtension)
         .then((response) => response.json())
-        .then((response) => {
+        .then((response: ExtendSessionResponse) => {
           console.log(response);
-          if (response.data.expireInSeconds) {
+          if (response.expireInSeconds) {
             this.sessionExpiry = moment().add(
-              response.data.expireInSeconds,
+              response.expireInSeconds,
               'milliseconds'
             );
             this.lastReset = moment();
