@@ -104,6 +104,7 @@ export class SessionInactivity {
 
   startModalInterval(): void {
     let count = 0;
+    console.log(cookieTimeOut);
     this.modalInterval = window.setInterval(() => {
       const minutes: number = moment
         .duration(this.sessionExtendBuffer - count)
@@ -112,7 +113,7 @@ export class SessionInactivity {
         .duration(this.sessionExtendBuffer - count)
         .seconds()
         .toLocaleString('en-GB', { minimumIntegerDigits: 2 });
-      const expiringMessage = `${
+      const expiringMessage = `${minutes}:${seconds} ${
         content[i18next.language].cookieTimeOut.modal.body[0]
       } ${minutes}:${seconds} ${
         content[i18next.language].cookieTimeOut.modal.body[1]
