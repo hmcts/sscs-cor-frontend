@@ -50,6 +50,7 @@ export class SessionInactivity {
       axios
         .get(sessionExtension)
         .then((response: AxiosResponse<ExtendSessionResponse>): void => {
+          console.log(Axios response:);
           console.log(response);
           if (response.data.expireInSeconds) {
             this.sessionExpiry = moment().add(
