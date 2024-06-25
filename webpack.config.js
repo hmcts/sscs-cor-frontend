@@ -10,11 +10,7 @@ const devMode = process.env.NODE_ENV !== 'production';
 const filename = `[name].js`;
 
 module.exports = {
-  plugins: [
-    ...govukFrontend.plugins,
-    ...scss.plugins,
-    ...app.plugins,
-  ],
+  plugins: [...govukFrontend.plugins, ...scss.plugins, ...app.plugins],
   entry: path.resolve(sourcePath, 'main.ts'),
   mode: devMode ? 'development' : 'production',
   module: {
