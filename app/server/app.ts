@@ -16,7 +16,7 @@ import config from 'config';
 import { Feature, isFeatureEnabled } from './utils/featureEnabled';
 import { csrfToken, csrfTokenEmbed } from './middleware/csrf';
 import i18next, { InitOptions } from 'i18next';
-import i18nextMiddleware from 'i18next-express-middleware';
+import i18nextMiddleware from 'i18next-http-middleware';
 import bodyParser from 'body-parser';
 import * as errors from './middleware/error-handler';
 import { Express as loggingExpress, Logger } from '@hmcts/nodejs-logging';
