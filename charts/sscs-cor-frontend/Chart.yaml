@@ -1,7 +1,7 @@
 apiVersion: v2
 name: sscs-cor-frontend
 home: https://github.com/hmcts/sscs-cor-frontend
-version: 0.1.39
+version: 0.1.40
 description: SSCS COR FRONTEND
 dependencies:
   - name: nodejs

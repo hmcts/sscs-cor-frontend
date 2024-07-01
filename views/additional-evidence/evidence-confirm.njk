@@ -1,10 +1,8 @@
 <div class="govuk-grid-column-full">
   <h1 class="govuk-heading-l">{{ content[i18n.language].additionalEvidence.evidenceConfirm.header | safe }}</h1>
   <p>{{ content[i18n.language].additionalEvidence.evidenceConfirm.description | safe }}</p>
-  {% if mediaFilesAllowed %}
     <p>{{ content[i18n.language].additionalEvidence.evidenceConfirm.review | safe }}</p>
     <p>{{ content[i18n.language].additionalEvidence.evidenceConfirm.deleted | safe }}</p>
-  {% endif %}
   <p>
     <a id="goToEvidenceUpload"
        href="/additional-evidence/upload"

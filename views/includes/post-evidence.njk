@@ -1,4 +1,3 @@
-{% if postBulkScan %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <h1 class="govuk-heading-l">{{ content[i18n.language].postEvidence.header | safe }}</h1>
@@ -12,20 +11,3 @@
       <p>{{ content[i18n.language].postEvidence.para3 | eval | safe }}</p>
     </div>
   </div>
-{% else %}
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">{{ content[i18n.language].additionalEvidence.evidencePost.header | safe }}</h1>
-    <p>{{ content[i18n.language].additionalEvidence.evidencePost.subtitle | safe }}</p>
-    <address class="--margin-bottom-m"
-             aria-label="{{ content[i18n.language].guidance.sendingEvidence.screenReaderPostalAddress | safe }}">
-      <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ content[i18n.language].guidance.sendingEvidence.postalAddress | safe }}</span>
-    </address>
-    <div class="govuk-details__text --margin-bottom-m">
-      <p>
-        {{ content[i18n.language].additionalEvidence.evidencePost.description.para1 | safe }}
-        <br />
-        <strong>{{ caseRef | safe }}</strong>
-      </p>
-    </div>
-  </div>
-{% endif %}

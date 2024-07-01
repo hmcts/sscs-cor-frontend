@@ -135,7 +135,6 @@ export function getAdditionalEvidence(
       const benefitType = appeal?.benefitType ? appeal.benefitType : '';
       return res.render('additional-evidence/index.njk', {
         action,
-        postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
         benefitType,
       });
     } catch (error) {

@@ -107,7 +107,6 @@ export function configureNunjucks(app: Application): void {
     noCache: true,
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
-  nunEnv.addGlobal('welshEnabled', config.get(`featureFlags.welsh`) === 'true');
   nunEnv.addGlobal('serviceName', `Manage your appeal`);
   nunEnv.addGlobal('t', (key: string, options?: InitOptions): string =>
     this.i18next.t(key, options)

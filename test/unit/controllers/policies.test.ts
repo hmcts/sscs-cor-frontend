@@ -29,33 +29,17 @@ describe('controllers/policies.js', function () {
   });
 
   describe('getCookiePrivacy', function () {
-    let isFeatureEnabledStub: SinonStub = null;
     const scenarios = null;
-
-    beforeEach(function () {
-      isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
-    });
 
     // eslint-disable-next-line mocha/no-setup-in-describe
     itParam(
       `renders Cookie Policy page for cookieBanner.enabled`,
       [
         {
-          cookieBannerFeature: true,
           expected: 'policy-pages/cookie-privacy-new.njk',
-        },
-        {
-          cookieBannerFeature: false,
-          expected: 'policy-pages/cookie-privacy-old.njk',
         },
       ],
       function (value) {
-        isFeatureEnabledStub
-          .withArgs(
-            FeatureEnabled.Feature.ALLOW_COOKIE_BANNER_ENABLED,
-            sinon.match.object
-          )
-          .returns(value.cookieBannerFeature);
         getCookiePrivacy(req, res);
         expect(res.render).to.have.been.calledOnce.calledWith(value.expected);
       }

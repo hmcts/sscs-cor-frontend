@@ -37,7 +37,6 @@ describe('controllers/task-list', function () {
       },
       cookies: {},
     };
-    req.cookies[Feature.POST_BULK_SCAN] = 'false';
     res = {
       render: sinon.stub(),
       send: sinon.stub(),
@@ -107,8 +106,7 @@ describe('controllers/task-list', function () {
     it('should render post-evidence.njk page', function () {
       getEvidencePost(req, res, next);
       expect(res.render).to.have.been.calledOnce.calledWith(
-        'post-evidence.njk',
-        { postBulkScan: false }
+        'post-evidence.njk'
       );
     });
   });

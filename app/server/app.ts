@@ -59,11 +59,7 @@ export async function setupApp(
   app.locals.i18n = i18next;
   app.locals.content = content;
 
-  if (config.get('featureFlags.mediaFilesAllowed') === 'true') {
-    app.locals.fileTypAudioVideoWhiteList = fileTypesWithAudioVideo;
-  } else {
-    app.locals.fileTypAudioVideoWhiteList = '';
-  }
+  app.locals.fileTypAudioVideoWhiteList = fileTypesWithAudioVideo;
   app.locals.fileTypeWhiteList = fileTypes;
 
   app.locals.screenReaderUtils = screenReaderUtils;
@@ -109,15 +105,6 @@ export async function setupApp(
     );
     app.locals.webChatEnabled = isFeatureEnabled(
       Feature.CONTACT_US_WEBCHAT_ENABLED,
-      req.cookies
-    );
-    app.locals.cookieBannerEnabled = isFeatureEnabled(
-      Feature.ALLOW_COOKIE_BANNER_ENABLED,
-      req.cookies
-    );
-    // fixme needed?
-    app.locals.mediaFilesAllowed = isFeatureEnabled(
-      Feature.MEDIA_FILES_ALLOWED_ENABLED,
       req.cookies
     );
     app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;

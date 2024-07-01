@@ -120,18 +120,10 @@ describe('fileUpload middleware', function () {
         mimetype: 'application/msword',
         size: 104857600,
       } as Express.Multer.File;
-      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
       res = {
         locals: {},
       } as any;
       next = sandbox.stub().resolves();
-    });
-
-    it('should not filter when feature is off', function () {
-      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'false';
-      validateFileSize(req, res, next);
-      expect(res.locals.multerError).to.equal(undefined);
-      expect(next).to.have.been.calledOnce.calledWith();
     });
 
     it('should not filter when no file', function () {
@@ -233,7 +225,6 @@ describe('fileUpload middleware', function () {
     it('file is audio with feature flag on', function () {
       file.originalname = 'audio.MP3';
       file.mimetype = 'audio/mp3';
-      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
       fileTypeInWhitelist(req, file, filterCallbackStub);
       expect(filterCallbackStub).to.have.been.calledOnce.calledWithMatch(
         new MulterError(unexpectedFileErrorCode)
@@ -269,7 +260,6 @@ describe('fileUpload middleware', function () {
 
     it('file is in whitelist', function () {
       file.mimetype = 'audio/mp3';
-      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
       fileTypeAudioVideoInWhitelist(req, file, filterCallbackStub);
       expect(filterCallbackStub).to.have.been.calledOnce.calledWith(null, true);
     });
@@ -318,7 +308,6 @@ describe('fileUpload middleware', function () {
     it('file is audio with feature flag on', function () {
       file.originalname = 'audio.MP3';
       file.mimetype = 'audio/mp3';
-      req.cookies[Feature.MEDIA_FILES_ALLOWED_ENABLED] = 'true';
       fileTypeAudioVideoInWhitelist(req, file, filterCallbackStub);
       expect(filterCallbackStub).to.have.been.calledOnce.calledWith(null, true);
     });
