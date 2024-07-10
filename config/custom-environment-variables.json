@@ -32,7 +32,6 @@
     "api-url": "TRIBUNALS_API_URL"
   },
   "featureFlags": {
-    "mediaFilesAllowed": "MEDIA_FILES_ALLOWED_ENABLED",
     "testFeature": "TEST_FEATURE",
     "allowContactUs": {
       "enabled": "ALLOW_CONTACT_US",
@@ -40,15 +39,8 @@
       "webFormEnabled": "CONTACT_US_WEB_FORM_ENABLED",
       "webChatEnabled": "CONTACT_US_WEBCHAT_ENABLED"
     },
-    "postBulkScan": "POST_BULK_SCAN",
     "historyTab": "HISTORY_TAB",
-    "hearingOutcomeTab": "HEARING_OUTCOME_TAB_ENABLED",
-    "requestTabEnabled": "REQUEST_TAB_ENABLED",
-    "welsh": "FT_WELSH",
-    "myaPagination": "MYA_PAGINATION_ENABLED",
-    "cookieBanner": {
-      "enabled": "ALLOW_COOKIE_BANNER_ENABLED"
-    }
+    "myaPagination": "MYA_PAGINATION_ENABLED"
   },
   "s2s": {
     "secret": "S2S_SECRET",
