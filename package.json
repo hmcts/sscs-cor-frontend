@@ -152,7 +152,7 @@
     "nodemon": "^2.0.20",
     "nyc": "^15.0.1",
     "pa11y": "^6.2.3",
-    "prettier": "2.7.1",
+    "prettier": "2.8.8",
     "puppeteer": "9.1.1",
     "sinon": "15.0.2",
     "sinon-chai": "^3.7.0",
