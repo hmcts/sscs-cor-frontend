@@ -21,6 +21,7 @@ nodejs:
     HTTP_PROTOCOL: http
     UV_THREADPOOL_SIZE: 64
     MYA_FEATURE_FLAG: "true"
+    SPRING_CONFIG_IMPORT : "optional:configtree:/mnt/secrets/sscs/"
   keyVaults:
     sscs:
       secrets:
