@@ -10,11 +10,7 @@
   {% include "includes/head.njk" %}
 {% endblock head %}
 {% block header %}
-  {% if cookieBannerEnabled %}
     {% include "includes/new-cookie-banner.njk" %}
-  {% else %}
-    {% include "includes/cookie-banner.njk" %}
-  {% endif %}
   {% include "includes/header.njk" %}
 {% endblock header %}
 {% block bodyStart %}
@@ -50,7 +46,6 @@
     + '<a class="govuk-link" href="' + content[i18n.language].general.exitLink + pageHeader + '" target="_blank">'
     + content[i18n.language].phaseBanner.report + "</a> "
     + content[i18n.language].phaseBanner.improve %}
-  {% if welshEnabled %}
     {% set queryStringConcat = "" %}
     {% if "lng=" in currentUrl %}
       {% set currentUrl = currentUrl | replace("?lng=en", "") | replace("&lng=en", "") | replace("?lng=cy", "") | replace("&lng=cy", "") %}
@@ -67,7 +62,6 @@
       {% set languageFlag = queryStringConcat + "lng=en" %}
     {% endif %}
     {% set phaseBarHtml = phaseBarHtml + (content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}", currentUrl) | replace("{languageFlag}", languageFlag)) %}
-  {% endif %}
   {{ govukPhaseBanner({ tag: { text: "beta" }, html: phaseBarHtml }) }}
   {% include "includes/account-navigation.njk" %}
 {% endblock beforeContent %}
@@ -85,10 +79,8 @@
 {% endblock footer %}
 {% block bodyEnd %}
   {% if isDev %}<script src="/reload/reload.js"></script>{% endif %}
-  {% if cookieBannerEnabled %}
     <script src="public/js/cookie-manager-1.0.0.min.js"></script>
     <script src="public/js/cookies.js"></script>
-  {% endif %}
   <script src="/public/js/main.js"></script>
   {% if webChatEnabled and content.en.language == "en" %}
     <script src="/public/js/hmcts-webchat.js"></script>

@@ -32,9 +32,7 @@ function getTaskList(req: Request, res: Response, next: NextFunction) {
 
 function getEvidencePost(req: Request, res: Response, next: NextFunction) {
   try {
-    res.render('post-evidence.njk', {
-      postBulkScan: isFeatureEnabled(Feature.POST_BULK_SCAN, req.cookies),
-    });
+    res.render('post-evidence.njk');
   } catch (error) {
     AppInsights.trackException(error);
     next(error);
