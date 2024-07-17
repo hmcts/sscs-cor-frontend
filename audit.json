@@ -1312,5 +1312,14 @@
   "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/additional-evidence?lng=en_GET": "ignore",
   "10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/additional-evidence?lng=en_GET": "ignore",
   "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon.png?lng=cy_GET": "ignore",
-  "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon.png?lng=en_GET": "ignore"
+  "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon.png?lng=en_GET": "ignore",
+  "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon-152x152.png?lng=en_GET": "ignore",
+  "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public/govuk-frontend/images/govuk-apple-touch-icon-152x152.png?lng=cy_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA7NQVfgqrux_10293240614115956.js_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA7NQVfgqrux_10293240614115956.js?lng=en_GET": "ignore",
+  "40021_SQL Injection - Oracle - Time Based_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA7NQVfgqrux_10293240704151944.js_GET": "ignore",
+  "40021_SQL Injection - Oracle - Time Based_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA7NQVfgqrux_10293240704151944.js?lng=cy_GET": "ignore",
+  "40021_SQL Injection - Oracle - Time Based_https://sscs-cor.aat.platform.hmcts.net/ruxitagentjs_ICA7NQVfgqrux_10293240704151944.js?lng=en_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=en_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/cookies?lng=cy_GET": "ignore"
 }
