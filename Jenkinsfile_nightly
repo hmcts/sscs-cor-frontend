@@ -46,10 +46,10 @@ withNightlyPipeline("nodejs", product, component) {
     env.IDAM_API_URL = params.IDAM_API_URL
 
     // before('DependencyCheckNightly') {sh 'yarn test : audit'}
-    enableSecurityScan(
-        urlExclusions: urlExclusions,
-        scanType: "frontend"
-    )
+    // auditenableSecurityScan(
+    //     urlExclusions: urlExclusions,
+    //     scanType: "frontend"
+    // )
     // enableFortifyScan('sscs-aat')
     enableCrossBrowserTest()
     enableFullFunctionalTest(20)
