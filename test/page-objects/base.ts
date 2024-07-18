@@ -48,6 +48,7 @@ export class BasePage {
   }
 
   verifyLanguage(language: string) {
+    logger.info(`Page URL: ${this.page.url()}`);
     expect(this.page.url()).to.contain(`lng=${language}`);
   }
 
