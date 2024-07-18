@@ -47,9 +47,13 @@ describe('CY - Representative - Manage your appeal app @mya @nightly', function 
   });
 
   it('CY -Representative should land in assign-case page after a successful login', async function () {
+    logger.info(`Before language toggle - Page URL: ${this.page.url()}`);
     await assignCasePage.clickLanguageToggle();
+    logger.info(`Before reload - Page URL: ${this.page.url()}`);
     await page.reload();
+    logger.info(`Before verifyPage - Page URL: ${this.page.url()}`);
     assignCasePage.verifyPage();
+    logger.info(`Before verifyLanguage - Page URL: ${this.page.url()}`);
     assignCasePage.verifyLanguage('cy');
   });
 
