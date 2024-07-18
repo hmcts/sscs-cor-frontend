@@ -44,12 +44,14 @@ export class BasePage {
   }
 
   verifyPage() {
+    logger.info(`Verify page - Page URL: ${this.page.url()}`);
     expect(this.page.url(), `URL: ${this.page.url()}`).to.contain(
       `${testUrl}${this.pagePath}`
     );
   }
 
   verifyLanguage(language: string) {
+    logger.info(`Verify language - Page URL: ${this.page.url()}`);
     expect(this.page.url(), `URL: ${this.page.url()}`).to.contain(
       `lng=${language}`
     );
@@ -253,6 +255,8 @@ export class BasePage {
   }
 
   async clickLanguageToggle() {
+    logger.info(`Before toggle - Page URL: ${this.page.url()}`);
     await this.clickElement('.govuk-link.language');
+    logger.info(`After toggle - Page URL: ${this.page.url()}`);
   }
 }
