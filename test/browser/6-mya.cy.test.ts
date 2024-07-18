@@ -77,6 +77,9 @@ describe('Welsh Manage your appeal app @mya @nightly', function () {
   it('CY:checks postcode page path passes @pa11y', async function () {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
+    await page.screenshot({
+      path: `${pa11yScreenshotPath}/test-6-pre-verifyLanguage.png`,
+    });
     assignCasePage.verifyPage();
     assignCasePage.verifyLanguage('cy');
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-postcode-page.png`;
