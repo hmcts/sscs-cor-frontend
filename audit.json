@@ -249,5 +249,11 @@
   "10063_Permissions Policy Header Not Set_https://sscs-cor.aat.platform.hmcts.net/public/js/main.js_GET": "ignore",
   "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/public/images/hmcts-logo-compress.svg_GET": "ignore",
   "10049_Storable but Non-Cacheable Content_https://sscs-cor.aat.platform.hmcts.net/public/images/hmcts-logo-compress.svg_GET": "ignore",
-  "10049_Storable but Non-Cacheable Content_https://sscs-cor.aat.platform.hmcts.net/public/js/cookie-manager-1.0.0.min.js_GET": "ignore"
+  "10049_Storable but Non-Cacheable Content_https://sscs-cor.aat.platform.hmcts.net/public/js/cookie-manager-1.0.0.min.js_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/public/css/main.css_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/public/images/home.png_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/public/js/cookie-manager-1.0.0.min.js_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/public/js/main.js_GET": "ignore",
+  "10049_Storable but Non-Cacheable Content_https://sscs-cor.aat.platform.hmcts.net/public/css/main.css_GET": "ignore",
+  "10049_Storable but Non-Cacheable Content_https://sscs-cor.aat.platform.hmcts.net/public/images/home.png_GET": "ignore"
 }
