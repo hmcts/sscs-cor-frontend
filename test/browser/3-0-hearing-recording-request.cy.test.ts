@@ -56,9 +56,6 @@ describe('CY - Hearing Recording request @mya @nightly', function () {
   it('CY - Navigate to request page', async function () {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
-    await page.screenshot({
-      path: `${pa11yScreenshotPath}/test-3-pre-verifyLanguage.png`,
-    });
     assignCasePage.verifyPage();
     assignCasePage.verifyLanguage('cy');
     await assignCasePage.fillPostcode('TN32 6PL');
