@@ -44,7 +44,9 @@ export class BasePage {
   }
 
   verifyPage() {
-    expect(this.page.url()).to.contain(`${testUrl}${this.pagePath}`);
+    expect(this.page.url(), `URL: ${this.page.url()}`).to.contain(
+      `${testUrl}${this.pagePath}`
+    );
   }
 
   verifyLanguage(language: string) {
