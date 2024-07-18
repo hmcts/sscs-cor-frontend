@@ -245,5 +245,9 @@
   "10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/status?lng=en_GET": "ignore",
   "10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/status?lng=ecy_GET": "ignore",
   "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/additional-evidence?lng=en_GET": "ignore",
-  "10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/additional-evidence?lng=en_GET": "ignore"
+  "10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/additional-evidence?lng=en_GET": "ignore",
+  "10063_Permissions Policy Header Not Set_https://sscs-cor.aat.platform.hmcts.net/public/js/main.js_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/public/images/hmcts-logo-compress.svg_GET": "ignore",
+  "10049_Storable but Non-Cacheable Content_https://sscs-cor.aat.platform.hmcts.net/public/images/hmcts-logo-compress.svg_GET": "ignore",
+  "10049_Storable but Non-Cacheable Content_https://sscs-cor.aat.platform.hmcts.net/public/js/cookie-manager-1.0.0.min.js_GET": "ignore"
 }
