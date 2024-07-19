@@ -44,6 +44,8 @@ export class BasePage {
   }
 
   verifyPage() {
+    console.log('this.page.url=', this.page.url());
+    console.log('testUrl.pagePath=', '${testUrl}${this.pagePath}');
     expect(this.page.url()).to.contain(`${testUrl}${this.pagePath}`);
   }
 
