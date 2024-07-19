@@ -256,6 +256,8 @@ export class BasePage {
 
   async clickLanguageToggle() {
     logger.info(`Before toggle - Page URL: ${this.page.url()}`);
+    // Wait for the link to show up
+    page.wait_for_selector('.govuk-link.language')
     await this.clickElement('.govuk-link.language');
     logger.info(`After toggle - Page URL: ${this.page.url()}`);
   }
