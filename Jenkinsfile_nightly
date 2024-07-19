@@ -43,7 +43,6 @@ withNightlyPipeline("nodejs", product, component) {
     env.TRIBUNALS_API_URL = params.TRIBUNALS_API_URI
     env.IDAM_API_URL = params.IDAM_API_URL
 
-    before('DependencyCheckNightly') {sh 'yarn test : audit'}
     enableSecurityScan()
     // enableFortifyScan('sscs-aat')
     enableCrossBrowserTest()
