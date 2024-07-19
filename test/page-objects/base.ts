@@ -257,10 +257,10 @@ export class BasePage {
   async clickLanguageToggle() {
     logger.info(`Before toggle - Page URL: ${this.page.url()}`);
     // Wait for the sign out link to show up
-    await this.page.waitForSelector('.sign-out');
+    // await this.page.waitForSelector('.sign-out');
+    await this.clickElement('.govuk-link.language');
     const filename = this.getFileName();
     await this.screenshot(`language-toggle-${filename}`);
-    await this.clickElement('.govuk-link.language');
     logger.info(`After toggle - Page URL: ${this.page.url()}`);
   }
 }
