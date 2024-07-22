@@ -90,6 +90,7 @@
   "40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/public_GET": "ignore",
   "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public_GET": "ignore",
   "10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/public/css_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/public/css_GET": "ignore",
   "40025_Proxy Disclosure_https://sscs-cor.aat.platform.hmcts.net/public/css_GET": "ignore",
   "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/public/css_GET": "ignore",
   "10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/public/css/main.css_GET": "ignore",
