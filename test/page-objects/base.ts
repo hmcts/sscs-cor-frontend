@@ -52,8 +52,6 @@ export class BasePage {
 
   verifyLanguage(language: string) {
     logger.info(`Verify language - Page URL: ${this.page.url()}`);
-    const filename = this.getFileName();
-    await this.screenshot(`language-verification-before${filename}`);
     expect(this.page.url(), `URL: ${this.page.url()}`).to.contain(
       `lng=${language}`
     );
@@ -258,11 +256,9 @@ export class BasePage {
 
   async clickLanguageToggle() {
     logger.info(`Before toggle - Page URL: ${this.page.url()}`);
-    // Wait for the sign out link to show up
-    // await this.page.waitForSelector('.sign-out');
-    await this.clickElement('.govuk-link.language');
-    await this.screenshot(`language-toggle-before${filename}`);
     const filename = this.getFileName();
+    await this.screenshot(`language-toggle-before${filename}`);
+    await this.clickElement('.govuk-link.language');
     await this.screenshot(`language-toggle-after${filename}`);
     logger.info(`After toggle - Page URL: ${this.page.url()}`);
   }
