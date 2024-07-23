@@ -78,7 +78,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
-    assignCasePage.verifyLanguage('cy');
+    await assignCasePage.verifyLanguage('cy');
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 

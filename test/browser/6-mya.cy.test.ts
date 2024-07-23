@@ -78,7 +78,7 @@ describe('Welsh Manage your appeal app @mya @nightly', function () {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
-    assignCasePage.verifyLanguage('cy');
+    await assignCasePage.verifyLanguage('cy');
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-postcode-page.png`;
     pa11yOpts.page = assignCasePage.page;
     const result = await pa11y(pa11yOpts);

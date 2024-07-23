@@ -50,8 +50,10 @@ export class BasePage {
     );
   }
 
-  verifyLanguage(language: string) {
+  async verifyLanguage(language: string) {
     logger.info(`Verify language - Page URL: ${this.page.url()}`);
+    const filename = this.getFileName();
+    await this.screenshot(`language-verification-before${filename}`);
     expect(this.page.url(), `URL: ${this.page.url()}`).to.contain(
       `lng=${language}`
     );

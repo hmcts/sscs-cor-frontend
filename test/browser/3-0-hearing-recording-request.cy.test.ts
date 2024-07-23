@@ -57,7 +57,7 @@ describe('CY - Hearing Recording request @mya @nightly', function () {
     await assignCasePage.clickLanguageToggle();
     await page.reload();
     assignCasePage.verifyPage();
-    assignCasePage.verifyLanguage('cy');
+    await assignCasePage.verifyLanguage('cy');
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
     await page.waitForTimeout(500);
