@@ -120,7 +120,7 @@ describe('Additional Evidence @mya @nightly', function () {
   it('checks /task-list passes @pa11y', async function () {
     await taskListPage.visitPage();
     pa11yOpts.page = taskListPage.page;
-    //pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-task-list.png`;
+    // pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-task-list.png`;
     const result = await pa11y(pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
