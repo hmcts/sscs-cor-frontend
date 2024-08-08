@@ -22,6 +22,7 @@ import pa11y from 'pa11y';
 
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
+const testUrl = config.get('testUrl');
 
 describe('Additional Evidence @mya @nightly', function () {
   let page: Page;
@@ -121,7 +122,7 @@ describe('Additional Evidence @mya @nightly', function () {
     await taskListPage.visitPage();
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-task-list.png`;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(`${testUrl}${taskListPage.pagePath}`, pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -133,7 +134,10 @@ describe('Additional Evidence @mya @nightly', function () {
     await additionalEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-page.png`;
     pa11yOpts.page = additionalEvidencePage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidencePage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -145,7 +149,10 @@ describe('Additional Evidence @mya @nightly', function () {
     await additionalEvidenceUploadPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-page.png`;
     pa11yOpts.page = additionalEvidenceUploadPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidenceUploadPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -157,7 +164,10 @@ describe('Additional Evidence @mya @nightly', function () {
     await additionalEvidenceUploadAudioVideoPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-upload-audio-video-page.png`;
     pa11yOpts.page = additionalEvidenceUploadAudioVideoPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidenceUploadAudioVideoPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -169,7 +179,10 @@ describe('Additional Evidence @mya @nightly', function () {
     await additionalEvidenceStatementPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-statement-page.png`;
     pa11yOpts.page = additionalEvidenceStatementPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidenceStatementPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -181,7 +194,10 @@ describe('Additional Evidence @mya @nightly', function () {
     await additionalEvidencePostPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-post-page.png`;
     pa11yOpts.page = additionalEvidencePostPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidencePostPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -253,7 +269,10 @@ describe('Additional Evidence @mya @nightly', function () {
     additionalEvidenceConfirmationPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-additional-evidence-confirmation-page.png`;
     pa11yOpts.page = additionalEvidenceConfirmationPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidenceConfirmationPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)

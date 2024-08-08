@@ -15,6 +15,7 @@ import pa11y from 'pa11y';
 
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
+const testUrl = config.get('testUrl');
 
 describe('Hearing Recording request @mya @nightly', function () {
   let page: Page;
@@ -80,7 +81,10 @@ describe('Hearing Recording request @mya @nightly', function () {
     requestTypePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-request-type-page.png`;
     pa11yOpts.page = requestTypePage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${requestTypePage.pagePath}`,
+      pa11yOpts
+    );
     // Request type form gets submitted on changing the value. Here PA11Y test throws "This form does not contain a submit button error"
     expect(result.issues.length).to.equal(
       0,

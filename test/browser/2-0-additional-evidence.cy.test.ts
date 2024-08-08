@@ -21,6 +21,7 @@ import pa11y from 'pa11y';
 
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
+const testUrl = config.get('testUrl');
 
 // FIXME: please enable this scenario once the ticket https://tools.hmcts.net/jira/browse/SSCS-9687 is completed
 describe.skip('CY - Additional Evidence @mya @nightly99', function () {
@@ -121,7 +122,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     await taskListPage.visitPage();
     pa11yOpts.page = taskListPage.page;
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-task-list.png`;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(`${testUrl}${taskListPage.pagePath}`, pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -133,7 +134,10 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     await additionalEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-page.png`;
     pa11yOpts.page = additionalEvidencePage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidencePage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -145,7 +149,10 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     await additionalEvidenceUploadPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-upload-page.png`;
     pa11yOpts.page = additionalEvidenceUploadPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidenceUploadPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -157,7 +164,10 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     await additionalEvidenceStatementPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-statement-page.png`;
     pa11yOpts.page = additionalEvidenceStatementPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidenceStatementPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -169,7 +179,10 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     await additionalEvidencePostPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-post-page.png`;
     pa11yOpts.page = additionalEvidencePostPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidencePostPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -247,7 +260,10 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     additionalEvidenceConfirmationPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/cy-additional-evidence-confirmation-page.png`;
     pa11yOpts.page = additionalEvidenceConfirmationPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${additionalEvidenceConfirmationPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
