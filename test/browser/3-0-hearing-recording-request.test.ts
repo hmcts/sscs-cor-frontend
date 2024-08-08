@@ -15,6 +15,7 @@ import pa11y from 'pa11y';
 
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
+const testUrl = config.get('testUrl');
 
 describe('Hearing Recording request @mya @nightly', function () {
   let page: Page;
