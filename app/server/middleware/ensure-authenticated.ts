@@ -41,8 +41,6 @@ function setLocals(req, res, next) {
 
   // Retrieve feature Flags and adding them as local variables so views can easily access to them
   res.locals.featureFlags = {};
-  res.locals.featureFlags[Feature.MEDIA_FILES_ALLOWED_ENABLED] =
-    isFeatureEnabled(Feature.MEDIA_FILES_ALLOWED_ENABLED, req.cookies);
 
   // Setting up Main Tabs to show on MYA;
   const myaPagination = isFeatureEnabled(
@@ -55,24 +53,7 @@ function setLocals(req, res, next) {
 
   // Setting up Tabs to show on MYA;
   if (req.session.appeal) {
-    const hearingOutcomeTab = isFeatureEnabled(
-      Feature.HEARING_OUTCOME_TAB,
-      req.cookies
-    );
-    const avEvidenceTab = isFeatureEnabled(
-      Feature.MEDIA_FILES_ALLOWED_ENABLED,
-      req.cookies
-    );
-    const requestTab = isFeatureEnabled(
-      Feature.REQUEST_TAB_ENABLED,
-      req.cookies
-    );
-    res.locals.tabs = setTabNavigationItems(
-      req.session.appeal,
-      hearingOutcomeTab,
-      avEvidenceTab,
-      requestTab
-    );
+    res.locals.tabs = setTabNavigationItems(req.session.appeal);
   }
   next();
 }
@@ -93,12 +74,7 @@ function setMainTabNavigationItems() {
   return tabs;
 }
 
-function setTabNavigationItems(
-  appeal,
-  hearingOutcomeTab,
-  avEvidenceTab,
-  requestTab
-) {
+function setTabNavigationItems(appeal) {
   const { hearingType } = appeal;
   const { createdInGapsFrom } = appeal;
   const tabs = [
@@ -153,16 +129,9 @@ function setTabNavigationItems(
         )
       : tabs;
   tabsToShow = tabsToShow.filter((tab) => tab.id !== 'history');
-  tabsToShow =
-    !appeal.hearingOutcome || !hearingOutcomeTab
-      ? tabsToShow.filter((tab) => tab.id !== 'outcome')
-      : tabsToShow;
-  tabsToShow = avEvidenceTab
+  tabsToShow = appeal.hearingOutcome
     ? tabsToShow
-    : tabsToShow.filter((tab) => tab.id !== 'avEvidence');
-  tabsToShow = requestTab
-    ? tabsToShow
-    : tabsToShow.filter((tab) => tab.id !== 'requestType');
+    : tabsToShow.filter((tab) => tab.id !== 'outcome');
   return tabsToShow;
 }
 

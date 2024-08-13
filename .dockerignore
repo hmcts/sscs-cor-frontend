@@ -8,6 +8,8 @@
 !public/**
 !views/**
 !cookie-banner/**
+!webpack/**
+!webpack.config.js
 
 !tsconfig.json
 !server.js

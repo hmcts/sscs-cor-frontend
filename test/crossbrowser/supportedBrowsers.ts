@@ -1,61 +1,72 @@
-export const microsoft = {
-  // IE11 extremely unstable on TIDAM - retry once SIDAM is in use. (22/02/19)
-  // ie11: {
-  //   browserName: 'internet explorer',
-  //   name: 'IE11',
-  //   platform: 'Windows 10',
-  //   ignoreZoomSetting: true,
-  //   nativeEvents: false,
-  //   ignoreProtectedModeSettings: true,
-  //   version: '11.285'
-  // },
-  edge: {
-    browserName: 'MicrosoftEdge',
-    name: 'Edge',
-    platform: 'Windows 10',
-    ignoreZoomSetting: true,
-    nativeEvents: false,
-    ignoreProtectedModeSettings: true,
-    version: '17.17134',
+const LATEST_MAC = 'macOS 11.00';
+const LATEST_WINDOWS = 'Windows 10';
+
+const supportedBrowsers = {
+  microsoft: {
+    edge_win_latest: {
+      browserName: 'Microsoft Edge',
+      platformName: LATEST_WINDOWS,
+      browserVersion: 'latest-1',
+      'sauce:options': {
+        name: 'SSCS: Edge_Win10',
+        screenResolution: '1400x1050',
+      },
+    },
+  },
+  webkit: {
+    webkit_latest: {
+      browserName: 'webkit',
+      platformName: LATEST_MAC,
+      browserVersion: 'latest',
+      'sauce:options': {
+        name: 'SSCS: Webkit_MAC',
+        screenResolution: '1400x1050',
+      },
+    },
+  },
+  safari: {
+    safari_mac_latest: {
+      browserName: 'safari',
+      platformName: LATEST_MAC,
+      browserVersion: 'latest',
+      'sauce:options': {
+        name: 'SSCS: MAC_SAFARI',
+        seleniumVersion: '3.141.59',
+        screenResolution: '1376x1032',
+      },
+    },
+  },
+  chromium: {
+    chrome_win_latest: {
+      browserName: 'chromium',
+      platformName: LATEST_WINDOWS,
+      browserVersion: 'latest-1',
+      'sauce:options': {
+        name: 'SSCS: WIN_CHROME_LATEST',
+        screenResolution: '1600x1200',
+      },
+    },
+  },
+  firefox: {
+    firefox_win_latest: {
+      browserName: 'firefox',
+      platformName: LATEST_WINDOWS,
+      browserVersion: 'latest-1',
+      'sauce:options': {
+        name: 'SSCS: WIN_FIREFOX_LATEST',
+        screenResolution: '1600x1200',
+      },
+    },
+    firefox_mac_latest: {
+      browserName: 'firefox',
+      platformName: LATEST_MAC,
+      browserVersion: 'latest-1',
+      'sauce:options': {
+        name: 'SSCS: MAC_FIREFOX_LATEST',
+        screenResolution: '1600x1200',
+      },
+    },
   },
 };
 
-export const chrome = {
-  chrome_win_latest: {
-    browserName: 'chrome',
-    name: 'WIN_CHROME_LATEST',
-    platform: 'Windows 10',
-    version: 'latest',
-  },
-  chrome_mac_latest: {
-    browserName: 'chrome',
-    name: 'MAC_CHROME_LATEST',
-    platform: 'macOS 10.13',
-    version: 'latest',
-  },
-};
-
-export const firefox = {
-  firefox_win_latest: {
-    browserName: 'firefox',
-    name: 'WIN_FIREFOX_LATEST',
-    platform: 'Windows 10',
-    version: 'latest',
-  },
-  firefox_mac_latest: {
-    browserName: 'firefox',
-    name: 'MAC_FIREFOX_LATEST',
-    platform: 'macOS 10.13',
-    version: 'latest',
-  },
-};
-
-export const safari = {
-  safari11: {
-    browserName: 'safari',
-    name: 'SAFARI_11',
-    platform: 'macOS 10.14',
-    version: 'latest',
-    avoidProxy: true,
-  },
-};
+module.exports = supportedBrowsers;

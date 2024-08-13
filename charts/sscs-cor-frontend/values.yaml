@@ -8,6 +8,8 @@ nodejs:
   aadIdentityName: sscs
   spotInstances:
     enabled: false
+  autoscaling:
+    enabled: false
   environment:
     IDAM_ENABLE_STUB: false
     REDIS_HOST: 'sscs-cor-frontend-v6-{{ .Values.global.environment }}.redis.cache.windows.net'
@@ -21,11 +23,6 @@ nodejs:
     HTTP_PROTOCOL: http
     UV_THREADPOOL_SIZE: 64
     MYA_FEATURE_FLAG: "true"
-    MEDIA_FILES_ALLOWED_ENABLED: 'true'
-    POST_BULK_SCAN: "true"
-    HEARING_OUTCOME_TAB_ENABLED: 'false'
-    REQUEST_TAB_ENABLED: 'true'
-    FT_WELSH: "true"
   keyVaults:
     sscs:
       secrets:

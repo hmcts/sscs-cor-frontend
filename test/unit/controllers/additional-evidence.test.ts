@@ -60,7 +60,6 @@ describe('controllers/additional-evidence.js', function () {
       cookies: {},
     } as any;
 
-    req.cookies[Feature.POST_BULK_SCAN] = 'false';
     res = {
       render: sinon.spy(),
       redirect: sinon.spy(),
@@ -96,7 +95,6 @@ describe('controllers/additional-evidence.js', function () {
       {
         action: 'options',
         benefitType: 'UC',
-        postBulkScan: false,
       }
     );
   });
@@ -147,7 +145,6 @@ describe('controllers/additional-evidence.js', function () {
       'additional-evidence/index.njk',
       {
         action: 'statement',
-        postBulkScan: false,
         benefitType: 'UC',
       }
     );
@@ -161,7 +158,6 @@ describe('controllers/additional-evidence.js', function () {
       'additional-evidence/index.njk',
       {
         action: 'statement',
-        postBulkScan: false,
         benefitType: '',
       }
     );
@@ -174,7 +170,6 @@ describe('controllers/additional-evidence.js', function () {
       'additional-evidence/index.njk',
       {
         action: 'post',
-        postBulkScan: false,
         benefitType: 'UC',
       }
     );
@@ -187,7 +182,6 @@ describe('controllers/additional-evidence.js', function () {
       'additional-evidence/index.njk',
       {
         action: 'options',
-        postBulkScan: false,
         benefitType: 'UC',
       }
     );

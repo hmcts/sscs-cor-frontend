@@ -1,7 +1,6 @@
 import { expect, sinon } from 'test/chai-sinon';
 import { SessionInactivity } from 'app/client/javascript/session-inactivity';
 import moment from 'moment';
-import axios from 'axios';
 import { SinonSpy, SinonStub } from 'sinon';
 
 describe('Client/session-inactivity', function () {
@@ -13,7 +12,7 @@ describe('Client/session-inactivity', function () {
   let extendSessionMock: SinonStub;
   let bindModalMock: SinonStub;
   let addListernersMock: SinonStub;
-  let axiosSpy: SinonSpy;
+  let fetchStub: SinonStub;
 
   before(function () {
     sessionInactivity = new SessionInactivity();
@@ -26,7 +25,12 @@ describe('Client/session-inactivity', function () {
       'bindModalButtonListeners'
     );
     addListernersMock = sinon.stub(SessionInactivity.prototype, 'addListeners');
-    axiosSpy = sinon.spy(axios, 'get');
+    fetchStub = sinon.stub(global, 'fetch');
+    fetchStub.resolves({
+      json: sinon.stub().resolves({
+        data: { expireInSeconds: 1200000 },
+      }),
+    });
     document.body.innerHTML = `<form id="${sessionInactivity.ANSWER_FORM}"></form>
       <div id="timeout-dialog" class="modal">
       <button id="extend">Extend</button>
@@ -38,6 +42,10 @@ describe('Client/session-inactivity', function () {
     modal = document.getElementById(sessionInactivity.MODAL);
     extendButton = document.getElementById(sessionInactivity.EXTEND_BUTTON);
     cancelButton = document.getElementById(sessionInactivity.CANCEL_BUTTON);
+  });
+
+  after(function () {
+    fetchStub.restore();
   });
 
   describe('Class', function () {
@@ -56,13 +64,12 @@ describe('Client/session-inactivity', function () {
   describe('extendSession', function () {
     beforeEach(function () {
       extendSessionMock.restore();
-      axiosSpy.resetHistory();
     });
 
     it('should extendSession if first time', function () {
       sessionInactivity.lastReset = null;
       sessionInactivity.extendSession();
-      expect(axiosSpy).to.have.been.called;
+      expect(fetchStub.calledOnce).to.be.true;
     });
 
     it('within the buffer  make an extension call', function () {
@@ -72,13 +79,13 @@ describe('Client/session-inactivity', function () {
       );
       sessionInactivity.sessionExpiry = moment().add(2000, 's');
       sessionInactivity.extendSession();
-      expect(axiosSpy).to.not.have.been.called;
+      expect(fetchStub.calledOnce).to.be.true;
     });
 
     it('outside the buffer wait', function () {
       sessionInactivity.sessionExpiry = moment().add(20, 's');
       sessionInactivity.extendSession();
-      expect(axiosSpy).to.have.been.called;
+      expect(fetchStub.calledOnce).to.be.false;
     });
   });
 
