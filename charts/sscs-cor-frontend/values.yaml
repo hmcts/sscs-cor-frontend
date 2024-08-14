@@ -6,6 +6,8 @@ nodejs:
   memoryLimits: 512Mi
   cpuLimits: 1
   aadIdentityName: sscs
+  spotInstances:
+    enabled: false
   autoscaling:
     enabled: false
   environment:
