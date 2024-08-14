@@ -1,5 +1,4 @@
 import moment from 'moment';
-import axios, { AxiosResponse } from 'axios';
 import { sessionExtension } from '../../server/paths';
 import { ExtendSessionResponse } from '../../server/controllers/session';
 import content from '../../common/locale/content.json';
@@ -47,12 +46,18 @@ export class SessionInactivity {
         )
       ) > 0
     ) {
-      axios
-        .get(sessionExtension)
-        .then((response: AxiosResponse<ExtendSessionResponse>): void => {
-          if (response.data.expireInSeconds) {
+      fetch(sessionExtension, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json, text/plain',
+        },
+      })
+        .then((response) => response.json())
+        .then((response: ExtendSessionResponse) => {
+          if (response.expireInSeconds) {
             this.sessionExpiry = moment().add(
-              response.data.expireInSeconds,
+              response.expireInSeconds,
               'milliseconds'
             );
             this.lastReset = moment();

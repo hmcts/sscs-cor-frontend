@@ -1,8 +1,5 @@
 {
   "idam": {
     "enableStub": "true"
-  },
-  "featureFlags": {
-    "postBulkScan": "true"
   }
 }
