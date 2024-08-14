@@ -21,6 +21,7 @@ import pa11y from 'pa11y';
 
 const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
+const testUrl = config.get('testUrl');
 
 describe('Appellant - Manage your appeal app @mya @nightly', function () {
   let ccdCase;
@@ -81,7 +82,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     assignCasePage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-postcode-page.png`;
     pa11yOpts.page = assignCasePage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${assignCasePage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -100,7 +104,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     statusPage.verifyPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-status-page.png`;
     pa11yOpts.page = statusPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(`${testUrl}${statusPage.pagePath}`, pa11yOpts);
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -112,7 +116,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     await supportEvidencePage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-support-evidence-page.png`;
     pa11yOpts.page = supportEvidencePage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${supportEvidencePage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -124,7 +131,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     await representativesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-representatives-page.png`;
     pa11yOpts.page = representativesPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${representativesPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -136,7 +146,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     await supportHearingPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-support-hearing-page.png`;
     pa11yOpts.page = supportHearingPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${supportHearingPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -148,7 +161,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     await claimingExpensesPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-claiming-expenses-page.png`;
     pa11yOpts.page = claimingExpensesPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${claimingExpensesPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -160,7 +176,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     await withdrawAppealPage.visitPage();
     pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-withdraw-appeal-page.png`;
     pa11yOpts.page = withdrawAppealPage.page;
-    const result = await pa11y(pa11yOpts);
+    const result = await pa11y(
+      `${testUrl}${withdrawAppealPage.pagePath}`,
+      pa11yOpts
+    );
     expect(result.issues.length).to.equal(
       0,
       JSON.stringify(result.issues, null, 2)
@@ -254,7 +273,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
       hearingPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-hearing-page.png`;
       pa11yOpts.page = hearingPage.page;
-      const result = await pa11y(pa11yOpts);
+      const result = await pa11y(
+        `${testUrl}${hearingPage.pagePath}`,
+        pa11yOpts
+      );
       expect(result.issues.length).to.equal(
         0,
         JSON.stringify(result.issues, null, 2)
@@ -279,7 +301,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
       audioVideoEvidencePage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-audio-video-evidence-page.png`;
       pa11yOpts.page = audioVideoEvidencePage.page;
-      const result = await pa11y(pa11yOpts);
+      const result = await pa11y(
+        `${testUrl}${audioVideoEvidencePage.pagePath}`,
+        pa11yOpts
+      );
       expect(result.issues.length).to.equal(
         0,
         JSON.stringify(result.issues, null, 2)
@@ -312,7 +337,10 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
       appealDetailsPage.verifyPage();
       pa11yOpts.screenCapture = `${pa11yScreenshotPath}/en-appeal-details-page.png`;
       pa11yOpts.page = appealDetailsPage.page;
-      const result = await pa11y(pa11yOpts);
+      const result = await pa11y(
+        `${testUrl}${appealDetailsPage.pagePath}`,
+        pa11yOpts
+      );
       expect(result.issues.length).to.equal(
         0,
         JSON.stringify(result.issues, null, 2)
