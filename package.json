@@ -182,7 +182,8 @@
     "express": "^4.19.2",
     "superagent": "^9.0.1",
     "braces": "^3.0.3",
-    "ws": "^8.17.1"
+    "ws": "^8.17.1",
+    "micromatch": "^4.0.8"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@3.6.0"
