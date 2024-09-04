@@ -34,6 +34,7 @@ const contentSecurityPolicy = {
       '*.googletagmanager.com',
       'tagmanager.google.com',
       'vcc-eu4.8x8.com',
+      'https://js-cdn.dynatrace.com',
       'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
     ],
     styleSrc: [
