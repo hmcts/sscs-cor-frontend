@@ -4887,25 +4887,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"c8@npm:^7.12.0":
-  version: 7.14.0
-  resolution: "c8@npm:7.14.0"
+"c8@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "c8@npm:9.1.0"
   dependencies:
     "@bcoe/v8-coverage": ^0.2.3
     "@istanbuljs/schema": ^0.1.3
     find-up: ^5.0.0
-    foreground-child: ^2.0.0
+    foreground-child: ^3.1.1
     istanbul-lib-coverage: ^3.2.0
-    istanbul-lib-report: ^3.0.0
-    istanbul-reports: ^3.1.4
-    rimraf: ^3.0.2
+    istanbul-lib-report: ^3.0.1
+    istanbul-reports: ^3.1.6
     test-exclude: ^6.0.0
     v8-to-istanbul: ^9.0.0
-    yargs: ^16.2.0
-    yargs-parser: ^20.2.9
+    yargs: ^17.7.2
+    yargs-parser: ^21.1.1
   bin:
     c8: bin/c8.js
-  checksum: ca44bbd200b09dd5b7a3b8909b964c82eabbbb28ce4543873a313118e1ba24c924fdb6440ed09c636debdbd2dffec5529cca9657d408cba295367b715e131975
+  checksum: c5249bf9c390784a33b05f5e930f5301793c15105c874a0130839dbf3309ce8832376f77be5e325a40cc2955f455f1d7aea754858befd07eee535dd42b287bbe
   languageName: node
   linkType: hard
 
@@ -5692,7 +5691,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorette@npm:^2.0.14, colorette@npm:^2.0.19":
+"colorette@npm:^2.0.14, colorette@npm:^2.0.20":
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
   checksum: 0c016fea2b91b733eb9f4bcdb580018f52c0bc0979443dad930e5037a968237ac53d9beb98e218d2e9235834f8eebce7f8e080422d6194e957454255bde71d3d
@@ -5736,7 +5735,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^12.1.0":
+"commander@npm:^12.0.0, commander@npm:^12.1.0":
   version: 12.1.0
   resolution: "commander@npm:12.1.0"
   checksum: 68e9818b00fc1ed9cdab9eb16905551c2b768a317ae69a5e3c43924c2b20ac9bb65b27e1cab36aeda7b6496376d4da908996ba2c0b5d79463e0fb1e77935d514
@@ -5943,14 +5942,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:1.0.4":
-  version: 1.0.4
-  resolution: "content-type@npm:1.0.4"
-  checksum: 3d93585fda985d1554eca5ebd251994327608d2e200978fdbfba21c0c679914d5faf266d17027de44b34a72c7b0745b18584ecccaa7e1fdfb6a68ac7114f12e0
-  languageName: node
-  linkType: hard
-
-"content-type@npm:^1.0.4, content-type@npm:~1.0.4, content-type@npm:~1.0.5":
+"content-type@npm:1.0.5, content-type@npm:^1.0.5, content-type@npm:~1.0.4, content-type@npm:~1.0.5":
   version: 1.0.5
   resolution: "content-type@npm:1.0.5"
   checksum: 566271e0a251642254cde0f845f9dd4f9856e52d988f4eb0d0dcffbb7a1f8ec98de7a5215fc628f3bce30fe2fb6fd2bc064b562d721658c59b544e2d34ea2766
@@ -8399,6 +8391,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"foreground-child@npm:^3.1.1":
+  version: 3.3.0
+  resolution: "foreground-child@npm:3.3.0"
+  dependencies:
+    cross-spawn: ^7.0.0
+    signal-exit: ^4.0.1
+  checksum: 1989698488f725b05b26bc9afc8a08f08ec41807cd7b92ad85d96004ddf8243fd3e79486b8348c64a3011ae5cc2c9f0936af989e1f28339805d8bc178a75b451
+  languageName: node
+  linkType: hard
+
 "foreground-child@npm:^3.2.1":
   version: 3.2.1
   resolution: "foreground-child@npm:3.2.1"
@@ -8802,26 +8804,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gettext-converter@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "gettext-converter@npm:1.2.3"
+"gettext-converter@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "gettext-converter@npm:1.3.0"
   dependencies:
     arrify: ^2.0.1
-    content-type: 1.0.4
+    content-type: 1.0.5
     encoding: 0.1.13
-  checksum: aa77686deb5e7835df8275c1d15730c8ad4fcb0977193009d9dc33554d5f043410d859ca32725088a4fef59538fbea0119f58891db4f7b43e172d1d1a3303dbd
+  checksum: a9ea67dc3e74a2b44b34797d5df04625d7768d49c57a0f7c21d1945c3426e35669e1e7222c41b8fd1f83b4efb3d791152816badaf100c8c0fd33a83ea1954bfd
   languageName: node
   linkType: hard
 
-"gettext-parser@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "gettext-parser@npm:6.0.0"
+"gettext-parser@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "gettext-parser@npm:8.0.0"
   dependencies:
-    content-type: ^1.0.4
+    content-type: ^1.0.5
     encoding: ^0.1.13
-    readable-stream: ^4.1.0
+    readable-stream: ^4.5.2
     safe-buffer: ^5.2.1
-  checksum: e6938755d914e886c780a71e58390af0a5ea5698aab2777654733da4c4b96e02fcc9d40c50df0987e4d4a12bd6b99291a268805edb8c99a83a639606ab73e40e
+  checksum: a9310ef9eba066931c5a2dfd80fbaaf11de7af3f905d02e6f8afe015389ec2297029d2eabb851779e647492b646dd8e3b5b8294326754442237ec63c71b6b9a4
   languageName: node
   linkType: hard
 
@@ -9483,20 +9485,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-conv@npm:^13.1.0":
-  version: 13.1.1
-  resolution: "i18next-conv@npm:13.1.1"
+"i18next-conv@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "i18next-conv@npm:15.0.0"
   dependencies:
-    c8: ^7.12.0
-    colorette: ^2.0.19
-    commander: ^10.0.0
-    gettext-converter: ^1.2.3
-    gettext-parser: ^6.0.0
+    c8: ^9.1.0
+    colorette: ^2.0.20
+    commander: ^12.0.0
+    gettext-converter: ^1.3.0
+    gettext-parser: ^8.0.0
     node-gettext: ^3.0.0
-    p-from-callback: ^1.0.1
+    p-from-callback: ^2.0.0
   bin:
     i18next-conv: bin/index.js
-  checksum: aa8982e019e54e3e5db26d1bef107d49a34b80aa18c86919cbdc258b7ecbe8449af594bc71fce60219a0243db42cb6f6a00be32fb38c8e10f2333a7631b28603
+  checksum: 71c12facd75922c3f0e97df0089ed32924e625315a59a153428793ff89650002346abed9ab27652c1cc145622a4fcf1f894a31ac19081a4fcd585354c0ec44cd
   languageName: node
   linkType: hard
 
@@ -10307,7 +10309,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"istanbul-reports@npm:^3.0.2, istanbul-reports@npm:^3.1.4":
+"istanbul-reports@npm:^3.0.2":
   version: 3.1.5
   resolution: "istanbul-reports@npm:3.1.5"
   dependencies:
@@ -10317,7 +10319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"istanbul-reports@npm:^3.1.7":
+"istanbul-reports@npm:^3.1.6, istanbul-reports@npm:^3.1.7":
   version: 3.1.7
   resolution: "istanbul-reports@npm:3.1.7"
   dependencies:
@@ -13118,10 +13120,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-from-callback@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "p-from-callback@npm:1.0.1"
-  checksum: e4643d57e6547805f7f07dcb166bb9c360afb162734b4b35c92027fb1f8215c7cb595f2debd5330f6b52b7177e86a75bfaa6f84c03c081748e1373adc26dc070
+"p-from-callback@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "p-from-callback@npm:2.0.0"
+  checksum: 36d8e3281b9b1ec9f220822328f9d6265e45370594b16d694ae19fb6e2bc521d3a70d401e4b59970866e2fb5ad004a101fa7c1b51c2629ecb26ac78d74cedb03
   languageName: node
   linkType: hard
 
@@ -14235,7 +14237,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:^4.0.0":
+"readable-stream@npm:^4.0.0, readable-stream@npm:^4.5.2":
   version: 4.5.2
   resolution: "readable-stream@npm:4.5.2"
   dependencies:
@@ -14245,18 +14247,6 @@ __metadata:
     process: ^0.11.10
     string_decoder: ^1.3.0
   checksum: c4030ccff010b83e4f33289c535f7830190773e274b3fcb6e2541475070bdfd69c98001c3b0cb78763fc00c8b62f514d96c2b10a8bd35d5ce45203a25fa1d33a
-  languageName: node
-  linkType: hard
-
-"readable-stream@npm:^4.1.0":
-  version: 4.4.0
-  resolution: "readable-stream@npm:4.4.0"
-  dependencies:
-    abort-controller: ^3.0.0
-    buffer: ^6.0.3
-    events: ^3.3.0
-    process: ^0.11.10
-  checksum: cc1630c2de134aee92646e77b1770019633000c408fd48609babf2caa53f00ca794928023aa9ad3d435a1044cec87d2ce7e2b7389dd1caf948b65c175edb7f52
   languageName: node
   linkType: hard
 
@@ -15538,7 +15528,7 @@ __metadata:
     husky: ^8.0.0
     i: ^0.3.6
     i18next: ^22.0.6
-    i18next-conv: ^13.1.0
+    i18next-conv: ^15.0.0
     i18next-http-middleware: ^3.6.0
     i18next-sprintf-postprocessor: ^0.2.2
     ioredis: ^5.2.4
