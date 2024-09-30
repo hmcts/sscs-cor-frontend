@@ -183,7 +183,8 @@
     "superagent": "^9.0.1",
     "braces": "^3.0.3",
     "ws": "^8.17.1",
-    "micromatch": "^4.0.8"
+    "micromatch": "^4.0.8",
+    "body-parser": "^1.20.3"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@3.6.0"
