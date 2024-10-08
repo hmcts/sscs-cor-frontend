@@ -57,7 +57,7 @@
     "@types/express": "^4.17.21",
     "@types/express-serve-static-core": "^4.19.5",
     "applicationinsights": "^1.6.0",
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.3",
     "chokidar": "^3.5.3",
     "cliui": "^8.0.1",
     "computed-style": "^0.3.0",
@@ -183,7 +183,8 @@
     "superagent": "^9.0.1",
     "braces": "^3.0.3",
     "ws": "^8.17.1",
-    "micromatch": "^4.0.8"
+    "micromatch": "^4.0.8",
+    "body-parser": "^1.20.3"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@3.6.0"
