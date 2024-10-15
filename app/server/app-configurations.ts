@@ -34,6 +34,7 @@ const contentSecurityPolicy = {
       '*.googletagmanager.com',
       'tagmanager.google.com',
       'vcc-eu4.8x8.com',
+      'https://js-cdn.dynatrace.com',
       'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
     ],
     styleSrc: [
@@ -107,7 +108,6 @@ export function configureNunjucks(app: Application): void {
     noCache: true,
   });
   nunEnv.addGlobal('environment', process.env.NODE_ENV);
-  nunEnv.addGlobal('welshEnabled', config.get(`featureFlags.welsh`) === 'true');
   nunEnv.addGlobal('serviceName', `Manage your appeal`);
   nunEnv.addGlobal('t', (key: string, options?: InitOptions): string =>
     this.i18next.t(key, options)

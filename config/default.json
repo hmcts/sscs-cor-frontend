@@ -66,7 +66,6 @@
   "apiCallTimeout": 40000,
   "navigationTimeout": 140000,
   "featureFlags": {
-    "mediaFilesAllowed": "false",
     "testFeature": "false",
     "allowContactUs": {
       "enabled": "true",
@@ -74,15 +73,8 @@
       "webFormEnabled": "false",
       "webChatEnabled": "false"
     },
-    "postBulkScan": "false",
     "historyTab": "false",
-    "hearingOutcomeTab": "false",
-    "requestTabEnabled": "false",
-    "welsh": "true",
-    "myaPagination": "false",
-    "cookieBanner": {
-      "enabled": "true"
-    }
+    "myaPagination": "false"
   },
   "services": {
     "webForm": {

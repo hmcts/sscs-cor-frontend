@@ -56,7 +56,7 @@ describe('controllers/av-evidence-list', function () {
   });
 
   describe('getAvEvidenceList', function () {
-    it('should render audio video evidence list when mya feature enabled for (MEDIA_FILES_ALLOWED_ENABLED)', async function () {
+    it('should render audio video evidence list ', async function () {
       req.cookies.manageYourAppeal = 'true';
       req.session.appeal = caseData.appeal;
       const avEvidenceList = [
