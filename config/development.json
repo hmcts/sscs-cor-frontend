@@ -1,5 +1,24 @@
 {
+  "api": {
+    "url": "http://localhost:8008"
+  },
+  "tribunals": {
+    "api-url": "http://localhost:8008"
+  },
   "idam": {
-    "enableStub": "true"
+    "url": "http://localhost:5062",
+    "api-url": "http://localhost:5062",
+    "client": {
+      "secret": "OOOOOOOOOOOOOOOO"
+    }
+  },
+  "s2s": {
+    "secret": "AAAAAAAAAAAAAAAC",
+    "url": "http://localhost:4502"
+  },
+  "session": {
+    "cookie": {
+      "secure": "false"
+    }
   }
 }

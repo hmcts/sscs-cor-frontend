@@ -215,7 +215,7 @@
       "logo": "HMCTS Logo",
       "signOut": "Sign out",
       "delete": "Delete",
-      "serviceTitle": "Appeal a benefit decision",
+      "serviceTitle": "Appeal a decision",
       "sessionExpiryWarning": "Your session will expire and you will be signed out after 20 minutes of inactivity",
       "govUK": "GOV.UK",
       "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
@@ -903,6 +903,14 @@
       }
     },
     "benefitTypes": {
+      "infectedbloodappeal": {
+        "acronym": "IBC",
+        "yourBenefitAppeal": "Your IB compensation appeal",
+        "fullDescription": "Infected Blood Compensation (IBC)",
+        "agency": "Infected Blood Compensation Authority",
+        "agencyAcronym": "IBCA",
+        "panel": "a judge and a doctor"
+      },
       "esa": {
         "acronym": "ESA",
         "yourBenefitAppeal": "Your ESA benefit appeal",
@@ -1218,11 +1226,11 @@
     },
     "selectCase": {
       "title": "Select Case",
-      "heading": "Your benefit appeals",
+      "heading": "Your appeals",
       "appealReference": "Appeal reference",
-      "benefit": "Benefit",
+      "benefit": "Appeal",
       "dateSubmitted": "Date submitted",
-      "mrnDate": "MRN date",
+      "mrnDate": "MRN/Review Decision Notice date",
       "action": "Action",
       "view": "View"
     },

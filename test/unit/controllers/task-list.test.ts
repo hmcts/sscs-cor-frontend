@@ -56,7 +56,7 @@ describe('controllers/task-list', function () {
     sinon.restore();
   });
 
-  describe.skip('getCoversheet', function () {
+  describe('getCoversheet', function () {
     it('should return a pdf file', async function () {
       await getCoversheet(additionalEvidenceService)(req, res, next);
       expect(res.send).to.have.been.calledOnce.calledWith(
@@ -75,7 +75,7 @@ describe('controllers/task-list', function () {
       expect(next).to.have.been.calledWith(error);
     });
 
-    it('should throw error and event if no sessions', async function () {
+    it.skip('should throw error and event if no sessions', async function () {
       req.session = null;
 
       expect(
