@@ -1,12 +1,12 @@
 {
   "node": {
-    "port": 3000
+    "port": 3001
   },
   "api": {
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal",
     "retries": 0
   },
-  "testUrl": "http://localhost:3000",
+  "testUrl": "http://localhost:3001",
   "headless": true,
   "pa11y": {
     "ignoreUrl": true,

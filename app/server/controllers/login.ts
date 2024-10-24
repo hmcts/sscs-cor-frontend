@@ -1,13 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import * as AppInsights from '../app-insights';
 import { Request, Response, NextFunction, Router } from 'express';
-import {
-  NOT_FOUND,
-  UNPROCESSABLE_ENTITY,
-  CONFLICT,
-  OK,
-  BAD_REQUEST,
-} from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import * as Paths from '../paths';
 import { URL } from 'url';
 import { generateToken } from '../services/s2s';
@@ -127,7 +121,7 @@ export function getIdamCallback(
           req.session.tya = resolveQuery(req.query.state);
         } catch (error) {
           const tokenError = new HttpException(
-            BAD_REQUEST,
+            StatusCodes.BAD_REQUEST,
             `Idam token verification failed for code ${code} with error ${error.message}`
           );
           logger.error('MYA_IDAM_CODE_AUTH_ERROR', tokenError);
@@ -150,7 +144,7 @@ export function getIdamCallback(
         req
       ));
 
-      if (statusCode !== OK)
+      if (statusCode !== StatusCodes.OK)
         return renderErrorPage(
           email,
           statusCode,
@@ -173,7 +167,7 @@ export function getIdamCallback(
           value.case_reference = caseId;
         } else {
           const missingHearingIdError = new HttpException(
-            NOT_FOUND,
+            StatusCodes.NOT_FOUND,
             'Case ID cannot be empty from hearing in session'
           );
           logger.error('MYA_SESSION_READ_FAIL', missingHearingIdError);
@@ -245,7 +239,7 @@ export function renderErrorPage(
   let header: string = null;
   const messages: Array<string> = [];
   switch (statusCode) {
-    case NOT_FOUND: {
+    case StatusCodes.NOT_FOUND: {
       logger.info(`Cannot find any case for ${email}`);
       header = content[i18next.language].login.failed.emailNotFound.header;
       const errorMessages: Array<string> =
@@ -259,7 +253,7 @@ export function renderErrorPage(
       messages.push(registerLink);
       return res.render('errors/error.njk', { header, messages });
     }
-    case UNPROCESSABLE_ENTITY: {
+    case StatusCodes.UNPROCESSABLE_ENTITY: {
       logger.info(`Found multiple appeals for ${email}`);
       header = content[i18next.language].login.failed.technicalError.header;
       const errorMessages: Array<string> =
@@ -267,7 +261,7 @@ export function renderErrorPage(
       messages.push(...errorMessages);
       return res.render('errors/error.njk', { header, messages });
     }
-    case CONFLICT: {
+    case StatusCodes.CONFLICT: {
       logger.info(`Found a non cor appeal for ${email}`);
       header = content[i18next.language].login.failed.cannotUseService.header;
       const errorMessages: Array<string> =

@@ -27,7 +27,7 @@ export class BasePage {
     } catch (error) {
       const filename = this.getFileName();
       logger.info(
-        `Exception catched in visitPage, taking screenshot ${filename}.png. Error is: ${error}`
+        `Exception caught in visitPage, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-visit-${filename}`);
     }
