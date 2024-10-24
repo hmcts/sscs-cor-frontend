@@ -97,9 +97,7 @@ describe('controllers/login', function () {
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
     });
-  });
 
-  describe.skip('#getLogout with redirectUrl Parameter', function () {
     it('destroys the session and redirects to custom url with redirectUrl parameter.', async function () {
       req.session.accessToken = 'accessToken';
       req.query.redirectUrl = Paths.taskList;
