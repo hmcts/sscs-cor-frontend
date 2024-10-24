@@ -20,4 +20,4 @@ COPY --chown=hmcts:hmcts . ./
 RUN yarn install
 RUN yarn build
 
-EXPOSE 3001
+EXPOSE 3003

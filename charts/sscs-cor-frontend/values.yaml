@@ -1,6 +1,6 @@
 nodejs:
   image: hmctspublic.azurecr.io/sscs/tribunals-cor-frontend:latest
-  applicationPort: 3001
+  applicationPort: 3003
   memoryRequests: 256Mi
   cpuRequests: 0.2
   memoryLimits: 512Mi

@@ -37,7 +37,7 @@ Once complete you can start the application and required mocks using:
 yarn dev-mock-api
 ```
 
-Finally visit http://localhost:3001 to see the running application.
+Finally visit http://localhost:3003 to see the running application.
 
 ## Testing
 
@@ -138,10 +138,10 @@ yarn build
 yarn dev
 ```
 
-and go to http://localhost:3001
+and go to http://localhost:3003
 
 In order to log in as a citizen and be able to see your appeal you might need to use the link below:
-http://localhost:3001/sign-in?tya=[subscriptionCode]
+http://localhost:3003/sign-in?tya=[subscriptionCode]
 
 If you are using the idam simulator check the sscs-docker README for some config changes
 
