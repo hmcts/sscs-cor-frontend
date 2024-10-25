@@ -444,10 +444,12 @@ describe('controllers/login', function () {
     describe('selects a case by case id with MYA enabled', function () {
       let caseServiceStub;
       let trackYourAppealService;
+      let redirectToIdam;
+      let idamServiceStub;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number', caseId: '11111' };
-        const redirectToIdam = sinon.stub();
-        const idamServiceStub = {
+        redirectToIdam = sinon.stub();
+        idamServiceStub = {
           getToken: sinon
             .stub()
             .withArgs('someCode', 'http', 'localhost')
@@ -478,9 +480,11 @@ describe('controllers/login', function () {
         } as Partial<CaseService> as CaseService;
 
         trackYourAppealService = {
-          getAppeal: sinon.stub().resolves({ appeal: {} }),
+          getAppeal: sinon.stub().resolves({ appeal: { hearingType: 'cor' } }),
         };
+      });
 
+      it('calls the online hearing service', async function () {
         await getIdamCallback(
           redirectToIdam,
           idamServiceStub,
@@ -489,9 +493,6 @@ describe('controllers/login', function () {
         )(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
-      });
-
-      it('calls the online hearing service', function () {
         expect(
           caseServiceStub.getCasesForCitizen
         ).to.have.been.calledOnce.calledWith(
@@ -501,7 +502,34 @@ describe('controllers/login', function () {
         );
       });
 
-      it('sets the hearing', function () {
+      it('redirects to taskList', async function () {
+        await getIdamCallback(
+          redirectToIdam,
+          idamServiceStub,
+          caseServiceStub,
+          trackYourAppealService
+        )(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
+        expect(
+          caseServiceStub.getCasesForCitizen
+        ).to.have.been.calledOnce.calledWith(
+          'someEmail@example.com',
+          'tya-number',
+          req
+        );
+        expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
+      });
+
+      it('sets the hearing', async function () {
+        await getIdamCallback(
+          redirectToIdam,
+          idamServiceStub,
+          caseServiceStub,
+          trackYourAppealService
+        )(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
         expect(req.session.case).to.be.eql({
           case_id: 11111,
           online_hearing_id: '1',
@@ -510,7 +538,18 @@ describe('controllers/login', function () {
         });
       });
 
-      it('redirects to task list page', function () {
+      it('redirects to task list page', async function () {
+        trackYourAppealService = {
+          getAppeal: sinon.stub().resolves({ appeal: {} }),
+        };
+        await getIdamCallback(
+          redirectToIdam,
+          idamServiceStub,
+          caseServiceStub,
+          trackYourAppealService
+        )(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
         expect(res.redirect).to.have.been.calledWith(Paths.status);
       });
     });
