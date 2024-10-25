@@ -1,6 +1,6 @@
 import { IdamService } from 'app/server/services/idam';
 import * as Service2Service from 'app/server/services/s2s';
-
+import * as featureEnabled from 'app/server/utils/featureEnabled';
 import {
   getLogout,
   getIdamCallback,
@@ -21,12 +21,14 @@ describe('controllers/login', function () {
   let req;
   let res;
   let next: NextFunction;
+  let isFeatureEnabledStub: sinon.SinonStub;
   const caseDetails: CaseDetails = {
     case_id: 12345,
     online_hearing_id: '1',
     case_reference: '12345',
     appellant_name: 'John Smith',
   };
+  const error = new Error('Error destroying session ');
 
   beforeEach(function () {
     req = {
@@ -50,12 +52,14 @@ describe('controllers/login', function () {
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackTrace');
     sinon.stub(AppInsights, 'trackEvent');
+    isFeatureEnabledStub = sinon.stub(featureEnabled, 'isFeatureEnabled');
   });
 
   afterEach(function () {
     (AppInsights.trackException as sinon.SinonStub).restore();
     (AppInsights.trackTrace as sinon.SinonStub).restore();
     (AppInsights.trackEvent as sinon.SinonStub).restore();
+    isFeatureEnabledStub.restore();
   });
 
   describe('#redirectToLogin', function () {
@@ -92,6 +96,25 @@ describe('controllers/login', function () {
       } as Partial<IdamService> as IdamService;
 
       await getLogout(idamServiceStub)(req, res);
+
+      expect(idamServiceStub.deleteToken).to.have.been.callCount(0);
+      expect(req.session.destroy).to.have.been.calledOnce.calledWith();
+      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
+    });
+
+    it('throws an error when destroying the session', async function () {
+      req.session.destroy.yields(error);
+      const idamServiceStub = {
+        deleteToken: sinon
+          .stub()
+          .withArgs(req.session.accessToken)
+          .resolves({}),
+      } as Partial<IdamService> as IdamService;
+
+      await getLogout(idamServiceStub)(req, res);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        error
+      );
 
       expect(idamServiceStub.deleteToken).to.have.been.callCount(0);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
@@ -158,6 +181,26 @@ describe('controllers/login', function () {
         await getIdamCallback(redirectToIdam, null, null, null)(req, res, next);
 
         expect(redirectToIdam).to.have.been.calledOnce.calledWith(req, res);
+      });
+
+      it('throw error trying to destroy session', async function () {
+        req.query = {};
+        req.session.destroy.yields(error);
+
+        const redirectToIdam = sinon.stub();
+
+        try {
+          await getIdamCallback(
+            redirectToIdam,
+            null,
+            null,
+            null
+          )(req, res, next);
+        } catch (err) {
+          expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+            error
+          );
+        }
       });
     });
 
@@ -392,10 +435,12 @@ describe('controllers/login', function () {
     describe('finds multiple cases with MYA enabled', function () {
       let caseServiceStub;
       let trackYourAppealService;
+      let redirectToIdam;
+      let idamServiceStub;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
-        const redirectToIdam = sinon.stub();
-        const idamServiceStub = {
+        redirectToIdam = sinon.stub();
+        idamServiceStub = {
           getToken: sinon
             .stub()
             .withArgs('someCode', 'http', 'localhost')
@@ -415,7 +460,10 @@ describe('controllers/login', function () {
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
         };
+      });
 
+      it('calls the online hearing service', async function () {
+        isFeatureEnabledStub.returns(false);
         await getIdamCallback(
           redirectToIdam,
           idamServiceStub,
@@ -424,9 +472,6 @@ describe('controllers/login', function () {
         )(req, res, next);
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
-      });
-
-      it('calls the online hearing service', function () {
         expect(
           caseServiceStub.getCasesForCitizen
         ).to.have.been.calledOnce.calledWith(
@@ -436,8 +481,30 @@ describe('controllers/login', function () {
         );
       });
 
-      it('loads select case page', function () {
+      it('loads select case page', async function () {
+        isFeatureEnabledStub.returns(false);
+        await getIdamCallback(
+          redirectToIdam,
+          idamServiceStub,
+          caseServiceStub,
+          trackYourAppealService
+        )(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
         expect(res.redirect).to.have.been.calledWith(Paths.selectCase);
+      });
+
+      it('loads active cases page', async function () {
+        isFeatureEnabledStub.returns(true);
+        await getIdamCallback(
+          redirectToIdam,
+          idamServiceStub,
+          caseServiceStub,
+          trackYourAppealService
+        )(req, res, next);
+        expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.tya).to.be.eql('tya-number');
+        expect(res.redirect).to.have.been.calledWith(Paths.activeCases);
       });
     });
 
