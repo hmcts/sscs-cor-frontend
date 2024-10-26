@@ -141,27 +141,25 @@ describe('controllers/login', function () {
   });
 
   describe('#redirectToIdam', function () {
-    it('builds correct url', function () {
-      const idamServiceStub = {
+    let idamServiceStub;
+    beforeEach(function () {
+      idamServiceStub = {
+        // eslint-disable-next-line mocha/no-setup-in-describe
         getRedirectUrl: sinon
           .stub()
           .withArgs('http', 'localhost')
           .returns('http://redirect_url'),
       } as Partial<IdamService> as IdamService;
-      redirectToIdam('/idam_path', idamServiceStub)(req, res);
+    });
 
+    it('builds correct url', function () {
+      redirectToIdam('/idam_path', idamServiceStub)(req, res);
       expect(res.redirect).to.have.been.calledOnce.calledWith(
         `${idamUrl}/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&state=tya-number`
       );
     });
 
     it('builds correct sign in url', function () {
-      const idamServiceStub = {
-        getRedirectUrl: sinon
-          .stub()
-          .withArgs('http', 'localhost')
-          .returns('http://redirect_url'),
-      } as Partial<IdamService> as IdamService;
       req.query = { redirectUrl: '', state: 'state-value' };
 
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
@@ -173,6 +171,19 @@ describe('controllers/login', function () {
   });
 
   describe('#getIdamCallback', function () {
+    let caseServiceStub,
+      trackYourAppealService,
+      redirectToIdam,
+      idamServiceStub;
+
+    const invokeIdamCallback = async () =>
+      getIdamCallback(
+        redirectToIdam,
+        idamServiceStub,
+        caseServiceStub,
+        trackYourAppealService
+      )(req, res, next);
+
     describe('called without code', function () {
       it('redirects to idam login', async function () {
         req.query = {};
@@ -210,24 +221,17 @@ describe('controllers/login', function () {
       it('throw error', async function () {
         const error400 = new Error('400 Not Authorised');
 
-        let caseServiceStub;
         req.query = {
           code: 'badCode',
         };
         const redirectToIdam = sinon.stub();
-        const idamServiceStub = {
+        idamServiceStub = {
           getToken: sinon.stub().rejects(error400),
         } as Partial<IdamService> as IdamService;
 
-        // eslint-disable-next-line prefer-const
         caseServiceStub = {} as CaseService;
 
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          null
-        )(req, res, next);
+        await invokeIdamCallback();
 
         expect(AppInsights.trackEvent).to.have.been.called.calledWith(
           'MYA_IDAM_CODE_AUTH_ERROR'
@@ -242,12 +246,11 @@ describe('controllers/login', function () {
       it('throw error', async function () {
         sinon.stub(Service2Service, 'generateToken').resolves('3');
         const accessToken = 'someAccessToken';
-        let caseServiceStub;
         req.query = {
           code: 'someCode',
         };
-        const redirectToIdam = sinon.stub();
-        const idamServiceStub = {
+        redirectToIdam = sinon.stub();
+        idamServiceStub = {
           getToken: sinon
             .stub()
             .withArgs('someCode', 'http', 'localhost')
@@ -271,12 +274,8 @@ describe('controllers/login', function () {
             .resolves({ statusCode: 200, body: cases }),
         } as Partial<CaseService> as CaseService;
 
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          null
-        )(req, res, next);
+        await invokeIdamCallback();
+
         const error = new Error(
           'Case ID cannot be empty from hearing in session'
         );
@@ -293,8 +292,6 @@ describe('controllers/login', function () {
     });
 
     describe('on success with MYA enabled', function () {
-      let caseServiceStub;
-      let trackYourAppealService;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
         const redirectToIdam = sinon.stub();
@@ -318,12 +315,8 @@ describe('controllers/login', function () {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
         };
 
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
+        await invokeIdamCallback();
+
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
       });
@@ -356,10 +349,6 @@ describe('controllers/login', function () {
     });
 
     describe('check hideHearing flag with MYA enabled', function () {
-      let caseServiceStub;
-      let trackYourAppealService;
-      let redirectToIdam;
-      let idamServiceStub;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
         redirectToIdam = sinon.stub();
@@ -382,8 +371,6 @@ describe('controllers/login', function () {
     });
 
     describe('cannot find case with MYA enabled', function () {
-      let caseServiceStub;
-      let trackYourAppealService;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
         const redirectToIdam = sinon.stub();
@@ -407,12 +394,8 @@ describe('controllers/login', function () {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
         };
 
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
+        await invokeIdamCallback();
+
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
       });
@@ -433,10 +416,6 @@ describe('controllers/login', function () {
     });
 
     describe('finds multiple cases with MYA enabled', function () {
-      let caseServiceStub;
-      let trackYourAppealService;
-      let redirectToIdam;
-      let idamServiceStub;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
         redirectToIdam = sinon.stub();
@@ -464,12 +443,9 @@ describe('controllers/login', function () {
 
       it('calls the online hearing service', async function () {
         isFeatureEnabledStub.returns(false);
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
+
+        await invokeIdamCallback();
+
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
         expect(
@@ -483,12 +459,9 @@ describe('controllers/login', function () {
 
       it('loads select case page', async function () {
         isFeatureEnabledStub.returns(false);
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
+
+        await invokeIdamCallback();
+
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
         expect(res.redirect).to.have.been.calledWith(Paths.selectCase);
@@ -509,10 +482,6 @@ describe('controllers/login', function () {
     });
 
     describe('selects a case by case id with MYA enabled', function () {
-      let caseServiceStub;
-      let trackYourAppealService;
-      let redirectToIdam;
-      let idamServiceStub;
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number', caseId: '11111' };
         redirectToIdam = sinon.stub();
@@ -552,12 +521,8 @@ describe('controllers/login', function () {
       });
 
       it('calls the online hearing service', async function () {
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
+        await invokeIdamCallback();
+
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
         expect(
@@ -570,12 +535,8 @@ describe('controllers/login', function () {
       });
 
       it('redirects to taskList', async function () {
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
+        await invokeIdamCallback();
+
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
         expect(
@@ -589,12 +550,8 @@ describe('controllers/login', function () {
       });
 
       it('sets the hearing', async function () {
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
+        await invokeIdamCallback();
+
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
         expect(req.session.case).to.be.eql({
@@ -609,12 +566,9 @@ describe('controllers/login', function () {
         trackYourAppealService = {
           getAppeal: sinon.stub().resolves({ appeal: {} }),
         };
-        await getIdamCallback(
-          redirectToIdam,
-          idamServiceStub,
-          caseServiceStub,
-          trackYourAppealService
-        )(req, res, next);
+
+        await invokeIdamCallback();
+
         expect(req.session.accessToken).to.be.eql(accessToken);
         expect(req.session.tya).to.be.eql('tya-number');
         expect(res.redirect).to.have.been.calledWith(Paths.status);
