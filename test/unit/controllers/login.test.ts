@@ -1,6 +1,7 @@
 import { IdamService } from 'app/server/services/idam';
 import * as Service2Service from 'app/server/services/s2s';
 import * as featureEnabled from 'app/server/utils/featureEnabled';
+import config from 'config';
 import {
   getLogout,
   getIdamCallback,
@@ -13,7 +14,6 @@ import { CaseService } from 'app/server/services/cases';
 import { NextFunction } from 'express';
 import { CaseDetails } from 'app/server/models/express-session';
 import { expect, sinon } from 'test/chai-sinon';
-import config from 'config';
 
 const idamUrl: string = config.get('idam.url');
 
@@ -100,6 +100,21 @@ describe('controllers/login', function () {
       expect(idamServiceStub.deleteToken).to.have.been.callCount(0);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
       expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
+    });
+
+    it('throws an error when deleting a token', async function () {
+      req.session.accessToken = 'accessToken';
+      const error = new Error('error deleting the token');
+      const idamServiceStub = {
+        deleteToken: sinon.stub().throws(error),
+      } as Partial<IdamService> as IdamService;
+
+      await getLogout(idamServiceStub)(req, res);
+
+      expect(idamServiceStub.deleteToken).to.have.been.callCount(1);
+      expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+        error
+      );
     });
 
     it('throws an error when destroying the session', async function () {
@@ -246,9 +261,7 @@ describe('controllers/login', function () {
       it('throw error', async function () {
         sinon.stub(Service2Service, 'generateToken').resolves('3');
         const accessToken = 'someAccessToken';
-        req.query = {
-          code: 'someCode',
-        };
+        req.query = { code: 'someCode' };
         redirectToIdam = sinon.stub();
         idamServiceStub = {
           getToken: sinon
@@ -260,18 +273,12 @@ describe('controllers/login', function () {
             .withArgs(accessToken)
             .resolves({ email: 'someEmail@example.com' }),
         } as Partial<IdamService> as IdamService;
-        const cases: Array<CaseDetails> = [
-          {
-            online_hearing_id: '1',
-            appellant_name: 'John Smith',
-            case_reference: null,
-          },
-        ];
-        // eslint-disable-next-line prefer-const
+
         caseServiceStub = {
-          getCasesForCitizen: sinon
-            .stub()
-            .resolves({ statusCode: 200, body: cases }),
+          getCasesForCitizen: sinon.stub().resolves({
+            statusCode: 200,
+            body: [{ online_hearing_id: '1', appellant_name: 'John Smith' }],
+          }),
         } as Partial<CaseService> as CaseService;
 
         await invokeIdamCallback();
