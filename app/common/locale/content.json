@@ -1112,12 +1112,12 @@
         "para1": "You should send any evidence to the tribunal as soon as you can. This is so the tribunal have time to consider it before making a decision on your appeal.",
         "medicalEvidenceTitle": "Medical evidence",
         "medicalEvidenceDesc": {
-          "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. It should also be focussed on the time that DWP made their decision about your entitlement to the benefit. Letters which just show you had an appointment are not useful.",
+          "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits. Letters which just show you had an appointment are not useful.",
           "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
         },
         "writtenStatementTitle": "Written statement",
         "writtenStatementDesc": {
-          "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. It should also be focussed on the time that the DWP made their decision about your entitlement to benefits. ",
+          "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits.",
           "para2": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
         },
         "photographsTitle": "Photographs",
@@ -1145,11 +1145,11 @@
       },
       "hearing": {
         "title": "What to expect at your appeal hearing",
-        "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the Department of Work and Pensions (DWP).",
-        "imageText": "A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.",
+        "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the First tier Agency.",
+        "imageText": "The above picture is an example of a tribunal hearing, with a judge and doctor. There will also be a disability/financial expert in some benefit/compensation appeals if applicable.",
         "beforeHearingTitle": "Before your hearing",
         "beforeHearingDesc": {
-          "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
+          "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from the First tier Agency as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
           "para2": "You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. "
         },
         "arriveTitle": "When you arrive",
@@ -1162,29 +1162,29 @@
         },
         "peopleInTheRoomTitle": "The people at your hearing",
         "peopleInTheRoomDesc": {
-          "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP.",
-          "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people."
+          "para1": "The tribunal panel is made up of 1-3 people (one will always be a judge), depending on which benefit/compensation you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from the First tier agency.",
+          "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. The disability/financial experts will provide their specific knowledge to support the tribunal"
         },
         "duringHearingTitle": "During your hearing",
         "duringHearingDesc": {
-          "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour.",
+          "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask the First tier Agency some questions. The whole hearing usually lasts about an hour.",
           "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
         },
         "gettingDecisionTitle": "Getting a decision",
         "gettingDecisionDesc": {
           "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.",
-          "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level.",
+          "para2": "The judge will explain whether you’re entitled to the benefit/compensation and if so, at what level.",
           "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
         },
-        "dwpTitle": "Department for Work and Pensions (DWP)",
+        "dwpTitle": "First tier Agency (DWP,HRMC and IBCA)",
         "dwpDesc": {
-          "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits."
+          "para1": "A representative from the First tier Agency might be there. They are not part of the tribunal panel and are there to speak on behalf of the First tier Agency. They will not be the person who made the decision about your entitlement to benefits/compensation."
         }
       },
       "representatives": {
         "linkHeader": "Representatives",
         "title": "Representatives",
-        "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
+        "entry": "You can appoint someone as a ‘representative’ to help you with your benefit/compensation appeal, if you think you will not be able to manage the appeal by yourself.",
         "what": "A representative can:",
         "whatList": {
           "item1": "give you advice in relation to your appeal",
@@ -1202,7 +1202,7 @@
       "withdrawAppeal": {
         "linkHeader": "Withdrawing an appeal",
         "title": "Withdrawing your appeal",
-        "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
+        "entry": "You can withdraw your appeal at any time. The First tier Agency will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
         "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
         "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible.",
         "para3": "You can provide this information via any of the options in the <a href=\"/additional-evidence\"><b>Provide Evidence</b></a> tab . Or contact us on the number below."
