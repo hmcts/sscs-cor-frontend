@@ -254,27 +254,48 @@
       "telephone": {
         "title": "Telephone",
         "desc": "Talk to one of our agents now over the phone.",
+        "charges": "Find out about call charges",
+        "ibca": {
+          "Scotland": {
+            "desc": "Infected Blood Compensation appeals helpline (Scotland)",
+            "phone": "Telephone: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times scotland xxxxxxx",
+            "emailText": "Email:",
+            "emailAddress": "---email-scotland----@justice.gov.uk"
+          },
+          "WelshSpeakers": {
+            "desc": "Infected Blood Compensation appeals helpline (for Welsh speakers)",
+            "phone": "Telephone: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times all wales xxxxxxx",
+            "emailText": "Email:",
+            "emailAddress": "---email-wales----@justice.gov.uk"
+          },
+          "AllOthers": {
+            "desc": "Infected Blood Compensation appeals helpline (All other appellants)",
+            "phone": "Telephone: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times all others xxxxxxx",
+            "emailText": "Email:",
+            "emailAddress": "----email-allOthers----@justice.gov.uk"
+          }
+        },
         "England": {
           "desc": "Benefit appeals helpline (England and Wales)",
           "phone": "Telephone: 0300 123 1142",
           "availability": "Monday to Friday, 9am to 4pm",
           "emailText": "Email:",
-          "emailAddress": "Contactsscs@justice.gov.uk",
-          "charges": "Find out about call charges"
+          "emailAddress": "Contactsscs@justice.gov.uk"
         },
         "WelshSpeakers": {
           "desc": "Benefit appeals helpline (for Welsh speakers)",
           "phone": "Telephone: 0300 303 5170",
-          "availability": "Monday to Friday, 8:30am to 5pm",
-          "charges": "Find out about call charges"
+          "availability": "Monday to Friday, 8:30am to 5pm"
         },
         "Scotland": {
           "desc": "Benefit appeals helpline (Scotland)",
           "phone": "Telephone: 0300 790 6234",
           "availability": "Monday to Friday, 8:30am to 5pm",
           "emailText": "Email:",
-          "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
-          "charges": "Find out about call charges"
+          "emailAddress": "SSCSA-Glasgow@justice.gov.uk"
         }
       }
     },
