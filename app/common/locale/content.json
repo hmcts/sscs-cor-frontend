@@ -1133,8 +1133,9 @@
         "para1": "You should send any evidence to the tribunal as soon as you can. This is so the tribunal have time to consider it before making a decision on your appeal.",
         "medicalEvidenceTitle": "Medical evidence",
         "medicalEvidenceDesc": {
-          "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits. Letters which just show you had an appointment are not useful.",
-          "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
+          "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life.",
+          "para2": "For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits. Letters which just show you had an appointment are not useful.",
+          "para3": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
         },
         "writtenStatementTitle": "Written statement",
         "writtenStatementDesc": {

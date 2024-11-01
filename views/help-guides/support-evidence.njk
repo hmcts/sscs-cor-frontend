@@ -1,27 +1,28 @@
 {% extends "help-guides/support-layout.njk" %}
-{% set pageHeader = content[i18n.language].helpGuides.evidence.title | safe %}
+{% set pageHeader = content[i18n.language].helpGuides.evidence.title %}
 {% block pageTitle %}
-  {{ content[i18n.language].helpGuides.evidence.title | safe }} - {{ content[i18n.language].general.serviceTitle | safe }} - {{ content[i18n.language].general.govUK | safe }}
+  {{ content[i18n.language].helpGuides.evidence.title }} - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
 {% endblock pageTitle %}
 {% block supportTitle %}
-  {{ content[i18n.language].helpGuides.evidence.title | safe }}
+  {{ content[i18n.language].helpGuides.evidence.title }}
 {% endblock supportTitle %}
 {% block supportContent %}
-  <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.evidence.entry | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.para1 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.medicalEvidenceTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc.para1 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc.para2 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.writtenStatementTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc.para1 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc.para2 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.photographsTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.evidence.photographsDesc.para1 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.whatYouSayTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.evidence.whatYouSayDesc.para1 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.whatYouSayDesc.para2 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.sendingEvidenceTitle | safe }}</h2>
+  <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.evidence.entry }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.para1 }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.medicalEvidenceTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc.para1 }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc.para2 }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc.para3 }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.writtenStatementTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc.para1 }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc.para2 }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.photographsTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.evidence.photographsDesc.para1 }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.whatYouSayTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.evidence.whatYouSayDesc.para1 }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.whatYouSayDesc.para2 }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.sendingEvidenceTitle }}</h2>
   <p>{{ content[i18n.language].helpGuides.evidence.sendingEvidenceDesc.para1 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.sendingEvidenceDesc.para2 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.sendingEvidenceDesc.para3 | safe }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.sendingEvidenceDesc.para2 }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.sendingEvidenceDesc.para3 }}</p>
 {% endblock supportContent %}
