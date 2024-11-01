@@ -1139,8 +1139,9 @@
         },
         "writtenStatementTitle": "Written statement",
         "writtenStatementDesc": {
-          "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits.",
-          "para2": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
+          "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view.",
+          "para2": "For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits.",
+          "para3": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
         },
         "photographsTitle": "Photographs",
         "photographsDesc": {
