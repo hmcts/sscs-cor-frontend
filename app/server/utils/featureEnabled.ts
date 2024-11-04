@@ -5,6 +5,7 @@ enum Feature {
   ALLOW_CONTACT_US = 'allowContactUs.enabled',
   CONTACT_US_WEB_FORM_ENABLED = 'allowContactUs.webFormEnabled',
   CONTACT_US_TELEPHONE_ENABLED = 'allowContactUs.telephoneEnabled',
+  IBCA_ENABLED = 'allowContactUs.ibcaEnabled',
   CONTACT_US_WEBCHAT_ENABLED = 'allowContactUs.webChatEnabled',
   HISTORY_TAB = 'historyTab',
   MYA_PAGINATION_ENABLED = 'myaPagination',

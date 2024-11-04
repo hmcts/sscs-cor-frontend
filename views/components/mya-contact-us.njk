@@ -50,6 +50,7 @@
             <div class="govuk-details__text">
               <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.title }}</h2>
               <p class="govuk-body govuk-!-margin-bottom-2">{{ content[i18n.language].contactUs.telephone.desc }}</p>
+              {% if ibcaEnabled %}
               <!-- IBCA Scotland -->
               <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.Scotland.desc }}</h3>
               <p class="govuk-body govuk-!-margin-bottom-0">
@@ -97,6 +98,7 @@
                 {{ content[i18n.language].contactUs.telephone.ibca.AllOthers.emailText }}
                 <a href="mailto:Contactsscs@justice.gov.uk">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.emailAddress }}</a>
               </p>
+              {% endif %}
               <!-- England -->
               <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.England.desc }}</h3>
               <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.England.phone }}</p>
