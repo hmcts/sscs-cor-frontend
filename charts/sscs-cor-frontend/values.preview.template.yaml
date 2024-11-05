@@ -8,7 +8,7 @@ nodejs:
     REDIS_PORT: 6379
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
-    INFECTED_BLOOD_APPEAL_ENABLED: true
+    INFECTED_BLOOD_COMPENSATION_ENABLED: true
     SSCS_API_URL: 'https://sscs-tribunals-api-pr-4057.preview.platform.hmcts.net'
     TRIBUNALS_API_URL: 'https://sscs-tribunals-api-pr-4057.preview.platform.hmcts.net'
   keyVaults:
