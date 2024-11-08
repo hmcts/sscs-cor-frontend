@@ -49,6 +49,7 @@
     }
   },
   "dependencies": {
+    "@cypress/request-promise": "^5.0.0",
     "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/ctsc-web-chat": "^0.3.12",
     "@hmcts/nodejs-healthcheck": "^1.8.4",

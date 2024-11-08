@@ -1278,13 +1278,29 @@
       "view": "View"
     },
     "assignCase": {
-      "title": "Enter the postcode for the appeal",
-      "message": "This is the postcode used when the appeal was registered",
+      "title": "Please confirm your appeal type",
+      "appealTypeOptions": {
+        "ibca": {
+          "radioOption": "Infected Blood Compensation Appeal",
+          "inputText": "Enter the IBCA reference number provided in your correspondence Review Decision Notice or any correspondence from IBCA."
+        },
+        "otherBenefits": {
+          "radioOption": "Benefit Appeal",
+          "inputText": "Enter the postcode for the appeal",
+          "hintText": "This is the postcode used when the appeal was registered"
+        }
+      },
       "errors": {
-        "noPostcode": "You have not entered a postcode. Enter your postcode before continuing.",
-        "invalidPostcode": "The details you have provided don’t match, please contact us",
-        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
-        "postcodeDoesNotMatch": "The details you have provided don’t match, please contact us"
+        "missing": {
+          "appealType": "You have not selected an appeal type. Select your appeal type before continuing.",
+          "postcode": "You have not entered a postcode. Enter your postcode before continuing.",
+          "ibcaReference": "You have not entered an IBCA reference. Enter your IBCA reference before continuing.",
+          "tya": "Please use the MYA link in the most recent email we've sent you"
+        },
+        "invalid": {
+          "postcode": "The postcode details you have provided don’t match, please contact us",
+          "ibcaReference": "The IBCA reference you entered is not recognised. Please check and try again."
+        }
       }
     },
     "redirectMya": {

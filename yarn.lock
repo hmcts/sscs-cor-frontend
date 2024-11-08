@@ -1642,6 +1642,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cypress/request-promise@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@cypress/request-promise@npm:5.0.0"
+  dependencies:
+    bluebird: ^3.5.0
+    request-promise-core: 1.1.3
+    stealthy-require: ^1.1.1
+    tough-cookie: ^4.1.3
+  peerDependencies:
+    "@cypress/request": ^3.0.0
+  checksum: 72d17a3dd512a7b616b4d2c23d9aa0008d9ca10a8cb0c5f3d945b62705c7f4b57b6c8dc595934931be826bb0adfe5d2073c18648ed67ddf5e936f33d6b37c7ad
+  languageName: node
+  linkType: hard
+
 "@discoveryjs/json-ext@npm:^0.5.0":
   version: 0.5.7
   resolution: "@discoveryjs/json-ext@npm:0.5.7"
@@ -14466,6 +14480,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"request-promise-core@npm:1.1.3":
+  version: 1.1.3
+  resolution: "request-promise-core@npm:1.1.3"
+  dependencies:
+    lodash: ^4.17.15
+  peerDependencies:
+    request: ^2.34
+  checksum: 8572b5dd21c8927b85d78c4d7ea8a3c9438b10100143372e0e6b90a55fb98f4119a6e57df6f7adc213432b50712b0a8039e32fb0673c0243cdd14ddef3f5ef68
+  languageName: node
+  linkType: hard
+
 "request-promise-core@npm:1.1.4":
   version: 1.1.4
   resolution: "request-promise-core@npm:1.1.4"
@@ -15449,6 +15474,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sscs-cor-frontend@workspace:."
   dependencies:
+    "@cypress/request-promise": ^5.0.0
     "@hmcts/cookie-manager": ^1.0.0
     "@hmcts/ctsc-web-chat": ^0.3.12
     "@hmcts/eslint-config": ^1.4.0
