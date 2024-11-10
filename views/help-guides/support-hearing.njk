@@ -1,34 +1,35 @@
 {% extends "help-guides/support-layout.njk" %}
-{% set pageHeader = content[i18n.language].helpGuides.hearing.title | safe %}
+{% set pageHeader = content[i18n.language].helpGuides.hearing.title %}
+{% set ibcaPrefix = 'ibca-' if ibcaEnabled  %}
 {% block pageTitle %}
-  {{ content[i18n.language].helpGuides.hearing.title | safe }} - {{ content[i18n.language].general.serviceTitle | safe }} - {{ content[i18n.language].general.govUK | safe }}
+  {{ content[i18n.language].helpGuides.hearing.title }} - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
 {% endblock pageTitle %}
 {% block supportTitle %}
-  {{ content[i18n.language].helpGuides.hearing.title | safe }}
+  {{ content[i18n.language].helpGuides.hearing.title }}
 {% endblock supportTitle %}
 {% block supportContent %}
-  <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.hearing.entry | safe }}</p>
+  <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.hearing.ibca[ibcaPrefix + 'entry'] }}</p>
   <img src="/public/images/hearing-formal-2panel.jpg"
        width="100%"
-       alt="{{ content[i18n.language].helpGuides.hearing.imageText | safe }}"/>
-  <p aria-hidden="true">{{ content[i18n.language].helpGuides.hearing.imageText | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.beforeHearingTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.hearing.beforeHearingDesc.para1 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.hearing.beforeHearingDesc.para2 | safe }}</p>
-  <h2 class="hgovuk-heading-m">{{ content[i18n.language].helpGuides.hearing.arriveTitle | safe }}</h2>
+       alt="{{ content[i18n.language].helpGuides.hearing[ibcaPrefix + 'imageText'] }}"/>
+  <p aria-hidden="true">{{ content[i18n.language].helpGuides.hearing[ibcaPrefix + 'imageText'] }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.beforeHearingTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.hearing.beforeHearingDesc[ibcaPrefix + 'para1'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.hearing.beforeHearingDesc.para2 }}</p>
+  <h2 class="hgovuk-heading-m">{{ content[i18n.language].helpGuides.hearing.arriveTitle }}</h2>
   <p>{{ content[i18n.language].helpGuides.hearing.arriveDesc.para1 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.hearingRoomTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.hearing.hearingRoomDesc.para1 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.peopleInTheRoomTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.hearing.peopleInTheRoomDesc.para1 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.hearing.peopleInTheRoomDesc.para2 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.duringHearingTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.hearing.duringHearingDesc.para1 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.hearing.duringHearingDesc.para2 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.gettingDecisionTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc.para1 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc.para2 | safe }}</p>
-  <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc.para3 | safe }}</p>
-  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.dwpTitle | safe }}</h2>
-  <p>{{ content[i18n.language].helpGuides.hearing.dwpDesc.para1 | safe }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.hearingRoomTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.hearing.hearingRoomDesc.para1 }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.peopleInTheRoomTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.hearing.peopleInTheRoomDesc[ibcaPrefix + 'para1'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.hearing.peopleInTheRoomDesc[ibcaPrefix + 'para2'] }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.duringHearingTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.hearing.duringHearingDesc[ibcaPrefix + 'para1'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.hearing.duringHearingDesc.para2 }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.gettingDecisionTitle }}</h2>
+  <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc.para1 }}</p>
+  <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc[ibcaPrefix + 'para2'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc.para3 }}</p>
+  <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing[ibcaPrefix + 'dwpTitle'] }}</h2>
+  <p>{{ content[i18n.language].helpGuides.hearing.dwpDesc[ibcaPrefix + 'para1'] }}</p>
 {% endblock supportContent %}
