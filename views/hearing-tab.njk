@@ -3,7 +3,7 @@
 {% from "components/navigation-tabs.njk" import navigationTabs with context %}
 {% set pageHeader = content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %}
 {% block pageTitle %}
-  {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].hearingTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK | safe }}
+  {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].hearingTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK }}
 {% endblock pageTitle %}
 {% block corContent %}
   <div class="govuk-grid-row">
