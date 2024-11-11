@@ -12,11 +12,11 @@ It relies upon the SSCS Tribunal api backend service (https://github.com/hmcts/s
 ##### Prereqs
 
 - node.js v18 or higher
+- docker
 - yarn
-- redis running on the standard port (6379)
 
 ```bash
-redis-server
+docker-compose up redis
 ```
 
 Once you have those, you need to install the dependencies using:
@@ -31,15 +31,13 @@ Then run the necessary build tasks using:
 yarn build
 ```
 
-Add export files
-
 Once complete you can start the application and required mocks using:
 
 ```bash
 yarn dev-mock-api
 ```
 
-Finally visit http://localhost:3000 to see the running application.
+Finally visit http://localhost:3003 to see the running application.
 
 ## Testing
 
@@ -122,43 +120,28 @@ HEADLESS=false SSCS_API_URL=http://sscs-tribunals-api-aat.service.core-compute-a
 
 Note: see [SIDAM](#sidam) section for more info on SIDAM and stubs.
 
-### Running app locally via terminal
+### Running app locally via terminal (and cftlib)
 
-Open a terminal, go to the sscs-cor-frontend directory.
+Open a terminal window, go to the tribunals API directory and run `./gradlew bootWithCcd`.
+Open another terminal window/tab, go to the sscs-cor-frontend directory.
 
-Run redis in a terminal
+Start up redis
 
 ```bash
-redis-server
-```
-
-Open another terminal. Set env vars in the terminal
-
-```
-export SSCS_API_URL=http://localhost:8080
-export S2S_SECRET=AAAAAAAAAAAAAAAC
-export S2S_URL=http://localhost:4502
-export IDAM_API_URL=http://localhost:5000
-export IDAM_URL=http://localhost:3501
-export HTTP_PROTOCOL=http
-export TRIBUNALS_API_URL=http://localhost:8080
-export IDAM_CLIENT_SECRET=QM5RQQ53LZFOSIXJ
-export NODE_ENV=preview
-export MYA_FEATURE_FLAG=true
-export EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED=false
+docker-compose up redis
 ```
 
 then do
 
 ```
 yarn build
-yarn start
+yarn dev
 ```
 
-and go to http://localhost:3000
+and go to http://localhost:3003
 
 In order to log in as a citizen and be able to see your appeal you might need to use the link below:
-http://localhost:3000/sign-in?tya=[subscriptionCode]
+http://localhost:3003/sign-in?tya=[subscriptionCode]
 
 If you are using the idam simulator check the sscs-docker README for some config changes
 

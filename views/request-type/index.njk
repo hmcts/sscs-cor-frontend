@@ -3,9 +3,9 @@
 {% set pageHeader = content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %}
 {% block pageTitle %}
   {% if pageTitleError %}
-    {{ content[i18n.language].errorSummary.errorPageTitle | safe }} {{ pageTitle | safe }} - {{ content[i18n.language].requestTypeTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK | safe }}
+    {{ content[i18n.language].errorSummary.errorPageTitle | safe }} {{ pageTitle | safe }} - {{ content[i18n.language].requestTypeTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK }}
   {% else %}
-    {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].requestTypeTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK | safe }}
+    {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].requestTypeTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK }}
   {% endif %}
 {% endblock pageTitle %}
 {% block corContent %}

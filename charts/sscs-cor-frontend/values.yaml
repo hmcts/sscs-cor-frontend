@@ -1,6 +1,6 @@
 nodejs:
   image: hmctspublic.azurecr.io/sscs/tribunals-cor-frontend:latest
-  applicationPort: 3000
+  applicationPort: 3003
   memoryRequests: 256Mi
   cpuRequests: 0.2
   memoryLimits: 512Mi
@@ -15,14 +15,15 @@ nodejs:
     REDIS_HOST: 'sscs-cor-frontend-v6-{{ .Values.global.environment }}.redis.cache.windows.net'
     REDIS_PORT: 6380
     SSCS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    TRIBUNALS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     IDAM_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net'
-    TRIBUNALS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     S2S_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     NODE_ENV: '{{ .Values.global.environment }}'
     HTTP_PROTOCOL: http
     UV_THREADPOOL_SIZE: 64
     MYA_FEATURE_FLAG: "true"
+    INFECTED_BLOOD_COMPENSATION_ENABLED: false
   keyVaults:
     sscs:
       secrets:

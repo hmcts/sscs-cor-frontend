@@ -3,6 +3,7 @@
 {% from "components/mya-contact-us.njk" import contactUs with context %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% set assetPath = "/public/govuk-frontend/" %}
+{% set ibcaPrefix = 'ibca-' if ibcaEnabled  %}
 {% block pageTitle %}
   {{ content[i18n.language].pageTitle | safe }}
 {% endblock pageTitle %}

@@ -216,6 +216,7 @@
       "signOut": "Sign out",
       "delete": "Delete",
       "serviceTitle": "Appeal a benefit decision",
+      "ibca-serviceTitle": "Appeal a decision",
       "sessionExpiryWarning": "Your session will expire and you will be signed out after 20 minutes of inactivity",
       "govUK": "GOV.UK",
       "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
@@ -254,27 +255,48 @@
       "telephone": {
         "title": "Telephone",
         "desc": "Talk to one of our agents now over the phone.",
+        "charges": "Find out about call charges",
+        "ibca": {
+          "Scotland": {
+            "desc": "Infected Blood Compensation appeals helpline (Scotland)",
+            "phone": "Telephone: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times scotland xxxxxxx",
+            "emailText": "Email:",
+            "emailAddress": "---email-scotland----@justice.gov.uk"
+          },
+          "WelshSpeakers": {
+            "desc": "Infected Blood Compensation appeals helpline (for Welsh speakers)",
+            "phone": "Telephone: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times all wales xxxxxxx",
+            "emailText": "Email:",
+            "emailAddress": "---email-wales----@justice.gov.uk"
+          },
+          "AllOthers": {
+            "desc": "Infected Blood Compensation appeals helpline (All other appellants)",
+            "phone": "Telephone: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times all others xxxxxxx",
+            "emailText": "Email:",
+            "emailAddress": "----email-allOthers----@justice.gov.uk"
+          }
+        },
         "England": {
           "desc": "Benefit appeals helpline (England and Wales)",
           "phone": "Telephone: 0300 123 1142",
           "availability": "Monday to Friday, 9am to 4pm",
           "emailText": "Email:",
-          "emailAddress": "Contactsscs@justice.gov.uk",
-          "charges": "Find out about call charges"
+          "emailAddress": "Contactsscs@justice.gov.uk"
         },
         "WelshSpeakers": {
           "desc": "Benefit appeals helpline (for Welsh speakers)",
           "phone": "Telephone: 0300 303 5170",
-          "availability": "Monday to Friday, 8:30am to 5pm",
-          "charges": "Find out about call charges"
+          "availability": "Monday to Friday, 8:30am to 5pm"
         },
         "Scotland": {
           "desc": "Benefit appeals helpline (Scotland)",
           "phone": "Telephone: 0300 790 6234",
           "availability": "Monday to Friday, 8:30am to 5pm",
           "emailText": "Email:",
-          "emailAddress": "SSCSA-Glasgow@justice.gov.uk",
-          "charges": "Find out about call charges"
+          "emailAddress": "SSCSA-Glasgow@justice.gov.uk"
         }
       }
     },
@@ -903,6 +925,14 @@
       }
     },
     "benefitTypes": {
+      "infectedbloodappeal": {
+        "acronym": "IBC",
+        "yourBenefitAppeal": "Your IB compensation appeal",
+        "fullDescription": "Infected Blood Compensation (IBC)",
+        "agency": "Infected Blood Compensation Authority",
+        "agencyAcronym": "IBCA",
+        "panel": "a judge and a doctor"
+      },
       "esa": {
         "acronym": "ESA",
         "yourBenefitAppeal": "Your ESA benefit appeal",
@@ -1113,10 +1143,16 @@
         "medicalEvidenceTitle": "Medical evidence",
         "medicalEvidenceDesc": {
           "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. It should also be focussed on the time that DWP made their decision about your entitlement to the benefit. Letters which just show you had an appointment are not useful.",
-          "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
+          "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these.",
+          "ibca-para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life.",
+          "ibca-para2": "For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits. Letters which just show you had an appointment are not useful.",
+          "ibca-para3": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
         },
         "writtenStatementTitle": "Written statement",
         "writtenStatementDesc": {
+          "ibca-para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view.",
+          "ibca-para2": "For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits.",
+          "ibca-para3": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you.",
           "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. It should also be focussed on the time that the DWP made their decision about your entitlement to benefits. ",
           "para2": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
         },
@@ -1147,8 +1183,11 @@
         "title": "What to expect at your appeal hearing",
         "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the Department of Work and Pensions (DWP).",
         "imageText": "A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.",
+        "ibca-entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the First tier Agency.",
+        "ibca-imageText": "The above picture is an example of a tribunal hearing, with a judge and doctor. There will also be a disability/financial expert in some benefit/compensation appeals if applicable.",
         "beforeHearingTitle": "Before your hearing",
         "beforeHearingDesc": {
+          "ibca-para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from the First tier Agency as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
           "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
           "para2": "You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. "
         },
@@ -1162,11 +1201,14 @@
         },
         "peopleInTheRoomTitle": "The people at your hearing",
         "peopleInTheRoomDesc": {
+          "ibca-para1": "The tribunal panel is made up of 1-3 people (one will always be a judge), depending on which benefit/compensation you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from the First tier agency.",
+          "ibca-para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. The disability/financial experts will provide their specific knowledge to support the tribunal",
           "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP.",
           "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people."
         },
         "duringHearingTitle": "During your hearing",
         "duringHearingDesc": {
+          "ibca-para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask the First tier Agency some questions. The whole hearing usually lasts about an hour.",
           "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour.",
           "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
         },
@@ -1174,17 +1216,21 @@
         "gettingDecisionDesc": {
           "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.",
           "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level.",
+          "ibca-para2": "The judge will explain whether you’re entitled to the benefit/compensation and if so, at what level.",
           "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
         },
         "dwpTitle": "Department for Work and Pensions (DWP)",
+        "ibca-dwpTitle": "First tier Agency (DWP,HRMC and IBCA)",
         "dwpDesc": {
-          "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits."
+          "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits.",
+          "ibca-para1": "A representative from the First tier Agency might be there. They are not part of the tribunal panel and are there to speak on behalf of the First tier Agency. They will not be the person who made the decision about your entitlement to benefits/compensation."
         }
       },
       "representatives": {
         "linkHeader": "Representatives",
         "title": "Representatives",
         "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
+        "ibca-entry": "You can appoint someone as a ‘representative’ to help you with your benefit/compensation appeal, if you think you will not be able to manage the appeal by yourself.",
         "what": "A representative can:",
         "whatList": {
           "item1": "give you advice in relation to your appeal",
@@ -1192,6 +1238,7 @@
           "item3": "act on your behalf during the appeal (they should ask your permission first)"
         },
         "para1": "Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. ",
+        "ibca-para1": "Anyone can be a representative, including friends and family.",
         "para2": "You can get a representative at your local advice centre, law centre or <a href=\"https://www.citizensadvice.org.uk/\">Citizens Advice</a> You will need to register them with the tribunal.",
         "representative": {
           "title": "Registering a representative",
@@ -1203,6 +1250,7 @@
         "linkHeader": "Withdrawing an appeal",
         "title": "Withdrawing your appeal",
         "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
+        "ibca-entry": "You can withdraw your appeal at any time. The First tier Agency will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
         "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
         "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible.",
         "para3": "You can provide this information via any of the options in the <a href=\"/additional-evidence\"><b>Provide Evidence</b></a> tab . Or contact us on the number below."
@@ -1219,10 +1267,13 @@
     "selectCase": {
       "title": "Select Case",
       "heading": "Your benefit appeals",
+      "ibca-heading": "Your appeals",
       "appealReference": "Appeal reference",
       "benefit": "Benefit",
+      "ibca-benefit": "Appeal",
       "dateSubmitted": "Date submitted",
       "mrnDate": "MRN date",
+      "ibca-mrnDate": "MRN/Review Decision Notice date",
       "action": "Action",
       "view": "View"
     },

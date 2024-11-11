@@ -1,18 +1,18 @@
 {% extends "layout.njk" %}
-{% set pageHeader = content[i18n.language].selectCase.title | safe %}
+{% set pageHeader = content[i18n.language].selectCase.title %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% block corContent %}
-  <h1 class="govuk-heading-xl">{{ content[i18n.language].selectCase.heading | safe }}</h1>
+  <h1 class="govuk-heading-xl">{{ content[i18n.language].selectCase[ibcaPrefix + 'heading'] }}</h1>
   {% for name, row in casesByNameAndRow %}
     {{ govukTable({
-      caption: name | safe,
+      caption: name,
       captionClasses: "govuk-heading-m",
       firstCellIsHeader: false,
       head: [
-        { text: content[i18n.language].selectCase.appealReference | safe },
-        { text: content[i18n.language].selectCase.benefit | safe },
-        { text: content[i18n.language].selectCase.dateSubmitted | safe },
-        { text: content[i18n.language].selectCase.mrnDate | safe },
+        { text: content[i18n.language].selectCase.appealReference },
+        { text: content[i18n.language].selectCase[ibcaPrefix + 'benefit'] },
+        { text: content[i18n.language].selectCase.dateSubmitted },
+        { text: content[i18n.language].selectCase[ibcaPrefix + 'mrnDate'] },
         { text: content[i18n.language].selectCase.action | safe }
       ],
       rows: row
