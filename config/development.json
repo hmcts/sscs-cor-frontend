@@ -20,5 +20,10 @@
     "cookie": {
       "secure": "false"
     }
+  },
+  "featureFlags": {
+    "allowContactUs": {
+      "ibcaEnabled": "true"
+    }
   }
 }
