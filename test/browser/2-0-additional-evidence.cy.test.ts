@@ -83,7 +83,8 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
     await page.reload();
-    await statusPage.verifyPage();
+    this.await(10)
+    statusPage.verifyPage();
     await additionalEvidencePage.visitPage();
   });
 
