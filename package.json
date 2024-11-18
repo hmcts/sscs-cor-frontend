@@ -186,7 +186,8 @@
     "braces": "^3.0.3",
     "ws": "^8.17.1",
     "micromatch": "^4.0.8",
-    "body-parser": "^1.20.3"
+    "body-parser": "^1.20.3",
+    "cross-spawn": "^7.0.6"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@3.6.0"
