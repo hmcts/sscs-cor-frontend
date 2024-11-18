@@ -68,6 +68,7 @@ describe('services/hearing', function () {
   describe('#assignOnlineHearingsToCitizen', function () {
     const tya = 'someTyaNumber';
     const postcode = 'somePostcode';
+    const ibcaReference = 'ibcaReference';
     const apiResponseBody = {
       appellant_name: 'Adam Jenkins',
       case_reference: '112233',
@@ -77,13 +78,13 @@ describe('services/hearing', function () {
     describe('success response', function () {
       beforeEach(function () {
         nock(apiUrl)
-          .post(`/api/citizen/${tya}`, { email, postcode })
+          .post(`/api/citizen/${tya}`, { email, postcode, ibcaReference })
           .reply(StatusCodes.OK, apiResponseBody);
       });
 
       it('resolves the promise', function () {
         return expect(
-          caseService.assignOnlineHearingsToCitizen(email, tya, postcode, req)
+          caseService.assignOnlineHearingsToCitizen(email, tya, postcode, ibcaReference, req)
         ).to.be.fulfilled;
       });
 
@@ -92,6 +93,7 @@ describe('services/hearing', function () {
           email,
           tya,
           postcode,
+          ibcaReference,
           req
         );
         expect(response.body).to.deep.equal(apiResponseBody);
@@ -101,13 +103,13 @@ describe('services/hearing', function () {
     describe('error response', function () {
       beforeEach(function () {
         nock(apiUrl)
-          .post(`/api/citizen/${tya}`, { email, postcode })
+          .post(`/api/citizen/${tya}`, { email, postcode, ibcaReference })
           .replyWithError(error);
       });
 
       it('rejects the promise with the error', function () {
         return expect(
-          caseService.assignOnlineHearingsToCitizen(email, tya, postcode, req)
+          caseService.assignOnlineHearingsToCitizen(email, tya, postcode, ibcaReference, req)
         ).to.be.rejectedWith(error.message);
       });
     });
