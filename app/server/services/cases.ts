@@ -17,18 +17,22 @@ export class CaseService {
   }
 
   async getOnlineHearing(email: string, req: Request) {
-    return RequestPromise.request({
+    return RequestPromise.request(
+      {
         method: 'GET',
         uri: `${this.apiUrl}/api/continuous-online-hearings`,
         qs: { email },
         resolveWithFullResponse: true,
         simple: false,
-      }, req);
+      },
+      req
+    );
   }
 
   async getCasesForCitizen(email: string, tya: string, req: Request) {
     const path = tya ? `/${tya}` : '';
-    return RequestPromise.request({
+    return RequestPromise.request(
+      {
         method: 'GET',
         retry,
         delay,
@@ -36,7 +40,9 @@ export class CaseService {
         qs: { email },
         resolveWithFullResponse: true,
         simple: false,
-      }, req);
+      },
+      req
+    );
   }
 
   async assignOnlineHearingsToCitizen(
@@ -46,12 +52,15 @@ export class CaseService {
     ibcaReference: string,
     req: Request
   ) {
-    return RequestPromise.request({
+    return RequestPromise.request(
+      {
         method: 'POST',
         uri: `${this.apiUrl}/api/citizen/${tya}`,
         body: { email, postcode, ibcaReference },
         resolveWithFullResponse: true,
         simple: false,
-      }, req);
+      },
+      req
+    );
   }
 }

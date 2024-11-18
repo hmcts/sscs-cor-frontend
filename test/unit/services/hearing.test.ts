@@ -84,7 +84,13 @@ describe('services/hearing', function () {
 
       it('resolves the promise', function () {
         return expect(
-          caseService.assignOnlineHearingsToCitizen(email, tya, postcode, ibcaReference, req)
+          caseService.assignOnlineHearingsToCitizen(
+            email,
+            tya,
+            postcode,
+            ibcaReference,
+            req
+          )
         ).to.be.fulfilled;
       });
 
@@ -109,7 +115,13 @@ describe('services/hearing', function () {
 
       it('rejects the promise with the error', function () {
         return expect(
-          caseService.assignOnlineHearingsToCitizen(email, tya, postcode, ibcaReference, req)
+          caseService.assignOnlineHearingsToCitizen(
+            email,
+            tya,
+            postcode,
+            ibcaReference,
+            req
+          )
         ).to.be.rejectedWith(error.message);
       });
     });

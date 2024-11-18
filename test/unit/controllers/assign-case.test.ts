@@ -83,7 +83,13 @@ describe('controllers/assign-case.js', function () {
 
           expect(
             caseService.assignOnlineHearingsToCitizen
-          ).to.have.been.calledOnce.calledWith(idamEmail, tya, postcode, ibcaReference, req);
+          ).to.have.been.calledOnce.calledWith(
+            idamEmail,
+            tya,
+            postcode,
+            ibcaReference,
+            req
+          );
         });
 
         it('gets appeal', async function () {
@@ -132,7 +138,13 @@ describe('controllers/assign-case.js', function () {
 
           expect(
             caseService.assignOnlineHearingsToCitizen
-          ).to.have.been.calledOnce.calledWith(idamEmail, tya, postcode, ibcaReference, req);
+          ).to.have.been.calledOnce.calledWith(
+            idamEmail,
+            tya,
+            postcode,
+            ibcaReference,
+            req
+          );
         });
 
         it('gets appeal', async function () {
@@ -164,7 +176,6 @@ describe('controllers/assign-case.js', function () {
     });
 
     describe('post with missing data', function () {
-
       beforeEach(function () {
         req = {
           session: { idamEmail, tya },
@@ -183,7 +194,8 @@ describe('controllers/assign-case.js', function () {
         };
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.njk',
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          'assign-case/index.njk',
           { error, ...req.body }
         );
       });
@@ -198,7 +210,8 @@ describe('controllers/assign-case.js', function () {
         };
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.njk',
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          'assign-case/index.njk',
           { error, ...req.body }
         );
       });
@@ -213,14 +226,14 @@ describe('controllers/assign-case.js', function () {
         };
         await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith('assign-case/index.njk',
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          'assign-case/index.njk',
           { error, ...req.body }
         );
       });
     });
 
     describe('post with invalid data', function () {
-
       beforeEach(function () {
         req = {
           session: { idamEmail, tya },
@@ -265,7 +278,6 @@ describe('controllers/assign-case.js', function () {
     });
 
     describe('post with missing tya', function () {
-
       beforeEach(function () {
         req = {
           session: { idamEmail },

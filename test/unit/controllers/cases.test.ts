@@ -86,7 +86,7 @@ describe('controllers/cases', function () {
       rpStub = sinon.stub(RequestPromise, 'request');
     });
 
-    afterEach(function() {
+    afterEach(function () {
       rpStub.restore();
     });
 
@@ -104,7 +104,11 @@ describe('controllers/cases', function () {
       const expectedRsp = { cases: [{ data: 'getCasesForCitizen response' }] };
       rpStub.resolves(expectedRsp);
 
-      const actualRsp = await caseService.getCasesForCitizen('email', 'tya', req);
+      const actualRsp = await caseService.getCasesForCitizen(
+        'email',
+        'tya',
+        req
+      );
 
       expect(rpStub).to.have.been.calledOnce;
       expect(actualRsp).to.deep.equal(expectedRsp);
@@ -114,8 +118,13 @@ describe('controllers/cases', function () {
       const expectedRsp = { data: 'assign case response' };
       rpStub.resolves(expectedRsp);
 
-      const actualRsp = await caseService
-        .assignOnlineHearingsToCitizen('email', 'tya', 'postcode', 'ibcaReference', req);
+      const actualRsp = await caseService.assignOnlineHearingsToCitizen(
+        'email',
+        'tya',
+        'postcode',
+        'ibcaReference',
+        req
+      );
 
       // Assert
       expect(rpStub).to.have.been.calledOnce;
