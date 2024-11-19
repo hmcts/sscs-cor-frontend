@@ -85,6 +85,7 @@ describe('Additional Evidence @mya @nightly', function () {
 
     await page.reload();
     statusPage.verifyPage();
+    this.await(10);
     await additionalEvidencePage.visitPage();
   });
 
