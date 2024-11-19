@@ -10,7 +10,7 @@ export class AssignCasePage extends BasePage {
 
   async fillPostcode(postcode) {
     if (config.get('featureFlags.allowContactUs.ibcaEnabled')) {
-      await this.selectOption('#appealType', 'otherBenefits');
+      await this.selectOption('select#appealType', 'otherBenefits');
     }
     await this.enterTextintoField('#postcode', postcode);
   }
