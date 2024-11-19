@@ -1,5 +1,6 @@
 import { assignCase } from 'app/server/paths';
 import { BasePage } from 'test/page-objects/base';
+import * as config from 'config';
 
 export class AssignCasePage extends BasePage {
   constructor(page) {
@@ -7,11 +8,10 @@ export class AssignCasePage extends BasePage {
     this.pagePath = assignCase;
   }
 
-  async fillAppealType(appealType) {
-    await this.enterTextintoField('#appealType', appealType);
-  }
-
   async fillPostcode(postcode) {
+    if (config.get('featureFlags.allowContactUs.ibcaEnabled')) {
+      await this.selectOption('#appealType', 'otherBenefits');
+    }
     await this.enterTextintoField('#postcode', postcode);
   }
 

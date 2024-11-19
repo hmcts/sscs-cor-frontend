@@ -6,7 +6,6 @@ import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 import { expect } from 'test/chai-sinon';
 import content from 'app/common/locale/content.json';
-import * as config from 'config';
 
 describe('Manage your appeal app @smoke', function () {
   let ccdCase;
@@ -46,9 +45,6 @@ describe('Manage your appeal app @smoke', function () {
   });
 
   it('should inform postcode, submit and land in status page', async function () {
-    if (config.get('featureFlags.allowContactUs.ibcaEnabled')) {
-      await assignCasePage.fillAppealType('otherBenefits');
-    }
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
 
