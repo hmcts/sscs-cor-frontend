@@ -7,8 +7,16 @@ export class AssignCasePage extends BasePage {
     this.pagePath = assignCase;
   }
 
+  async fillAppealType(appealType) {
+    await this.enterTextintoField('#appealType', appealType);
+  }
+
   async fillPostcode(postcode) {
     await this.enterTextintoField('#postcode', postcode);
+  }
+
+  async fillIbcaReference(ibcaReference) {
+    await this.enterTextintoField('#ibcaReference', ibcaReference);
   }
 
   async submit() {

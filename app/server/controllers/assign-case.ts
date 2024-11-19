@@ -29,8 +29,9 @@ function postIndex(
   return async (req: Request, res: Response) => {
     const { postcode, ibcaReference } = req.body;
     const { tya, idamEmail } = req.session;
+    const isIbcaEnabled = req.app.locals.ibcaEnabled;
 
-    if (!req.body.appealType) {
+    if (isIbcaEnabled && !req.body.appealType) {
       return renderError(
         {
           msg: errorContent('missing', 'appealType'),
@@ -42,7 +43,7 @@ function postIndex(
     }
 
     let error;
-    if (req.body.appealType === 'ibca') {
+    if (isIbcaEnabled && req.body.appealType === 'ibca') {
       error = validateField(req.body, 'ibcaReference');
     } else {
       error = validateField(req.body, 'postcode');
