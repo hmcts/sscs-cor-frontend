@@ -182,7 +182,7 @@ export class BasePage {
     } catch (error) {
       const filename = this.getFileName();
       logger.info(
-        `Exception catched in enterTextintoField, taking screenshot ${filename}.png. Error is: ${error}`
+        `Exception caught in enterTextintoField, taking screenshot ${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-enterText-${filename}`);
     }
@@ -194,7 +194,7 @@ export class BasePage {
     } catch (error) {
       const filename = this.getFileName();
       logger.info(
-        `Exception catched in clickElement with selector ${selector}, taking screenshot failed-click-${selector}-${filename}.png. Error is: ${error}`
+        `Exception caught in clickElement with selector ${selector}, taking screenshot failed-click-${selector}-${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-click-${selector}-${filename}`);
     }
@@ -206,7 +206,7 @@ export class BasePage {
     } catch (error) {
       const filename = this.getFileName();
       logger.info(
-        `Exception catched in selectOption with selector ${selector} for ${value}, taking screenshot failed-click-${selector}-${filename}.png. Error is: ${error}`
+        `Exception caught in selectOption with selector ${selector} for ${value}, taking screenshot failed-click-${selector}-${filename}.png. Error is: ${error}`
       );
       await this.screenshot(`failed-click-${selector}-${filename}`);
     }
