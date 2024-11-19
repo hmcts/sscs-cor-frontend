@@ -1,6 +1,6 @@
 import { assignCase } from 'app/server/paths';
 import { BasePage } from 'test/page-objects/base';
-import * as config from 'config';
+import config from 'config';
 
 export class AssignCasePage extends BasePage {
   constructor(page) {
