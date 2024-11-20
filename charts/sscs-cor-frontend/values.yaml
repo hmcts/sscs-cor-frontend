@@ -14,7 +14,6 @@ nodejs:
     IDAM_ENABLE_STUB: false
     REDIS_HOST: 'sscs-cor-frontend-v6-{{ .Values.global.environment }}.redis.cache.windows.net'
     REDIS_PORT: 6380
-    SSCS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     TRIBUNALS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     IDAM_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net'

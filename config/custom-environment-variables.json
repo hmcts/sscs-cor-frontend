@@ -5,7 +5,7 @@
   "testUrl": "TEST_URL",
   "headless": "HEADLESS",
   "api": {
-    "url": "SSCS_API_URL"
+    "url": "TRIBUNALS_API_URL"
   },
   "appInsights": {
     "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"

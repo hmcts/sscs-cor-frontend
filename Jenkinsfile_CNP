@@ -48,8 +48,8 @@ withPipeline("nodejs", product, component) {
     syncBranchesWithMaster(branchesToSync)
 
     before("functionalTest:preview") {
-        env.SSCS_API_URL = tribunalsAat
-        sh 'echo SSCS_API_URL=$SSCS_API_URL'
+        env.TRIBUNALS_API_URL = tribunalsAat
+        sh 'echo SSCS_API_URL=$TRIBUNALS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
@@ -60,8 +60,8 @@ withPipeline("nodejs", product, component) {
         sh 'echo S2S_OAUTH2_URL=$S2S_OAUTH2_URL'
     }
     before("functionalTest:aat") {
-        env.SSCS_API_URL = tribunalsAat
-        sh 'echo SSCS_API_URL=$SSCS_API_URL'
+        env.TRIBUNALS_API_URL = tribunalsAat
+        sh 'echo SSCS_API_URL=$TRIBUNALS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
