@@ -925,7 +925,7 @@
       }
     },
     "benefitTypes": {
-      "infectedbloodappeal": {
+      "infectedbloodcompensation": {
         "acronym": "IBC",
         "yourBenefitAppeal": "Your IB compensation appeal",
         "fullDescription": "Infected Blood Compensation (IBC)",
