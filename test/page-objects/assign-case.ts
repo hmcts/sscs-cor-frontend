@@ -15,10 +15,6 @@ export class AssignCasePage extends BasePage {
     await this.enterTextintoField('#postcode', postcode);
   }
 
-  async fillIbcaReference(ibcaReference) {
-    await this.enterTextintoField('#ibcaReference', ibcaReference);
-  }
-
   async submit() {
     await Promise.all([
       this.page.waitForNavigation(),
