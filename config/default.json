@@ -3,7 +3,7 @@
     "port": 3003
   },
   "testUrl": "http://localhost:3003",
-  "api": {
+  "tribunals-api": {
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal",
     "retries": 3,
     "delay": 2000
@@ -40,9 +40,6 @@
       "secret": "a_secret"
     },
     "enableStub": "false"
-  },
-  "tribunals": {
-    "api-url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
   "evidenceUpload": {
     "maxFileSizeInMb": 10,

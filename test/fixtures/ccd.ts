@@ -5,7 +5,7 @@ import rp from '@cypress/request-promise';
 
 const logger: LoggerInstance = Logger.getLogger('test ccd');
 
-const apiUrl = config.get('api.url');
+const apiUrl = config.get('tribunals-api.url');
 const timeout: number = config.get('apiCallTimeout');
 
 export interface CCDCase {

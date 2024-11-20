@@ -5,7 +5,7 @@ import HttpStatus from 'http-status-codes';
 import request from 'superagent';
 import config from 'config';
 
-const apiUrl: string = config.get('tribunals.api-url');
+const apiUrl: string = config.get('tribunals-api.url');
 
 const logger: LoggerInstance = Logger.getLogger('UnsubscribeService');
 

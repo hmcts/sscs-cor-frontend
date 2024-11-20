@@ -9,7 +9,7 @@ import { SinonStub } from 'sinon';
 import { after } from 'mocha';
 import { ParamsDictionary } from 'express-serve-static-core';
 
-const apiUrl: string = config.get('tribunals.api-url');
+const apiUrl: string = config.get('tribunals-api.url');
 
 describe('services/tokenService', function () {
   const session: SessionData = {

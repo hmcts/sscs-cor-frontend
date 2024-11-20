@@ -7,7 +7,7 @@ import { expect } from 'test/chai-sinon';
 import HttpException from 'app/server/exceptions/HttpException';
 import { StatusCodes } from 'http-status-codes';
 
-const apiUrl: string = config.get('api.url');
+const apiUrl: string = config.get('tribunals-api.url');
 const error = new HttpException(
   StatusCodes.INTERNAL_SERVER_ERROR,
   'Server Error'

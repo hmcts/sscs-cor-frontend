@@ -6,8 +6,8 @@ import { RequestPromise } from 'app/server/services/request-wrapper';
 import { expect, sinon } from 'test/chai-sinon';
 import config from 'config';
 
-const retry: number = config.get('api.retries');
-const delay: number = config.get('api.delay');
+const retry: number = config.get('tribunals-api.retries');
+const delay: number = config.get('tribunals-api.delay');
 
 describe('services/additional-evidence', function () {
   let rpStub: sinon.SinonStub = null;
@@ -26,7 +26,7 @@ describe('services/additional-evidence', function () {
   const evidenceId = 'evidenceId';
 
   before(function () {
-    apiUrl = config.get('api.url');
+    apiUrl = config.get('tribunals-api.url');
     file = {
       fieldname: 'file-upload-1',
       originalname: 'some_evidence.txt',
