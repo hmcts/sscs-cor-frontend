@@ -8,6 +8,7 @@ nodejs:
     REDIS_PORT: 6379
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
+    INFECTED_BLOOD_COMPENSATION_ENABLED: true
   keyVaults:
     sscs:
       secrets:

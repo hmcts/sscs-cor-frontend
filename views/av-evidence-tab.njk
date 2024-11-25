@@ -3,7 +3,7 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% set pageHeader = content[i18n.language].benefitTypes[appeal.benefitType].yourBenefitAppeal %}
 {% block pageTitle %}
-  {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].avEvidenceTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK | safe }}
+  {{ content[i18n.language].taskList.header | safe }} - {{ content[i18n.language].avEvidenceTab.tabHeader | safe }} - {{ content[i18n.language].general.govUK }}
 {% endblock pageTitle %}
 {% block corContent %}
   <div class="govuk-grid-row">

@@ -1,8 +1,8 @@
 {
   "node": {
-    "port": 3000
+    "port": 3003
   },
-  "testUrl": "http://localhost:3000",
+  "testUrl": "http://localhost:3003",
   "api": {
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal",
     "retries": 3,
@@ -16,7 +16,7 @@
     "cookie": {
       "secret": "defaultcookiesecret",
       "maxAgeInMs": 1200000,
-      "secure": "false"
+      "secure": "true"
     }
   },
   "redis": {
@@ -33,8 +33,8 @@
     "deadline": 15000
   },
   "idam": {
-    "url": "http://localhost:3000/idam-stub",
-    "api-url": "http://localhost:3000/idam-stub",
+    "url": "http://localhost:3003/idam-stub",
+    "api-url": "http://localhost:3003/idam-stub",
     "client": {
       "id": "sscs",
       "secret": "a_secret"
@@ -70,6 +70,7 @@
     "allowContactUs": {
       "enabled": "true",
       "telephoneEnabled": "true",
+      "ibcaEnabled": "false",
       "webFormEnabled": "false",
       "webChatEnabled": "false"
     },
