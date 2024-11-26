@@ -18,7 +18,7 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 }
 
 module "redis-cache-v2" {
-  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  source                        = "git@github.com:hmcts/cnp-module-redis?ref=data_persistence_authentication_method"
   product                       = var.product
   location                      = var.location
   env                           = var.env
