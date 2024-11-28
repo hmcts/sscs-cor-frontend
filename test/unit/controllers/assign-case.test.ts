@@ -298,19 +298,28 @@ describe('controllers/assign-case.js', function () {
 
       it('invalid ibcaReference', async function () {
         const appealType = 'ibca';
-        const ibcaReference = 'invalid';
-        req.body = { appealType, ibcaReference };
-        const error = {
-          msg: content.en.assignCase.errors.invalid.ibcaReference,
-          code: 'invalid-ibcaReference',
-        };
 
-        await underTest(req, res);
+        for (const ibcaReference of [
+          'invalid',
+          '123456',
+          '12345678',
+          'invalid123',
+          'abc123',
+          'ab1cd2',
+        ]) {
+          req.body = { appealType, ibcaReference };
+          const error = {
+            msg: content.en.assignCase.errors.invalid.ibcaReference,
+            code: 'invalid-ibcaReference',
+          };
 
-        expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.njk',
-          { error, ...req.body }
-        );
+          await underTest(req, res);
+
+          expect(res.render).to.have.been.calledOnce.calledWith(
+            'assign-case/index.njk',
+            { error, ...req.body }
+          );
+        }
       });
     });
 
