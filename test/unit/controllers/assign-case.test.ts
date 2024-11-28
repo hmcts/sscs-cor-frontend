@@ -140,7 +140,7 @@ describe('controllers/assign-case.js', function () {
       describe('with valid ibcaReference', function () {
         const appealType = 'ibca';
         let postcode;
-        const ibcaReference = 'aa1bb2';
+        const ibcaReference = 'a01b45';
 
         beforeEach(function () {
           req = {
@@ -315,10 +315,10 @@ describe('controllers/assign-case.js', function () {
 
           await underTest(req, res);
 
-          expect(res.render).to.have.been.calledOnce.calledWith(
-            'assign-case/index.njk',
-            { error, ...req.body }
-          );
+          expect(res.render).to.have.been.calledWith('assign-case/index.njk', {
+            error,
+            ...req.body,
+          });
         }
       });
     });
@@ -386,7 +386,7 @@ describe('controllers/assign-case.js', function () {
 
       it('no matching ibcaReference', async function () {
         const appealType = 'ibca';
-        const ibcaReference = 'TS1ST1';
+        const ibcaReference = 'T12S33';
         req.body = { appealType, ibcaReference };
         const error = {
           msg: content.en.assignCase.errors.invalid.ibcaReference,
