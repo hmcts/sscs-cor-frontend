@@ -1986,7 +1986,49 @@
     "contact": {
       "phone": "Rhif ffôn cyswllt yr Apelydd",
       "mobile": "Rhif ffôn cyswllt yr Apelydd (ffôn symudol)",
-      "email": "Cyfeiriad e-bost yr Apelydd"
+      "email": "Cyfeiriad e-bost yr Apelydd",
+      "ibca": {
+          "Scotland": {
+            "desc": "Infected Blood Compensation appeals helpline (Yr Alban)",
+            "phone": "Rhif ffôn: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times scotland xxxxxxx",
+            "emailText": "E-bost:",
+            "emailAddress": "---email-scotland----@justice.gov.uk"
+          },
+          "WelshSpeakers": {
+            "desc": "Infected Blood Compensation appeals helpline (Cymru a Lloegr - Siaradwyr Cymraeg)",
+            "phone": "Rhif ffôn: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times all wales xxxxxxx",
+            "emailText": "E-bost:",
+            "emailAddress": "---email-wales----@justice.gov.uk"
+          },
+          "AllOthers": {
+            "desc": "Infected Blood Compensation appeals helpline (All other appellants)",
+            "phone": "Rhif ffôn: XXXX XXX XXXX",
+            "availability": "xxxxxx opening times all others xxxxxxx",
+            "emailText": "E-bost:",
+            "emailAddress": "----email-allOthers----@justice.gov.uk"
+          }
+        },
+        "England": {
+          "desc": "Benefit appeals helpline (England and Wales)",
+          "phone": "Telephone: 0300 123 1142",
+          "availability": "Monday to Friday, 9am to 4pm",
+          "emailText": "Email:",
+          "emailAddress": "Contactsscs@justice.gov.uk"
+        },
+        "WelshSpeakers": {
+          "desc": "Benefit appeals helpline (for Welsh speakers)",
+          "phone": "Telephone: 0300 303 5170",
+          "availability": "Monday to Friday, 8:30am to 5pm"
+        },
+        "Scotland": {
+          "desc": "Benefit appeals helpline (Scotland)",
+          "phone": "Telephone: 0300 790 6234",
+          "availability": "Monday to Friday, 8:30am to 5pm",
+          "emailText": "Email:",
+          "emailAddress": "SSCSA-Glasgow@justice.gov.uk"
+        }
     },
     "activeTab": {
       "tabHeader": "Active",
