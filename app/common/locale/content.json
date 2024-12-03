@@ -1587,6 +1587,7 @@
       "signOut": "Allgofnodi",
       "delete": "Dileu",
       "serviceTitle": "Apelio yn erbyn penderfyniad ynghylch budd-dal",
+      "ibca-serviceTitle": "Apelio yn erbyn penderfyniad",
       "sessionExpiryWarning": "Bydd eich sesiwn yn dod i ben ac fe gewch eich allgofnodi ar ôl 20 munud o anactifedd ",
       "govUK": "GOV.UK",
       "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
@@ -2612,10 +2613,13 @@
     "selectCase": {
       "title": "Dewiswch achos",
       "heading": "Eich apeliadau budd-daliadau",
+      "ibca-heading": "Eich apeliadau",
       "appealReference": "Cyfeirnod yr apêl",
       "benefit": "Budd-dal",
+      "ibca-benefit": "Apêl",
       "dateSubmitted": "Dyddiad cyflwyno",
       "mrnDate": "Dyddiad MRN",
+      "ibca-mrnDate": "Hysbysiad o Benderfyniad Adolygiad",
       "action": "Cam gweithredu",
       "view": "Gweld"
     },
