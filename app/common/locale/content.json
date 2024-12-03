@@ -931,7 +931,7 @@
         "fullDescription": "Infected Blood Compensation (IBC)",
         "agency": "Infected Blood Compensation Authority",
         "agencyAcronym": "IBCA",
-        "panel": "a judge and a doctor"
+        "panel": "judge and if appropriate, a doctor and or a financial expert"
       },
       "esa": {
         "acronym": "ESA",
@@ -2297,6 +2297,14 @@
       }
     },
     "benefitTypes": {
+      "infectedbloodcompensation": {
+        "acronym": "IBC",
+        "yourBenefitAppeal": "Eich apêl Iawndal Gwaed Heintiedig",
+        "fullDescription": "Iawndal Gwaed Heintiedig (IBC)",
+        "agency": "Awdurdod Iawndal Gwaed Heintiedig",
+        "agencyAcronym": "IBCA",
+        "panel": "barnwr ac, os yw’n briodol, meddyg a neu arbenigwr ariannol"
+      },
       "esa": {
         "acronym": "ESA",
         "yourBenefitAppeal": "Eich apêl am fudd-dal ESA",
