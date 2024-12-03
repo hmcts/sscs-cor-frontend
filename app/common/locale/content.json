@@ -1991,24 +1991,24 @@
       "ibca": {
           "Scotland": {
             "desc": "Infected Blood Compensation appeals helpline (Yr Alban)",
-            "phone": "Rhif ffôn: XXXX XXX XXXX",
-            "availability": "xxxxxx opening times scotland xxxxxxx",
+            "phone": "Rhif ffôn: 0300 790 6234",
+            "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm",
             "emailText": "E-bost:",
-            "emailAddress": "---email-scotland----@justice.gov.uk"
+            "emailAddress": "ibca-Glasgow@justice.gov.uk"
           },
           "WelshSpeakers": {
             "desc": "Infected Blood Compensation appeals helpline (Cymru a Lloegr - Siaradwyr Cymraeg)",
-            "phone": "Rhif ffôn: XXXX XXX XXXX",
-            "availability": "xxxxxx opening times all wales xxxxxxx",
+            "phone": "Rhif ffôn: 0300 303 5170",
+            "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm",
             "emailText": "E-bost:",
             "emailAddress": "---email-wales----@justice.gov.uk"
           },
           "AllOthers": {
             "desc": "Infected Blood Compensation appeals helpline (All other appellants)",
             "phone": "Rhif ffôn: XXXX XXX XXXX",
-            "availability": "xxxxxx opening times all others xxxxxxx",
+            "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm",
             "emailText": "E-bost:",
-            "emailAddress": "----email-allOthers----@justice.gov.uk"
+            "emailAddress": "ibca@justice.gov.uk"
           }
         },
         "England": {
