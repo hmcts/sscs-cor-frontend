@@ -259,24 +259,24 @@
         "ibca": {
           "Scotland": {
             "desc": "Infected Blood Compensation appeals helpline (Scotland)",
-            "phone": "Telephone: XXXX XXX XXXX",
-            "availability": "xxxxxx opening times scotland xxxxxxx",
+            "phone": "Telephone: 0300 790 6234",
+            "availability": "Monday to Friday, 9am to 4pm",
             "emailText": "Email:",
-            "emailAddress": "---email-scotland----@justice.gov.uk"
+            "emailAddress": "ibca-Glasgow@justice.gov.uk"
           },
           "WelshSpeakers": {
             "desc": "Infected Blood Compensation appeals helpline (for Welsh speakers)",
-            "phone": "Telephone: XXXX XXX XXXX",
-            "availability": "xxxxxx opening times all wales xxxxxxx",
+            "phone": "Telephone: 0300 303 5170",
+            "availability": "Monday to Friday, 9am to 4pm",
             "emailText": "Email:",
             "emailAddress": "---email-wales----@justice.gov.uk"
           },
           "AllOthers": {
             "desc": "Infected Blood Compensation appeals helpline (All other appellants)",
             "phone": "Telephone: XXXX XXX XXXX",
-            "availability": "xxxxxx opening times all others xxxxxxx",
+            "availability": "Monday to Friday, 9am to 4pm",
             "emailText": "Email:",
-            "emailAddress": "----email-allOthers----@justice.gov.uk"
+            "emailAddress": "ibca@justice.gov.uk"
           }
         },
         "England": {
@@ -2509,105 +2509,125 @@
     "helpGuides": {
       "header": "Cymorth a chefnogaeth",
       "evidence": {
-        "title": "Anfon tystiolaeth i gefnogi eich apêl",
-        "entry": "Tystiolaeth yw unrhyw wybodaeth sy’n cefnogi’ch apêl, fel llythyr, datganiad ysgrifenedig neu adroddiad meddygol. Gall helpu’r tribiwnlys i ddeall ffeithiau eich apêl. Nid oes rhaid ichi anfon tystiolaeth ond gall helpu eich apêl. ",
-        "para1": "Dylech anfon unrhyw dystiolaeth i'r tribiwnlys cyn gynted ag sy’n bosibl. Mae hyn er mwyn rhoi amser i'r tribiwnlys ei hystyried cyn iddynt wneud penderfyniad ynghylch eich apêl.",
+        "title": "Darparu tystiolaeth i gefnogi'ch apêl",
+        "entry": "Tystiolaeth yw unrhyw wybodaeth sy'n cefnogi eich ochr chi o’r apêl, megis llythyr, datganiad ysgrifenedig neu adroddiad meddygol. Gall helpu'r tribiwnlys i ddeall ffeithiau eich apêl. Nid oes rhaid i chi anfon tystiolaeth, ond gall helpu eich apêl.",
+        "para1": "Dylech anfon unrhyw dystiolaeth i'r tribiwnlys cyn gynted ag y gallwch er mwyn i'r tribiwnlys gael amser i'w hystyried cyn gwneud penderfyniad ar eich apêl.",
         "medicalEvidenceTitle": "Tystiolaeth feddygol",
         "medicalEvidenceDesc": {
           "para1": "Mae’r math hwn o dystiolaeth yn ddefnyddiol mewn achosion lle’r ydych eisiau dangos bod gennych gyflwr meddygol. Gall llythyr gan eich meddyg, ffisiotherapydd, gweithiwr cymdeithasol neu ymgynghorydd ysbyty helpu i brofi hyn. Bydd llythyr defnyddiol yn egluro sut mae eich cyflwr yn effeithio ar eich bywyd. Dylai hefyd ganolbwyntio ar yr adeg y gwnaeth DWP eu penderfyniad ynghylch eich hawl i gael y budd-dal. Nid yw llythyrau apwyntiadau yn ddefnyddiol.",
-          "para2": "Sylwch, gall eich meddyg godi ffi arnoch am ysgrifennu llythyr. Ni all y tribiwnlys ad-dalu'r costau hyn."
+          "para2": "Sylwch, gall eich meddyg godi ffi arnoch am ysgrifennu llythyr. Ni all y tribiwnlys ad-dalu'r costau hyn.",
+          "ibca-para1": "Mae'r math hwn o dystiolaeth yn ddefnyddiol mewn apeliadau lle rydych eisiau dangos bod gennych gyflwr meddygol. Gall llythyr gan eich meddyg, ffisiotherapydd, gweithiwr cymdeithasol neu ymgynghorydd ysbyty helpu i brofi hyn. Bydd llythyr defnyddiol yn esbonio sut mae eich cyflwr yn effeithio eich bywyd.",
+          "ibca-para2": "Ar gyfer DWP/HMRC dylai hefyd ganolbwyntio ar yr adeg y gwnaeth yr Asiantaeth Haen Gyntaf eu penderfyniad ynghylch eich hawl i fudd-daliadau. Nid yw llythyrau sydd ond yn dangos eich bod wedi cael apwyntiad yn ddefnyddiol.",
+          "ibca-para3": "Cofiwch y gall eich meddyg godi tâl arnoch am ysgrifennu llythyr. Ni all y tribiwnlys eich ad-dalu am y rhain."
+        }
         },
         "writtenStatementTitle": "Datganiad ysgrifenedig",
         "writtenStatementDesc": {
+          "ibca-para1": "Gall rywun sy'n byw gyda chi neu sy'n eich adnabod yn dda ysgrifennu datganiad neu lythyr. Mae datganiad defnyddiol yn disgrifio sut mae eich cyflwr yn effeithio eich bywyd ac yn cynnwys y mathau o weithgareddau y gallwch eu gwneud ac na allwch eu gwneud. Dylai hyn fod o’u safbwynt nhw eu hunain.",
+          "ibca-para2": "Ar gyfer DWP/HMRC dylai hefyd ganolbwyntio ar yr adeg y gwnaeth yr Asiantaeth Haen Gyntaf eu penderfyniad ynghylch eich hawl i fudd-daliadau.",
+          "ibca-para3": "Gellir ei ysgrifennu â llaw neu ei deipio ond dylai gael ei lofnodi gan y sawl a'i ysgrifennodd. Dylai hefyd ddweud beth yw eu perthynas â chi.",         
           "para1": "Gall rhywun sy’n byw gyda chi neu rywun sy’n eich adnabod yn dda ysgrifennu datganiad neu lythyr. Mae datganiad defnyddiol yn disgrifio sut mae eich cyflwr yn effeithio ar eich bywyd a’r mathau o weithgareddau y gallwch eu gwneud a’r rhai na allwch eu gwneud. Dylai’r datganiad gyfleu eu safbwynt nhw. Dylai hefyd ganolbwyntio ar yr adeg y gwnaeth DWP eu penderfyniad ynghylch eich hawl i gael y budd-dal.",
           "para2": "Gellir ei ysgrifennu â llaw neu ei deipio ond rhaid i'r unigolyn sydd wedi’i ysgrifennu ei lofnodi. Dylai hefyd nodi beth yw eu perthynas gyda chi."
         },
         "photographsTitle": "Ffotograffau",
         "photographsDesc": {
-          "para1": "Weithiau gall ffotograff fod yn ddefnyddiol i helpu i ddangos i'r tribiwnlys sut mae eich cyflwr meddygol yn effeithio ar eich bywyd. Er enghraifft, gallwch dynnu llun o unrhyw addasiadau yn eich cartref, neu unrhyw declynnau cymorth rydych yn eu defnyddio i'ch helpu i symud. Peidiwch ag anfon unrhyw ffotograffau o’ch corff."
+          "para1": "Weithiau gall llun fod yn ddefnyddiol i helpu panel y tribiwnlys i weld sut mae eich cyflwr meddygol yn effeithio eich bywyd. Er enghraifft, gallech dynnu llun o unrhyw addasiadau yn eich cartref neu gymhorthion rydych chi'n eu defnyddio i'ch helpu i symud o gwmpas. Peidiwch ag anfon unrhyw luniau o'ch corff."
         },
-        "whatYouSayTitle": "Yr hyn byddwch yn ei ddweud yn y gwrandawiad",
+        "whatYouSayTitle": "Beth fyddwch chi'n ei ddweud yn y gwrandawiad",
         "whatYouSayDesc": {
-          "para1": "Gall yr hyn byddwch yn ei ddweud yn y gwrandawiad fod y math mwyaf defnyddiol o dystiolaeth. Bydd y tribiwnlys yn gwrando ar yr hyn byddwch yn ei ddweud i'w helpu i wneud penderfyniad ynghylch eich apêl.",
-          "para2": "Os oes gennych ofalwr neu rywun sy’n eich cefnogi adref, gallwch ofyn iddynt ddod i'r gwrandawiad a dweud wrth y tribiwnlys am eich cyflwr. Dylech wneud yn siwr eu bod yn fodlon dod a’u bod ar gael ar ddyddiad y gwrandawiad."
+          "para1": "Gall yr hyn a ddywedwch yn y gwrandawiad fod y math mwyaf defnyddiol o dystiolaeth. Bydd y tribiwnlys yn gwrando ar yr hyn rydych chi'n ei ddweud i'w helpu i wneud penderfyniad ar eich apêl.",
+          "para2": "Os oes gennych ofalwr neu rywun sy'n eich cefnogi gartref, gallech ofyn iddynt ddod i ddweud wrth y tribiwnlys am eich cyflwr. Dylech wirio eu bod yn barod i ddod a'u bod ar gael ar y diwrnod."
         },
         "sendingEvidenceTitle": "Anfon tystiolaeth i'r tribiwnlys",
         "sendingEvidenceDesc": {
-          "para1": "Gallwch ddarparu tystiolaeth trwy ddefnyddio unrhyw un o’r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a> a dylech wneud hynny cyn gynted â phosib er mwyn i’r tribiwnlys gael amser i’w darllen cyn gwneud penderfyniad.",
-          "para2": "Neu gallwch bostio’ch tystiolaeth i’r cyfeiriad a nodir isod.",
-          "para3": "Gwnewch yn siŵr eich bod yn cynnwys y ‘dalen flaen dogfen’ fel y gallwn baru’r dystiolaeth gyda’ch apêl. Cawsoch y daflen flaen hon gyda’r llythyr cyntaf a anfonwyd atoch ynghylch eich apêl.",
+          "para1": "Gallwch ddarparu tystiolaeth gan ddefnyddio unrhyw un o'r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a>. Gwnewch hyn cyn gynted â phosibl er mwyn i'r tribiwnlys gael amser i'w darllen cyn iddo wneud penderfyniad.",
+          "para2": "Neu gallwch anfon eich tystiolaeth drwy’r post i'r cyfeiriad isod.",
+          "para3": "Gwnewch yn siŵr eich bod yn cynnwys y 'ddalen flaen'. Mae hyn yn ein helpu i wneud yn siŵr bod eich tystiolaeth yn cyd-fynd â'ch apêl. Cawsoch y ddalen flaen hon gyda’r llythyr cyntaf a anfonwyd atoch ynglŷn â'ch apêl.",
           "para4": "HMCTS SSCS<br>PO Box 12626<br>Harlow<br>CM20 9QF"
         }
       },
       "claimExpenses": {
         "title": "Hawlio treuliau i fynychu eich gwrandawiad",
-        "entry": "Efallai y bydd modd ichi hawlio yn ôl ychydig o’r arian y byddwch yn ei wario ar fynychu eich gwrandawiad.",
-        "para1": "Dylech ddefnyddio trafnidiaeth gyhoeddus lle bo’n bosibl. Cadwch eich tocynnau teithio a dewch â nhw gyda chi i'ch gwrandawiad. Bydd clerc y tribiwnlys yn rhoi ffurflen hawlio i chi ei llenwi.",
-        "para2": "Os oes gennych gyflwr meddygol neu anabledd sy’n golygu na allwch ddod i'r gwrandawiad ar ben eich hun, yna efallai gallwch hawlio costau tacsi. Bydd rhaid ichi gael caniatâd yn gyntaf trwy ffonio 0300 303 5170."
+        "entry": "Efallai y byddwch yn gallu hawlio rhywfaint o'r arian y byddwch yn ei wario wrth fynd i'ch gwrandawiad.",
+        "para1": "Dylech ddefnyddio trafnidiaeth gyhoeddus lle bo hynny'n bosibl. Cadwch eich tocynnau teithio a dewch â nhw gyda chi i'ch gwrandawiad. Byddwch yn cael ffurflen hawlio i'w llenwi gan glerc y tribiwnlys.",
+        "para2": "Os oes gennych gyflwr iechyd neu anabledd sy'n golygu na allwch fynychu’r gwrandawiad eich hun, yna efallai y byddwch yn gallu hawlio am dacsi. Bydd angen i chi gael awdurdodiad yn gyntaf drwy ffonio 0300 303 5170."
       },
       "hearing": {
         "title": "Beth i'w ddisgwyl yn eich gwrandawiad apêl",
         "entry": "Mae eich gwrandawiad yn gyfle ichi egluro eich apêl budd-dal yn bersonol. Bydd panel tribiwnlys yn ystyried popeth byddwch yn ei ddweud wrthynt ac yn gwneud penderfyniad diduedd ynghylch eich apêl. Mae panel y tribiwnlys yn annibynnol o'r Adran Gwaith a Phensiynau (DWP).",
         "imageText": "Bydd panel y tribiwnlys yn cynnwys barnwr a meddyg. Bydd yna arbenigwr anabledd hefyd mewn rhai apeliadau budd-dal. ",
+        "ibca-entry": "Mae eich gwrandawiad yn gyfle i chi esbonio'ch apêl am fudd-dal yn bersonol. Bydd panel tribiwnlys yn ystyried popeth a ddywedwch wrthynt ac yn gwneud penderfyniad diduedd ar eich apêl. Mae panel y tribiwnlys yn annibynnol ar yr Asiantaeth Haen Gyntaf.",
+        "ibca-imageText": "Mae'r llun uchod yn enghraifft o wrandawiad tribiwnlys, gyda barnwr a meddyg. Bydd arbenigwr anabledd/ariannol hefyd yn bresennol mewn rhai apeliadau am fudd-dal/iawndal os yw'n berthnasol.",
         "beforeHearingTitle": "Cyn eich gwrandawiad",
         "beforeHearingDesc": {
+          "ibca-para1": "Sicrhewch fod gennych yr holl ddogfennau sy'n ymwneud â'ch apêl. Dylech fod wedi cael y rhain yn y post gan yr Asiantaeth Haen Gyntaf fel 'bwndel' o ddogfennau wedi'u rhifo. Dewch â'r rhain gyda chi i'r gwrandawiad.",
           "para1": "Gwnewch yn siwr bod gennych yr holl ddogfennau sy’n ymwneud â’ch apêl. Dylech fod wedi cael y rhain drwy’r post gan DWP fel ‘bwndel’ o ddogfennau wedi’u rhifo. Dewch â’r rhain gyda chi i'r gwrandawiad.",
-          "para2": "Dylech anelu at fod yn y ganolfan wrandawiadau o leiaf 15 munud cyn i'r gwrandawiad ddechrau. Gall eich gwrandawiad fynd yn ei flaen hebddoch chi os byddwch yn hwyr, neu gall gael ei ohirio i'w gynnal ar ddiwrnod arall."
+          "para2": "Dylech wneud trefniadau i gyrraedd lleoliad y gwrandawiad o leiaf 15 munud cyn iddo ddechrau. Efallai y bydd eich gwrandawiad yn digwydd hebddoch chi os byddwch yn hwyr, neu’n cael ei ohirio i ddiwrnod gwahanol."
         },
         "arriveTitle": "Pan fyddwch yn cyrraedd",
         "arriveDesc": {
-          "para1": "Bydd clerc y tribiwnlys yn eich croesawu. Byddant yn gofalu amdanoch chi yn y ganolfan wrandawiadau ac yn ateb unrhyw gwestiynau y bydd gennych. Byddant hefyd yn rhoi ffurflen ichi ar gyfer hawlio yn ôl unrhyw arian byddwch yn ei wario o ganlyniad i fynychu’r gwrandawiad.<a href='support-hearing-expenses'>Darllenwch fwy am hawlio treuliau ar gyfer eich gwrandawiad.</a>"
+          "para1": "Byddwch yn cael eich cyfarch gan glerc y tribiwnlys. Byddant yn gofalu amdanoch yn y gwrandawiad ac yn ateb unrhyw gwestiynau sydd gennych. Byddant hefyd yn rhoi ffurflen i chi fel y gallwch hawlio yn ôl unrhyw arian a wariwch wrth fynychu’r gwrandawiad. <a href='support-hearing-expenses'>Darllenwch am hawlio treuliau ar gyfer eich gwrandawiad.</a>"
         },
         "hearingRoomTitle": "Yr ystafell wrandawiadau",
         "hearingRoomDesc": {
-          "para1": "Bydd clerc y tribiwnlys yn eich hebrwng i'r ystafell wrandawiadau. Bydd panel y tribiwnlys yn eistedd y tu ôl i fwrdd. Byddwch yn cael eich gwahodd i eistedd gyferbyn â’r panel. Os bydd rhywun wedi dod gyda chi i’ch cefnogi neu i roi tystiolaeth, byddant yn eistedd wrth eich ymyl."
+          "para1": "Bydd clerc y tribiwnlys yn mynd â chi i mewn i ystafell y gwrandawiad. Bydd panel y tribiwnlys yn eistedd y tu ôl i fwrdd. Fe'ch gwahoddir i eistedd gyferbyn â nhw. Os oes gennych rywun i'ch cefnogi neu i roi tystiolaeth, byddant yn eistedd wrth eich ochr."
         },
         "peopleInTheRoomTitle": "Y bobl yn eich gwrandawiad",
         "peopleInTheRoomDesc": {
+          "ibca-para1": "Mae panel y tribiwnlys yn cynnwys rhwng 1 a 3 o bobl (bydd un ohonynt bob amser yn farnwr), yn dibynnu ar ba fudd-dal/iawndal rydych yn apelio. Bydd y panel yn ystyried dwy ochr yr apêl ac yn gwneud penderfyniad diduedd. Maent yn annibynnol ar yr asiantaeth haen gyntaf.",
+          "ibca-para2": "Y barnwr fydd yn cynnal y gwrandawiad a bydd yn egluro beth sy'n digwydd. Byddant hefyd yn cymryd nodiadau o'r hyn a ddywedir yn ystod y gwrandawiad. Bydd y meddyg yn darparu ei wybodaeth feddygol. Bydd yr arbenigwyr anabledd/ariannol yn darparu eu gwybodaeth benodol i gefnogi'r tribiwnlys",
           "para1": "Mae panel y tribiwnlys yn cynnwys 2 neu 3 o bobl, yn ddibynnol ar y math o fudd-dal sy’n destun yr apêl. Bydd y panel yn ystyried dwy ochr yr apêl ac yn gwneud penderfyniad diduedd. Maent yn annibynnol o DWP.",
           "para2": "Y barnwr sy’n rheoli’r gwrandawiad a bydd yn egluro beth sy’n digwydd. Byddant hefyd yn cymryd nodiadau o’r hyn sy’n cael ei ddweud yn ystod y gwrandawiad. Mae'r meddyg yno i ddarparu gwybodaeth feddygol. Os bydd arbenigwr anabledd yn eich gwrandawiad, yna bydd yn darparu gwybodaeth am faterion anabledd a sut mae anabledd yn effeithio ar bobl."
         },
         "duringHearingTitle": "Yn ystod eich gwrandawiad",
         "duringHearingDesc": {
+          "ibca-para1": "Bydd panel y tribiwnlys yn gofyn rhai cwestiynau syml i chi. Dyma'ch cyfle i egluro eich ochr chi o'r apêl. Byddant yn gwrando ar bopeth rydych chi'n ei ddweud wrthyn nhw. Efallai y byddant hefyd yn gofyn  rhai cwestiynau i'r Asiantaeth Haen Gyntaf. Mae'r gwrandawiad cyfan fel arfer yn para tua awr.",
           "para1": "Bydd panel y tribiwnlys yn gofyn rhywfaint o gwestiynau syml ichi. Dyma eich cyfle i egluro eich ochr chi o’r apêl. Byddant yn gwrando ar bopeth rydych yn ei ddweud wrthynt. Efallai byddant yn gofyn cwestiynau i DWP hefyd. Fel arfer bydd y gwrandawiad cyfan yn cymryd tua awr.",
-          "para2": "Mae’n bwysig eich bod yn cyflwyno’ch tystiolaeth i gyd cyn y gwrandawiad fel bod gan banel y tribiwnlys amser i'w hadolygu. Os byddant yn ei chael yn rhy hwyr, efallai bydd rhaid iddynt ohirio eich gwrandawiad i'w gynnal ar ddiwrnod arall."
+          "para2": "Mae'n bwysig eich bod yn cyflwyno'ch holl dystiolaeth ymhell cyn y gwrandawiad fel bod gan banel y tribiwnlys amser i'w hadolygu. Os ydynt yn ei chael yn rhy hwyr, efallai y bydd yn rhaid iddynt ohirio'ch gwrandawiad tan ddiwrnod gwahanol."
         },
         "gettingDecisionTitle": "Cael penderfyniad",
         "gettingDecisionDesc": {
-          "para1": "Ar ôl ichi ateb yr holl gwestiynau, gofynnir ichi aros y tu allan tra bydd panel y tribiwnlys yn trafod eich apêl. Yna gofynnir ichi ddod yn ôl i mewn i'r ystafell i gael gwybod beth yw’r penderfyniad.",
+          "para1": "Ar ôl i chi ateb yr holl gwestiynau, gofynnir i chi aros y tu allan tra bydd panel y tribiwnlys yn trafod eich apêl. Yna gofynnir i chi fynd yn ôl i'r ystafell i gael gwybod y penderfyniad.",
           "para2": "Bydd y barnwr yn egluro ichi a oes gennych hawl i gael y budd-dal, ac os felly, ar ba lefel.",
-          "para3": "Weithiau mae’r tribiwnlys angen mwy o amser i wneud penderfyniad. Os bydd hynny’n digwydd, bydd y penderfyniad ynghylch eich apêl yn cael ei bostio atoch."
+          "ibca-para2": "Bydd y barnwr yn egluro a oes gennych hawl i'r budd-dal/iawndal ac os felly, ar ba lefel.",
+          "para3": "Weithiau bydd angen mwy o amser ar y tribiwnlys i wneud penderfyniad. Os bydd hynny'n digwydd, bydd y penderfyniad am eich apêl yn cael ei bostio atoch."
         },
         "dwpTitle": "Yr Adran Gwaith a Phensiynau (DWP)",
+        "ibca-dwpTitle": "Asiantaeth haen gyntaf (DWP, HRMC ac IBCA)",
         "dwpDesc": {
-          "para1": "Gall cynrychiolydd o DWP fod yna. Nid ydynt yn rhan o banel y tribiwnlys ac maent yna i siarad ar ran DWP. Nid y cynrychiolydd fydd yr unigolyn a wnaeth y penderfyniad ynghylch eich hawl i gael budd-daliadau."
+          "para1": "Gall cynrychiolydd o DWP fod yna. Nid ydynt yn rhan o banel y tribiwnlys ac maent yna i siarad ar ran DWP. Nid y cynrychiolydd fydd yr unigolyn a wnaeth y penderfyniad ynghylch eich hawl i gael budd-daliadau.",
+          "ibca-para1": "Gallai cynrychiolydd o'r Asiantaeth Haen Gyntaf fod yno. Dydyn nhw ddim yn rhan o banel y tribiwnlys ac maen nhw yno i siarad ar ran yr Asiantaeth Haen Gyntaf. Nid nhw fydd y sawl a wnaeth y penderfyniad ynghylch eich hawl i fudd-dal/iawndal."
+
         }
       },
       "representatives": {
         "linkHeader": "Cynrychiolwyr",
         "title": "Cynrychiolwyr",
         "entry": "Gallwch benodi rhywun fel ‘cynrychiolydd’ i'ch helpu gyda’ch apêl budd-dal, os ydych yn credu na fyddwch yn gallu delio â’r apêl ar eich pen eich hun.",
+        "ibca-entry": "Gallwch benodi rhywun fel 'cynrychiolydd' i'ch helpu gyda'ch apêl am fudd-dal/iawndal, os credwch na fyddwch yn gallu rheoli'r apêl eich hun.",
         "what": "Gall cynrychiolydd:",
         "whatList": {
-          "item1": "roi cyngor ichi ynghylch eich apêl",
-          "item2": "eich helpu i gyflwyno eich apêl neu i baratoi tystiolaeth",
-          "item3": "gweithredu ar eich rhan yn ystod yr apêl (dylent ofyn am eich caniatâd yn gyntaf)"
+          "item1": "roi cyngor i chi mewn perthynas â'ch apêl",
+          "item2": "eich helpu i gyflwyno eich apêl neu baratoi tystiolaeth",
+          "item3": "gweithredu ar eich rhan yn ystod yr apêl (dylent ofyn eich caniatâd yn gyntaf)"
         },
         "para1": "Gall unrhyw un fod yn gynrychiolydd, yn cynnwys ffrind neu aelod o’ch teulu. Bydd cynrychiolydd da yn gyfarwydd â’r system budd-daliadau ac yn gallu rhoi cyngor ichi ar y gyfraith.",
-        "para2": "Gallwch gael cynrychiolydd yn eich canolfan gynghori leol, canolfan y gyfraith leol neu <a href='https://www.citizensadvice.org.uk/'>ganolfan Cyngor ar Bopeth leol</a>. Bydd arnoch angen eu cofrestru gyda’r tribiwnlys.",
+        "ibca-para1": "Gall unrhyw un fod yn gynrychiolydd, gan gynnwys ffrindiau a theulu.",
+        "para2": "Gallwch gael cynrychiolydd yn eich canolfan gynghori leol, canolfan y gyfraith neu <a href='https://www.citizensadvice.org.uk/'>. Bydd angen i chi eu cofrestru gyda'r tribiwnlys.",
         "representative": {
           "title": "Cofrestru cynrychiolydd",
-          "para1": "Mae arnom angen eich awdurdod ysgrifenedig i gofrestru rhywun fel eich cynrychiolydd. Gallwch ddarparu’r wybodaeth hon trwy unrhyw un o’r opsiynau yn y tab <a href='/task-list'><b>Darparu Tystiolaeth</b></a>.",
-          "para2": "Cofiwch gynnwys enw eich cynrychiolydd, eu cyfeiriad a’u manylion cyswllt (ffôn neu e-bost). Os byddwch yn darparu eu cyfeiriad e-bost â’u rhif ffôn symudol, byddant yn cael diweddariadau yn rheolaidd."
+          "para1": "Mae angen eich awdurdod ysgrifenedig arnom i gofrestru rhywun fel eich cynrychiolydd. Gallwch ddarparu'r wybodaeth hon drwy unrhyw un o'r opsiynau yn y tab <a href='/task-list'><b>Darparu Tystiolaeth</b></a>.",
+          "para2": "Dylech gynnwys enw, cyfeiriad a manylion cyswllt eich cynrychiolydd (ffôn neu e-bost). Os byddwch yn darparu eu cyfeiriad e-bost a'u rhif ffôn symudol, byddant hefyd yn cael diweddariadau rheolaidd."
         }
       },
       "withdrawAppeal": {
-        "linkHeader": "Tynnu apêl yn ôl",
-        "title": "Tynnu eich apêl yn ôl",
+        "linkHeader": "Tynnu'ch apêl yn ôl",
+        "title": "Tynnu'ch apêl yn ôl",
         "entry": "Gallwch dynnu eich apêl yn ôl ar unrhyw adeg. Bydd DWP yn cael gwybod nad ydych eisiau apelio yn erbyn eu penderfyniad mwyach. Bydd y gwrandawiad ar gyfer eich apêl yn cael ei ganslo, os oedd un wedi’i drefnu.",
-        "para1": "Dylech siarad gyda’ch cynrychiolydd neu rywun sy’n gwybod am eich apêl i gael cyngor ar p’un a ddylech dynnu eich apêl yn ôl ai peidio.",
-        "para2": "Os ydych dal eisiau tynnu eich apêl yn ôl, yna dylech roi gwybod i'r tribiwnlys cyn gynted ag sy’n bosibl.",
-        "para3": "Gallwch ddarparu’r wybodaeth hon trwy unrhyw un o’r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a>, neu cysylltwch â ni ar y rhif isod. "
+        "ibca-entry": "Gallwch dynnu'ch apêl yn ôl ar unrhyw adeg. Bydd yr Asiantaeth Haen Gyntaf yn cael gwybod nad ydych am apelio yn erbyn eu penderfyniad mwyach. Bydd y gwrandawiad ar gyfer eich apêl yn cael ei ganslo, os oes un wedi'i drefnu.",
+        "para1": "Dylech siarad â'ch cynrychiolydd neu rywun sy'n gwybod am eich apêl am gyngor ynghylch a ddylech dynnu'ch apêl yn ôl.",
+        "para2": "Os ydych yn dal i fod eisiau tynnu'ch apêl yn ôl, dylech roi gwybod i'r tribiwnlys cyn gynted â phosibl.",
+        "para3": "Gallwch ddarparu'r wybodaeth hon trwy unrhyw un o'r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a>. Neu cysylltwch â ni ar y rhif isod."
       },
       "relatedLinks": {
         "title": "Arweiniad cysylltiedig",
@@ -2633,12 +2653,27 @@
     },
     "assignCase": {
       "title": "Nodwch y cod post ar gyfer yr apêl",
-      "message": "Hwn yw’r cod post a ddefnyddiwyd pan gafodd yr apêl ei chofrestru",
+      "appealTypeOptions": {
+        "ibca": {
+          "radioOption": "Apêl Iawndal Gwaed Heintiedig",
+          "inputText": "Enter the IBCA reference number provided in your correspondence Review Decision Notice or any correspondence from IBCA."
+        },
+        "otherBenefits": {
+          "radioOption": "Apêl Budd-dal",
+          "inputText": "Enter the postcode for the appeal",
+          "hintText": "This is the postcode used when the appeal was registered"
+        },
       "errors": {
-        "noPostcode": "Nid ydych wedi nodi cod post. Nodwch eich cod post cyn parhau.",
-        "invalidPostcode": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda",
-        "tyaNotProvided": "Please use the MYA link in the most recent email we've sent you",
-        "postcodeDoesNotMatch": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda"
+        "missing": {
+          "appealType": "You have not selected an appeal type. Select your appeal type before continuing.",
+          "postcode": "Nid ydych wedi nodi cod post. Nodwch eich cod post cyn parhau.",
+          "ibcaReference": "You have not entered an IBCA reference. Enter your IBCA reference before continuing.",
+          "tya": "Please use the MYA link in the most recent email we've sent you"
+        },
+        "invalid": {
+          "postcode": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda",
+          "ibcaReference": "The IBCA reference you entered is not recognised. Please check and try again."
+        }
       }
     },
     "redirectMya": {
