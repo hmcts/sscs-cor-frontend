@@ -15,7 +15,7 @@ describe('Routes', function () {
   let app: Application = null;
 
   before(async function () {
-    tribunalApiUrl = config.get('tribunals.api-url');
+    tribunalApiUrl = config.get('tribunals-api.url');
 
     app = await setupApp(createSession());
     dysonSetupIdam();

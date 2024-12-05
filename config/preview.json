@@ -1,6 +1,6 @@
 {
-  "api": {
-    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+  "tribunals-api": {
+    "url": "https://sscs-tribunals-api-pr-4140.preview.platform.hmcts.net"
   },
   "redis": {
     "secret": null,

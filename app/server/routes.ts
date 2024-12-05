@@ -55,9 +55,8 @@ export interface Dependencies {
 
 const router = Router();
 
-const apiUrl: string = config.get('api.url');
+const apiUrl: string = config.get('tribunals-api.url');
 const idamApiUrl: string = config.get('idam.api-url');
-const tribunalsApiUrl: string = config.get('tribunals.api-url');
 const appPort: number = config.get('node.port');
 const appUser: string = config.get('idam.client.id');
 const appSecret: string = config.get('idam.client.secret');
@@ -71,7 +70,7 @@ const caseService: CaseService = new CaseService(apiUrl);
 const additionalEvidenceService: AdditionalEvidenceService =
   new AdditionalEvidenceService(apiUrl);
 const trackYourAppealService: TrackYourApealService = new TrackYourApealService(
-  tribunalsApiUrl
+  apiUrl
 );
 
 const taskListController = setupTaskListController({

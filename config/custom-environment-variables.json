@@ -4,8 +4,8 @@
   },
   "testUrl": "TEST_URL",
   "headless": "HEADLESS",
-  "api": {
-    "url": "SSCS_API_URL"
+  "tribunals-api": {
+    "url": "TRIBUNALS_API_URL"
   },
   "appInsights": {
     "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
@@ -27,9 +27,6 @@
       "secret": "IDAM_CLIENT_SECRET"
     },
     "enableStub": "IDAM_ENABLE_STUB"
-  },
-  "tribunals": {
-    "api-url": "TRIBUNALS_API_URL"
   },
   "featureFlags": {
     "testFeature": "TEST_FEATURE",

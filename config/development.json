@@ -1,9 +1,6 @@
 {
-  "api": {
+  "tribunals-api": {
     "url": "http://localhost:8008"
-  },
-  "tribunals": {
-    "api-url": "http://localhost:8008"
   },
   "idam": {
     "url": "http://localhost:5062",
@@ -19,6 +16,11 @@
   "session": {
     "cookie": {
       "secure": "false"
+    }
+  },
+  "featureFlags": {
+    "allowContactUs": {
+      "ibcaEnabled": "true"
     }
   }
 }

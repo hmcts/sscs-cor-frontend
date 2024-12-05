@@ -2,8 +2,8 @@ import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 import config from 'config';
 
-const retry: number = config.get('api.retries');
-const delay: number = config.get('api.delay');
+const retry: number = config.get('tribunals-api.retries');
+const delay: number = config.get('tribunals-api.delay');
 
 interface ExtendDeadlineResponse {
   deadline_expiry_date: string;
@@ -49,13 +49,14 @@ export class CaseService {
     email: string,
     tya: string,
     postcode: string,
+    ibcaReference: string,
     req: Request
   ) {
     return RequestPromise.request(
       {
         method: 'POST',
         uri: `${this.apiUrl}/api/citizen/${tya}`,
-        body: { email, postcode },
+        body: { email, postcode, ibcaReference },
         resolveWithFullResponse: true,
         simple: false,
       },

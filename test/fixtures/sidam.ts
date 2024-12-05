@@ -1,7 +1,7 @@
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
-import rp from 'request-promise';
+import rp from '@cypress/request-promise';
 
 const logger: LoggerInstance = Logger.getLogger('test sidam');
 

@@ -37,3 +37,4 @@ infrastructure/override.tf
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+/lib/

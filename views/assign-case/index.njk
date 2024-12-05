@@ -1,23 +1,80 @@
 {% extends "layout.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% block corContent %}
-  <h1 class="govuk-heading-l">{{ content[i18n.language].assignCase.title | safe }}</h1>
   {% if error %}
     {{ govukErrorSummary({
       titleText: content[i18n.language].errorSummary.titleText,
       descriptionText: content[i18n.language].errorSummary.descriptionText,
-      errorList: [{ text: error, href: "#Postcode" }]
+      errorList: [{ text: error.msg, href: "#appealType" if ibcaEnabled else "#postcode" }]
     }) }}
   {% endif %}
   <form id="answer-form" action="/assign-case" method="post">
     {% include "includes/csrf-hidden-input.njk" %}
-    {{ govukInput({ label: {
-      text: content[i18n.language].assignCase.message },
-      id: "postcode",
-      name: "postcode",
-      "classes": "govuk-input--width-20"
+    {% set ibcaReferenceHtml %}
+      {{ govukInput({ label: {
+        text: content[i18n.language].assignCase.appealTypeOptions.ibca.inputText },
+        errorMessage: { text: error.msg } if error.code and error.code.includes('ibcaReference'),
+        id: "ibcaReference",
+        name: "ibcaReference",
+        value: ibcaReference,
+        classes: "govuk-input--width-20 govuk-input--extra-letter-spacing"
+      }) }}
+    {% endset -%}
+    {% set postcodeHtml %}
+      {{ govukInput({ label: {
+        text: content[i18n.language].assignCase.appealTypeOptions.otherBenefits.inputText },
+        hint: {
+          text: content[i18n.language].assignCase.appealTypeOptions.otherBenefits.hintText
+        },
+        errorMessage: { text: error.msg } if error.code and error.code.includes('postcode'),
+        id: "postcode",
+        name: "postcode",
+        value: postcode,
+        classes: "govuk-input--width-20"
+      }) }}
+    {% endset -%}
+
+    {% if ibcaEnabled %}
+    {{ govukRadios({
+      name: "appealType",
+      value: appealType,
+      idPrefix: "appeal-type",
+      fieldset: { legend: {
+        text: content[i18n.language].assignCase.title,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--xl"
+      } },
+      errorMessage: {
+        text: error.msg
+      } if error.code == 'missing-appealType',
+      items: [
+        {
+          value: "ibca",
+          id: "appeal-type-ibca",
+          text: content[i18n.language].assignCase.appealTypeOptions.ibca.radioOption,
+          conditional: { html: ibcaReferenceHtml }
+        },
+        {
+          value: "otherBenefits",
+          id: "appeal-type-otherBenefits",
+          text: content[i18n.language].assignCase.appealTypeOptions.otherBenefits.radioOption,
+          conditional: { html: postcodeHtml }
+        }
+      ]
     }) }}
+    {% else %}
+      <h1 class="govuk-heading-l">{{ content[i18n.language].assignCase.appealTypeOptions.otherBenefits.inputText }}</h1>
+      {{ govukInput({ label: {
+        text: content[i18n.language].assignCase.appealTypeOptions.otherBenefits.hintText },
+        errorMessage: { text: error.msg } if error.code and error.code.includes('postcode'),
+        id: "postcode",
+        name: "postcode",
+        value: postcode,
+        classes: "govuk-input--width-20"
+      }) }}
+    {% endif %}
     <input id="assign-case"
       name="assign-case"
       type="submit"
