@@ -258,25 +258,25 @@
         "charges": "Find out about call charges",
         "ibca": {
           "Scotland": {
-            "desc": "Infected Blood Compensation appeals helpline (Scotland)",
+            "desc": "IBC appeals helpline (Scotland)",
             "phone": "Telephone: 0300 790 6234",
             "availability": "Monday to Friday, 9am to 4pm",
             "emailText": "Email:",
-            "emailAddress": "ibca-Glasgow@justice.gov.uk"
+            "emailAddress": "sscsa-glasgow@Justice.gov.uk"
           },
           "WelshSpeakers": {
-            "desc": "Infected Blood Compensation appeals helpline (for Welsh speakers)",
+            "desc": "IBC appeals helpline (for Welsh speakers)",
             "phone": "Telephone: 0300 303 5170",
             "availability": "Monday to Friday, 9am to 4pm",
             "emailText": "Email:",
             "emailAddress": "---email-wales----@justice.gov.uk"
           },
           "AllOthers": {
-            "desc": "Infected Blood Compensation appeals helpline (All other appellants)",
-            "phone": "Telephone: XXXX XXX XXXX",
+            "desc": "IBC appeals helpline (All other appellants)",
+            "phone": "Telephone: 0300 131 2850",
             "availability": "Monday to Friday, 9am to 4pm",
             "emailText": "Email:",
-            "emailAddress": "ibca@justice.gov.uk"
+            "emailAddress": "ContactIBCAppeals@justice.gov.uk"
           }
         },
         "England": {
@@ -1990,22 +1990,22 @@
       "email": "Cyfeiriad e-bost yr Apelydd",
       "ibca": {
           "Scotland": {
-            "desc": "Infected Blood Compensation appeals helpline (Yr Alban)",
+            "desc": "IBC appeals helpline (Yr Alban)",
             "phone": "Rhif ffôn: 0300 790 6234",
             "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm",
             "emailText": "E-bost:",
-            "emailAddress": "ibca-Glasgow@justice.gov.uk"
+            "emailAddress": "sscsa-glasgow@Justice.gov.uk"
           },
           "WelshSpeakers": {
-            "desc": "Infected Blood Compensation appeals helpline (Cymru a Lloegr - Siaradwyr Cymraeg)",
+            "desc": "IBC appeals helpline (Cymru a Lloegr - Siaradwyr Cymraeg)",
             "phone": "Rhif ffôn: 0300 303 5170",
             "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm",
             "emailText": "E-bost:",
             "emailAddress": "---email-wales----@justice.gov.uk"
           },
           "AllOthers": {
-            "desc": "Infected Blood Compensation appeals helpline (All other appellants)",
-            "phone": "Rhif ffôn: XXXX XXX XXXX",
+            "desc": "IBC appeals helpline (All other appellants)",
+            "phone": "Rhif ffôn: 0300 131 2850",
             "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm",
             "emailText": "E-bost:",
             "emailAddress": "ibca@justice.gov.uk"
