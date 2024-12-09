@@ -1609,6 +1609,7 @@
       "telephone": {
         "title": "Ffoniwch ni",
         "desc": "Siaradwch ag un o’n asiantau dros y ffôn nawr.",
+        "charges": "Gwybodaeth am brisiau galwadau",
         "England": {
           "desc": "Llinell gymorth apeliadau budd-daliadau (Cymru a Lloegr - Siaradwyr Cymraeg)",
           "phone": "Rhif ffôn: 0300 303 5170",
