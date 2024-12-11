@@ -2632,23 +2632,23 @@
       "appealTypeOptions": {
         "ibca": {
           "radioOption": "Apêl Iawndal Gwaed Heintiedig",
-          "inputText": "Enter the IBCA reference number provided in your correspondence Review Decision Notice or any correspondence from IBCA."
+          "inputText": "Rhowch y cyfeirnod IBCA a ddarperir yn eich gohebiaeth Hysbysiad o Benderfyniad Adolygiad neu unrhyw ohebiaeth gan yr IBCA."
         },
         "otherBenefits": {
           "radioOption": "Apêl Budd-dal",
-          "inputText": "Enter the postcode for the appeal",
-          "hintText": "This is the postcode used when the appeal was registered"
+          "inputText": "Nodwch y cod post ar gyfer yr apêl",
+          "hintText": "Dyma’r cod post a ddefnyddiwyd pan gofrestrwyd yr apêl"
         },
       "errors": {
         "missing": {
-          "appealType": "You have not selected an appeal type. Select your appeal type before continuing.",
+          "appealType": "Nid ydych wedi dewis math o apêl. Dewiswch eich math o apêl cyn parhau.",
           "postcode": "Nid ydych wedi nodi cod post. Nodwch eich cod post cyn parhau.",
-          "ibcaReference": "You have not entered an IBCA reference. Enter your IBCA reference before continuing.",
-          "tya": "Please use the MYA link in the most recent email we've sent you"
+          "ibcaReference": "Nid ydych wedi rhoi cyfeirnod IBCA. Rhowch eich cyfeirnod IBCA cyn parhau.",
+          "tya": "Defnyddiwch y ddolen MYA yn yr e-bost ddiweddaraf y bu inni ei anfon atoch chi"
         },
         "invalid": {
           "postcode": "Nid yw’r manylion rydych wedi’u rhoi yn cyd-fynd â’r wybodaeth sydd gennym, cysylltwch â ni os gwelwch yn dda",
-          "ibcaReference": "The IBCA reference you entered is not recognised. Please check and try again."
+          "ibcaReference": "Nid yw’r cyfeirnod IBCA a roddwyd gennych wedi’i adnabod. Gwiriwch y cyfeirnod a rhowch gynnig arall arni."
         }
       }
     },
