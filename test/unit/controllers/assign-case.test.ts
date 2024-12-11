@@ -306,6 +306,8 @@ describe('controllers/assign-case.js', function () {
           'invalid123',
           'abc123',
           'ab1cd2',
+          'a11i22',
+          'a11l22',
         ]) {
           req.body = { appealType, ibcaReference };
           const error = {
