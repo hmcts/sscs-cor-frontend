@@ -49,7 +49,7 @@ withPipeline("nodejs", product, component) {
 
     before("functionalTest:preview") {
         env.TRIBUNALS_API_URL = tribunalsAat
-        sh 'echo SSCS_API_URL=$TRIBUNALS_API_URL'
+        sh 'echo TRIBUNALS_API_URL=$TRIBUNALS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
@@ -61,7 +61,7 @@ withPipeline("nodejs", product, component) {
     }
     before("functionalTest:aat") {
         env.TRIBUNALS_API_URL = tribunalsAat
-        sh 'echo SSCS_API_URL=$TRIBUNALS_API_URL'
+        sh 'echo TRIBUNALS_API_URL=$TRIBUNALS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
