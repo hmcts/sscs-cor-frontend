@@ -1,15 +1,18 @@
 import * as cases from 'app/server/controllers/cases';
 import * as Paths from 'app/server/paths';
 import * as AppInsights from 'app/server/app-insights';
+import { CaseService } from 'app/server/services/cases';
 import express, { Router } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
 
 import oralCases from '../../mock/tribunals/data/oral/activeAndDormantCases.json';
 import { SinonStub } from 'sinon';
+import { RequestPromise } from '../../../app/server/services/request-wrapper';
 
 describe('controllers/cases', function () {
   let req: any;
   let res: any;
+  let caseService: CaseService = null;
 
   beforeEach(function () {
     req = {
@@ -23,6 +26,7 @@ describe('controllers/cases', function () {
       render: sinon.stub(),
       send: sinon.stub(),
     };
+    caseService = new CaseService('apiUrl');
 
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackEvent');
@@ -72,6 +76,59 @@ describe('controllers/cases', function () {
         sinon.match.has('message', error.message)
       );
       expect(AppInsights.trackEvent).to.have.been.calledOnce;
+    });
+  });
+
+  describe('caseService api calls', function () {
+    let rpStub: sinon.SinonStub;
+
+    beforeEach(function () {
+      rpStub = sinon.stub(RequestPromise, 'request');
+    });
+
+    afterEach(function () {
+      rpStub.restore();
+    });
+
+    it('getOnlineHearing', async function () {
+      const expectedRsp = { data: 'getOnlineHearing response' };
+      rpStub.resolves(expectedRsp);
+
+      const actualRsp = await caseService.getOnlineHearing('email', req);
+
+      expect(rpStub).to.have.been.calledOnce;
+      expect(actualRsp).to.deep.equal(expectedRsp);
+    });
+
+    it('getCasesForCitizen', async function () {
+      const expectedRsp = { cases: [{ data: 'getCasesForCitizen response' }] };
+      rpStub.resolves(expectedRsp);
+
+      const actualRsp = await caseService.getCasesForCitizen(
+        'email',
+        'tya',
+        req
+      );
+
+      expect(rpStub).to.have.been.calledOnce;
+      expect(actualRsp).to.deep.equal(expectedRsp);
+    });
+
+    it('assignOnlineHearingsToCitizen', async function () {
+      const expectedRsp = { data: 'assign case response' };
+      rpStub.resolves(expectedRsp);
+
+      const actualRsp = await caseService.assignOnlineHearingsToCitizen(
+        'email',
+        'tya',
+        'postcode',
+        'ibcaReference',
+        req
+      );
+
+      // Assert
+      expect(rpStub).to.have.been.calledOnce;
+      expect(actualRsp).to.deep.equal(expectedRsp);
     });
   });
 });

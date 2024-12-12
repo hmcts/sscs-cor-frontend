@@ -10,7 +10,7 @@ import { expect, sinon } from 'test/chai-sinon';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import HttpException from 'app/server/exceptions/HttpException';
 
-const tribunalsApiUrl: string = config.get('tribunals.api-url');
+const tribunalsApiUrl: string = config.get('tribunals-api.url');
 
 describe('services/request-type', function () {
   const hearingId = '121';

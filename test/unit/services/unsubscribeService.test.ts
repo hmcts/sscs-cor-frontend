@@ -11,7 +11,7 @@ import superagent, { SuperAgentRequest } from 'superagent';
 import { SinonStub } from 'sinon';
 import { after } from 'mocha';
 
-const apiUrl: string = config.get('tribunals.api-url');
+const apiUrl: string = config.get('tribunals-api.url');
 
 describe('services/unsubscribeService', function () {
   const session: SessionData = {

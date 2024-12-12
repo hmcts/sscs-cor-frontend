@@ -14,6 +14,7 @@ describe('Manage your appeal app @smoke', function () {
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
   let sidamUser;
+
   before(async function () {
     ({
       ccdCase,

@@ -2,7 +2,7 @@
   "node": {
     "port": 3003
   },
-  "api": {
+  "tribunals-api": {
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal",
     "retries": 0
   },

@@ -9,7 +9,7 @@ const clientSecret = config.get('s2s.oauth2.client.secret');
 const redirectUrl = config.get('s2s.oauth2.redirectUrl');
 import { Logger } from '@hmcts/nodejs-logging';
 import otp from 'otp';
-import rp from 'request-promise';
+import rp from '@cypress/request-promise';
 
 const logger = Logger.getLogger('question.ts');
 const timeout = config.get('apiCallTimeout');

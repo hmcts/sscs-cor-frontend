@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 import config from 'config';
 
-const apiUrl: string = config.get('tribunals.api-url');
+const apiUrl: string = config.get('tribunals-api.url');
 
 export async function getHearingRecording(
   caseId: number,

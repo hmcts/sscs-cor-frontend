@@ -16,7 +16,7 @@ describe('services/tyaService', function () {
   };
 
   before(function () {
-    tribunalsApiUrl = config.get('tribunals.api-url');
+    tribunalsApiUrl = config.get('tribunals-api.url');
     trackYourAppealService = new TrackYourApealService(tribunalsApiUrl);
   });
 

@@ -2,8 +2,8 @@ import { Request } from 'express';
 import { RequestPromise } from './request-wrapper';
 import config from 'config';
 
-const retry: number = config.get('api.retries');
-const delay: number = config.get('api.delay');
+const retry: number = config.get('tribunals-api.retries');
+const delay: number = config.get('tribunals-api.delay');
 
 export interface EvidenceDescriptor {
   created_date: string;

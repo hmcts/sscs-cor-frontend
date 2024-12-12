@@ -1,11 +1,11 @@
 import { LoggerInstance } from 'winston';
 import config from 'config';
 import { Logger } from '@hmcts/nodejs-logging';
-import rp from 'request-promise';
+import rp from '@cypress/request-promise';
 
 const logger: LoggerInstance = Logger.getLogger('test ccd');
 
-const apiUrl = config.get('api.url');
+const apiUrl = config.get('tribunals-api.url');
 const timeout: number = config.get('apiCallTimeout');
 
 export interface CCDCase {

@@ -1,5 +1,5 @@
 {
-  "api": {
+  "tribunals-api": {
     "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
   },
   "redis": {

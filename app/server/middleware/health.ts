@@ -20,7 +20,7 @@ client.on('error', (error) => {
 const healthTimeout: number = config.get('health.timeout');
 const healthDeadline: number = config.get('health.deadline');
 
-const apiUrl: string = config.get('api.url');
+const apiUrl: string = config.get('tribunals-api.url');
 const apiHealthUrl = `${apiUrl}/health`;
 const apiReadinessUrl = `${apiHealthUrl}/readiness`;
 

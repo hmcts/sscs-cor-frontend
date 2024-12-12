@@ -49,6 +49,7 @@
     }
   },
   "dependencies": {
+    "@cypress/request-promise": "^5.0.0",
     "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/ctsc-web-chat": "^0.3.12",
     "@hmcts/nodejs-healthcheck": "^1.8.4",
@@ -98,6 +99,7 @@
     "superagent": "^9.0.1"
   },
   "devDependencies": {
+    "@cypress/request": "^3.0.6",
     "@hmcts/eslint-config": "^1.4.0",
     "@stryker-mutator/core": "^6.3.0",
     "@stryker-mutator/mocha-runner": "^6.3.0",
