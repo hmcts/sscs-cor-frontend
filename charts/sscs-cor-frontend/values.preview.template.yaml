@@ -9,7 +9,6 @@ nodejs:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
     INFECTED_BLOOD_COMPENSATION_ENABLED: true
-    TRIBUNALS_API_URL: 'https://sscs-tribunals-api-pr-4140.preview.platform.hmcts.net'
   keyVaults:
     sscs:
       secrets:

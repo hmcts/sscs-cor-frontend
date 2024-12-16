@@ -48,8 +48,8 @@ withPipeline("nodejs", product, component) {
     syncBranchesWithMaster(branchesToSync)
 
     before("functionalTest:preview") {
-        env.TRIBUNALS_API_URL = "https://sscs-tribunals-api-pr-4140.preview.platform.hmcts.net"
-        sh 'echo SSCS_API_URL=$TRIBUNALS_API_URL'
+        env.TRIBUNALS_API_URL = tribunalsAat
+        sh 'echo TRIBUNALS_API_URL=$TRIBUNALS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
@@ -61,7 +61,7 @@ withPipeline("nodejs", product, component) {
     }
     before("functionalTest:aat") {
         env.TRIBUNALS_API_URL = tribunalsAat
-        sh 'echo SSCS_API_URL=$TRIBUNALS_API_URL'
+        sh 'echo TRIBUNALS_API_URL=$TRIBUNALS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
         env.IDAM_API_URL = idamApiUrlAat
