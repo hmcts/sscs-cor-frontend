@@ -62,7 +62,9 @@
     {% else %}
       {% set languageFlag = queryStringConcat + "lng=en" %}
     {% endif %}
-    {% set phaseBarHtml = phaseBarHtml + (content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}", currentUrl) | replace("{languageFlag}", languageFlag)) %}
+    {% if not isIbc %}
+      {% set phaseBarHtml = phaseBarHtml + (content[i18n.language].phaseBanner.languageToggle | replace("{currentUrl}", currentUrl) | replace("{languageFlag}", languageFlag)) %}
+    {% endif %}
   {{ govukPhaseBanner({ tag: { text: "beta" }, html: phaseBarHtml }) }}
   {% include "includes/account-navigation.njk" %}
 {% endblock beforeContent %}

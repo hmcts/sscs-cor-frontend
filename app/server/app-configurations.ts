@@ -114,6 +114,12 @@ export function configureNunjucks(app: Application): void {
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
+    const isIbcaEnabled = req.app.locals.ibcaEnabled;
+    if (isIbcaEnabled && req.body.appealType === 'ibca') {
+      nunEnv.addGlobal('isIbc', true);
+    } else {
+      nunEnv.addGlobal('isIbc', false);
+    }
     next();
   });
 
