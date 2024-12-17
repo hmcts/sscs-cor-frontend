@@ -2495,7 +2495,6 @@
           "ibca-para1": "Mae'r math hwn o dystiolaeth yn ddefnyddiol mewn apeliadau lle rydych eisiau dangos bod gennych gyflwr meddygol. Gall llythyr gan eich meddyg, ffisiotherapydd, gweithiwr cymdeithasol neu ymgynghorydd ysbyty helpu i brofi hyn. Bydd llythyr defnyddiol yn esbonio sut mae eich cyflwr yn effeithio eich bywyd.",
           "ibca-para2": "Ar gyfer DWP/HMRC dylai hefyd ganolbwyntio ar yr adeg y gwnaeth yr Asiantaeth Haen Gyntaf eu penderfyniad ynghylch eich hawl i fudd-daliadau. Nid yw llythyrau sydd ond yn dangos eich bod wedi cael apwyntiad yn ddefnyddiol.",
           "ibca-para3": "Cofiwch y gall eich meddyg godi tâl arnoch am ysgrifennu llythyr. Ni all y tribiwnlys eich ad-dalu am y rhain."
-        }
         },
         "writtenStatementTitle": "Datganiad ysgrifenedig",
         "writtenStatementDesc": {
@@ -2638,7 +2637,8 @@
           "radioOption": "Apêl Budd-dal",
           "inputText": "Nodwch y cod post ar gyfer yr apêl",
           "hintText": "Dyma’r cod post a ddefnyddiwyd pan gofrestrwyd yr apêl"
-        },
+        }
+      },
       "errors": {
         "missing": {
           "appealType": "Nid ydych wedi dewis math o apêl. Dewiswch eich math o apêl cyn parhau.",
