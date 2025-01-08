@@ -99,12 +99,7 @@ function flattenArray(text: string | Array<string>): string {
 }
 
 function isIbcaBenefitType(): boolean {
-  const benefitType = process.env.BENEFIT_TYPE;
-  return (
-    benefitType !== null &&
-    benefitType !== undefined &&
-    process.env.BENEFIT_TYPE === 'infectedbloodcompensation'
-  );
+  return process.env.BENEFIT_TYPE === 'infectedbloodcompensation';
 }
 
 export function configureNunjucks(app: Application): void {
