@@ -15,14 +15,15 @@
   {% include "includes/header.njk" %}
 {% endblock header %}
 {% block bodyStart %}
-  {% if isIbca %}
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KZ33DQ42" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-  {% else %}
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM" height="0" width="0" style="display: none;visibility: hidden" title="GTM"></iframe></noscript>
-  {% endif %}
+  <!-- Google Tag Manager (noscript) -->
+  <noscript >
+    <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmAccountId }}"
+            height="0"
+            width="0"
+            style="display: none;
+                   visibility: hidden"
+            title="GTM"></iframe>
+  </noscript>
 {% if environment === 'production' %}
 <script 
     type="text/javascript" 

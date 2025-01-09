@@ -11,6 +11,7 @@ import { dateFormat } from './utils/dateUtils';
 import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
 import content from '../common/locale/content.json';
 import * as path from 'path';
+import e from 'express';
 
 const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 
@@ -98,8 +99,11 @@ function flattenArray(text: string | Array<string>): string {
   return text;
 }
 
-function isIbcaBenefitType(): boolean {
-  return process.env.BENEFIT_TYPE === 'infectedbloodcompensation';
+function getGtmAccountId(): string {
+  if (process.env.BENEFIT_TYPE === 'infectedbloodcompensation') {
+    return 'GTM-KZ33DQ42';
+  }
+  return 'GTM-N4FNRXM';
 }
 
 export function configureNunjucks(app: Application): void {
@@ -118,7 +122,7 @@ export function configureNunjucks(app: Application): void {
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
-    nunEnv.addGlobal('isIbca', isIbcaBenefitType());
+    nunEnv.addGlobal('gtmAccountId', getGtmAccountId());
     next();
   });
 
