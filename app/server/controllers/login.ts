@@ -196,7 +196,6 @@ export function getIdamCallback(
           await trackYourAppealService.getAppeal(caseId, req);
         req.session.appeal = appeal;
         req.session.subscriptions = subscriptions;
-        process.env.BENEFIT_TYPE = appeal.benefitType;
 
         logger.info(
           `Logging in ${email} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`

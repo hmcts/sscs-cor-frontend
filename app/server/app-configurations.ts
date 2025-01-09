@@ -11,7 +11,6 @@ import { dateFormat } from './utils/dateUtils';
 import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
 import content from '../common/locale/content.json';
 import * as path from 'path';
-import e from 'express';
 
 const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 
