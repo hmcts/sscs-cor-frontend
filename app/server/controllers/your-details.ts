@@ -6,7 +6,6 @@ import { Dependencies } from '../routes';
 
 function getYourDetails(req: Request, res: Response) {
   const session = req.session;
-  const appeal = session.appeal;
 
   if (!session) {
     const missingCaseIdError = new Error(
@@ -16,7 +15,7 @@ function getYourDetails(req: Request, res: Response) {
     AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
   }
 
-  return res.render('your-details.njk', { details: session.case, appeal });
+  return res.render('your-details.njk', { details: session.case, appeal: session.appeal });
 }
 
 function setupYourDetailsController(deps: Dependencies) {
