@@ -1,3 +1,4 @@
+{% set gtmAccountId = gtmAccountIbca if appeal.benefitType === 'infectedbloodcompensation' else gtmAccount %}
 <!-- Google Tag Manager -->
 <script>
   (function (w, d, s, l, i) {
@@ -16,4 +17,3 @@
       media="screen"
       rel="stylesheet"
       type="text/css"/>
-      

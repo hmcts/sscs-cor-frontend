@@ -99,13 +99,6 @@ function flattenArray(text: string | Array<string>): string {
   return text;
 }
 
-function getGtmAccountId(): string {
-  if (process.env.BENEFIT_TYPE === 'infectedbloodcompensation') {
-    return 'GTM-KZ33DQ42';
-  }
-  return 'GTM-N4FNRXM';
-}
-
 export function configureNunjucks(app: Application): void {
   const i18next: i18n = app.locals.i18n;
 
@@ -122,7 +115,8 @@ export function configureNunjucks(app: Application): void {
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
-    nunEnv.addGlobal('gtmAccountId', getGtmAccountId());
+    nunEnv.addGlobal('gtmAccount', 'GTM-N4FNRXM');
+    nunEnv.addGlobal('gtmAccountIbca', 'GTM-KZ33DQ42');
     next();
   });
 
