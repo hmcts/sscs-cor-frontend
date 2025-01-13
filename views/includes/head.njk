@@ -1,3 +1,4 @@
+{% set gtmAccountId = gtmAccountIbca if appeal.benefitType === 'infectedbloodcompensation' else gtmAccount %}
 <!-- Google Tag Manager -->
 <script>
   (function (w, d, s, l, i) {
@@ -9,7 +10,7 @@
     j.async = true;
     j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
     f.parentNode.insertBefore(j, f);
-  })(window, document, 'script', 'dataLayer', 'GTM-N4FNRXM');
+  })(window, document, 'script', 'dataLayer', '{{ gtmAccountId }}');
 </script>
 <!-- End Google Tag Manager -->
 <link href="/public/css/main.css"

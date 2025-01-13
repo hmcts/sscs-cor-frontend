@@ -4,6 +4,7 @@
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% set assetPath = "/public/govuk-frontend/" %}
 {% set ibcaPrefix = 'ibca-' if ibcaEnabled  %}
+{% set gtmAccountId = gtmAccountIbca if appeal.benefitType === 'infectedbloodcompensation' else gtmAccount %}
 {% block pageTitle %}
   {{ content[i18n.language].pageTitle | safe }}
 {% endblock pageTitle %}
@@ -17,7 +18,7 @@
 {% block bodyStart %}
   <!-- Google Tag Manager (noscript) -->
   <noscript >
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4FNRXM"
+    <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmAccountId }}"
             height="0"
             width="0"
             style="display: none;
@@ -32,7 +33,7 @@
     integrity="sha384-S3zjnvflO7BJA6DyU2XOAJ5ekINFsWwl4Nq1ooBVGdTwjmsIOtQ3b/O2rhRaTvrc"></script>
 {% else %}
   <!-- Dynatrace manual injection snippet (noscript) -->
-  <script 
+ <script 
       type="text/javascript" 
       src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/5757482cea762c9_complete.js" 
       crossorigin="anonymous"
