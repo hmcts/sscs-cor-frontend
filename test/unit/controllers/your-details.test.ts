@@ -67,7 +67,7 @@ describe('controllers/your-details', function () {
 
       expect(res.render).to.have.been.calledOnce.calledWith(
         'your-details.njk',
-        { details: req.session.case }
+        { details: req.session.case, appeal: req.session.appeal }
       );
     });
 

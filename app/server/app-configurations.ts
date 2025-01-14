@@ -114,6 +114,8 @@ export function configureNunjucks(app: Application): void {
 
   app.use((req, res, next) => {
     nunEnv.addGlobal('currentUrl', req.url);
+    nunEnv.addGlobal('gtmAccount', 'GTM-N4FNRXM');
+    nunEnv.addGlobal('gtmAccountIbca', 'GTM-KZ33DQ42');
     next();
   });
 
