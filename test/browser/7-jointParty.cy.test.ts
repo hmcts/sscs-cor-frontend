@@ -1,15 +1,13 @@
 import { Page } from 'puppeteer';
-import { startServices } from 'test/browser/common';
+import { CY_CONTACT_US_OPEN_HEIGHT, startServices } from 'test/browser/common';
 import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
 import * as _ from 'lodash';
 import { expect } from 'test/chai-sinon';
 import config from 'config';
-import pa11y from 'pa11y';
 import content from 'app/common/locale/content.json';
 
-const pa11yScreenshotPath = config.get('pa11yScreenshotPath');
 const pa11yOpts = _.clone(config.get('pa11y'));
 
 describe('CY -Joint party - Manage your appeal app @mya @nightly', function () {
@@ -127,7 +125,7 @@ describe('CY -Joint party - Manage your appeal app @mya @nightly', function () {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(915);
+      expect(heightOpen).to.equal(CY_CONTACT_US_OPEN_HEIGHT);
     });
   });
 });
