@@ -128,7 +128,7 @@ describe('CY - Representative - Manage your appeal app @mya @nightly', function 
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(465);
+      expect(heightOpen).to.equal(915);
     });
   });
 });

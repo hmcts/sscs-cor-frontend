@@ -123,7 +123,7 @@ describe('Joint party - Manage your appeal app @mya @nightly', function () {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(585);
+      expect(heightOpen).to.equal(1035);
     });
   });
 });
