@@ -141,6 +141,12 @@ export function configureNunjucks(app: Application): void {
     }
   );
   nunEnv.addFilter(
+      'typeOfHearing',
+      function typeOfHearing(this, typeOfHearing: string) {
+        return typeOfHearing === "direction" ? "Direction " : "";
+      }
+  );
+  nunEnv.addFilter(
     'benefitAcronym',
     function benefitAcronym(this, benefitType: string) {
       return nunjucks.renderString(

@@ -144,6 +144,7 @@ export interface Appeal {
   audioVideoEvidence?: Array<AVEvidence>;
   benefitType?: string;
   hearingType?: string;
+  typeOfHearing?: string;
   createdInGapsFrom?: string;
   name?: string;
   surname?: string;
