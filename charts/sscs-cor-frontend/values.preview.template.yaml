@@ -9,6 +9,10 @@ nodejs:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
     INFECTED_BLOOD_COMPENSATION_ENABLED: true
+    TRIBUNALS_API_URL: 'http://sscs-tribunals-api-pr-4315.preview.platform.hmcts.net'
+    IDAM_URL: 'https://idam-web-public.aat.platform.hmcts.net'
+    IDAM_API_URL: 'https://idam-api.aat.platform.hmcts.net'
+    S2S_URL: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
   keyVaults:
     sscs:
       secrets:
