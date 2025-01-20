@@ -141,8 +141,8 @@ export function configureNunjucks(app: Application): void {
     }
   );
   nunEnv.addFilter(
-    'hmcHearingType',
-    function hmcHearingType(this, hmcHearingType: string) {
+    'hmcHearingTypeHearingBooked',
+    function hmcHearingTypeHearingBooked(this, hmcHearingType: string) {
       let hearingType = ''
       switch (hmcHearingType) {
         case 'BBA3-DIR':

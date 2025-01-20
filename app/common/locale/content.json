@@ -853,8 +853,8 @@
       "HEARING_BOOKED": {
         "heading": "Hearing booked",
         "content": {
-          "oral": ["A {{hmcHearingType}}hearing has been booked for your appeal."],
-          "paper": ["A {{hmcHearingType}}hearing has been booked for your appeal."]
+          "oral": ["A {{appeal.hmcHearingType | hmcHearingTypeHearingBooked}}hearing has been booked for your appeal."],
+          "paper": ["A {{appeal.hmcHearingType | hmcHearingTypeHearingBooked}}hearing has been booked for your appeal."]
         }
       },
       "LAPSED_REVISED": {
