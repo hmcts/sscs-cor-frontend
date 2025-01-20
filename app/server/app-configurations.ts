@@ -141,9 +141,14 @@ export function configureNunjucks(app: Application): void {
     }
   );
   nunEnv.addFilter(
-    'typeOfHearing',
-    function typeOfHearing(this, typeOfHearing: string) {
-      return typeOfHearing === 'direction' ? 'Direction ' : '';
+    'hmcHearingType',
+    function hmcHearingType(this, hmcHearingType: string) {
+      switch (hmcHearingType) {
+        case 'BBA3-DIR':
+          return 'Direction ';
+        default:
+          return '';
+      }
     }
   );
   nunEnv.addFilter(
