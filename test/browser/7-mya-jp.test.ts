@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer';
-import { startServices } from 'test/browser/common';
+import { EN_CONTACT_US_OPEN_HEIGHT, startServices } from 'test/browser/common';
 import { LoginPage } from 'test/page-objects/login';
 import { AssignCasePage } from 'test/page-objects/assign-case';
 import { StatusPage } from 'test/page-objects/status';
@@ -123,7 +123,7 @@ describe('Joint party - Manage your appeal app @mya @nightly', function () {
         return height;
       }, elementHandle);
 
-      expect(heightOpen).to.equal(585);
+      expect(heightOpen).to.equal(EN_CONTACT_US_OPEN_HEIGHT);
     });
   });
 });
