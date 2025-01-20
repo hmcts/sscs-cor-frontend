@@ -143,12 +143,15 @@ export function configureNunjucks(app: Application): void {
   nunEnv.addFilter(
     'hmcHearingType',
     function hmcHearingType(this, hmcHearingType: string) {
+      let hearingType = ''
       switch (hmcHearingType) {
         case 'BBA3-DIR':
-          return 'Direction ';
-        default:
-          return '';
+          hearingType = 'Direction ';
       }
+      return nunjucks.renderString(
+          hearingType,
+          this.ctx
+      );
     }
   );
   nunEnv.addFilter(
