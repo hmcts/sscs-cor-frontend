@@ -103,10 +103,6 @@ export async function setupApp(
       Feature.CONTACT_US_TELEPHONE_ENABLED,
       req.cookies
     );
-    app.locals.ibcaEnabled = isFeatureEnabled(
-      Feature.IBCA_ENABLED,
-      req.cookies
-    );
     app.locals.webChatEnabled = isFeatureEnabled(
       Feature.CONTACT_US_WEBCHAT_ENABLED,
       req.cookies

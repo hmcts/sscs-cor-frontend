@@ -5,7 +5,6 @@ enum Feature {
   ALLOW_CONTACT_US = 'allowContactUs.enabled',
   CONTACT_US_WEB_FORM_ENABLED = 'allowContactUs.webFormEnabled',
   CONTACT_US_TELEPHONE_ENABLED = 'allowContactUs.telephoneEnabled',
-  IBCA_ENABLED = 'allowContactUs.ibcaEnabled',
   CONTACT_US_WEBCHAT_ENABLED = 'allowContactUs.webChatEnabled',
   HISTORY_TAB = 'historyTab',
   MYA_PAGINATION_ENABLED = 'myaPagination',
@@ -20,8 +19,7 @@ function isFeatureEnabled(feature: Feature, force?: {}): boolean {
   ) {
     return force[`${feature}`] === 'true';
   }
-  const enabled = config.get(`featureFlags.${feature}`) === 'true';
-  return enabled;
+  return  config.get(`featureFlags.${feature}`) === 'true';
 }
 
 export { isFeatureEnabled, Feature };
