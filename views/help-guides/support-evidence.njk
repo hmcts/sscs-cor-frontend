@@ -1,7 +1,7 @@
 {% extends "help-guides/support-layout.njk" %}
 {% set pageHeader = content[i18n.language].helpGuides.evidence.title %}
 {% block pageTitle %}
-  {{ content[i18n.language].helpGuides.evidence.title }} - {{ content[i18n.language].general['ibca-serviceTitle'] }} - {{ content[i18n.language].general.govUK }}
+  {{ content[i18n.language].helpGuides.evidence.title }} - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
 {% endblock pageTitle %}
 {% block supportTitle %}
   {{ content[i18n.language].helpGuides.evidence.title }}
@@ -10,13 +10,13 @@
   <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.evidence.entry }}</p>
   <p>{{ content[i18n.language].helpGuides.evidence.para1 }}</p>
   <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.medicalEvidenceTitle }}</h2>
-  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc['ibca-para1'] }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc['ibca-para2'] }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc['ibca-para3'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc.para1 }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc['para2'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.medicalEvidenceDesc['para3'] }}</p>
   <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.writtenStatementTitle }}</h2>
-  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc['ibca-para1'] }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc['ibca-para2'] }}</p>
-  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc['ibca-para3'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc.para1 }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc['para2'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.evidence.writtenStatementDesc['para3'] }}</p>
   <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.photographsTitle }}</h2>
   <p>{{ content[i18n.language].helpGuides.evidence.photographsDesc.para1 }}</p>
   <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.evidence.whatYouSayTitle }}</h2>

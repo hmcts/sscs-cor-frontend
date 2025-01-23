@@ -2,13 +2,13 @@
 {% set pageHeader = content[i18n.language].helpGuides.withdrawAppeal.title | safe %}
 {% block pageTitle %}
   {{ content[i18n.language].helpGuides.withdrawAppeal.title }}
-  - {{ content[i18n.language].general['ibca-serviceTitle'] }} - {{ content[i18n.language].general.govUK }}
+  - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
 {% endblock pageTitle %}
 {% block supportTitle %}
   {{ content[i18n.language].helpGuides.withdrawAppeal.title }}
 {% endblock supportTitle %}
 {% block supportContent %}
-  <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.withdrawAppeal['ibca-entry'] }}</p>
+  <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.withdrawAppeal.entry }}</p>
   <p>{{ content[i18n.language].helpGuides.withdrawAppeal.para1 }}</p>
   <p>{{ content[i18n.language].helpGuides.withdrawAppeal.para2 }}</p>
   <p>{{ content[i18n.language].helpGuides.withdrawAppeal.para3 | safe }}</p>

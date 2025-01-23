@@ -215,8 +215,7 @@
       "logo": "HMCTS Logo",
       "signOut": "Sign out",
       "delete": "Delete",
-      "serviceTitle": "Appeal a benefit decision",
-      "ibca-serviceTitle": "Appeal a decision",
+      "serviceTitle": "Appeal a decision",
       "sessionExpiryWarning": "Your session will expire and you will be signed out after 20 minutes of inactivity",
       "govUK": "GOV.UK",
       "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
@@ -1140,19 +1139,15 @@
         "para1": "You should send any evidence to the tribunal as soon as you can. This is so the tribunal have time to consider it before making a decision on your appeal.",
         "medicalEvidenceTitle": "Medical evidence",
         "medicalEvidenceDesc": {
-          "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life. It should also be focussed on the time that DWP made their decision about your entitlement to the benefit. Letters which just show you had an appointment are not useful.",
-          "para2": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these.",
-          "ibca-para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life.",
-          "ibca-para2": "For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits. Letters which just show you had an appointment are not useful.",
-          "ibca-para3": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
+          "para1": "This type of evidence is useful in appeals where you want to show you have a medical condition. A letter from your doctor, physiotherapist, social worker or hospital consultant can help prove this. A useful letter will explain how your condition affects your life.",
+          "para2": "For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits. Letters which just show you had an appointment are not useful.",
+          "para3": "Please be aware your doctor may charge you for writing a letter. The tribunal cannot reimburse you for these."
         },
         "writtenStatementTitle": "Written statement",
         "writtenStatementDesc": {
-          "ibca-para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view.",
-          "ibca-para2": "For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits.",
-          "ibca-para3": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you.",
-          "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view. It should also be focussed on the time that the DWP made their decision about your entitlement to benefits. ",
-          "para2": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you. "
+          "para1": "Someone who lives with you or knows you well you could write a statement or letter. A useful statement describes how your condition affects your life and includes the types of activities you can and cannot do. It should be their own view.",
+          "para2": "For DWP/HMRC it should also be focused on the time that the First tier Agency made their decision about your entitlement to benefits.",
+          "para3": "It can be written by hand or on a computer but it should be signed by the person who wrote it. It should also say what their relationship is to you."
         },
         "photographsTitle": "Photographs",
         "photographsDesc": {
@@ -1179,14 +1174,11 @@
       },
       "hearing": {
         "title": "What to expect at your appeal hearing",
-        "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the Department of Work and Pensions (DWP).",
-        "imageText": "A tribunal hearing, with a judge and doctor. There will also be a disability expert in some benefit appeals.",
-        "ibca-entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the First tier Agency.",
-        "ibca-imageText": "The above picture is an example of a tribunal hearing, with a judge and doctor. There will also be a disability/financial expert in some benefit/compensation appeals if applicable.",
+        "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the First tier Agency.",
+        "imageText": "The above picture is an example of a tribunal hearing, with a judge and doctor. There will also be a disability/financial expert in some benefit/compensation appeals if applicable.",
         "beforeHearingTitle": "Before your hearing",
         "beforeHearingDesc": {
-          "ibca-para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from the First tier Agency as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
-          "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from DWP as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
+          "para1": "Make sure you have all the documents that relate to your appeal. You should have received these in the post from the First tier Agency as a numbered ‘bundle’ of documents. Bring these with you to the hearing.",
           "para2": "You should plan to arrive at the hearing venue at least 15 minutes before it starts. Your hearing may go ahead without you if you are late, or be postponed to a different day. "
         },
         "arriveTitle": "When you arrive",
@@ -1199,44 +1191,36 @@
         },
         "peopleInTheRoomTitle": "The people at your hearing",
         "peopleInTheRoomDesc": {
-          "ibca-para1": "The tribunal panel is made up of 1-3 people (one will always be a judge), depending on which benefit/compensation you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from the First tier agency.",
-          "ibca-para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. The disability/financial experts will provide their specific knowledge to support the tribunal",
-          "para1": "The tribunal panel is made up of 2 or 3 people, depending on which benefit you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from DWP.",
-          "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. If there is a disability expert in your hearing then they will provide their knowledge of disability issues and how disability affects people."
+          "para1": "The tribunal panel is made up of 1-3 people (one will always be a judge), depending on which benefit/compensation you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from the First tier agency.",
+          "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. The disability/financial experts will provide their specific knowledge to support the tribunal"
         },
         "duringHearingTitle": "During your hearing",
         "duringHearingDesc": {
-          "ibca-para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask the First tier Agency some questions. The whole hearing usually lasts about an hour.",
-          "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask DWP some questions. The whole hearing usually lasts about an hour.",
+          "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask the First tier Agency some questions. The whole hearing usually lasts about an hour.",
           "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
         },
         "gettingDecisionTitle": "Getting a decision",
         "gettingDecisionDesc": {
           "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.",
-          "para2": "The judge will explain whether you’re entitled to the benefit and if so, at what level.",
-          "ibca-para2": "The judge will explain whether you’re entitled to the benefit/compensation and if so, at what level.",
+          "para2": "The judge will explain whether you’re entitled to the benefit/compensation and if so, at what level.",
           "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
         },
-        "dwpTitle": "Department for Work and Pensions (DWP)",
-        "ibca-dwpTitle": "First tier Agency (DWP,HRMC and IBCA)",
+        "dwpTitle": "First tier Agency (DWP,HRMC and IBCA)",
         "dwpDesc": {
-          "para1": "A representative from DWP might be there. They are not part of the tribunal panel and are there to speak on behalf of DWP. They will not be the person who made the decision about your entitlement to benefits.",
-          "ibca-para1": "A representative from the First tier Agency might be there. They are not part of the tribunal panel and are there to speak on behalf of the First tier Agency. They will not be the person who made the decision about your entitlement to benefits/compensation."
+          "para1": "A representative from the First tier Agency might be there. They are not part of the tribunal panel and are there to speak on behalf of the First tier Agency. They will not be the person who made the decision about your entitlement to benefits/compensation."
         }
       },
       "representatives": {
         "linkHeader": "Representatives",
         "title": "Representatives",
-        "entry": "You can appoint someone as a ‘representative’ to help you with your benefit appeal, if you think you will not be able to manage the appeal by yourself.",
-        "ibca-entry": "You can appoint someone as a ‘representative’ to help you with your benefit/compensation appeal, if you think you will not be able to manage the appeal by yourself.",
+        "entry": "You can appoint someone as a ‘representative’ to help you with your benefit/compensation appeal, if you think you will not be able to manage the appeal by yourself.",
         "what": "A representative can:",
         "whatList": {
           "item1": "give you advice in relation to your appeal",
           "item2": "help you submit your appeal or prepare evidence",
           "item3": "act on your behalf during the appeal (they should ask your permission first)"
         },
-        "para1": "Anyone can be a representative, including friends and family. A good representative will know about the benefits system and can advise you on the law. ",
-        "ibca-para1": "Anyone can be a representative, including friends and family.",
+        "para1": "Anyone can be a representative, including friends and family.",
         "para2": "You can get a representative at your local advice centre, law centre or <a href=\"https://www.citizensadvice.org.uk/\">Citizens Advice</a> You will need to register them with the tribunal.",
         "representative": {
           "title": "Registering a representative",
@@ -1247,8 +1231,7 @@
       "withdrawAppeal": {
         "linkHeader": "Withdrawing an appeal",
         "title": "Withdrawing your appeal",
-        "entry": "You can withdraw your appeal at any time. DWP will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
-        "ibca-entry": "You can withdraw your appeal at any time. The First tier Agency will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
+        "entry": "You can withdraw your appeal at any time. The First tier Agency will be notified that you no longer want to appeal against their decision. The hearing for your appeal will be cancelled, if one has been arranged.",
         "para1": "You should talk to your representative or someone who knows about your appeal for advice on whether you should withdraw your appeal.",
         "para2": "If you still want to withdraw your appeal then should let the tribunal know as soon as possible.",
         "para3": "You can provide this information via any of the options in the <a href=\"/additional-evidence\"><b>Provide Evidence</b></a> tab . Or contact us on the number below."
@@ -1264,14 +1247,11 @@
     },
     "selectCase": {
       "title": "Select Case",
-      "heading": "Your benefit appeals",
-      "ibca-heading": "Your appeals",
+      "heading": "Your appeals",
       "appealReference": "Appeal reference",
-      "benefit": "Benefit",
-      "ibca-benefit": "Appeal",
+      "benefit": "Appeal",
       "dateSubmitted": "Date submitted",
-      "mrnDate": "MRN date",
-      "ibca-mrnDate": "MRN/Review Decision Notice date",
+      "mrnDate": "MRN/Review Decision Notice date",
       "action": "Action",
       "view": "View"
     },
@@ -1584,8 +1564,7 @@
       "logo": "Welsh HMCTS LOGO",
       "signOut": "Allgofnodi",
       "delete": "Dileu",
-      "serviceTitle": "Apelio yn erbyn penderfyniad ynghylch budd-dal",
-      "ibca-serviceTitle": "Apelio yn erbyn penderfyniad",
+      "serviceTitle": "Apelio yn erbyn penderfyniad",
       "sessionExpiryWarning": "Bydd eich sesiwn yn dod i ben ac fe gewch eich allgofnodi ar ôl 20 munud o anactifedd ",
       "govUK": "GOV.UK",
       "exitLink": "https://www.smartsurvey.co.uk/s/SSCS_Feedback/?pageurl=",
@@ -2490,19 +2469,15 @@
         "para1": "Dylech anfon unrhyw dystiolaeth i'r tribiwnlys cyn gynted ag y gallwch er mwyn i'r tribiwnlys gael amser i'w hystyried cyn gwneud penderfyniad ar eich apêl.",
         "medicalEvidenceTitle": "Tystiolaeth feddygol",
         "medicalEvidenceDesc": {
-          "para1": "Mae’r math hwn o dystiolaeth yn ddefnyddiol mewn achosion lle’r ydych eisiau dangos bod gennych gyflwr meddygol. Gall llythyr gan eich meddyg, ffisiotherapydd, gweithiwr cymdeithasol neu ymgynghorydd ysbyty helpu i brofi hyn. Bydd llythyr defnyddiol yn egluro sut mae eich cyflwr yn effeithio ar eich bywyd. Dylai hefyd ganolbwyntio ar yr adeg y gwnaeth DWP eu penderfyniad ynghylch eich hawl i gael y budd-dal. Nid yw llythyrau apwyntiadau yn ddefnyddiol.",
-          "para2": "Sylwch, gall eich meddyg godi ffi arnoch am ysgrifennu llythyr. Ni all y tribiwnlys ad-dalu'r costau hyn.",
-          "ibca-para1": "Mae'r math hwn o dystiolaeth yn ddefnyddiol mewn apeliadau lle rydych eisiau dangos bod gennych gyflwr meddygol. Gall llythyr gan eich meddyg, ffisiotherapydd, gweithiwr cymdeithasol neu ymgynghorydd ysbyty helpu i brofi hyn. Bydd llythyr defnyddiol yn esbonio sut mae eich cyflwr yn effeithio eich bywyd.",
-          "ibca-para2": "Ar gyfer DWP/HMRC dylai hefyd ganolbwyntio ar yr adeg y gwnaeth yr Asiantaeth Haen Gyntaf eu penderfyniad ynghylch eich hawl i fudd-daliadau. Nid yw llythyrau sydd ond yn dangos eich bod wedi cael apwyntiad yn ddefnyddiol.",
-          "ibca-para3": "Cofiwch y gall eich meddyg godi tâl arnoch am ysgrifennu llythyr. Ni all y tribiwnlys eich ad-dalu am y rhain."
+          "para1": "Mae'r math hwn o dystiolaeth yn ddefnyddiol mewn apeliadau lle rydych eisiau dangos bod gennych gyflwr meddygol. Gall llythyr gan eich meddyg, ffisiotherapydd, gweithiwr cymdeithasol neu ymgynghorydd ysbyty helpu i brofi hyn. Bydd llythyr defnyddiol yn esbonio sut mae eich cyflwr yn effeithio eich bywyd.",
+          "para2": "Ar gyfer DWP/HMRC dylai hefyd ganolbwyntio ar yr adeg y gwnaeth yr Asiantaeth Haen Gyntaf eu penderfyniad ynghylch eich hawl i fudd-daliadau. Nid yw llythyrau sydd ond yn dangos eich bod wedi cael apwyntiad yn ddefnyddiol.",
+          "para3": "Cofiwch y gall eich meddyg godi tâl arnoch am ysgrifennu llythyr. Ni all y tribiwnlys eich ad-dalu am y rhain."
         },
         "writtenStatementTitle": "Datganiad ysgrifenedig",
         "writtenStatementDesc": {
-          "ibca-para1": "Gall rywun sy'n byw gyda chi neu sy'n eich adnabod yn dda ysgrifennu datganiad neu lythyr. Mae datganiad defnyddiol yn disgrifio sut mae eich cyflwr yn effeithio eich bywyd ac yn cynnwys y mathau o weithgareddau y gallwch eu gwneud ac na allwch eu gwneud. Dylai hyn fod o’u safbwynt nhw eu hunain.",
-          "ibca-para2": "Ar gyfer DWP/HMRC dylai hefyd ganolbwyntio ar yr adeg y gwnaeth yr Asiantaeth Haen Gyntaf eu penderfyniad ynghylch eich hawl i fudd-daliadau.",
-          "ibca-para3": "Gellir ei ysgrifennu â llaw neu ei deipio ond dylai gael ei lofnodi gan y sawl a'i ysgrifennodd. Dylai hefyd ddweud beth yw eu perthynas â chi.",         
-          "para1": "Gall rhywun sy’n byw gyda chi neu rywun sy’n eich adnabod yn dda ysgrifennu datganiad neu lythyr. Mae datganiad defnyddiol yn disgrifio sut mae eich cyflwr yn effeithio ar eich bywyd a’r mathau o weithgareddau y gallwch eu gwneud a’r rhai na allwch eu gwneud. Dylai’r datganiad gyfleu eu safbwynt nhw. Dylai hefyd ganolbwyntio ar yr adeg y gwnaeth DWP eu penderfyniad ynghylch eich hawl i gael y budd-dal.",
-          "para2": "Gellir ei ysgrifennu â llaw neu ei deipio ond rhaid i'r unigolyn sydd wedi’i ysgrifennu ei lofnodi. Dylai hefyd nodi beth yw eu perthynas gyda chi."
+          "para1": "Gall rywun sy'n byw gyda chi neu sy'n eich adnabod yn dda ysgrifennu datganiad neu lythyr. Mae datganiad defnyddiol yn disgrifio sut mae eich cyflwr yn effeithio eich bywyd ac yn cynnwys y mathau o weithgareddau y gallwch eu gwneud ac na allwch eu gwneud. Dylai hyn fod o’u safbwynt nhw eu hunain.",
+          "para2": "Ar gyfer DWP/HMRC dylai hefyd ganolbwyntio ar yr adeg y gwnaeth yr Asiantaeth Haen Gyntaf eu penderfyniad ynghylch eich hawl i fudd-daliadau.",
+          "para3": "Gellir ei ysgrifennu â llaw neu ei deipio ond dylai gael ei lofnodi gan y sawl a'i ysgrifennodd. Dylai hefyd ddweud beth yw eu perthynas â chi."
         },
         "photographsTitle": "Ffotograffau",
         "photographsDesc": {
@@ -2529,14 +2504,11 @@
       },
       "hearing": {
         "title": "Beth i'w ddisgwyl yn eich gwrandawiad apêl",
-        "entry": "Mae eich gwrandawiad yn gyfle ichi egluro eich apêl budd-dal yn bersonol. Bydd panel tribiwnlys yn ystyried popeth byddwch yn ei ddweud wrthynt ac yn gwneud penderfyniad diduedd ynghylch eich apêl. Mae panel y tribiwnlys yn annibynnol o'r Adran Gwaith a Phensiynau (DWP).",
-        "imageText": "Bydd panel y tribiwnlys yn cynnwys barnwr a meddyg. Bydd yna arbenigwr anabledd hefyd mewn rhai apeliadau budd-dal. ",
-        "ibca-entry": "Mae eich gwrandawiad yn gyfle i chi esbonio'ch apêl am fudd-dal yn bersonol. Bydd panel tribiwnlys yn ystyried popeth a ddywedwch wrthynt ac yn gwneud penderfyniad diduedd ar eich apêl. Mae panel y tribiwnlys yn annibynnol ar yr Asiantaeth Haen Gyntaf.",
-        "ibca-imageText": "Mae'r llun uchod yn enghraifft o wrandawiad tribiwnlys, gyda barnwr a meddyg. Bydd arbenigwr anabledd/ariannol hefyd yn bresennol mewn rhai apeliadau am fudd-dal/iawndal os yw'n berthnasol.",
+        "entry": "Mae eich gwrandawiad yn gyfle i chi esbonio'ch apêl am fudd-dal yn bersonol. Bydd panel tribiwnlys yn ystyried popeth a ddywedwch wrthynt ac yn gwneud penderfyniad diduedd ar eich apêl. Mae panel y tribiwnlys yn annibynnol ar yr Asiantaeth Haen Gyntaf.",
+        "imageText": "Mae'r llun uchod yn enghraifft o wrandawiad tribiwnlys, gyda barnwr a meddyg. Bydd arbenigwr anabledd/ariannol hefyd yn bresennol mewn rhai apeliadau am fudd-dal/iawndal os yw'n berthnasol.",
         "beforeHearingTitle": "Cyn eich gwrandawiad",
         "beforeHearingDesc": {
-          "ibca-para1": "Sicrhewch fod gennych yr holl ddogfennau sy'n ymwneud â'ch apêl. Dylech fod wedi cael y rhain yn y post gan yr Asiantaeth Haen Gyntaf fel 'bwndel' o ddogfennau wedi'u rhifo. Dewch â'r rhain gyda chi i'r gwrandawiad.",
-          "para1": "Gwnewch yn siwr bod gennych yr holl ddogfennau sy’n ymwneud â’ch apêl. Dylech fod wedi cael y rhain drwy’r post gan DWP fel ‘bwndel’ o ddogfennau wedi’u rhifo. Dewch â’r rhain gyda chi i'r gwrandawiad.",
+          "para1": "Sicrhewch fod gennych yr holl ddogfennau sy'n ymwneud â'ch apêl. Dylech fod wedi cael y rhain yn y post gan yr Asiantaeth Haen Gyntaf fel 'bwndel' o ddogfennau wedi'u rhifo. Dewch â'r rhain gyda chi i'r gwrandawiad.",
           "para2": "Dylech wneud trefniadau i gyrraedd lleoliad y gwrandawiad o leiaf 15 munud cyn iddo ddechrau. Efallai y bydd eich gwrandawiad yn digwydd hebddoch chi os byddwch yn hwyr, neu’n cael ei ohirio i ddiwrnod gwahanol."
         },
         "arriveTitle": "Pan fyddwch yn cyrraedd",
@@ -2549,45 +2521,37 @@
         },
         "peopleInTheRoomTitle": "Y bobl yn eich gwrandawiad",
         "peopleInTheRoomDesc": {
-          "ibca-para1": "Mae panel y tribiwnlys yn cynnwys rhwng 1 a 3 o bobl (bydd un ohonynt bob amser yn farnwr), yn dibynnu ar ba fudd-dal/iawndal rydych yn apelio. Bydd y panel yn ystyried dwy ochr yr apêl ac yn gwneud penderfyniad diduedd. Maent yn annibynnol ar yr asiantaeth haen gyntaf.",
-          "ibca-para2": "Y barnwr fydd yn cynnal y gwrandawiad a bydd yn egluro beth sy'n digwydd. Byddant hefyd yn cymryd nodiadau o'r hyn a ddywedir yn ystod y gwrandawiad. Bydd y meddyg yn darparu ei wybodaeth feddygol. Bydd yr arbenigwyr anabledd/ariannol yn darparu eu gwybodaeth benodol i gefnogi'r tribiwnlys",
-          "para1": "Mae panel y tribiwnlys yn cynnwys 2 neu 3 o bobl, yn ddibynnol ar y math o fudd-dal sy’n destun yr apêl. Bydd y panel yn ystyried dwy ochr yr apêl ac yn gwneud penderfyniad diduedd. Maent yn annibynnol o DWP.",
-          "para2": "Y barnwr sy’n rheoli’r gwrandawiad a bydd yn egluro beth sy’n digwydd. Byddant hefyd yn cymryd nodiadau o’r hyn sy’n cael ei ddweud yn ystod y gwrandawiad. Mae'r meddyg yno i ddarparu gwybodaeth feddygol. Os bydd arbenigwr anabledd yn eich gwrandawiad, yna bydd yn darparu gwybodaeth am faterion anabledd a sut mae anabledd yn effeithio ar bobl."
+          "para1": "Mae panel y tribiwnlys yn cynnwys rhwng 1 a 3 o bobl (bydd un ohonynt bob amser yn farnwr), yn dibynnu ar ba fudd-dal/iawndal rydych yn apelio. Bydd y panel yn ystyried dwy ochr yr apêl ac yn gwneud penderfyniad diduedd. Maent yn annibynnol ar yr asiantaeth haen gyntaf.",
+          "para2": "Y barnwr fydd yn cynnal y gwrandawiad a bydd yn egluro beth sy'n digwydd. Byddant hefyd yn cymryd nodiadau o'r hyn a ddywedir yn ystod y gwrandawiad. Bydd y meddyg yn darparu ei wybodaeth feddygol. Bydd yr arbenigwyr anabledd/ariannol yn darparu eu gwybodaeth benodol i gefnogi'r tribiwnlys"
         },
         "duringHearingTitle": "Yn ystod eich gwrandawiad",
         "duringHearingDesc": {
-          "ibca-para1": "Bydd panel y tribiwnlys yn gofyn rhai cwestiynau syml i chi. Dyma'ch cyfle i egluro eich ochr chi o'r apêl. Byddant yn gwrando ar bopeth rydych chi'n ei ddweud wrthyn nhw. Efallai y byddant hefyd yn gofyn  rhai cwestiynau i'r Asiantaeth Haen Gyntaf. Mae'r gwrandawiad cyfan fel arfer yn para tua awr.",
-          "para1": "Bydd panel y tribiwnlys yn gofyn rhywfaint o gwestiynau syml ichi. Dyma eich cyfle i egluro eich ochr chi o’r apêl. Byddant yn gwrando ar bopeth rydych yn ei ddweud wrthynt. Efallai byddant yn gofyn cwestiynau i DWP hefyd. Fel arfer bydd y gwrandawiad cyfan yn cymryd tua awr.",
+          "para1": "Bydd panel y tribiwnlys yn gofyn rhai cwestiynau syml i chi. Dyma'ch cyfle i egluro eich ochr chi o'r apêl. Byddant yn gwrando ar bopeth rydych chi'n ei ddweud wrthyn nhw. Efallai y byddant hefyd yn gofyn  rhai cwestiynau i'r Asiantaeth Haen Gyntaf. Mae'r gwrandawiad cyfan fel arfer yn para tua awr.",
           "para2": "Mae'n bwysig eich bod yn cyflwyno'ch holl dystiolaeth ymhell cyn y gwrandawiad fel bod gan banel y tribiwnlys amser i'w hadolygu. Os ydynt yn ei chael yn rhy hwyr, efallai y bydd yn rhaid iddynt ohirio'ch gwrandawiad tan ddiwrnod gwahanol."
         },
         "gettingDecisionTitle": "Gwneud penderfyniad",
         "gettingDecisionDesc": {
           "para1": "Ar ôl i chi ateb yr holl gwestiynau, gofynnir i chi aros y tu allan tra bydd panel y tribiwnlys yn trafod eich apêl. Yna gofynnir i chi fynd yn ôl i'r ystafell i gael gwybod y penderfyniad.",
-          "para2": "Bydd y barnwr yn egluro ichi a oes gennych hawl i gael y budd-dal, ac os felly, ar ba lefel.",
-          "ibca-para2": "Bydd y barnwr yn egluro a oes gennych hawl i'r budd-dal/iawndal ac os felly, ar ba lefel.",
+          "para2": "Bydd y barnwr yn egluro a oes gennych hawl i'r budd-dal/iawndal ac os felly, ar ba lefel.",
           "para3": "Weithiau bydd angen mwy o amser ar y tribiwnlys i wneud penderfyniad. Os bydd hynny'n digwydd, bydd y penderfyniad am eich apêl yn cael ei bostio atoch."
         },
-        "dwpTitle": "Yr Adran Gwaith a Phensiynau (DWP)",
-        "ibca-dwpTitle": "Asiantaeth haen gyntaf (DWP, HRMC ac IBCA)",
+        "dwpTitle": "Asiantaeth haen gyntaf (DWP, HRMC ac IBCA)",
         "dwpDesc": {
-          "para1": "Gall cynrychiolydd o DWP fod yna. Nid ydynt yn rhan o banel y tribiwnlys ac maent yna i siarad ar ran DWP. Nid y cynrychiolydd fydd yr unigolyn a wnaeth y penderfyniad ynghylch eich hawl i gael budd-daliadau.",
-          "ibca-para1": "Gallai cynrychiolydd o'r Asiantaeth Haen Gyntaf fod yno. Dydyn nhw ddim yn rhan o banel y tribiwnlys ac maen nhw yno i siarad ar ran yr Asiantaeth Haen Gyntaf. Nid nhw fydd y sawl a wnaeth y penderfyniad ynghylch eich hawl i fudd-dal/iawndal."
+          "para1": "Gallai cynrychiolydd o'r Asiantaeth Haen Gyntaf fod yno. Dydyn nhw ddim yn rhan o banel y tribiwnlys ac maen nhw yno i siarad ar ran yr Asiantaeth Haen Gyntaf. Nid nhw fydd y sawl a wnaeth y penderfyniad ynghylch eich hawl i fudd-dal/iawndal."
 
         }
       },
       "representatives": {
         "linkHeader": "Cynrychiolwyr",
         "title": "Cynrychiolwyr",
-        "entry": "Gallwch benodi rhywun fel ‘cynrychiolydd’ i'ch helpu gyda’ch apêl budd-dal, os ydych yn credu na fyddwch yn gallu delio â’r apêl ar eich pen eich hun.",
-        "ibca-entry": "Gallwch benodi rhywun fel 'cynrychiolydd' i'ch helpu gyda'ch apêl am fudd-dal/iawndal, os credwch na fyddwch yn gallu rheoli'r apêl eich hun.",
+        "entry": "Gallwch benodi rhywun fel 'cynrychiolydd' i'ch helpu gyda'ch apêl am fudd-dal/iawndal, os credwch na fyddwch yn gallu rheoli'r apêl eich hun.",
         "what": "Gall cynrychiolydd:",
         "whatList": {
           "item1": "roi cyngor i chi mewn perthynas â'ch apêl",
           "item2": "eich helpu i gyflwyno eich apêl neu baratoi tystiolaeth",
           "item3": "gweithredu ar eich rhan yn ystod yr apêl (dylent ofyn eich caniatâd yn gyntaf)"
         },
-        "para1": "Gall unrhyw un fod yn gynrychiolydd, yn cynnwys ffrind neu aelod o’ch teulu. Bydd cynrychiolydd da yn gyfarwydd â’r system budd-daliadau ac yn gallu rhoi cyngor ichi ar y gyfraith.",
-        "ibca-para1": "Gall unrhyw un fod yn gynrychiolydd, gan gynnwys ffrindiau a theulu.",
+        "para1": "Gall unrhyw un fod yn gynrychiolydd, gan gynnwys ffrindiau a theulu.",
         "para2": "Gallwch gael cynrychiolydd yn eich canolfan gynghori leol, canolfan y gyfraith neu <a href='https://www.citizensadvice.org.uk/'>Cyngor ar Bopeth</a>. Bydd angen i chi eu cofrestru gyda'r tribiwnlys.",
         "representative": {
           "title": "Cofrestru cynrychiolydd",
@@ -2598,8 +2562,7 @@
       "withdrawAppeal": {
         "linkHeader": "Tynnu'ch apêl yn ôl",
         "title": "Tynnu'ch apêl yn ôl",
-        "entry": "Gallwch dynnu eich apêl yn ôl ar unrhyw adeg. Bydd DWP yn cael gwybod nad ydych eisiau apelio yn erbyn eu penderfyniad mwyach. Bydd y gwrandawiad ar gyfer eich apêl yn cael ei ganslo, os oedd un wedi’i drefnu.",
-        "ibca-entry": "Gallwch dynnu'ch apêl yn ôl ar unrhyw adeg. Bydd yr Asiantaeth Haen Gyntaf yn cael gwybod nad ydych am apelio yn erbyn eu penderfyniad mwyach. Bydd y gwrandawiad ar gyfer eich apêl yn cael ei ganslo, os oes un wedi'i drefnu.",
+        "entry": "Gallwch dynnu'ch apêl yn ôl ar unrhyw adeg. Bydd yr Asiantaeth Haen Gyntaf yn cael gwybod nad ydych am apelio yn erbyn eu penderfyniad mwyach. Bydd y gwrandawiad ar gyfer eich apêl yn cael ei ganslo, os oes un wedi'i drefnu.",
         "para1": "Dylech siarad â'ch cynrychiolydd neu rywun sy'n gwybod am eich apêl am gyngor ynghylch a ddylech dynnu'ch apêl yn ôl.",
         "para2": "Os ydych yn dal i fod eisiau tynnu'ch apêl yn ôl, dylech roi gwybod i'r tribiwnlys cyn gynted â phosibl.",
         "para3": "Gallwch ddarparu'r wybodaeth hon trwy unrhyw un o'r opsiynau yn y tab <a href='/additional-evidence'><b>Darparu Tystiolaeth</b></a>. Neu cysylltwch â ni ar y rhif isod."
@@ -2615,14 +2578,11 @@
     },
     "selectCase": {
       "title": "Dewiswch achos",
-      "heading": "Eich apeliadau budd-daliadau",
-      "ibca-heading": "Eich apeliadau",
+      "heading": "Eich apeliadau",
       "appealReference": "Cyfeirnod yr apêl",
-      "benefit": "Budd-dal",
-      "ibca-benefit": "Apêl",
+      "benefit": "Apêl",
       "dateSubmitted": "Dyddiad cyflwyno",
-      "mrnDate": "Dyddiad MRN",
-      "ibca-mrnDate": "Dyddiad yr MRN/Hysbysiad o Benderfyniad Adolygiad",
+      "mrnDate": "Dyddiad yr MRN/Hysbysiad o Benderfyniad Adolygiad",
       "action": "Cam gweithredu",
       "view": "Gweld"
     },

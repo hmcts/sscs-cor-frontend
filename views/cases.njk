@@ -2,7 +2,7 @@
 {% set pageHeader = content[i18n.language].selectCase.title %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% block corContent %}
-  <h1 class="govuk-heading-xl">{{ content[i18n.language].selectCase['ibca-heading'] }}</h1>
+  <h1 class="govuk-heading-xl">{{ content[i18n.language].selectCase.heading }}</h1>
   {% for name, row in casesByNameAndRow %}
     {{ govukTable({
       caption: name,
@@ -10,9 +10,9 @@
       firstCellIsHeader: false,
       head: [
         { text: content[i18n.language].selectCase.appealReference },
-        { text: content[i18n.language].selectCase['ibca-benefit'] },
+        { text: content[i18n.language].selectCase.benefit },
         { text: content[i18n.language].selectCase.dateSubmitted },
-        { text: content[i18n.language].selectCase['ibca-mrnDate'] },
+        { text: content[i18n.language].selectCase.mrnDate },
         { text: content[i18n.language].selectCase.action | safe }
       ],
       rows: row
