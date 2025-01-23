@@ -185,7 +185,7 @@ describe('controllers/assign-case.js', function () {
       });
 
       it('missing appealType', async function () {
-        let appealType = null;
+        const appealType = null;
         const postcode = '';
         req.body = { appealType, postcode };
         const error = {

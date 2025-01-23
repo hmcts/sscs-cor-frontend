@@ -19,7 +19,7 @@ function isFeatureEnabled(feature: Feature, force?: {}): boolean {
   ) {
     return force[`${feature}`] === 'true';
   }
-  return  config.get(`featureFlags.${feature}`) === 'true';
+  return config.get(`featureFlags.${feature}`) === 'true';
 }
 
 export { isFeatureEnabled, Feature };
