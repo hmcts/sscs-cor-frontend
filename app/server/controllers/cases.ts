@@ -5,7 +5,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import { getCasesByNameAndRow } from '../utils/fieldValidation';
 import { Dependencies } from '../routes';
 import { CaseDetails } from 'app/server/models/express-session';
-import { OK } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { renderErrorPage } from './login';
 import { CaseService } from '../services/cases';
 import { IdamService } from '../services/idam';
@@ -22,7 +22,7 @@ export function isCaseActive(caseDetails: CaseDetails): boolean {
 }
 
 export function getCases(caseService: CaseService, idamService: IdamService) {
-  return async (req, res) => {
+  return async (req: Request, res: Response): Promise<void> => {
     const session = req.session;
 
     if (!session) {
@@ -31,6 +31,7 @@ export function getCases(caseService: CaseService, idamService: IdamService) {
       );
       AppInsights.trackException(missingCaseIdError);
       AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+      return;
     }
 
     if (!session.cases || session.cases.length === 0) {
@@ -40,9 +41,9 @@ export function getCases(caseService: CaseService, idamService: IdamService) {
         req
       );
 
-      if (statusCode !== OK)
+      if (statusCode !== StatusCodes.OK)
         return renderErrorPage(
-          req.session.idamEmail,
+          session.idamEmail,
           statusCode,
           body,
           idamService,
