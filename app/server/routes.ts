@@ -112,6 +112,8 @@ const statusController = setupStatusController({
 const casesController = setupCasesController({
   prereqMiddleware: ensureAuthenticated,
   setLocals,
+  caseService,
+  idamService,
 });
 const activeCasesController = setupActiveCasesController({
   prereqMiddleware: ensureAuthenticated,
