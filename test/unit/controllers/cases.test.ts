@@ -8,11 +8,13 @@ import { expect, sinon } from 'test/chai-sinon';
 import oralCases from '../../mock/tribunals/data/oral/activeAndDormantCases.json';
 import { SinonStub } from 'sinon';
 import { RequestPromise } from '../../../app/server/services/request-wrapper';
+import { StatusCodes } from 'http-status-codes';
 
 describe('controllers/cases', function () {
   let req: any;
   let res: any;
-  let caseService: CaseService = null;
+  let caseService;
+  let idamService;
 
   beforeEach(function () {
     req = {
@@ -26,7 +28,7 @@ describe('controllers/cases', function () {
       render: sinon.stub(),
       send: sinon.stub(),
     };
-    caseService = new CaseService('apiUrl');
+    idamService = sinon.stub();
 
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackEvent');
@@ -60,16 +62,39 @@ describe('controllers/cases', function () {
   });
 
   describe('getCases', function () {
+    beforeEach(function () {
+      caseService = {
+        getCasesForCitizen: () => ({ statusCode: StatusCodes.OK, body: [] }),
+      };
+    });
     it('should render cases page', async function () {
       req.session.cases = oralCases;
-      cases.getCases(req, res);
+      const getCasesMiddleware = cases.getCases(caseService, idamService);
+
+      await getCasesMiddleware(req, res);
+
       expect(res.render).to.have.been.calledOnce.calledWith('cases.njk');
+    });
+
+    it('should retrieve citizen cases', async function () {
+      sinon.spy(caseService, 'getCasesForCitizen');
+      req.session.cases = [];
+      req.session.idamEmail = 'idam@email.com';
+      const getCasesMiddleware = cases.getCases(caseService, idamService);
+
+      await getCasesMiddleware(req, res);
+
+      expect(caseService.getCasesForCitizen).to.have.been.calledOnce.calledWith(
+        'idam@email.com',
+        undefined,
+        req
+      );
     });
 
     it('should throw error if no sessions', async function () {
       req.session = null;
-
-      expect(() => cases.getCases(req, res)).to.throw(TypeError);
+      const getCasesMiddleware = cases.getCases(caseService, idamService);
+      await getCasesMiddleware(req, res);
 
       const error = new Error('Unable to retrieve session from session store');
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
@@ -83,6 +108,7 @@ describe('controllers/cases', function () {
     let rpStub: sinon.SinonStub;
 
     beforeEach(function () {
+      caseService = new CaseService('apiUrl');
       rpStub = sinon.stub(RequestPromise, 'request');
     });
 
