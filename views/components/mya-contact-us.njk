@@ -1,4 +1,5 @@
 {% macro contactUs(showSupport = true) %}
+  {% set appealType = appeal.benefitType if appeal.benefitType else 'unknown' %}
   {% if showSupport %}
     {% include
     "includes/divider.njk" %}
@@ -50,7 +51,7 @@
             <div class="govuk-details__text">
               <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.title }}</h2>
               <p class="govuk-body govuk-!-margin-bottom-2">{{ content[i18n.language].contactUs.telephone.desc }}</p>
-              {% if ibcaEnabled %}
+              {% if appealType === 'infectedbloodcompensation' or appealType === 'unknown'  %}
               <!-- IBCA Scotland -->
               <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.Scotland.desc }}</h3>
               <p class="govuk-body govuk-!-margin-bottom-0">
@@ -93,6 +94,7 @@
                 <a href="mailto:Contactsscs@justice.gov.uk">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.emailAddress }}</a>
               </p>
               {% endif %}
+              {% if appeal.benefitType !== 'infectedbloodcompensation' %}
               <!-- England -->
               <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.England.desc }}</h3>
               <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.England.phone }}</p>
@@ -135,6 +137,7 @@
                 {{ content[i18n.language].contactUs.telephone.Scotland.emailText }}
                 <a href="mailto:SSCSA-Glasgow@justice.gov.uk">{{ content[i18n.language].contactUs.telephone.Scotland.emailAddress }}</a>
               </p>
+              {% endif %}
             </div>
           {% endif %}
         </details>
