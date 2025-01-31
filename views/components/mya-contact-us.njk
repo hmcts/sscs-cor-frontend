@@ -51,49 +51,6 @@
             <div class="govuk-details__text">
               <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.title }}</h2>
               <p class="govuk-body govuk-!-margin-bottom-2">{{ content[i18n.language].contactUs.telephone.desc }}</p>
-              {% if appealType === 'infectedbloodcompensation' or appealType === 'unknown'  %}
-              <!-- IBCA Scotland -->
-              <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.Scotland.desc }}</h3>
-              <p class="govuk-body govuk-!-margin-bottom-0">
-                {{ content[i18n.language].contactUs.telephone.ibca.Scotland.phone }}
-              </p>
-              <p class="govuk-body govuk-!-margin-bottom-2">
-                {{ content[i18n.language].contactUs.telephone.ibca.Scotland.availability }}
-              </p>
-              <p class="govuk-body">
-                <a class="govuk-link"
-                   href="https://www.gov.uk/call-charges"
-                   target="_blank">{{ content[i18n.language].contactUs.telephone.charges }}</a>
-              </p>
-              <p class="govuk-body govuk-!-margin-bottom-2">
-                {{ content[i18n.language].contactUs.telephone.ibca.Scotland.emailText }}
-                <a href="mailto:SSCSA-Glasgow@justice.gov.uk">{{ content[i18n.language].contactUs.telephone.ibca.Scotland.emailAddress }}</a>
-              </p>
-                <!-- IBCA WelshSpeakers -->
-                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.WelshSpeakers.desc }}</h3>
-                <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.WelshSpeakers.phone }}</p>
-                <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.WelshSpeakers.availability }}</p>
-                <p class="govuk-body govuk-!-margin-bottom-2">
-                  <a class="govuk-link"
-                     href="https://www.gov.uk/call-charges"
-                     target="_blank">{{ content[i18n.language].contactUs.telephone.charges }}</a>
-                </p>
-              <!-- IBCA AllOthers -->
-              <p class="govuk-body govuk-!-margin-bottom-2">{{ content[i18n.language].contactUs.telephone.ibca.desc }}</p>
-              <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.desc }}</h3>
-              <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.phone }}</p>
-              <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.availability }}</p>
-              <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.availability2 }}</p>
-              <p class="govuk-body govuk-!-margin-bottom-2">
-                <a class="govuk-link"
-                   href="https://www.gov.uk/call-charges"
-                   target="_blank">{{ content[i18n.language].contactUs.telephone.charges }}</a>
-              </p>
-              <p class="govuk-body govuk-!-margin-bottom-2">
-                {{ content[i18n.language].contactUs.telephone.ibca.AllOthers.emailText }}
-                <a href="mailto:Contactsscs@justice.gov.uk">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.emailAddress }}</a>
-              </p>
-              {% endif %}
               {% if appeal.benefitType !== 'infectedbloodcompensation' %}
               <!-- England -->
               <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.England.desc }}</h3>
@@ -137,6 +94,49 @@
                 {{ content[i18n.language].contactUs.telephone.Scotland.emailText }}
                 <a href="mailto:SSCSA-Glasgow@justice.gov.uk">{{ content[i18n.language].contactUs.telephone.Scotland.emailAddress }}</a>
               </p>
+              {% endif %}
+              {% if appealType === 'infectedbloodcompensation' or appealType === 'unknown'  %}
+                <!-- IBCA Scotland -->
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.Scotland.desc }}</h3>
+                <p class="govuk-body govuk-!-margin-bottom-0">
+                  {{ content[i18n.language].contactUs.telephone.ibca.Scotland.phone }}
+                </p>
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                  {{ content[i18n.language].contactUs.telephone.ibca.Scotland.availability }}
+                </p>
+                <p class="govuk-body">
+                  <a class="govuk-link"
+                     href="https://www.gov.uk/call-charges"
+                     target="_blank">{{ content[i18n.language].contactUs.telephone.charges }}</a>
+                </p>
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                  {{ content[i18n.language].contactUs.telephone.ibca.Scotland.emailText }}
+                  <a href="mailto:SSCSA-Glasgow@justice.gov.uk">{{ content[i18n.language].contactUs.telephone.ibca.Scotland.emailAddress }}</a>
+                </p>
+                <!-- IBCA WelshSpeakers -->
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.WelshSpeakers.desc }}</h3>
+                <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.WelshSpeakers.phone }}</p>
+                <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.WelshSpeakers.availability }}</p>
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                  <a class="govuk-link"
+                     href="https://www.gov.uk/call-charges"
+                     target="_blank">{{ content[i18n.language].contactUs.telephone.charges }}</a>
+                </p>
+                <!-- IBCA AllOthers -->
+                <p class="govuk-body govuk-!-margin-bottom-2">{{ content[i18n.language].contactUs.telephone.ibca.desc }}</p>
+                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.desc }}</h3>
+                <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.phone }}</p>
+                <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.availability }}</p>
+                <p class="govuk-body govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.availability2 }}</p>
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                  <a class="govuk-link"
+                     href="https://www.gov.uk/call-charges"
+                     target="_blank">{{ content[i18n.language].contactUs.telephone.charges }}</a>
+                </p>
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                  {{ content[i18n.language].contactUs.telephone.ibca.AllOthers.emailText }}
+                  <a href="mailto:Contactsscs@justice.gov.uk">{{ content[i18n.language].contactUs.telephone.ibca.AllOthers.emailAddress }}</a>
+                </p>
               {% endif %}
             </div>
           {% endif %}
