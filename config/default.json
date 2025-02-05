@@ -67,7 +67,6 @@
     "allowContactUs": {
       "enabled": "true",
       "telephoneEnabled": "true",
-      "ibcaEnabled": "false",
       "webFormEnabled": "false",
       "webChatEnabled": "false"
     },

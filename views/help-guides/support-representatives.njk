@@ -1,20 +1,20 @@
 {% extends "help-guides/support-layout.njk" %}
 {% set pageHeader = content[i18n.language].helpGuides.representatives.title %}
 {% block pageTitle %}
-  {{ content[i18n.language].helpGuides.representatives.title }} - {{ content[i18n.language].general[ibcaPrefix + 'serviceTitle'] }} - {{ content[i18n.language].general.govUK }}
+  {{ content[i18n.language].helpGuides.representatives.title }} - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
 {% endblock pageTitle %}
 {% block supportTitle %}
   {{ content[i18n.language].helpGuides.representatives.title }}
 {% endblock supportTitle %}
 {% block supportContent %}
-  <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.representatives[ibcaPrefix + 'entry'] }}</p>
+  <p class="govuk-!-font-size-24">{{ content[i18n.language].helpGuides.representatives.entry }}</p>
   <p>{{ content[i18n.language].helpGuides.representatives.what }}</p>
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ content[i18n.language].helpGuides.representatives.whatList.item1 }}</li>
     <li>{{ content[i18n.language].helpGuides.representatives.whatList.item2 }}</li>
     <li>{{ content[i18n.language].helpGuides.representatives.whatList.item3 }}</li>
   </ul>
-  <p>{{ content[i18n.language].helpGuides.representatives[ibcaPrefix + 'para1'] }}</p>
+  <p>{{ content[i18n.language].helpGuides.representatives.para1 }}</p>
   <p>{{ content[i18n.language].helpGuides.representatives.para2 | safe }}</p>
   <h3 class="govuk-heading-s">{{ content[i18n.language].helpGuides.representatives.representative.title }}</h3>
   <p>{{ content[i18n.language].helpGuides.representatives.representative.para1 | safe }}</p>
