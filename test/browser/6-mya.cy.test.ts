@@ -166,6 +166,7 @@ describe('Welsh Manage your appeal app @mya @nightly', function () {
       statusPage.verifyPage();
       const elementHandle = await page.$('.govuk-details.contact-us');
       await statusPage.openDetails('.govuk-details.contact-us');
+      await page.waitForTimeout(500);
       const heightOpen = await page.evaluate((element) => {
         const { height } = element.getBoundingClientRect();
         return height;
