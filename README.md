@@ -1,5 +1,6 @@
 # SSCS - Manage Your Appeal
 
+
 This application is the public facing service for Manage Your Appeal (MYA).
 
 MYA was adapted from the Continuous Online Resolution (COR) service. There are still many configuration references to
