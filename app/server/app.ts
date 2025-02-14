@@ -99,6 +99,10 @@ export async function setupApp(
       Feature.CONTACT_US_WEB_FORM_ENABLED,
       req.cookies
     );
+    app.locals.directionEnabled = isFeatureEnabled(
+        Feature.DIRECTION_HEARINGS_ENABLED,
+        req.cookies
+    );
     app.locals.contactUsTelephoneEnabled = isFeatureEnabled(
       Feature.CONTACT_US_TELEPHONE_ENABLED,
       req.cookies
