@@ -31,7 +31,9 @@
   {% endif %}
   <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing.gettingDecisionTitle }}</h2>
   <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc['para1' + directionSuffix] }}</p>
-  <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc.para2 }}</p>
+  {% if not directionEnabled %}
+    <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc.para2 }}</p>
+  {% endif %}
   <p>{{ content[i18n.language].helpGuides.hearing.gettingDecisionDesc.para3 }}</p>
   <h2 class="govuk-heading-m">{{ content[i18n.language].helpGuides.hearing['dwpTitle' + directionSuffix] }}</h2>
   <p>{{ content[i18n.language].helpGuides.hearing.dwpDesc['para1' + directionSuffix] }}</p>
