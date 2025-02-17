@@ -100,8 +100,8 @@ export async function setupApp(
       req.cookies
     );
     app.locals.directionEnabled = isFeatureEnabled(
-        Feature.DIRECTION_HEARINGS_ENABLED,
-        req.cookies
+      Feature.DIRECTION_HEARINGS_ENABLED,
+      req.cookies
     );
     app.locals.contactUsTelephoneEnabled = isFeatureEnabled(
       Feature.CONTACT_US_TELEPHONE_ENABLED,
