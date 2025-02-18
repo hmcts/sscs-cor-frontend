@@ -26,6 +26,7 @@ describe('Hearing Recording request @mya @nightly', function () {
   let statusPage: StatusPage;
   let ccdCase;
   let sidamUser;
+
   before('start services and bootstrap data in CCD', async function () {
     ({
       ccdCase,

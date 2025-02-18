@@ -33,6 +33,7 @@ describe('controllers/outcome', function () {
 
   describe('setupOutcomeController', function () {
     let getStub: SinonStub = null;
+
     before(function () {
       getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({
