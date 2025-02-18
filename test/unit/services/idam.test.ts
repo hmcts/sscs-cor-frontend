@@ -16,6 +16,7 @@ const appPort: number = config.get('node.port');
 describe('services/idam', function () {
   const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
   let idamService: IdamService;
+
   before(function () {
     idamService = new IdamService(apiUrl, appPort, appSecret);
   });

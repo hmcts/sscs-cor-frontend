@@ -157,6 +157,7 @@ describe('Routes', function () {
 
   describe('Secured routes', function () {
     let mockApp: Application;
+
     before(function () {
       mockApp = express();
       mockApp.use(

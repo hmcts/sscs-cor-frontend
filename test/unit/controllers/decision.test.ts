@@ -59,6 +59,7 @@ describe('controllers/decision.js', function () {
 
   describe('setupDecisionController', function () {
     const deps: Dependencies = {};
+
     before(function () {
       sinon.stub(express, 'Router').returns({
         get: sinon.stub(),

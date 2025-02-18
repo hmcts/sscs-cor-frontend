@@ -62,6 +62,7 @@ describe('services/unsubscribeService', function () {
 
   describe('changeEmailAddress', function () {
     const endpoint = `${apiUrl}/appeals/${appealId}/subscriptions/${subscriptionId}`;
+
     beforeEach(function () {
       thenStub.resolves(Promise<void>);
     });
