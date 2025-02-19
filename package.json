@@ -145,7 +145,7 @@
     "jsdom-global": "^3.0.2",
     "memory-cache": "^0.2.0",
     "mini-css-extract-plugin": "^2.9.0",
-    "mocha": "^10.0.0",
+    "mocha": "^10.7.3",
     "mocha-multi": "^1.1.7",
     "mocha-param": "^2.0.1",
     "mochawesome": "^7.1.3",
