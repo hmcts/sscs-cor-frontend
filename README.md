@@ -195,7 +195,7 @@ curl -OL https://raw.githubusercontent.com/hmcts/cnp-jenkins-library/master/reso
 curl -OL https://raw.githubusercontent.com/hmcts/cnp-jenkins-library/master/resources/uk/gov/hmcts/pipeline/yarn/prettyPrintAudit.sh
 ```
 
-Make both files executable
+Make both files executable 
 
 ```bash
 chmod +x ./yarn-audit-with-suppressions.sh
