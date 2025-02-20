@@ -22,6 +22,7 @@ nodejs:
     HTTP_PROTOCOL: http
     UV_THREADPOOL_SIZE: 64
     MYA_FEATURE_FLAG: "true"
+    DIRECTION_HEARINGS_ENABLED: false
   keyVaults:
     sscs:
       secrets:

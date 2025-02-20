@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node dist/server/server",
     "dev": "cross-env yarn build:dev && cross-env TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=development nodemon",
+    "dev:directionEnabled": "cross-env yarn build:dev && cross-env DIRECTION_HEARINGS_ENABLED=true TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=development nodemon",
     "dev-docker": "concurrently \"yarn build:dev && cross-env TS_NODE_PROJECT=app/server/tsconfig.json NODE_ENV=docker nodemon\" \"yarn mock-api\"",
     "dev-mock-api": "concurrently \"yarn dev\" \"yarn mock-api\"",
     "mock-api": "node test/mock/s2s/server & node test/mock/tribunals/server",
