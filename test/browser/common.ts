@@ -41,7 +41,7 @@ let taskListPage: TaskListPage = null;
 // eslint-disable-next-line mocha/no-exports
 export const CY_CONTACT_US_OPEN_HEIGHT = 915;
 // eslint-disable-next-line mocha/no-exports
-export const EN_CONTACT_US_OPEN_HEIGHT = 1035;
+export const EN_CONTACT_US_OPEN_HEIGHT = 585; // 1035;
 
 async function startBrowser(): Promise<Browser> {
   if (!browser) {
@@ -133,7 +133,10 @@ export async function startServices(options?): Promise<{
   let sidamUser: SidamUser;
   logger.info(`testingLocalhost--------${testingLocalhost}`);
   if (opts.bootstrapData && !testingLocalhost) {
-    ({ ccdCase, sidamUser } = await bootstrap(opts.hearingType));
+    ({ ccdCase, sidamUser } = await bootstrap(
+      opts.hearingType,
+      opts.benefitType
+    ));
     if (!ccdCase) {
       ccdCase = {};
     }
