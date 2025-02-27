@@ -1174,6 +1174,7 @@
       },
       "hearing": {
         "title": "What to expect at your appeal hearing",
+        "entryDirection": "Your hearing is an opportunity for you to explain your benefit/compensation appeal in person. The tribunal members will consider everything you tell them and make an impartial decision on your appeal. The tribunal members are independent from the First tier Agency.",
         "entry": "Your hearing is an opportunity for you to explain your benefit appeal in person. A tribunal panel will consider everything you tell them and make an impartial decision on your appeal. The tribunal panel are independent from the First tier Agency.",
         "imageText": "The above picture is an example of a tribunal hearing, with a judge and doctor. There will also be a disability/financial expert in some benefit/compensation appeals if applicable.",
         "beforeHearingTitle": "Before your hearing",
@@ -1192,21 +1193,27 @@
         "peopleInTheRoomTitle": "The people at your hearing",
         "peopleInTheRoomDesc": {
           "para1": "The tribunal panel is made up of 1-3 people (one will always be a judge), depending on which benefit/compensation you are appealing. The panel will consider both sides of the appeal and make an impartial decision. They are independent from the First tier agency.",
-          "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. The disability/financial experts will provide their specific knowledge to support the tribunal"
+          "para2": "The judge runs the hearing and will explain what happens. They’ll also take notes of what is said during the hearing. The doctor provides their medical knowledge. The disability/financial experts will provide their specific knowledge to support the tribunal."
         },
         "duringHearingTitle": "During your hearing",
         "duringHearingDesc": {
+          "para1Direction": "The tribunal members will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask the First tier Agency some questions. For benefit appeals the whole hearing usually lasts about an hour. For other appeals the hearing can take longer.",
+          "para2Direction": "It’s important that you submit all your evidence well before the hearing so the tribunal members have time to review it. If they receive it too late they may have to postpone your hearing until a different day. ",
+          "para3Direction": "You may have been invited to a direction hearing. The purpose of a directions hearing is to allow a Judge to look at the case and make directions as to what actions should be taken by the parties involved in the appeal before the case can proceed further or be listed for a full hearing. However, the Judge may also make a final decision on the appeal if all the required evidence is available and an expert tribunal member is not required. If you do not attend, the tribunal may decide the appeal or make directions in your absence.",
           "para1": "The tribunal panel will ask you some straightforward questions. This is your opportunity to explain your side of the appeal. They will listen to everything you tell them. They may also ask the First tier Agency some questions. The whole hearing usually lasts about an hour.",
           "para2": "It’s important that you submit all your evidence well before the hearing so the tribunal panel have time to review it. If they receive it too late they may have to postpone your hearing until a different day. "
         },
         "gettingDecisionTitle": "Getting a decision",
         "gettingDecisionDesc": {
+          "para1Direction": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal members discuss your appeal. You’ll then be asked back into the room to be told the decision.",
           "para1": "After you’ve answered all the questions you’ll be asked to wait outside while the tribunal panel discuss your appeal. You’ll then be asked back into the room to be told the decision.",
           "para2": "The judge will explain whether you’re entitled to the benefit/compensation and if so, at what level.",
           "para3": "Sometimes the tribunal need more time to make a decision. If that happens the decision about your appeal will be posted to you."
         },
+        "dwpTitleDirection": "First Tier Agency (FTA) - DWP, HRMC and IBCA",
         "dwpTitle": "First tier Agency (DWP,HRMC and IBCA)",
         "dwpDesc": {
+          "para1Direction": "A representative from the FTA might be there. They are not part of the tribunal members and are there to speak on behalf of the FTA. They will not be the person who made the original decision about your claim.",
           "para1": "A representative from the First tier Agency might be there. They are not part of the tribunal panel and are there to speak on behalf of the First tier Agency. They will not be the person who made the decision about your entitlement to benefits/compensation."
         }
       },
@@ -2504,6 +2511,7 @@
       },
       "hearing": {
         "title": "Beth i'w ddisgwyl yn eich gwrandawiad apêl",
+        "entryDirection": "Mae eich gwrandawiad yn gyfle i chi esbonio'ch apêl am fudd-dal/iawndal yn bersonol. Bydd aelodau'r tribiwnlys yn ystyried popeth a ddywedwch wrthynt ac yn gwneud penderfyniad diduedd ar eich apêl. Mae aelodau'r tribiwnlys yn annibynnol ar yr Asiantaeth Haen Gyntaf.",
         "entry": "Mae eich gwrandawiad yn gyfle i chi esbonio'ch apêl am fudd-dal yn bersonol. Bydd panel tribiwnlys yn ystyried popeth a ddywedwch wrthynt ac yn gwneud penderfyniad diduedd ar eich apêl. Mae panel y tribiwnlys yn annibynnol ar yr Asiantaeth Haen Gyntaf.",
         "imageText": "Mae'r llun uchod yn enghraifft o wrandawiad tribiwnlys, gyda barnwr a meddyg. Bydd arbenigwr anabledd/ariannol hefyd yn bresennol mewn rhai apeliadau am fudd-dal/iawndal os yw'n berthnasol.",
         "beforeHearingTitle": "Cyn eich gwrandawiad",
@@ -2526,17 +2534,23 @@
         },
         "duringHearingTitle": "Yn ystod eich gwrandawiad",
         "duringHearingDesc": {
+          "para1Direction": "Bydd aelodau’r tribiwnlys yn gofyn rhai cwestiynau syml i chi. Dyma'ch cyﬂe i egluro eich ochr chi o'r apêl. Byddant yn gwrando ar bopeth rydych chi'n ei ddweud wrthyn nhw. Efallai y byddant hefyd yn gofyn rhai cwestiynau i'r Asiantaeth Haen Gyntaf. Ar gyfer apeliadau budd-daliadau mae'r gwrandawiad cyfan fel arfer yn para tua awr. Ar gyfer apeliadau eraill, gall y gwrandawiad gymryd mwy o amser.",
+          "para2Direction": "Mae'n bwysig eich bod yn cyﬂwyno'ch holl dystiolaeth ymhell cyn y gwrandawiad fel bod gan aelodau’r tribiwnlys amser i'w hadolygu. Os ydynt yn ei chael yn rhy hwyr, efallai y bydd yn rhaid iddynt ohirio'ch gwrandawiad tan ddiwrnod gwahanol.",
+          "para3Direction": "Efallai eich bod wedi cael gwahoddiad i wrandawiad cyfarwyddiadau. Pwrpas gwrandawiad cyfarwyddiadau yw caniatáu i Farnwr edrych ar yr achos a chyfarwyddo pa gamau y dylai'r partïon sy'n ymwneud â'r apêl eu cymryd cyn y gall yr achos fynd ymhellach neu gael ei restru ar gyfer gwrandawiad llawn. Fodd bynnag, gall y Barnwr hefyd wneud penderfyniad terfynol ar yr apêl os yw'r holl dystiolaeth ofynnol ar gael ac nad oes angen aelod arbenigol ar y tribiwnlys. Os na fyddwch yn bresennol, gall y tribiwnlys benderfynu ar yr apêl neu wneud cyfarwyddiadau yn eich absenoldeb.",
           "para1": "Bydd panel y tribiwnlys yn gofyn rhai cwestiynau syml i chi. Dyma'ch cyfle i egluro eich ochr chi o'r apêl. Byddant yn gwrando ar bopeth rydych chi'n ei ddweud wrthyn nhw. Efallai y byddant hefyd yn gofyn  rhai cwestiynau i'r Asiantaeth Haen Gyntaf. Mae'r gwrandawiad cyfan fel arfer yn para tua awr.",
           "para2": "Mae'n bwysig eich bod yn cyflwyno'ch holl dystiolaeth ymhell cyn y gwrandawiad fel bod gan banel y tribiwnlys amser i'w hadolygu. Os ydynt yn ei chael yn rhy hwyr, efallai y bydd yn rhaid iddynt ohirio'ch gwrandawiad tan ddiwrnod gwahanol."
         },
         "gettingDecisionTitle": "Gwneud penderfyniad",
         "gettingDecisionDesc": {
+          "para1Direction": "Ar ôl i chi ateb yr holl gwestiynau, gofynnir i chi aros y tu allan tra bydd aelodau’r tribiwnlys yn trafod eich apêl. Yna gofynnir i chi fynd yn ôl i'r ystafell i gael gwybod y penderfyniad. ",
           "para1": "Ar ôl i chi ateb yr holl gwestiynau, gofynnir i chi aros y tu allan tra bydd panel y tribiwnlys yn trafod eich apêl. Yna gofynnir i chi fynd yn ôl i'r ystafell i gael gwybod y penderfyniad.",
           "para2": "Bydd y barnwr yn egluro a oes gennych hawl i'r budd-dal/iawndal ac os felly, ar ba lefel.",
           "para3": "Weithiau bydd angen mwy o amser ar y tribiwnlys i wneud penderfyniad. Os bydd hynny'n digwydd, bydd y penderfyniad am eich apêl yn cael ei bostio atoch."
         },
+        "dwpTitleDirection": "Asiantaeth haen gyntaf (DWP, HRMC ac IBCA)",
         "dwpTitle": "Asiantaeth haen gyntaf (DWP, HRMC ac IBCA)",
         "dwpDesc": {
+          "para1Direction": "Gallai cynrychiolydd o'r Asiantaeth Haen Gyntaf fod yno. Dydyn nhw ddim yn rhan o aelodau’r tribiwnlys ac maen nhw yno i siarad ar ran yr Asiantaeth Haen Gyntaf. Nid nhw fydd y sawl a wnaeth y penderfyniad gwreiddiol ar eich hawliad.",
           "para1": "Gallai cynrychiolydd o'r Asiantaeth Haen Gyntaf fod yno. Dydyn nhw ddim yn rhan o banel y tribiwnlys ac maen nhw yno i siarad ar ran yr Asiantaeth Haen Gyntaf. Nid nhw fydd y sawl a wnaeth y penderfyniad ynghylch eich hawl i fudd-dal/iawndal."
 
         }

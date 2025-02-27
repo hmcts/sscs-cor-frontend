@@ -5,6 +5,7 @@ nodejs:
     MYA_FEATURE_FLAG: 'true'
     EVIDENCE_UPLOAD_QUESTION_PAGE_ENABLED: 'false'
     EVIDENCE_UPLOAD_QUESTION_PAGE_OVERRIDE_ALLOWED: 'true'
+    DIRECTION_HEARINGS_ENABLED: true
   keyVaults:
     sscs:
       secrets:
