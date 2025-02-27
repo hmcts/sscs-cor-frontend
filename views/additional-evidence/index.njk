@@ -15,9 +15,9 @@
 {% endif %}
 {% block pageTitle %}
   {% if pageTitleError %}
-    {{ content[i18n.language].errorSummary.errorPageTitle | safe }} {{ pageTitle | safe }} - {{ content[i18n.language].general[ibcaPrefix + 'serviceTitle'] }} - {{ content[i18n.language].general.govUK }}
+    {{ content[i18n.language].errorSummary.errorPageTitle | safe }} {{ pageTitle | safe }} - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
   {% else %}
-    {{ pageTitle | safe }} - {{ content[i18n.language].general[ibcaPrefix + 'serviceTitle'] }} - {{ content[i18n.language].general.govUK }}
+    {{ pageTitle | safe }} - {{ content[i18n.language].general.serviceTitle }} - {{ content[i18n.language].general.govUK }}
   {% endif %}
 {% endblock pageTitle %}
 {% block beforeContent %}

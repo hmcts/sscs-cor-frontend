@@ -71,7 +71,6 @@ describe('controllers/assign-case.js', function () {
 
         beforeEach(function () {
           req = {
-            app: { locals: { ibcaEnabled: true } },
             session: { idamEmail, tya },
             body: { appealType, postcode },
           } as any;
@@ -80,23 +79,6 @@ describe('controllers/assign-case.js', function () {
         });
 
         it('assigns user to case', async function () {
-          await underTest(req, res);
-
-          expect(
-            caseService.assignOnlineHearingsToCitizen
-          ).to.have.been.calledOnce.calledWith(
-            idamEmail,
-            tya,
-            postcode,
-            ibcaReference,
-            req
-          );
-        });
-
-        it('assigns user to case with no appealType for non-ibca cases', async function () {
-          req.app.locals.ibcaEnabled = false;
-          req.body = { postcode };
-
           await underTest(req, res);
 
           expect(
@@ -144,7 +126,6 @@ describe('controllers/assign-case.js', function () {
 
         beforeEach(function () {
           req = {
-            app: { locals: { ibcaEnabled: true } },
             session: { idamEmail, tya },
             body: { appealType, ibcaReference },
           } as any;
@@ -197,7 +178,6 @@ describe('controllers/assign-case.js', function () {
     describe('post with missing data', function () {
       beforeEach(function () {
         req = {
-          app: { locals: { ibcaEnabled: true } },
           session: { idamEmail, tya },
         } as any;
 
@@ -205,28 +185,12 @@ describe('controllers/assign-case.js', function () {
       });
 
       it('missing appealType', async function () {
-        let appealType;
+        const appealType = null;
         const postcode = '';
         req.body = { appealType, postcode };
         const error = {
           msg: content.en.assignCase.errors.missing.appealType,
           code: 'missing-appealType',
-        };
-        await underTest(req, res);
-
-        expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.njk',
-          { error, ...req.body }
-        );
-      });
-
-      it('ignore missing appealType for non-ibca cases', async function () {
-        req.app.locals.ibcaEnabled = false;
-        const postcode = '';
-        req.body = { postcode };
-        const error = {
-          msg: content.en.assignCase.errors.missing.postcode,
-          code: 'missing-postcode',
         };
         await underTest(req, res);
 
@@ -272,7 +236,6 @@ describe('controllers/assign-case.js', function () {
     describe('post with invalid data', function () {
       beforeEach(function () {
         req = {
-          app: { locals: { ibcaEnabled: true } },
           session: { idamEmail, tya },
         } as any;
 
@@ -328,7 +291,6 @@ describe('controllers/assign-case.js', function () {
     describe('post with missing tya', function () {
       beforeEach(function () {
         req = {
-          app: { locals: { ibcaEnabled: true } },
           session: { idamEmail },
         } as any;
 
@@ -362,7 +324,6 @@ describe('controllers/assign-case.js', function () {
           }),
         } as any;
         req = {
-          app: { locals: { ibcaEnabled: true } },
           session: { idamEmail, tya },
         } as any;
 

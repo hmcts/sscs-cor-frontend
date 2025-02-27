@@ -12,11 +12,15 @@ const navigationTimeout: number = config.get('navigationTimeout');
 export class BasePage {
   public page: Page;
   public pagePath: string;
+  commonLocators: any;
 
   constructor(page) {
     this.page = page;
     this.page.setDefaultNavigationTimeout(navigationTimeout);
     this.pagePath = '/';
+    this.commonLocators = {
+      serviceName: '.govuk-header__link--service-name',
+    };
   }
 
   async visitPage(query = '') {
@@ -250,5 +254,14 @@ export class BasePage {
 
   async clickLanguageToggle() {
     await this.clickElement('.govuk-link.language');
+  }
+
+  async getElementsAttributes(locator: string, attribute: string) {
+    const attributes = await this.page.$$eval(
+      locator,
+      (elements, attr) => elements.map((el) => el.getAttribute(attr)),
+      attribute
+    );
+    return attributes;
   }
 }

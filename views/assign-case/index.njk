@@ -7,7 +7,7 @@
     {{ govukErrorSummary({
       titleText: content[i18n.language].errorSummary.titleText,
       descriptionText: content[i18n.language].errorSummary.descriptionText,
-      errorList: [{ text: error.msg, href: "#appealType" if ibcaEnabled else "#postcode" }]
+      errorList: [{ text: error.msg, href: "#appealType" }]
     }) }}
   {% endif %}
   <form id="answer-form" action="/assign-case" method="post">
@@ -36,7 +36,6 @@
       }) }}
     {% endset -%}
 
-    {% if ibcaEnabled %}
     {{ govukRadios({
       name: "appealType",
       value: appealType,
@@ -64,17 +63,6 @@
         }
       ]
     }) }}
-    {% else %}
-      <h1 class="govuk-heading-l">{{ content[i18n.language].assignCase.appealTypeOptions.otherBenefits.inputText }}</h1>
-      {{ govukInput({ label: {
-        text: content[i18n.language].assignCase.appealTypeOptions.otherBenefits.hintText },
-        errorMessage: { text: error.msg } if error.code and error.code.includes('postcode'),
-        id: "postcode",
-        name: "postcode",
-        value: postcode,
-        classes: "govuk-input--width-20"
-      }) }}
-    {% endif %}
     <input id="assign-case"
       name="assign-case"
       type="submit"

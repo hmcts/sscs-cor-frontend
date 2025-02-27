@@ -167,7 +167,7 @@ function getCasesByName(cases: Array<CaseDetails>): {
 }
 
 function getCasesRow(casedetails: CaseDetails): Array<GovTableRow> {
-  const caseReference: string = casedetails.case_reference;
+  const caseReference = String(casedetails.case_id);
   const benefitType: string =
     casedetails?.appeal_details?.benefit_type?.toLowerCase();
   const language: string = i18next.language;

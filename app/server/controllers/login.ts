@@ -167,10 +167,10 @@ export function getIdamCallback(
           )
         : body;
 
-      cases.forEach((value) => {
-        const caseId: string = value?.case_id?.toString();
+      cases.forEach((citizenCase) => {
+        const caseId: string = citizenCase?.case_id?.toString();
         if (caseId?.length > 0) {
-          value.case_reference = caseId;
+          citizenCase.case_reference = caseId;
         } else {
           const missingHearingIdError = new HttpException(
             NOT_FOUND,
