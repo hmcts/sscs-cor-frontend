@@ -34,6 +34,7 @@ describe('controllers/history', function () {
 
   describe('setupHistoryController', function () {
     let getStub: SinonStub = null;
+
     before(function () {
       getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({
@@ -57,6 +58,7 @@ describe('controllers/history', function () {
 
   describe('getHistory', function () {
     let isFeatureEnabledStub;
+
     beforeEach(function () {
       isFeatureEnabledStub = sinon.stub(FeatureEnabled, 'isFeatureEnabled');
     });

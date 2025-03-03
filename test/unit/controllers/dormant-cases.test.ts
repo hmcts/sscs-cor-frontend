@@ -34,6 +34,7 @@ describe('controllers/dormant-cases', function () {
 
   describe('setupDormantCasesController', function () {
     let getStub: SinonStub = null;
+
     before(function () {
       getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({
