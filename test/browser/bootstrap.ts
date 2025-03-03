@@ -1,6 +1,6 @@
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
-import { CCDCase, createCase } from 'test/fixtures/ccd';
+import { CCDCase, createCase, createIBACase } from 'test/fixtures/ccd';
 import {
   createUser,
   registerRedirectUri,
@@ -30,11 +30,15 @@ async function bootstrapSidamUser(ccdCase: CCDCase): Promise<SidamUser> {
 }
 
 export async function bootstrap(
-  hearingType = 'oral'
+  hearingType = 'oral',
+  benefitType = 'nonIba'
 ): Promise<{ sidamUser: SidamUser; ccdCase: CCDCase }> {
   try {
-    const ccdCase: CCDCase = await bootstrapCcdCase(hearingType);
-    const sidamUser: SidamUser = await bootstrapSidamUser(ccdCase);
+    let ccdCase: CCDCase;
+    benefitType === 'iba'
+      ? (ccdCase = await createIBACase(hearingType))
+      : (ccdCase = await bootstrapCcdCase(hearingType));
+    const sidamUser = await bootstrapSidamUser(ccdCase);
     return { ccdCase, sidamUser };
   } catch (error) {
     return Promise.reject(error);

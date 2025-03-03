@@ -36,6 +36,7 @@
       "webFormEnabled": "CONTACT_US_WEB_FORM_ENABLED",
       "webChatEnabled": "CONTACT_US_WEBCHAT_ENABLED"
     },
+    "directionHearingsEnabled": "DIRECTION_HEARINGS_ENABLED",
     "historyTab": "HISTORY_TAB",
     "myaPagination": "MYA_PAGINATION_ENABLED"
   },

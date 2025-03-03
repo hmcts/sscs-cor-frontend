@@ -2,6 +2,7 @@ import { LoggerInstance } from 'winston';
 import config from 'config';
 import { Logger } from '@hmcts/nodejs-logging';
 import rp from '@cypress/request-promise';
+import ibaAppealPayload from './iba_payload.json';
 
 const logger: LoggerInstance = Logger.getLogger('test ccd');
 
@@ -17,6 +18,59 @@ export interface CCDCase {
   email?: string;
 }
 
+export async function createIBACase(hearingType): Promise<CCDCase> {
+  const randomNumber = parseInt(`${Math.random() * 10000000}`, 10);
+  const email = `test${randomNumber}@hmcts.net`;
+  ibaAppealPayload.appellant.contactDetails.emailAddress = email;
+  const caseCreateOptions = {
+    method: 'POST',
+    uri: `${apiUrl}/appeals`,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: ibaAppealPayload,
+    resolveWithFullResponse: true,
+    json: true, // Automatically stringifies the body to JSON
+  };
+  let response = {};
+  try {
+    response = await rp(caseCreateOptions);
+  } catch (error) {
+    logger.error('Error at IBA createCase:', error.error);
+  }
+  // eslint-disable-next-line
+  const caseId = response['headers'].location.split('/').pop();
+  const getTyaOptions = {
+    method: 'GET',
+    uri: `${apiUrl}/appeals`,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    qs: {
+      caseId,
+    },
+    resolveWithFullResponse: true,
+    json: true,
+    timeout: 5000,
+  };
+  try {
+    response = await rp(getTyaOptions);
+  } catch (error) {
+    logger.error('Error at IBA createCase:', error.error);
+  }
+  // eslint-disable-next-line
+  const id = response['body'].appeal.appealNumber;
+
+  return {
+    case_reference: '',
+    appellant_tya: id,
+    joint_party_tya: '',
+    representative_tya: '',
+    id: caseId,
+    email: ibaAppealPayload.appellant.contactDetails.emailAddress,
+  };
+}
+
 export async function createCase(hearingType): Promise<CCDCase> {
   const randomNumber = parseInt(`${Math.random() * 10000000}`, 10);
   const email = `test${randomNumber}@hmcts.net`;
@@ -26,7 +80,6 @@ export async function createCase(hearingType): Promise<CCDCase> {
     json: true,
     timeout,
   };
-
   let body;
   try {
     body = await rp.post(options);
