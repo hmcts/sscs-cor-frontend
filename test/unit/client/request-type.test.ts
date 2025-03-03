@@ -21,6 +21,7 @@ const html = `<div class="task-list">
 describe('request-type', function () {
   let requestType: RequestType = null;
   let body: HTMLBodyElement = null;
+
   before(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
@@ -33,6 +34,7 @@ describe('request-type', function () {
         document.querySelector<HTMLSelectElement>('#requestOptions');
       select.addEventListener = sinon.spy();
     });
+
     describe('initialize class', function () {
       it('should attach Event Listeners', function () {
         const select: HTMLSelectElement =
@@ -46,6 +48,7 @@ describe('request-type', function () {
 
   describe('select request type', function () {
     let submitSpy: SinonSpy;
+
     before(function () {
       const form = document.querySelector<HTMLFormElement>(
         '#request-option-form'
@@ -53,9 +56,11 @@ describe('request-type', function () {
       submitSpy = sinon.spy(form, 'submit');
       requestType.init();
     });
+
     afterEach(function () {
       submitSpy.restore();
     });
+
     describe('select request type', function () {
       it('should submit form', function () {
         const select: HTMLSelectElement =

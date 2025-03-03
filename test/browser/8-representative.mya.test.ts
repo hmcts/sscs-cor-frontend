@@ -21,6 +21,7 @@ describe('Representative - Manage your appeal app @mya @nightly', function () {
   let assignCasePage: AssignCasePage;
   let statusPage: StatusPage;
   let sidamUser;
+
   before(async function () {
     ({
       ccdCase,

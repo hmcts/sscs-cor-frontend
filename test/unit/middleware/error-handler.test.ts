@@ -64,6 +64,7 @@ describe('middleware/error-handler', function () {
 
   describe('#forbiddenHandler', function () {
     const error = new HttpException(FORBIDDEN, 'forbiddenMessage');
+
     it('gives 403 page', function () {
       errorHandler.forbiddenHandler(error, req, res, next);
       expect(res.status).to.have.been.calledOnce.calledWith(FORBIDDEN);
@@ -94,6 +95,7 @@ describe('middleware/error-handler', function () {
 
   describe('#badRequestHandler', function () {
     const error = new HttpException(BAD_REQUEST, 'badRequestMessage');
+
     it('gives 400 page', function () {
       errorHandler.badRequestHandler(error, req, res, next);
       expect(res.status).to.have.been.calledOnce.calledWith(BAD_REQUEST);
@@ -124,6 +126,7 @@ describe('middleware/error-handler', function () {
 
   describe('#gatewayTimeoutHandler', function () {
     const error = new HttpException(GATEWAY_TIMEOUT, 'gatewayTimeoutMessage');
+
     it('gives 504 page', function () {
       errorHandler.gatewayTimeoutHandler(error, req, res, next);
       expect(res.status).to.have.been.calledOnce.calledWith(GATEWAY_TIMEOUT);
