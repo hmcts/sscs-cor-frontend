@@ -144,7 +144,7 @@ export async function startServices(options?): Promise<{
   }
   await startAppServer();
   const browser = await startBrowser();
-  let page: puppeteer.Page;
+  let page: Page;
 
   try {
     page = await browser.newPage();
