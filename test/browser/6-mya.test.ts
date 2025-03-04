@@ -263,7 +263,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
       statusPage.verifyPage();
       await statusPage.clickElement('#tab-hearing');
       // await page.waitForTimeout(500);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       expect(
         await statusPage.getElementText('.govuk-tabs__list-item--selected')
       ).contain(content.en.hearingTab.tabHeader);
@@ -289,7 +289,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     it('Navigate to Audio/Video Evidence tab', async function () {
       await statusPage.clickElement('#tab-avEvidence');
       // await page.waitForTimeout(500);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       expect(
         await statusPage.getElementText('.govuk-tabs__list-item--selected')
@@ -318,7 +318,7 @@ describe('Appellant - Manage your appeal app @mya @nightly', function () {
     it('Navigate to Appeal Details page', async function () {
       await statusPage.navigateToAppealDetailsPage();
       // await page.waitForTimeout(500);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       expect(
         await appealDetailsPage.getElementText('.govuk-heading-xl')

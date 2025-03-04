@@ -63,7 +63,7 @@ describe('CY - Hearing Recording request @mya @nightly', function () {
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
     // await page.waitForTimeout(500);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     await page.reload();
     statusPage.verifyPage();
     await requestTypePage.visitPage();
@@ -72,7 +72,7 @@ describe('CY - Hearing Recording request @mya @nightly', function () {
   it('CY - Navigate to Request Type tab', async function () {
     await statusPage.clickElement('#tab-requestType');
     // await page.waitForTimeout(500);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     expect(
       await requestTypePage.getElementText('.govuk-tabs__list-item--selected')
@@ -102,7 +102,7 @@ describe('CY - Hearing Recording request @mya @nightly', function () {
     requestTypePage.verifyPage();
     await requestTypePage.selectRequestOption();
     // await page.waitForTimeout(2000);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     requestTypePage.verifyPage();
     expect(
       await requestTypePage.getElementText('#released-hearing-recording h3')
