@@ -258,13 +258,13 @@ describe('Additional Evidence @mya @nightly', function () {
     );
 
     await additionalEvidenceUploadPage.selectFile('evidence.txt');
-    await page.waitForTimeout(10000);
+    await new Promise((resolve) => setTimeout(resolve, 10000));
 
     await additionalEvidenceUploadPage.addDescription(
       'The evidence description'
     );
     await additionalEvidenceUploadPage.submit();
-    await page.waitForTimeout(6000);
+    await new Promise((resolve) => setTimeout(resolve, 6000));
 
     /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();
@@ -289,19 +289,19 @@ describe('Additional Evidence @mya @nightly', function () {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadAudioVideoPage.verifyPage();
-    await page.waitForTimeout(4000);
+    await new Promise((resolve) => setTimeout(resolve, 4000));
     expect(await additionalEvidenceUploadAudioVideoPage.getHeading()).to.equal(
       content.en.additionalEvidence.evidenceUpload.header
     );
 
     await additionalEvidenceUploadAudioVideoPage.selectFile('test_audio.mp3');
-    await page.waitForTimeout(5000);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
     await additionalEvidenceUploadAudioVideoPage.addDescription(
       'The evidence description for AV file'
     );
     await additionalEvidenceUploadAudioVideoPage.submit();
-    await page.waitForTimeout(4000);
+    await new Promise((resolve) => setTimeout(resolve, 4000));
 
     additionalEvidenceConfirmationPage.verifyPage();
   });
