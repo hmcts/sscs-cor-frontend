@@ -26,6 +26,7 @@ describe('Hearing Recording request @mya @nightly', function () {
   let statusPage: StatusPage;
   let ccdCase;
   let sidamUser;
+
   before('start services and bootstrap data in CCD', async function () {
     ({
       ccdCase,
@@ -58,7 +59,7 @@ describe('Hearing Recording request @mya @nightly', function () {
     assignCasePage.verifyPage();
     await assignCasePage.fillPostcode('TN32 6PL');
     await assignCasePage.submit();
-    await page.waitForTimeout(500);
+    await new Promise((resolve) => setTimeout(resolve, 500));
     await page.reload();
     statusPage.verifyPage();
     await requestTypePage.visitPage();
@@ -66,7 +67,7 @@ describe('Hearing Recording request @mya @nightly', function () {
 
   it('Navigate to Request Type tab', async function () {
     await statusPage.clickElement('#tab-requestType');
-    await page.waitForTimeout(500);
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     expect(
       await requestTypePage.getElementText('.govuk-tabs__list-item--selected')
@@ -95,7 +96,7 @@ describe('Hearing Recording request @mya @nightly', function () {
   it('Select hearing recording option and shows list of hearing recording available', async function () {
     requestTypePage.verifyPage();
     await requestTypePage.selectRequestOption();
-    await page.waitForTimeout(2000);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     requestTypePage.verifyPage();
 
     expect(

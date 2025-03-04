@@ -11,13 +11,16 @@ const html = `<div id="app-cookie-banner" >`;
 
 describe('client main js', function () {
   let body;
+
   beforeEach(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
   });
+
   afterEach(function () {
     sinon.restore();
   });
+
   it('onReady', function () {
     const govUKMock = sinon.stub(govUK, 'initAll');
     const expandingTextBoxMock = sinon.stub(expandingTextBox, 'init');

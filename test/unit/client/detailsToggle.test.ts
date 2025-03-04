@@ -31,6 +31,7 @@ const html = `
 
 describe('detailsTabIndexToggle', function () {
   let detailsToggle: DetailsTabIndexToggle;
+
   before(function () {
     document.body.innerHTML = html;
   });
