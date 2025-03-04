@@ -62,8 +62,7 @@ describe('Task list page', function () {
 
   it('is on the /task-list path', async function () {
     // await page.waitForTimeout(4000);
-    // await new Promise(resolve => setTimeout(resolve, 4000));
-    await this.page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+    await new Promise((resolve) => setTimeout(resolve, 4000));
     taskListPage.verifyPage();
   });
 
