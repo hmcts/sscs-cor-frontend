@@ -61,7 +61,8 @@ describe('Task list page', function () {
   });
 
   it('is on the /task-list path', async function () {
-    await page.waitForTimeout(4000);
+    // await page.waitForTimeout(4000);
+    await this.page.waitForNavigation({ waitUntil: 'domcontentloaded' });
     taskListPage.verifyPage();
   });
 
