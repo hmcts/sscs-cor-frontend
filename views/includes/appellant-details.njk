@@ -2,7 +2,7 @@
   <h2 class="govuk-heading-m">
     <span id="appellant-name">{{ case.appellant_name }}</span>
   </h2>
-  <p tabindex="0">
+  <p>
     {{ content[i18n.language].common.appealReference | safe }}:
     <span id="case-reference" aria-label="{{ screenReaderUtils.spellNumbersOut(case.case_reference) }}">
       {{ case.case_reference | safe }}
