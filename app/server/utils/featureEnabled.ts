@@ -7,7 +7,6 @@ enum Feature {
   CONTACT_US_TELEPHONE_ENABLED = 'allowContactUs.telephoneEnabled',
   CONTACT_US_WEBCHAT_ENABLED = 'allowContactUs.webChatEnabled',
   HISTORY_TAB = 'historyTab',
-  DIRECTION_HEARINGS_ENABLED = 'directionHearingsEnabled',
   MYA_PAGINATION_ENABLED = 'myaPagination',
 }
 
