@@ -141,6 +141,17 @@ export function configureNunjucks(app: Application): void {
     }
   );
   nunEnv.addFilter(
+    'hmcHearingTypeHearingBooked',
+    function hmcHearingTypeHearingBooked(this, hmcHearingType: string) {
+      switch (hmcHearingType) {
+        case 'BBA3-DIR':
+          return nunjucks.renderString('Direction ', this.ctx);
+        default:
+          return nunjucks.renderString('', this.ctx);
+      }
+    }
+  );
+  nunEnv.addFilter(
     'benefitAcronym',
     function benefitAcronym(this, benefitType: string) {
       return nunjucks.renderString(
