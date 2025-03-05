@@ -8,8 +8,8 @@ nodejs:
     REDIS_PORT: 6379
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
-    SSCS_API_URL: 'https://sscs-tribunals-api-pr-4528.preview.platform.hmcts.net'
-    TRIBUNALS_API_URL: 'https://sscs-tribunals-api-pr-4528.preview.platform.hmcts.net'
+    SSCS_API_URL: 'https://sscs-tribunals-api-pr-4517.preview.platform.hmcts.net'
+    TRIBUNALS_API_URL: 'https://sscs-tribunals-api-pr-4517.preview.platform.hmcts.net'
     DIRECTION_HEARINGS_ENABLED: true
   keyVaults:
     sscs:
