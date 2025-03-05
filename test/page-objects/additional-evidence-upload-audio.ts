@@ -4,7 +4,6 @@ import { BasePage } from 'test/page-objects/base';
 import { additionalEvidence } from 'app/server/paths';
 import { expect } from 'test/chai-sinon';
 import content from 'app/common/locale/content.json';
-import { ElementHandle } from 'puppeteer';
 
 export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
   constructor(page) {
@@ -18,9 +17,9 @@ export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
   }
 
   async selectFile(filename: string) {
-    const fileInput = (await this.page.$(
+    const fileInput = await this.getInputElement(
       '#additional-evidence-audio-video-file'
-    )) as ElementHandle<HTMLInputElement>;
+    );
     const filePath = path.join(__dirname, `/../fixtures/evidence/${filename}`);
     await fileInput.uploadFile(filePath);
   }
