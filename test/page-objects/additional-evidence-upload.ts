@@ -17,7 +17,7 @@ export class AdditionalEvidenceUploadPage extends BasePage {
   }
 
   async selectFile(filename: string) {
-    const fileInput = await this.getElement('#additional-evidence-file');
+    const fileInput = await this.getInputElement('#additional-evidence-file');
     const filePath = path.join(__dirname, `/../fixtures/evidence/${filename}`);
     await fileInput.uploadFile(filePath);
   }
