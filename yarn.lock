@@ -15446,6 +15446,7 @@ __metadata:
     reload: ^3.2.0
     request-promise: ^4.2.2
     sass: ^1.66.1
+    serialize-javascript: ^6.0.2
     serve-favicon: ^2.4.2
     shelljs: ^0.8.5
     sinon: 18.0.0
