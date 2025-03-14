@@ -39,7 +39,7 @@ let loginPage: LoginPage = null;
 let taskListPage: TaskListPage = null;
 
 // eslint-disable-next-line mocha/no-exports
-export const CY_CONTACT_US_OPEN_HEIGHT = 915;
+export const CY_CONTACT_US_OPEN_HEIGHT = 465;
 // eslint-disable-next-line mocha/no-exports
 export const EN_CONTACT_US_OPEN_HEIGHT = 585; // 1035;
 
