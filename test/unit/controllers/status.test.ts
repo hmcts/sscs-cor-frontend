@@ -36,6 +36,7 @@ describe('controllers/status', function () {
 
   describe('setupStatusController', function () {
     let getStub: SinonStub = null;
+
     before(function () {
       getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({

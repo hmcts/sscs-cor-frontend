@@ -207,6 +207,7 @@ describe('controllers/additional-evidence.js', function () {
 
   describe('#postEvidenceStatement', function () {
     let additionalEvidenceService;
+
     beforeEach(function () {
       additionalEvidenceService = {
         saveStatement: sinon.stub().resolves(),

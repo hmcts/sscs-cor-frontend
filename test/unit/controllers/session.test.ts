@@ -38,6 +38,7 @@ describe('controllers/session.ts', function () {
   describe('setupSessionController', function () {
     let deps: Dependencies = null;
     let routerStub: SinonStub = null;
+
     beforeEach(function () {
       deps = {};
       routerStub = sinon.stub(express, 'Router').returns({

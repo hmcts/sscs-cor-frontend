@@ -48,6 +48,7 @@ describe('controllers/policies.js', function () {
 
   describe('setupCookiePrivacyController', function () {
     let getStub: SinonStub = null;
+
     before(function () {
       getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({
