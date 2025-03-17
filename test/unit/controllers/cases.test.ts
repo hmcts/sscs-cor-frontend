@@ -40,6 +40,7 @@ describe('controllers/cases', function () {
 
   describe('setupCasesController', function () {
     let getStub: SinonStub = null;
+
     before(function () {
       getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({
@@ -67,6 +68,7 @@ describe('controllers/cases', function () {
         getCasesForCitizen: () => ({ statusCode: StatusCodes.OK, body: [] }),
       };
     });
+
     it('should render cases page', async function () {
       req.session.cases = oralCases;
       const getCasesMiddleware = cases.getCases(caseService, idamService);

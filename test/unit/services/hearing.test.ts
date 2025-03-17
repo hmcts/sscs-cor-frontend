@@ -20,6 +20,7 @@ describe('services/hearing', function () {
     cookie: undefined,
   } as Partial<SessionData> as SessionData;
   const req = { session } as Request;
+
   before(function () {
     caseService = new CaseService(apiUrl);
   });
@@ -33,6 +34,7 @@ describe('services/hearing', function () {
         online_hearing_id: 'abc-123-def-456',
       },
     ];
+
     describe('success response', function () {
       beforeEach(function () {
         nock(apiUrl)
@@ -40,6 +42,7 @@ describe('services/hearing', function () {
           .query({ email })
           .reply(StatusCodes.OK, apiResponseBody);
       });
+
       it('resolves the promise', function () {
         return expect(caseService.getCasesForCitizen(email, tya, req)).to.be
           .fulfilled;
@@ -50,6 +53,7 @@ describe('services/hearing', function () {
         expect(response.body).to.deep.equal(apiResponseBody);
       });
     });
+
     describe('error response', function () {
       beforeEach(function () {
         nock(apiUrl)

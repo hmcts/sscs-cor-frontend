@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { Page, ElementHandle } from 'puppeteer';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
@@ -166,6 +166,13 @@ export class BasePage {
   async getElements(selector) {
     const elements = await this.page.$$(selector);
     return elements;
+  }
+
+  async getInputElement(selector): Promise<ElementHandle<HTMLInputElement>> {
+    const inputElement = (await this.page.$(
+      selector
+    )) as ElementHandle<HTMLInputElement>;
+    return inputElement;
   }
 
   async setTextintoField(selector, text) {
