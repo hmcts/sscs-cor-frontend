@@ -136,6 +136,7 @@ describe('Client/session-inactivity', function () {
 
   describe('Counters', function () {
     let clock;
+
     beforeEach(function () {
       clock = sinon.useFakeTimers();
     });

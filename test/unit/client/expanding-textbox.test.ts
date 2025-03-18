@@ -9,6 +9,7 @@ describe('expanding-textbox', function () {
       'textarea.auto-expand'
     ).addEventListener = sinon.spy();
   });
+
   describe('initialize class', function () {
     it('should attach Event Listeners', function () {
       const target = document.querySelector<HTMLInputElement>(
@@ -19,6 +20,7 @@ describe('expanding-textbox', function () {
       expect(target.addEventListener).to.have.been.called;
     });
   });
+
   describe('#autoExpand', function () {
     it('sets height to scroll height + border widths', function () {
       const target = document.querySelector<HTMLInputElement>(

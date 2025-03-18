@@ -17,7 +17,7 @@ export class AdditionalEvidenceUploadAudioVideoPage extends BasePage {
   }
 
   async selectFile(filename: string) {
-    const fileInput = await this.getElement(
+    const fileInput = await this.getInputElement(
       '#additional-evidence-audio-video-file'
     );
     const filePath = path.join(__dirname, `/../fixtures/evidence/${filename}`);

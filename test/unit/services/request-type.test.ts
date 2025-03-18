@@ -18,6 +18,7 @@ describe('services/request-type', function () {
   const req: any = {};
   let rpStub: SinonStub = null;
   const error = new HttpException(INTERNAL_SERVER_ERROR, 'Server Error');
+
   before(function () {
     req.session = {
       accessToken: 'someUserToken',
