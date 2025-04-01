@@ -69,6 +69,7 @@ describe('middleware/ensure-authenticated', function () {
       expect(res.locals).to.not.have.property('tabs');
       expect(res.locals.case).to.deep.equal(caseDetails);
     });
+
     it('also sets tabs data on the locals', function () {
       req.cookies = {
         hearingOutcomeTab: 'true',
@@ -93,6 +94,7 @@ describe('middleware/ensure-authenticated', function () {
         'requestType',
       ]);
     });
+
     it('also remove outcome tab if hearingOutcome not present', function () {
       req.cookies = {};
       req.session.appeal = {
@@ -112,6 +114,7 @@ describe('middleware/ensure-authenticated', function () {
         'requestType',
       ]);
     });
+
     it('sets signedIn on the locals', function () {
       setLocals(req, res, next);
       expect(res.locals).to.have.property('signedIn', true);

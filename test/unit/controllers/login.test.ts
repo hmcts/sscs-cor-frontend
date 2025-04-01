@@ -157,6 +157,7 @@ describe('controllers/login', function () {
 
   describe('#redirectToIdam', function () {
     let idamServiceStub;
+
     beforeEach(function () {
       idamServiceStub = {
         // eslint-disable-next-line mocha/no-setup-in-describe

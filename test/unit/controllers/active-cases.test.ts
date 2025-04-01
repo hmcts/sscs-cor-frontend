@@ -34,6 +34,7 @@ describe('controllers/active-cases', function () {
 
   describe('setupActiveCasesController', function () {
     let getStub: SinonStub = null;
+
     beforeEach(function () {
       getStub = sinon.stub();
       sinon.stub(express, 'Router').returns({

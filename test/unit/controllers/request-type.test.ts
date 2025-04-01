@@ -48,6 +48,7 @@ describe('controllers/request-type', function () {
   describe('setupRequestTypeController', function () {
     let getStub: SinonStub = null;
     let postStub: SinonStub = null;
+
     before(function () {
       getStub = sinon.stub();
       postStub = sinon.stub();
@@ -96,6 +97,7 @@ describe('controllers/request-type', function () {
 
   describe('selectRequestType', function () {
     let getHearingRecordingStub: SinonStub = null;
+
     beforeEach(function () {
       getHearingRecordingStub = sinon.stub(
         requestTypeService,
@@ -163,6 +165,7 @@ describe('controllers/request-type', function () {
 
   describe('submitHearingRecordingRequest', function () {
     let submitHearingRecordingStub: SinonStub = null;
+
     beforeEach(function () {
       submitHearingRecordingStub = sinon.stub(
         requestTypeService,

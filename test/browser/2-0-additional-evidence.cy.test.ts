@@ -240,7 +240,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
     await additionalEvidencePage.submit();
 
     additionalEvidenceUploadPage.verifyPage();
-    await page.waitForTimeout(5000);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     expect(await additionalEvidenceUploadPage.getHeading()).to.equal(
       content.cy.additionalEvidence.evidenceUpload.header
     );
@@ -254,7 +254,7 @@ describe.skip('CY - Additional Evidence @mya @nightly99', function () {
       'The evidence description'
     );
     await additionalEvidenceUploadPage.submit();
-    await page.waitForTimeout(4000);
+    await new Promise((resolve) => setTimeout(resolve, 4000));
 
     /* PA11Y */
     additionalEvidenceConfirmationPage.verifyPage();

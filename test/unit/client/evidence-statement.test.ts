@@ -9,6 +9,7 @@ const html = `
 describe('evidence-statement', function () {
   let evidenceStatement;
   let body;
+
   before(function () {
     body = document.querySelector('body');
     body.innerHTML = html;
