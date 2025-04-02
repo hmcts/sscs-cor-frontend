@@ -31,7 +31,7 @@
     "test:nightly": "yarn test:browser --grep @nightly",
     "test:fullfunctional": "yarn test:nightly",
     "test:smoke": "cross-env NODE_PATH=. NODE_ENV=test TS_NODE_PROJECT=app/server/tsconfig.json mocha test/smoke/*.ts --grep @smoke --colors --reporter mochawesome  --reporter-options reportDir=smoke-output/reports/smoke,inlineAssets=true --exit",
-    "test:crossbrowser": "cross-env NODE_PATH=. NODE_ENV=test codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/crossbrowser/saucelabs.conf.ts --steps --reporter mocha-multi --verbose",
+    "test:crossbrowser": "yarn playwright install --with-deps && cross-env NODE_PATH=. NODE_ENV=test codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/crossbrowser/saucelabs.conf.ts --steps --reporter mocha-multi --verbose",
     "test:coverage": "nyc report",
     "test:a11y": "yarn -v",
     "test:all": "yarn test && yarn test:coverage",
