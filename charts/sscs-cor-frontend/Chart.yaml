@@ -1,7 +1,7 @@
 apiVersion: v2
 name: sscs-cor-frontend
 home: https://github.com/hmcts/sscs-cor-frontend
-version: 0.1.47
+version: 0.1.48
 description: SSCS COR FRONTEND
 dependencies:
   - name: nodejs
@@ -9,7 +9,7 @@ dependencies:
     repository: 'oci://hmctspublic.azurecr.io/helm'
   - name: idam-pr
     version: 2.3.0
-    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
+    repository: 'oci://hmctspublic.azurecr.io/helm'
     condition: idam-pr.enabled
   - name: redis
     version: 17.17.1
