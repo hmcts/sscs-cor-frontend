@@ -8,7 +8,6 @@ import helmet from 'helmet';
 import config from 'config';
 import { tyaNunjucks } from './controllers/content';
 import { dateFormat } from './utils/dateUtils';
-import { ReferrerPolicyOptions } from 'helmet/dist/types/middlewares/referrer-policy';
 import content from '../common/locale/content.json';
 import * as path from 'path';
 
@@ -17,9 +16,6 @@ const logger: LoggerInstance = Logger.getLogger('app-configuration.ts');
 const defaultDateFormat: string = config.get('default.dateFormat');
 
 const DecisionReceivedDaysAfterHearing = 5;
-
-// Helmet referrer policy
-const referrerPolicy: ReferrerPolicyOptions = { policy: 'origin' };
 
 // Helmet content security policy (CSP) to allow only assets from same domain.
 const contentSecurityPolicy = {
@@ -66,7 +62,7 @@ export function configureHelmet(app: Application): void {
   // by setting HTTP headers appropriately.
   app.use(helmet());
 
-  app.use(helmet.referrerPolicy(referrerPolicy));
+  app.use(helmet.referrerPolicy({ policy: 'origin' }));
 
   app.use(helmet.contentSecurityPolicy(contentSecurityPolicy));
 }

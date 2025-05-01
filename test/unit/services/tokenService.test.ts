@@ -51,7 +51,7 @@ describe('services/tokenService', function () {
     });
     getRequest = sinon.stub(superagent, 'get').returns({
       then: thenStub,
-    } as Partial<SuperAgentRequest> as SuperAgentRequest);
+    } as unknown as SuperAgentRequest);
     next = sinon.stub().resolves();
   });
 
