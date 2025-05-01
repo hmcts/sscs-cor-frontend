@@ -18,8 +18,8 @@ export function setupKeyVaultSecrets(): void {
     );
     setSecret('secrets.sscs.sscs-s2s-secret', 's2s.secret');
     setSecret(
-      'secrets.sscs.AppInsightsInstrumentationKey',
-      'appInsights.instrumentationKey'
+      'secrets.sscs.app-insights-connection-string',
+      'appInsights.connectionString'
     );
   }
 }

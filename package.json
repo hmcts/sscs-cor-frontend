@@ -58,7 +58,7 @@
     "@hmcts/properties-volume": "^0.0.14",
     "@types/express": "^4.17.21",
     "@types/express-serve-static-core": "^4.19.5",
-    "applicationinsights": "^1.6.0",
+    "applicationinsights": "^2.9.6",
     "body-parser": "^1.20.3",
     "chokidar": "^3.5.3",
     "cliui": "^8.0.1",
