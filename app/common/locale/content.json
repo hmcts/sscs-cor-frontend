@@ -256,6 +256,13 @@
         "desc": "Talk to one of our agents now over the phone.",
         "charges": "Find out about call charges",
         "ibca": {
+          "ScotlandNI": {
+            "desc": "IBC appeals helpline (Scotland and Northern Ireland)",
+            "phone": "Telephone: 0300 790 6234",
+            "availability": "Monday to Friday, 9am to 4pm",
+            "emailText": "Email:",
+            "emailAddress": "sscsa-glasgow@Justice.gov.uk"
+          },
           "Scotland": {
             "desc": "IBC appeals helpline (Scotland)",
             "phone": "Telephone: 0300 790 6234",
