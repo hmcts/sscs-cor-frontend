@@ -8,6 +8,7 @@ enum Feature {
   CONTACT_US_WEBCHAT_ENABLED = 'allowContactUs.webChatEnabled',
   HISTORY_TAB = 'historyTab',
   MYA_PAGINATION_ENABLED = 'myaPagination',
+  NI_CONTACT_DETAILS_ENABLED = 'ContactDetailsNI'
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
