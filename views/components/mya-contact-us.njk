@@ -97,7 +97,7 @@
               {% endif %}
               {% if appealType === 'infectedbloodcompensation' or appealType === 'unknown'  %}
                 <!-- IBCA Scotland -->
-                <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.Scotland.desc }}</h3>
+              <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ content[i18n.language].contactUs.telephone.ibca.ScotlandNI.desc if ContactDetailsNIEnabled else content[i18n.language].contactUs.telephone.ibca.Scotland.desc }}</h3>
                 <p class="govuk-body govuk-!-margin-bottom-0">
                   {{ content[i18n.language].contactUs.telephone.ibca.Scotland.phone }}
                 </p>

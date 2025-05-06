@@ -107,6 +107,10 @@ export async function setupApp(
       Feature.CONTACT_US_WEBCHAT_ENABLED,
       req.cookies
     );
+    app.locals.ContactDetailsNIEnabled = isFeatureEnabled(
+      Feature.NI_CONTACT_DETAILS_ENABLED,
+      req.cookies
+    );
     app.locals.baseUrl = `${req.protocol}://${req.headers.host}`;
     next();
   });
