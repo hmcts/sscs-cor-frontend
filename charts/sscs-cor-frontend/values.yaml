@@ -31,7 +31,7 @@ nodejs:
         - sscs-cor-redis-connection-string
         - tyacookiesecret
         - idam-sscs-oauth2-client-secret
-        - AppInsightsInstrumentationKey
+        - app-insights-connection-string
 redis:
   enabled: false
   cluster:
