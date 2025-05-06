@@ -8,7 +8,7 @@
     "url": "TRIBUNALS_API_URL"
   },
   "appInsights": {
-    "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
+    "connectionString": "APPLICATIONINSIGHTS_CONNECTION_STRING"
   },
   "session": {
     "cookie": {

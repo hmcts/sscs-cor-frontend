@@ -9,7 +9,7 @@
     "delay": 2000
   },
   "appInsights": {
-    "instrumentationKey": "iKey",
+    "connectionString": "InstrumentationKey=test-key;IngestionEndpoint=https://fake.endpoint",
     "roleName": "COR-FE"
   },
   "session": {
