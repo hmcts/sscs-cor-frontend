@@ -257,11 +257,7 @@
         "charges": "Find out about call charges",
         "ibca": {
           "ScotlandNI": {
-            "desc": "IBC appeals helpline (Scotland and Northern Ireland)",
-            "phone": "Telephone: 0300 790 6234",
-            "availability": "Monday to Friday, 9am to 4pm",
-            "emailText": "Email:",
-            "emailAddress": "sscsa-glasgow@Justice.gov.uk"
+            "desc": "IBC appeals helpline (Scotland and Northern Ireland)"
           },
           "Scotland": {
             "desc": "IBC appeals helpline (Scotland)",
@@ -276,7 +272,7 @@
             "availability": "Monday to Friday, 9am to 4pm"
           },
           "AllOthers": {
-            "desc": "IBC appeals helpline (All other appellants)",
+            "desc": "IBC appeals helpline (England and Wales)",
             "phone": "Telephone: 0300 131 2850",
             "availability": "Monday to Friday, 9am to 4pm",
             "emailText": "Email:",
@@ -1614,11 +1610,7 @@
         "charges": "Gwybodaeth am brisiau galwadau",
         "ibca": {
           "ScotlandNI": {
-            "desc": "Llinell gymorth apeliadau IBC (Yr Alban a Gogledd Iwerddon)",
-            "phone": "Rhif ffôn: 0300 790 6234",
-            "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm",
-            "emailText": "E-bost:",
-            "emailAddress": "sscsa-glasgow@Justice.gov.uk"
+            "desc": "Llinell gymorth apeliadau IBC (Yr Alban a Gogledd Iwerddon)"
           },
           "Scotland": {
             "desc": "Llinell gymorth apeliadau IBC (Yr Alban)",
@@ -1633,7 +1625,7 @@
             "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm"
           },
           "AllOthers": {
-            "desc": "Llinell gymorth apeliadau IBC (Pob apelydd arall)",
+            "desc": "Llinell gymorth apeliadau IBC (Cymru a Lloegr)",
             "phone": "Rhif ffôn: 0300 131 2850",
             "availability": "Dydd Llun i ddydd Gwener, 9am i 4pm",
             "emailText": "E-bost:",

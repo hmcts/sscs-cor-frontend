@@ -38,7 +38,7 @@
     },
     "historyTab": "HISTORY_TAB",
     "myaPagination": "MYA_PAGINATION_ENABLED",
-    "ContactDetailsNI" : "NI_CONTACT_DETAILS_ENABLED"
+    "allowNI" : "IBC_NI_POSTCODES_FEATURE"
   },
   "s2s": {
     "secret": "S2S_SECRET",

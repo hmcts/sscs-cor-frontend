@@ -72,7 +72,7 @@
     },
     "historyTab": "false",
     "myaPagination": "false",
-    "ContactDetailsNI": "true"
+    "allowNI": "false"
   },
   "services": {
     "webForm": {
