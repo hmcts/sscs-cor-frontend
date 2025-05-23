@@ -37,7 +37,8 @@
       "webChatEnabled": "CONTACT_US_WEBCHAT_ENABLED"
     },
     "historyTab": "HISTORY_TAB",
-    "myaPagination": "MYA_PAGINATION_ENABLED"
+    "myaPagination": "MYA_PAGINATION_ENABLED",
+    "allowNI" : "IBC_NI_POSTCODES_FEATURE"
   },
   "s2s": {
     "secret": "S2S_SECRET",
