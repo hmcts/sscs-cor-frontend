@@ -1,0 +1,19 @@
+{
+    "ibca": {
+          "ScotlandNI": {
+            "desc": "IBC appeals helpline (Scotland and Northern Ireland)"
+          },
+          "WelshSpeakers": {
+            "desc": "IBC appeals helpline (for Welsh speakers)",
+            "phone": "Telephone: 0300 303 5170",
+            "availability": "Monday to Friday, 9am to 4pm"
+          },
+          "AllOthers": {
+            "desc": "IBC appeals helpline (England and Wales)",
+            "phone": "Telephone: 0300 131 2850",
+            "availability": "Monday to Friday, 9am to 4pm",
+            "emailText": "Email:",
+            "emailAddress": "ContactIBCAppeals@justice.gov.uk"
+          }
+        }
+    }
