@@ -310,14 +310,15 @@ describe('Appellant - Manage your appeal app @mya @nightly @iba', function () {
         statusPage.locators.contactUsHeading3
       );
       expect(ibcaSections).to.eql(
-        Object.values(ibcContentContactUs.ibca).map((item) => item.desc)
+        Object.values(ibcContentContactUs.telephone.ibca).map((item) => item.desc)
       );
 
+      // content.en.contactUs.telephone.ibca
       const ibcaContent = await statusPage.getElementText(
         statusPage.locators.contactUsContent
       );
       const expectedContent = Object.values(
-        content.en.contactUs.telephone.ibca
+        ibcContentContactUs.telephone.ibca
       ).flatMap((obj) => Object.values(obj));
       expectedContent.forEach((content) =>
         expect(ibcaContent).to.contain(content)
