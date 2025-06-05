@@ -310,7 +310,9 @@ describe('Appellant - Manage your appeal app @mya @nightly @iba', function () {
         statusPage.locators.contactUsHeading3
       );
       expect(ibcaSections).to.eql(
-        Object.values(ibcContentContactUs.telephone.ibca).map((item) => item.desc)
+        Object.values(ibcContentContactUs.telephone.ibca).map(
+          (item) => item.desc
+        )
       );
 
       // content.en.contactUs.telephone.ibca
