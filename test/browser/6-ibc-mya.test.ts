@@ -315,7 +315,6 @@ describe('Appellant - Manage your appeal app @mya @nightly @iba', function () {
         )
       );
 
-      // content.en.contactUs.telephone.ibca
       const ibcaContent = await statusPage.getElementText(
         statusPage.locators.contactUsContent
       );
