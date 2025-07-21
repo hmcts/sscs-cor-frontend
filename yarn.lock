@@ -8405,7 +8405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-session@npm:^1.18.1":
+"express-session@npm:^1.18.2":
   version: 1.18.2
   resolution: "express-session@npm:1.18.2"
   dependencies:
@@ -16133,7 +16133,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-promise: ^6.1.1
     express: ^4.21.0
-    express-session: ^1.18.1
+    express-session: ^1.18.2
     govuk-frontend: ^4.7.0
     govuk_template_jinja: ^0.26.0
     helmet: ^8.1.0
