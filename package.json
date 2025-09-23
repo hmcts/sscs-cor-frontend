@@ -126,7 +126,7 @@
     "chai-http": "^5.1.2",
     "chai-string": "^1.5.0",
     "cli-color": "^2.0.3",
-    "codeceptjs": "^3.7.3",
+    "codeceptjs": "^3.7.5",
     "concurrently": "^7.0.0",
     "cross-env": "^4.0.0",
     "domready": "^1.0.8",
