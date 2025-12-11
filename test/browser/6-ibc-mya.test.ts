@@ -249,9 +249,6 @@ describe('Appellant - Manage your appeal app @mya @nightly @iba', function () {
         expect(latestUpdatePanelContent[0]).contain(
           'We have received your appeal and are reviewing it. We will contact you with an update soon. Please do not resubmit your appeal'
         );
-        // expect(latestUpdatePanelContent[0]).contain(
-        //   'We’ll contact you and explain the next steps when they’ve replied.'
-        // );
       }
     });
 
