@@ -24,14 +24,14 @@ export async function createIBACase(hearingType): Promise<CCDCase> {
 
   // Set MRN date to today in required format DD-MM-YYYY
   const now = new Date();
-  const day = String(now.getDate().toString().padStart(2, '0'));
-  const month = String((now.getMonth() + 1).toString().padStart(2, '0'));
-  const year = now.getFullYear().toString();
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = String(now.getFullYear());
   const mrnDate = `${day}-${month}-${year}`;
 
   ibaAppealPayload.appellant.contactDetails.emailAddress = email;
 
-  //Inject the date into payload
+  // Inject the date into payload
   ibaAppealPayload.mrn.date = mrnDate;
   const caseCreateOptions = {
     method: 'POST',
