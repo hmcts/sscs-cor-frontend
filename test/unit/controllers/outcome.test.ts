@@ -80,7 +80,9 @@ describe('controllers/outcome', function () {
     beforeEach(function () {
       req = {
         session: {
-          appeal: {},
+          appeal: {
+            hearingOutcome: [{ url }],
+          },
         },
         cookies: {},
         query: {
