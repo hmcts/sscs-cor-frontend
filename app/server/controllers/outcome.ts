@@ -25,12 +25,19 @@ function getOutcome(req: Request, res: Response) {
 
 function getDocument(trackYourAppealService: TrackYourApealService) {
   return async (req: Request, res: Response) => {
-    const pdf = await trackYourAppealService.getDocument(
-      req.query.url as string,
-      req
-    );
-    res.header('content-type', 'application/pdf');
-    res.send(Buffer.from(pdf, 'binary'));
+    if (req.session?.appeal?.hearingOutcome?.length) {
+      let docs = req.session.appeal.hearingOutcome.filter((doc) => {
+        return doc.url === req.query.url;
+      });
+      if (docs.length > 0) {
+        const pdf = await trackYourAppealService.getDocument(
+          req.query.url as string,
+          req
+        );
+        res.header('content-type', 'application/pdf');
+        res.send(Buffer.from(pdf, 'binary'));
+      }
+    }
   };
 }
 
