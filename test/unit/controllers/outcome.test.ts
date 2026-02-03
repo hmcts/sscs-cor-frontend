@@ -109,4 +109,33 @@ describe('controllers/outcome', function () {
       expect(res.send).to.have.called.calledWith(Buffer.from(pdf, 'binary'));
     });
   });
+
+  describe('getDocumentNoDoc', function () {
+    let trackYourAppealService;
+    const url = 'http://test';
+
+    beforeEach(function () {
+      req = {
+        cookies: {},
+        query: {
+          url,
+        },
+      } as any;
+
+      res = {
+        header: sinon.stub(),
+        send: sinon.stub(),
+      };
+
+      trackYourAppealService = {};
+    });
+
+    it('should do nothing with the document url', async function () {
+      const pdf = 'PDF';
+      trackYourAppealService.getDocument = async () => Promise.resolve(pdf);
+      await outcome.getDocument(trackYourAppealService)(req, res);
+      expect(res.header).to.have.not.been.called;
+      expect(res.send).to.have.not.been.called;
+    });
+  });
 });
