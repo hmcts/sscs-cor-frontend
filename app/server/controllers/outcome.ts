@@ -40,9 +40,9 @@ function getDocument(trackYourAppealService: TrackYourApealService) {
         logger.error(
           `Document ${req.query.url} not found on case ${req.session.appeal.caseReference} `
         );
-        let message = "The document you're trying to view doesn't exist.";
+        let messages = ["The document you're trying to view doesn't exist."];
         let header = '404 - Document not found';
-        return res.render('errors/error.njk', { header, message });
+        return res.render('errors/error.njk', { header, messages });
       }
     }
   };

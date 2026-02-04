@@ -146,7 +146,7 @@ describe('controllers/outcome', function () {
       );
       expect(res.render).to.have.been.calledOnceWith('errors/error.njk', {
         header: '404 - Document not found',
-        message: "The document you're trying to view doesn't exist.",
+        messages: ["The document you're trying to view doesn't exist."],
       });
     });
   });
