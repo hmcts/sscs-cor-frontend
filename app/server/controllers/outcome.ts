@@ -30,7 +30,6 @@ function getDocument(trackYourAppealService: TrackYourApealService) {
         return doc.url === req.query.url;
       });
       if (docs.length > 0) {
-        logger.info(`Document ${req.query.url} found`);
         const pdf = await trackYourAppealService.getDocument(
           req.query.url as string,
           req
