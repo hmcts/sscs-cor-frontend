@@ -3,6 +3,7 @@ import * as Paths from 'app/server/paths';
 import * as outcome from 'app/server/controllers/outcome';
 import express, { Router } from 'express';
 import { expect, sinon } from 'test/chai-sinon';
+import { Logger } from '@hmcts/nodejs-logging';
 
 import oralHearing from '../../mock/tribunals/data/oral/outcome.json';
 import { SinonStub } from 'sinon';
@@ -10,6 +11,7 @@ import { SinonStub } from 'sinon';
 describe('controllers/outcome', function () {
   let req: any;
   let res: any;
+  let loggerErrorSpy: any;
 
   beforeEach(function () {
     req = {
@@ -22,6 +24,8 @@ describe('controllers/outcome', function () {
     res = {
       render: sinon.stub(),
     };
+
+    loggerErrorSpy = sinon.spy(Logger.getLogger('outcome.js'), 'error');
 
     sinon.stub(AppInsights, 'trackException');
     sinon.stub(AppInsights, 'trackEvent');
@@ -110,12 +114,18 @@ describe('controllers/outcome', function () {
     });
   });
 
-  describe('getDocumentNoDoc', function () {
+  describe('getDocumentNotFound', function () {
     let trackYourAppealService;
     const url = 'http://test';
 
     beforeEach(function () {
       req = {
+        session: {
+          appeal: {
+            hearingOutcome: [{ url: 'http://another' }],
+            caseReference: 'SC123/456',
+          },
+        },
         cookies: {},
         query: {
           url,
@@ -123,19 +133,21 @@ describe('controllers/outcome', function () {
       } as any;
 
       res = {
-        header: sinon.stub(),
-        send: sinon.stub(),
+        render: sinon.stub(),
       };
 
       trackYourAppealService = {};
     });
 
-    it('should do nothing with the document url', async function () {
-      const pdf = 'PDF';
-      trackYourAppealService.getDocument = async () => Promise.resolve(pdf);
+    it('should log error when document not found', async function () {
       await outcome.getDocument(trackYourAppealService)(req, res);
-      expect(res.header).to.have.not.been.called;
-      expect(res.send).to.have.not.been.called;
+      expect(loggerErrorSpy).to.have.been.calledOnceWith(
+        `Document ${url} not found on case SC123/456 `
+      );
+      expect(res.render).to.have.been.calledOnceWith('errors/error.njk', {
+        header: '404 - Document not found',
+        message: "The document you're trying to view doesn't exist.",
+      });
     });
   });
 });
