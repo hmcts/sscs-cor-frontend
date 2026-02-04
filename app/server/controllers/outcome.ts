@@ -36,6 +36,10 @@ function getDocument(trackYourAppealService: TrackYourApealService) {
         );
         res.header('content-type', 'application/pdf');
         res.send(Buffer.from(pdf, 'binary'));
+      } else {
+        logger.error(
+          `Document ${req.query.url} not found on case ${req.session.appeal.caseReference} `
+        );
       }
     }
   };
