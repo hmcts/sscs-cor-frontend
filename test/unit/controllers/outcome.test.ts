@@ -123,7 +123,9 @@ describe('controllers/outcome', function () {
         session: {
           appeal: {
             hearingOutcome: [{ url: 'http://another' }],
-            caseReference: 'SC123/456',
+          },
+          case: {
+            case_id: '12345',
           },
         },
         cookies: {},
@@ -142,7 +144,7 @@ describe('controllers/outcome', function () {
     it('should log error when document not found', async function () {
       await outcome.getDocument(trackYourAppealService)(req, res);
       expect(loggerErrorSpy).to.have.been.calledOnceWith(
-        `Document ${url} not found on case SC123/456 `
+        `Document ${url} not found on case 12345 `
       );
       expect(res.render).to.have.been.calledOnceWith('errors/error.njk', {
         header: '404 - Document not found',

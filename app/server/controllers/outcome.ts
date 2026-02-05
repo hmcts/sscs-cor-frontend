@@ -38,7 +38,9 @@ function getDocument(trackYourAppealService: TrackYourApealService) {
         res.send(Buffer.from(pdf, 'binary'));
       } else {
         logger.error(
-          `Document ${req.query.url} not found on case ${req.session.appeal.caseReference} `
+          `Document ${req.query.url} not found on case ${
+            req.session?.case?.case_id ?? 'null'
+          } `
         );
         let messages = ["The document you're trying to view doesn't exist."];
         let header = '404 - Document not found';
