@@ -34,10 +34,15 @@ function uploadDescriptionValidation(description) {
     .max(maxCharacters)
     .pattern(whitelist)
     .messages({
-      'any.required': content[getLanguage()].additionalEvidence.evidenceUpload.error.emptyDescription,
-      'string.empty': content[getLanguage()].additionalEvidence.evidenceUpload.error.emptyDescription,
+      'any.required':
+        content[getLanguage()].additionalEvidence.evidenceUpload.error
+          .emptyDescription,
+      'string.empty':
+        content[getLanguage()].additionalEvidence.evidenceUpload.error
+          .emptyDescription,
       'string.max': content[getLanguage()].hearingWhy.error.maxCharacters,
-      'string.pattern.base': content[getLanguage()].additionalEvidence.evidenceUpload.error.regex,
+      'string.pattern.base':
+        content[getLanguage()].additionalEvidence.evidenceUpload.error.regex,
     });
   const result = schema.validate(description);
 
@@ -53,8 +58,7 @@ function answerValidation(answer, req?) {
 
   // On Submit
   if (req.body.submit) {
-    emptyErrorMsg =
-      content[getLanguage()].question.textareaField.error.empty;
+    emptyErrorMsg = content[getLanguage()].question.textareaField.error.empty;
   }
 
   const schema = Joi.string()
@@ -65,8 +69,10 @@ function answerValidation(answer, req?) {
     .messages({
       'any.required': emptyErrorMsg,
       'string.empty': emptyErrorMsg,
-      'string.max': content[getLanguage()].question.textareaField.error.maxCharacters,
-      'string.pattern.base': content[getLanguage()].question.textareaField.error.regex,
+      'string.max':
+        content[getLanguage()].question.textareaField.error.maxCharacters,
+      'string.pattern.base':
+        content[getLanguage()].question.textareaField.error.regex,
     });
 
   const result = schema.validate(answer);
@@ -79,12 +85,9 @@ function answerValidation(answer, req?) {
 }
 
 function hearingWhyValidation(answer) {
-  const schema = Joi.string()
-    .allow('')
-    .max(maxCharacters)
-    .messages({
-      'string.max': content[getLanguage()].hearingWhy.error.maxCharacters,
-    });
+  const schema = Joi.string().allow('').max(maxCharacters).messages({
+    'string.max': content[getLanguage()].hearingWhy.error.maxCharacters,
+  });
 
   const result = schema.validate(answer);
 
