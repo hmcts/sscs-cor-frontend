@@ -10,6 +10,9 @@ const maxCharacters = 20000;
 const minCharacters = 1;
 const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
 
+// Get the current language with fallback to 'en'
+const getLanguage = () => i18next.language || 'en';
+
 export interface Attribute {
   attribute: string;
   value: string;
@@ -29,25 +32,12 @@ function uploadDescriptionValidation(description) {
   const schema = Joi.string()
     .required()
     .max(maxCharacters)
-    .regex(whitelist)
-    .options({
-      language: {
-        any: {
-          empty: `!!${
-            content[i18next.language].additionalEvidence.evidenceUpload.error
-              .emptyDescription
-          }`,
-        },
-        string: {
-          max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}`,
-          regex: {
-            base: `!!${
-              content[i18next.language].additionalEvidence.evidenceUpload.error
-                .regex
-            }`,
-          },
-        },
-      },
+    .pattern(whitelist)
+    .messages({
+      'any.required': content[getLanguage()].additionalEvidence.evidenceUpload.error.emptyDescription,
+      'string.empty': content[getLanguage()].additionalEvidence.evidenceUpload.error.emptyDescription,
+      'string.max': content[getLanguage()].hearingWhy.error.maxCharacters,
+      'string.pattern.base': content[getLanguage()].additionalEvidence.evidenceUpload.error.regex,
     });
   const result = schema.validate(description);
 
@@ -59,33 +49,24 @@ function uploadDescriptionValidation(description) {
 
 function answerValidation(answer, req?) {
   let emptyErrorMsg =
-    content[i18next.language].question.textareaField.errorOnSave.empty;
+    content[getLanguage()].question.textareaField.errorOnSave.empty;
 
   // On Submit
   if (req.body.submit) {
     emptyErrorMsg =
-      content[i18next.language].question.textareaField.error.empty;
+      content[getLanguage()].question.textareaField.error.empty;
   }
 
   const schema = Joi.string()
     .required()
     .min(minCharacters)
     .max(maxCharacters)
-    .regex(whitelist)
-    .options({
-      language: {
-        any: { empty: `!!${emptyErrorMsg}` },
-        string: {
-          max: `!!${
-            content[i18next.language].question.textareaField.error.maxCharacters
-          }`,
-          regex: {
-            base: `!!${
-              content[i18next.language].question.textareaField.error.regex
-            }`,
-          },
-        },
-      },
+    .pattern(whitelist)
+    .messages({
+      'any.required': emptyErrorMsg,
+      'string.empty': emptyErrorMsg,
+      'string.max': content[getLanguage()].question.textareaField.error.maxCharacters,
+      'string.pattern.base': content[getLanguage()].question.textareaField.error.regex,
     });
 
   const result = schema.validate(answer);
@@ -101,12 +82,8 @@ function hearingWhyValidation(answer) {
   const schema = Joi.string()
     .allow('')
     .max(maxCharacters)
-    .options({
-      language: {
-        string: {
-          max: `!!${content[i18next.language].hearingWhy.error.maxCharacters}`,
-        },
-      },
+    .messages({
+      'string.max': content[getLanguage()].hearingWhy.error.maxCharacters,
     });
 
   const result = schema.validate(answer);
@@ -121,20 +98,11 @@ function hearingWhyValidation(answer) {
 function loginEmailAddressValidation(email) {
   const schema = Joi.string()
     .required()
-    .email({ minDomainAtoms: 2 })
-    .options({
-      language: {
-        any: {
-          empty: `!!${
-            content[i18next.language].login.emailAddress.error.empty
-          }`,
-        },
-        string: {
-          email: `!!${
-            content[i18next.language].login.emailAddress.error.format
-          }`,
-        },
-      },
+    .email({ minDomainSegments: 2 })
+    .messages({
+      'any.required': content[getLanguage()].login.emailAddress.error.empty,
+      'string.empty': content[getLanguage()].login.emailAddress.error.empty,
+      'string.email': content[getLanguage()].login.emailAddress.error.format,
     });
   const result = schema.validate(email);
 
@@ -147,7 +115,7 @@ function loginEmailAddressValidation(email) {
 function newHearingAcceptedValidation(newHearing) {
   const allowedValues = ['yes', 'no'];
   if (!allowedValues.includes(newHearing)) {
-    return content[i18next.language].hearingConfirm.error.text;
+    return content[getLanguage()].hearingConfirm.error.text;
   }
   return false;
 }

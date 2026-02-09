@@ -1,9 +1,12 @@
 import { NextFunction, Response, Request } from 'express';
-import Joi, { StringSchema, ValidationResult } from 'joi';
+import Joi from 'joi';
 import content from '../../common/locale/content.json';
 import i18next from 'i18next';
 
 import { BAD_REQUEST } from 'http-status-codes';
+
+// Get the current language with fallback to 'en'
+const getLanguage = () => i18next.language || 'en';
 
 function setErrorFields(field, fields, result, errors) {
   fields.error = true;
@@ -11,7 +14,7 @@ function setErrorFields(field, fields, result, errors) {
   fields[field].errorMessage = result.error.message;
 
   const type = result.error.details[0].type;
-  if (type === 'any.empty') {
+  if (type === 'string.empty' || type === 'any.required') {
     fields[field].errorHeading = errors.emptyStringHeading;
   } else {
     fields[field].errorHeading = errors.notValidHeading;
@@ -20,13 +23,13 @@ function setErrorFields(field, fields, result, errors) {
 }
 
 const validateFields = (email: string, confirmEmail: string, errors) => {
-  const schema: StringSchema = Joi.string()
-    .email({ minDomainAtoms: 2 })
-    .options({
-      language: {
-        any: { empty: `!!${errors.emptyStringEmailField}` },
-        string: { email: `!!${errors.notValidField}` },
-      },
+  const schema = Joi.string()
+    .required()
+    .email({ minDomainSegments: 2 })
+    .messages({
+      'any.required': errors.emptyStringEmailField,
+      'string.empty': errors.emptyStringEmailField,
+      'string.email': errors.notValidField,
     });
 
   let fields = {
@@ -40,13 +43,12 @@ const validateFields = (email: string, confirmEmail: string, errors) => {
     confirmEmail: { value: confirmEmail, error: null, errorMessage: null },
   };
 
-  const emailResult: ValidationResult<string> = schema.validate(email);
+  const emailResult = schema.validate(email);
   if (emailResult.error) {
     fields = setErrorFields('email', fields, emailResult, errors);
   }
 
-  const emailConfirmResult: ValidationResult<string> =
-    schema.validate(confirmEmail);
+  const emailConfirmResult = schema.validate(confirmEmail);
   if (emailConfirmResult.error) {
     fields = setErrorFields('confirmEmail', fields, emailConfirmResult, errors);
   }
@@ -74,7 +76,7 @@ export function validateEmail(
 ): void {
   const email: string = req.body.email.trim();
   const confirmEmail: string = req.body.confirmEmail.trim();
-  const errors = content[i18next.language].notifications.email.errors;
+  const errors = content[getLanguage()].notifications.email.errors;
   const fields = validateFields(email, confirmEmail, errors);
   if (fields.error) {
     res.status(BAD_REQUEST);
