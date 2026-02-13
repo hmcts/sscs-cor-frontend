@@ -4366,12 +4366,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai-string@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "chai-string@npm:1.5.0"
+"chai-string@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "chai-string@npm:1.6.0"
   peerDependencies:
     chai: ^4.1.2
-  checksum: d443bb416f6d4dd3395442f459af197aff93f2546dcb5bce6313badf505aa828615117f0eadc99e97ec518b7d2df387b538c81c647e6daf5c386d5bafa212e8f
+  checksum: 9f7a95dc966b08bec0f5a55ffcd2c44123d50f4ea61e79926cb23f1d6d2f284d73446af8077bef53a70a21b998c9f6e51a98a2c8737e922a92edbcaa8ba40194
   languageName: node
   linkType: hard
 
@@ -13695,7 +13695,7 @@ __metadata:
     chai: ^4.3.7
     chai-as-promised: ^7.1.1
     chai-http: ^5.1.2
-    chai-string: ^1.5.0
+    chai-string: ^1.6.0
     chokidar: ^3.5.3
     cli-color: ^2.0.3
     cliui: ^8.0.1
