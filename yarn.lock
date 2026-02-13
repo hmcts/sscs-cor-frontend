@@ -2383,10 +2383,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^16.11.7":
-  version: 16.18.89
-  resolution: "@types/node@npm:16.18.89"
-  checksum: d977f2ebc3200b94beaab7312b916e5de9d1fc3bc0a9101b21dd6f3d18f283be62541775b650c050ab439195bc0ef14136fe03c7daab5dcef5f7e22bf1bb9aa5
+"@types/node@npm:*":
+  version: 25.2.3
+  resolution: "@types/node@npm:25.2.3"
+  dependencies:
+    undici-types: ~7.16.0
+  checksum: 315b6a7c7f7e5b39b92fffc65fcc0de10543c7ac0dc3754aa072ae9c8a82e6eb90ca1b6156766f07d0ba1e210e39f999f75b4b3a7b88ddab30e3c3ba827e85bf
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^16.18.126":
+  version: 16.18.126
+  resolution: "@types/node@npm:16.18.126"
+  checksum: 86112e7499f8a4d1bb60696cab0bf464adf3c141fca4bc5451e8f3aba5736529b76d4b4396edb21e5d7c19592852f7d6cb81ee70074fd13bde2db2d0db720467
   languageName: node
   linkType: hard
 
@@ -13684,7 +13693,7 @@ __metadata:
     "@types/jquery": ^3.5.29
     "@types/mocha": ^10.0.10
     "@types/multer": ^1.4.8
-    "@types/node": ^16.11.7
+    "@types/node": ^16.18.126
     "@types/nunjucks": ^3.1.3
     "@types/sinon": ^17.0.3
     "@types/sinon-chai": ^3.2.12
@@ -14945,6 +14954,13 @@ __metadata:
   version: 6.21.0
   resolution: "undici-types@npm:6.21.0"
   checksum: 46331c7d6016bf85b3e8f20c159d62f5ae471aba1eb3dc52fff35a0259d58dcc7d592d4cc4f00c5f9243fa738a11cfa48bd20203040d4a9e6bc25e807fab7ab3
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~7.16.0":
+  version: 7.16.0
+  resolution: "undici-types@npm:7.16.0"
+  checksum: 1ef68fc6c5bad200c8b6f17de8e5bc5cfdcadc164ba8d7208cd087cfa8583d922d8316a7fd76c9a658c22b4123d3ff847429185094484fbc65377d695c905857
   languageName: node
   linkType: hard
 
