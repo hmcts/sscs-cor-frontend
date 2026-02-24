@@ -7,6 +7,8 @@ nodejs:
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
     NODE_ENV: preview
+    SSCS_API_URL: 'https://sscs-tribunals-api-pr-5085.preview.platform.hmcts.net'
+    TRIBUNALS_API_URL: 'https://sscs-tribunals-api-pr-5085.preview.platform.hmcts.net'
     MYA_FEATURE_FLAG: 'true'
     IBC_NI_POSTCODES_FEATURE: true
   keyVaults:
