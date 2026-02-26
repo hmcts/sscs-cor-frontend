@@ -4,7 +4,7 @@ import { resolve } from 'path';
 export function dysonSetupS2s(): void {
   const dysonOptions = {
     configDir: resolve(__dirname, './services/'),
-    port: 10000,
+    port: 0,
   };
   const configs = getConfigurations(dysonOptions);
   const appBefore = createServer(dysonOptions);

@@ -15,6 +15,7 @@ import { WithdrawAppealPage } from 'test/page-objects/withdraw-appeal';
 import * as _ from 'lodash';
 import { expect } from 'test/chai-sinon';
 import content from 'app/common/locale/content.json';
+import ibcContentContactUs from '../test-data/ibca-contact-us.json';
 
 import config from 'config';
 import pa11y from 'pa11y';
@@ -309,7 +310,7 @@ describe('Appellant - Manage your appeal app @mya @nightly @iba', function () {
         statusPage.locators.contactUsHeading3
       );
       expect(ibcaSections).to.eql(
-        Object.values(content.en.contactUs.telephone.ibca).map(
+        Object.values(ibcContentContactUs.telephone.ibca).map(
           (item) => item.desc
         )
       );
@@ -318,7 +319,7 @@ describe('Appellant - Manage your appeal app @mya @nightly @iba', function () {
         statusPage.locators.contactUsContent
       );
       const expectedContent = Object.values(
-        content.en.contactUs.telephone.ibca
+        ibcContentContactUs.telephone.ibca
       ).flatMap((obj) => Object.values(obj));
       expectedContent.forEach((content) =>
         expect(ibcaContent).to.contain(content)

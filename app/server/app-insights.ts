@@ -6,7 +6,7 @@ import {
 } from 'applicationinsights';
 import config from 'config';
 
-const iKey: string = config.get('appInsights.instrumentationKey');
+const iKey: string = config.get('appInsights.connectionString');
 const roleName: string = config.get('appInsights.roleName');
 
 export function enable(): void {

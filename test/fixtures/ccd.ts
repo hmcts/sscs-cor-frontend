@@ -21,7 +21,18 @@ export interface CCDCase {
 export async function createIBACase(hearingType): Promise<CCDCase> {
   const randomNumber = parseInt(`${Math.random() * 10000000}`, 10);
   const email = `test${randomNumber}@hmcts.net`;
+
+  // Set MRN date to today in required format DD-MM-YYYY
+  const now = new Date();
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = String(now.getFullYear());
+  const mrnDate = `${day}-${month}-${year}`;
+
   ibaAppealPayload.appellant.contactDetails.emailAddress = email;
+
+  // Inject the date into payload
+  ibaAppealPayload.mrn.date = mrnDate;
   const caseCreateOptions = {
     method: 'POST',
     uri: `${apiUrl}/appeals`,

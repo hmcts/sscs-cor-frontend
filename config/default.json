@@ -9,7 +9,7 @@
     "delay": 2000
   },
   "appInsights": {
-    "instrumentationKey": "iKey",
+    "connectionString": "InstrumentationKey=test-key;IngestionEndpoint=https://fake.endpoint",
     "roleName": "COR-FE"
   },
   "session": {
@@ -71,7 +71,8 @@
       "webChatEnabled": "false"
     },
     "historyTab": "false",
-    "myaPagination": "false"
+    "myaPagination": "false",
+    "allowNI": "false"
   },
   "services": {
     "webForm": {

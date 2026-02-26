@@ -49,10 +49,10 @@ describe('services/unsubscribeService', function () {
     });
     postRequest = sinon.stub(superagent, 'post').returns({
       send: sendStub,
-    } as Partial<SuperAgentRequest> as SuperAgentRequest);
+    } as unknown as SuperAgentRequest);
     deleteRequest = sinon.stub(superagent, 'delete').returns({
       then: thenStub,
-    } as Partial<SuperAgentRequest> as SuperAgentRequest);
+    } as unknown as SuperAgentRequest);
     next = sinon.stub().resolves();
   });
 
