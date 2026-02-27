@@ -15,9 +15,13 @@ export class LoginPage extends BasePage {
 
   verifyPage() {
     const url = new URL(this.page.url());
-    expect(`${url.protocol}//${url.host}${url.pathname}`).to.equal(
-      `${idamUrl}${idamSignInPagePath}`
-    );
+    const actual = `${url.protocol}//${url.host}${url.pathname}`;
+    const expected = `${idamUrl}${idamSignInPagePath}`;
+
+    expect(
+      actual,
+      `URL mismatch.\nExpected: ${expected}\nActual:   ${actual}`
+    ).to.equal(expected);
   }
 
   async login(email, password) {
