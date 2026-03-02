@@ -238,6 +238,13 @@ describe('controllers/request-type', function () {
 
     beforeEach(function () {
       req = {
+        session: {
+          hearingRecordingsResponse: {
+            releasedHearingRecordings: [
+              { hearingRecordings: [{ documentUrl: url }] },
+            ],
+          },
+        },
         query: {
           url,
           type,
@@ -247,6 +254,7 @@ describe('controllers/request-type', function () {
       res = {
         header: sinon.stub(),
         send: sinon.stub(),
+        status: sinon.stub().returnsThis(),
       };
 
       trackYourAppealService = {};
@@ -257,6 +265,20 @@ describe('controllers/request-type', function () {
       await requestType.getHearingRecording(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith('content-type', 'audio/mp3');
       expect(res.send).to.have.called.calledWith(Buffer.from(mp3, 'binary'));
+    });
+
+    it('should return 404 for invalid hearing recording url', async function () {
+      req.query.url = 'http://invalid-url';
+      trackYourAppealService.getMediaFile = async () => Promise.resolve(mp3);
+
+      await requestType.getHearingRecording(trackYourAppealService)(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.send).to.have.been.calledWith('Hearing recording not found');
+      expect(AppInsights.trackException).to.have.been.called;
+      expect(AppInsights.trackEvent).to.have.been.calledWith(
+        'MYA_INVALID_HEARING_RECORDING_URL'
+      );
     });
   });
 });
