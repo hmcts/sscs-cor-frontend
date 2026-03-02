@@ -195,7 +195,8 @@
     "form-data@~2.3.2": "2.5.4",
     "brace-expansion@^2.0.1": "2.0.2",
     "brace-expansion@^1.1.7": "1.1.12",
-    "lodash": "^4.17.23"
+    "lodash": "^4.17.23",
+    "multer": "^2.1.0"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@3.6.0"
