@@ -90,7 +90,11 @@ describe('controllers/av-evidence-list', function () {
     beforeEach(function () {
       req = {
         session: {
-          appeal: {},
+          appeal: {
+            audioVideoEvidence: [
+              { name: 'test-evidence.mp3', type: 'audioDocument', url },
+            ],
+          },
         },
         cookies: {},
         query: {
@@ -102,6 +106,7 @@ describe('controllers/av-evidence-list', function () {
       res = {
         header: sinon.stub(),
         send: sinon.stub(),
+        status: sinon.stub().returnsThis(),
       };
 
       trackYourAppealService = {};
@@ -113,6 +118,21 @@ describe('controllers/av-evidence-list', function () {
       await avEvidence.getAvEvidence(trackYourAppealService)(req, res);
       expect(res.header).to.have.called.calledWith('content-type', 'audio/mp3');
       expect(res.send).to.have.called.calledWith(Buffer.from(mp3, 'binary'));
+    });
+
+    it('should return 404 for invalid evidence url', async function () {
+      const mp3 = '29312380';
+      req.query.url = 'http://invalid-url';
+      trackYourAppealService.getMediaFile = async () => Promise.resolve(mp3);
+
+      await avEvidence.getAvEvidence(trackYourAppealService)(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.send).to.have.been.calledWith('Evidence not found');
+      expect(AppInsights.trackException).to.have.been.called;
+      expect(AppInsights.trackEvent).to.have.been.calledWith(
+        'MYA_INVALID_EVIDENCE_URL'
+      );
     });
   });
 });
