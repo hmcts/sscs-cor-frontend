@@ -3,7 +3,7 @@
     "port": 3003
   },
   "tribunals-api": {
-    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal",
+    "url": "https://sscs-tribunals-api-pr-5077.preview.platform.hmcts.net",
     "retries": 0
   },
   "testUrl": "http://localhost:3003",

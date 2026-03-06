@@ -23,16 +23,14 @@ interface AuthorizeResponse {
 }
 
 async function generateToken(): Promise<string> {
-  const oneTimePassword = otp({ secret: s2sSecret }).totp();
   const options = {
     headers: {
       'Content-Type': 'application/json',
     },
-    url: `${s2sUrl}/lease`,
+    url: `${s2sUrl}/testing-support/lease`,
     json: true,
     body: {
       microservice,
-      oneTimePassword,
     },
     timeout,
   };
