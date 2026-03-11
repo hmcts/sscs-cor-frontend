@@ -9,6 +9,7 @@ nodejs:
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
     IBC_NI_POSTCODES_FEATURE: true
+    TRIBUNALS_API_URL: https://sscs-tribunals-api-pr-5118.preview.platform.hmcts.net
   keyVaults:
     sscs:
       secrets:
