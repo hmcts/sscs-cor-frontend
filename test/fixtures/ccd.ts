@@ -3,11 +3,20 @@ import config from 'config';
 import { Logger } from '@hmcts/nodejs-logging';
 import rp from '@cypress/request-promise';
 import ibaAppealPayload from './iba_payload.json';
+import { generateToken } from './s2s';
 
 const logger: LoggerInstance = Logger.getLogger('test ccd');
 
 const apiUrl = config.get('tribunals-api.url');
 const timeout: number = config.get('apiCallTimeout');
+
+async function getServiceHeaders() {
+  const token = await generateToken();
+  return {
+    'Content-Type': 'application/json',
+    ServiceAuthorization: `Bearer ${token}`,
+  };
+}
 
 export interface CCDCase {
   case_reference?: string;
@@ -33,12 +42,11 @@ export async function createIBACase(hearingType): Promise<CCDCase> {
 
   // Inject the date into payload
   ibaAppealPayload.mrn.date = mrnDate;
+  let authHeaders = await getServiceHeaders();
   const caseCreateOptions = {
     method: 'POST',
     uri: `${apiUrl}/appeals`,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: authHeaders,
     body: ibaAppealPayload,
     resolveWithFullResponse: true,
     json: true, // Automatically stringifies the body to JSON
@@ -51,12 +59,11 @@ export async function createIBACase(hearingType): Promise<CCDCase> {
   }
   // eslint-disable-next-line
   const caseId = response['headers'].location.split('/').pop();
+  authHeaders = await getServiceHeaders();
   const getTyaOptions = {
     method: 'GET',
     uri: `${apiUrl}/appeals`,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: authHeaders,
     qs: {
       caseId,
     },
