@@ -1,14 +1,11 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as Paths from '../paths';
 import * as AppInsights from '../app-insights';
-import { Logger } from '@hmcts/nodejs-logging';
 import * as requestType from '../services/request-type';
 import { TrackYourApealService } from '../services/tyaService';
 import { Dependencies } from '../routes';
 import { HearingRecordings } from 'app/server/models/express-session';
-import { LoggerInstance } from 'winston';
-
-const logger: LoggerInstance = Logger.getLogger('request-type.ts');
+import HttpStatus from 'http-status-codes';
 
 const contentType = new Map([
   ['mp3', 'audio/mp3'],
@@ -89,10 +86,39 @@ export function selectRequestType() {
   };
 }
 
+function isValidHearingRecording(req: Request): boolean {
+  const session = req.session;
+
+  if (!session) {
+    const missingCaseIdError = new Error(
+      'Unable to retrieve session from session store'
+    );
+    AppInsights.trackException(missingCaseIdError);
+    AppInsights.trackEvent('MYA_SESSION_READ_FAIL');
+  }
+  return session.hearingRecordingsResponse.releasedHearingRecordings.some(
+    (released) =>
+      released.hearingRecordings.some(
+        (record) => record.documentUrl === req.query.url
+      )
+  );
+}
+
 export function getHearingRecording(
   trackYourAppealService: TrackYourApealService
 ) {
   return async (req: Request, res: Response) => {
+    if (!isValidHearingRecording(req)) {
+      const invalidRecordingError = new Error(
+        `Hearing recording with url ${req.query.url} could not be found`
+      );
+      AppInsights.trackException(invalidRecordingError);
+      AppInsights.trackEvent('MYA_INVALID_HEARING_RECORDING_URL');
+      return res
+        .status(HttpStatus.NOT_FOUND)
+        .send('Hearing recording not found');
+    }
+
     const evidence = await trackYourAppealService.getMediaFile(
       req.query.url as string,
       req
