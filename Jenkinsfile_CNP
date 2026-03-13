@@ -9,7 +9,7 @@ properties(
 def product = "sscs-cor"
 def component = "frontend"
 
-def tribunalsAat = "http://sscs-tribunals-api-aat.service.core-compute-aat.internal"
+def tribunalsPreview = "https://sscs-tribunals-api-pr-5132.preview.platform.hmcts.net"
 def idamUrlAat = "https://idam-web-public.aat.platform.hmcts.net"
 def idamApiUrlAat = "https://idam-api.aat.platform.hmcts.net"
 def s2sUrlAat = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
@@ -48,7 +48,7 @@ withPipeline("nodejs", product, component) {
     syncBranchesWithMaster(branchesToSync)
 
     before("functionalTest:preview") {
-        env.TRIBUNALS_API_URL = tribunalsAat
+        env.TRIBUNALS_API_URL = tribunalsPreview
         sh 'echo TRIBUNALS_API_URL=$TRIBUNALS_API_URL'
         env.IDAM_URL = idamUrlAat
         sh 'echo IDAM_URL=$IDAM_URL'
