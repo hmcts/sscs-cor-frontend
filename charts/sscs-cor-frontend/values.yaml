@@ -32,17 +32,19 @@ nodejs:
         - tyacookiesecret
         - idam-sscs-oauth2-client-secret
         - app-insights-connection-string
-redis:
-  enabled: false
-  cluster:
+hmcts-redis:
+  enabled: true
+  architecture: standalone
+  auth:
     enabled: false
-    slaveCount: 0
-  usePassword: false
+    sentinel: false
   image:
-    registry: hmctspublic.azurecr.io
-    repository: imported/bitnami/redis
-  master:
-    persistence:
-      enabled: false
+    registry: hmctsprod.azurecr.io
+    repository: imported/redis
+    tag: 8.2.1
+  sentinel:
+    enabled: false
+  metrics:
+    enabled: false
 idam-pr:
   enabled: false
