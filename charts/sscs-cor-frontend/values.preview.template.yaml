@@ -4,7 +4,7 @@ nodejs:
   autoscaling:
     enabled: false
   environment:
-    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    REDIS_HOST: ${SERVICE_NAME}-hmcts-redis-master
     REDIS_PORT: 6379
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
