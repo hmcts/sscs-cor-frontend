@@ -15,13 +15,20 @@ nodejs:
         - sscs-cor-idam-client-secret
         - idam-sscs-oauth2-client-secret
         - sscs-s2s-secret
-redis:
+hmcts-redis:
   enabled: true
   architecture: standalone
   auth:
     enabled: false
+    sentinel: false
   image:
-    debug: true
+    registry: hmctsprod.azurecr.io
+    repository: imported/redis
+    tag: 8.2.1
+  sentinel:
+    enabled: false
+  metrics:
+    enabled: false
 idam-pr:
   enabled: true
   redirect_uris:
