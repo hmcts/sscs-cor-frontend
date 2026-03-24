@@ -1,5 +1,5 @@
 nodejs:
-  image: hmctspublic.azurecr.io/sscs/tribunals-cor-frontend:latest
+  image: hmctsprod.azurecr.io/sscs/tribunals-cor-frontend:latest
   applicationPort: 3003
   memoryRequests: 256Mi
   cpuRequests: 0.2
@@ -32,17 +32,7 @@ nodejs:
         - tyacookiesecret
         - idam-sscs-oauth2-client-secret
         - app-insights-connection-string
-redis:
+hmcts-redis:
   enabled: false
-  cluster:
-    enabled: false
-    slaveCount: 0
-  usePassword: false
-  image:
-    registry: hmctspublic.azurecr.io
-    repository: imported/bitnami/redis
-  master:
-    persistence:
-      enabled: false
 idam-pr:
   enabled: false
