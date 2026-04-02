@@ -93,6 +93,14 @@ export async function createCase(hearingType): Promise<CCDCase> {
   const randomNumber = parseInt(`${Math.random() * 10000000}`, 10);
   const email = `test${randomNumber}@hmcts.net`;
   let authHeaders = await getServiceHeaders();
+  const authHeader = authHeaders?.ServiceAuthorization;
+
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.substring(7); // remove "Bearer "
+      console.log(`Token present: ${token.substring(0, 5)}*****`);
+  } else {
+      console.log('Token not present');
+  }
   const options = {
     url: `${apiUrl}/api/case`,
     headers: authHeaders,
