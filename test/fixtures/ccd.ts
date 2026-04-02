@@ -97,9 +97,9 @@ export async function createCase(hearingType): Promise<CCDCase> {
 
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.substring(7); // remove "Bearer "
-    console.log(`Token present: ${token.substring(0, 5)}*****`);
+    logger.info(`Token present: ${token.substring(0, 5)}*****`);
   } else {
-    console.log('Token not present');
+    logger.error('Token not present');
   }
   const options = {
     url: `${apiUrl}/api/case`,
