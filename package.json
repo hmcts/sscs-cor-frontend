@@ -181,7 +181,7 @@
     "http-cache-semantics": "^4.1.1",
     "json5": "^2.2.2",
     "micromatch": "^4.0.8",
-    "path-to-regexp": "^0.1.12",
+    "path-to-regexp": "^0.1.13",
     "semver": "^7.5.2",
     "serialize-javascript": "^6.0.2",
     "socks": "^2.7.3",
