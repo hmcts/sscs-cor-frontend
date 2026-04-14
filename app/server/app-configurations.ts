@@ -72,6 +72,7 @@ export function configureHeaders(app: Application): void {
   app.use((req, res, next) => {
     // Setting headers stops pages being indexed even if indexed pages link to them
     res.setHeader('X-Robots-Tag', 'noindex');
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
     next();
   });
 }
