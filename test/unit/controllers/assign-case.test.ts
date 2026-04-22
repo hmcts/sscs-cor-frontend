@@ -4,14 +4,12 @@ import { StatusCodes } from 'http-status-codes';
 import { CaseService } from 'app/server/services/cases';
 import { TrackYourApealService } from 'app/server/services/tyaService';
 import content from 'app/common/locale/content.json';
-import i18next from 'i18next';
 
 describe('controllers/assign-case.js', function () {
   let req;
   let res;
 
   beforeEach(function () {
-    i18next.language = 'en';
     res = {
       render: sinon.spy(),
       redirect: sinon.spy(),
