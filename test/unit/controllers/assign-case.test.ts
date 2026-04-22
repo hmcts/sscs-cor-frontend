@@ -121,6 +121,7 @@ describe('controllers/assign-case.js', function () {
         });
       });
 
+      // eslint-disable-next-line mocha/no-setup-in-describe
       ['a01b45', 'a11i22', 'a11l22'].forEach((ibcaReference) => {
         describe(`with valid ibcaReference ${ibcaReference}`, function () {
           const appealType = 'ibca';
