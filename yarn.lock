@@ -8476,10 +8476,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-http-middleware@npm:^3.6.0":
-  version: 3.9.2
-  resolution: "i18next-http-middleware@npm:3.9.2"
-  checksum: c12077d628ce200705ca0e50a276a9bf5c10a67ba91cb6f42fbb39536bec008d57306929b29c4a34f2b3cd8b701de50dbe22fceea9e12984b6ff750c27703048
+"i18next-http-middleware@npm:^3.9.2":
+  version: 3.9.4
+  resolution: "i18next-http-middleware@npm:3.9.4"
+  checksum: 5238291c5154da34641efa5ff650897d294564caa58240b13266209cd795668fd80dc99b036b40760e6e0ce987917a857855fe15f1d22beabfdde6d64129a9a6
   languageName: node
   linkType: hard
 
@@ -13729,7 +13729,7 @@ __metadata:
     i: ^0.3.6
     i18next: ^23.15.1
     i18next-conv: ^15.1.1
-    i18next-http-middleware: ^3.6.0
+    i18next-http-middleware: ^3.9.2
     i18next-sprintf-postprocessor: ^0.2.2
     ioredis: ^5.2.4
     joi: ^17.13.3
