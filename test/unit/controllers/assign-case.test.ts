@@ -195,15 +195,9 @@ describe('controllers/assign-case.js', function () {
         it('assigns user to case', async function () {
           await underTest(req, res);
 
-          expect(
-            caseService.assignOnlineHearingsToCitizen
-          ).to.have.been.calledOnce.calledWith(
-            idamEmail,
-            tya,
-            postcode,
-            ibcaReference,
-            req
-          );
+          expect(res.render).to.have.been.calledOnce.calledWith(
+            'assign-case/index.njk',
+            { error, ...req.body });
         });
 
         it('gets appeal', async function () {
