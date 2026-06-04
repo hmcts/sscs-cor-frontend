@@ -177,6 +177,70 @@ describe('controllers/assign-case.js', function () {
       });
     });
 
+    // eslint-disable-next-line mocha/no-setup-in-describe
+    ['A1211', 'A11A12AA', 'A12b-2', 'A 2012', 'ABC/EF', '12345!'].forEach((ibcaReference) => {
+      describe(`with invalid ibcaReference ${ibcaReference}`, function () {
+        const appealType = 'ibca';
+        let postcode;
+
+        beforeEach(function () {
+          req = {
+            session: { idamEmail, tya },
+            body: { appealType, ibcaReference },
+          } as any;
+
+          underTest = postIndex(caseService, trackYourAppealService);
+        });
+
+        it('assigns user to case', async function () {
+          await underTest(req, res);
+
+          expect(
+            caseService.assignOnlineHearingsToCitizen
+          ).to.have.been.calledOnce.calledWith(
+            idamEmail,
+            tya,
+            postcode,
+            ibcaReference,
+            req
+          );
+        });
+
+        it('gets appeal', async function () {
+          await underTest(req, res);
+
+          expect(res.render).to.have.been.calledOnce.calledWith(
+            'assign-case/index.njk',
+            { error, ...req.body });
+        });
+
+        it('redirects to task-list', async function () {
+          await underTest(req, res);
+
+          expect(res.render).to.have.been.calledOnce.calledWith(
+            'assign-case/index.njk',
+            { error, ...req.body });
+        });
+
+        it('sets hearing in session', async function () {
+          await underTest(req, res);
+
+          expect(res.render).to.have.been.calledOnce.calledWith(
+            'assign-case/index.njk',
+            { error, ...req.body });
+        });
+
+        it('sets appeal in session', async function () {
+          await underTest(req, res);
+
+          expect(res.render).to.have.been.calledOnce.calledWith(
+            'assign-case/index.njk',
+            { error, ...req.body });
+        });
+      });
+    });
+  });
+
     describe('post with missing data', function () {
       beforeEach(function () {
         req = {
