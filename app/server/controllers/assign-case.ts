@@ -13,7 +13,7 @@ import content from '../../common/locale/content.json';
 
 const regex = {
   postcode: /^([A-Z][A-HJ-Y]?\d[A-Z\d]?\s?\d[A-Z]{2}|GIR ?0A{2})$/gi,
-  ibcaReference: /^[A-Z]\d{2}[a-z0-9]\d{2}$/gi,
+  ibcaReference: /^[A-Za-z0-9]{6}$/gi,
 };
 
 const logger = Logger.getLogger('login.js');
