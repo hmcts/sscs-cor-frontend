@@ -233,7 +233,6 @@ describe('controllers/assign-case.js', function () {
         });
       });
     });
-  });
 
     describe('post with missing data', function () {
       beforeEach(function () {
