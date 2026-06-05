@@ -187,7 +187,6 @@ describe('controllers/assign-case.js', function () {
       (ibcaReference) => {
         describe(`with invalid ibcaReference ${ibcaReference}`, function () {
           const appealType = 'ibca';
-          let postcode;
 
           beforeEach(function () {
             req = {
