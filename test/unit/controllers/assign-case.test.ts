@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import { CaseService } from 'app/server/services/cases';
 import { TrackYourApealService } from 'app/server/services/tyaService';
 import content from 'app/common/locale/content.json';
+import { error } from 'jquery';
 
 describe('controllers/assign-case.js', function () {
   let req;
@@ -120,8 +121,71 @@ describe('controllers/assign-case.js', function () {
       });
 
       // eslint-disable-next-line mocha/no-setup-in-describe
-      ['a01b45', 'a11i22', 'a11l22', 'ABCDEF', '123456', 'abcdef'].forEach((ibcaReference) => {
-        describe(`with valid ibcaReference ${ibcaReference}`, function () {
+      ['a01b45', 'a11i22', 'a11l22', 'ABCDEF', '123456', 'abcdef'].forEach(
+        (ibcaReference) => {
+          describe(`with valid ibcaReference ${ibcaReference}`, function () {
+            const appealType = 'ibca';
+            let postcode;
+
+            beforeEach(function () {
+              req = {
+                session: { idamEmail, tya },
+                body: { appealType, ibcaReference },
+              } as any;
+
+              underTest = postIndex(caseService, trackYourAppealService);
+            });
+
+            it('assigns user to case', async function () {
+              await underTest(req, res);
+
+              expect(
+                caseService.assignOnlineHearingsToCitizen
+              ).to.have.been.calledOnce.calledWith(
+                idamEmail,
+                tya,
+                postcode,
+                ibcaReference,
+                req
+              );
+            });
+
+            it('gets appeal', async function () {
+              await underTest(req, res);
+
+              expect(
+                trackYourAppealService.getAppeal
+              ).to.have.been.calledOnce.calledWith(caseId, req);
+            });
+
+            it('redirects to task-list', async function () {
+              await underTest(req, res);
+
+              expect(res.redirect).to.have.been.calledOnce.calledWith(
+                '/status'
+              );
+            });
+
+            it('sets hearing in session', async function () {
+              await underTest(req, res);
+
+              expect(req.session.case).to.be.eql(onlineHearing);
+            });
+
+            it('sets appeal in session', async function () {
+              await underTest(req, res);
+
+              expect(req.session.appeal).to.be.eql(appeal);
+            });
+          });
+        }
+      );
+    });
+
+    // eslint-disable-next-line mocha/no-setup-in-describe
+    ['A1211', 'A11A12AA', 'A12b-2', 'A 2012', 'ABC/EF', '12345!'].forEach(
+      (ibcaReference) => {
+        describe(`with invalid ibcaReference ${ibcaReference}`, function () {
           const appealType = 'ibca';
           let postcode;
 
@@ -137,102 +201,50 @@ describe('controllers/assign-case.js', function () {
           it('assigns user to case', async function () {
             await underTest(req, res);
 
-            expect(
-              caseService.assignOnlineHearingsToCitizen
-            ).to.have.been.calledOnce.calledWith(
-              idamEmail,
-              tya,
-              postcode,
-              ibcaReference,
-              req
+            expect(res.render).to.have.been.calledOnce.calledWith(
+              'assign-case/index.njk',
+              { error, ...req.body }
             );
           });
 
           it('gets appeal', async function () {
             await underTest(req, res);
 
-            expect(
-              trackYourAppealService.getAppeal
-            ).to.have.been.calledOnce.calledWith(caseId, req);
+            expect(res.render).to.have.been.calledOnce.calledWith(
+              'assign-case/index.njk',
+              { error, ...req.body }
+            );
           });
 
           it('redirects to task-list', async function () {
             await underTest(req, res);
 
-            expect(res.redirect).to.have.been.calledOnce.calledWith('/status');
+            expect(res.render).to.have.been.calledOnce.calledWith(
+              'assign-case/index.njk',
+              { error, ...req.body }
+            );
           });
 
           it('sets hearing in session', async function () {
             await underTest(req, res);
 
-            expect(req.session.case).to.be.eql(onlineHearing);
+            expect(res.render).to.have.been.calledOnce.calledWith(
+              'assign-case/index.njk',
+              { error, ...req.body }
+            );
           });
 
           it('sets appeal in session', async function () {
             await underTest(req, res);
 
-            expect(req.session.appeal).to.be.eql(appeal);
+            expect(res.render).to.have.been.calledOnce.calledWith(
+              'assign-case/index.njk',
+              { error, ...req.body }
+            );
           });
         });
-      });
-    });
-
-    // eslint-disable-next-line mocha/no-setup-in-describe
-    ['A1211', 'A11A12AA', 'A12b-2', 'A 2012', 'ABC/EF', '12345!'].forEach((ibcaReference) => {
-      describe(`with invalid ibcaReference ${ibcaReference}`, function () {
-        const appealType = 'ibca';
-        let postcode;
-
-        beforeEach(function () {
-          req = {
-            session: { idamEmail, tya },
-            body: { appealType, ibcaReference },
-          } as any;
-
-          underTest = postIndex(caseService, trackYourAppealService);
-        });
-
-        it('assigns user to case', async function () {
-          await underTest(req, res);
-
-          expect(res.render).to.have.been.calledOnce.calledWith(
-            'assign-case/index.njk',
-            { error, ...req.body });
-        });
-
-        it('gets appeal', async function () {
-          await underTest(req, res);
-
-          expect(res.render).to.have.been.calledOnce.calledWith(
-            'assign-case/index.njk',
-            { error, ...req.body });
-        });
-
-        it('redirects to task-list', async function () {
-          await underTest(req, res);
-
-          expect(res.render).to.have.been.calledOnce.calledWith(
-            'assign-case/index.njk',
-            { error, ...req.body });
-        });
-
-        it('sets hearing in session', async function () {
-          await underTest(req, res);
-
-          expect(res.render).to.have.been.calledOnce.calledWith(
-            'assign-case/index.njk',
-            { error, ...req.body });
-        });
-
-        it('sets appeal in session', async function () {
-          await underTest(req, res);
-
-          expect(res.render).to.have.been.calledOnce.calledWith(
-            'assign-case/index.njk',
-            { error, ...req.body });
-        });
-      });
-    });
+      }
+    );
 
     describe('post with missing data', function () {
       beforeEach(function () {
