@@ -4,7 +4,6 @@ import { StatusCodes } from 'http-status-codes';
 import { CaseService } from 'app/server/services/cases';
 import { TrackYourApealService } from 'app/server/services/tyaService';
 import content from 'app/common/locale/content.json';
-import { error } from 'jquery';
 
 describe('controllers/assign-case.js', function () {
   let req;
@@ -270,12 +269,12 @@ describe('controllers/assign-case.js', function () {
         const appealType = 'ibca';
 
         for (const ibcaReference of [
-          'invalid',
-          '123456',
-          '12345678',
-          'invalid123',
-          'abc123',
-          'ab1cd2',
+          'A1211',
+          'A11A12AA',
+          'A12b-2',
+          'A 2012',
+          'ABC/EF',
+          '12345!',
         ]) {
           req.body = { appealType, ibcaReference };
           const error = {
@@ -352,28 +351,22 @@ describe('controllers/assign-case.js', function () {
         );
       });
 
-      // eslint-disable-next-line mocha/no-setup-in-describe
-      ['A1211', 'A11A12AA', 'A12b-2', 'A 2012', 'ABC/EF', '12345!'].forEach(
-        // eslint-disable-next-line max-nested-callbacks
-        (ibcaReference) => {
-          // eslint-disable-next-line mocha/no-empty-description
-          it('no matching ibca', async function () {
-            const appealType = 'ibca';
-            req.body = { appealType, ibcaReference };
-            const error = {
-              msg: content.en.assignCase.errors.invalid.ibcaReference,
-              code: 'no-matching-record',
-            };
+      it('no matching ibcaReference', async function () {
+        const appealType = 'ibca';
+        const ibcaReference = 'T12S33';
+        req.body = { appealType, ibcaReference };
+        const error = {
+          msg: content.en.assignCase.errors.invalid.ibcaReference,
+          code: 'no-matching-record',
+        };
 
-            await underTest(req, res);
+        await underTest(req, res);
 
-            expect(res.render).to.have.been.calledOnce.calledWith(
-              'assign-case/index.njk',
-              { error, ...req.body }
-            );
-          });
-        }
-      );
+        expect(res.render).to.have.been.calledOnce.calledWith(
+          'assign-case/index.njk',
+          { error, ...req.body }
+        );
+      });
     });
   });
 });
