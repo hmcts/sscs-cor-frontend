@@ -182,69 +182,6 @@ describe('controllers/assign-case.js', function () {
       );
     });
 
-    // eslint-disable-next-line mocha/no-setup-in-describe
-    ['A1211', 'A11A12AA', 'A12b-2', 'A 2012', 'ABC/EF', '12345!'].forEach(
-      (ibcaReference) => {
-        describe(`with invalid ibcaReference ${ibcaReference}`, function () {
-          const appealType = 'ibca';
-
-          beforeEach(function () {
-            req = {
-              session: { idamEmail, tya },
-              body: { appealType, ibcaReference },
-            } as any;
-
-            underTest = postIndex(caseService, trackYourAppealService);
-          });
-
-          it('assigns user to case', async function () {
-            await underTest(req, res);
-
-            expect(res.render).to.have.been.calledOnce.calledWith(
-              'assign-case/index.njk',
-              { error, ...req.body }
-            );
-          });
-
-          it('gets appeal', async function () {
-            await underTest(req, res);
-
-            expect(res.render).to.have.been.calledOnce.calledWith(
-              'assign-case/index.njk',
-              { error, ...req.body }
-            );
-          });
-
-          it('redirects to task-list', async function () {
-            await underTest(req, res);
-
-            expect(res.render).to.have.been.calledOnce.calledWith(
-              'assign-case/index.njk',
-              { error, ...req.body }
-            );
-          });
-
-          it('sets hearing in session', async function () {
-            await underTest(req, res);
-
-            expect(res.render).to.have.been.calledOnce.calledWith(
-              'assign-case/index.njk',
-              { error, ...req.body }
-            );
-          });
-
-          it('sets appeal in session', async function () {
-            await underTest(req, res);
-
-            expect(res.render).to.have.been.calledOnce.calledWith(
-              'assign-case/index.njk',
-              { error, ...req.body }
-            );
-          });
-        });
-      }
-    );
-
     describe('post with missing data', function () {
       beforeEach(function () {
         req = {
@@ -415,22 +352,28 @@ describe('controllers/assign-case.js', function () {
         );
       });
 
-      it('no matching ibcaReference', async function () {
-        const appealType = 'ibca';
-        const ibcaReference = 'T12S33';
-        req.body = { appealType, ibcaReference };
-        const error = {
-          msg: content.en.assignCase.errors.invalid.ibcaReference,
-          code: 'no-matching-record',
-        };
+      // eslint-disable-next-line mocha/no-setup-in-describe
+      ['A1211', 'A11A12AA', 'A12b-2', 'A 2012', 'ABC/EF', '12345!'].forEach(
+        // eslint-disable-next-line max-nested-callbacks
+        (ibcaReference) => {
+          // eslint-disable-next-line mocha/no-empty-description
+          it('no matching ibca', async function () {
+            const appealType = 'ibca';
+            req.body = { appealType, ibcaReference };
+            const error = {
+              msg: content.en.assignCase.errors.invalid.ibcaReference,
+              code: 'no-matching-record',
+            };
 
-        await underTest(req, res);
+            await underTest(req, res);
 
-        expect(res.render).to.have.been.calledOnce.calledWith(
-          'assign-case/index.njk',
-          { error, ...req.body }
-        );
-      });
+            expect(res.render).to.have.been.calledOnce.calledWith(
+              'assign-case/index.njk',
+              { error, ...req.body }
+            );
+          });
+        }
+      );
     });
   });
 });
