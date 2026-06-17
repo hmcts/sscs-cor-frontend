@@ -120,61 +120,65 @@ describe('controllers/assign-case.js', function () {
       });
 
       // eslint-disable-next-line mocha/no-setup-in-describe
-      ['a01b45', 'a11i22', 'a11l22'].forEach((ibcaReference) => {
-        describe(`with valid ibcaReference ${ibcaReference}`, function () {
-          const appealType = 'ibca';
-          let postcode;
+      ['a01b45', 'a11i22', 'a11l22', 'ABCDEF', '123456', 'abcdef'].forEach(
+        (ibcaReference) => {
+          describe(`with valid ibcaReference ${ibcaReference}`, function () {
+            const appealType = 'ibca';
+            let postcode;
 
-          beforeEach(function () {
-            req = {
-              session: { idamEmail, tya },
-              body: { appealType, ibcaReference },
-            } as any;
+            beforeEach(function () {
+              req = {
+                session: { idamEmail, tya },
+                body: { appealType, ibcaReference },
+              } as any;
 
-            underTest = postIndex(caseService, trackYourAppealService);
+              underTest = postIndex(caseService, trackYourAppealService);
+            });
+
+            it('assigns user to case', async function () {
+              await underTest(req, res);
+
+              expect(
+                caseService.assignOnlineHearingsToCitizen
+              ).to.have.been.calledOnce.calledWith(
+                idamEmail,
+                tya,
+                postcode,
+                ibcaReference,
+                req
+              );
+            });
+
+            it('gets appeal', async function () {
+              await underTest(req, res);
+
+              expect(
+                trackYourAppealService.getAppeal
+              ).to.have.been.calledOnce.calledWith(caseId, req);
+            });
+
+            it('redirects to task-list', async function () {
+              await underTest(req, res);
+
+              expect(res.redirect).to.have.been.calledOnce.calledWith(
+                '/status'
+              );
+            });
+
+            it('sets hearing in session', async function () {
+              await underTest(req, res);
+
+              expect(req.session.case).to.be.eql(onlineHearing);
+            });
+
+            it('sets appeal in session', async function () {
+              await underTest(req, res);
+
+              expect(req.session.appeal).to.be.eql(appeal);
+            });
           });
-
-          it('assigns user to case', async function () {
-            await underTest(req, res);
-
-            expect(
-              caseService.assignOnlineHearingsToCitizen
-            ).to.have.been.calledOnce.calledWith(
-              idamEmail,
-              tya,
-              postcode,
-              ibcaReference,
-              req
-            );
-          });
-
-          it('gets appeal', async function () {
-            await underTest(req, res);
-
-            expect(
-              trackYourAppealService.getAppeal
-            ).to.have.been.calledOnce.calledWith(caseId, req);
-          });
-
-          it('redirects to task-list', async function () {
-            await underTest(req, res);
-
-            expect(res.redirect).to.have.been.calledOnce.calledWith('/status');
-          });
-
-          it('sets hearing in session', async function () {
-            await underTest(req, res);
-
-            expect(req.session.case).to.be.eql(onlineHearing);
-          });
-
-          it('sets appeal in session', async function () {
-            await underTest(req, res);
-
-            expect(req.session.appeal).to.be.eql(appeal);
-          });
-        });
-      });
+        }
+      );
     });
 
     describe('post with missing data', function () {
@@ -265,12 +269,12 @@ describe('controllers/assign-case.js', function () {
         const appealType = 'ibca';
 
         for (const ibcaReference of [
-          'invalid',
-          '123456',
-          '12345678',
-          'invalid123',
-          'abc123',
-          'ab1cd2',
+          'A1211',
+          'A11A12AA',
+          'A12b-2',
+          'A 2012',
+          'ABC/EF',
+          '12345!',
         ]) {
           req.body = { appealType, ibcaReference };
           const error = {
