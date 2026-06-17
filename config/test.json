@@ -3,7 +3,7 @@
     "port": 3003
   },
   "tribunals-api": {
-    "url": "https://sscs-tribunals-api-pr-5307.preview.platform.hmcts.net",
+    "url": "https://sscs-tribunals-api-pr-5332.preview.platform.hmcts.net",
     "retries": 0
   },
   "testUrl": "http://localhost:3003",
