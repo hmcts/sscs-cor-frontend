@@ -199,11 +199,9 @@
     "axios": "1.15.0",
     "joi": "^18.2.1",
     "@opentelemetry/core": "^2.8.0",
-    "uuid": "^11.1.1",
     "js-yaml": "^4.2.0",
     "immutable": "^4.3.8",
     "tar": "^7.5.16",
-    "ajv": "^8.17.1",
     "qs": "^6.14.2"
   },
   "typeScriptVersion": "4.8",
