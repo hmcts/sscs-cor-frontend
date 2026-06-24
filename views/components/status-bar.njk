@@ -1,12 +1,14 @@
 {% macro statusBar(appeal, stages) %}
-  <div class="status-bar">
+  <ol class="status-bar" aria-label="{{ content[i18n.language].common.status if content[i18n.language].common.status else 'Appeal progress' }}">
     {% for stage in stages %}
-      <div class="status-bar__stage {{ "stage--active" if stage.active }} {{ "leg" if not loop.first }}">
-        <div class="status-bar__ring"
-             aria-label="{{ (content[i18n.language].common.received if stage.active else content[i18n.language].common.awaiting) | safe }} {{ stage.title[i18n.language] | safe }}">
+      <li class="status-bar__stage {{ "stage--active" if stage.active }} {{ "leg" if not loop.first }}">
+        <div class="status-bar__ring" aria-hidden="true">
         </div>
-        <p class="govuk-heading-s">{{ stage.title[i18n.language] | eval }}</p>
-      </div>
+        <p class="govuk-heading-s">
+          <span class="govuk-visually-hidden">{{ (content[i18n.language].common.received if stage.active else content[i18n.language].common.awaiting) | safe }} </span>
+          {{ stage.title[i18n.language] | eval }}
+        </p>
+      </li>
     {% endfor %}
-  </div>
+  </ol>
 {% endmacro %}
