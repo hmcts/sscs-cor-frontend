@@ -81,7 +81,7 @@
     "i18next-http-middleware": "^3.9.7",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "ioredis": "^5.2.4",
-    "joi": "^17.13.3",
+    "joi": "^17.13.4",
     "jquery": "^3.7.1",
     "lodash": "^4.18.0",
     "moment": "^2.30.1",
