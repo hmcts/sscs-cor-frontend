@@ -154,7 +154,6 @@ export function getIdamCallback(
       if (statusCode !== OK)
         return renderErrorPage(
           email,
-          id,
           statusCode,
           body as any,
           idamService,
@@ -238,7 +237,6 @@ export function getIdamCallback(
 
 export function renderErrorPage(
   email: string,
-  id: string,
   statusCode: number,
   body: string,
   idamService: IdamService,
@@ -249,7 +247,7 @@ export function renderErrorPage(
   const messages: Array<string> = [];
   switch (statusCode) {
     case NOT_FOUND: {
-      logger.info(`Cannot find any case for ${id}`);
+      logger.info(`Cannot find any case for ${email}`);
       header = content[i18next.language].login.failed.emailNotFound.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.emailNotFound.messages;
@@ -263,7 +261,7 @@ export function renderErrorPage(
       return res.render('errors/error.njk', { header, messages });
     }
     case UNPROCESSABLE_ENTITY: {
-      logger.info(`Found multiple appeals for ${id}`);
+      logger.info(`Found multiple appeals for ${email}`);
       header = content[i18next.language].login.failed.technicalError.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.technicalError.messages;
@@ -271,7 +269,7 @@ export function renderErrorPage(
       return res.render('errors/error.njk', { header, messages });
     }
     case CONFLICT: {
-      logger.info(`Found a non cor appeal for ${id}`);
+      logger.info(`Found a non cor appeal for ${email}`);
       header = content[i18next.language].login.failed.cannotUseService.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.cannotUseService.messages;
