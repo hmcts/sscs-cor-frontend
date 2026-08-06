@@ -202,7 +202,7 @@ export function getIdamCallback(
           `Logging in ${id} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
-          `[${req.session.case?.case_id}] - User logged in successfully as ${getMaskedEmail(id)}`
+          `[${req.session.case?.case_id}] - User logged in successfully as ${getMaskedEmail(email)}`
         );
 
         if (req.session.appeal.hearingType === 'cor') {
@@ -211,7 +211,7 @@ export function getIdamCallback(
         return res.redirect(Paths.status);
       }
       logger.info(
-        `Logging in ${id} for Cases count ${cases.length}, Case Id: ${caseId}`
+        `Logging in ${email} for Cases count ${cases.length}, Case Id: ${caseId}`
       );
       AppInsights.trackTrace(
         `[Cases count ${cases.length}] - User logged in successfully as ${email}`
