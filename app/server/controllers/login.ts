@@ -141,7 +141,6 @@ export function getIdamCallback(
         req.session.accessToken
       );
       req.session.idamEmail = email;
-      const id = req.session.id;
 
       let statusCode: number = null;
       let body: Array<CaseDetails> = null;
@@ -199,7 +198,7 @@ export function getIdamCallback(
         req.session.subscriptions = subscriptions;
 
         logger.info(
-          `Logging in ${id} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
+          `Logging in ${email} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
           `[${req.session.case?.case_id}] - User logged in successfully as ${getMaskedEmail(email)}`
