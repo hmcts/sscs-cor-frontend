@@ -44,6 +44,7 @@ export function getCases(caseService: CaseService, idamService: IdamService) {
       if (statusCode !== StatusCodes.OK)
         return renderErrorPage(
           session.idamEmail,
+          session.id,
           statusCode,
           body,
           idamService,
