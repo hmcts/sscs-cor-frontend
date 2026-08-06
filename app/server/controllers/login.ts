@@ -300,14 +300,15 @@ export function setupLoginController(deps: Dependencies): Router {
 }
 
 function getMaskedEmail(email) {
+  let maskedEmail = '';
   if (email !== null) {
     const indexOfAt = email.indexOf('@');
-    email = email.concat(
+    maskedEmail = maskedEmail.concat(
         email.substring(0, 3),
         '***',
         email.substring(indexOfAt)
     );
   }
-  return email;
+  return maskedEmail;
 }
 export { getMaskedEmail };
