@@ -298,3 +298,18 @@ export function setupLoginController(deps: Dependencies): Router {
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;
 }
+
+function getMaskedEmail(email) {
+  let maskedEmail = '';
+  if (email !== null) {
+    const indexOfAt = email.indexOf('@');
+    maskedEmail = maskedEmail.concat(
+        email.substring(0, 3),
+        '***',
+        email.substring(indexOfAt)
+    );
+  }
+  return maskedEmail;
+}
+
+export { getMaskedEmail };
