@@ -163,12 +163,12 @@ describe('utils/fieldValidation.js', function () {
     it('masks complex email addresses', function () {
       expect(
         getMaskedEmail('firstname.lastname@subdomain.example.com')
-      ).to.equal('fir***.e@subdomain.example.com');
+      ).to.equal('fir***e@subdomain.example.com');
     });
 
     it('masks email with numbers in local part', function () {
       expect(getMaskedEmail('user123@example.com')).to.equal(
-        'use***2@example.com'
+        'use***3@example.com'
       );
     });
   });
