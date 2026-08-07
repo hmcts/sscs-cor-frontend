@@ -174,6 +174,17 @@ function getCasesByNameAndRow(cases: Array<CaseDetails>): {
   return casesByName;
 }
 
+function getMaskedEmail(email: string): string {
+  if (!email || email.indexOf('@') < 0) {
+    return email;
+  }
+  const atIndex = email.indexOf('@');
+  if (atIndex > 3) {
+    return `${email.substring(0, 3)}***${email.substring(atIndex - 1)}`;
+  }
+  return `${email.substring(0, atIndex - 1)}***${email.substring(atIndex)}`;
+}
+
 export {
   answerValidation,
   loginEmailAddressValidation,
@@ -181,5 +192,6 @@ export {
   hearingWhyValidation,
   uploadDescriptionValidation,
   getCasesByName,
-  getCasesByNameAndRow
+  getCasesByNameAndRow,
+  getMaskedEmail,
 };
