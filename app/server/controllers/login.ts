@@ -25,7 +25,7 @@ import { resolveQuery } from '../utils/parseUtils';
 
 import i18next from 'i18next';
 import content from '../../common/locale/content.json';
-import {getMaskedEmail} from "../utils/fieldValidation";
+import { getMaskedEmail } from '../utils/fieldValidation';
 
 const logger: LoggerInstance = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
@@ -199,10 +199,14 @@ export function getIdamCallback(
         req.session.subscriptions = subscriptions;
 
         logger.info(
-          `Logging in ${getMaskedEmail(email)} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
+          `Logging in ${getMaskedEmail(email)} for benefit type ${
+            appeal.benefitType
+          }, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
-          `[${req.session.case?.case_id}] - User logged in successfully as ${getMaskedEmail(email)}`
+          `[${
+            req.session.case?.case_id
+          }] - User logged in successfully as ${getMaskedEmail(email)}`
         );
 
         if (req.session.appeal.hearingType === 'cor') {
@@ -211,10 +215,14 @@ export function getIdamCallback(
         return res.redirect(Paths.status);
       }
       logger.info(
-        `Logging in ${getMaskedEmail(email)} for Cases count ${cases.length}, Case Id: ${caseId}`
+        `Logging in ${getMaskedEmail(email)} for Cases count ${
+          cases.length
+        }, Case Id: ${caseId}`
       );
       AppInsights.trackTrace(
-        `[Cases count ${cases.length}] - User logged in successfully as ${getMaskedEmail(email)}`
+        `[Cases count ${
+          cases.length
+        }] - User logged in successfully as ${getMaskedEmail(email)}`
       );
 
       req.session.cases = cases;
