@@ -181,5 +181,5 @@ export {
   hearingWhyValidation,
   uploadDescriptionValidation,
   getCasesByName,
-  getCasesByNameAndRow
+  getCasesByNameAndRow,
 };
