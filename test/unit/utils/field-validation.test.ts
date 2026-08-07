@@ -4,6 +4,7 @@ import {
   newHearingAcceptedValidation,
   hearingWhyValidation,
   uploadDescriptionValidation,
+  getMaskedEmail,
 } from 'app/server/utils/fieldValidation';
 
 import { expect } from 'test/chai-sinon';
@@ -121,6 +122,53 @@ describe('utils/fieldValidation.js', function () {
     it('returns empty error message is answer is missing', function () {
       expect(newHearingAcceptedValidation(undefined)).to.equal(
         content.en.hearingConfirm.error.text
+      );
+    });
+  });
+
+  describe('getMaskedEmail', function () {
+    it('returns the email as-is if email is empty', function () {
+      expect(getMaskedEmail('')).to.equal('');
+    });
+
+    it('returns the email as-is if email is null or undefined', function () {
+      expect(getMaskedEmail(null as any)).to.equal(null);
+      expect(getMaskedEmail(undefined as any)).to.equal(undefined);
+    });
+
+    it('returns the email as-is if email has no @ symbol', function () {
+      expect(getMaskedEmail('notanemail')).to.equal('notanemail');
+    });
+
+    it('masks email when @ index is greater than 3', function () {
+      expect(getMaskedEmail('johnsmith@example.com')).to.equal(
+        'joh***h@example.com'
+      );
+    });
+
+    it('masks email with short local part when @ index is 3 or less', function () {
+      expect(getMaskedEmail('abc@example.com')).to.equal('ab***@example.com');
+    });
+
+    it('masks email with very short local part', function () {
+      expect(getMaskedEmail('a@example.com')).to.equal('***@example.com');
+    });
+
+    it('masks email with 4 character local part', function () {
+      expect(getMaskedEmail('test@example.com')).to.equal(
+        'tes***t@example.com'
+      );
+    });
+
+    it('masks complex email addresses', function () {
+      expect(
+        getMaskedEmail('firstname.lastname@subdomain.example.com')
+      ).to.equal('fir***.e@subdomain.example.com');
+    });
+
+    it('masks email with numbers in local part', function () {
+      expect(getMaskedEmail('user123@example.com')).to.equal(
+        'use***2@example.com'
       );
     });
   });
