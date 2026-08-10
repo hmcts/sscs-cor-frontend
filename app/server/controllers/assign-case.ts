@@ -10,6 +10,7 @@ import { Dependencies } from '../routes';
 
 import i18next from 'i18next';
 import content from '../../common/locale/content.json';
+import { getMaskedEmail } from '../utils/fieldValidation';
 
 const regex = {
   postcode: /^([A-Z][A-HJ-Y]?\d[A-Z\d]?\s?\d[A-Z]{2}|GIR ?0A{2})$/gi,
@@ -60,7 +61,9 @@ function postIndex(
     }
 
     AppInsights.trackTrace(
-      `assign-case: Finding case to assign for tya [${tya}] email [${idamEmail}] postcode [${postcode}]`
+      `assign-case: Finding case to assign for tya [${tya}] email [${getMaskedEmail(
+        idamEmail
+      )}] postcode [${postcode}]`
     );
     const { statusCode, body }: ApiResponse =
       await caseService.assignOnlineHearingsToCitizen(
@@ -73,7 +76,9 @@ function postIndex(
 
     if (statusCode !== StatusCodes.OK) {
       AppInsights.trackTrace(
-        `assign-case: Failed finding case to assign for tya [${tya}] email [${idamEmail}] postcode [${postcode}]`
+        `assign-case: Failed finding case to assign for tya [${tya}] email [${getMaskedEmail(
+          idamEmail
+        )}] postcode [${postcode}]`
       );
       logger.error(`StatusCode ${statusCode}, error:`, body);
       const errorField =
@@ -89,7 +94,7 @@ function postIndex(
     }
 
     req.session.case = body;
-    logger.info(`Assigned ${tya} to ${idamEmail}`);
+    logger.info(`Assigned ${tya} to ${getMaskedEmail(idamEmail)}`);
 
     const { appeal } = await trackYourAppealService.getAppeal(
       req.session.case.case_id,
@@ -121,7 +126,9 @@ const errorContent = (errType, field) =>
 
 function renderError(error: any, req: any, res: any) {
   logger.error(
-    `${error.code} | postcode: ${req.body?.postcode}, TYA: ${req.session?.tya} and email:${req.session?.idamEmail}`
+    `${error.code} | postcode: ${req.body?.postcode}, TYA: ${
+      req.session?.tya
+    } and email:${getMaskedEmail(req.session?.idamEmail)}`
   );
   return res.render('assign-case/index.njk', { error, ...req.body });
 }
