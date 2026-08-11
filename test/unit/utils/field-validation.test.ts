@@ -141,35 +141,25 @@ describe('utils/fieldValidation.js', function () {
     });
 
     it('masks email when @ index is greater than 3', function () {
-      expect(getMaskedEmail('johnsmith@example.com')).to.equal(
-        'joh***h@example.com'
-      );
+      expect(getMaskedEmail('johnsmith@example.com')).to.equal('joh***@ex***');
     });
 
     it('masks email with short local part when @ index is 3 or less', function () {
-      expect(getMaskedEmail('abc@example.com')).to.equal('ab***@example.com');
+      expect(getMaskedEmail('abc@example.com')).to.equal('abc***@ex***');
     });
 
     it('masks email with very short local part', function () {
-      expect(getMaskedEmail('a@example.com')).to.equal('***@example.com');
-    });
-
-    it('masks email with 4 character local part', function () {
-      expect(getMaskedEmail('test@example.com')).to.equal(
-        'tes***t@example.com'
-      );
+      expect(getMaskedEmail('a@example.com')).to.equal('a***@ex***');
     });
 
     it('masks complex email addresses', function () {
       expect(
         getMaskedEmail('firstname.lastname@subdomain.example.com')
-      ).to.equal('fir***e@subdomain.example.com');
+      ).to.equal('fir***@su***');
     });
 
     it('masks email with numbers in local part', function () {
-      expect(getMaskedEmail('user123@example.com')).to.equal(
-        'use***3@example.com'
-      );
+      expect(getMaskedEmail('user123@example.com')).to.equal('use***@ex***');
     });
   });
 });

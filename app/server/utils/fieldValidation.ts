@@ -180,9 +180,22 @@ function getMaskedEmail(email: string): string {
   }
   const atIndex = email.indexOf('@');
   if (atIndex > 3) {
-    return `${email.substring(0, 3)}***${email.substring(atIndex - 1)}`;
+    return `${email.substring(0, 3)}***${email.substring(
+      atIndex,
+      atIndex + 3
+    )}***`;
   }
-  return `${email.substring(0, atIndex - 1)}***${email.substring(atIndex)}`;
+  return `${email.substring(0, atIndex)}***${email.substring(
+    atIndex,
+    atIndex + 3
+  )}***`;
+}
+
+function getMaskedPostcode(postcode: string): string {
+  if (!postcode || postcode.length < 4) {
+    return postcode;
+  }
+  return `***${postcode.substring(postcode.length - 4)}`;
 }
 
 export {
@@ -194,4 +207,5 @@ export {
   getCasesByName,
   getCasesByNameAndRow,
   getMaskedEmail,
+  getMaskedPostcode,
 };
