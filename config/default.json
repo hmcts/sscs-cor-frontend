@@ -71,7 +71,7 @@
       "webChatEnabled": "false"
     },
     "historyTab": "false",
-    "myaPagination": "true",
+    "myaPagination": "false",
     "allowNI": "false"
   },
   "services": {
