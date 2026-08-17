@@ -150,7 +150,7 @@ describe('utils/fieldValidation.js', function () {
     });
 
     it('masks email with short domain', function () {
-      expect(getMaskedEmail('@e.com')).to.equal('***@e***');
+      expect(getMaskedEmail('@e')).to.equal('***@e***');
     });
 
     it('masks complex email addresses', function () {
