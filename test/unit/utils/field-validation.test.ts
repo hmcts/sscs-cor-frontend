@@ -196,19 +196,19 @@ describe('utils/fieldValidation.js', function () {
     });
 
     it('should mask a 4-character postcode keeping first 3 characters visible', function () {
-      expect(getMaskedPostcode('AB12')).to.equal(`AB1***'}`);
+      expect(getMaskedPostcode('AB12')).to.equal('AB1***');
     });
 
     it('should mask a standard UK postcode keeping first 3 characters visible', function () {
-      expect(getMaskedPostcode('SW1A 1AA')).to.equal(`SW1***'}`);
+      expect(getMaskedPostcode('SW1A 1AA')).to.equal('SW1***');
     });
 
     it('should mask a long postcode keeping only the first 3 characters visible', function () {
-      expect(getMaskedPostcode('EC1A1BB123')).to.equal(`EC1***'`);
+      expect(getMaskedPostcode('EC1A1BB123')).to.equal('EC1***');
     });
 
     it('should handle postcodes with lowercase letters consistently', function () {
-      expect(getMaskedPostcode('sw1a1aa')).to.equal(`sw1***'`);
+      expect(getMaskedPostcode('sw1a1aa')).to.equal('sw1***');
     });
   });
 });
