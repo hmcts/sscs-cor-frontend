@@ -5,6 +5,7 @@ import {
   hearingWhyValidation,
   uploadDescriptionValidation,
   getMaskedEmail,
+  getMaskedPostcode,
 } from 'app/server/utils/fieldValidation';
 
 import { expect } from 'test/chai-sinon';
@@ -136,10 +137,6 @@ describe('utils/fieldValidation.js', function () {
       expect(getMaskedEmail(undefined as any)).to.equal(undefined);
     });
 
-    it('returns the email as-is if email has no @ symbol', function () {
-      expect(getMaskedEmail('notanemail')).to.equal('notanemail');
-    });
-
     it('masks email when @ index is greater than 3', function () {
       expect(getMaskedEmail('johnsmith@example.com')).to.equal('joh***@ex***');
     });
@@ -152,6 +149,10 @@ describe('utils/fieldValidation.js', function () {
       expect(getMaskedEmail('a@example.com')).to.equal('a***@ex***');
     });
 
+    it('masks email with short domain', function () {
+      expect(getMaskedEmail('@e.com')).to.equal('***@e***');
+    });
+
     it('masks complex email addresses', function () {
       expect(
         getMaskedEmail('firstname.lastname@subdomain.example.com')
@@ -160,6 +161,54 @@ describe('utils/fieldValidation.js', function () {
 
     it('masks email with numbers in local part', function () {
       expect(getMaskedEmail('user123@example.com')).to.equal('use***@ex***');
+    });
+
+    it('masks email with no @', function () {
+      expect(getMaskedEmail('notanemail')).to.equal('***');
+    });
+  });
+
+  describe('getMaskedPostcode', function () {
+    it('should return null when input is null', function () {
+      expect(getMaskedPostcode(null as unknown as string)).to.equal(null);
+    });
+
+    it('should return undefined when input is undefined', function () {
+      expect(getMaskedPostcode(undefined as unknown as string)).to.equal(
+        undefined
+      );
+    });
+
+    it('should return empty string when input is empty string', function () {
+      expect(getMaskedPostcode('')).to.equal('');
+    });
+
+    it('should return fully masked value for a 1-character postcode', function () {
+      expect(getMaskedPostcode('A')).to.equal('***');
+    });
+
+    it('should return fully masked value for a 2-character postcode', function () {
+      expect(getMaskedPostcode('AB')).to.equal('***');
+    });
+
+    it('should return fully masked value for a 3-character postcode', function () {
+      expect(getMaskedPostcode('AB1')).to.equal('***');
+    });
+
+    it('should mask a 4-character postcode keeping first 3 characters visible', function () {
+      expect(getMaskedPostcode('AB12')).to.equal(`AB1***'}`);
+    });
+
+    it('should mask a standard UK postcode keeping first 3 characters visible', function () {
+      expect(getMaskedPostcode('SW1A 1AA')).to.equal(`SW1***'}`);
+    });
+
+    it('should mask a long postcode keeping only the first 3 characters visible', function () {
+      expect(getMaskedPostcode('EC1A1BB123')).to.equal(`EC1***'`);
+    });
+
+    it('should handle postcodes with lowercase letters consistently', function () {
+      expect(getMaskedPostcode('sw1a1aa')).to.equal(`sw1***'`);
     });
   });
 });

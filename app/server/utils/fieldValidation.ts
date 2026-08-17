@@ -9,6 +9,7 @@ import Joi from 'joi';
 const maxCharacters = 20000;
 const minCharacters = 1;
 const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
+const MASKED_STRING_VALUE = '***';
 
 // Get the current language with fallback to 'en'
 const getLanguage = () => i18next.language || 'en';
@@ -175,27 +176,34 @@ function getCasesByNameAndRow(cases: Array<CaseDetails>): {
 }
 
 function getMaskedEmail(email: string): string {
-  if (!email || email.indexOf('@') < 0) {
+  if (!email) {
     return email;
   }
+
   const atIndex = email.indexOf('@');
-  if (atIndex > 3) {
-    return `${email.substring(0, 3)}***${email.substring(
-      atIndex,
-      atIndex + 3
-    )}***`;
+  if (atIndex < 0) {
+    return MASKED_STRING_VALUE;
   }
-  return `${email.substring(0, atIndex)}***${email.substring(
+
+  const visibleLocalChars = Math.min(atIndex, 3);
+  const domainEnd = Math.min(email.length, atIndex + 3);
+
+  return `${email.substring(
+    0,
+    visibleLocalChars
+  )}${MASKED_STRING_VALUE}${email.substring(
     atIndex,
-    atIndex + 3
-  )}***`;
+    domainEnd
+  )}${MASKED_STRING_VALUE}`;
 }
 
 function getMaskedPostcode(postcode: string): string {
-  if (!postcode || postcode.length < 4) {
+  if (!postcode) {
     return postcode;
   }
-  return `***${postcode.substring(postcode.length - 4)}`;
+  return postcode.length > 3
+    ? `${postcode.substring(0, 3)}${MASKED_STRING_VALUE}`
+    : MASKED_STRING_VALUE;
 }
 
 export {
