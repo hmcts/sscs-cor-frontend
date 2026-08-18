@@ -214,4 +214,3 @@ Run `yarn-audit-with-suppressions.sh`
 ```bash
 ./yarn-audit-with-suppressions.sh
 ```
-
