@@ -2246,6 +2246,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/express-serve-static-core@npm:^5.0.0":
+  version: 5.1.3
+  resolution: "@types/express-serve-static-core@npm:5.1.3"
+  dependencies:
+    "@types/node": "*"
+    "@types/qs": "*"
+    "@types/range-parser": "*"
+    "@types/send": "*"
+  checksum: e694f78042beff6f0a960027614a58de257f57513795aa496810b0e410169089d5675f71552afac6ce255cfa72a10f7c1e43607a8d7e3ecdaaad48cf7d0010db
+  languageName: node
+  linkType: hard
+
 "@types/express-session@npm:*":
   version: 1.18.0
   resolution: "@types/express-session@npm:1.18.0"
@@ -2255,15 +2267,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:*, @types/express@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "@types/express@npm:4.17.21"
+"@types/express@npm:*":
+  version: 5.0.6
+  resolution: "@types/express@npm:5.0.6"
+  dependencies:
+    "@types/body-parser": "*"
+    "@types/express-serve-static-core": ^5.0.0
+    "@types/serve-static": ^2
+  checksum: da2cc3de1b1a4d7f20ed3fb6f0a8ee08e99feb3c2eb5a8d643db77017d8d0e70fee9e95da38a73f51bcdf5eda3bb6435073c0271dc04fb16fda92e55daf911fa
+  languageName: node
+  linkType: hard
+
+"@types/express@npm:^4.17.25":
+  version: 4.17.25
+  resolution: "@types/express@npm:4.17.25"
   dependencies:
     "@types/body-parser": "*"
     "@types/express-serve-static-core": ^4.17.33
     "@types/qs": "*"
-    "@types/serve-static": "*"
-  checksum: fb238298630370a7392c7abdc80f495ae6c716723e114705d7e3fb67e3850b3859bbfd29391463a3fb8c0b32051847935933d99e719c0478710f8098ee7091c5
+    "@types/serve-static": ^1
+  checksum: 285d16008489d37b2be03e2e050bcf201d5d6ed9278ca13619d9029efd2055b192b2445f769116f716cfcf53d9d799a03f4e76199af9cea0ea3dee3d88595931
   languageName: node
   linkType: hard
 
@@ -2449,7 +2472,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/serve-static@npm:*":
+"@types/serve-static@npm:^1":
   version: 1.15.5
   resolution: "@types/serve-static@npm:1.15.5"
   dependencies:
@@ -2457,6 +2480,16 @@ __metadata:
     "@types/mime": "*"
     "@types/node": "*"
   checksum: 0ff4b3703cf20ba89c9f9e345bc38417860a88e85863c8d6fe274a543220ab7f5f647d307c60a71bb57dc9559f0890a661e8dc771a6ec5ef195d91c8afc4a893
+  languageName: node
+  linkType: hard
+
+"@types/serve-static@npm:^2":
+  version: 2.2.0
+  resolution: "@types/serve-static@npm:2.2.0"
+  dependencies:
+    "@types/http-errors": "*"
+    "@types/node": "*"
+  checksum: 0ad152ae2851cbe6c9381d0eca5fff8e6ff56afc0e03099efa88712c00318f52d8b01000be391375dcb2dbd912a54dacfc67ff36bae636a61570d74feba559b7
   languageName: node
   linkType: hard
 
@@ -6988,12 +7021,12 @@ __metadata:
   linkType: hard
 
 "express@npm:^4.21.0":
-  version: 4.22.1
-  resolution: "express@npm:4.22.1"
+  version: 4.22.2
+  resolution: "express@npm:4.22.2"
   dependencies:
     accepts: ~1.3.8
     array-flatten: 1.1.1
-    body-parser: ~1.20.3
+    body-parser: ~1.20.5
     content-disposition: ~0.5.4
     content-type: ~1.0.4
     cookie: ~0.7.1
@@ -7012,7 +7045,7 @@ __metadata:
     parseurl: ~1.3.3
     path-to-regexp: ~0.1.12
     proxy-addr: ~2.0.7
-    qs: ~6.14.0
+    qs: ~6.15.1
     range-parser: ~1.2.1
     safe-buffer: 5.2.1
     send: ~0.19.0
@@ -7022,7 +7055,7 @@ __metadata:
     type-is: ~1.6.18
     utils-merge: 1.0.1
     vary: ~1.1.2
-  checksum: 38fd76585f6a2394e02d499f852fc70c94c9b1527bd5812eb5ee45c23b7f1297baaf13c55162253b14c1e36939b8401429d6594095e63d01ca77447dac72894e
+  checksum: e93b51284cc2f0b37c41ab3666ccdf71de5adf45fa5701116402fa9c43eb97665712b0bc5fbf6b25b1aef733fb28625b95a43a5d9dedeef89eddb1b04ad2b203
   languageName: node
   linkType: hard
 
@@ -8652,9 +8685,9 @@ __metadata:
   linkType: hard
 
 "ip-address@npm:^10.1.1":
-  version: 10.5.0
-  resolution: "ip-address@npm:10.5.0"
-  checksum: ffb64aea3ab0bf975b237954f89bf3c37cb5fc9d078cf5868408e54d29636d14618ed67dafcde664b3cdfc778ee78c811286cf67e59d1243a0c198d05aa47683
+  version: 10.7.0
+  resolution: "ip-address@npm:10.7.0"
+  checksum: a6f2dfa0a50588d296dde1c489a3d97e016e1c1a08fab73d07eb01fc5f0967b64789c96a6778eea7b711748c2a90d0c8ef28ad895a9f3b71eb6b28b86af5c76c
   languageName: node
   linkType: hard
 
@@ -10933,8 +10966,8 @@ __metadata:
   linkType: hard
 
 "node-gyp@npm:latest":
-  version: 13.0.1
-  resolution: "node-gyp@npm:13.0.1"
+  version: 13.0.2
+  resolution: "node-gyp@npm:13.0.2"
   dependencies:
     env-paths: ^2.2.0
     exponential-backoff: ^3.1.1
@@ -10948,7 +10981,7 @@ __metadata:
     which: ^7.0.0
   bin:
     node-gyp: bin/node-gyp.js
-  checksum: 9d4e0eeaa415ca33a85278ecf2bdb61a7c32649e9423ec7743912b97e58169606ef44504f7d3a746cd9179f50c8d37d5bb70ae76fbc4803122f7747e819453f6
+  checksum: 08acf4dd37b725a5b87a924597e8eabecc35691991e651c54641224b2daa63619fbcbffc0da8ad19aabed1b9906bdb4d0acf47cfd70f25c5c050423e940cd161
   languageName: node
   linkType: hard
 
@@ -12144,7 +12177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.3, qs@npm:^6.12.1, qs@npm:^6.14.1, qs@npm:~6.14.0, qs@npm:~6.14.1":
+"qs@npm:^6.10.3, qs@npm:^6.12.1, qs@npm:^6.14.1, qs@npm:~6.14.1":
   version: 6.14.2
   resolution: "qs@npm:6.14.2"
   dependencies:
@@ -13324,12 +13357,12 @@ __metadata:
   linkType: hard
 
 "socks@npm:^2.7.3":
-  version: 2.8.9
-  resolution: "socks@npm:2.8.9"
+  version: 2.8.10
+  resolution: "socks@npm:2.8.10"
   dependencies:
     ip-address: ^10.1.1
     smart-buffer: ^4.2.0
-  checksum: b573ed4cfb935624d3688e7065cd03fd72ca258156923c9ebb9d462e545cd78f296b64a0e36f911b16326c94aabe2bf94ff405f8afef27ac7bf80fa3c971c6f6
+  checksum: 1844753ac4cfbfd5cdd986f554e0f41d82805c10fd33aaf98385cfd457fe8c234d8460215565f8decd2bd1a48ff77702561c891a324dec3a9d12c38710fc05ed
   languageName: node
   linkType: hard
 
@@ -13467,7 +13500,7 @@ __metadata:
     "@types/config": 3.3.5
     "@types/connect-redis": ^0.0.19
     "@types/cookie-parser": ^1.4.7
-    "@types/express": ^4.17.21
+    "@types/express": ^4.17.25
     "@types/express-serve-static-core": ^4.19.5
     "@types/jquery": ^3.5.29
     "@types/mocha": ^10.0.10
@@ -13507,7 +13540,7 @@ __metadata:
     eslint-plugin-n: ^14.0.0
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-promise: ^6.1.1
-    express: ^4.21.0
+    express: ^4.22.2
     express-session: ^1.18.2
     govuk-frontend: ^4.7.0
     govuk_template_jinja: ^0.26.0
@@ -14717,9 +14750,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^8.4.1":
-  version: 8.10.0
-  resolution: "undici@npm:8.10.0"
-  checksum: 6b7c5442ec67fb4048a07aba719890904be54fbcff83c58b7133011fead67877c970f8b974f5e05aa0c7f5603c726888d8b3648e891af1493e7e362d848d7e9c
+  version: 8.10.1
+  resolution: "undici@npm:8.10.1"
+  checksum: a10318e87a574579c4079f087016a01973f976aad411ae3f4a30596778fb98cb84179e5155879a8673afb7c0acc99d76960c7e709503f35e2745d4215af1edf6
   languageName: node
   linkType: hard
 
