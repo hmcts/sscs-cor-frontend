@@ -7806,13 +7806,13 @@ __metadata:
   linkType: hard
 
 "gettext-converter@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "gettext-converter@npm:1.3.0"
+  version: 1.3.4
+  resolution: "gettext-converter@npm:1.3.4"
   dependencies:
     arrify: ^2.0.1
     content-type: 1.0.5
     encoding: 0.1.13
-  checksum: a9ea67dc3e74a2b44b34797d5df04625d7768d49c57a0f7c21d1945c3426e35669e1e7222c41b8fd1f83b4efb3d791152816badaf100c8c0fd33a83ea1954bfd
+  checksum: 5af13f7b27631b4c77541a92306a061049e102ca5846ce8ff3aafa4ba2ecb0a798d89e4cc9c851d8aee4418f52cc6080da87792ebee36f937c6a2434e2719da6
   languageName: node
   linkType: hard
 
