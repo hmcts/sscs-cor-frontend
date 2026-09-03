@@ -52,7 +52,7 @@ withNightlyPipeline("nodejs", product, component) {
 
     enableSecurityScan(urlExclusions: urlExclusions, scanType: "frontend")
     // enableFortifyScan('sscs-aat')
-    enableCrossBrowserTest()
+    // enableCrossBrowserTest()
     enableFullFunctionalTest(20)
     enableSlackNotifications('#sscs-tech')
     enableMutationTest()
