@@ -30,6 +30,7 @@ export const status = '/status';
 export const yourDetails = '/your-details';
 export const history = '/history';
 export const assignCase = '/assign-case';
+export const sendReq = '/send-tya-request';
 export const selectCase = '/cases';
 export const hearing = '/hearing';
 export const supportEvidence = '/support-evidence';
