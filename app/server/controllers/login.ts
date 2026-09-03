@@ -85,6 +85,8 @@ export function redirectToIdam(
       idamUrl.searchParams.append('state', req.query.tya as string);
     } else if (req.query.state) {
       idamUrl.searchParams.append('state', req.query.state as string);
+    } else {
+      idamUrl.searchParams.append('state', 'default');
     }
     logger.info(`Redirecting to [${idamUrl.href}]`);
     AppInsights.trackEvent('MYA_REDIRECT_IDAM_LOGIN');
@@ -120,7 +122,8 @@ export function getIdamCallback(
           const tokenResponse: TokenResponse = await idamService.getToken(
             code,
             req.protocol,
-            req.hostname
+            req.hostname,
+            req.query.state as string
           );
           req.session.accessToken = tokenResponse.access_token;
           req.session.serviceToken = await generateToken();
