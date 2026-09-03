@@ -2,9 +2,8 @@
     <div class="govuk-grid-column-full">
       <h1 class="govuk-heading-l">{{ content[i18n.language].postEvidence.header | safe }}</h1>
       <p>{{ content[i18n.language].postEvidence.info | safe }}</p>
-      <address class="--margin-bottom-m"
-               aria-label="{{ content[i18n.language].postEvidence.screenReaderPostalAddress | safe }}">
-        <span class="govuk-body govuk-!-font-weight-bold" aria-hidden="true">{{ content[i18n.language].postEvidence.postalAddress | safe }}</span>
+      <address class="--margin-bottom-m">
+        <span class="govuk-body govuk-!-font-weight-bold">{{ content[i18n.language].postEvidence.postalAddress | safe }}</span>
       </address>
       <p>{{ content[i18n.language].postEvidence.para1 | eval | safe }}</p>
       <p>{{ content[i18n.language].postEvidence.para2 | eval | safe }}</p>
