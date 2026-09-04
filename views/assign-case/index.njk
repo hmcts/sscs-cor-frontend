@@ -68,5 +68,12 @@
       type="submit"
       value="{{ content[i18n.language].general.continue | safe }}"
       class="govuk-button"/>
+    <input id="send-req"
+      name="send-req"
+      type="submit"
+      formaction="/send-tya-request"
+      formmethod="post"
+      value="Send TYA request"
+      class="govuk-button"/>
   </form>
 {% endblock corContent %}
