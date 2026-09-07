@@ -127,6 +127,15 @@ function postSendReq(caseService: CaseService) {
         res
       );
     }
+
+    AppInsights.trackTrace(
+      `assign-case: Sent TYA request successfully for email [${idamEmail}]`
+    );
+    return res.render('assign-case/index.njk', {
+      success: {
+        msg: 'We have sent a new Track Your Appeal link to your registered email address',
+      },
+    });
   };
 }
 
