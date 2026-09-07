@@ -127,8 +127,6 @@ function postSendReq(caseService: CaseService) {
         res
       );
     }
-
-    return res.redirect(Paths.status);
   };
 }
 
