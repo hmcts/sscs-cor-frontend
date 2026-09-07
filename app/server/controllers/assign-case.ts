@@ -133,7 +133,7 @@ function postSendReq(caseService: CaseService) {
     );
     return res.render('assign-case/index.njk', {
       success: {
-        msg: 'We have sent a new Track Your Appeal link to your registered email address',
+        msg: 'We have resent the Track Your Appeal link to your registered email address',
       },
     });
   };
