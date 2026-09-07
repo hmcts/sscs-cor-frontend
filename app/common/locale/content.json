@@ -856,8 +856,12 @@
       "HEARING_BOOKED": {
         "heading": "Hearing booked",
         "content": {
-          "oral": ["A {{appeal.hmcHearingType | hmcHearingTypeHearingBooked}}hearing has been booked for your appeal."],
-          "paper": ["A {{appeal.hmcHearingType | hmcHearingTypeHearingBooked}}hearing has been booked for your appeal."]
+          "oral": [
+            "A {{appeal.hmcHearingType | hmcHearingTypeHearingBooked}}hearing has been booked for your appeal."
+          ],
+          "paper": [
+            "A {{appeal.hmcHearingType | hmcHearingTypeHearingBooked}}hearing has been booked for your appeal."
+          ]
         }
       },
       "LAPSED_REVISED": {
@@ -1278,7 +1282,7 @@
           "appealType": "You have not selected an appeal type. Select your appeal type before continuing.",
           "postcode": "You have not entered a postcode. Enter your postcode before continuing.",
           "ibcaReference": "An IBCA reference is required to update this case. Please refer to your Review Decision Notice.",
-          "tya": "Please use the MYA link in the most recent email we've sent you"
+          "tya": "Please use the MYA link in the most recent email we've sent you, or use the button below to resend the MYA link to your email address."
         },
         "invalid": {
           "postcode": "The postcode details you have provided don’t match, please contact us",
@@ -1638,7 +1642,7 @@
           "phone": "Rhif ffôn: 0300 303 5170",
           "availability": "Dydd Llun i ddydd Gwener, 9am – 4pm.",
           "emailText": "E-bost:",
-          "emailAddress": "ymholiadaucymraeg@justice.gov.uk"      
+          "emailAddress": "ymholiadaucymraeg@justice.gov.uk"
         },
         "Scotland": {
           "desc": "Llinell gymorth apeliadau budd-daliadau (Yr Alban)",
