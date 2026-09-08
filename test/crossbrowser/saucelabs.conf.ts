@@ -1,37 +1,23 @@
 import config from 'config';
-import * as supportedBrowsers from './supportedBrowsers';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
-import { Protocol } from 'puppeteer';
-import integer = Protocol.integer;
 
-const logger: LoggerInstance = Logger.getLogger('saucelabs.conf');
-const tunnelName: string =
-  process.env.SAUCE_TUNNEL_IDENTIFIER || config.get('saucelabs.tunnelId');
+const logger: LoggerInstance = Logger.getLogger('crossbrowser.playwright.conf');
 
+// URL under test and headless option
 const url = process.env.TEST_URL || config.get('testUrl');
-
-const browser = process.env.SAUCE_BROWSER || config.get('saucelabs.browser');
-const waitForTimeout: integer = parseInt(
-  config.get('saucelabs.waitForTimeout')
-);
-const smartWait: integer = parseInt(config.get('saucelabs.smartWait'));
-const user: string =
-  process.env.SAUCE_USERNAME || config.get('saucelabs.username');
-const key: string = process.env.SAUCE_ACCESS_KEY || config.get('saucelabs.key');
-const output: string = config.get('saucelabs.outputDir');
+const headlessEnv = process.env.HEADLESS;
+const headless = headlessEnv === undefined ? true : headlessEnv !== 'false';
+const output: string = config.get('crossbrowser.outputDir') || config.get('saucelabs.outputDir');
 
 const helpers = {
   Playwright: {
     url,
-    browser,
-    smartWait,
-    waitForTimeout,
+    show: !headless,
+    // do not set a fixed browser here; each `multiple` run will override it
+    waitForTimeout: parseInt(config.get('saucelabs.waitForTimeout') || '10000'),
     cssSelectorsEnabled: 'true',
-    host: 'ondemand.eu-central-1.saucelabs.com',
-    port: 80,
-    region: 'eu',
-    capabilities: {},
+    // additional options can be provided per-run via `multiple` section
   },
   BootstrapHelper: { require: './helpers/BootstrapHelper' },
   TeardownHelper: { require: './helpers/TeardownHelper' },
@@ -63,36 +49,51 @@ export const setupConfig = {
     },
   },
   multiple: {
-    chrome: {
-      browsers: getBrowserConfig('chromium'),
+    chromium: {
+      // run using Playwright chromium
+      browsers: [
+        {
+          browser: 'chromium',
+          helpers: {
+            Playwright: {
+              browser: 'chromium',
+              show: !headless,
+            },
+          },
+        },
+      ],
+      restart: true,
     },
     firefox: {
-      browsers: getBrowserConfig('firefox'),
+      browsers: [
+        {
+          browser: 'firefox',
+          helpers: {
+            Playwright: {
+              browser: 'firefox',
+              show: !headless,
+            },
+          },
+        },
+      ],
+      restart: true,
     },
     webkit: {
-      browsers: getBrowserConfig('webkit'),
+      browsers: [
+        {
+          browser: 'webkit',
+          helpers: {
+            Playwright: {
+              browser: 'webkit',
+              show: !headless,
+            },
+          },
+        },
+      ],
+      restart: true,
     },
   },
   name: 'SSCS COR Crossbrowser Tests',
 };
-
-export function getBrowserConfig(browserGroup) {
-  const browserConfig = [];
-  for (const candidateBrowser in supportedBrowsers[browserGroup]) {
-    if (candidateBrowser) {
-      const desiredCapability =
-        supportedBrowsers[browserGroup][candidateBrowser];
-      desiredCapability.tunnelIdentifier = tunnelName;
-      desiredCapability.tags = ['sscs cor'];
-      browserConfig.push({
-        browser: desiredCapability.browserName,
-        desiredCapabilities: desiredCapability,
-      });
-    } else {
-      logger.error('supportedBrowsers is empty or incorrectly defined');
-    }
-  }
-  return browserConfig;
-}
 
 exports.config = setupConfig;
