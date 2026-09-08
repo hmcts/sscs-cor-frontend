@@ -8,13 +8,22 @@ const logger: LoggerInstance = Logger.getLogger('crossbrowser.playwright.conf');
 const url = process.env.TEST_URL || config.get('testUrl');
 const headlessEnv = process.env.HEADLESS;
 const headless = headlessEnv === undefined ? true : headlessEnv !== 'false';
-let output = '';
+// Determine where to put CodeceptJS artifacts (screenshots, logs) and where
+// mochawesome should write the HTML report. Jenkins expects the report and
+// output under test/e2e, so default to those paths unless overridden in
+// configuration (crossbrowser.outputDir or saucelabs.outputDir).
+let codeceptOutput = '';
+let reportDir = '';
 if (config.has('crossbrowser.outputDir')) {
-  output = config.get('crossbrowser.outputDir');
+  codeceptOutput = config.get('crossbrowser.outputDir');
+  reportDir = config.get('crossbrowser.outputDir');
 } else if (config.has('saucelabs.outputDir')) {
-  output = config.get('saucelabs.outputDir');
+  codeceptOutput = config.get('saucelabs.outputDir');
+  reportDir = config.get('saucelabs.outputDir');
 } else {
-  output = 'functional-output/reports/functional';
+  // Jenkins expects these locations by the pipeline
+  codeceptOutput = 'test/e2e/crossbrowser-output';
+  reportDir = 'test/e2e/crossbrowser-report';
 }
 
 const helpers = {
@@ -37,7 +46,7 @@ const helpers = {
 
 export const setupConfig = {
   tests: './journeys/*.test.js',
-  output,
+  output: codeceptOutput,
   require: ['ts-node/register'],
   helpers,
   include: {
@@ -50,9 +59,9 @@ export const setupConfig = {
         options: { steps: true },
       },
       mochawesome: {
-        stdout: './functional-output/console.log',
+        stdout: `${reportDir}/console.log`,
         options: {
-          reportDir: output,
+          reportDir,
           reportName: 'index',
           inlineAssets: true,
         },

@@ -68,7 +68,7 @@ withNightlyPipeline("nodejs", product, component) {
 //     }
 
     afterAlways('DependencyCheckNightly') {
-                stage('Playwright - Cross browser test') {
+                stage('Codeceptjs/Playwright - Cross browser test') {
                         try {
                         yarnBuilder.yarn('test:crossbrowser')
                         } catch (Error) {
