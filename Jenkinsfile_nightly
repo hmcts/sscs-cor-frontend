@@ -65,6 +65,27 @@ withNightlyPipeline("nodejs", product, component) {
 //        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
 //     }
 
+    afterAlways('DependencyCheckNightly') {
+                stage('Playwright - Cross browser test') {
+                        try {
+                        yarnBuilder.yarn('test:crossbrowser')
+                        } catch (Error) {
+                        unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
+                        } finally {
+                        publishHTML([
+                                allowMissing         : true,
+                                alwaysLinkToLastBuild: true,
+                                keepAll              : true,
+                                reportDir            : "test/e2e/crossbrowser-report",
+                                reportFiles          : 'index.html',
+                                reportName           : 'MYA E2E Crossbrowser test report'
+                        ])
+                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/e2e/crossbrowser-output/*'
+                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/e2e/crossbrowser-report/*'
+                        }
+                }
+   }
+
     afterSuccess('fullFunctionalTest') {
 
         publishHTML target: [
