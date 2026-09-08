@@ -28,7 +28,8 @@ export class IdamService {
   async getToken(
     code: string,
     protocol: string,
-    host: string
+    host: string,
+    state?: string
   ): Promise<TokenResponse> {
     const redirectUri: string = this.getRedirectUrl(protocol, host);
 
@@ -44,6 +45,7 @@ export class IdamService {
         code,
         redirect_uri: redirectUri,
         ui_locales: i18next.language,
+        state: state || '',
       },
     });
   }
