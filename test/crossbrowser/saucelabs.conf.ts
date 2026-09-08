@@ -8,7 +8,8 @@ const logger: LoggerInstance = Logger.getLogger('crossbrowser.playwright.conf');
 const url = process.env.TEST_URL || config.get('testUrl');
 const headlessEnv = process.env.HEADLESS;
 const headless = headlessEnv === undefined ? true : headlessEnv !== 'false';
-const output: string = config.get('crossbrowser.outputDir') || config.get('saucelabs.outputDir');
+const output: string =
+  config.get('crossbrowser.outputDir') || config.get('saucelabs.outputDir');
 
 const helpers = {
   Playwright: {
