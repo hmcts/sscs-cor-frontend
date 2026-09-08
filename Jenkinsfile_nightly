@@ -52,7 +52,7 @@ withNightlyPipeline("nodejs", product, component) {
 
     enableSecurityScan(urlExclusions: urlExclusions, scanType: "frontend")
     // enableFortifyScan('sscs-aat')
-    enableCrossBrowserTest()
+    // enableCrossBrowserTest()
     enableFullFunctionalTest(20)
     enableSlackNotifications('#sscs-tech')
     enableMutationTest()
@@ -61,9 +61,9 @@ withNightlyPipeline("nodejs", product, component) {
     //     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
     // }
 
-    afterSuccess('crossBrowserTest') {
-       steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-    }
+//     afterSuccess('crossBrowserTest') {
+//        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+//     }
 
     afterSuccess('fullFunctionalTest') {
 
