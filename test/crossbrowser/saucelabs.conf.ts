@@ -62,8 +62,9 @@ export const setupConfig = {
         stdout: `${reportDir}/console.log`,
         options: {
           reportDir,
-          reportName: 'index',
+          reportFilename: 'index',
           inlineAssets: true,
+          quiet: true,
         },
       },
     },
