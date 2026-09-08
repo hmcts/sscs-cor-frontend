@@ -8,15 +8,25 @@ const logger: LoggerInstance = Logger.getLogger('crossbrowser.playwright.conf');
 const url = process.env.TEST_URL || config.get('testUrl');
 const headlessEnv = process.env.HEADLESS;
 const headless = headlessEnv === undefined ? true : headlessEnv !== 'false';
-const output: string =
-  config.get('crossbrowser.outputDir') || config.get('saucelabs.outputDir');
+let output = '';
+if (config.has('crossbrowser.outputDir')) {
+  output = config.get('crossbrowser.outputDir');
+} else if (config.has('saucelabs.outputDir')) {
+  output = config.get('saucelabs.outputDir');
+} else {
+  output = 'functional-output/reports/functional';
+}
 
 const helpers = {
   Playwright: {
     url,
     show: !headless,
     // do not set a fixed browser here; each `multiple` run will override it
-    waitForTimeout: parseInt(config.get('saucelabs.waitForTimeout') || '10000'),
+    waitForTimeout: parseInt(
+      config.has('saucelabs.waitForTimeout')
+        ? config.get('saucelabs.waitForTimeout')
+        : '10000'
+    ),
     cssSelectorsEnabled: 'true',
     // additional options can be provided per-run via `multiple` section
   },
