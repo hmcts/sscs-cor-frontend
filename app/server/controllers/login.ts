@@ -25,6 +25,7 @@ import { resolveQuery } from '../utils/parseUtils';
 
 import i18next from 'i18next';
 import content from '../../common/locale/content.json';
+import { getMaskedEmail } from '../utils/fieldValidation';
 
 const logger: LoggerInstance = Logger.getLogger('login.js');
 const idamUrlString: string = config.get('idam.url');
@@ -198,10 +199,14 @@ export function getIdamCallback(
         req.session.subscriptions = subscriptions;
 
         logger.info(
-          `Logging in ${email} for benefit type ${appeal.benefitType}, Case Id: ${caseId}`
+          `Logging in ${getMaskedEmail(email)} for benefit type ${
+            appeal.benefitType
+          }, Case Id: ${caseId}`
         );
         AppInsights.trackTrace(
-          `[${req.session.case?.case_id}] - User logged in successfully as ${email}`
+          `[${
+            req.session.case?.case_id
+          }] - User logged in successfully as ${getMaskedEmail(email)}`
         );
 
         if (req.session.appeal.hearingType === 'cor') {
@@ -210,10 +215,14 @@ export function getIdamCallback(
         return res.redirect(Paths.status);
       }
       logger.info(
-        `Logging in ${email} for Cases count ${cases.length}, Case Id: ${caseId}`
+        `Logging in ${getMaskedEmail(email)} for Cases count ${
+          cases.length
+        }, Case Id: ${caseId}`
       );
       AppInsights.trackTrace(
-        `[Cases count ${cases.length}] - User logged in successfully as ${email}`
+        `[Cases count ${
+          cases.length
+        }] - User logged in successfully as ${getMaskedEmail(email)}`
       );
 
       req.session.cases = cases;
@@ -246,7 +255,7 @@ export function renderErrorPage(
   const messages: Array<string> = [];
   switch (statusCode) {
     case NOT_FOUND: {
-      logger.info(`Cannot find any case for ${email}`);
+      logger.info(`Cannot find any case for ${getMaskedEmail(email)}`);
       header = content[i18next.language].login.failed.emailNotFound.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.emailNotFound.messages;
@@ -260,7 +269,7 @@ export function renderErrorPage(
       return res.render('errors/error.njk', { header, messages });
     }
     case UNPROCESSABLE_ENTITY: {
-      logger.info(`Found multiple appeals for ${email}`);
+      logger.info(`Found multiple appeals for ${getMaskedEmail(email)}`);
       header = content[i18next.language].login.failed.technicalError.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.technicalError.messages;
@@ -268,7 +277,7 @@ export function renderErrorPage(
       return res.render('errors/error.njk', { header, messages });
     }
     case CONFLICT: {
-      logger.info(`Found a non cor appeal for ${email}`);
+      logger.info(`Found a non cor appeal for ${getMaskedEmail(email)}`);
       header = content[i18next.language].login.failed.cannotUseService.header;
       const errorMessages: Array<string> =
         content[i18next.language].login.failed.cannotUseService.messages;
