@@ -74,6 +74,12 @@ withNightlyPipeline("nodejs", product, component) {
                         } catch (Error) {
                         unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
                         } finally {
+                        // Ensure report directories exist so publishHTML/archiveArtifacts
+                        // don't fail if tests didn't produce output (e.g. install/test failure).
+                        // Create a stub index.html if the real report is missing so Jenkins
+                        // publishHTML has a file to archive.
+                        steps.sh(script: "mkdir -p test/crossbrowser/crossbrowser-report test/crossbrowser/crossbrowser-output")
+                        steps.sh(script: "if [ ! -f test/crossbrowser/crossbrowser-report/index.html ]; then echo '<html><body><h1>Crossbrowser report not generated</h1></body></html>' > test/crossbrowser/crossbrowser-report/index.html; fi")
                         publishHTML([
                                 allowMissing         : true,
                                 alwaysLinkToLastBuild: true,
