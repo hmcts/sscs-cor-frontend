@@ -22,8 +22,8 @@ let reportDir = './functional-report'; // default for local runs
 //   reportDir = config.get('saucelabs.outputDir');
 // } else {
 //   // Jenkins expects these locations by the pipeline
-  codeceptOutput = 'test/crossbrowser/crossbrowser-output';
-  reportDir = 'test/crossbrowser/crossbrowser-report';
+codeceptOutput = 'test/crossbrowser/crossbrowser-output';
+reportDir = 'test/crossbrowser/crossbrowser-report';
 // }
 
 const helpers = {
