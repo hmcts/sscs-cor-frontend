@@ -78,12 +78,12 @@ withNightlyPipeline("nodejs", product, component) {
                                 allowMissing         : true,
                                 alwaysLinkToLastBuild: true,
                                 keepAll              : true,
-                                reportDir            : "test/e2e/crossbrowser-report",
+                                reportDir            : "test/crossbrowser/crossbrowser-report",
                                 reportFiles          : 'index.html',
                                 reportName           : 'MYA E2E Crossbrowser test report'
                         ])
-                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/e2e/crossbrowser-output/*'
-                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/e2e/crossbrowser-report/*'
+                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/crossbrowser/crossbrowser-output/*'
+                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/crossbrowser/crossbrowser-report/*'
                         }
                 }
    }

@@ -12,19 +12,19 @@ const headless = headlessEnv === undefined ? true : headlessEnv !== 'false';
 // mochawesome should write the HTML report. Jenkins expects the report and
 // output under test/e2e, so default to those paths unless overridden in
 // configuration (crossbrowser.outputDir or saucelabs.outputDir).
-let codeceptOutput = '';
-let reportDir = '';
-if (config.has('crossbrowser.outputDir')) {
-  codeceptOutput = config.get('crossbrowser.outputDir');
-  reportDir = config.get('crossbrowser.outputDir');
-} else if (config.has('saucelabs.outputDir')) {
-  codeceptOutput = config.get('saucelabs.outputDir');
-  reportDir = config.get('saucelabs.outputDir');
-} else {
-  // Jenkins expects these locations by the pipeline
-  codeceptOutput = 'test/e2e/crossbrowser-output';
-  reportDir = 'test/e2e/crossbrowser-report';
-}
+let codeceptOutput = './functional-output'; // default for local runs
+let reportDir = './functional-report'; // default for local runs
+// if (config.has('crossbrowser.outputDir')) {
+//   codeceptOutput = config.get('crossbrowser.outputDir');
+//   reportDir = config.get('crossbrowser.outputDir');
+// } else if (config.has('saucelabs.outputDir')) {
+//   codeceptOutput = config.get('saucelabs.outputDir');
+//   reportDir = config.get('saucelabs.outputDir');
+// } else {
+//   // Jenkins expects these locations by the pipeline
+//   codeceptOutput = 'test/e2e/crossbrowser-output';
+//   reportDir = 'test/e2e/crossbrowser-report';
+// }
 
 const helpers = {
   Playwright: {
