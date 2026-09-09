@@ -63,4 +63,17 @@ export class CaseService {
       req
     );
   }
+
+  async sendReq(email: string, req: Request) {
+    return RequestPromise.request(
+      {
+        method: 'POST',
+        uri: `${this.apiUrl}/api/citizen/sendReq`,
+        body: { email },
+        resolveWithFullResponse: true,
+        simple: false,
+      },
+      req
+    );
+  }
 }

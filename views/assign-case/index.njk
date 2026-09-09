@@ -2,7 +2,14 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% block corContent %}
+  {% if success %}
+    {{ govukNotificationBanner({
+      type: "success",
+      text: success.msg
+    }) }}
+  {% endif %}
   {% if error %}
     {{ govukErrorSummary({
       titleText: content[i18n.language].errorSummary.titleText,
@@ -67,6 +74,13 @@
       name="assign-case"
       type="submit"
       value="{{ content[i18n.language].general.continue | safe }}"
+      class="govuk-button"/>
+    <input id="send-req"
+      name="send-req"
+      type="submit"
+      formaction="/send-tya-request"
+      formmethod="post"
+      value="Resend Track Your Link to the registered email"
       class="govuk-button"/>
   </form>
 {% endblock corContent %}

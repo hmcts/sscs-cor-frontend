@@ -109,6 +109,41 @@ function postIndex(
   };
 }
 
+function postSendReq(caseService: CaseService) {
+  return async (req: Request, res: Response) => {
+    const { idamEmail } = req.session;
+
+    AppInsights.trackTrace(
+      `assign-case: Sending request for email [${idamEmail}]]`
+    );
+    const { statusCode, body }: ApiResponse = await caseService.sendReq(
+      idamEmail,
+      req
+    );
+
+    if (statusCode !== StatusCodes.OK) {
+      AppInsights.trackTrace(
+        `assign-case: Failed sending request for email [${idamEmail}]`
+      );
+      logger.error(`StatusCode ${statusCode}, error:`, body);
+      return renderError(
+        { msg: errorContent('invalid', 'postcode'), code: 'send-req-failed' },
+        req,
+        res
+      );
+    }
+
+    AppInsights.trackTrace(
+      `assign-case: Sent TYA request successfully for email [${idamEmail}]`
+    );
+    return res.render('assign-case/index.njk', {
+      success: {
+        msg: 'We have resent the Track Your Appeal link to your registered email address',
+      },
+    });
+  };
+}
+
 function validateField(reqBody: any, field: string) {
   let errorType;
   if (!reqBody[field] || !reqBody[field].trim()) {
@@ -141,7 +176,12 @@ function setupAssignCaseController(deps: Dependencies) {
     deps.prereqMiddleware,
     postIndex(deps.caseService, deps.trackYourApealService)
   );
+  router.post(
+    Paths.sendReq,
+    deps.prereqMiddleware,
+    postSendReq(deps.caseService)
+  );
   return router;
 }
 
-export { setupAssignCaseController, getIndex, postIndex };
+export { setupAssignCaseController, getIndex, postIndex, postSendReq };
