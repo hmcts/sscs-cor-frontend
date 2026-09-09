@@ -79,17 +79,15 @@ withNightlyPipeline("nodejs", product, component) {
                         // Create a stub index.html if the real report is missing so Jenkins
                         // publishHTML has a file to archive.
                         steps.sh(script: "mkdir -p test/crossbrowser/crossbrowser-report test/crossbrowser/crossbrowser-output")
-                        steps.sh(script: "if [ ! -f test/crossbrowser/crossbrowser-report/index.html ]; then echo '<html><body><h1>Crossbrowser report not generated</h1></body></html>' > test/crossbrowser/crossbrowser-report/index.html; fi")
                         publishHTML([
                                 allowMissing         : true,
                                 alwaysLinkToLastBuild: true,
                                 keepAll              : true,
-                                reportDir            : "test/crossbrowser/crossbrowser-report",
+                                reportDir            : "functional-output/reports/crossbrowser",
                                 reportFiles          : 'index.html',
                                 reportName           : 'MYA E2E Crossbrowser test report'
                         ])
-                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/crossbrowser/crossbrowser-output/*'
-                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/crossbrowser/crossbrowser-report/*'
+                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
                         }
                 }
    }
