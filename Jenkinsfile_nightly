@@ -54,7 +54,6 @@ withNightlyPipeline("nodejs", product, component) {
 
     enableSecurityScan(urlExclusions: urlExclusions, scanType: "frontend")
     // enableFortifyScan('sscs-aat')
-    // enableCrossBrowserTest()
     enableFullFunctionalTest(20)
     enableSlackNotifications('#sscs-tech')
     enableMutationTest()
@@ -63,21 +62,13 @@ withNightlyPipeline("nodejs", product, component) {
     //     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
     // }
 
-//     afterSuccess('crossBrowserTest') {
-//        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-//     }
-
     afterAlways('DependencyCheckNightly') {
-                stage('Codeceptjs/Playwright - Cross browser test') {
-                        try {
+        stage('Codeceptjs/Playwright - Cross browser test') {
+                try {
                         yarnBuilder.yarn('test:crossbrowser')
-                        } catch (Error) {
+                } catch (Error) {
                         unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
-                        } finally {
-                        // Ensure report directories exist so publishHTML/archiveArtifacts
-                        // don't fail if tests didn't produce output (e.g. install/test failure).
-                        // Create a stub index.html if the real report is missing so Jenkins
-                        // publishHTML has a file to archive.
+                } finally {
                         publishHTML([
                                 allowMissing         : true,
                                 alwaysLinkToLastBuild: true,
@@ -87,8 +78,8 @@ withNightlyPipeline("nodejs", product, component) {
                                 reportName           : 'MYA E2E Crossbrowser test report'
                         ])
                         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/crossbrowser/crossbrowser-report/'
-                        }
                 }
+        }
    }
 
     afterSuccess('fullFunctionalTest') {
