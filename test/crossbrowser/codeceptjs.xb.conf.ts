@@ -9,9 +9,8 @@ const url = process.env.TEST_URL || config.get('testUrl');
 const headlessEnv = process.env.HEADLESS;
 const headless = headlessEnv === undefined ? true : headlessEnv !== 'false';
 
-let codeceptOutput = './functional-output'; // default for local runs
-let reportDir = './functional-report'; // default for local runs
-
+const codeceptOutput = './functional-output'; // default for local runs
+const reportDir = './functional-report'; // default for local runs
 
 const helpers = {
   Playwright: {
