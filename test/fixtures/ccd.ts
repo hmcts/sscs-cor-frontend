@@ -92,9 +92,11 @@ export async function createIBACase(hearingType): Promise<CCDCase> {
 export async function createCase(hearingType): Promise<CCDCase> {
   const randomNumber = parseInt(`${Math.random() * 10000000}`, 10);
   const email = `test${randomNumber}@hmcts.net`;
+  const authHeaders = await getServiceHeaders();
   const options = {
     url: `${apiUrl}/api/case`,
     qs: { email, hearingType },
+    headers: authHeaders,
     json: true,
     timeout,
   };
