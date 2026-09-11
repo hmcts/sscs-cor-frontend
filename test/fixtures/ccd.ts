@@ -18,6 +18,48 @@ async function getServiceHeaders() {
   };
 }
 
+interface UserCheckResponse {
+  email?: string;
+  roleNames?: string[];
+  accountStatus?: string;
+  recordType?: string;
+  errors?: string[];
+}
+
+/**
+ * Checks if a user exists in the database by their email.
+ *
+ * @param email - The email address to check.
+ * @returns A promise that resolves to the full API response object.
+ */
+export async function checkUserExists(
+  email: string
+): Promise<UserCheckResponse> {
+  const ENDPOINT_URL =
+    'https://idam-testing-support-api.aat.platform.hmcts.net/test/idam/users';
+  let authHeaders = await getServiceHeaders();
+
+  const options = {
+    method: 'GET',
+    uri: ENDPOINT_URL,
+    headers: authHeaders,
+    qs: {
+      email,
+    },
+    json: true,
+  };
+
+  try {
+    const response = (await rp(options)) as UserCheckResponse;
+    logger.info('API Response Object:', response);
+
+    return response;
+  } catch (error) {
+    logger.info('Error verifying user existence:', error);
+    throw error;
+  }
+}
+
 export interface CCDCase {
   case_reference?: string;
   appellant_tya?: string;
@@ -92,6 +134,12 @@ export async function createIBACase(hearingType): Promise<CCDCase> {
 export async function createCase(hearingType): Promise<CCDCase> {
   const randomNumber = parseInt(`${Math.random() * 10000000}`, 10);
   const email = `test${randomNumber}@hmcts.net`;
+  try {
+    const userCheck = await checkUserExists(email);
+    logger.info('User data:', userCheck);
+  } catch (error) {
+    logger.error('The API request failed:', error);
+  }
   const options = {
     url: `${apiUrl}/api/case`,
     qs: { email, hearingType },
