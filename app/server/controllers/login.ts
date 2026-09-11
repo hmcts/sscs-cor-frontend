@@ -294,16 +294,13 @@ export function setupLoginController(deps: Dependencies): Router {
   router.get(
     Paths.login,
     getIdamCallback(
-      redirectToIdam('/login', deps.idamService),
+      redirectToIdam('/o/authorize', deps.idamService),
       deps.idamService,
       deps.caseService,
       deps.trackYourApealService
     )
   );
-  router.get(
-    Paths.register,
-    redirectToIdam('/users/selfRegister', deps.idamService)
-  );
+  router.get(Paths.register, redirectToIdam('/o/authorize', deps.idamService));
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;
 }
