@@ -1,7 +1,7 @@
 import cache from 'memory-cache';
 
 export default {
-  path: '/login',
+  path: '/o/authorize',
   method: 'POST',
   render: (req, res) => {
     cache.put('email', req.body.username);
