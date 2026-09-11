@@ -100,7 +100,11 @@ export async function createCase(hearingType): Promise<CCDCase> {
   };
   let body;
   try {
-    body = await rp.post(options);
+    const fullResp = await rp.post(options);
+    body = fullResp.body;
+    logger.info('createCase response body:', body);
+    logger.info(`createCase: status=${fullResp.statusCode}`);
+    logger.debug('createCase headers: %s', JSON.stringify(fullResp.headers || {}, null, 2));
   } catch (error) {
     logger.error('Error at CCD createCase:', error.error);
   }
