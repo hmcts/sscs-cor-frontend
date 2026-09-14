@@ -35,6 +35,8 @@ def secrets = [
   ]
 ]
 
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
     [ $class: 'AzureKeyVaultSecret',
       secretType: 'Secret',
@@ -52,7 +54,6 @@ withNightlyPipeline("nodejs", product, component) {
 
     enableSecurityScan(urlExclusions: urlExclusions, scanType: "frontend")
     // enableFortifyScan('sscs-aat')
-    // enableCrossBrowserTest()
     enableFullFunctionalTest(20)
     enableSlackNotifications('#sscs-tech')
     enableMutationTest()
@@ -61,9 +62,25 @@ withNightlyPipeline("nodejs", product, component) {
     //     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
     // }
 
-//     afterSuccess('crossBrowserTest') {
-//        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-//     }
+    afterAlways('DependencyCheckNightly') {
+        stage('Codeceptjs/Playwright - Cross browser test') {
+                try {
+                        yarnBuilder.yarn('test:crossbrowser')
+                } catch (Error) {
+                        unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
+                } finally {
+                        publishHTML([
+                                allowMissing         : true,
+                                alwaysLinkToLastBuild: true,
+                                keepAll              : true,
+                                reportDir            : "test/crossbrowser/crossbrowser-report",
+                                reportFiles          : 'index.html',
+                                reportName           : 'MYA E2E Crossbrowser test report'
+                        ])
+                        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/crossbrowser/crossbrowser-report/'
+                }
+        }
+   }
 
     afterSuccess('fullFunctionalTest') {
 
