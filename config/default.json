@@ -30,7 +30,12 @@
   },
   "health": {
     "timeout": 10000,
-    "deadline": 15000
+    "deadline": 15000,
+    "idam": {
+      "url": {
+        "hmctsAccess" : ""
+      }
+    }
   },
   "idam": {
     "url": "http://localhost:3003/idam-stub",
