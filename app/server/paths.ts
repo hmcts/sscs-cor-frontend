@@ -5,6 +5,7 @@ export const document = '/document';
 export const outcome = '/outcome';
 export const health = '/health';
 export const readiness = '/readiness';
+export const hmctsAccessHealth = '/hmcts-access-health';
 export const question = '/question';
 export const taskList = '/task-list';
 export const login = '/sign-in';

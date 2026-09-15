@@ -30,11 +30,17 @@
   },
   "health": {
     "timeout": 10000,
-    "deadline": 15000
+    "deadline": 15000,
+    "idam": {
+      "url": {
+        "hmctsAccess" : ""
+      }
+    }
   },
   "idam": {
     "url": "http://localhost:3003/idam-stub",
     "api-url": "http://localhost:3003/idam-stub",
+    "hmctsAccess": "https://hmcts-access.aat.platform.hmcts.net",
     "client": {
       "id": "sscs",
       "secret": "a_secret"
