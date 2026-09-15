@@ -22,11 +22,8 @@ const healthDeadline: number = config.get('health.deadline');
 
 const apiUrl: string = config.get('tribunals-api.url');
 const apiHealthUrl = `${apiUrl}/health`;
-const hmctsAccessHealthBaseUrl: string = config.get(
-  'health.idam.url.hmctsAccess'
-)
-  ? config.get('health.idam.url.hmctsAccess')
-  : config.get('idam.hmctsAccess');
+const hmctsAccessHealthBaseUrl: string =
+  config.get('health.idam.url.hmctsAccess') || config.get('idam.hmctsAccess');
 const apiReadinessUrl = `${apiHealthUrl}/readiness`;
 
 const healthOptions = (message) => {
