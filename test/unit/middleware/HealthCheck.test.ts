@@ -15,9 +15,17 @@ describe('middleware/health', function () {
 
   beforeEach(function () {
     configureStub = sinon.stub().returns({ configured: true });
-    webStub = sinon.stub().callsFake((url: string, options: any) => ({ url, options, kind: 'web' }));
-    rawStub = sinon.stub().callsFake((fn: () => Promise<any>) => ({ callback: fn, kind: 'raw' }));
-    statusStub = sinon.stub().callsFake((healthy: boolean) => ({ healthy, kind: 'status' }));
+    webStub = sinon.stub().callsFake((url: string, options: any) => ({
+      url,
+      options,
+      kind: 'web',
+    }));
+    rawStub = sinon
+      .stub()
+      .callsFake((fn: () => Promise<any>) => ({ callback: fn, kind: 'raw' }));
+    statusStub = sinon
+      .stub()
+      .callsFake((healthy: boolean) => ({ healthy, kind: 'status' }));
     upStub = sinon.stub().returns('UP');
     downStub = sinon.stub().returns('DOWN');
     clientStub = {
@@ -89,7 +97,9 @@ describe('middleware/health', function () {
     const configArg = configureStub.firstCall.args[0];
     expect(configArg.checks.redis.kind).to.equal('raw');
     expect(configArg.checks['manage-your-appeal-api'].kind).to.equal('web');
-    expect(configArg.checks['manage-your-appeal-api'].url).to.equal('https://tribunals.example/health');
+    expect(configArg.checks['manage-your-appeal-api'].url).to.equal(
+      'https://tribunals.example/health'
+    );
     expect(configArg.buildInfo.name).to.equal('Manage Your Appeal');
     expect(configArg.buildInfo.host).to.be.a('string');
     expect(configArg.buildInfo.uptime).to.be.a('number');
@@ -105,7 +115,9 @@ describe('middleware/health', function () {
 
     const configArg = configureStub.firstCall.args[0];
     expect(configArg.readinessChecks.redis.kind).to.equal('raw');
-    expect(configArg.readinessChecks['manage-your-appeal-api'].url).to.equal('https://tribunals.example/health/readiness');
+    expect(configArg.readinessChecks['manage-your-appeal-api'].url).to.equal(
+      'https://tribunals.example/health/readiness'
+    );
     expect(configArg.buildInfo.name).to.equal('Manage Your Appeal');
   });
 
@@ -114,7 +126,9 @@ describe('middleware/health', function () {
 
     const configArg = configureStub.firstCall.args[0];
     expect(configArg.readinessChecks.redis.kind).to.equal('raw');
-    expect(configArg.readinessChecks['manage-your-appeal-api'].url).to.equal('https://hmcts-access.example');
+    expect(configArg.readinessChecks['manage-your-appeal-api'].url).to.equal(
+      'https://hmcts-access.example'
+    );
     expect(configArg.buildInfo.name).to.equal('Manage Your Appeal');
   });
 
@@ -122,7 +136,8 @@ describe('middleware/health', function () {
     healthModule.getHealthConfigure();
 
     const configArg = configureStub.firstCall.args[0];
-    const callback = configArg.checks['manage-your-appeal-api'].options.callback;
+    const callback =
+      configArg.checks['manage-your-appeal-api'].options.callback;
 
     const success = callback(undefined, { status: 200 });
     expect(upStub.calledOnce).to.equal(true);
