@@ -55,7 +55,7 @@ describe('Routes', function () {
         .expect(302)
         .expect(
           'Location',
-          'http://localhost:8082/login?redirect_uri=http%3A%2F%2F127.0.0.1%2Fsign-in&client_id=sscs&response_type=code',
+          'http://localhost:8082/o/authorize?redirect_uri=http%3A%2F%2F127.0.0.1%2Fsign-in&client_id=sscs&response_type=code',
           done
         );
     });

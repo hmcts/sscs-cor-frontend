@@ -101,6 +101,19 @@ export function getIdamCallback(
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const code: string = req.query.code as string;
+    const idamError: string = req.query.error as string;
+
+    if (idamError) {
+      const oauthError = new HttpException(
+        BAD_REQUEST,
+        `Idam returned an error during authentication: ${idamError}`
+      );
+      logger.error('MYA_IDAM_AUTH_ERROR', oauthError);
+      AppInsights.trackException(oauthError);
+      AppInsights.trackEvent('MYA_IDAM_AUTH_ERROR');
+      return next(oauthError);
+    }
+
     if (!code) {
       const sessionId: string = req.session.id;
       return req.session.destroy((error) => {
@@ -294,16 +307,13 @@ export function setupLoginController(deps: Dependencies): Router {
   router.get(
     Paths.login,
     getIdamCallback(
-      redirectToIdam('/login', deps.idamService),
+      redirectToIdam('/o/authorize', deps.idamService),
       deps.idamService,
       deps.caseService,
       deps.trackYourApealService
     )
   );
-  router.get(
-    Paths.register,
-    redirectToIdam('/users/selfRegister', deps.idamService)
-  );
+  router.get(Paths.register, redirectToIdam('/o/authorize', deps.idamService));
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;
 }
