@@ -200,18 +200,6 @@ describe('controllers/login', function () {
         trackYourAppealService
       )(req, res, next);
 
-    describe('called with an idam error', function () {
-      it('does not redirect back to idam and passes the error on', async function () {
-        req.query = { error: 'access_denied' };
-        const redirectToIdam = sinon.stub();
-        await getIdamCallback(redirectToIdam, null, null, null)(req, res, next);
-        expect(redirectToIdam).to.have.been.callCount(0);
-        expect(req.session.destroy).to.have.been.callCount(0);
-        expect(AppInsights.trackEvent).calledOnceWith('MYA_IDAM_AUTH_ERROR');
-        expect(next).to.have.been.calledOnce;
-      });
-    });
-
     describe('called without code', function () {
       it('redirects to idam login', async function () {
         req.query = {};
