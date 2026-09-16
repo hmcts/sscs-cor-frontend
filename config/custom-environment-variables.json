@@ -22,19 +22,11 @@
   },
   "idam": {
     "url": "IDAM_URL",
-    "hmctsAccess": "HMCTS_ACCESS_URL",
     "api-url": "IDAM_API_URL",
     "client": {
       "secret": "IDAM_CLIENT_SECRET"
     },
     "enableStub": "IDAM_ENABLE_STUB"
-  },
-  "health": {
-    "idam": {
-      "url": {
-        "hmctsAccess": "HEALTH_HMCTS_ACCESS_URL"
-      }
-    }
   },
   "featureFlags": {
     "testFeature": "TEST_FEATURE",
