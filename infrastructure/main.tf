@@ -35,7 +35,7 @@ module "redis-cache-v2" {
 
 module "managed_redis" {
   # foreach conditional allows selective deployment to desired environments
-  source   = "git@github.com:hmcts/terraform-module-azure-managed-redis?ref=main"
+  source = "git@github.com:hmcts/terraform-module-azure-managed-redis?ref=main"
 
   product     = var.product
   component   = var.component
@@ -44,7 +44,7 @@ module "managed_redis" {
   common_tags = var.common_tags
 
   # Performance:
-  sku_name          = var.managed_redis_sku
+  sku_name                  = var.managed_redis_sku
   high_availability_enabled = var.managed_redis_high_availability_enabled
   # Networking:
   public_network_access   = "Disabled"
@@ -64,8 +64,8 @@ resource "azurerm_key_vault_secret" "managed_redis_access_key" {
 }
 
 resource "azurerm_key_vault_secret" "managed_redis_connection_string" {
-  name = "${var.product}-managed-redis-connection-string"
-  value = "rediss://:${urlencode(module.managed_redis.primary_access_key)}@${module.managed_redis.hostname}:${module.managed_redis.port}"
+  name         = "${var.product}-managed-redis-connection-string"
+  value        = "rediss://:${urlencode(module.managed_redis.primary_access_key)}@${module.managed_redis.hostname}:${module.managed_redis.port}"
   key_vault_id = data.azurerm_key_vault.sscs_key_vault.id
 }
 
