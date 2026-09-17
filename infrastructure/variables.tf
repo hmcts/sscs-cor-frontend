@@ -38,6 +38,12 @@ variable "capacity" {
   description = "The size of the Redis cache to deploy. Valid values are 1, 2, 3, 4, 5"
 }
 
+variable "private_dns_subscription_id" {
+  type        = string
+  description = "Subscription ID containing the shared HMCTS private DNS zones."
+  default     = "1baf5470-1c3e-40d3-a6f7-74bfbce4b348"
+}
+
 variable "managed_redis_sku" {
   description = "Managed Redis SKU. Override per environment in <env>.tfvars."
   type        = string

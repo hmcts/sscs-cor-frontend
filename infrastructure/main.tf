@@ -17,6 +17,12 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
   resource_group_name  = "core-infra-${var.env}"
 }
 
+data "azurerm_subnet" "redis_private_endpoint" {
+  name                 = "core-infra-subnet-2-${var.env}"
+  resource_group_name  = "core-infra-${var.env}"
+  virtual_network_name = "core-infra-vnet-${var.env}"
+}
+
 module "redis-cache-v2" {
   source                        = "git@github.com:hmcts/cnp-module-redis?ref=4.x"
   product                       = var.product
