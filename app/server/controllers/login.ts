@@ -81,6 +81,7 @@ export function redirectToIdam(
     idamUrl.searchParams.append('redirect_uri', redirectUrl);
     idamUrl.searchParams.append('client_id', idamClientId);
     idamUrl.searchParams.append('response_type', 'code');
+    idamUrl.searchParams.append('scope', 'openid profile roles');
 
     if (req.query.tya) {
       idamUrl.searchParams.append('state', req.query.tya as string);
@@ -294,16 +295,13 @@ export function setupLoginController(deps: Dependencies): Router {
   router.get(
     Paths.login,
     getIdamCallback(
-      redirectToIdam('/login', deps.idamService),
+      redirectToIdam('/o/authorize', deps.idamService),
       deps.idamService,
       deps.caseService,
       deps.trackYourApealService
     )
   );
-  router.get(
-    Paths.register,
-    redirectToIdam('/users/selfRegister', deps.idamService)
-  );
+  router.get(Paths.register, redirectToIdam('/o/authorize', deps.idamService));
   router.get(Paths.logout, getLogout(deps.idamService));
   return router;
 }
