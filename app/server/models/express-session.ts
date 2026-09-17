@@ -183,6 +183,7 @@ declare module 'express-session' {
     tya?: string;
     hideHearing?: boolean;
     accessToken?: string;
+    idToken?: string;
     subscriptions?: Array<Subscription>;
     requestOptions?: string;
     hearingRecordingsResponse?: HearingRecordings;

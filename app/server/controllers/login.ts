@@ -35,8 +35,31 @@ export function redirectToLogin(req: Request, res: Response) {
   return res.redirect(Paths.login);
 }
 
+function getIdamEndSessionUrl(
+  idToken: string,
+  postLogoutRedirectUri: string
+): string {
+  const idamUrl: URL = new URL(idamUrlString);
+  const endSessionPath = '/o/endSession';
+  idamUrl.pathname =
+    idamUrl.pathname === '/'
+      ? endSessionPath
+      : idamUrl.pathname + endSessionPath;
+
+  if (idToken) {
+    idamUrl.searchParams.append('id_token_hint', idToken);
+  }
+  idamUrl.searchParams.append(
+    'post_logout_redirect_uri',
+    postLogoutRedirectUri
+  );
+  return idamUrl.href;
+}
+
 export function getLogout(idamService: IdamService) {
   return async (req: Request, res: Response) => {
+    const idToken: string = req.session.idToken;
+
     if (req.session.accessToken) {
       try {
         await idamService.deleteToken(req.session.accessToken);
@@ -56,10 +79,11 @@ export function getLogout(idamService: IdamService) {
       AppInsights.trackTrace(`Session destroyed ${sessionId}`);
       AppInsights.trackEvent('MYA_USER_LOGOUT');
 
-      if (req.query.redirectUrl) {
-        return res.redirect(req.query.redirectUrl as string);
-      }
-      return res.redirect(Paths.login);
+      const postLogoutRedirectUri: string = req.query.redirectUrl
+        ? (req.query.redirectUrl as string)
+        : idamService.getRedirectUrl(req.protocol, req.hostname);
+
+      return res.redirect(getIdamEndSessionUrl(idToken, postLogoutRedirectUri));
     });
   };
 }
@@ -125,6 +149,7 @@ export function getIdamCallback(
             req.hostname
           );
           req.session.accessToken = tokenResponse.access_token;
+          req.session.idToken = tokenResponse.id_token;
           req.session.serviceToken = await generateToken();
           req.session.tya = resolveQuery(req.query.state);
         } catch (error) {
