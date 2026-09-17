@@ -37,3 +37,21 @@ variable "capacity" {
   default     = "1"
   description = "The size of the Redis cache to deploy. Valid values are 1, 2, 3, 4, 5"
 }
+
+variable "managed_redis_sku" {
+  description = "Managed Redis SKU. Override per environment in <env>.tfvars."
+  type        = string
+  default     = "Balanced_B0"
+}
+
+variable "managed_redis_high_availability_enabled" {
+  description = "Managed Redis high availability. Override per environment in <env>.tfvars."
+  type        = bool
+  default     = false
+}
+
+variable "managed_redis_persistence_rdb_backup_frequency" {
+  description = "Managed Redis persistence RDB backup frequency. Override per environment in <env>.tfvars."
+  type        = string
+  default     = null
+}
