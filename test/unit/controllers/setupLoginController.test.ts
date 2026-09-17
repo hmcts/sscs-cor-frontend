@@ -44,24 +44,35 @@ describe('#setupLoginController', function () {
     const controller = setupLoginController(deps);
     expect(controller).to.equal(express.Router());
   });
-});
 
-describe('#setupLoginController register route redirect', function () {
-  it('redirects GET register to idam /o/authorize', function (done) {
-    const idamServiceStub = {
-      getRedirectUrl: sinon.stub().returns('http://redirect_url'),
-    } as Partial<IdamService> as IdamService;
+  describe('register route redirect', function () {
+    beforeEach(function () {
+      (express.Router as sinon.SinonStub).restore();
+    });
 
-    const app = express();
-    app.use(setupLoginController({ idamService: idamServiceStub }));
+    afterEach(function () {
+      sinon.stub(express, 'Router').returns({
+        get: sinon.stub(),
+        post: sinon.stub(),
+      } as Partial<Router> as Router);
+    });
 
-    request(app)
-      .get(Paths.register)
-      .expect(302)
-      .expect(
-        'Location',
-        `${idamUrl}/o/authorize?redirect_uri=http%3A%2F%2Fredirect_url&client_id=${idamClientId}&response_type=code&scope=openid+profile+roles`,
-        done
-      );
+    it('redirects GET register to idam /o/authorize', function (done) {
+      const idamServiceStub = {
+        getRedirectUrl: sinon.stub().returns('http://redirect_url'),
+      } as Partial<IdamService> as IdamService;
+
+      const app = express();
+      app.use(setupLoginController({ idamService: idamServiceStub }));
+
+      request(app)
+        .get(Paths.register)
+        .expect(302)
+        .expect(
+          'Location',
+          `${idamUrl}/o/authorize?redirect_uri=http%3A%2F%2Fredirect_url&client_id=${idamClientId}&response_type=code&scope=openid+profile+roles`,
+          done
+        );
+    });
   });
 });
