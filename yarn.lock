@@ -2214,6 +2214,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/express-serve-static-core@npm:^5.0.0":
+  version: 5.1.3
+  resolution: "@types/express-serve-static-core@npm:5.1.3"
+  dependencies:
+    "@types/node": "npm:*"
+    "@types/qs": "npm:*"
+    "@types/range-parser": "npm:*"
+    "@types/send": "npm:*"
+  checksum: 10/455822d3269510d3fd45fba7c1e5d4d6de7a1b9767d8afcce5a1ff9ab9743df01db471a6ba1510a1acf3c970a7b31fd26ee99a245e297acae2f66cf6231c86b7
+  languageName: node
+  linkType: hard
+
 "@types/express-session@npm:*":
   version: 1.18.0
   resolution: "@types/express-session@npm:1.18.0"
@@ -2223,15 +2235,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:*, @types/express@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "@types/express@npm:4.17.21"
+"@types/express@npm:*":
+  version: 5.0.6
+  resolution: "@types/express@npm:5.0.6"
+  dependencies:
+    "@types/body-parser": "npm:*"
+    "@types/express-serve-static-core": "npm:^5.0.0"
+    "@types/serve-static": "npm:^2"
+  checksum: 10/da2cc3de1b1a4d7f20ed3fb6f0a8ee08e99feb3c2eb5a8d643db77017d8d0e70fee9e95da38a73f51bcdf5eda3bb6435073c0271dc04fb16fda92e55daf911fa
+  languageName: node
+  linkType: hard
+
+"@types/express@npm:^4.17.25":
+  version: 4.17.25
+  resolution: "@types/express@npm:4.17.25"
   dependencies:
     "@types/body-parser": "npm:*"
     "@types/express-serve-static-core": "npm:^4.17.33"
     "@types/qs": "npm:*"
-    "@types/serve-static": "npm:*"
-  checksum: 10/7a6d26cf6f43d3151caf4fec66ea11c9d23166e4f3102edfe45a94170654a54ea08cf3103d26b3928d7ebcc24162c90488e33986b7e3a5f8941225edd5eb18c7
+    "@types/serve-static": "npm:^1"
+  checksum: 10/c309fdb79fb8569b5d8d8f11268d0160b271f8b38f0a82c20a0733e526baf033eb7a921cd51d54fe4333c616de9e31caf7d4f3ef73baaf212d61f23f460b0369
   languageName: node
   linkType: hard
 
@@ -2417,7 +2440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/serve-static@npm:*":
+"@types/serve-static@npm:^1":
   version: 1.15.5
   resolution: "@types/serve-static@npm:1.15.5"
   dependencies:
@@ -2425,6 +2448,16 @@ __metadata:
     "@types/mime": "npm:*"
     "@types/node": "npm:*"
   checksum: 10/49aa21c367fffe4588fc8c57ea48af0ea7cbadde7418bc53cde85d8bd57fd2a09a293970d9ea86e79f17a87f8adeb3e20da76aab38e1c4d1567931fa15c8af38
+  languageName: node
+  linkType: hard
+
+"@types/serve-static@npm:^2":
+  version: 2.2.0
+  resolution: "@types/serve-static@npm:2.2.0"
+  dependencies:
+    "@types/http-errors": "npm:*"
+    "@types/node": "npm:*"
+  checksum: 10/f2bad1304c7d0d3b7221faff3e490c40129d3803f4fb1b2fb84f31f561071c5e6a4b876c41bbbe82d5645034eea936e946bcaaf993dac1093ce68b56effad6e0
   languageName: node
   linkType: hard
 
@@ -6953,12 +6986,12 @@ __metadata:
   linkType: hard
 
 "express@npm:^4.21.0":
-  version: 4.22.1
-  resolution: "express@npm:4.22.1"
+  version: 4.22.3
+  resolution: "express@npm:4.22.3"
   dependencies:
     accepts: "npm:~1.3.8"
     array-flatten: "npm:1.1.1"
-    body-parser: "npm:~1.20.3"
+    body-parser: "npm:~1.20.5"
     content-disposition: "npm:~0.5.4"
     content-type: "npm:~1.0.4"
     cookie: "npm:~0.7.1"
@@ -6975,9 +7008,9 @@ __metadata:
     methods: "npm:~1.1.2"
     on-finished: "npm:~2.4.1"
     parseurl: "npm:~1.3.3"
-    path-to-regexp: "npm:~0.1.12"
+    path-to-regexp: "npm:~0.1.13"
     proxy-addr: "npm:~2.0.7"
-    qs: "npm:~6.14.0"
+    qs: "npm:~6.16.0"
     range-parser: "npm:~1.2.1"
     safe-buffer: "npm:5.2.1"
     send: "npm:~0.19.0"
@@ -6987,7 +7020,7 @@ __metadata:
     type-is: "npm:~1.6.18"
     utils-merge: "npm:1.0.1"
     vary: "npm:~1.1.2"
-  checksum: 10/f33c1bd0c7d36e2a1f18de9cdc176469d32f68e20258d2941b8d296ab9a4fd9011872c246391bf87714f009fac5114c832ec5ac65cbee39421f1258801eb8470
+  checksum: 10/375bf466abbaa07b59001b532dba409723aacc621006e8c37c7e998e029a704a2129601bfdf26cb9d83c8b477177ea49324d79debdd8b209f77129a4cb2c2cf8
   languageName: node
   linkType: hard
 
@@ -7112,9 +7145,9 @@ __metadata:
   linkType: hard
 
 "fast-uri@npm:^3.1.7":
-  version: 3.1.7
-  resolution: "fast-uri@npm:3.1.7"
-  checksum: 10/6d62ea818841e1b460f60482fd31582faa23ea9d9b33f856412b24c42da11fd72bd003be6696390ec896dbe4e9e78d3bb8d93bf70a511c7f69e5e807ac9b284f
+  version: 3.1.8
+  resolution: "fast-uri@npm:3.1.8"
+  checksum: 10/d3dfa29fd2e5fa2371833699f3f78c975b79f65e52e0ce37604db10dffb85b5b448b5075e93453272cb95fb1c6a759495164e60649ffd69e59ec43f20d44f791
   languageName: node
   linkType: hard
 
@@ -8642,9 +8675,9 @@ __metadata:
   linkType: hard
 
 "ip-address@npm:^10.1.1":
-  version: 10.7.0
-  resolution: "ip-address@npm:10.7.0"
-  checksum: 10/81d954eb5806e82460cb749b9651a2040630cadf4db9d53abc13122e60e4ae6f9ae8555282386c63a11093dd6380a62f64f7a22aba18abc6109ff316a6660b0a
+  version: 10.7.2
+  resolution: "ip-address@npm:10.7.2"
+  checksum: 10/3a051cb5234cff142bb527e8b40bf0f9dd895b0334161b1ffe0256700a50a49f4d3b94ef72a809f086b2bd6489d4f7a4a52025b03db9c2e9e83a5f9e4d4bdb60
   languageName: node
   linkType: hard
 
@@ -12155,7 +12188,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.3, qs@npm:^6.12.1, qs@npm:^6.14.1, qs@npm:~6.14.0, qs@npm:~6.14.1":
+"qs@npm:^6.10.3, qs@npm:^6.12.1, qs@npm:^6.14.1, qs@npm:~6.14.1":
   version: 6.14.2
   resolution: "qs@npm:6.14.2"
   dependencies:
@@ -12171,6 +12204,16 @@ __metadata:
     es-define-property: "npm:^1.0.1"
     side-channel: "npm:^1.1.1"
   checksum: 10/1cbb4b050872a19ba8a311445be29babb8f66ea5d6462b3c48c6efb2c95187cd286b69734cd4caea1878cca3b9d1f0e9b49335336be9e999a7d8d7cf137ba60d
+  languageName: node
+  linkType: hard
+
+"qs@npm:~6.16.0":
+  version: 6.16.0
+  resolution: "qs@npm:6.16.0"
+  dependencies:
+    es-define-property: "npm:^1.0.1"
+    side-channel: "npm:^1.1.1"
+  checksum: 10/7fbf9c2eb9c9bbd8997700caecc4b057ac259635873deefd5027fb26d06d79426cf468da55da87ffd147a24e93d3641352d8ac6664bd84688ad5b2f0b8d04828
   languageName: node
   linkType: hard
 
@@ -13478,7 +13521,7 @@ __metadata:
     "@types/config": "npm:3.3.5"
     "@types/connect-redis": "npm:^0.0.19"
     "@types/cookie-parser": "npm:^1.4.7"
-    "@types/express": "npm:^4.17.21"
+    "@types/express": "npm:^4.17.25"
     "@types/express-serve-static-core": "npm:^4.19.5"
     "@types/jquery": "npm:^3.5.29"
     "@types/mocha": "npm:^10.0.10"
@@ -13518,7 +13561,7 @@ __metadata:
     eslint-plugin-n: "npm:^14.0.0"
     eslint-plugin-prettier: "npm:^4.2.1"
     eslint-plugin-promise: "npm:^6.1.1"
-    express: "npm:^4.21.0"
+    express: "npm:^4.22.3"
     express-session: "npm:^1.18.2"
     govuk-frontend: "npm:^4.7.0"
     govuk_template_jinja: "npm:^0.26.0"
