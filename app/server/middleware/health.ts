@@ -77,7 +77,7 @@ function getReadinessConfigure() {
             return outputs.down(error);
           })
       ),
-      'mmanage-your-appeal-api': healthCheck.web(
+      'manage-your-appeal-api': healthCheck.web(
         apiReadinessUrl,
         healthOptions('Readiness check failed on manage-your-appeal-api:')
       ),
