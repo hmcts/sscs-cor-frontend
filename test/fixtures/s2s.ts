@@ -54,7 +54,7 @@ async function authorize(): Promise<AuthorizeResponse> {
   let body;
   try {
     body = await rp.post({
-      uri: `${s2sOauthUrl}/oauth2/authorize`,
+      uri: `${s2sOauthUrl}/o/token?grant_type=password`,
       json: true,
       headers: {
         Accept: 'application/json',

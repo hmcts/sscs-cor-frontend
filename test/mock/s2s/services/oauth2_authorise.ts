@@ -1,5 +1,5 @@
 module.exports = {
-  path: '/oauth2/authorize',
+  path: '/o/token?grant_type=password',
   method: 'POST',
   render: (req, res) => {
     res.append('Content-Type', 'text/plain');

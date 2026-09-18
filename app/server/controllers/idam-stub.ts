@@ -88,7 +88,7 @@ function setupIdamStubController(): Router {
     router.get('/idam-stub/login', getLogin);
     router.post('/idam-stub/login', postLogin);
     router.post('/idam-stub/oauth2/token', multipart.none(), getToken);
-    router.get('/idam-stub/details', getDetails);
+    router.get('/idam-stub/o/userinfo', getDetails);
     router.delete('/idam-stub/session/:token', deleteToken);
   }
   return router;
