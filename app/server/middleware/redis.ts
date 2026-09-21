@@ -10,7 +10,7 @@ import { ConnectionOptions } from 'tls';
 const logger: LoggerInstance = Logger.getLogger('redis');
 
 export function createRedisClient(
-    enableOfflineQueue = true
+  enableOfflineQueue = true
 ): IoRedis | Cluster {
   const host: string = config.get('redis.host');
   const port: number = config.get('redis.port');
@@ -20,15 +20,15 @@ export function createRedisClient(
   const clusterEnabled: boolean = config.get('redis.cluster') === true;
 
   logger.info(
-      `Creating redis using host: ${host}, redisPort: ${port}, tls: ${tlsEnabled}, cluster: ${clusterEnabled}, secret length: ${secret?.length}, timeout: ${connectTimeout}`
+    `Creating redis using host: ${host}, redisPort: ${port}, tls: ${tlsEnabled}, cluster: ${clusterEnabled}, secret length: ${secret?.length}, timeout: ${connectTimeout}`
   );
 
   const tls: ConnectionOptions = tlsEnabled
-      ? {
+    ? {
         host,
         servername: host,
       }
-      : null;
+    : null;
 
   const redisOptions: RedisOptions = {
     host,
@@ -41,15 +41,15 @@ export function createRedisClient(
 
   if (clusterEnabled) {
     return new Cluster(
-        [
-          {
-            host,
-            port,
-          },
-        ],
+      [
         {
-          redisOptions,
-        }
+          host,
+          port,
+        },
+      ],
+      {
+        redisOptions,
+      }
     );
   }
 

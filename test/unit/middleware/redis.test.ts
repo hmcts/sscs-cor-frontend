@@ -64,6 +64,7 @@ describe('middleware/redis', function () {
 
       redisProxy.createRedisClient();
     });
+
     it('should create a redis cluster client when cluster is enabled', function () {
       mockConfig.redis.cluster = true;
 
@@ -86,21 +87,21 @@ describe('middleware/redis', function () {
       expect(client.isCluster).to.equal(true);
       expect(ClusterStub.calledOnce).to.equal(true);
       expect(
-          ClusterStub.calledWith(
-              [
-                {
-                  host: mockConfig.redis.host,
-                  port: mockConfig.redis.port,
-                },
-              ],
-              sinon.match({
-                redisOptions: sinon.match({
-                  host: mockConfig.redis.host,
-                  port: mockConfig.redis.port,
-                  password: mockConfig.redis.secret,
-                }),
-              })
-          )
+        ClusterStub.calledWith(
+          [
+            {
+              host: mockConfig.redis.host,
+              port: mockConfig.redis.port,
+            },
+          ],
+          sinon.match({
+            redisOptions: sinon.match({
+              host: mockConfig.redis.host,
+              port: mockConfig.redis.port,
+              password: mockConfig.redis.secret,
+            }),
+          })
+        )
       ).to.equal(true);
     });
   });
