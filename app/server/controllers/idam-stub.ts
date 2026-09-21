@@ -5,7 +5,7 @@ import { createRedisClient } from '../middleware/redis';
 import config from 'config';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
-import Redis from 'ioredis';
+import Redis, { Cluster } from 'ioredis';
 
 const storageOptions = {};
 const multipart = multer({
@@ -20,7 +20,7 @@ const logger: LoggerInstance = Logger.getLogger('idam-stub');
 
 const enableStub = config.get('idam.enableStub') === 'true';
 
-let redis: Redis = null;
+let redis: Redis | Cluster = null;
 
 function generateRandomNumber() {
   return Math.floor(Math.random() * 100000);

@@ -26,6 +26,7 @@
     "secret": "defaultsecret",
     "ttlInSeconds": 1200,
     "tls": false,
+    "cluster": false,
     "timeout": null
   },
   "health": {

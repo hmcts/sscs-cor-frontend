@@ -6,7 +6,7 @@ import proxyquire from 'proxyquire';
 import config from 'config';
 import { cloneDeep } from 'lodash';
 
-import { sinon } from 'test/chai-sinon';
+import { expect, sinon } from 'test/chai-sinon';
 
 describe('middleware/redis', function () {
   let mockConfig: any = null;
@@ -63,6 +63,45 @@ describe('middleware/redis', function () {
       });
 
       redisProxy.createRedisClient();
+    });
+    it('should create a redis cluster client when cluster is enabled', function () {
+      mockConfig.redis.cluster = true;
+
+      const clusterClient = {
+        isCluster: true,
+      };
+
+      const ClusterStub = sinon.stub().returns(clusterClient);
+
+      const redisProxy = proxyquire('app/server/middleware/redis', {
+        config: mockConfig,
+        ioredis: {
+          default: sinon.stub(),
+          Cluster: ClusterStub,
+        },
+      });
+
+      const client = redisProxy.createRedisClient();
+
+      expect(client.isCluster).to.equal(true);
+      expect(ClusterStub.calledOnce).to.equal(true);
+      expect(
+          ClusterStub.calledWith(
+              [
+                {
+                  host: mockConfig.redis.host,
+                  port: mockConfig.redis.port,
+                },
+              ],
+              sinon.match({
+                redisOptions: sinon.match({
+                  host: mockConfig.redis.host,
+                  port: mockConfig.redis.port,
+                  password: mockConfig.redis.secret,
+                }),
+              })
+          )
+      ).to.equal(true);
     });
   });
 
