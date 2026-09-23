@@ -27,8 +27,8 @@ nodejs:
       secrets:
         - sscs-cor-idam-client-secret
         - sscs-s2s-secret
-        - sscs-cor-redis-access-key
-        - sscs-cor-redis-connection-string
+        - sscs-cor-managed-redis-access-key
+        - sscs-cor-managed-redis-connection-string
         - tyacookiesecret
         - idam-sscs-oauth2-client-secret
         - app-insights-connection-string
