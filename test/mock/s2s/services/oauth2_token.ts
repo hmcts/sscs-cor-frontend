@@ -1,8 +1,10 @@
 module.exports = {
-  path: '/oauth2/token',
+  path: '/o/token',
   method: 'POST',
-  render: (req, res) => {
-    res.append('Content-Type', 'text/plain');
-    res.send('{ access_token: "access_token1234"}');
+  template: {
+    access_token: 'access_token1234',
+    token_type: 'Bearer',
+    expires_in: 28800,
+    scope: 'openid profile roles',
   },
 };
