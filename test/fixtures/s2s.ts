@@ -51,6 +51,8 @@ async function generateOauth2(): Promise<string> {
 }
 
 async function authorize(): Promise<AuthorizeResponse> {
+  console.log('>>> authorize() called');
+  logger.info('Using authorise here');
   let body;
   try {
     body = await rp.post({
@@ -74,6 +76,7 @@ async function authorize(): Promise<AuthorizeResponse> {
     logger.error('Error authorize', error);
   }
 
+  logger.info('S2S response: ', body);
   return Promise.resolve(body);
 }
 
