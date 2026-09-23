@@ -2336,6 +2336,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mock-require@npm:^3":
+  version: 3.0.0
+  resolution: "@types/mock-require@npm:3.0.0"
+  checksum: 10/03910c6358e7dbe656d77be8ced97a48fe4f6cd028014fc666e2f486fbeffdeb01fe7e269fafb2731ae7d80dc0049acb999197e0f45d373921def137c14d6c90
+  languageName: node
+  linkType: hard
+
 "@types/multer@npm:^1.4.8":
   version: 1.4.11
   resolution: "@types/multer@npm:1.4.11"
@@ -7656,6 +7663,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"get-caller-file@npm:^1.0.2":
+  version: 1.0.3
+  resolution: "get-caller-file@npm:1.0.3"
+  checksum: 10/0b776558c1d94ac131ec0d47bf9da4e00a38e7d3a6cbde534e0e4656c13ead344e69ef7ed2c0bca16620cc2e1e26529f90e2336c8962736517b64890d583a2a0
+  languageName: node
+  linkType: hard
+
 "get-caller-file@npm:^2.0.1, get-caller-file@npm:^2.0.5":
   version: 2.0.5
   resolution: "get-caller-file@npm:2.0.5"
@@ -10636,6 +10650,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mock-require@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "mock-require@npm:3.0.3"
+  dependencies:
+    get-caller-file: "npm:^1.0.2"
+    normalize-path: "npm:^2.1.1"
+  checksum: 10/4ae5bfd19428e47fadbf4d830d22aba28af237dab4d6e76a5bb49cac6415c2c7646acd66fd50cefce277a3470e413146c345a68ce236cf3047b340a06bcdc2b2
+  languageName: node
+  linkType: hard
+
 "module-details-from-path@npm:^1.0.3":
   version: 1.0.4
   resolution: "module-details-from-path@npm:1.0.4"
@@ -11047,6 +11071,15 @@ __metadata:
   bin:
     nopt: ./bin/nopt.js
   checksum: 10/4f01ad1e144883a190d70bd6003f26e2f3a899230fe1b0f3310e43779c61cab5ae0063a9209912cd52fc4c552b266b38173853aa9abe27ecb04acbdfdca2e9fc
+  languageName: node
+  linkType: hard
+
+"normalize-path@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "normalize-path@npm:2.1.1"
+  dependencies:
+    remove-trailing-separator: "npm:^1.0.1"
+  checksum: 10/7e9cbdcf7f5b8da7aa191fbfe33daf290cdcd8c038f422faf1b8a83c972bf7a6d94c5be34c4326cb00fb63bc0fd97d9fbcfaf2e5d6142332c2cd36d2e1b86cea
   languageName: node
   linkType: hard
 
@@ -12537,6 +12570,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remove-trailing-separator@npm:^1.0.1":
+  version: 1.1.0
+  resolution: "remove-trailing-separator@npm:1.1.0"
+  checksum: 10/d3c20b5a2d987db13e1cca9385d56ecfa1641bae143b620835ac02a6b70ab88f68f117a0021838db826c57b31373d609d52e4f31aca75fc490c862732d595419
+  languageName: node
+  linkType: hard
+
 "req-cwd@npm:^2.0.0":
   version: 2.0.0
   resolution: "req-cwd@npm:2.0.0"
@@ -13482,6 +13522,7 @@ __metadata:
     "@types/express-serve-static-core": "npm:^4.19.5"
     "@types/jquery": "npm:^3.5.29"
     "@types/mocha": "npm:^10.0.10"
+    "@types/mock-require": "npm:^3"
     "@types/multer": "npm:^1.4.8"
     "@types/node": "npm:^16.11.7"
     "@types/nunjucks": "npm:^3.1.3"
@@ -13542,6 +13583,7 @@ __metadata:
     mocha-multi: "npm:^1.1.7"
     mocha-param: "npm:^2.0.1"
     mochawesome: "npm:^7.1.3"
+    mock-require: "npm:^3.0.3"
     moment: "npm:^2.30.1"
     multer: "npm:^2.2.0"
     nock: "npm:^12.0.3"
