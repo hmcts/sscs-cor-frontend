@@ -1,4 +1,4 @@
-  import session, { Store } from 'express-session';
+import session, { Store } from 'express-session';
 import ConnectRedis, { RedisStoreOptions } from 'connect-redis';
 import config from 'config';
 import IoRedis, { Cluster, RedisOptions } from 'ioredis';
@@ -22,9 +22,7 @@ export function createRedisClient(
 
   const host = url?.hostname || redisHost;
   const port = url?.port ? Number(url.port) : redisPort;
-  const secret = url?.password
-      ? decodeURIComponent(url.password)
-      : undefined;
+  const secret = url?.password ? decodeURIComponent(url.password) : undefined;
   const tlsEnabled = url?.protocol === 'rediss:';
 
   logger.info(
