@@ -46,7 +46,7 @@ describe('services/idam', function () {
   });
 
   describe('getUserDetails', function () {
-    const path = '/details';
+    const path = '/o/userinfo';
     const token = 'someToken';
 
     describe('resolving the promise', function () {

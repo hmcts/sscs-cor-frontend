@@ -62,7 +62,7 @@ export class IdamService {
   async getUserDetails(token: string): Promise<UserDetails> {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/details`,
+      uri: `${this.apiUrl}/o/userinfo`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,102 +1,91 @@
 import config from 'config';
-const microservice = config.get('s2s.microservice');
-const s2sSecret = config.get('s2s.secret');
-const s2sUrl = config.get('s2s.url');
-const s2sOauthUrl = config.get('s2s.oauth2.url');
-const systemUpdateUser = config.get('s2s.oauth2.user');
-const systemUpdatePassword = config.get('s2s.oauth2.password');
-const clientSecret = config.get('s2s.oauth2.client.secret');
-const redirectUrl = config.get('s2s.oauth2.redirectUrl');
 import { Logger } from '@hmcts/nodejs-logging';
-import otp from 'otp';
 import rp from '@cypress/request-promise';
 
-const logger = Logger.getLogger('question.ts');
-const timeout = config.get('apiCallTimeout');
+const microservice = config.get('s2s.microservice');
+const s2sUrl: string = config.get('s2s.url');
+const s2sOauthUrl: string = config.get('s2s.oauth2.url');
+const systemUpdateUser: string = config.get('s2s.oauth2.user');
+const systemUpdatePassword: string = config.get('s2s.oauth2.password');
+const clientSecret: string = config.get('s2s.oauth2.client.secret');
+const redirectUrl = config.get('s2s.oauth2.redirectUrl');
+
+const logger = Logger.getLogger('s2s.ts');
+const timeout: number = config.get('apiCallTimeout');
 
 interface TokenResponse {
   access_token: string;
 }
 
-interface AuthorizeResponse {
-  code: string;
-}
-
 async function generateToken(): Promise<string> {
-  const options = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    url: `${s2sUrl}/testing-support/lease`,
-    json: true,
-    body: {
-      microservice,
-    },
-    timeout,
-  };
-  let body;
   try {
-    body = await rp.post(options);
+    return await rp.post({
+      url: `${s2sUrl}/testing-support/lease`,
+      json: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {
+        microservice,
+      },
+      timeout,
+    });
   } catch (error) {
-    logger.error('Error generateToken', error);
+    logger.error(`Error generateToken: ${(error as Error).message}`);
+    throw error;
   }
-
-  return body;
 }
 
 async function generateOauth2(): Promise<string> {
-  const authorizeToken: AuthorizeResponse = await authorize();
-  const tokenResponse: TokenResponse = await getToken(authorizeToken.code);
+  const tokenResponse = await getSystemUserToken();
   return tokenResponse.access_token;
 }
 
-async function authorize(): Promise<AuthorizeResponse> {
-  let body;
+async function getSystemUserToken(): Promise<TokenResponse> {
+  let response;
   try {
-    body = await rp.post({
-      uri: `${s2sOauthUrl}/oauth2/authorize`,
+    response = await rp.post({
+      uri: `${s2sOauthUrl}/o/token`,
       json: true,
+      resolveWithFullResponse: true,
       headers: {
         Accept: 'application/json',
       },
-      auth: {
-        user: systemUpdateUser,
-        pass: systemUpdatePassword,
-      },
       form: {
-        response_type: 'code',
-        client_id: microservice,
-        redirect_uri: redirectUrl,
-      },
-      timeout,
-    });
-  } catch (error) {
-    logger.error('Error authorize', error);
-  }
-
-  return Promise.resolve(body);
-}
-
-async function getToken(code: string): Promise<TokenResponse> {
-  let body;
-  try {
-    body = await rp.post({
-      uri: `${s2sOauthUrl}/oauth2/token`,
-      json: true,
-      form: {
-        code,
-        grant_type: 'authorization_code',
-        redirect_uri: redirectUrl,
+        grant_type: 'password',
+        username: systemUpdateUser,
+        password: systemUpdatePassword,
         client_id: microservice,
         client_secret: clientSecret,
+        scope: 'openid profile roles',
+        redirect_uri: redirectUrl,
       },
       timeout,
     });
   } catch (error) {
-    logger.error('Error getToken', error);
+    const err = error as {
+      statusCode?: number;
+      error?: unknown;
+      message: string;
+    };
+    logger.error(
+      `Error getSystemUserToken: status=${err.statusCode} body=${JSON.stringify(
+        err.error
+      )}`
+    );
+    throw error;
   }
 
-  return Promise.resolve(body);
+  const { accessToken, idToken, ...safe } = response.body;
+  logger.info(
+    `getSystemUserToken succeeded: status=${response.statusCode} ` +
+      `response=${JSON.stringify({
+        ...safe,
+        access_token: accessToken ? '[***]' : undefined,
+      })}`
+  );
+
+  return response.body;
 }
 
 export { generateToken, generateOauth2 };
