@@ -1,7 +1,7 @@
 import session, { Store } from 'express-session';
 import ConnectRedis, { RedisStoreOptions } from 'connect-redis';
 import config from 'config';
-import IoRedis, { RedisOptions } from 'ioredis';
+import IoRedis, { Cluster, RedisOptions } from 'ioredis';
 import { LoggerInstance } from 'winston';
 import { Logger } from '@hmcts/nodejs-logging';
 import * as AppInsights from '../app-insights';
@@ -9,18 +9,32 @@ import { ConnectionOptions } from 'tls';
 
 const logger: LoggerInstance = Logger.getLogger('redis');
 
-export function createRedisClient(enableOfflineQueue = true): IoRedis {
-  const host: string = config.get('redis.host');
-  const port: number = config.get('redis.port');
-  const secret: string = config.get('redis.secret');
+export function createRedisClient(
+  enableOfflineQueue = true
+): IoRedis | Cluster {
+  const redisUrl: string = config.get('redis.url');
+  const redisHost: string = config.get('redis.host');
+  const redisPort: number = config.get('redis.port');
   const connectTimeout: number = config.get('redis.timeout');
-  const tlsEnabled: boolean = config.get('redis.tls') === true;
+  const clusterEnabled: boolean = config.get('redis.cluster') === true;
+
+  const url = redisUrl ? new URL(redisUrl) : null;
+
+  const host = url?.hostname || redisHost;
+  const port = url?.port ? Number(url.port) : redisPort;
+  const secret = url?.password ? decodeURIComponent(url.password) : undefined;
+  const tlsEnabled = url?.protocol === 'rediss:';
 
   logger.info(
-    `Creating redis using host: ${host}, redisPort: ${port}, tls: ${tlsEnabled}, secret length: ${secret?.length}, timeout: ${connectTimeout}`
+    `Creating redis using host: ${host}, redisPort: ${port}, tls: ${tlsEnabled}, cluster: ${clusterEnabled}, secret length: ${secret?.length}, timeout: ${connectTimeout}`
   );
 
-  const tls: ConnectionOptions = tlsEnabled ? { host } : null;
+  const tls: ConnectionOptions = tlsEnabled
+    ? {
+        host,
+        servername: host,
+      }
+    : null;
 
   const redisOptions: RedisOptions = {
     host,
@@ -31,9 +45,21 @@ export function createRedisClient(enableOfflineQueue = true): IoRedis {
     connectTimeout,
   };
 
-  const client = new IoRedis(redisOptions);
+  if (clusterEnabled) {
+    return new Cluster(
+      [
+        {
+          host,
+          port,
+        },
+      ],
+      {
+        redisOptions,
+      }
+    );
+  }
 
-  return client;
+  return new IoRedis(redisOptions);
 }
 
 export function createRedisStore(): Store {

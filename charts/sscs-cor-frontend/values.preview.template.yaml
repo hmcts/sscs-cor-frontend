@@ -6,6 +6,7 @@ nodejs:
   environment:
     REDIS_HOST: ${SERVICE_NAME}-hmcts-redis-master
     REDIS_PORT: 6379
+    REDIS_CLUSTER: false
     NODE_ENV: preview
     MYA_FEATURE_FLAG: 'true'
     IBC_NI_POSTCODES_FEATURE: true

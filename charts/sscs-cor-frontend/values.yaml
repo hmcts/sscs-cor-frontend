@@ -12,8 +12,7 @@ nodejs:
     enabled: false
   environment:
     IDAM_ENABLE_STUB: false
-    REDIS_HOST: 'sscs-cor-frontend-v6-{{ .Values.global.environment }}.redis.cache.windows.net'
-    REDIS_PORT: 6380
+    REDIS_CLUSTER: false
     TRIBUNALS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     IDAM_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net'
@@ -27,8 +26,7 @@ nodejs:
       secrets:
         - sscs-cor-idam-client-secret
         - sscs-s2s-secret
-        - sscs-cor-redis-access-key
-        - sscs-cor-redis-connection-string
+        - sscs-cor-managed-redis-connection-string
         - tyacookiesecret
         - idam-sscs-oauth2-client-secret
         - app-insights-connection-string

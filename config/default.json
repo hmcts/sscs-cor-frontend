@@ -20,12 +20,11 @@
     }
   },
   "redis": {
-    "url": "redis://127.0.0.1:6379",
+    "url": null,
     "host": "127.0.0.1",
     "port": 6379,
-    "secret": "defaultsecret",
     "ttlInSeconds": 1200,
-    "tls": false,
+    "cluster": false,
     "timeout": null
   },
   "health": {

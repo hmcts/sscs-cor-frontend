@@ -1,73 +1,124 @@
-import { expect } from 'chai';
 import config from 'config';
-import proxyquire from 'proxyquire';
 import { cloneDeep } from 'lodash';
+import proxyquire from 'proxyquire';
+import { expect } from 'test/chai-sinon';
 
-const modulePath = 'app/server/services/setupSecrets';
+describe('services/setupSecrets', function () {
+  let mockConfig: any;
 
-let mockConfig: any = {};
+  beforeEach(function () {
+    mockConfig = cloneDeep(config);
+  });
 
-const redisSecret: string = config.get('redis.secret');
-const cookieSecret: string = config.get('session.cookie.secret');
-const idamSecret: string = config.get('idam.client.secret');
-
-describe(modulePath, function () {
-  describe('#setup', function () {
-    beforeEach(function () {
-      mockConfig = cloneDeep(config);
-    });
-
-    it('should set config values when secrets path is set', function () {
+  describe('setupKeyVaultSecrets', function () {
+    it('should set the redis connection string from the managed redis secret', function () {
       mockConfig.secrets = {
         sscs: {
-          'sscs-cor-redis-access-key': 'redisValue',
-          tyacookiesecret: 'cookieSecret',
-          'idam-sscs-oauth2-client-secret': 'idamValue',
-          'sscs-s2s-secret': 'osPlacesValue',
+          'sscs-cor-managed-redis-connection-string':
+            'rediss://:redisPassword@redis.example.com:6380',
         },
       };
 
-      // Update config with secret setup
-      const { setupKeyVaultSecrets } = proxyquire(modulePath, {
+      const setupSecrets = proxyquire('app/server/services/setupSecrets', {
         config: mockConfig,
       });
-      setupKeyVaultSecrets();
 
-      expect(mockConfig.redis.secret).to.equal(
-        mockConfig.secrets.sscs['sscs-cor-redis-access-key']
-      );
-      expect(mockConfig.session.cookie.secret).to.equal(
-        mockConfig.secrets.sscs.tyacookiesecret
-      );
-      expect(mockConfig.idam.client.secret).to.equal(
-        mockConfig.secrets.sscs['idam-sscs-oauth2-client-secret']
-      );
-      expect(mockConfig.s2s.secret).to.equal(
-        mockConfig.secrets.sscs['sscs-s2s-secret']
+      setupSecrets.setupKeyVaultSecrets();
+
+      expect(mockConfig.redis.url).to.equal(
+        'rediss://:redisPassword@redis.example.com:6380'
       );
     });
 
-    it('should not set config values when secrets path is not set', function () {
-      // Update config with secret setup
-      const { setupKeyVaultSecrets } = proxyquire(modulePath, {
+    it('should set the session cookie secret', function () {
+      mockConfig.secrets = {
+        sscs: {
+          tyacookiesecret: 'cookieSecret',
+        },
+      };
+
+      const setupSecrets = proxyquire('app/server/services/setupSecrets', {
         config: mockConfig,
       });
-      setupKeyVaultSecrets();
 
-      expect(mockConfig.redis.secret).to.equal(redisSecret);
-      expect(mockConfig.session.cookie.secret).to.equal(cookieSecret);
-      expect(mockConfig.idam.client.secret).to.equal(idamSecret);
+      setupSecrets.setupKeyVaultSecrets();
+
+      expect(mockConfig.session.cookie.secret).to.equal('cookieSecret');
     });
 
-    it('should only set one config value when single secret path is set', function () {
-      // Update config with secret setup
-      const { setupKeyVaultSecrets } = proxyquire(modulePath, {
+    it('should set the IDAM client secret', function () {
+      mockConfig.secrets = {
+        sscs: {
+          'idam-sscs-oauth2-client-secret': 'idamSecret',
+        },
+      };
+
+      const setupSecrets = proxyquire('app/server/services/setupSecrets', {
         config: mockConfig,
       });
-      setupKeyVaultSecrets();
 
-      expect(mockConfig.redis.secret).to.equal(redisSecret);
-      expect(mockConfig.idam.client.secret).to.equal(idamSecret);
+      setupSecrets.setupKeyVaultSecrets();
+
+      expect(mockConfig.idam.client.secret).to.equal('idamSecret');
+    });
+
+    it('should set the S2S secret', function () {
+      mockConfig.secrets = {
+        sscs: {
+          'sscs-s2s-secret': 's2sSecret',
+        },
+      };
+
+      const setupSecrets = proxyquire('app/server/services/setupSecrets', {
+        config: mockConfig,
+      });
+
+      setupSecrets.setupKeyVaultSecrets();
+
+      expect(mockConfig.s2s.secret).to.equal('s2sSecret');
+    });
+
+    it('should set the App Insights connection string', function () {
+      mockConfig.secrets = {
+        sscs: {
+          'app-insights-connection-string': 'InstrumentationKey=test',
+        },
+      };
+
+      const setupSecrets = proxyquire('app/server/services/setupSecrets', {
+        config: mockConfig,
+      });
+
+      setupSecrets.setupKeyVaultSecrets();
+
+      expect(mockConfig.appInsights.connectionString).to.equal(
+        'InstrumentationKey=test'
+      );
+    });
+
+    it('should not set secrets when the sscs secrets configuration is missing', function () {
+      mockConfig.secrets = {};
+
+      const setupSecrets = proxyquire('app/server/services/setupSecrets', {
+        config: mockConfig,
+      });
+
+      expect(() => setupSecrets.setupKeyVaultSecrets()).to.not.throw();
+    });
+
+    it('should not overwrite config when an individual secret is missing', function () {
+      mockConfig.redis.url = 'redis://127.0.0.1:6379';
+      mockConfig.secrets = {
+        sscs: {},
+      };
+
+      const setupSecrets = proxyquire('app/server/services/setupSecrets', {
+        config: mockConfig,
+      });
+
+      setupSecrets.setupKeyVaultSecrets();
+
+      expect(mockConfig.redis.url).to.equal('redis://127.0.0.1:6379');
     });
   });
 });
