@@ -2159,12 +2159,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cookie-parser@npm:^1.4.7":
-  version: 1.4.7
-  resolution: "@types/cookie-parser@npm:1.4.7"
-  dependencies:
-    "@types/express": "npm:*"
-  checksum: 10/7b87c59420598e686a57e240be6e0db53967c3c8814be9326bf86609ee2fc39c4b3b9f2263e1deba43526090121d1df88684b64c19f7b494a80a4437caf3d40b
+"@types/cookie-parser@npm:^1.4.10":
+  version: 1.4.10
+  resolution: "@types/cookie-parser@npm:1.4.10"
+  peerDependencies:
+    "@types/express": "*"
+  checksum: 10/1f37b5a4115dbfd4b7bbea2d874fbf9495eca8c3e8c87fa7e38c50f9fff66222377c911cfdc7a1ea08855e822919c5534ebbcc4bf25b596bc6f7270e403483d9
   languageName: node
   linkType: hard
 
@@ -13497,7 +13497,7 @@ __metadata:
     "@types/cli-color": "npm:^2.0.2"
     "@types/config": "npm:3.3.5"
     "@types/connect-redis": "npm:^0.0.19"
-    "@types/cookie-parser": "npm:^1.4.7"
+    "@types/cookie-parser": "npm:^1.4.10"
     "@types/express": "npm:^4.17.21"
     "@types/express-serve-static-core": "npm:^4.19.5"
     "@types/jquery": "npm:^3.5.29"
