@@ -70,44 +70,54 @@ describe('controllers/login', function () {
   });
 
   describe('#getLogout', function () {
-    it('destroys the session and redirects to login when access token is present', async function () {
-      req.session.accessToken = 'accessToken';
-      const idamServiceStub = {
-        deleteToken: sinon
+    const signInRedirectUrl = 'http://redirect_url';
+    const endSessionUrl = `${idamUrl}/o/endSession?post_logout_redirect_uri=http%3A%2F%2Fredirect_url`;
+    let idamServiceStub;
+
+    beforeEach(function () {
+      idamServiceStub = {
+        deleteToken: sinon.stub().resolves({}),
+        getRedirectUrl: sinon
           .stub()
-          .withArgs(req.session.accessToken)
-          .resolves({}),
+          .withArgs('http', 'localhost')
+          .returns(signInRedirectUrl),
       } as Partial<IdamService> as IdamService;
+    });
+
+    it('destroys the session and redirects to the idam end session endpoint when access token is present', async function () {
+      req.session.accessToken = 'accessToken';
 
       await getLogout(idamServiceStub)(req, res);
       expect(idamServiceStub.deleteToken).to.have.been.calledOnce.calledWith(
         req.session.accessToken
       );
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
-      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(endSessionUrl);
     });
 
-    it('does NOT destroy the session but redirects to login when access token is NOT present', async function () {
-      const idamServiceStub = {
-        deleteToken: sinon
-          .stub()
-          .withArgs(req.session.accessToken)
-          .resolves({}),
-      } as Partial<IdamService> as IdamService;
+    it('includes the id token as a hint when one is present in the session', async function () {
+      req.session.accessToken = 'accessToken';
+      req.session.idToken = 'someIdToken';
 
+      await getLogout(idamServiceStub)(req, res);
+
+      expect(res.redirect).to.have.been.calledOnce.calledWith(
+        `${idamUrl}/o/endSession?id_token_hint=someIdToken&post_logout_redirect_uri=http%3A%2F%2Fredirect_url`
+      );
+    });
+
+    it('does NOT destroy the session but redirects to the idam end session endpoint when access token is NOT present', async function () {
       await getLogout(idamServiceStub)(req, res);
 
       expect(idamServiceStub.deleteToken).to.have.been.callCount(0);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
-      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(endSessionUrl);
     });
 
     it('throws an error when deleting a token', async function () {
       req.session.accessToken = 'accessToken';
       const error = new Error('error deleting the token');
-      const idamServiceStub = {
-        deleteToken: sinon.stub().throws(error),
-      } as Partial<IdamService> as IdamService;
+      idamServiceStub.deleteToken = sinon.stub().throws(error);
 
       await getLogout(idamServiceStub)(req, res);
 
@@ -119,12 +129,6 @@ describe('controllers/login', function () {
 
     it('throws an error when destroying the session', async function () {
       req.session.destroy.yields(error);
-      const idamServiceStub = {
-        deleteToken: sinon
-          .stub()
-          .withArgs(req.session.accessToken)
-          .resolves({}),
-      } as Partial<IdamService> as IdamService;
 
       await getLogout(idamServiceStub)(req, res);
       expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
@@ -133,25 +137,21 @@ describe('controllers/login', function () {
 
       expect(idamServiceStub.deleteToken).to.have.been.callCount(0);
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
-      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.login);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(endSessionUrl);
     });
 
-    it('destroys the session and redirects to custom url with redirectUrl parameter.', async function () {
+    it('destroys the session and redirects to the idam end session endpoint with a custom post logout redirect when redirectUrl parameter is given.', async function () {
       req.session.accessToken = 'accessToken';
       req.query.redirectUrl = Paths.taskList;
-      const idamServiceStub = {
-        deleteToken: sinon
-          .stub()
-          .withArgs(req.session.accessToken)
-          .resolves({}),
-      } as Partial<IdamService> as IdamService;
 
       await getLogout(idamServiceStub)(req, res);
       expect(idamServiceStub.deleteToken).to.have.been.calledOnce.calledWith(
         req.session.accessToken
       );
       expect(req.session.destroy).to.have.been.calledOnce.calledWith();
-      expect(res.redirect).to.have.been.calledOnce.calledWith(Paths.taskList);
+      expect(res.redirect).to.have.been.calledOnce.calledWith(
+        `${idamUrl}/o/endSession?post_logout_redirect_uri=%2Ftask-list`
+      );
     });
   });
 
@@ -171,7 +171,7 @@ describe('controllers/login', function () {
     it('builds correct url', function () {
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
       expect(res.redirect).to.have.been.calledOnce.calledWith(
-        `${idamUrl}/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&state=tya-number`
+        `${idamUrl}/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&scope=openid+profile+roles&state=tya-number`
       );
     });
 
@@ -181,7 +181,7 @@ describe('controllers/login', function () {
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
       expect(res.redirect).to.have.been.calledOnce.calledWith(
-        `${idamUrl}/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&state=state-value`
+        `${idamUrl}/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&scope=openid+profile+roles&state=state-value`
       );
     });
   });
@@ -302,12 +302,12 @@ describe('controllers/login', function () {
     describe('on success with MYA enabled', function () {
       beforeEach(async function () {
         req.query = { code: 'someCode', state: 'tya-number' };
-        const redirectToIdam = sinon.stub();
-        const idamServiceStub = {
+        redirectToIdam = sinon.stub();
+        idamServiceStub = {
           getToken: sinon
             .stub()
             .withArgs('someCode', 'http', 'localhost')
-            .resolves({ access_token: accessToken }),
+            .resolves({ access_token: accessToken, id_token: 'someIdToken' }),
           getUserDetails: sinon
             .stub()
             .withArgs(accessToken)
@@ -326,6 +326,7 @@ describe('controllers/login', function () {
         await invokeIdamCallback();
 
         expect(req.session.accessToken).to.be.eql(accessToken);
+        expect(req.session.idToken).to.be.eql('someIdToken');
         expect(req.session.tya).to.be.eql('tya-number');
       });
 
