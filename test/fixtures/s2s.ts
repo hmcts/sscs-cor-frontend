@@ -29,7 +29,7 @@ async function generateToken(): Promise<string> {
       body: {
         microservice,
       },
-        timeout,
+      timeout,
     });
   } catch (error) {
     logger.error(`Error generateToken: ${(error as Error).message}`);
@@ -64,17 +64,26 @@ async function getSystemUserToken(): Promise<TokenResponse> {
       timeout,
     });
   } catch (error) {
-    const err = error as { statusCode?: number; error?: unknown; message: string };
+    const err = error as {
+      statusCode?: number;
+      error?: unknown;
+      message: string;
+    };
     logger.error(
-      `Error getSystemUserToken: status=${err.statusCode} body=${JSON.stringify(err.error)}`
+      `Error getSystemUserToken: status=${err.statusCode} body=${JSON.stringify(
+        err.error
+      )}`
     );
     throw error;
   }
 
-  const { access_token, id_token, ...safe } = response.body;
+  const { accessToken, idToken, ...safe } = response.body;
   logger.info(
     `getSystemUserToken succeeded: status=${response.statusCode} ` +
-    `response=${JSON.stringify({ ...safe, access_token: access_token ? '[***]' : undefined })}`
+      `response=${JSON.stringify({
+        ...safe,
+        access_token: accessToken ? '[***]' : undefined,
+      })}`
   );
 
   return response.body;
