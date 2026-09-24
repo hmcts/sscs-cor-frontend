@@ -13,9 +13,6 @@ describe('middleware/redis', function () {
 
   beforeEach(function () {
     mockConfig = cloneDeep(config);
-    const redisProxy = proxyquire('app/server/middleware/redis', {
-      config: mockConfig,
-    });
   });
 
   afterEach(function () {
@@ -35,8 +32,8 @@ describe('middleware/redis', function () {
       createRedisClient(true);
     });
 
-    it('should run without error with redis secret being null', function () {
-      mockConfig.redis.secret = null;
+    it('should run without error with redis password being null', function () {
+      mockConfig.redis.url = 'redis://127.0.0.1:6379';
 
       const redisProxy = proxyquire('app/server/middleware/redis', {
         config: mockConfig,
@@ -45,8 +42,8 @@ describe('middleware/redis', function () {
       redisProxy.createRedisClient();
     });
 
-    it('should run without error with tls enabled being true', function () {
-      mockConfig.redis.tls = true;
+    it('should run without error with tls enabled', function () {
+      mockConfig.redis.url = 'rediss://:redisPassword@redis.example.com:6380';
 
       const redisProxy = proxyquire('app/server/middleware/redis', {
         config: mockConfig,
@@ -55,8 +52,8 @@ describe('middleware/redis', function () {
       redisProxy.createRedisClient();
     });
 
-    it('should run without error with tls enabled being false', function () {
-      mockConfig.redis.tls = false;
+    it('should run without error with tls disabled', function () {
+      mockConfig.redis.url = 'redis://:redisPassword@127.0.0.1:6379';
 
       const redisProxy = proxyquire('app/server/middleware/redis', {
         config: mockConfig,
@@ -66,6 +63,7 @@ describe('middleware/redis', function () {
     });
 
     it('should create a redis cluster client when cluster is enabled', function () {
+      mockConfig.redis.url = 'rediss://:redisPassword@redis.example.com:6380';
       mockConfig.redis.cluster = true;
 
       const clusterClient = {
@@ -90,15 +88,15 @@ describe('middleware/redis', function () {
         ClusterStub.calledWith(
           [
             {
-              host: mockConfig.redis.host,
-              port: mockConfig.redis.port,
+              host: 'redis.example.com',
+              port: 6380,
             },
           ],
           sinon.match({
             redisOptions: sinon.match({
-              host: mockConfig.redis.host,
-              port: mockConfig.redis.port,
-              password: mockConfig.redis.secret,
+              host: 'redis.example.com',
+              port: 6380,
+              password: 'redisPassword',
             }),
           })
         )

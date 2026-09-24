@@ -12,12 +12,15 @@ const logger: LoggerInstance = Logger.getLogger('redis');
 export function createRedisClient(
   enableOfflineQueue = true
 ): IoRedis | Cluster {
-  const host: string = config.get('redis.host');
-  const port: number = config.get('redis.port');
-  const secret: string = config.get('redis.secret');
+  const redisUrl: string = config.get('redis.url');
   const connectTimeout: number = config.get('redis.timeout');
-  const tlsEnabled: boolean = config.get('redis.tls') === true;
   const clusterEnabled: boolean = config.get('redis.cluster') === true;
+
+  const url = new URL(redisUrl);
+  const host = url.hostname;
+  const port = Number(url.port);
+  const secret = url.password ? decodeURIComponent(url.password) : undefined;
+  const tlsEnabled = url.protocol === 'rediss:';
 
   logger.info(
     `Creating redis using host: ${host}, redisPort: ${port}, tls: ${tlsEnabled}, cluster: ${clusterEnabled}, secret length: ${secret?.length}, timeout: ${connectTimeout}`
