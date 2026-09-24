@@ -20,7 +20,7 @@ describe(modulePath, function () {
     it('should set config values when secrets path is set', function () {
       mockConfig.secrets = {
         sscs: {
-          'sscs-cor-redis-access-key': 'redisValue',
+          'sscs-cor-managed-redis-access-key': 'redisValue',
           tyacookiesecret: 'cookieSecret',
           'idam-sscs-oauth2-client-secret': 'idamValue',
           'sscs-s2s-secret': 'osPlacesValue',
@@ -34,7 +34,7 @@ describe(modulePath, function () {
       setupKeyVaultSecrets();
 
       expect(mockConfig.redis.secret).to.equal(
-        mockConfig.secrets.sscs['sscs-cor-redis-access-key']
+        mockConfig.secrets.sscs['sscs-cor-managed-redis-access-key']
       );
       expect(mockConfig.session.cookie.secret).to.equal(
         mockConfig.secrets.sscs.tyacookiesecret
