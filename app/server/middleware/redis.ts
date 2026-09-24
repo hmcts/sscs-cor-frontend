@@ -1,4 +1,4 @@
-import session, { Store } from 'express-session';
+  import session, { Store } from 'express-session';
 import ConnectRedis, { RedisStoreOptions } from 'connect-redis';
 import config from 'config';
 import IoRedis, { Cluster, RedisOptions } from 'ioredis';
@@ -13,14 +13,19 @@ export function createRedisClient(
   enableOfflineQueue = true
 ): IoRedis | Cluster {
   const redisUrl: string = config.get('redis.url');
+  const redisHost: string = config.get('redis.host');
+  const redisPort: number = config.get('redis.port');
   const connectTimeout: number = config.get('redis.timeout');
   const clusterEnabled: boolean = config.get('redis.cluster') === true;
 
-  const url = new URL(redisUrl);
-  const host = url.hostname;
-  const port = Number(url.port);
-  const secret = url.password ? decodeURIComponent(url.password) : undefined;
-  const tlsEnabled = url.protocol === 'rediss:';
+  const url = redisUrl ? new URL(redisUrl) : null;
+
+  const host = url?.hostname || redisHost;
+  const port = url?.port ? Number(url.port) : redisPort;
+  const secret = url?.password
+      ? decodeURIComponent(url.password)
+      : undefined;
+  const tlsEnabled = url?.protocol === 'rediss:';
 
   logger.info(
     `Creating redis using host: ${host}, redisPort: ${port}, tls: ${tlsEnabled}, cluster: ${clusterEnabled}, secret length: ${secret?.length}, timeout: ${connectTimeout}`
