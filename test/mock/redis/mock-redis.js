@@ -17,8 +17,6 @@ class FakeRedis extends EventEmitter {
     disconnect() {}
 }
 
-// Real ioredis exposes both `module.exports = Redis` and `Redis.default = Redis`
-// so default imports work with or without esModuleInterop. Replicate that here.
 FakeRedis.default = FakeRedis;
 
 console.log('[mock-redis] Intercepting require("ioredis") for this test run');

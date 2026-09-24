@@ -15,7 +15,6 @@ const timeout: number = config.get('apiCallTimeout');
 
 interface TokenResponse {
   access_token: string;
-  id_token?: string;
 }
 
 async function generateToken(): Promise<string> {
