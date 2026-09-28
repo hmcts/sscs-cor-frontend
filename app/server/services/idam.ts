@@ -34,7 +34,7 @@ export class IdamService {
 
     return RequestPromise.request({
       method: 'POST',
-      uri: `${this.apiUrl}/o/token`,
+      uri: `${this.apiUrl}/oauth2/token`,
       auth: {
         user: 'sscs',
         pass: this.appSecret,
