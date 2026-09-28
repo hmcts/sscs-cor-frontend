@@ -80,7 +80,7 @@ describe('services/idam', function () {
   });
 
   describe('getToken', function () {
-    const path = '/oauth2/token';
+    const path = '/o/token';
     const code = 'someCode';
     const protocol = 'http';
     const host = 'example.com';
@@ -119,7 +119,7 @@ describe('services/idam', function () {
             redirect_uri: 'http://example.com/sign-in',
           },
           json: true,
-          uri: 'http://localhost:8082/oauth2/token',
+          uri: 'http://localhost:8082/o/token',
           method: 'POST',
           timeout,
         });

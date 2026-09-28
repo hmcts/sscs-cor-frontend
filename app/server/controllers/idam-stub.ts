@@ -87,7 +87,7 @@ function setupIdamStubController(): Router {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     router.get('/idam-stub/login', getLogin);
     router.post('/idam-stub/login', postLogin);
-    router.post('/idam-stub/oauth2/token', multipart.none(), getToken);
+    router.post('/idam-stub/o/token', multipart.none(), getToken);
     router.get('/idam-stub/o/userinfo', getDetails);
     router.delete('/idam-stub/session/:token', deleteToken);
   }
