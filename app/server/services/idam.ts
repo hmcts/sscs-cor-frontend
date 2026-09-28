@@ -11,7 +11,7 @@ export interface TokenResponse {
 }
 
 export interface UserDetails {
-  sub: string;
+  email: string;
 }
 
 export class IdamService {
