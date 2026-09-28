@@ -194,7 +194,7 @@
     "form-data@~2.3.2": "4.0.6",
     "lodash": "^4.18.0",
     "multer": "^2.3.0",
-    "axios": "1.15.0",
+    "axios": "1.18.0",
     "codeceptjs/joi": "^18.2.5",
     "fast-uri": "^3.1.7"
   },
