@@ -71,7 +71,7 @@ async function getDetails(req: Request, res: Response) {
   );
   const username = await redis.get(`idamStub.token.${token}`);
   logger.info('getDetails getting username from redis', username);
-  res.json({ email: username });
+  res.json({ sub: username });
 }
 
 function deleteToken(req: Request, res: Response) {

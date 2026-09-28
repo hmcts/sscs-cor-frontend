@@ -4,7 +4,7 @@ export default {
   path: '/o/userinfo',
   method: 'GET',
   template: {
-    email: () => cache.get('email'),
+    sub: () => cache.get('sub'),
   },
   cache: false,
 };
