@@ -16,7 +16,7 @@ export function createRedisClient(
   const redisHost: string = config.get('redis.host');
   const redisPort: number = config.get('redis.port');
   const connectTimeout: number = config.get('redis.timeout');
-  const clusterEnabled: boolean = config.get('redis.cluster') === true;
+  const clusterEnabled = String(config.get('redis.cluster')).toLowerCase() === 'true';
 
   const url = redisUrl ? new URL(redisUrl) : null;
 
