@@ -8,7 +8,7 @@ import Joi from 'joi';
 
 const maxCharacters = 20000;
 const minCharacters = 1;
-const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
+const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;@]{2,}$/;
 const MASKED_STRING_VALUE = '***';
 
 // Get the current language with fallback to 'en'
