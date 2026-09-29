@@ -21,6 +21,7 @@ nodejs:
     HTTP_PROTOCOL: http
     UV_THREADPOOL_SIZE: 64
     MYA_FEATURE_FLAG: "true"
+    REDIS_CLUSTER: false
   keyVaults:
     sscs:
       secrets:
@@ -30,5 +31,6 @@ nodejs:
         - tyacookiesecret
         - idam-sscs-oauth2-client-secret
         - app-insights-connection-string
+        - sscs-cor-managed-redis-connection-string
 hmcts-redis:
   enabled: false
