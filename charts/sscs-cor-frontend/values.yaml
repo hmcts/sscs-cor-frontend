@@ -12,7 +12,6 @@ nodejs:
     enabled: false
   environment:
     IDAM_ENABLE_STUB: false
-    REDIS_CLUSTER: false
     TRIBUNALS_API_URL: 'http://sscs-tribunals-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     IDAM_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net'
@@ -31,6 +30,5 @@ nodejs:
         - tyacookiesecret
         - idam-sscs-oauth2-client-secret
         - app-insights-connection-string
-        - sscs-cor-managed-redis-connection-string
 hmcts-redis:
   enabled: false
