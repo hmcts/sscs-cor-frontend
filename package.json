@@ -197,7 +197,8 @@
     "axios": "1.18.0",
     "codeceptjs/joi": "^18.2.5",
     "fast-uri": "^3.1.7",
-    "brace-expansion": "^1.1.21"
+    "brace-expansion": "^1.1.21",
+    "moment": "^2.31.0"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@4.18.0"
