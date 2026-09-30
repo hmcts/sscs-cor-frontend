@@ -3,19 +3,11 @@
 !package.json
 !yarn.lock
 !app
-!app/**
-!config
 !config/**
-!app/common
-!app/common/locale
 !app/common/locale/**
 !public
-!public/**
-!views
 !views/**
-!cookie-banner
 !cookie-banner/**
-!webpack
 !webpack/**
 !webpack.config.js
 
@@ -23,8 +15,6 @@
 !server.js
 
 !.yarn
-!.yarn/plugins
-!.yarn/releases
 !.yarnrc.yml
 .yarn/cache
 .yarn/install-state.gz
