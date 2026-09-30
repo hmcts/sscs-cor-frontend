@@ -84,7 +84,7 @@
     "joi": "^18.0.0",
     "jquery": "^3.7.1",
     "lodash": "^4.18.0",
-    "moment": "^2.31.0",
+    "moment": "^2.30.1",
     "multer": "^2.2.0",
     "node-fetch": "^3.3.0",
     "nunjucks": "^3.2.3",
@@ -196,9 +196,7 @@
     "multer": "^2.3.0",
     "axios": "1.18.0",
     "codeceptjs/joi": "^18.2.5",
-    "fast-uri": "^3.1.7",
-    "brace-expansion": "^1.1.21",
-    "moment": "^2.31.0"
+    "fast-uri": "^3.1.7"
   },
   "typeScriptVersion": "4.8",
   "packageManager": "yarn@4.18.0"
