@@ -35,7 +35,7 @@ export class LoginPage extends BasePage {
 
   async isNewLoginPresent(): Promise<boolean> {
     return this.page
-      .waitForSelector('//a[@href="/enter-email"]', {
+      .waitForSelector('a[href="enter-email"]', {
         visible: true,
         timeout: 5000,
       })
@@ -45,9 +45,9 @@ export class LoginPage extends BasePage {
 
   async newSignInFlow(email: string, password: string) {
     const continueButton =
-      "//*[@id='main-content']/div/div/form/div[@class='govuk-button-group']/button)";
+      '#main-content > div > div > form > div.govuk-button-group > button';
 
-    await this.clickElement("//a[@href='/enter-email']");
+    await this.clickElement('a[href="enter-email"]');
     await this.page.waitForSelector('#email', { visible: true });
     await this.enterTextintoField('#email', email);
     await this.clickElement(continueButton);
