@@ -97,13 +97,13 @@ export async function login(page, force?, assignCase?): Promise<void> {
   logger.info(`force [${force}]`);
   if (isOnIdamPage() || force) {
     await loginPage.visitPage(`?tya=${tya}`);
-    await loginPage.login(email, password);
+    await loginPage.loginJourney(email, password);
     let maxRetries = 10;
     while ((isOnIdamPage() || signInFailed()) && maxRetries > 0) {
       logger.info('Login attempt failed, retrying...');
       await new Promise((r) => setTimeout(r, 500));
       await loginPage.visitPage();
-      await loginPage.login(email, password);
+      await loginPage.loginJourney(email, password);
       maxRetries -= 1;
     }
   }

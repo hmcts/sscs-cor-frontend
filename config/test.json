@@ -3,7 +3,7 @@
     "port": 3003
   },
   "tribunals-api": {
-    "url": "http://sscs-tribunals-api-aat.service.core-compute-aat.internal",
+    "url": "http://sscs-tribunals-api-demo.service.core-compute-demo.internal",
     "retries": 0
   },
   "testUrl": "http://localhost:3003",
@@ -15,8 +15,8 @@
   },
   "pa11yScreenshotPath": "./functional-output/pa11y-screenshots",
   "idam": {
-    "url": "https://idam-web-public.aat.platform.hmcts.net",
-    "api-url": "https://idam-api.aat.platform.hmcts.net",
+    "url": "https://idam-web-public.demo.platform.hmcts.net",
+    "api-url": "https://idam-api.demo.platform.hmcts.net",
     "enableStub": "false"
   },
   "saucelabs": {
