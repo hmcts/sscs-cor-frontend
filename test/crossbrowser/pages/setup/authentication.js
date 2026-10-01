@@ -1,39 +1,32 @@
+const timeout = 5;
+const newLoginLink = 'a[href="/enter-email"]';
+const continueButton =
+  '#main-content > div > div > form > div.govuk-button-group > button';
+
 async function newSignInFlow(I, username, password) {
-
-  const newUsername = I.locator('#email').first();
-  const newPassword = I.locator('#password').first();
-  const continueButton = I.locator("//*[@id='main-content']/div/div/form/div[@class='govuk-button-group']/button").first();
-
-  await I.locator("//a[@href='/enter-email']").first().click();
-  await newUsername.fill(username);
-  console.log('newSignInFlow: username=', username);
-  await continueButton.click();
-  await newPassword.waitFor({ state: 'visible', timeout: 5000 });
-  await newPassword.fill(password);
-  console.log('newSignInFlow: password=', password);
-  await continueButton.click();
+  I.click(newLoginLink);
+  I.waitForVisible('#email', timeout);
+  I.fillField('#email', username);
+  I.click(continueButton);
+  I.waitForVisible('#password', timeout);
+  I.fillField('#password', password);
+  I.click(continueButton);
 }
 
 async function oldSignInFlow(I, username, password) {
-  await I.locator('#username').first().fill(username);
-  await I.locator('#password').first().fill(password);
-  await I.locator("[name='save']").first().click();
+  I.fillField('#username', username);
+  I.fillField('#password', password);
+  I.click("[name='save']");
 }
 
-function isNewLoginPresent(I) {
-  const loginHeader = I.locator('a[href="/enter-email"]').first();
-
-  return loginHeader
-    .waitFor({ state: 'visible', timeout: 5000 })
+async function isNewLoginPresent(I) {
+  return I.waitForVisible(newLoginLink, timeout)
     .then(() => true)
     .catch(() => false);
 }
 
 async function loginJourney(I, username, password) {
-  let newLoginPresent = false;
-
-  newLoginPresent = await isNewLoginPresent(I);
-  console.log('signIn: newLoginPresent=', newLoginPresent);
+  const newLoginPresent = await isNewLoginPresent(I);
   const loginFlow = newLoginPresent ? newSignInFlow : oldSignInFlow;
   await loginFlow(I, username, password);
 }
