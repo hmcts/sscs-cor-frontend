@@ -8,7 +8,7 @@ async function newSignInFlow(I, username, password) {
   await newUsername.fill(username);
   console.log('newSignInFlow: username=', username);
   await continueButton.click();
-  await expect(newPassword).toBeVisible({ timeout: 5000 });
+  await newPassword.waitFor({ state: 'visible', timeout: 5000 });
   await newPassword.fill(password);
   console.log('newSignInFlow: password=', password);
   await continueButton.click();
@@ -43,7 +43,7 @@ async function loginToANewCase(appealData) {
   let password = 'Apassword123';
 
   await I.amOnPage(`/sign-in?tya=${appealData.ccdCase.appellant_tya}`);
-  await this.loginJourney(I, appealData.ccdCase.email, password);
+  await loginJourney(I, appealData.ccdCase.email, password);
 
   // await I.waitForElement('label:has-text("Email address")', 5);
   // await I.fillField('username', appealData.ccdCase.email);
