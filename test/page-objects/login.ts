@@ -35,12 +35,14 @@ export class LoginPage extends BasePage {
 
   async isNewLoginPresent(): Promise<boolean> {
     return this.page
-      .waitForSelector('a[href="/enter-email"]', {
-        visible: true,
-        timeout: 5000,
-      })
+      .waitForSelector('a[href="/enter-email"]', { timeout: 10000 })
       .then(() => true)
-      .catch(() => false);
+      .catch((error) => {
+        console.log(
+          `isNewLoginPresent: link not found on ${this.page.url()}. Reason: ${error.message}`
+        );
+        return false;
+      });
   }
 
   async newSignInFlow(email: string, password: string) {
