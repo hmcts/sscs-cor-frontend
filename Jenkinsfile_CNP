@@ -34,7 +34,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
-def branchesToSync = ['ithc', 'perftest']
+def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
