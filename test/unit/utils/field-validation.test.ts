@@ -34,9 +34,23 @@ describe('utils/fieldValidation.js', function () {
       ).to.equal(content.en.question.textareaField.error.regex);
     });
 
+    it('returns the error message if answer contains invalid special characters', function () {
+      expect(answerValidation('$ ^ { }', { body: { submit: true } })).to.equal(
+        content.en.question.textareaField.error.regex
+      );
+    });
+
     it('returns false if answer is valid', function () {
       expect(
         answerValidation('Valid answer', { body: { submit: true } })
+      ).to.equal(false);
+    });
+
+    it('returns false if answer contains valid special characters', function () {
+      expect(
+        answerValidation('special characters: ?![@]()/£_+-%&;', {
+          body: { submit: true },
+        })
       ).to.equal(false);
     });
   });
