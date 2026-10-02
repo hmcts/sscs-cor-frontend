@@ -34,8 +34,6 @@ export class LoginPage extends BasePage {
   }
 
   async isNewLoginPresent(): Promise<boolean> {
-    // TEMP: remove once the caller is identified
-    console.log('isNewLoginPresent called');
     return this.page
       .waitForSelector('a[href="/enter-email"]', { timeout: 10000 })
       .then(() => true)
@@ -69,8 +67,16 @@ export class LoginPage extends BasePage {
   }
 
   async loginJourney(email: string, password: string) {
-    let newLoginPresent = false;
-    newLoginPresent = await this.isNewLoginPresent();
+    const isOnIdam =
+      new URL(this.page.url()).host === new URL(idamUrl as string).host;
+    if (!isOnIdam) {
+      console.log(
+        `signIn: not on IDAM (${this.page.url()}), session already authenticated - skipping login`
+      );
+      return;
+    }
+
+    const newLoginPresent = await this.isNewLoginPresent();
     console.log('signIn: newLoginPresent=', newLoginPresent);
 
     if (newLoginPresent) {
