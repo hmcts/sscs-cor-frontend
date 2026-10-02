@@ -34,7 +34,7 @@ describe('utils/fieldValidation.js', function () {
       ).to.equal(content.en.question.textareaField.error.regex);
     });
 
-    it('returns the error message if answer contains special characters', function () {
+    it('returns the error message if answer contains invalid special characters', function () {
       expect(answerValidation('$ ^ { }', { body: { submit: true } })).to.equal(
         content.en.question.textareaField.error.regex
       );
@@ -46,9 +46,11 @@ describe('utils/fieldValidation.js', function () {
       ).to.equal(false);
     });
 
-    it('returns false if answer contains valid email', function () {
+    it('returns false if answer contains valid special characters', function () {
       expect(
-        answerValidation('test@email.com', { body: { submit: true } })
+        answerValidation('special characters: ?![@]()/£_+-%&;', {
+          body: { submit: true },
+        })
       ).to.equal(false);
     });
   });
