@@ -147,7 +147,10 @@ export async function startServices(options?): Promise<{
   let page: Page;
 
   try {
-    page = await browser.newPage();
+    // Isolated context per test file so cookies (app and IDAM SSO sessions)
+    // from a previous test's user are not reused.
+    const context = await browser.createBrowserContext();
+    page = await context.newPage();
   } catch (error) {
     logger.error('Error startServices browser new page', error);
   }

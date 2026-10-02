@@ -5,7 +5,6 @@ import config from 'config';
 import { expect } from 'test/chai-sinon';
 
 const idamUrl = config.get('idam.url');
-const testUrl: string = config.get('testUrl');
 const idamSignInPagePath = '/login';
 
 export class LoginPage extends BasePage {
@@ -68,15 +67,6 @@ export class LoginPage extends BasePage {
   }
 
   async loginJourney(email: string, password: string) {
-    const currentHost = new URL(this.page.url()).host;
-    const appHost = new URL(testUrl).host;
-    if (currentHost === appHost) {
-      console.log(
-        `signIn: already on the app (${this.page.url()}), skipping login`
-      );
-      return;
-    }
-
     const newLoginPresent = await this.isNewLoginPresent();
     console.log('signIn: newLoginPresent=', newLoginPresent);
 
