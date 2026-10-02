@@ -39,7 +39,9 @@ export class LoginPage extends BasePage {
       .then(() => true)
       .catch((error) => {
         console.log(
-          `isNewLoginPresent: link not found on ${this.page.url()}. Reason: ${error.message}`
+          `isNewLoginPresent: link not found on ${this.page.url()}. Reason: ${
+            error.message
+          }`
         );
         return false;
       });
