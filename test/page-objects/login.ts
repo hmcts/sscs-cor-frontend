@@ -34,6 +34,8 @@ export class LoginPage extends BasePage {
   }
 
   async isNewLoginPresent(): Promise<boolean> {
+    // TEMP: remove once the caller is identified
+    console.trace('isNewLoginPresent called');
     return this.page
       .waitForSelector('a[href="/enter-email"]', { timeout: 10000 })
       .then(() => true)
