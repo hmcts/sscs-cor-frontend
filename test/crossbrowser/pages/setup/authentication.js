@@ -1,3 +1,5 @@
+const { tryTo } = require('codeceptjs/effects');
+
 const timeout = 5;
 const newLoginLink = 'a[href="/enter-email"]';
 const continueButton =
@@ -20,9 +22,7 @@ async function oldSignInFlow(I, username, password) {
 }
 
 async function isNewLoginPresent(I) {
-  return I.waitForVisible(newLoginLink, timeout)
-    .then(() => true)
-    .catch(() => false);
+  return tryTo(() => I.waitForVisible(newLoginLink, timeout));
 }
 
 async function loginJourney(I, username, password) {
@@ -37,11 +37,6 @@ async function loginToANewCase(appealData) {
 
   await I.amOnPage(`/sign-in?tya=${appealData.ccdCase.appellant_tya}`);
   await loginJourney(I, appealData.ccdCase.email, password);
-
-  // await I.waitForElement('label:has-text("Email address")', 5);
-  // await I.fillField('username', appealData.ccdCase.email);
-  // await I.fillField('password', password);
-  // await I.click('Sign in');
 }
 
 module.exports = { loginToANewCase };
