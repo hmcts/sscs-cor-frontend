@@ -28,7 +28,7 @@ describe('Manage your appeal app @smoke', function () {
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(
+    await loginPage.loginJourney(
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
     );
