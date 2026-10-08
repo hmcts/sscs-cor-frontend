@@ -8,7 +8,9 @@ import Joi from 'joi';
 
 const maxCharacters = 20000;
 const minCharacters = 1;
-const whitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
+const answerWhitelist = /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;@]{2,}$/;
+const descriptionWhitelist =
+  /^[a-zA-ZÀ-ž0-9 \r\n."“”,'?![\]()/£:\\_+\-%&;]{2,}$/;
 const MASKED_STRING_VALUE = '***';
 
 // Get the current language with fallback to 'en'
@@ -33,7 +35,7 @@ function uploadDescriptionValidation(description) {
   const schema = Joi.string()
     .required()
     .max(maxCharacters)
-    .pattern(whitelist)
+    .pattern(descriptionWhitelist)
     .messages({
       'any.required':
         content[getLanguage()].additionalEvidence.evidenceUpload.error
@@ -66,7 +68,7 @@ function answerValidation(answer, req?) {
     .required()
     .min(minCharacters)
     .max(maxCharacters)
-    .pattern(whitelist)
+    .pattern(answerWhitelist)
     .messages({
       'any.required': emptyErrorMsg,
       'string.empty': emptyErrorMsg,
