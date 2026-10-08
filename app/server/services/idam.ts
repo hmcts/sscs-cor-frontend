@@ -8,6 +8,7 @@ import config from 'config';
 
 export interface TokenResponse {
   access_token: string;
+  id_token?: string;
 }
 
 export interface UserDetails {
