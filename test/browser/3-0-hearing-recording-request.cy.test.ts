@@ -43,7 +43,7 @@ describe('CY - Hearing Recording request @mya @nightly', function () {
     requestTypePage = new RequestTypePage(page);
     taskListPage = new TaskListPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(
+    await loginPage.loginJourney(
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
     );
@@ -61,8 +61,7 @@ describe('CY - Hearing Recording request @mya @nightly', function () {
     assignCasePage.verifyPage();
     assignCasePage.verifyLanguage('cy');
     await assignCasePage.fillPostcode('TN32 6PL');
-    await assignCasePage.submit();
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await Promise.all([page.waitForNavigation(), assignCasePage.submit()]);
     await page.reload();
     statusPage.verifyPage();
     await requestTypePage.visitPage();

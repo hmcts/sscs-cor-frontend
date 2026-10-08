@@ -62,7 +62,7 @@ describe('Welsh Manage your appeal app @mya @nightly', function () {
     withdrawAppealPage = new WithdrawAppealPage(page);
     await loginPage.setCookie('welsh', 'true');
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(
+    await loginPage.loginJourney(
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
     );

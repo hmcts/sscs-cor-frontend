@@ -43,7 +43,7 @@ describe('Hearing Recording request @mya @nightly', function () {
     requestTypePage = new RequestTypePage(page);
     taskListPage = new TaskListPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(
+    await loginPage.loginJourney(
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
     );
