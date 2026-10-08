@@ -71,11 +71,16 @@ async function getDetails(req: Request, res: Response) {
   );
   const username = await redis.get(`idamStub.token.${token}`);
   logger.info('getDetails getting username from redis', username);
-  res.json({ email: username });
+  res.json({ sub: username });
 }
 
 function deleteToken(req: Request, res: Response) {
   res.status(NO_CONTENT).send();
+}
+
+function getEndSession(req: Request, res: Response) {
+  const postLogoutRedirectUri = req.query.post_logout_redirect_uri;
+  res.redirect(postLogoutRedirectUri as string);
 }
 
 function setupIdamStubController(): Router {
@@ -87,8 +92,11 @@ function setupIdamStubController(): Router {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     router.get('/idam-stub/login', getLogin);
     router.post('/idam-stub/login', postLogin);
+    router.get('/idam-stub/o/authorize', getLogin);
+    router.post('/idam-stub/o/authorize', postLogin);
+    router.get('/idam-stub/o/endSession', getEndSession);
     router.post('/idam-stub/oauth2/token', multipart.none(), getToken);
-    router.get('/idam-stub/details', getDetails);
+    router.get('/idam-stub/o/userinfo', getDetails);
     router.delete('/idam-stub/session/:token', deleteToken);
   }
   return router;

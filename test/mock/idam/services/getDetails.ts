@@ -1,10 +1,10 @@
 import cache from 'memory-cache';
 
 export default {
-  path: '/details',
+  path: '/o/userinfo',
   method: 'GET',
   template: {
-    email: () => cache.get('email'),
+    sub: () => cache.get('sub'),
   },
   cache: false,
 };
