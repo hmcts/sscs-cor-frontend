@@ -70,7 +70,7 @@ describe('#setupLoginController', function () {
         .expect(302)
         .expect(
           'Location',
-          `${idamUrl}/o/authorize?redirect_uri=http%3A%2F%2Fredirect_url&client_id=${idamClientId}&response_type=code&scope=openid+profile+roles`,
+          `${idamUrl}/o/authorize?redirect_uri=http%3A%2F%2Fredirect_url&client_id=${idamClientId}&response_type=code&scope=openid+profile+roles&prompt=login`,
           done
         );
     });
