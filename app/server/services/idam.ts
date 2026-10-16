@@ -8,6 +8,7 @@ import config from 'config';
 
 export interface TokenResponse {
   access_token: string;
+  id_token?: string;
 }
 
 export interface UserDetails {
@@ -62,7 +63,7 @@ export class IdamService {
   async getUserDetails(token: string): Promise<UserDetails> {
     return RequestPromise.request({
       method: 'GET',
-      uri: `${this.apiUrl}/details`,
+      uri: `${this.apiUrl}/o/userinfo`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
