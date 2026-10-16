@@ -181,7 +181,7 @@ describe('controllers/login', function () {
       redirectToIdam('/idam_path', idamServiceStub)(req, res);
 
       expect(res.redirect).to.have.been.calledOnce.calledWith(
-        `${idamUrl}/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&scope=openid+profile+roles&state=state-value`
+        `${idamUrl}/idam_path?redirect_uri=http%3A%2F%2Fredirect_url&client_id=sscs&response_type=code&scope=openid+profile+roles&prompt=login&state=state-value`
       );
     });
   });
