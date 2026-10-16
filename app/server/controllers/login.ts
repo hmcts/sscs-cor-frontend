@@ -106,6 +106,7 @@ export function redirectToIdam(
     idamUrl.searchParams.append('client_id', idamClientId);
     idamUrl.searchParams.append('response_type', 'code');
     idamUrl.searchParams.append('scope', 'openid profile roles');
+    idamUrl.searchParams.append('prompt', 'login');
 
     if (req.query.tya) {
       idamUrl.searchParams.append('state', req.query.tya as string);
