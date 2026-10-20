@@ -6,16 +6,13 @@ import proxyquire from 'proxyquire';
 import config from 'config';
 import { cloneDeep } from 'lodash';
 
-import { sinon } from 'test/chai-sinon';
+import { expect, sinon } from 'test/chai-sinon';
 
 describe('middleware/redis', function () {
   let mockConfig: any = null;
 
   beforeEach(function () {
     mockConfig = cloneDeep(config);
-    const redisProxy = proxyquire('app/server/middleware/redis', {
-      config: mockConfig,
-    });
   });
 
   afterEach(function () {
@@ -35,8 +32,8 @@ describe('middleware/redis', function () {
       createRedisClient(true);
     });
 
-    it('should run without error with redis secret being null', function () {
-      mockConfig.redis.secret = null;
+    it('should run without error with redis password being null', function () {
+      mockConfig.redis.url = 'redis://127.0.0.1:6379';
 
       const redisProxy = proxyquire('app/server/middleware/redis', {
         config: mockConfig,
@@ -45,8 +42,8 @@ describe('middleware/redis', function () {
       redisProxy.createRedisClient();
     });
 
-    it('should run without error with tls enabled being true', function () {
-      mockConfig.redis.tls = true;
+    it('should run without error with tls enabled', function () {
+      mockConfig.redis.url = 'rediss://:redisPassword@redis.example.com:6380';
 
       const redisProxy = proxyquire('app/server/middleware/redis', {
         config: mockConfig,
@@ -55,14 +52,55 @@ describe('middleware/redis', function () {
       redisProxy.createRedisClient();
     });
 
-    it('should run without error with tls enabled being false', function () {
-      mockConfig.redis.tls = false;
+    it('should run without error with tls disabled', function () {
+      mockConfig.redis.url = 'redis://:redisPassword@127.0.0.1:6379';
 
       const redisProxy = proxyquire('app/server/middleware/redis', {
         config: mockConfig,
       });
 
       redisProxy.createRedisClient();
+    });
+
+    it('should create a redis cluster client when cluster is enabled', function () {
+      mockConfig.redis.url = 'rediss://:redisPassword@redis.example.com:6380';
+      mockConfig.redis.cluster = true;
+
+      const clusterClient = {
+        isCluster: true,
+      };
+
+      const ClusterStub = sinon.stub().returns(clusterClient);
+
+      const redisProxy = proxyquire('app/server/middleware/redis', {
+        config: mockConfig,
+        ioredis: {
+          default: sinon.stub(),
+          Cluster: ClusterStub,
+        },
+      });
+
+      const client = redisProxy.createRedisClient();
+
+      expect(client.isCluster).to.equal(true);
+      expect(ClusterStub.calledOnce).to.equal(true);
+      expect(
+        ClusterStub.calledWith(
+          [
+            {
+              host: 'redis.example.com',
+              port: 6380,
+            },
+          ],
+          sinon.match({
+            redisOptions: sinon.match({
+              host: 'redis.example.com',
+              port: 6380,
+              password: 'redisPassword',
+            }),
+          })
+        )
+      ).to.equal(true);
     });
   });
 

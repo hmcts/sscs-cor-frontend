@@ -64,7 +64,7 @@ describe('Appellant - Manage your appeal app @mya @nightly @iba', function () {
     claimingExpensesPage = new ClaimingExpensesPage(page);
     withdrawAppealPage = new WithdrawAppealPage(page);
     await loginPage.visitPage(`?tya=${appellantTya}`);
-    await loginPage.login(
+    await loginPage.loginJourney(
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
     );
