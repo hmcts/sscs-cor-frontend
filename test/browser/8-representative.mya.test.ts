@@ -37,7 +37,7 @@ describe('Representative - Manage your appeal app @mya @nightly', function () {
     statusPage = new StatusPage(page);
     await loginPage.setCookie('manageYourAppeal', 'true');
     await loginPage.visitPage(`?tya=${representativeTya}`);
-    await loginPage.login(
+    await loginPage.loginJourney(
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
     );

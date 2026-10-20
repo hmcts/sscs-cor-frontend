@@ -261,5 +261,6 @@
   "10010_Cookie No HttpOnly Flag_https://sscs-cor.aat.platform.hmcts.net/task-list?lng=en_GET": "ignore",
   "10096_Timestamp Disclosure - Unix_https://sscs-cor.aat.platform.hmcts.net/task-list?lng=en_GET": "ignore",
   "10104_User Agent Fuzzer_https://sscs-cor.aat.platform.hmcts.net/task-list?lng=en_GET": "ignore",
-  "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/task-list?lng=en_GET": "ignore"
+  "90027_Cookie Slack Detector_https://sscs-cor.aat.platform.hmcts.net/task-list?lng=en_GET": "ignore",
+  "10112_Session Management Response Identified_https://sscs-cor.aat.platform.hmcts.net/status?lng=en_GET": "ignore"
 }

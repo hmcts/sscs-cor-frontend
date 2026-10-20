@@ -32,7 +32,7 @@ describe('CY -Joint party - Manage your appeal app @mya @nightly', function () {
     assignCasePage = new AssignCasePage(page);
     statusPage = new StatusPage(page);
     await loginPage.visitPage(`?tya=${jointTya}`);
-    await loginPage.login(
+    await loginPage.loginJourney(
       sidamUser.email || 'oral.appealReceived@example.com',
       sidamUser.password || ''
     );
