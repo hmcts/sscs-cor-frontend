@@ -13547,7 +13547,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^5.41.0"
     "@typescript-eslint/parser": "npm:^5.41.0"
     applicationinsights: "npm:^2.9.6"
-    body-parser: "npm:^1.20.9"
+    body-parser: "npm:^1.20.6"
     chai: "npm:^4.3.7"
     chai-as-promised: "npm:^7.1.1"
     chai-http: "npm:^5.1.2"
@@ -13601,7 +13601,7 @@ __metadata:
     mochawesome: "npm:^7.1.3"
     mock-require: "npm:^3.0.3"
     moment: "npm:^2.31.0"
-    multer: "npm:^2.5.0"
+    multer: "npm:^2.2.0"
     nock: "npm:^12.0.3"
     node-fetch: "npm:^3.3.0"
     nodemon: "npm:^2.0.20"
@@ -14771,10 +14771,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^7.30.1":
-  version: 7.30.1
-  resolution: "undici@npm:7.30.1"
-  checksum: 10/306a28e4c715652a0e2cd59bcc98cf8b6083b989151054fafaac27bdab6f2bc7e0f33f5847f72f5ba257971226372d04705e0e984b26b42a03271d5a35eb99b1
+"undici@npm:^7.19.0":
+  version: 7.21.0
+  resolution: "undici@npm:7.21.0"
+  checksum: 10/2025ba33bd42a22267d0a7f0a9369e4901ef7b7244ed335c79fd4aaa510471d104b6826e74d055077ed57155482fb5cbf716a02f7bba4dbab402087882f40e67
   languageName: node
   linkType: hard
 
