@@ -224,10 +224,16 @@ export class BasePage {
   }
 
   async screenshot(filename) {
-    await this.page.screenshot({
-      fullPage: true,
-      path: `functional-output/functional-screenshots/${filename}.png`,
-    });
+    try {
+      await this.page.screenshot({
+        fullPage: true,
+        path: `functional-output/functional-screenshots/${filename}.png`,
+      });
+    } catch (error) {
+      logger.info(
+        `Unable to take screenshot ${filename}.png. Error is: ${error}`
+      );
+    }
   }
 
   async signOut() {
