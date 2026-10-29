@@ -46,11 +46,11 @@ describe('services/idam', function () {
   });
 
   describe('getUserDetails', function () {
-    const path = '/details';
+    const path = '/o/userinfo';
     const token = 'someToken';
 
     describe('resolving the promise', function () {
-      const apiResponse = { email: 'someEmail@example.com' };
+      const apiResponse = { sub: 'someEmail@example.com' };
 
       beforeEach(function () {
         nock(apiUrl)
@@ -97,7 +97,7 @@ describe('services/idam', function () {
     });
 
     describe('resolving the promise', function () {
-      const apiResponse = { email: 'someEmail@example.com' };
+      const apiResponse = { sub: 'someEmail@example.com' };
 
       beforeEach(function () {
         nock(apiUrl)

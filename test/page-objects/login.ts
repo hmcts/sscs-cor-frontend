@@ -5,7 +5,7 @@ import config from 'config';
 import { expect } from 'test/chai-sinon';
 
 const idamUrl = config.get('idam.url');
-const idamSignInPagePath = '/login';
+const idamSignInPagePath = '/o/authorize';
 
 export class LoginPage extends BasePage {
   constructor(page) {
