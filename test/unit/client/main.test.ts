@@ -46,4 +46,22 @@ describe('client main js', function () {
     expect(initEvidenceUploadMock).to.have.been.calledOnce;
     expect(sessionInactivityMock).to.have.been.calledOnce;
   });
+
+  it('back link goes back without following its href', function () {
+    body.innerHTML = '<a href="#" id="buttonBack">Back</a>';
+    sinon.stub(govUK, 'initAll');
+    sinon.stub(expandingTextBox, 'init');
+    sinon.stub(EvidenceUpload.prototype, 'init');
+    sinon.stub(EvidenceStatement.prototype, 'init');
+    sinon.stub(SessionInactivity.prototype, 'init');
+    sinon.stub(DetailsTabIndexToggle.prototype, 'init');
+    const historyBackMock = sinon.stub(window.history, 'back');
+
+    main.onReady();
+    const clickEvent = new window.MouseEvent('click', { cancelable: true });
+    document.querySelector('#buttonBack').dispatchEvent(clickEvent);
+
+    expect(historyBackMock).to.have.been.calledOnce;
+    expect(clickEvent.defaultPrevented).to.equal(true);
+  });
 });
