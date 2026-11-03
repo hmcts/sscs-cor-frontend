@@ -8,9 +8,9 @@ import { RequestType } from './request-type';
 import { EvidenceStatement } from './evidence-statement';
 import domready from 'domready';
 
-function goBack() {
+function goBack(event: Event) {
+  event.preventDefault();
   window.history.back();
-  return false;
 }
 
 const onReady = () => {
