@@ -13,7 +13,7 @@ export class StatusPage extends BasePage {
       contactUsHeading3: '.contact-us h3',
       contactUsContent: '.govuk-details__text',
       statusBarStages: '.status-bar .status-bar__stage',
-      activeStatusBarStages: '.status-bar .status-bar__stage--active'
+      activeStatusBarStages: '.status-bar .status-bar__stage.stage--active',
     };
   }
 
@@ -32,7 +32,9 @@ export class StatusPage extends BasePage {
   }
 
   async getLatestStatus() {
-    const activeStages = await this.page.$$(this.locators.activeStatusBarStages);
+    const activeStages = await this.page.$$(
+      this.locators.activeStatusBarStages
+    );
     const appealStages = {
       1: 'appeal',
       2: 'ibca_response',
