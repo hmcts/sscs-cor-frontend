@@ -54,14 +54,14 @@ withNightlyPipeline("nodejs", product, component) {
     env.IDAM_API_URL = params.IDAM_API_URL
 
     enableSecurityScan(urlExclusions: urlExclusions, scanType: "frontend")
-    // enableFortifyScan('sscs-aat')
+    enableFortifyScan('sscs-aat')
     enableFullFunctionalTest(20)
     enableSlackNotifications('#sscs-tech')
     enableMutationTest()
 
-    // after('fortify-scan') {
-    //     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
-    // }
+    after('fortify-scan') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+    }
 
     afterAlways('DependencyCheckNightly') {
         stage('Codeceptjs/Playwright - Cross browser test') {
