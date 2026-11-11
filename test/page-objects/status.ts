@@ -12,7 +12,8 @@ export class StatusPage extends BasePage {
       contactUsHeading2: '.contact-us h2',
       contactUsHeading3: '.contact-us h3',
       contactUsContent: '.govuk-details__text',
-      statusBarStages: '.status-bar .status-bar__ring',
+      statusBarStages: '.status-bar .status-bar__stage',
+      activeStatusBarStages: '.status-bar .status-bar__stage--active'
     };
   }
 
@@ -31,10 +32,7 @@ export class StatusPage extends BasePage {
   }
 
   async getLatestStatus() {
-    const attributeValues = await this.getElementsAttributes(
-      this.locators.statusBarStages,
-      'aria-label'
-    );
+    const activeStages = await this.page.$$(this.locators.activeStatusBarStages);
     const appealStages = {
       1: 'appeal',
       2: 'ibca_response',
@@ -42,9 +40,6 @@ export class StatusPage extends BasePage {
       4: 'hearing',
       5: 'closed',
     };
-    const countReceived = attributeValues.filter((attribute) =>
-      attribute.startsWith('Received')
-    ).length;
-    return appealStages[countReceived];
+    return appealStages[activeStages.length];
   }
 }
