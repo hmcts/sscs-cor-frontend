@@ -73,6 +73,23 @@ describe('app-insights.js', function () {
       expect(exception.stack).to.equal(error.stack);
     });
 
+    it('passes a string name to the client when the name is not a string', function () {
+      const error = new Error('a message');
+      (error as { name: unknown }).name = { type: 'odd' };
+      expect(() => trackException(error)).to.not.throw();
+      const { exception } = trackExceptionStub.firstCall.args[0];
+      expect(exception.name).to.equal('{"type":"odd"}');
+      expect(exception.message).to.equal('a message');
+    });
+
+    it('falls back to Error as the name when the name is missing', function () {
+      const error = new Error('a message');
+      (error as { name: unknown }).name = undefined;
+      trackException(error);
+      const { exception } = trackExceptionStub.firstCall.args[0];
+      expect(exception.name).to.equal('Error');
+    });
+
     it('does not throw when the client throws', function () {
       trackExceptionStub.throws(
         new TypeError('_a.substring is not a function')

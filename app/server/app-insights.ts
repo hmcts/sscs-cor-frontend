@@ -24,13 +24,17 @@ export function enable(): void {
 }
 
 function normaliseException(exception: Error): Error {
-  if (typeof exception?.message === 'string') {
+  if (
+    typeof exception?.message === 'string' &&
+    typeof exception?.name === 'string'
+  ) {
     return exception;
   }
   const normalised = new Error(toErrorMessage(exception?.message ?? exception));
-  if (exception?.name) {
-    normalised.name = exception.name;
-  }
+  normalised.name =
+    exception?.name === undefined || exception?.name === null
+      ? 'Error'
+      : toErrorMessage(exception.name);
   if (exception?.stack) {
     normalised.stack = exception.stack;
   }

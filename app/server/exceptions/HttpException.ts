@@ -2,6 +2,9 @@ export function toErrorMessage(value: unknown): string {
   if (typeof value === 'string') {
     return value;
   }
+  if (value instanceof Error && typeof value.message === 'string') {
+    return value.message;
+  }
   try {
     const serialised = JSON.stringify(value);
     if (typeof serialised === 'string') {
