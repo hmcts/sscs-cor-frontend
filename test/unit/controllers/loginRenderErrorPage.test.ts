@@ -101,4 +101,27 @@ describe('controllers/login renderErrorPage', function () {
       );
     }).to.throw(body);
   });
+
+  it('other error with an object body throws an error with a string message', function () {
+    i18next.language = 'en';
+    const objectBody = { status: 500, error: 'Internal Server Error' };
+
+    let thrown: Error = null;
+    try {
+      renderErrorPage(
+        'email@email.com',
+        INTERNAL_SERVER_ERROR,
+        objectBody as unknown as string,
+        idamService,
+        req,
+        res
+      );
+    } catch (error) {
+      thrown = error as Error;
+    }
+
+    expect(thrown).to.be.instanceOf(Error);
+    expect(thrown.message).to.be.a('string');
+    expect(thrown.message).to.equal(JSON.stringify(objectBody));
+  });
 });
