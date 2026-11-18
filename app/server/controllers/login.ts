@@ -119,13 +119,35 @@ export function redirectToIdam(
   };
 }
 
+type AsyncRequestHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => Promise<unknown>;
+
+// Express 4 does not catch rejected handler promises, and an unhandled
+// rejection terminates the process.
+function forwardRejections(handler: AsyncRequestHandler) {
+  return async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      await handler(req, res, next);
+    } catch (error) {
+      next(error ?? new Error('Request handler rejected without an error'));
+    }
+  };
+}
+
 export function getIdamCallback(
   redirectToIdam: (req: Request, res: Response) => void,
   idamService: IdamService,
   caseService: CaseService,
   trackYourAppealService: TrackYourApealService
 ) {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return forwardRejections(async (req, res, next) => {
     const code: string = req.query.code as string;
     if (!code) {
       const sessionId: string = req.session.id;
@@ -133,7 +155,7 @@ export function getIdamCallback(
         if (error) {
           logger.error(`Error destroying session ${sessionId}`);
           AppInsights.trackException(error);
-          throw error;
+          return next(error);
         }
         logger.info(`Session destroyed ${sessionId}`);
         return redirectToIdam(req, res);
@@ -262,12 +284,12 @@ export function getIdamCallback(
       return res.redirect(Paths.selectCase);
     } catch (error) {
       logger.error('MYA_LOGIN_FAIL', error);
-      logger.error('MYA_LOGIN_FAIL, stack: ', error.stack);
+      logger.error('MYA_LOGIN_FAIL, stack: ', error?.stack);
       AppInsights.trackException(error);
       AppInsights.trackEvent('MYA_LOGIN_FAIL');
       return next(error);
     }
-  };
+  });
 }
 
 export function renderErrorPage(

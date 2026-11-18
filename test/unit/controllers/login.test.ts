@@ -210,24 +210,37 @@ describe('controllers/login', function () {
         expect(redirectToIdam).to.have.been.calledOnce.calledWith(req, res);
       });
 
-      it('throw error trying to destroy session', async function () {
+      it('passes the error to next when destroying the session fails', async function () {
         req.query = {};
         req.session.destroy.yields(error);
 
         const redirectToIdam = sinon.stub();
 
-        try {
-          await getIdamCallback(
-            redirectToIdam,
-            null,
-            null,
-            null
-          )(req, res, next);
-        } catch (err) {
-          expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
-            error
-          );
-        }
+        await getIdamCallback(redirectToIdam, null, null, null)(req, res, next);
+
+        expect(AppInsights.trackException).to.have.been.calledOnce.calledWith(
+          error
+        );
+        expect(next).to.have.been.calledOnceWith(error);
+        expect(redirectToIdam).to.not.have.been.called;
+      });
+    });
+
+    describe('when reporting a login failure throws', function () {
+      it('resolves and passes an error to next', async function () {
+        req.query = { code: 'someCode' };
+        req.session.accessToken = accessToken;
+        idamServiceStub = {
+          getUserDetails: sinon.stub().rejects(new Error('idam down')),
+        } as Partial<IdamService> as IdamService;
+        const telemetryError = new TypeError('_a.substring is not a function');
+        (AppInsights.trackEvent as sinon.SinonStub)
+          .withArgs('MYA_LOGIN_FAIL')
+          .throws(telemetryError);
+
+        await expect(invokeIdamCallback()).to.be.fulfilled;
+
+        expect(next).to.have.been.calledOnceWith(telemetryError);
       });
     });
 
