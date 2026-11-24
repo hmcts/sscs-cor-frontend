@@ -8412,12 +8412,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.15.1":
-  version: 23.16.8
-  resolution: "i18next@npm:23.16.8"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-  checksum: 10/d5c38011de4d3b4aa466fac6773520eb28007b9d6138e03432bfbfc0d041c04df45e15c67d96f22cd660088cc9b24d3eda32cddc9fb4c6508c5afada6c2e6290
+"i18next@npm:^26.3.4":
+  version: 26.3.4
+  resolution: "i18next@npm:26.3.4"
+  peerDependencies:
+    typescript: ^5 || ^6
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/133ba9a5f76c1d57337f0dcc1b0ab0ff987714a1863813dcc95024531074c6d92603a19b0bac9c16a6b04c734742d8d098da0c222bef5a9562bdde231ea4b221
   languageName: node
   linkType: hard
 
@@ -13567,7 +13570,7 @@ __metadata:
     http-status-codes: "npm:^2.0.0"
     husky: "npm:^8.0.0"
     i: "npm:^0.3.6"
-    i18next: "npm:^23.15.1"
+    i18next: "npm:^26.3.4"
     i18next-conv: "npm:^15.1.1"
     i18next-http-middleware: "npm:^3.9.7"
     i18next-sprintf-postprocessor: "npm:^0.2.2"
