@@ -132,7 +132,7 @@
     "domready": "^1.0.8",
     "dyson": "^4.1.0",
     "eslint": "^8.26.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^8.10.2",
     "eslint-nibble": "^8.1.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^40.0.0",
